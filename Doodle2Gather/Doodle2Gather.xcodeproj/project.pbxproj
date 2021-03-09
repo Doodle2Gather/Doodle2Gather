@@ -177,6 +177,7 @@
 			buildConfigurationList = 2EF8E94925F754C700C7EE7D /* Build configuration list for PBXNativeTarget "Doodle2Gather" */;
 			buildPhases = (
 				88A50DEAEBCD3F68C204897B /* [CP] Check Pods Manifest.lock */,
+				2EF8E95E25F758D000C7EE7D /* ShellScript */,
 				2EF8E91B25F754C600C7EE7D /* Sources */,
 				2EF8E91C25F754C600C7EE7D /* Frameworks */,
 				2EF8E91D25F754C600C7EE7D /* Resources */,
@@ -298,6 +299,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		2EF8E95E25F758D000C7EE7D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint autocorrect && swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
 		8389F489326E4DF1838A4FA9 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
