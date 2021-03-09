@@ -15,6 +15,9 @@
 		2EF8E92F25F754C700C7EE7D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EF8E92D25F754C700C7EE7D /* LaunchScreen.storyboard */; };
 		2EF8E93A25F754C700C7EE7D /* Doodle2GatherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8E93925F754C700C7EE7D /* Doodle2GatherTests.swift */; };
 		2EF8E94525F754C700C7EE7D /* Doodle2GatherUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8E94425F754C700C7EE7D /* Doodle2GatherUITests.swift */; };
+		3AB2AF62CA4D82CD0089584E /* Pods_Doodle2Gather_Doodle2GatherUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE632583EE64F0948370B28 /* Pods_Doodle2Gather_Doodle2GatherUITests.framework */; };
+		467EC4FB47E519FEB6349B5B /* Pods_Doodle2Gather.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E53B4F895F761EF4405A8DB /* Pods_Doodle2Gather.framework */; };
+		79340BAF4DD45B98CA0F5BFD /* Pods_Doodle2GatherTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA956A97BA5025014186D6AC /* Pods_Doodle2GatherTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0E53B4F895F761EF4405A8DB /* Pods_Doodle2Gather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Doodle2Gather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1890AB750E84E15DDAD20FBF /* Pods-Doodle2GatherTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Doodle2GatherTests.debug.xcconfig"; path = "Target Support Files/Pods-Doodle2GatherTests/Pods-Doodle2GatherTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2EF8E91F25F754C600C7EE7D /* Doodle2Gather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doodle2Gather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EF8E92225F754C600C7EE7D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2EF8E92425F754C600C7EE7D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +54,13 @@
 		2EF8E94025F754C700C7EE7D /* Doodle2GatherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Doodle2GatherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EF8E94425F754C700C7EE7D /* Doodle2GatherUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doodle2GatherUITests.swift; sourceTree = "<group>"; };
 		2EF8E94625F754C700C7EE7D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5630A42182E9C28155E1A130 /* Pods-Doodle2Gather.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Doodle2Gather.release.xcconfig"; path = "Target Support Files/Pods-Doodle2Gather/Pods-Doodle2Gather.release.xcconfig"; sourceTree = "<group>"; };
+		A7F96AAB1FEAB53D88427D90 /* Pods-Doodle2Gather.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Doodle2Gather.debug.xcconfig"; path = "Target Support Files/Pods-Doodle2Gather/Pods-Doodle2Gather.debug.xcconfig"; sourceTree = "<group>"; };
+		CCE632583EE64F0948370B28 /* Pods_Doodle2Gather_Doodle2GatherUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Doodle2Gather_Doodle2GatherUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D674EFEBE3CA3B2B8CA15375 /* Pods-Doodle2Gather-Doodle2GatherUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Doodle2Gather-Doodle2GatherUITests.release.xcconfig"; path = "Target Support Files/Pods-Doodle2Gather-Doodle2GatherUITests/Pods-Doodle2Gather-Doodle2GatherUITests.release.xcconfig"; sourceTree = "<group>"; };
+		E237BF27EDC543391417F861 /* Pods-Doodle2GatherTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Doodle2GatherTests.release.xcconfig"; path = "Target Support Files/Pods-Doodle2GatherTests/Pods-Doodle2GatherTests.release.xcconfig"; sourceTree = "<group>"; };
+		E96E0F09F18A2DAC7A81D0AE /* Pods-Doodle2Gather-Doodle2GatherUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Doodle2Gather-Doodle2GatherUITests.debug.xcconfig"; path = "Target Support Files/Pods-Doodle2Gather-Doodle2GatherUITests/Pods-Doodle2Gather-Doodle2GatherUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		FA956A97BA5025014186D6AC /* Pods_Doodle2GatherTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Doodle2GatherTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				467EC4FB47E519FEB6349B5B /* Pods_Doodle2Gather.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79340BAF4DD45B98CA0F5BFD /* Pods_Doodle2GatherTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AB2AF62CA4D82CD0089584E /* Pods_Doodle2Gather_Doodle2GatherUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +98,8 @@
 				2EF8E93825F754C700C7EE7D /* Doodle2GatherTests */,
 				2EF8E94325F754C700C7EE7D /* Doodle2GatherUITests */,
 				2EF8E92025F754C600C7EE7D /* Products */,
+				8B03623CDC31B0041B73D437 /* Pods */,
+				CD2A37479AA1991CD8015EDE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -128,6 +145,30 @@
 			path = Doodle2GatherUITests;
 			sourceTree = "<group>";
 		};
+		8B03623CDC31B0041B73D437 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A7F96AAB1FEAB53D88427D90 /* Pods-Doodle2Gather.debug.xcconfig */,
+				5630A42182E9C28155E1A130 /* Pods-Doodle2Gather.release.xcconfig */,
+				E96E0F09F18A2DAC7A81D0AE /* Pods-Doodle2Gather-Doodle2GatherUITests.debug.xcconfig */,
+				D674EFEBE3CA3B2B8CA15375 /* Pods-Doodle2Gather-Doodle2GatherUITests.release.xcconfig */,
+				1890AB750E84E15DDAD20FBF /* Pods-Doodle2GatherTests.debug.xcconfig */,
+				E237BF27EDC543391417F861 /* Pods-Doodle2GatherTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = ../Pods;
+			sourceTree = "<group>";
+		};
+		CD2A37479AA1991CD8015EDE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0E53B4F895F761EF4405A8DB /* Pods_Doodle2Gather.framework */,
+				CCE632583EE64F0948370B28 /* Pods_Doodle2Gather_Doodle2GatherUITests.framework */,
+				FA956A97BA5025014186D6AC /* Pods_Doodle2GatherTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -135,6 +176,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2EF8E94925F754C700C7EE7D /* Build configuration list for PBXNativeTarget "Doodle2Gather" */;
 			buildPhases = (
+				88A50DEAEBCD3F68C204897B /* [CP] Check Pods Manifest.lock */,
 				2EF8E91B25F754C600C7EE7D /* Sources */,
 				2EF8E91C25F754C600C7EE7D /* Frameworks */,
 				2EF8E91D25F754C600C7EE7D /* Resources */,
@@ -152,6 +194,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2EF8E94C25F754C700C7EE7D /* Build configuration list for PBXNativeTarget "Doodle2GatherTests" */;
 			buildPhases = (
+				8389F489326E4DF1838A4FA9 /* [CP] Check Pods Manifest.lock */,
 				2EF8E93125F754C700C7EE7D /* Sources */,
 				2EF8E93225F754C700C7EE7D /* Frameworks */,
 				2EF8E93325F754C700C7EE7D /* Resources */,
@@ -170,6 +213,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2EF8E94F25F754C700C7EE7D /* Build configuration list for PBXNativeTarget "Doodle2GatherUITests" */;
 			buildPhases = (
+				940C3AF8895A4A2FC0C3943D /* [CP] Check Pods Manifest.lock */,
 				2EF8E93C25F754C700C7EE7D /* Sources */,
 				2EF8E93D25F754C700C7EE7D /* Frameworks */,
 				2EF8E93E25F754C700C7EE7D /* Resources */,
@@ -252,6 +296,75 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8389F489326E4DF1838A4FA9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Doodle2GatherTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		88A50DEAEBCD3F68C204897B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Doodle2Gather-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		940C3AF8895A4A2FC0C3943D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Doodle2Gather-Doodle2GatherUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2EF8E91B25F754C600C7EE7D /* Sources */ = {
@@ -433,6 +546,7 @@
 		};
 		2EF8E94A25F754C700C7EE7D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A7F96AAB1FEAB53D88427D90 /* Pods-Doodle2Gather.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -452,6 +566,7 @@
 		};
 		2EF8E94B25F754C700C7EE7D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5630A42182E9C28155E1A130 /* Pods-Doodle2Gather.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -471,6 +586,7 @@
 		};
 		2EF8E94D25F754C700C7EE7D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1890AB750E84E15DDAD20FBF /* Pods-Doodle2GatherTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -493,6 +609,7 @@
 		};
 		2EF8E94E25F754C700C7EE7D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E237BF27EDC543391417F861 /* Pods-Doodle2GatherTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -515,6 +632,7 @@
 		};
 		2EF8E95025F754C700C7EE7D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E96E0F09F18A2DAC7A81D0AE /* Pods-Doodle2Gather-Doodle2GatherUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -535,6 +653,7 @@
 		};
 		2EF8E95125F754C700C7EE7D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D674EFEBE3CA3B2B8CA15375 /* Pods-Doodle2Gather-Doodle2GatherUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
