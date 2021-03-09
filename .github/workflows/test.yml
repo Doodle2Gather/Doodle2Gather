@@ -4,12 +4,12 @@ name: XCode Tests
 
 on:
   push:
-    branches: master
+    branches: main
     paths:
       - ".github/workflows/test.yml"
       - "**/*.swift"
   pull_request:
-    branches: master
+    branches: main
     paths:
       - ".github/workflows/test.yml"
       - "**/*.swift"
