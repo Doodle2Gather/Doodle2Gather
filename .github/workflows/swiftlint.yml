@@ -1,0 +1,27 @@
+name: SwiftLint
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - ".github/workflows/swiftlint.yml"
+      - ".swiftlint.yml"
+      - "**/*.swift"
+  pull_request:
+    branches: [master]
+    paths:
+      - ".github/workflows/swiftlint.yml"
+      - ".swiftlint.yml"
+      - "**/*.swift"
+
+jobs:
+  lint:
+    name: Lint Project with SwiftLint
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Strict Linting
+        uses: norio-nomura/action-swiftlint@3.2.1
+        with:
+          args: --strict

@@ -1,0 +1,64 @@
+# The following workflow is adapted from the iOS starter workflow from https://github.com/actions/starter-workflows
+
+name: XCode Tests
+
+on:
+  push:
+    branches: master
+    paths:
+      - ".github/workflows/test.yml"
+      - "**/*.swift"
+  pull_request:
+    branches: master
+    paths:
+      - ".github/workflows/test.yml"
+      - "**/*.swift"
+
+jobs:
+  build:
+    name: Build and Test Default Scheme using iPad Pro (11-inch)
+    runs-on: macos-latest
+
+    env:
+      platform: iOS Simulator
+      device: iPad Pro (11-inch) (2nd generation)
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+      - uses: actions/cache@v2
+        with:
+          path: Pods
+          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
+      - name: Bundle install
+        run: |
+          bundle config path vendor/bundle
+          bundle install --jobs 4 --retry 3
+          bundle update --jobs 4 --retry 3
+      - name: Pod install
+        run: |
+          pod install
+      - name: Set Default Scheme
+        run: |
+          scheme_list=$(xcodebuild -list -json | tr -d "\n")
+          default=$(echo $scheme_list | ruby -e "require 'json'; puts JSON.parse(STDIN.gets)['project']['targets'][0]")
+          echo "scheme=$default" >> $GITHUB_ENV
+          echo Using default scheme: $default
+      - name: Build
+        run: |
+          file_to_build="`ls -A | grep -i \\.xcworkspace\$`"
+          file_to_build=`echo $file_to_build | awk '{$1=$1;print}'`
+          set -o pipefail && xcodebuild build-for-testing -scheme "$scheme" -workspace "$file_to_build" -destination "platform=$platform,name=$device" | bundle exec xcpretty --color
+      - name: Test
+        run: |
+          file_to_build="`ls -A | grep -i \\.xcworkspace\$`"
+          file_to_build=`echo $file_to_build | awk '{$1=$1;print}'`
+          set -o pipefail && xcodebuild test-without-building -scheme "$scheme" -workspace "$file_to_build" -destination "platform=$platform,name=$device" | bundle exec xcpretty --color
