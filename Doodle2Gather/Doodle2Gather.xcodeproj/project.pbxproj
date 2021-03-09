@@ -116,13 +116,11 @@
 		2EF8E92125F754C600C7EE7D /* Doodle2Gather */ = {
 			isa = PBXGroup;
 			children = (
-				2EF8E92225F754C600C7EE7D /* AppDelegate.swift */,
-				2EF8E92425F754C600C7EE7D /* SceneDelegate.swift */,
-				2EF8E92625F754C600C7EE7D /* ViewController.swift */,
-				2EF8E92825F754C600C7EE7D /* Main.storyboard */,
-				2EF8E92B25F754C700C7EE7D /* Assets.xcassets */,
-				2EF8E92D25F754C700C7EE7D /* LaunchScreen.storyboard */,
-				2EF8E93025F754C700C7EE7D /* Info.plist */,
+				2EF8E97925F75EA100C7EE7D /* Models */,
+				2EF8E97A25F75EAE00C7EE7D /* Application */,
+				2EF8E97225F75E2900C7EE7D /* Assets */,
+				2EF8E97125F75E1400C7EE7D /* Bootstrap */,
+				2EF8E97025F75E0700C7EE7D /* Supporting Files */,
 			);
 			path = Doodle2Gather;
 			sourceTree = "<group>";
@@ -143,6 +141,80 @@
 				2EF8E94625F754C700C7EE7D /* Info.plist */,
 			);
 			path = Doodle2GatherUITests;
+			sourceTree = "<group>";
+		};
+		2EF8E97025F75E0700C7EE7D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2EF8E93025F754C700C7EE7D /* Info.plist */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2EF8E97125F75E1400C7EE7D /* Bootstrap */ = {
+			isa = PBXGroup;
+			children = (
+				2EF8E92225F754C600C7EE7D /* AppDelegate.swift */,
+				2EF8E92425F754C600C7EE7D /* SceneDelegate.swift */,
+				2EF8E92D25F754C700C7EE7D /* LaunchScreen.storyboard */,
+			);
+			path = Bootstrap;
+			sourceTree = "<group>";
+		};
+		2EF8E97225F75E2900C7EE7D /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				2EF8E92B25F754C700C7EE7D /* Assets.xcassets */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		2EF8E97925F75EA100C7EE7D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		2EF8E97A25F75EAE00C7EE7D /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				2EF8E97B25F75EB500C7EE7D /* Main */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		2EF8E97B25F75EB500C7EE7D /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				2EF8E97E25F75EC700C7EE7D /* Models */,
+				2EF8E97C25F75EB800C7EE7D /* Views */,
+				2EF8E97D25F75EBD00C7EE7D /* Controllers */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		2EF8E97C25F75EB800C7EE7D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2EF8E92825F754C600C7EE7D /* Main.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		2EF8E97D25F75EBD00C7EE7D /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				2EF8E92625F754C600C7EE7D /* ViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		2EF8E97E25F75EC700C7EE7D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		8B03623CDC31B0041B73D437 /* Pods */ = {
@@ -570,7 +642,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = K9H85859Q4;
-				INFOPLIST_FILE = Doodle2Gather/Info.plist;
+				INFOPLIST_FILE = "Doodle2Gather/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -590,7 +662,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = K9H85859Q4;
-				INFOPLIST_FILE = Doodle2Gather/Info.plist;
+				INFOPLIST_FILE = "Doodle2Gather/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
