@@ -118,6 +118,7 @@
 			children = (
 				2EF8E97925F75EA100C7EE7D /* Models */,
 				2EF8E97A25F75EAE00C7EE7D /* Application */,
+				2EF8E97F25F75F5100C7EE7D /* Common */,
 				2EF8E97225F75E2900C7EE7D /* Assets */,
 				2EF8E97125F75E1400C7EE7D /* Bootstrap */,
 				2EF8E97025F75E0700C7EE7D /* Supporting Files */,
@@ -215,6 +216,13 @@
 			children = (
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		2EF8E97F25F75F5100C7EE7D /* Common */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		8B03623CDC31B0041B73D437 /* Pods */ = {
