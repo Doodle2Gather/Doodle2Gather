@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -275,88 +276,83 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="qRd-vj-jsu">
-                                <rect key="frame" x="600.5" y="397" width="213.5" height="400"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="48R-gD-bhw" userLabel="Video View 1">
-                                        <rect key="frame" x="0.0" y="0.0" width="213.5" height="120"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="120" id="Bi9-1P-Ixo"/>
-                                            <constraint firstAttribute="width" secondItem="48R-gD-bhw" secondAttribute="height" multiplier="16:9" id="Re8-P6-5cT"/>
-                                        </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="15"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                                <integer key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ifm-p7-wyI" userLabel="Video View 2">
-                                        <rect key="frame" x="0.0" y="140" width="213.5" height="120"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="120" id="Ri6-Hs-6YY"/>
-                                            <constraint firstAttribute="width" secondItem="Ifm-p7-wyI" secondAttribute="height" multiplier="16:9" id="acg-X4-smM"/>
-                                        </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="15"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                                <integer key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jo4-o8-xaV" userLabel="Video View 3">
-                                        <rect key="frame" x="0.0" y="280" width="213.5" height="120"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="120" id="0II-eS-6Lj"/>
-                                            <constraint firstAttribute="width" secondItem="Jo4-o8-xaV" secondAttribute="height" multiplier="16:9" id="gxQ-HY-ihN"/>
-                                        </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="15"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                                <integer key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
-                                </subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2v7-Hc-qJ9">
+                                <rect key="frame" x="574" y="150" width="240" height="894"/>
                                 <constraints>
-                                    <constraint firstItem="Ifm-p7-wyI" firstAttribute="width" secondItem="Ifm-p7-wyI" secondAttribute="height" multiplier="16:9" id="EDb-lY-6IH"/>
-                                    <constraint firstItem="48R-gD-bhw" firstAttribute="width" secondItem="48R-gD-bhw" secondAttribute="height" multiplier="16:9" id="euK-ET-ebF"/>
+                                    <constraint firstAttribute="width" constant="240" id="rQ0-HC-w4U"/>
                                 </constraints>
-                            </stackView>
+                                <connections>
+                                    <segue destination="iqH-RH-LvU" kind="embed" id="LHe-b8-q2G"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="1p6-Mf-pnl"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Pj8-uP-anp" firstAttribute="bottom" secondItem="1p6-Mf-pnl" secondAttribute="bottom" constant="-20" id="1tF-M2-WoR"/>
                             <constraint firstItem="6vr-WX-y5Z" firstAttribute="leading" secondItem="Gvt-x0-wpX" secondAttribute="trailing" constant="20" id="6lu-Ch-ZPq"/>
-                            <constraint firstItem="qRd-vj-jsu" firstAttribute="trailing" secondItem="1p6-Mf-pnl" secondAttribute="trailing" constant="-20" id="EEw-Te-sXI"/>
                             <constraint firstItem="lOM-bA-4te" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" constant="20" id="EmQ-Qq-9ox"/>
                             <constraint firstItem="6vr-WX-y5Z" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" constant="20" id="N5C-Pf-XJM"/>
                             <constraint firstItem="HdL-Pj-pPB" firstAttribute="centerY" secondItem="Rvn-Q8-Irn" secondAttribute="centerY" id="Qwu-X3-bv3"/>
                             <constraint firstItem="Pj8-uP-anp" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" constant="20" id="ZeU-AA-KEz"/>
                             <constraint firstItem="6vr-WX-y5Z" firstAttribute="trailing" secondItem="1p6-Mf-pnl" secondAttribute="trailing" constant="-20" id="aX5-rm-eAj"/>
-                            <constraint firstItem="qRd-vj-jsu" firstAttribute="centerY" secondItem="Rvn-Q8-Irn" secondAttribute="centerY" id="gkG-jK-Abe"/>
                             <constraint firstItem="HdL-Pj-pPB" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" constant="20" id="nVn-9r-nOE"/>
                             <constraint firstItem="lOM-bA-4te" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" constant="20" id="o7i-Qk-N3e"/>
+                            <constraint firstItem="2v7-Hc-qJ9" firstAttribute="bottom" secondItem="1p6-Mf-pnl" secondAttribute="bottom" constant="-130" id="oPQ-zZ-Ybx"/>
+                            <constraint firstItem="2v7-Hc-qJ9" firstAttribute="trailing" secondItem="1p6-Mf-pnl" secondAttribute="trailing" constant="-20" id="xBE-mZ-Wgz"/>
                             <constraint firstItem="Gvt-x0-wpX" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" constant="20" id="xlO-w9-H22"/>
+                            <constraint firstItem="2v7-Hc-qJ9" firstAttribute="centerY" secondItem="Rvn-Q8-Irn" secondAttribute="centerY" id="yTh-sI-isM"/>
+                            <constraint firstItem="2v7-Hc-qJ9" firstAttribute="top" secondItem="6vr-WX-y5Z" secondAttribute="bottom" constant="50" id="zUl-zF-Bd8"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Ek-Ny-NIM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="119.42446043165468" y="75.879396984924625"/>
+        </scene>
+        <!--Agora Video View Controller-->
+        <scene sceneID="3Z1-bq-AZB">
+            <objects>
+                <viewController id="iqH-RH-LvU" customClass="AgoraVideoViewController" customModule="Doodle2Gather" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="27U-ED-QaR">
+                        <rect key="frame" x="0.0" y="0.0" width="240" height="894"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="d0I-gt-J8D">
+                                <rect key="frame" x="0.0" y="383" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="1bh-Qj-EMQ">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="u9P-zb-mLz" customClass="VideoCollectionViewCell" customModule="Doodle2Gather" customModuleProvider="target">
+                                        <rect key="frame" x="56" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="rdu-FL-r93" customClass="VideoCollectionViewCell" customModule="Doodle2Gather" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                        <connections>
+                                            <outlet property="videoView" destination="rdu-FL-r93" id="N8z-Qv-9ot"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vck-bI-o3u"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="d0I-gt-J8D" id="96F-at-txj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7qd-xc-JKb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="539" y="24"/>
         </scene>
     </scenes>
     <resources>
