@@ -1,10 +1,3 @@
-//
-//  DoodleViewController.swift
-//  Doodle2Gather
-//
-//  Created by Hanming on 17/3/21.
-//
-
 import UIKit
 
 class DoodleViewController: UIViewController {
