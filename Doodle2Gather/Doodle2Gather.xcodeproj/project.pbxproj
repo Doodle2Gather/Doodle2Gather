@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2ED7A3C62601B7740006D873 /* Doodle.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2ED7A3C52601B7740006D873 /* Doodle.storyboard */; };
+		2ED7A3CC2601C0450006D873 /* DoodleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED7A3CB2601C0450006D873 /* DoodleViewController.swift */; };
 		2EF8E92325F754C600C7EE7D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8E92225F754C600C7EE7D /* AppDelegate.swift */; };
 		2EF8E92525F754C600C7EE7D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8E92425F754C600C7EE7D /* SceneDelegate.swift */; };
 		2EF8E92725F754C600C7EE7D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8E92625F754C600C7EE7D /* HomeViewController.swift */; };
@@ -42,6 +43,7 @@
 		0E53B4F895F761EF4405A8DB /* Pods_Doodle2Gather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Doodle2Gather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1890AB750E84E15DDAD20FBF /* Pods-Doodle2GatherTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Doodle2GatherTests.debug.xcconfig"; path = "Target Support Files/Pods-Doodle2GatherTests/Pods-Doodle2GatherTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2ED7A3C52601B7740006D873 /* Doodle.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Doodle.storyboard; sourceTree = "<group>"; };
+		2ED7A3CB2601C0450006D873 /* DoodleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodleViewController.swift; sourceTree = "<group>"; };
 		2EF8E91F25F754C600C7EE7D /* Doodle2Gather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doodle2Gather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EF8E92225F754C600C7EE7D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2EF8E92425F754C600C7EE7D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				2ED7A3C42601B7660006D873 /* Views */,
+				2ED7A3CA2601C0280006D873 /* Controllers */,
 			);
 			path = Doodle;
 			sourceTree = "<group>";
@@ -107,6 +110,14 @@
 				2ED7A3C52601B7740006D873 /* Doodle.storyboard */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		2ED7A3CA2601C0280006D873 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				2ED7A3CB2601C0450006D873 /* DoodleViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		2EF8E91625F754C600C7EE7D = {
@@ -492,6 +503,7 @@
 				2EF8E92725F754C600C7EE7D /* HomeViewController.swift in Sources */,
 				2EF8E92325F754C600C7EE7D /* AppDelegate.swift in Sources */,
 				2EF8E92525F754C600C7EE7D /* SceneDelegate.swift in Sources */,
+				2ED7A3CC2601C0450006D873 /* DoodleViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
