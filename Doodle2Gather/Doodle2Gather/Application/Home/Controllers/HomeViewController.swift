@@ -1,13 +1,6 @@
-//
-//  ViewController.swift
-//  Doodle2Gather
-//
-//  Created by Hanming on 9/3/21.
-//
-
 import UIKit
 
-class ViewController: UIViewController {
+class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
