@@ -20,8 +20,8 @@
 		3AB2AF62CA4D82CD0089584E /* Pods_Doodle2Gather_Doodle2GatherUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE632583EE64F0948370B28 /* Pods_Doodle2Gather_Doodle2GatherUITests.framework */; };
 		467EC4FB47E519FEB6349B5B /* Pods_Doodle2Gather.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E53B4F895F761EF4405A8DB /* Pods_Doodle2Gather.framework */; };
 		79340BAF4DD45B98CA0F5BFD /* Pods_Doodle2GatherTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA956A97BA5025014186D6AC /* Pods_Doodle2GatherTests.framework */; };
-		84AFBB572601F0F500186B24 /* AgoraVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AFBB562601F0F500186B24 /* AgoraVideoViewController.swift */; };
-		84AFBB612601F79700186B24 /* VideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AFBB602601F79700186B24 /* VideoCollectionViewCell.swift */; };
+		840D6B2B260236CF001F3D43 /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D6B2A260236CF001F3D43 /* VideoViewController.swift */; };
+		840D6B3326023F90001F3D43 /* VideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D6B3226023F90001F3D43 /* VideoCollectionViewCell.swift */; };
 		84B17FFC2601C5C4009530A0 /* VideoConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B17FFB2601C5C4009530A0 /* VideoConstants.swift */; };
 /* End PBXBuildFile section */
 
@@ -62,8 +62,8 @@
 		2EF8E94425F754C700C7EE7D /* Doodle2GatherUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doodle2GatherUITests.swift; sourceTree = "<group>"; };
 		2EF8E94625F754C700C7EE7D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5630A42182E9C28155E1A130 /* Pods-Doodle2Gather.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Doodle2Gather.release.xcconfig"; path = "Target Support Files/Pods-Doodle2Gather/Pods-Doodle2Gather.release.xcconfig"; sourceTree = "<group>"; };
-		84AFBB562601F0F500186B24 /* AgoraVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgoraVideoViewController.swift; sourceTree = "<group>"; };
-		84AFBB602601F79700186B24 /* VideoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewCell.swift; sourceTree = "<group>"; };
+		840D6B2A260236CF001F3D43 /* VideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
+		840D6B3226023F90001F3D43 /* VideoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewCell.swift; sourceTree = "<group>"; };
 		84B17FFB2601C5C4009530A0 /* VideoConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoConstants.swift; sourceTree = "<group>"; };
 		A7F96AAB1FEAB53D88427D90 /* Pods-Doodle2Gather.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Doodle2Gather.debug.xcconfig"; path = "Target Support Files/Pods-Doodle2Gather/Pods-Doodle2Gather.debug.xcconfig"; sourceTree = "<group>"; };
 		CCE632583EE64F0948370B28 /* Pods_Doodle2Gather_Doodle2GatherUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Doodle2Gather_Doodle2GatherUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -266,8 +266,8 @@
 		84B17FDD2601C443009530A0 /* Video */ = {
 			isa = PBXGroup;
 			children = (
-				84AFBB562601F0F500186B24 /* AgoraVideoViewController.swift */,
-				84AFBB602601F79700186B24 /* VideoCollectionViewCell.swift */,
+				840D6B2A260236CF001F3D43 /* VideoViewController.swift */,
+				840D6B3226023F90001F3D43 /* VideoCollectionViewCell.swift */,
 			);
 			path = Video;
 			sourceTree = "<group>";
@@ -561,13 +561,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84AFBB612601F79700186B24 /* VideoCollectionViewCell.swift in Sources */,
+				840D6B3326023F90001F3D43 /* VideoCollectionViewCell.swift in Sources */,
+				840D6B2B260236CF001F3D43 /* VideoViewController.swift in Sources */,
 				2EF8E92725F754C600C7EE7D /* HomeViewController.swift in Sources */,
 				2EF8E92325F754C600C7EE7D /* AppDelegate.swift in Sources */,
 				84B17FFC2601C5C4009530A0 /* VideoConstants.swift in Sources */,
 				2EF8E92525F754C600C7EE7D /* SceneDelegate.swift in Sources */,
 				2ED7A3CC2601C0450006D873 /* DoodleViewController.swift in Sources */,
-				84AFBB572601F0F500186B24 /* AgoraVideoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,5 +1,5 @@
 //
-//  AgoraVideoViewController.swift
+//  VideoViewController.swift
 //  Doodle2Gather
 //
 //  Created by Wang on 17/3/21.
@@ -8,45 +8,22 @@
 import UIKit
 import AgoraRtcKit
 
-class AgoraVideoViewController: UIViewController {
-    var agoraKit: AgoraRtcEngineKit?
-
+class VideoViewController: UIViewController, UICollectionViewDelegate,
+                           UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     @IBOutlet private var collectionView: UICollectionView!
 
+    var agoraKit: AgoraRtcEngineKit?
+    var remoteUserIDs: [UInt] = []
     var inCall = false
-    let tempToken: String? = nil // If you have a token, put it here.
     var callID: UInt = 0
     var channelName = "testing"
-    var userName: String?
-    var userID: UInt = 0
-    var remoteUserIDs: [UInt] = []
 
-    func joinChannel(channelName: String) {
-        getAgoraEngine().joinChannel(byToken: tempToken,
-                                     channelId: channelName,
-                                     info: nil,
-                                     uid: callID) { [weak self] _, uid, _ in
-            self?.inCall = true
-            self?.callID = uid
-            self?.channelName = channelName
-        }
-    }
-
-    func joinChannel() {
-        if let name = userName {
-            getAgoraEngine().joinChannel(byUserAccount: name,
-                                         token: tempToken,
-                                         channelId: channelName) { [weak self] _, uid, _ in
-                self?.userID = uid
-            }
-        } else {
-            getAgoraEngine().joinChannel(byToken: tempToken,
-                                         channelId: channelName,
-                                         info: nil,
-                                         uid: userID) { [weak self] _, uid, _ in
-                self?.userID = uid
-            }
-        }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+        getAgoraEngine().setChannelProfile(.communication)
+        setUpVideo()
+        joinChannel(channelName: channelName)
     }
 
     private func getAgoraEngine() -> AgoraRtcEngineKit {
@@ -56,35 +33,48 @@ class AgoraVideoViewController: UIViewController {
         return agoraKit!
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        getAgoraEngine().setChannelProfile(.communication)
-
-        setUpVideo()
-        joinChannel()
-    }
-
     func setUpVideo() {
         getAgoraEngine().enableVideo()
-        let configuration = AgoraVideoEncoderConfiguration(size:
-                            AgoraVideoDimension640x360, frameRate: .fps15, bitrate: 400,
-                            orientationMode: .fixedPortrait)
+        let configuration = AgoraVideoEncoderConfiguration(size: AgoraVideoDimension640x360,
+                                                           frameRate: .fps15,
+                                                           bitrate: 400,
+                                                           orientationMode: .adaptative)
         getAgoraEngine().setVideoEncoderConfiguration(configuration)
+    }
+
+    func joinChannel() {
+        getAgoraEngine().joinChannel(byToken: VideoConstants.tempToken,
+                                     channelId: channelName,
+                                     info: nil,
+                                     uid: callID) { [weak self] _, uid, _ in
+            self?.callID = uid
+        }
+    }
+
+    func joinChannel(channelName: String) {
+        getAgoraEngine().joinChannel(byToken: VideoConstants.tempToken,
+                                     channelId: channelName,
+                                     info: nil,
+                                     uid: callID) { [weak self] _, uid, _ in
+            self?.inCall = true
+            self?.callID = uid
+            self?.channelName = channelName
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         remoteUserIDs.count + 1
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "videoCell", for: indexPath)
 
         if indexPath.row == remoteUserIDs.count { // Put our local video last
             if let videoCell = cell as? VideoCollectionViewCell {
                 let videoCanvas = AgoraRtcVideoCanvas()
                 videoCanvas.uid = callID
-                videoCanvas.view = videoCell.videoView
+                videoCanvas.view = videoCell.getVideoView()
                 videoCanvas.renderMode = .fit
                 getAgoraEngine().setupLocalVideo(videoCanvas)
             }
@@ -93,10 +83,9 @@ class AgoraVideoViewController: UIViewController {
             if let videoCell = cell as? VideoCollectionViewCell {
                 let videoCanvas = AgoraRtcVideoCanvas()
                 videoCanvas.uid = remoteID
-                videoCanvas.view = videoCell.videoView
+                videoCanvas.view = videoCell.getVideoView()
                 videoCanvas.renderMode = .fit
                 getAgoraEngine().setupRemoteVideo(videoCanvas)
-                print("Creating remote view of uid: \(remoteID)")
             }
         }
 
@@ -109,8 +98,12 @@ class AgoraVideoViewController: UIViewController {
 
         let numFeeds = remoteUserIDs.count + 1
 
-        let totalWidth = collectionView.frame.width - collectionView.adjustedContentInset.left - collectionView.adjustedContentInset.right
-        let totalHeight = collectionView.frame.height - collectionView.adjustedContentInset.top - collectionView.adjustedContentInset.bottom
+        let totalWidth = collectionView.frame.width
+            - collectionView.adjustedContentInset.left
+            - collectionView.adjustedContentInset.right
+        let totalHeight = collectionView.frame.height
+            - collectionView.adjustedContentInset.top
+            - collectionView.adjustedContentInset.bottom
 
         if numFeeds == 1 {
             return CGSize(width: totalWidth, height: totalHeight)
@@ -126,7 +119,7 @@ class AgoraVideoViewController: UIViewController {
     }
 }
 
-extension AgoraVideoViewController: AgoraRtcEngineDelegate {
+extension VideoViewController: AgoraRtcEngineDelegate {
     func rtcEngine(_ engine: AgoraRtcEngineKit, didJoinChannel channel: String, withUid uid: UInt, elapsed: Int) {
         callID = uid
     }

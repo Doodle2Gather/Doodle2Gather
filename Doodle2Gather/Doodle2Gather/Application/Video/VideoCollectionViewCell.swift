@@ -8,5 +8,10 @@
 import UIKit
 
 class VideoCollectionViewCell: UICollectionViewCell {
-    @IBOutlet var videoView: UIView!
+
+    @IBOutlet private var videoView: VideoCollectionViewCell!
+
+    func getVideoView() -> VideoCollectionViewCell {
+        videoView
+    }
 }
