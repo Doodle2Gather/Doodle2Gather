@@ -38,7 +38,7 @@ class VideoViewController: UIViewController, UICollectionViewDelegate,
         let configuration = AgoraVideoEncoderConfiguration(size: AgoraVideoDimension640x360,
                                                            frameRate: .fps15,
                                                            bitrate: 400,
-                                                           orientationMode: .adaptative)
+                                                           orientationMode: .fixedLandscape)
         getAgoraEngine().setVideoEncoderConfiguration(configuration)
     }
 
@@ -96,8 +96,6 @@ class VideoViewController: UIViewController, UICollectionViewDelegate,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-        let numFeeds = remoteUserIDs.count + 1
-
         let totalWidth = collectionView.frame.width
             - collectionView.adjustedContentInset.left
             - collectionView.adjustedContentInset.right
@@ -105,17 +103,7 @@ class VideoViewController: UIViewController, UICollectionViewDelegate,
             - collectionView.adjustedContentInset.top
             - collectionView.adjustedContentInset.bottom
 
-        if numFeeds == 1 {
-            return CGSize(width: totalWidth, height: totalHeight)
-        } else if numFeeds == 2 {
-            return CGSize(width: totalWidth, height: totalHeight / 2)
-        } else {
-            if indexPath.row == numFeeds {
-                return CGSize(width: totalWidth, height: totalHeight / 2)
-            } else {
-                return CGSize(width: totalWidth / CGFloat(numFeeds - 1), height: totalHeight / 2)
-            }
-        }
+        return CGSize(width: totalWidth, height: totalHeight * 9 / 16)
     }
 }
 
