@@ -8,8 +8,7 @@
 import UIKit
 import AgoraRtcKit
 
-class VideoViewController: UIViewController, UICollectionViewDelegate,
-                           UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class VideoViewController: UIViewController {
     @IBOutlet private var collectionView: UICollectionView!
 
     var agoraKit: AgoraRtcEngineKit?
@@ -61,7 +60,12 @@ class VideoViewController: UIViewController, UICollectionViewDelegate,
             self?.channelName = channelName
         }
     }
+}
 
+extension VideoViewController: UICollectionViewDelegate {
+}
+
+extension VideoViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         remoteUserIDs.count + 1
     }
@@ -91,7 +95,9 @@ class VideoViewController: UIViewController, UICollectionViewDelegate,
 
         return cell
     }
+}
 
+extension VideoViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
