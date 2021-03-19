@@ -99,11 +99,8 @@ class VideoViewController: UIViewController, UICollectionViewDelegate,
         let totalWidth = collectionView.frame.width
             - collectionView.adjustedContentInset.left
             - collectionView.adjustedContentInset.right
-        let totalHeight = collectionView.frame.height
-            - collectionView.adjustedContentInset.top
-            - collectionView.adjustedContentInset.bottom
 
-        return CGSize(width: totalWidth, height: totalHeight * 9 / 16)
+        return CGSize(width: totalWidth, height: totalWidth * 9 / 16)
     }
 }
 
