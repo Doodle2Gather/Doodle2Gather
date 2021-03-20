@@ -10,6 +10,8 @@ import AgoraRtcKit
 
 class VideoViewController: UIViewController {
     @IBOutlet private var collectionView: UICollectionView!
+    @IBOutlet private weak var videoButton: UIButton!
+    @IBOutlet private weak var audioButton: UIButton!
 
     var agoraKit: AgoraRtcEngineKit?
     var remoteUserIDs: [UInt] = []
@@ -21,13 +23,15 @@ class VideoViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
 
         getAgoraEngine().setChannelProfile(.communication)
         setUpVideo()
         joinChannel(channelName: channelName)
     }
 
+    /**
+     Returns the agora RTC engine instance (singleton).
+     */
     private func getAgoraEngine() -> AgoraRtcEngineKit {
         if agoraKit == nil {
             agoraKit = AgoraRtcEngineKit.sharedEngine(withAppId: VideoConstants.appID, delegate: self)
@@ -67,24 +71,31 @@ class VideoViewController: UIViewController {
     @IBAction private func didToggleAudio(_ sender: Any) {
         if isMuted {
             getAgoraEngine().muteLocalAudioStream(false)
+            audioButton.setImage(UIImage(systemName: "mic.fill"), for: .normal)
         } else {
             getAgoraEngine().muteLocalAudioStream(true)
+            audioButton.setImage(UIImage(systemName: "mic.slash.fill"), for: .normal)
         }
         isMuted.toggle()
     }
+
     @IBAction private func didToggleVideo(_ sender: Any) {
         if isVideoOff {
             getAgoraEngine().enableLocalVideo(true)
+            videoButton.setImage(UIImage(systemName: "video.fill"), for: .normal)
         } else {
             getAgoraEngine().enableLocalVideo(false)
+            videoButton.setImage(UIImage(systemName: "video.slash.fill"), for: .normal)
         }
         isVideoOff.toggle()
     }
 }
 
+// MARK: - UICollectionViewDelegate
 extension VideoViewController: UICollectionViewDelegate {
 }
 
+// MARK: - UICollectionViewDataSource
 extension VideoViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         remoteUserIDs.count + 1
@@ -117,6 +128,7 @@ extension VideoViewController: UICollectionViewDataSource {
     }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
 extension VideoViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
@@ -130,6 +142,7 @@ extension VideoViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+// MARK: - AgoraRtcEngineDelegate
 extension VideoViewController: AgoraRtcEngineDelegate {
     func rtcEngine(_ engine: AgoraRtcEngineKit, didJoinChannel channel: String, withUid uid: UInt, elapsed: Int) {
         callID = uid

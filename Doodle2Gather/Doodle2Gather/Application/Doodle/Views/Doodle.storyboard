@@ -370,7 +370,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="audioButton" destination="AkO-hK-cSB" id="a3j-SW-FOS"/>
                         <outlet property="collectionView" destination="Bxd-CB-wII" id="oSa-98-sii"/>
+                        <outlet property="videoButton" destination="yDB-Q3-4ya" id="uc5-9l-a18"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7qd-xc-JKb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
