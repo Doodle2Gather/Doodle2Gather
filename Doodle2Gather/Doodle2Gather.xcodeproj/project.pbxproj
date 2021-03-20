@@ -31,6 +31,8 @@
 		2EF8E94525F754C700C7EE7D /* Doodle2GatherUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8E94425F754C700C7EE7D /* Doodle2GatherUITests.swift */; };
 		3AB2AF62CA4D82CD0089584E /* Pods_Doodle2Gather_Doodle2GatherUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE632583EE64F0948370B28 /* Pods_Doodle2Gather_Doodle2GatherUITests.framework */; };
 		467EC4FB47E519FEB6349B5B /* Pods_Doodle2Gather.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E53B4F895F761EF4405A8DB /* Pods_Doodle2Gather.framework */; };
+		6701369B260638C5005E327A /* WebSocketTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6701369A260638C5005E327A /* WebSocketTypes.swift */; };
+		670136A426063926005E327A /* WebSocketController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670136A326063926005E327A /* WebSocketController.swift */; };
 		79340BAF4DD45B98CA0F5BFD /* Pods_Doodle2GatherTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA956A97BA5025014186D6AC /* Pods_Doodle2GatherTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -83,6 +85,8 @@
 		2EF8E94425F754C700C7EE7D /* Doodle2GatherUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doodle2GatherUITests.swift; sourceTree = "<group>"; };
 		2EF8E94625F754C700C7EE7D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5630A42182E9C28155E1A130 /* Pods-Doodle2Gather.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Doodle2Gather.release.xcconfig"; path = "Target Support Files/Pods-Doodle2Gather/Pods-Doodle2Gather.release.xcconfig"; sourceTree = "<group>"; };
+		6701369A260638C5005E327A /* WebSocketTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketTypes.swift; sourceTree = "<group>"; };
+		670136A326063926005E327A /* WebSocketController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketController.swift; sourceTree = "<group>"; };
 		A7F96AAB1FEAB53D88427D90 /* Pods-Doodle2Gather.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Doodle2Gather.debug.xcconfig"; path = "Target Support Files/Pods-Doodle2Gather/Pods-Doodle2Gather.debug.xcconfig"; sourceTree = "<group>"; };
 		CCE632583EE64F0948370B28 /* Pods_Doodle2Gather_Doodle2GatherUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Doodle2Gather_Doodle2GatherUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D674EFEBE3CA3B2B8CA15375 /* Pods-Doodle2Gather-Doodle2GatherUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Doodle2Gather-Doodle2GatherUITests.release.xcconfig"; path = "Target Support Files/Pods-Doodle2Gather-Doodle2GatherUITests/Pods-Doodle2Gather-Doodle2GatherUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -142,6 +146,7 @@
 		2ED7A3C32601B7570006D873 /* Doodle */ = {
 			isa = PBXGroup;
 			children = (
+				6701369826063880005E327A /* Models */,
 				2ED7A3C42601B7660006D873 /* Views */,
 				2ED7A3CA2601C0280006D873 /* Controllers */,
 				2EA8C2F82605E50100BE750C /* Protocols */,
@@ -269,6 +274,7 @@
 			children = (
 				2EF8E97B25F75EB500C7EE7D /* Home */,
 				2ED7A3C32601B7570006D873 /* Doodle */,
+				670136A226063906005E327A /* WebSocket */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -313,6 +319,22 @@
 				2EA8C3162606680500BE750C /* Extensions */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		6701369826063880005E327A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		670136A226063906005E327A /* WebSocket */ = {
+			isa = PBXGroup;
+			children = (
+				6701369A260638C5005E327A /* WebSocketTypes.swift */,
+				670136A326063926005E327A /* WebSocketController.swift */,
+			);
+			path = WebSocket;
 			sourceTree = "<group>";
 		};
 		8B03623CDC31B0041B73D437 /* Pods */ = {
@@ -568,6 +590,8 @@
 				2EA8C34226067F0000BE750C /* PKStroke+DTStroke.swift in Sources */,
 				2E26E570260692880016A8FC /* CodableColor.swift in Sources */,
 				2EA8C3302606714500BE750C /* DTCanvasViewDelegate.swift in Sources */,
+				6701369B260638C5005E327A /* WebSocketTypes.swift in Sources */,
+				670136A426063926005E327A /* WebSocketController.swift in Sources */,
 				2EF8E92525F754C600C7EE7D /* SceneDelegate.swift in Sources */,
 				2EA8C3052605E5B700BE750C /* CanvasControllerDelegate.swift in Sources */,
 				2EA8C30A2605E95400BE750C /* DTDrawing.swift in Sources */,
