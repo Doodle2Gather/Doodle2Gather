@@ -16,6 +16,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CRw-tT-Mu5">
+                                <rect key="frame" x="0.0" y="0.0" width="834" height="1174"/>
+                                <connections>
+                                    <segue destination="rKz-2I-ekB" kind="embed" identifier="ToCanvas" id="h1y-4w-gMZ"/>
+                                </connections>
+                            </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lOM-bA-4te" userLabel="File Name View">
                                 <rect key="frame" x="20" y="20" width="127" height="64"/>
                                 <subviews>
@@ -340,10 +346,13 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Pj8-uP-anp" firstAttribute="bottom" secondItem="1p6-Mf-pnl" secondAttribute="bottom" constant="-20" id="1tF-M2-WoR"/>
+                            <constraint firstItem="1p6-Mf-pnl" firstAttribute="trailing" secondItem="CRw-tT-Mu5" secondAttribute="trailing" id="5Wa-E0-WET"/>
                             <constraint firstItem="6vr-WX-y5Z" firstAttribute="leading" secondItem="Gvt-x0-wpX" secondAttribute="trailing" constant="20" id="6lu-Ch-ZPq"/>
+                            <constraint firstItem="CRw-tT-Mu5" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" id="8jE-v5-stq"/>
                             <constraint firstItem="qRd-vj-jsu" firstAttribute="trailing" secondItem="1p6-Mf-pnl" secondAttribute="trailing" constant="-20" id="EEw-Te-sXI"/>
                             <constraint firstItem="lOM-bA-4te" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" constant="20" id="EmQ-Qq-9ox"/>
                             <constraint firstItem="6vr-WX-y5Z" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" constant="20" id="N5C-Pf-XJM"/>
+                            <constraint firstItem="1p6-Mf-pnl" firstAttribute="bottom" secondItem="CRw-tT-Mu5" secondAttribute="bottom" id="NSu-1l-xzM"/>
                             <constraint firstItem="HdL-Pj-pPB" firstAttribute="centerY" secondItem="Rvn-Q8-Irn" secondAttribute="centerY" id="Qwu-X3-bv3"/>
                             <constraint firstItem="Pj8-uP-anp" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" constant="20" id="ZeU-AA-KEz"/>
                             <constraint firstItem="6vr-WX-y5Z" firstAttribute="trailing" secondItem="1p6-Mf-pnl" secondAttribute="trailing" constant="-20" id="aX5-rm-eAj"/>
@@ -351,12 +360,27 @@
                             <constraint firstItem="HdL-Pj-pPB" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" constant="20" id="nVn-9r-nOE"/>
                             <constraint firstItem="lOM-bA-4te" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" constant="20" id="o7i-Qk-N3e"/>
                             <constraint firstItem="Gvt-x0-wpX" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" constant="20" id="xlO-w9-H22"/>
+                            <constraint firstItem="CRw-tT-Mu5" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" id="yf0-Dt-Yxp"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Ek-Ny-NIM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="119.42446043165468" y="75.879396984924625"/>
+        </scene>
+        <!--Canvas View Controller-->
+        <scene sceneID="Tgk-Yf-Cei">
+            <objects>
+                <viewController id="rKz-2I-ekB" customClass="DTCanvasViewController" customModule="Doodle2Gather" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0hy-zQ-mJQ">
+                        <rect key="frame" x="0.0" y="0.0" width="834" height="1174"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IYE-lh-cwc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="831" y="76"/>
         </scene>
     </scenes>
     <resources>
