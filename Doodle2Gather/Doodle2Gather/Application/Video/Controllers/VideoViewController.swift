@@ -10,8 +10,8 @@ import AgoraRtcKit
 
 class VideoViewController: UIViewController {
     @IBOutlet private var collectionView: UICollectionView!
-    @IBOutlet private weak var videoButton: UIButton!
-    @IBOutlet private weak var audioButton: UIButton!
+    @IBOutlet private var videoButton: UIButton!
+    @IBOutlet private var audioButton: UIButton!
 
     var agoraKit: AgoraRtcEngineKit?
     var remoteUserIDs: [UInt] = []
