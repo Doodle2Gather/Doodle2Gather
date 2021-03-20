@@ -12,7 +12,7 @@ struct DoodleActionController: RouteCollection {
     let wsController: WebSocketController
     
     func boot(routes: RoutesBuilder) throws {
-        routes.webSocket("socket", onUpgrade: self.webSocket)
+        routes.webSocket("rooms", "devRoom", onUpgrade: self.webSocket)
         routes.get(use: index)
         //    routes.post(":questionId", "answer", use: answer)
     }
