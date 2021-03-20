@@ -9,9 +9,9 @@ import PencilKit
 class DTCanvasViewController: UIViewController {
 
     /// Main canvas view that we will work with.
-    private var canvasView: DTCanvasView = PKCanvasView()
+    var canvasView: DTCanvasView = PKCanvasView()
     /// Drawing that will be injected into this controller.
-    private var drawing: some DTDrawing = PKDrawing()
+    var drawing: some DTDrawing = PKDrawing()
 
     /// Delegate for action dispatching.
     internal weak var delegate: CanvasControllerDelegate?

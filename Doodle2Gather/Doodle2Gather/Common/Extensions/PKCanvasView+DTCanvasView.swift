@@ -10,6 +10,8 @@ extension PKCanvasView: DTCanvasView {
     func loadDrawing<D>(_: D) where D: DTDrawing {
         self.drawing = PKDrawing(from: drawing)
         self.alwaysBounceVertical = true
+        // TODO: Remove this line once a DT version of drawing policy is added.
+        self.drawingPolicy = .anyInput
     }
 
 }
