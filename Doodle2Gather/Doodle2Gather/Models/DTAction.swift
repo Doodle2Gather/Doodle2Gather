@@ -20,6 +20,17 @@ struct DTAction {
         strokesRemoved = removedString
     }
 
+    func getStrokes<S: DTStroke>() -> (added: Set<S>, removed: Set<S>)? {
+        let decoder = JSONDecoder()
+        guard let addedData = strokesAdded.data(using: .utf8),
+              let removedData = strokesRemoved.data(using: .utf8),
+              let added = try? decoder.decode(Set<S>.self, from: addedData),
+              let removed = try? decoder.decode(Set<S>.self, from: removedData) else {
+            return nil
+        }
+        return (added, removed)
+    }
+
 }
 
 // MARK: - Hashable
