@@ -6,74 +6,48 @@
 //
 
 import UIKit
-import AgoraRtcKit
+
+protocol VideoEngine {
+    var delegate: VideoEngineDelegate? { get set }
+    func initialize()
+    func joinChannel(channelName: String)
+    func muteAudio()
+    func unmuteAudio()
+    func showVideo()
+    func hideVideo()
+    func setupLocalUserView(view: VideoCollectionViewCell)
+    func setupRemoteUserView(view: VideoCollectionViewCell, id: UInt)
+}
+
+protocol VideoEngineDelegate: AnyObject {
+    func didJoinCall(id: UInt)
+    func didLeaveCall(id: UInt)
+}
 
 class VideoViewController: UIViewController {
     @IBOutlet private var collectionView: UICollectionView!
     @IBOutlet private var videoButton: UIButton!
     @IBOutlet private var audioButton: UIButton!
 
-    var agoraKit: AgoraRtcEngineKit?
+    var videoEngine: VideoEngine?
     var remoteUserIDs: [UInt] = []
-    var inCall = false
-    var callID: UInt = 0
-    var channelName = "testing"
     var isMuted = false
     var isVideoOff = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        getAgoraEngine().setChannelProfile(.communication)
-        setUpVideo()
-        joinChannel(channelName: channelName)
-    }
-
-    /**
-     Returns the agora RTC engine instance (singleton).
-     */
-    private func getAgoraEngine() -> AgoraRtcEngineKit {
-        if agoraKit == nil {
-            agoraKit = AgoraRtcEngineKit.sharedEngine(withAppId: VideoConstants.appID, delegate: self)
-        }
-        return agoraKit!
-    }
-
-    func setUpVideo() {
-        getAgoraEngine().enableVideo()
-        let configuration = AgoraVideoEncoderConfiguration(size: AgoraVideoDimension640x360,
-                                                           frameRate: .fps15,
-                                                           bitrate: 400,
-                                                           orientationMode: .fixedLandscape)
-        getAgoraEngine().setVideoEncoderConfiguration(configuration)
-    }
-
-    func joinChannel() {
-        getAgoraEngine().joinChannel(byToken: VideoConstants.tempToken,
-                                     channelId: channelName,
-                                     info: nil,
-                                     uid: callID) { [weak self] _, uid, _ in
-            self?.callID = uid
-        }
-    }
-
-    func joinChannel(channelName: String) {
-        getAgoraEngine().joinChannel(byToken: VideoConstants.tempToken,
-                                     channelId: channelName,
-                                     info: nil,
-                                     uid: callID) { [weak self] _, uid, _ in
-            self?.inCall = true
-            self?.callID = uid
-            self?.channelName = channelName
-        }
+        videoEngine = AgoraVideoEngine()
+        videoEngine?.delegate = self
+        videoEngine?.initialize()
+        videoEngine?.joinChannel(channelName: "testing")
     }
 
     @IBAction private func didToggleAudio(_ sender: Any) {
         if isMuted {
-            getAgoraEngine().muteLocalAudioStream(false)
+            videoEngine?.unmuteAudio()
             audioButton.setImage(UIImage(systemName: "mic.fill"), for: .normal)
         } else {
-            getAgoraEngine().muteLocalAudioStream(true)
+            videoEngine?.muteAudio()
             audioButton.setImage(UIImage(systemName: "mic.slash.fill"), for: .normal)
         }
         isMuted.toggle()
@@ -81,13 +55,27 @@ class VideoViewController: UIViewController {
 
     @IBAction private func didToggleVideo(_ sender: Any) {
         if isVideoOff {
-            getAgoraEngine().enableLocalVideo(true)
+            videoEngine?.showVideo()
             videoButton.setImage(UIImage(systemName: "video.fill"), for: .normal)
         } else {
-            getAgoraEngine().enableLocalVideo(false)
+            videoEngine?.hideVideo()
             videoButton.setImage(UIImage(systemName: "video.slash.fill"), for: .normal)
         }
         isVideoOff.toggle()
+    }
+}
+
+extension VideoViewController: VideoEngineDelegate {
+    func didJoinCall(id: UInt) {
+        remoteUserIDs.append(id)
+        collectionView.reloadData()
+    }
+
+    func didLeaveCall(id: UInt) {
+        if let index = remoteUserIDs.firstIndex(where: { $0 == id }) {
+            remoteUserIDs.remove(at: index)
+            collectionView.reloadData()
+        }
     }
 }
 
@@ -104,26 +92,15 @@ extension VideoViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "videoCell", for: indexPath)
-
+        guard let videoCell = cell as? VideoCollectionViewCell else {
+            fatalError("Cell is not VideoCollectionViewCell")
+        }
         if indexPath.row == remoteUserIDs.count { // Put our local video last
-            if let videoCell = cell as? VideoCollectionViewCell {
-                let videoCanvas = AgoraRtcVideoCanvas()
-                videoCanvas.uid = callID
-                videoCanvas.view = videoCell.getVideoView()
-                videoCanvas.renderMode = .fit
-                getAgoraEngine().setupLocalVideo(videoCanvas)
-            }
+            videoEngine?.setupLocalUserView(view: videoCell.getVideoView())
         } else {
             let remoteID = remoteUserIDs[indexPath.row]
-            if let videoCell = cell as? VideoCollectionViewCell {
-                let videoCanvas = AgoraRtcVideoCanvas()
-                videoCanvas.uid = remoteID
-                videoCanvas.view = videoCell.getVideoView()
-                videoCanvas.renderMode = .fit
-                getAgoraEngine().setupRemoteVideo(videoCanvas)
-            }
+            videoEngine?.setupRemoteUserView(view: videoCell.getVideoView(), id: remoteID)
         }
-
         return cell
     }
 }
@@ -139,25 +116,5 @@ extension VideoViewController: UICollectionViewDelegateFlowLayout {
             - collectionView.adjustedContentInset.right
 
         return CGSize(width: totalWidth, height: totalWidth * 9 / 16)
-    }
-}
-
-// MARK: - AgoraRtcEngineDelegate
-extension VideoViewController: AgoraRtcEngineDelegate {
-    func rtcEngine(_ engine: AgoraRtcEngineKit, didJoinChannel channel: String, withUid uid: UInt, elapsed: Int) {
-        callID = uid
-    }
-
-    func rtcEngine(_ engine: AgoraRtcEngineKit, didJoinedOfUid uid: UInt, elapsed: Int) {
-        print("Joined call of uid: \(uid)")
-        remoteUserIDs.append(uid)
-        collectionView.reloadData()
-    }
-
-    func rtcEngine(_ engine: AgoraRtcEngineKit, didOfflineOfUid uid: UInt, reason: AgoraUserOfflineReason) {
-        if let index = remoteUserIDs.firstIndex(where: { $0 == uid }) {
-            remoteUserIDs.remove(at: index)
-            collectionView.reloadData()
-        }
     }
 }

@@ -20,6 +20,7 @@
 		3AB2AF62CA4D82CD0089584E /* Pods_Doodle2Gather_Doodle2GatherUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE632583EE64F0948370B28 /* Pods_Doodle2Gather_Doodle2GatherUITests.framework */; };
 		467EC4FB47E519FEB6349B5B /* Pods_Doodle2Gather.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E53B4F895F761EF4405A8DB /* Pods_Doodle2Gather.framework */; };
 		79340BAF4DD45B98CA0F5BFD /* Pods_Doodle2GatherTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA956A97BA5025014186D6AC /* Pods_Doodle2GatherTests.framework */; };
+		835D3BFA2606B11A004491D5 /* AgoraVideoEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835D3BF92606B11A004491D5 /* AgoraVideoEngine.swift */; };
 		840D6B2B260236CF001F3D43 /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D6B2A260236CF001F3D43 /* VideoViewController.swift */; };
 		840D6B3326023F90001F3D43 /* VideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D6B3226023F90001F3D43 /* VideoCollectionViewCell.swift */; };
 		84B17FFC2601C5C4009530A0 /* VideoConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B17FFB2601C5C4009530A0 /* VideoConstants.swift */; };
@@ -62,6 +63,7 @@
 		2EF8E94425F754C700C7EE7D /* Doodle2GatherUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doodle2GatherUITests.swift; sourceTree = "<group>"; };
 		2EF8E94625F754C700C7EE7D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5630A42182E9C28155E1A130 /* Pods-Doodle2Gather.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Doodle2Gather.release.xcconfig"; path = "Target Support Files/Pods-Doodle2Gather/Pods-Doodle2Gather.release.xcconfig"; sourceTree = "<group>"; };
+		835D3BF92606B11A004491D5 /* AgoraVideoEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgoraVideoEngine.swift; sourceTree = "<group>"; };
 		840D6B2A260236CF001F3D43 /* VideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
 		840D6B3226023F90001F3D43 /* VideoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewCell.swift; sourceTree = "<group>"; };
 		84B17FFB2601C5C4009530A0 /* VideoConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoConstants.swift; sourceTree = "<group>"; };
@@ -263,6 +265,14 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		835D3BFE2606C19B004491D5 /* Engines */ = {
+			isa = PBXGroup;
+			children = (
+				835D3BF92606B11A004491D5 /* AgoraVideoEngine.swift */,
+			);
+			path = Engines;
+			sourceTree = "<group>";
+		};
 		8460D73B2605A65800F160B1 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -284,6 +294,7 @@
 			children = (
 				8460D73D2605A67D00F160B1 /* Views */,
 				8460D73B2605A65800F160B1 /* Controllers */,
+				835D3BFE2606C19B004491D5 /* Engines */,
 			);
 			path = Video;
 			sourceTree = "<group>";
@@ -577,6 +588,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				835D3BFA2606B11A004491D5 /* AgoraVideoEngine.swift in Sources */,
 				840D6B3326023F90001F3D43 /* VideoCollectionViewCell.swift in Sources */,
 				840D6B2B260236CF001F3D43 /* VideoViewController.swift in Sources */,
 				2EF8E92725F754C600C7EE7D /* HomeViewController.swift in Sources */,
