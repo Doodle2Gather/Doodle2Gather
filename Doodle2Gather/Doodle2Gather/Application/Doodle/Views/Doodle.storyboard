@@ -47,56 +47,6 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pj8-uP-anp" userLabel="Bottom Buttons View">
-                                <rect key="frame" x="20" y="1074" width="180" height="80"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="adf-Vb-Aza" userLabel="Button Stack">
-                                        <rect key="frame" x="20" y="20" width="140" height="40"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qsL-Oh-rQj" userLabel="Chat Button">
-                                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
-                                                <color key="backgroundColor" systemColor="linkColor"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="40" id="9Qw-hx-X1t"/>
-                                                    <constraint firstAttribute="height" constant="40" id="pUB-xx-DS2"/>
-                                                </constraints>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LAR-uc-EIt" userLabel="Video Button">
-                                                <rect key="frame" x="50" y="0.0" width="40" height="40"/>
-                                                <color key="backgroundColor" systemColor="systemPinkColor"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="40" id="Ccp-6m-vok"/>
-                                                    <constraint firstAttribute="height" constant="40" id="sxc-K4-CzW"/>
-                                                </constraints>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AIl-bT-RAd" userLabel="Audio Button">
-                                                <rect key="frame" x="100" y="0.0" width="40" height="40"/>
-                                                <color key="backgroundColor" systemColor="systemPurpleColor"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="40" id="P5f-aw-y7C"/>
-                                                    <constraint firstAttribute="height" constant="40" id="k2T-bU-XQY"/>
-                                                </constraints>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstItem="adf-Vb-Aza" firstAttribute="leading" secondItem="Pj8-uP-anp" secondAttribute="leading" constant="20" id="H6p-RL-fWO"/>
-                                    <constraint firstAttribute="trailing" secondItem="adf-Vb-Aza" secondAttribute="trailing" constant="20" id="J0z-td-1e1"/>
-                                    <constraint firstAttribute="bottom" secondItem="adf-Vb-Aza" secondAttribute="bottom" constant="20" id="KgJ-Y7-Lu0"/>
-                                    <constraint firstItem="adf-Vb-Aza" firstAttribute="top" secondItem="Pj8-uP-anp" secondAttribute="top" constant="20" id="gHG-bn-uLA"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="15"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                        <integer key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6vr-WX-y5Z" userLabel="Top Buttons View">
                                 <rect key="frame" x="634" y="20" width="180" height="80"/>
                                 <subviews>
@@ -276,8 +226,8 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2v7-Hc-qJ9">
-                                <rect key="frame" x="574" y="150" width="240" height="894"/>
+                            <containerView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2v7-Hc-qJ9">
+                                <rect key="frame" x="574" y="150" width="240" height="1024"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="rQ0-HC-w4U"/>
                                 </constraints>
@@ -285,16 +235,18 @@
                                     <segue destination="iqH-RH-LvU" kind="embed" id="LHe-b8-q2G"/>
                                 </connections>
                             </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fFh-LD-EKh">
+                                <rect key="frame" x="20" y="1094" width="240" height="80"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            </containerView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="1p6-Mf-pnl"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Pj8-uP-anp" firstAttribute="bottom" secondItem="1p6-Mf-pnl" secondAttribute="bottom" constant="-20" id="1tF-M2-WoR"/>
                             <constraint firstItem="6vr-WX-y5Z" firstAttribute="leading" secondItem="Gvt-x0-wpX" secondAttribute="trailing" constant="20" id="6lu-Ch-ZPq"/>
                             <constraint firstItem="lOM-bA-4te" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" constant="20" id="EmQ-Qq-9ox"/>
                             <constraint firstItem="6vr-WX-y5Z" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" constant="20" id="N5C-Pf-XJM"/>
                             <constraint firstItem="HdL-Pj-pPB" firstAttribute="centerY" secondItem="Rvn-Q8-Irn" secondAttribute="centerY" id="Qwu-X3-bv3"/>
-                            <constraint firstItem="Pj8-uP-anp" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" constant="20" id="ZeU-AA-KEz"/>
                             <constraint firstItem="6vr-WX-y5Z" firstAttribute="trailing" secondItem="1p6-Mf-pnl" secondAttribute="trailing" constant="-20" id="aX5-rm-eAj"/>
                             <constraint firstItem="HdL-Pj-pPB" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" constant="20" id="nVn-9r-nOE"/>
                             <constraint firstItem="lOM-bA-4te" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" constant="20" id="o7i-Qk-N3e"/>
@@ -315,11 +267,11 @@
             <objects>
                 <viewController id="iqH-RH-LvU" customClass="VideoViewController" customModule="Doodle2Gather" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="27U-ED-QaR">
-                        <rect key="frame" x="0.0" y="0.0" width="240" height="894"/>
+                        <rect key="frame" x="0.0" y="0.0" width="240" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Bxd-CB-wII">
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="894"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Bxd-CB-wII">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="911"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="oZ4-hV-qjb">
                                     <size key="itemSize" width="240" height="135"/>
@@ -347,6 +299,66 @@
                                     <outlet property="delegate" destination="iqH-RH-LvU" id="hgb-Jl-RkM"/>
                                 </connections>
                             </collectionView>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xWj-qC-1ia" userLabel="Bottom Buttons View">
+                                <rect key="frame" x="30" y="924" width="180" height="80"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="vRG-Cw-GCR" userLabel="Button Stack">
+                                        <rect key="frame" x="20" y="20" width="140" height="40"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mmL-ay-rCs" userLabel="Chat Button">
+                                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="1pb-xp-25O"/>
+                                                    <constraint firstAttribute="height" constant="40" id="otm-In-MpB"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                <state key="normal" image="message.fill" catalog="system"/>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yDB-Q3-4ya" userLabel="Video Button">
+                                                <rect key="frame" x="50" y="0.0" width="40" height="40"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="ef9-hn-lfI"/>
+                                                    <constraint firstAttribute="height" constant="40" id="yH5-iU-BGb"/>
+                                                </constraints>
+                                                <state key="normal" image="video.fill" catalog="system"/>
+                                                <connections>
+                                                    <action selector="didToggleVideo:" destination="iqH-RH-LvU" eventType="touchUpInside" id="cL9-NY-3n5"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AkO-hK-cSB" userLabel="Audio Button">
+                                                <rect key="frame" x="100" y="0.0" width="40" height="40"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="8mR-ka-RxT"/>
+                                                    <constraint firstAttribute="height" constant="40" id="PTZ-bB-ztK"/>
+                                                </constraints>
+                                                <state key="normal" image="mic.fill" catalog="system"/>
+                                                <connections>
+                                                    <action selector="didToggleAudio:" destination="iqH-RH-LvU" eventType="touchUpInside" id="GOP-mD-z10"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="vRG-Cw-GCR" secondAttribute="trailing" constant="20" id="4VE-Cs-vd4"/>
+                                    <constraint firstAttribute="bottom" secondItem="vRG-Cw-GCR" secondAttribute="bottom" constant="20" id="Ckm-Md-Mnf"/>
+                                    <constraint firstItem="vRG-Cw-GCR" firstAttribute="top" secondItem="xWj-qC-1ia" secondAttribute="top" constant="20" id="Oze-qF-VjS"/>
+                                    <constraint firstItem="vRG-Cw-GCR" firstAttribute="leading" secondItem="xWj-qC-1ia" secondAttribute="leading" constant="20" id="tcU-tI-B8d"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vck-bI-o3u"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -367,6 +379,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="message.fill" catalog="system" width="128" height="113"/>
+        <image name="mic.fill" catalog="system" width="108" height="128"/>
+        <image name="video.fill" catalog="system" width="128" height="82"/>
         <systemColor name="linkColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

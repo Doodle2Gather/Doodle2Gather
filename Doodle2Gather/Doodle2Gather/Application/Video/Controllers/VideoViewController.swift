@@ -16,10 +16,13 @@ class VideoViewController: UIViewController {
     var inCall = false
     var callID: UInt = 0
     var channelName = "testing"
+    var isMuted = false
+    var isVideoOff = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+
         getAgoraEngine().setChannelProfile(.communication)
         setUpVideo()
         joinChannel(channelName: channelName)
@@ -59,6 +62,23 @@ class VideoViewController: UIViewController {
             self?.callID = uid
             self?.channelName = channelName
         }
+    }
+
+    @IBAction private func didToggleAudio(_ sender: Any) {
+        if isMuted {
+            getAgoraEngine().muteLocalAudioStream(false)
+        } else {
+            getAgoraEngine().muteLocalAudioStream(true)
+        }
+        isMuted.toggle()
+    }
+    @IBAction private func didToggleVideo(_ sender: Any) {
+        if isVideoOff {
+            getAgoraEngine().enableLocalVideo(true)
+        } else {
+            getAgoraEngine().enableLocalVideo(false)
+        }
+        isVideoOff.toggle()
     }
 }
 

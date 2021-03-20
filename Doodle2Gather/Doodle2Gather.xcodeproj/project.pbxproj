@@ -263,11 +263,27 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
-		84B17FDD2601C443009530A0 /* Video */ = {
+		8460D73B2605A65800F160B1 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				840D6B2A260236CF001F3D43 /* VideoViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		8460D73D2605A67D00F160B1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
 				840D6B3226023F90001F3D43 /* VideoCollectionViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		84B17FDD2601C443009530A0 /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				8460D73D2605A67D00F160B1 /* Views */,
+				8460D73B2605A65800F160B1 /* Controllers */,
 			);
 			path = Video;
 			sourceTree = "<group>";
