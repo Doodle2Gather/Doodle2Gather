@@ -34,21 +34,21 @@ struct DoodleActionController: RouteCollection {
         }
     }
     
-    //  func answer(req: Request) throws -> EventLoopFuture<Response> {
-    //    // 1
-    //    guard let questionId = req.parameters.get("questionId"), let questionUid = UUID(questionId) else {
-    //      throw Abort(.badRequest)
-    //    }
-    //    // 2
-    //    return Question.find(questionUid, on: req.db).unwrap(or: Abort(.notFound)).flatMap { question in
-    //      question.answered = true
-    //      // 3
-    //      return question.save(on: req.db).flatMapThrowing {
-    //        // 4
-    //        try self.wsController.send(message: QuestionAnsweredMessage(questionId: question.requireID()), to: .id(question.askedFrom))
-    //        // 5
-    //        return req.redirect(to: "/")
-    //      }
-    //    }
-    //  }
+//    func answer(req: Request) throws -> EventLoopFuture<Response> {
+//        // 1
+//        guard let questionId = req.parameters.get("questionId"), let questionUid = UUID(questionId) else {
+//            throw Abort(.badRequest)
+//        }
+//        // 2
+//        return Question.find(questionUid, on: req.db).unwrap(or: Abort(.notFound)).flatMap { question in
+//            question.answered = true
+//            // 3
+//            return question.save(on: req.db).flatMapThrowing {
+//                // 4
+//                try self.wsController.send(message: QuestionAnsweredMessage(questionId: question.requireID()), to: .id(question.askedFrom))
+//                // 5
+//                return req.redirect(to: "/")
+//            }
+//        }
+//    }
 }

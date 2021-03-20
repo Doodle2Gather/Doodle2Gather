@@ -44,6 +44,19 @@ class WebSocketController {
         }
         // 4
         self.send(message: DoodleActionHandShake(id: uuid), to: [.socket(ws)])
+        
+        DoodleAction.query(on: self.db).all().whenComplete { res in
+            switch res {
+            case .failure(let err):
+                self.logger.report(error: err)
+                
+            case .success(let actions):
+                self.logger.info("Load existing action. Action count: \(actions.count)")
+                actions.forEach {
+                    self.sendActionToSockets($0, to: [.socket(ws)])
+                }
+            }
+        }
     }
     
     func send<T: Codable>(message: T, to sendOption: [WebSocketSendOption]) {
@@ -97,10 +110,10 @@ class WebSocketController {
     }
     
     func onNewAction(_ ws: WebSocket, _ id: UUID, _ message: NewDoodleActionMessage) {
-        let q = DoodleAction(content: message.content, createdBy: id)
+        let action = DoodleAction(content: message.content, createdBy: id)
         self.db.withConnection {
             // 1
-            q.save(on: $0)
+            action.save(on: $0)
         }.whenComplete { res in
             let success: Bool
             let message: String
@@ -117,14 +130,18 @@ class WebSocketController {
                 message = "Action added"
             }
             // 4
-            try? self.send(message: NewDoodleActionResponse(
-                success: success,
-                message: message,
-                id: q.requireID(),
-                //        answered: q.answered,
-                content: q.content,
-                createdAt: q.createdAt
-            ), to: self.getAllWebSocketOptions)
+            self.sendActionToSockets(action, to: self.getAllWebSocketOptions)
         }
+    }
+    
+    func sendActionToSockets(_ action: DoodleAction, to sendOptions: [WebSocketSendOption]) {
+        self.logger.info("Sent an action response!")
+        try? self.send(message: NewDoodleActionResponse(
+            success: true,
+            message: "Action added",
+            id: action.requireID(),
+            content: action.content,
+            createdAt: action.createdAt
+        ), to: sendOptions)
     }
 }
