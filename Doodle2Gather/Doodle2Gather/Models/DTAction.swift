@@ -1,6 +1,7 @@
 import Foundation
 
 struct DTAction {
+
     /// Encoded strings containing the strokes added or removed.
     let strokesAdded: String
     let strokesRemoved: String
@@ -18,6 +19,7 @@ struct DTAction {
         strokesAdded = addedString
         strokesRemoved = removedString
     }
+
 }
 
 // MARK: - Hashable
