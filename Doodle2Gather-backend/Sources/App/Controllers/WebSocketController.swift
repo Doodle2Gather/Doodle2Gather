@@ -130,15 +130,16 @@ class WebSocketController {
                 message = "Action added"
             }
             // 4
-            self.sendActionToSockets(action, to: self.getAllWebSocketOptions)
+            self.sendActionToSockets(action, to: self.getAllWebSocketOptions, success: success, message: message)
         }
     }
     
-    func sendActionToSockets(_ action: DoodleAction, to sendOptions: [WebSocketSendOption]) {
+    func sendActionToSockets(_ action: DoodleAction, to sendOptions: [WebSocketSendOption],
+                             success: Bool = true, message: String = "") {
         self.logger.info("Sent an action response!")
         try? self.send(message: NewDoodleActionResponse(
-            success: true,
-            message: "Action added",
+            success: success,
+            message: message,
             id: action.requireID(),
             content: action.content,
             createdAt: action.createdAt

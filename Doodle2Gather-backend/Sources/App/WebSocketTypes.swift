@@ -1,27 +1,5 @@
 import Foundation
 
-enum QnAMessageType: String, Codable {
-    // Client to server types
-    case newQuestion
-    // Server to client types
-    case questionResponse, handshake, questionAnswer
-}
-
-struct NewQuestionResponse: Codable {
-    var type = QnAMessageType.questionResponse
-    let success: Bool
-    let message: String
-    let id: UUID?
-    let answered: Bool
-    let content: String
-    let createdAt: Date?
-}
-
-struct QuestionAnsweredMessage: Codable {
-    var type = QnAMessageType.questionAnswer
-    let questionId: UUID
-}
-
 enum DoodleActionMessageType: String, Codable {
     // Client to server types
     case newAction
