@@ -2,9 +2,10 @@ import PencilKit
 
 extension PKCanvasView: DTCanvasView {
 
-    func registerDelegate(_ delegate: DTCanvasViewDelegate) {
+    func registerDelegate(_ delegate: DTCanvasViewDelegate) -> DTCanvasViewDelegate {
         let wrapperDelegate = WrapperPKCanvasViewDelegate(delegate: delegate)
         self.delegate = wrapperDelegate
+        return wrapperDelegate
     }
 
     func loadDrawing<D>(_: D) where D: DTDrawing {
@@ -14,18 +15,26 @@ extension PKCanvasView: DTCanvasView {
         self.drawingPolicy = .anyInput
     }
 
+    func getStrokes<S>() -> Set<S>? where S: DTStroke {
+        drawing.dtStrokes as? Set<S>
+    }
+
 }
 
-class WrapperPKCanvasViewDelegate: NSObject, PKCanvasViewDelegate {
+class WrapperPKCanvasViewDelegate: NSObject, PKCanvasViewDelegate, DTCanvasViewDelegate {
 
-    private weak var delegate: DTCanvasViewDelegate?
+    private weak var actualDelegate: DTCanvasViewDelegate?
 
     init(delegate: DTCanvasViewDelegate) {
-        self.delegate = delegate
+        self.actualDelegate = delegate
     }
 
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
-        delegate?.canvasViewDrawingDidChange(canvasView)
+        actualDelegate?.canvasViewDrawingDidChange(canvasView)
+    }
+
+    func canvasViewDrawingDidChange(_ canvasView: DTCanvasView) {
+        actualDelegate?.canvasViewDrawingDidChange(canvasView)
     }
 
 }

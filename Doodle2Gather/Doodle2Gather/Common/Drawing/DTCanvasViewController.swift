@@ -15,13 +15,15 @@ class DTCanvasViewController: UIViewController {
 
     /// Delegate for action dispatching.
     internal weak var delegate: CanvasControllerDelegate?
+    /// Reference to the (wrapper) delegate used by canvas.
+    var delegateReference: DTCanvasViewDelegate?
 
     /// Sets up the canvas view and the initial drawing.
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         addCanvasView()
-        canvasView.registerDelegate(self)
+        delegateReference = canvasView.registerDelegate(self)
         canvasView.loadDrawing(drawing)
     }
 
@@ -46,9 +48,21 @@ class DTCanvasViewController: UIViewController {
 
 extension DTCanvasViewController: DTCanvasViewDelegate {
 
-    func canvasViewDrawingDidChange(_: DTCanvasView) {
-        // TODO: Create action and update delegate
-        print("TODO")
+    // TODO: Look into ways to generalise this method.
+    // Currently depends on PencilKit.
+    func canvasViewDrawingDidChange(_ canvas: DTCanvasView) {
+        guard let newStrokes: Set<PKStroke> = canvas.getStrokes(),
+              let oldStrokes = drawing.dtStrokes as? Set<PKStroke> else {
+            return
+        }
+
+        let addedStrokes = newStrokes.subtracting(oldStrokes)
+        let removedStrokes = oldStrokes.subtracting(newStrokes)
+
+        guard let action = DTAction(added: addedStrokes, removed: removedStrokes) else {
+            return
+        }
+        delegate?.actionDidFinish(action: action)
     }
 
 }
@@ -56,8 +70,12 @@ extension DTCanvasViewController: DTCanvasViewDelegate {
 extension DTCanvasViewController: CanvasController {
 
     func dispatch(action: DTAction) {
-        // TODO: Propagate action to canvasView's drawing.
-        print("TODO")
+        guard let (added, removed): (Set<PKStroke>, Set<PKStroke>) = action.getStrokes() else {
+            return
+        }
+
+        drawing.addStrokes(added)
+        drawing.removeStrokes(removed)
     }
 
 }
