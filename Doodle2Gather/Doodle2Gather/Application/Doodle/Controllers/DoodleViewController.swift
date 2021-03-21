@@ -36,6 +36,17 @@ class DoodleViewController: UIViewController {
             return
         }
     }
+
+}
+
+// MARK: - IBActions
+
+extension DoodleViewController {
+
+    @IBAction private func trashButtonDidTap(_ sender: UIButton) {
+        canvasController?.clearDoodle()
+    }
+
 }
 
 // MARK: - CanvasControllerDelegate

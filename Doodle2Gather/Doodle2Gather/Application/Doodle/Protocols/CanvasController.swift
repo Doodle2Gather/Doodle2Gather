@@ -11,4 +11,7 @@ protocol CanvasController {
     /// Loads a given `DTDoodle`.
     func loadDoodle<D: DTDoodle>(_ doodle: D)
 
+    /// Clears the canvas.
+    func clearDoodle()
+
 }

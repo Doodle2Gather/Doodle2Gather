@@ -93,12 +93,17 @@ extension DTCanvasViewController: CanvasController {
             return
         }
 
-        doodle = PKDrawing(strokes: strokes)
-        self.canvasView.loadDoodle(doodle)
+        self.canvasView.loadDoodle(PKDrawing(strokes: strokes))
     }
 
+    // Note: This method does not fire off an Action.
     func loadDoodle<D: DTDoodle>(_ doodle: D) {
         self.doodle = PKDrawing(from: doodle)
+        canvasView.loadDoodle(doodle)
+    }
+
+    func clearDoodle() {
+        canvasView.loadDoodle(PKDrawing())
     }
 
 }
