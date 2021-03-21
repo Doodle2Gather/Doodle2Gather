@@ -25,6 +25,7 @@ protocol VideoEngineDelegate: AnyObject {
 }
 
 class VideoViewController: UIViewController {
+
     @IBOutlet private var collectionView: UICollectionView!
     @IBOutlet private var videoButton: UIButton!
     @IBOutlet private var audioButton: UIButton!
@@ -63,6 +64,7 @@ class VideoViewController: UIViewController {
         }
         isVideoOff.toggle()
     }
+
 }
 
 extension VideoViewController: VideoEngineDelegate {
@@ -80,10 +82,12 @@ extension VideoViewController: VideoEngineDelegate {
 }
 
 // MARK: - UICollectionViewDelegate
+
 extension VideoViewController: UICollectionViewDelegate {
 }
 
 // MARK: - UICollectionViewDataSource
+
 extension VideoViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         remoteUserIDs.count + 1
@@ -106,6 +110,7 @@ extension VideoViewController: UICollectionViewDataSource {
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
+
 extension VideoViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
