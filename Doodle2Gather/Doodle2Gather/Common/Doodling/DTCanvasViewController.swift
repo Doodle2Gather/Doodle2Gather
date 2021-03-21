@@ -88,12 +88,13 @@ extension DTCanvasViewController: CanvasController {
         strokes.formUnion(added)
         strokes.subtract(removed)
 
-        /// No change has occurred and we want to prevent unnecessary propagation.
+        // No change has occurred and we want to prevent unnecessary propagation.
         if strokes == doodle.dtStrokes {
             return
         }
 
-        self.canvasView.loadDoodle(PKDrawing(strokes: strokes))
+        doodle = PKDrawing(strokes: strokes) // This prevents an action from firing later.
+        self.canvasView.loadDoodle(doodle)
     }
 
     // Note: This method does not fire off an Action.
