@@ -25,12 +25,37 @@ class AgoraVideoEngine: NSObject, VideoEngine {
         getAgoraEngine().setVideoEncoderConfiguration(configuration)
     }
 
+    private func getAgoraTokenAndJoinChannel(channelName: String) {
+        let url = URL(string: "http://z.christopher.sg:2703/access_token?uid=\(callID)&channel=\(channelName)")!
+
+        let task = URLSession.shared.dataTask(with: url, completionHandler: { data, response, error in
+          if let error = error {
+            print("Error with fetching Agora token \(error)")
+            return
+          }
+
+          guard let httpResponse = response as? HTTPURLResponse,
+                (200...299).contains(httpResponse.statusCode) else {
+            print("Error with the response, unexpected status code: \(String(describing: response))")
+            return
+          }
+
+          if let data = data,
+             let tokenResponse = try? JSONDecoder().decode(AgoraTokenAPIResponse.self, from: data) {
+            self.getAgoraEngine().joinChannel(byToken: tokenResponse.token,
+                                              channelId: channelName,
+                                              info: nil,
+                                              uid: self.callID) { [weak self] _, uid, _ in
+                self?.callID = uid
+            }
+          }
+        })
+        task.resume()
+    }
+
     func joinChannel(channelName: String) {
-        getAgoraEngine().joinChannel(byToken: VideoConstants.tempToken,
-                                     channelId: channelName,
-                                     info: nil,
-                                     uid: callID) { [weak self] _, uid, _ in
-            self?.callID = uid
+        DispatchQueue.main.async {
+            self.getAgoraTokenAndJoinChannel(channelName: channelName)
         }
     }
 
@@ -92,4 +117,8 @@ extension AgoraVideoEngine: AgoraRtcEngineDelegate {
     func rtcEngine(_ engine: AgoraRtcEngineKit, didOfflineOfUid uid: UInt, reason: AgoraUserOfflineReason) {
         delegate?.didLeaveCall(id: uid)
     }
+}
+
+private struct AgoraTokenAPIResponse: Codable {
+    let token: String
 }
