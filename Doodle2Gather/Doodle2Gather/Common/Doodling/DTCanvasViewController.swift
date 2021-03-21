@@ -75,7 +75,7 @@ extension DTCanvasViewController: DTCanvasViewDelegate {
 
 extension DTCanvasViewController: CanvasController {
 
-    func dispatch(action: DTAction) {
+    func dispatchAction(_ action: DTAction) {
         guard let (added, removed): (Set<PKStroke>, Set<PKStroke>) = action.getStrokes() else {
             return
         }

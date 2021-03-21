@@ -12,6 +12,12 @@ class DoodleViewController: UIViewController {
         static let toCanvas = "ToCanvas"
     }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // TODO: Replace this with dependency injection from AppDelegate / HomeController
+        self.wsController = DTWebSocketController()
+    }
+
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -21,10 +27,9 @@ class DoodleViewController: UIViewController {
                 return
             }
             destination.delegate = self
-            // TODO: Complete injection of drawing into subcontroller
-            // destination.drawing = // Inject drawing
+            // TODO: Complete injection of doodle into subcontroller
+            // destination.doodle = // Inject doodle
             self.canvasController = destination
-            self.wsController = DTWebSocketController(canvasController: destination)
         default:
             return
         }
@@ -34,11 +39,18 @@ class DoodleViewController: UIViewController {
 // MARK: - CanvasControllerDelegate
 
 extension DoodleViewController: CanvasControllerDelegate {
+
     func actionDidFinish(action: DTAction) {
         // TODO: Dispatch this action via the network
-        print("\(action)")
         wsController?.addAction(action)
     }
 
-    // TODO: Add dispatching of actions received from network to the canvas
+}
+
+extension DoodleViewController: SocketControllerDelegate {
+
+    func dispatchAction(_ action: DTAction) {
+        canvasController?.dispatchAction(action)
+    }
+
 }

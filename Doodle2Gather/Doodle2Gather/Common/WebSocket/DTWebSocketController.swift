@@ -9,7 +9,7 @@ import Foundation
 
 final class DTWebSocketController {
 
-    private var canvasController: CanvasController
+    private weak var delegate: SocketControllerDelegate?
 
     private var id: UUID!
     private let session: URLSession
@@ -17,9 +17,7 @@ final class DTWebSocketController {
     private let decoder = JSONDecoder()
     private let encoder = JSONEncoder()
 
-    init(canvasController: CanvasController) {
-        self.canvasController = canvasController
-
+    init() {
         self.session = URLSession(configuration: .default)
         self.connect()
     }
@@ -79,12 +77,18 @@ final class DTWebSocketController {
         DispatchQueue.main.async {
             if feedback.success, feedback.id != nil {
                 let action = DTAction(strokesAdded: feedback.strokesAdded, strokesRemoved: feedback.strokesRemoved)
-                self.canvasController.dispatch(action: action)
+                self.delegate?.dispatchAction(action)
             } else {
                 print(feedback.message)
             }
         }
     }
+
+}
+
+// MARK: - SocketController
+
+extension DTWebSocketController: SocketController {
 
     func addAction(_ action: DTAction) {
         guard let id = self.id else {
@@ -104,4 +108,5 @@ final class DTWebSocketController {
             print(error)
         }
     }
+
 }
