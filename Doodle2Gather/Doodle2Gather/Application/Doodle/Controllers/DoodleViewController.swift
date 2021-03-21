@@ -43,7 +43,6 @@ class DoodleViewController: UIViewController {
 extension DoodleViewController: CanvasControllerDelegate {
 
     func actionDidFinish(action: DTAction) {
-        // TODO: Dispatch this action via the network
         socketController?.addAction(action)
     }
 
