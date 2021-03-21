@@ -115,7 +115,8 @@ class WebSocketController {
     }
 
     func onNewAction(_ ws: WebSocket, _ id: UUID, _ message: NewDoodleActionMessage) {
-        let action = DoodleAction(content: message.content, createdBy: id)
+        let action = DoodleAction(strokesAdded: message.strokesAdded,
+                                  strokesRemoved: message.strokesRemoved, createdBy: id)
         self.db.withConnection {
             // 1
             action.save(on: $0)
@@ -142,11 +143,12 @@ class WebSocketController {
     func sendActionToSockets(_ action: DoodleAction, to sendOptions: [WebSocketSendOption],
                              success: Bool = true, message: String = "") {
         self.logger.info("Sent an action response!")
-        try? self.send(message: NewDoodleActionResponse(
+        try? self.send(message: NewDoodleActionFeedback(
             success: success,
             message: message,
             id: action.requireID(),
-            content: action.content,
+            strokesAdded: action.strokesAdded,
+            strokesRemoved: action.strokesRemoved,
             createdAt: action.createdAt
         ), to: sendOptions)
     }

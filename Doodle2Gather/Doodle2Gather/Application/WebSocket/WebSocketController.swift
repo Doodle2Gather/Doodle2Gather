@@ -8,7 +8,7 @@
 import Foundation
 
 final class WebSocketController: ObservableObject {
-    @Published var actions: [UUID: WebSocketTypes.NewDoodleActionFeedback]
+    @Published var actions: [UUID: NewDoodleActionFeedback]
 
     private var canvasController: CanvasController
 
@@ -61,11 +61,11 @@ final class WebSocketController: ObservableObject {
 
     func handle(_ data: Data) {
         do {
-            let decodedData = try decoder.decode(WebSocketTypes.DoodleActionMessageData.self, from: data)
+            let decodedData = try decoder.decode(DoodleActionMessageData.self, from: data)
             switch decodedData.type {
             case .handshake:
                 print("Shook the hand")
-                let message = try decoder.decode(WebSocketTypes.DoodleActionHandShake.self, from: data)
+                let message = try decoder.decode(DoodleActionHandShake.self, from: data)
                 self.id = message.id
             case .feedback:
                 try self.handleNewActionFeedback(data)
@@ -78,7 +78,7 @@ final class WebSocketController: ObservableObject {
     }
 
     func handleNewActionFeedback(_ data: Data) throws {
-        let feedback = try decoder.decode(WebSocketTypes.NewDoodleActionFeedback.self, from: data)
+        let feedback = try decoder.decode(NewDoodleActionFeedback.self, from: data)
         DispatchQueue.main.async {
             if feedback.success, let id = feedback.id {
                 self.actions[id] = feedback
@@ -95,7 +95,7 @@ final class WebSocketController: ObservableObject {
             return
         }
         print("adding action")
-        let message = WebSocketTypes.NewDoodleActionMessage(
+        let message = NewDoodleActionMessage(
             id: id, strokesAdded: action.strokesAdded, strokesRemoved: action.strokesRemoved)
         do {
             let data = try encoder.encode(message)
