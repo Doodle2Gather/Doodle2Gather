@@ -10,14 +10,14 @@ class WebSocketController {
     var sockets: [UUID: WebSocket]
     let db: Database
     let logger: Logger
-    
+
     init(db: Database) {
         self.lock = Lock()
         self.sockets = [:]
         self.db = db
         self.logger = Logger(label: "WebSocketController")
     }
-    
+
     var getAllWebSocketOptions: [WebSocketSendOption] {
         var options = [WebSocketSendOption]()
         for ws in sockets {
@@ -25,7 +25,7 @@ class WebSocketController {
         }
         return options
     }
-    
+
     func connect(_ ws: WebSocket) {
         // 1
         let uuid = UUID()
@@ -34,22 +34,27 @@ class WebSocketController {
         }
         // 2
         ws.onBinary { [weak self] ws, buffer in
-            guard let self = self, let data = buffer.getData(at: buffer.readerIndex, length: buffer.readableBytes) else { return }
+            guard let self = self, let data = buffer.getData(
+                    at: buffer.readerIndex, length: buffer.readableBytes) else {
+                return
+            }
             self.onData(ws, data)
         }
         // 3
         ws.onText { [weak self] ws, text in
-            guard let self = self, let data = text.data(using: .utf8) else { return }
+            guard let self = self, let data = text.data(using: .utf8) else {
+                return
+            }
             self.onData(ws, data)
         }
         // 4
         self.send(message: DoodleActionHandShake(id: uuid), to: [.socket(ws)])
-        
+
         DoodleAction.query(on: self.db).all().whenComplete { res in
             switch res {
             case .failure(let err):
                 self.logger.report(error: err)
-                
+
             case .success(let actions):
                 self.logger.info("Load existing action. Action count: \(actions.count)")
                 actions.forEach {
@@ -58,7 +63,7 @@ class WebSocketController {
             }
         }
     }
-    
+
     func send<T: Codable>(message: T, to sendOption: [WebSocketSendOption]) {
         logger.info("Sending \(T.self) to \(sendOption)")
         do {
@@ -75,11 +80,11 @@ class WebSocketController {
                 }
                 return webSockets
             }
-            
+
             // 2
             let encoder = JSONEncoder()
             let data = try encoder.encode(message)
-            
+
             // 3
             sockets.forEach {
                 $0.send(raw: data, opcode: .binary)
@@ -88,7 +93,7 @@ class WebSocketController {
             logger.report(error: error)
         }
     }
-    
+
     func onData(_ ws: WebSocket, _ data: Data) {
         let decoder = JSONDecoder()
         do {
@@ -108,7 +113,7 @@ class WebSocketController {
             logger.report(error: error)
         }
     }
-    
+
     func onNewAction(_ ws: WebSocket, _ id: UUID, _ message: NewDoodleActionMessage) {
         let action = DoodleAction(content: message.content, createdBy: id)
         self.db.withConnection {
@@ -133,7 +138,7 @@ class WebSocketController {
             self.sendActionToSockets(action, to: self.getAllWebSocketOptions, success: success, message: message)
         }
     }
-    
+
     func sendActionToSockets(_ action: DoodleAction, to sendOptions: [WebSocketSendOption],
                              success: Bool = true, message: String = "") {
         self.logger.info("Sent an action response!")

@@ -369,7 +369,8 @@
 			buildConfigurationList = 2EF8E94925F754C700C7EE7D /* Build configuration list for PBXNativeTarget "Doodle2Gather" */;
 			buildPhases = (
 				88A50DEAEBCD3F68C204897B /* [CP] Check Pods Manifest.lock */,
-				2EF8E95E25F758D000C7EE7D /* ShellScript */,
+				2EF8E95E25F758D000C7EE7D /* SwiftLint Frontend */,
+				83EEA0382606CECE0060D82E /* SwiftLint Backend */,
 				2EF8E91B25F754C600C7EE7D /* Sources */,
 				2EF8E91C25F754C600C7EE7D /* Frameworks */,
 				2EF8E91D25F754C600C7EE7D /* Resources */,
@@ -492,7 +493,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2EF8E95E25F758D000C7EE7D /* ShellScript */ = {
+		2EF8E95E25F758D000C7EE7D /* SwiftLint Frontend */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -501,6 +502,7 @@
 			);
 			inputPaths = (
 			);
+			name = "SwiftLint Frontend";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -530,6 +532,24 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		83EEA0382606CECE0060D82E /* SwiftLint Backend */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "SwiftLint Backend";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  cd ../Doodle2Gather-websocket-backend && swiftlint autocorrect && swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		88A50DEAEBCD3F68C204897B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
