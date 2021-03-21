@@ -25,9 +25,9 @@ final class DoodleAction: Model, Content {
 
     init() { }
 
-    init(id: UUID? = nil, content: String, createdBy: UUID) {
-        self.id = id
+    init(content: String, createdBy: UUID, id: UUID? = nil) {
         self.content = content
         self.createdBy = createdBy
+        self.id = id
     }
 }

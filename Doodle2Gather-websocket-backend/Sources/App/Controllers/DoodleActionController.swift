@@ -44,7 +44,8 @@ struct DoodleActionController: RouteCollection {
 //            // 3
 //            return question.save(on: req.db).flatMapThrowing {
 //                // 4
-//                try self.wsController.send(message: QuestionAnsweredMessage(questionId: question.requireID()), to: .id(question.askedFrom))
+//                try self.wsController.send(message: QuestionAnsweredMessage(questionId:
+//    question.requireID()), to: .id(question.askedFrom))
 //                // 5
 //                return req.redirect(to: "/")
 //            }

@@ -34,12 +34,17 @@ class WebSocketController {
         }
         // 2
         ws.onBinary { [weak self] ws, buffer in
-            guard let self = self, let data = buffer.getData(at: buffer.readerIndex, length: buffer.readableBytes) else { return }
+            guard let self = self, let data = buffer.getData(
+                    at: buffer.readerIndex, length: buffer.readableBytes) else {
+                return
+            }
             self.onData(ws, data)
         }
         // 3
         ws.onText { [weak self] ws, text in
-            guard let self = self, let data = text.data(using: .utf8) else { return }
+            guard let self = self, let data = text.data(using: .utf8) else {
+                return
+            }
             self.onData(ws, data)
         }
         // 4
