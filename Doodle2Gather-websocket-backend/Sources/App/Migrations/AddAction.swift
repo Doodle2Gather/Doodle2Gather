@@ -9,7 +9,7 @@ import Fluent
 
 struct AddAction: Migration {
     func prepare(on database: Database) -> EventLoopFuture<Void> {
-        return database.schema(DoodleAction.schema)
+        database.schema(DoodleAction.schema)
             .id()
             .field("content", .string, .required)
             //      .field("answered", .bool, .required, .sql(.default(false)))
@@ -17,9 +17,8 @@ struct AddAction: Migration {
             .field("created_at", .date)
             .create()
     }
-    
+
     func revert(on database: Database) -> EventLoopFuture<Void> {
-        return database.schema(DoodleAction.schema).delete()
+        database.schema(DoodleAction.schema).delete()
     }
 }
-
