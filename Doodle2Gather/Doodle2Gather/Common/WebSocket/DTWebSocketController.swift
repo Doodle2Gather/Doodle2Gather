@@ -7,8 +7,7 @@
 
 import Foundation
 
-final class WebSocketController: ObservableObject {
-    @Published var actions: [UUID: NewDoodleActionFeedback]
+final class DTWebSocketController {
 
     private var canvasController: CanvasController
 
@@ -21,14 +20,12 @@ final class WebSocketController: ObservableObject {
     init(canvasController: CanvasController) {
         self.canvasController = canvasController
 
-        self.actions = [:]
         self.session = URLSession(configuration: .default)
         self.connect()
     }
 
     func connect() {
         self.socket = session.webSocketTask(with: URL(string: "ws://localhost:8080/rooms/devRoom")!)
-        self.actions = [:]
         self.listen()
         self.socket.resume()
     }
@@ -80,8 +77,7 @@ final class WebSocketController: ObservableObject {
     func handleNewActionFeedback(_ data: Data) throws {
         let feedback = try decoder.decode(NewDoodleActionFeedback.self, from: data)
         DispatchQueue.main.async {
-            if feedback.success, let id = feedback.id {
-                self.actions[id] = feedback
+            if feedback.success, feedback.id != nil {
                 let action = DTAction(strokesAdded: feedback.strokesAdded, strokesRemoved: feedback.strokesRemoved)
                 self.canvasController.dispatch(action: action)
             } else {

@@ -4,7 +4,7 @@ class DoodleViewController: UIViewController {
 
     private var canvasController: CanvasController?
 
-    private var wsController: WebSocketController?
+    private var wsController: DTWebSocketController?
 
     // Using `static let` in enums for constants seems to have the following advantages:
     // https://stackoverflow.com/a/61543705
@@ -24,7 +24,7 @@ class DoodleViewController: UIViewController {
             // TODO: Complete injection of drawing into subcontroller
             // destination.drawing = // Inject drawing
             self.canvasController = destination
-            self.wsController = WebSocketController(canvasController: destination)
+            self.wsController = DTWebSocketController(canvasController: destination)
         default:
             return
         }

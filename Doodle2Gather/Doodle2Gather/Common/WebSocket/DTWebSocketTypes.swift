@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct WebSocketTypes {}
+struct DTWebSocketTypes {}
 
 enum DoodleActionMessageType: String, Codable {
     // Client to server types
