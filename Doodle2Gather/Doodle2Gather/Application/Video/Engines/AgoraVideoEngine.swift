@@ -7,6 +7,9 @@
 
 import AgoraRtcKit
 
+/**
+ Engine that interfaces with Agora.
+ */
 class AgoraVideoEngine: NSObject, VideoEngine {
     weak var delegate: VideoEngineDelegate?
     private var agoraKit: AgoraRtcEngineKit?
