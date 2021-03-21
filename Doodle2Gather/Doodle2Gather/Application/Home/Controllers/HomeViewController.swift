@@ -7,4 +7,8 @@ class HomeViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
+    @IBAction private func onLoginTapped(_ sender: UIButton) {
+        performSegue(withIdentifier: "goToDoodle", sender: self)
+    }
+
 }
