@@ -2,6 +2,9 @@ import UIKit
 
 class DoodleViewController: UIViewController {
 
+    var username: String?
+    var roomName: String?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
