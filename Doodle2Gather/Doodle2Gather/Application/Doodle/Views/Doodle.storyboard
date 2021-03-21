@@ -17,7 +17,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CRw-tT-Mu5">
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2v7-Hc-qJ9" userLabel="Video Overlay View">
+                                <rect key="frame" x="0.0" y="0.0" width="834" height="1174"/>
+                                <connections>
+                                    <segue destination="iqH-RH-LvU" kind="embed" id="LHe-b8-q2G"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CRw-tT-Mu5" userLabel="Canvas Container View">
                                 <rect key="frame" x="0.0" y="0.0" width="834" height="1174"/>
                                 <connections>
                                     <segue destination="rKz-2I-ekB" kind="embed" identifier="ToCanvas" id="h1y-4w-gMZ"/>
@@ -232,12 +238,6 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2v7-Hc-qJ9" userLabel="Video Overlay View">
-                                <rect key="frame" x="0.0" y="0.0" width="834" height="1174"/>
-                                <connections>
-                                    <segue destination="iqH-RH-LvU" kind="embed" id="LHe-b8-q2G"/>
-                                </connections>
-                            </containerView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="1p6-Mf-pnl"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -397,7 +397,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7qd-xc-JKb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="808" y="70"/>
+            <point key="canvasLocation" x="119" y="779"/>
         </scene>
     </scenes>
     <resources>
