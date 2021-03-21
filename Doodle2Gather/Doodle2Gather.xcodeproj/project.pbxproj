@@ -9,11 +9,16 @@
 /* Begin PBXBuildFile section */
 		2E26E570260692880016A8FC /* CodableColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E26E56F260692880016A8FC /* CodableColor.swift */; };
 		2E3F8FAE2607380100C58F33 /* Pods_Doodle2Gather.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E3F8FAD2607380100C58F33 /* Pods_Doodle2Gather.framework */; };
+		2E987E5C2607442A00352E7D /* DTPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E987E5B2607442A00352E7D /* DTPoint.swift */; };
+		2E987E6E2607468000352E7D /* PKStrokePoint+DTPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E987E6D2607468000352E7D /* PKStrokePoint+DTPoint.swift */; };
+		2E987E77260747A000352E7D /* DTTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E987E76260747A000352E7D /* DTTool.swift */; };
+		2E987E7D26075C0200352E7D /* SocketController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E987E7C26075C0200352E7D /* SocketController.swift */; };
+		2E987E8226075C5200352E7D /* SocketControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E987E8126075C5200352E7D /* SocketControllerDelegate.swift */; };
 		2EA8C2F42605E3AD00BE750C /* DTCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8C2F32605E3AD00BE750C /* DTCanvasView.swift */; };
 		2EA8C2FA2605E51500BE750C /* CanvasController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8C2F92605E51500BE750C /* CanvasController.swift */; };
 		2EA8C3002605E57900BE750C /* DTAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8C2FF2605E57900BE750C /* DTAction.swift */; };
 		2EA8C3052605E5B700BE750C /* CanvasControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8C3042605E5B700BE750C /* CanvasControllerDelegate.swift */; };
-		2EA8C30A2605E95400BE750C /* DTDrawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8C3092605E95400BE750C /* DTDrawing.swift */; };
+		2EA8C30A2605E95400BE750C /* DTDoodle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8C3092605E95400BE750C /* DTDoodle.swift */; };
 		2EA8C3182606682500BE750C /* PKCanvasView+DTCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8C3172606682500BE750C /* PKCanvasView+DTCanvasView.swift */; };
 		2EA8C32826066F9300BE750C /* DTCanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8C32726066F9300BE750C /* DTCanvasViewController.swift */; };
 		2EA8C3302606714500BE750C /* DTCanvasViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8C32F2606714500BE750C /* DTCanvasViewDelegate.swift */; };
@@ -62,11 +67,16 @@
 		1890AB750E84E15DDAD20FBF /* Pods-Doodle2GatherTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Doodle2GatherTests.debug.xcconfig"; path = "Target Support Files/Pods-Doodle2GatherTests/Pods-Doodle2GatherTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2E26E56F260692880016A8FC /* CodableColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableColor.swift; sourceTree = "<group>"; };
 		2E3F8FAD2607380100C58F33 /* Pods_Doodle2Gather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Doodle2Gather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2E987E5B2607442A00352E7D /* DTPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTPoint.swift; sourceTree = "<group>"; };
+		2E987E6D2607468000352E7D /* PKStrokePoint+DTPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PKStrokePoint+DTPoint.swift"; sourceTree = "<group>"; };
+		2E987E76260747A000352E7D /* DTTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTTool.swift; sourceTree = "<group>"; };
+		2E987E7C26075C0200352E7D /* SocketController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketController.swift; sourceTree = "<group>"; };
+		2E987E8126075C5200352E7D /* SocketControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketControllerDelegate.swift; sourceTree = "<group>"; };
 		2EA8C2F32605E3AD00BE750C /* DTCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTCanvasView.swift; sourceTree = "<group>"; };
 		2EA8C2F92605E51500BE750C /* CanvasController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasController.swift; sourceTree = "<group>"; };
 		2EA8C2FF2605E57900BE750C /* DTAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTAction.swift; sourceTree = "<group>"; };
 		2EA8C3042605E5B700BE750C /* CanvasControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasControllerDelegate.swift; sourceTree = "<group>"; };
-		2EA8C3092605E95400BE750C /* DTDrawing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTDrawing.swift; sourceTree = "<group>"; };
+		2EA8C3092605E95400BE750C /* DTDoodle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTDoodle.swift; sourceTree = "<group>"; };
 		2EA8C3172606682500BE750C /* PKCanvasView+DTCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PKCanvasView+DTCanvasView.swift"; sourceTree = "<group>"; };
 		2EA8C32726066F9300BE750C /* DTCanvasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTCanvasViewController.swift; sourceTree = "<group>"; };
 		2EA8C32F2606714500BE750C /* DTCanvasViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTCanvasViewDelegate.swift; sourceTree = "<group>"; };
@@ -137,6 +147,8 @@
 			children = (
 				2EA8C2F92605E51500BE750C /* CanvasController.swift */,
 				2EA8C3042605E5B700BE750C /* CanvasControllerDelegate.swift */,
+				2E987E7C26075C0200352E7D /* SocketController.swift */,
+				2E987E8126075C5200352E7D /* SocketControllerDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -148,6 +160,7 @@
 				2EA8C334260677C800BE750C /* PKDrawing+DTDrawing.swift */,
 				2EA8C34126067F0000BE750C /* PKStroke+DTStroke.swift */,
 				2E26E56F260692880016A8FC /* CodableColor.swift */,
+				2E987E6D2607468000352E7D /* PKStrokePoint+DTPoint.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -179,16 +192,18 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
-		2ED7A3D32601E71B0006D873 /* Drawing */ = {
+		2ED7A3D32601E71B0006D873 /* Doodling */ = {
 			isa = PBXGroup;
 			children = (
 				2EA8C32726066F9300BE750C /* DTCanvasViewController.swift */,
 				2EA8C2F32605E3AD00BE750C /* DTCanvasView.swift */,
 				2EA8C32F2606714500BE750C /* DTCanvasViewDelegate.swift */,
-				2EA8C3092605E95400BE750C /* DTDrawing.swift */,
+				2EA8C3092605E95400BE750C /* DTDoodle.swift */,
 				2EA8C33C260677F800BE750C /* DTStroke.swift */,
+				2E987E5B2607442A00352E7D /* DTPoint.swift */,
+				2E987E76260747A000352E7D /* DTTool.swift */,
 			);
-			path = Drawing;
+			path = Doodling;
 			sourceTree = "<group>";
 		};
 		2EF8E91625F754C600C7EE7D = {
@@ -325,7 +340,7 @@
 			isa = PBXGroup;
 			children = (
 				670136A226063906005E327A /* WebSocket */,
-				2ED7A3D32601E71B0006D873 /* Drawing */,
+				2ED7A3D32601E71B0006D873 /* Doodling */,
 				2EA8C3162606680500BE750C /* Extensions */,
 				84B17FFA2601C5B5009530A0 /* Constants */,
 			);
@@ -697,8 +712,10 @@
 				840D6B2B260236CF001F3D43 /* VideoViewController.swift in Sources */,
 				2EF8E92725F754C600C7EE7D /* HomeViewController.swift in Sources */,
 				2EA8C2FA2605E51500BE750C /* CanvasController.swift in Sources */,
+				2E987E77260747A000352E7D /* DTTool.swift in Sources */,
 				2EA8C335260677C800BE750C /* PKDrawing+DTDrawing.swift in Sources */,
 				2EA8C33D260677F800BE750C /* DTStroke.swift in Sources */,
+				2E987E5C2607442A00352E7D /* DTPoint.swift in Sources */,
 				2EF8E92325F754C600C7EE7D /* AppDelegate.swift in Sources */,
 				2EA8C34226067F0000BE750C /* PKStroke+DTStroke.swift in Sources */,
 				2E26E570260692880016A8FC /* CodableColor.swift in Sources */,
@@ -707,8 +724,11 @@
 				670136A426063926005E327A /* DTWebSocketController.swift in Sources */,
 				84B17FFC2601C5C4009530A0 /* VideoConstants.swift in Sources */,
 				2EF8E92525F754C600C7EE7D /* SceneDelegate.swift in Sources */,
+				2E987E6E2607468000352E7D /* PKStrokePoint+DTPoint.swift in Sources */,
+				2E987E7D26075C0200352E7D /* SocketController.swift in Sources */,
 				2EA8C3052605E5B700BE750C /* CanvasControllerDelegate.swift in Sources */,
-				2EA8C30A2605E95400BE750C /* DTDrawing.swift in Sources */,
+				2E987E8226075C5200352E7D /* SocketControllerDelegate.swift in Sources */,
+				2EA8C30A2605E95400BE750C /* DTDoodle.swift in Sources */,
 				2ED7A3CC2601C0450006D873 /* DoodleViewController.swift in Sources */,
 				2EA8C32826066F9300BE750C /* DTCanvasViewController.swift in Sources */,
 				2EA8C3182606682500BE750C /* PKCanvasView+DTCanvasView.swift in Sources */,
