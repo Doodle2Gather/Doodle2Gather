@@ -9,7 +9,7 @@ import Foundation
 
 final class DTWebSocketController {
 
-    private weak var delegate: SocketControllerDelegate?
+    weak var delegate: SocketControllerDelegate?
 
     private var id: UUID!
     private let session: URLSession

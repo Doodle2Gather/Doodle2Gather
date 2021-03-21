@@ -4,7 +4,7 @@ class DoodleViewController: UIViewController {
 
     private var canvasController: CanvasController?
 
-    private var wsController: DTWebSocketController?
+    private var socketController: SocketController?
 
     // Using `static let` in enums for constants seems to have the following advantages:
     // https://stackoverflow.com/a/61543705
@@ -15,7 +15,9 @@ class DoodleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // TODO: Replace this with dependency injection from AppDelegate / HomeController
-        self.wsController = DTWebSocketController()
+        let socketController = DTWebSocketController()
+        socketController.delegate = self
+        self.socketController = socketController
     }
 
     // MARK: - Navigation
@@ -42,7 +44,7 @@ extension DoodleViewController: CanvasControllerDelegate {
 
     func actionDidFinish(action: DTAction) {
         // TODO: Dispatch this action via the network
-        wsController?.addAction(action)
+        socketController?.addAction(action)
     }
 
 }
