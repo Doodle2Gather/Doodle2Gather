@@ -23,7 +23,7 @@ final class DTWebSocketController {
     }
 
     func connect() {
-        self.socket = session.webSocketTask(with: URL(string: "ws://localhost:8080/rooms/devRoom")!)
+        self.socket = session.webSocketTask(with: URL(string: "ws://d2g.christopher.sg:8080/rooms/devRoom")!)
         self.listen()
         self.socket.resume()
     }
