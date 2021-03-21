@@ -12,6 +12,9 @@ class DoodleViewController: UIViewController {
         static let toCanvas = "ToCanvas"
     }
 
+    var username: String?
+    var roomName: String?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // TODO: Replace this with dependency injection from AppDelegate / HomeController

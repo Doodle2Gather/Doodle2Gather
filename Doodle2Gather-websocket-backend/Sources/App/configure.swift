@@ -7,6 +7,10 @@ public func configure(_ app: Application) throws {
     // Configure rendering engine
     //  app.views.use(.leaf)
 
+    // Set up hostname and port
+    app.http.server.configuration.hostname = "0.0.0.0"
+    app.http.server.configuration.port = 8080
+
     // Configure database
     app.databases.use(.sqlite(), as: .sqlite)
     app.migrations.add(AddAction())

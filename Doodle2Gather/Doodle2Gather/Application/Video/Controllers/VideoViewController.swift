@@ -75,6 +75,7 @@ extension VideoViewController: VideoEngineDelegate {
 
     func didLeaveCall(id: UInt) {
         if let index = remoteUserIDs.firstIndex(where: { $0 == id }) {
+            print(remoteUserIDs.count)
             remoteUserIDs.remove(at: index)
             collectionView.reloadData()
         }
@@ -99,10 +100,10 @@ extension VideoViewController: UICollectionViewDataSource {
         guard let videoCell = cell as? VideoCollectionViewCell else {
             fatalError("Cell is not VideoCollectionViewCell")
         }
-        if indexPath.row == 0 { // Put our local video first
+        if indexPath.row == remoteUserIDs.count { // Put our local video last
             videoEngine?.setupLocalUserView(view: videoCell.getVideoView())
         } else {
-            let remoteID = remoteUserIDs[indexPath.row - 1]
+            let remoteID = remoteUserIDs[indexPath.row]
             videoEngine?.setupRemoteUserView(view: videoCell.getVideoView(), id: remoteID)
         }
         return cell
