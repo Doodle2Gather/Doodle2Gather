@@ -1,7 +1,5 @@
 import Foundation
 
-struct WebSocketTypes { }
-
 enum DoodleActionMessageType: String, Codable {
     // Client to server types
     case newAction
