@@ -33,12 +33,12 @@ class WrapperPKCanvasViewDelegate: NSObject, PKCanvasViewDelegate, DTCanvasViewD
         self.actualDelegate = delegate
     }
 
-    func canvasViewDidEndUsingTool(_ canvasView: PKCanvasView) {
-        actualDelegate?.canvasViewDidEndUsingTool(canvasView)
+    func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
+        actualDelegate?.canvasViewDoodleDidChange(canvasView)
     }
 
-    func canvasViewDidEndUsingTool(_ canvasView: DTCanvasView) {
-        actualDelegate?.canvasViewDidEndUsingTool(canvasView)
+    func canvasViewDoodleDidChange(_ canvasView: DTCanvasView) {
+        actualDelegate?.canvasViewDoodleDidChange(canvasView)
     }
 
 }

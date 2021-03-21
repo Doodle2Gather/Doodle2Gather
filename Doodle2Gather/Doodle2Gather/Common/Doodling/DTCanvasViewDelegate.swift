@@ -3,6 +3,6 @@
 protocol DTCanvasViewDelegate: AnyObject {
 
     /// Notifies the delegate that the user has stopped drawing with the tool.
-    func canvasViewDidEndUsingTool(_: DTCanvasView)
+    func canvasViewDoodleDidChange(_: DTCanvasView)
 
 }

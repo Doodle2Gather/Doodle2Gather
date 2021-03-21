@@ -53,7 +53,7 @@ extension DTCanvasViewController: DTCanvasViewDelegate {
 
     // TODO: Look into ways to generalise this method.
     // Currently depends on PencilKit.
-    func canvasViewDidEndUsingTool(_ canvas: DTCanvasView) {
+    func canvasViewDoodleDidChange(_ canvas: DTCanvasView) {
         guard let newStrokes: Set<PKStroke> = canvas.getStrokes() else {
             return
         }
@@ -62,6 +62,11 @@ extension DTCanvasViewController: DTCanvasViewDelegate {
 
         let addedStrokes = newStrokes.subtracting(oldStrokes)
         let removedStrokes = oldStrokes.subtracting(newStrokes)
+
+        /// No change has occurred and we want to prevent unnecessary propagation.
+        if addedStrokes.isEmpty && removedStrokes.isEmpty {
+            return
+        }
 
         doodle = PKDrawing(strokes: newStrokes)
 
@@ -82,6 +87,11 @@ extension DTCanvasViewController: CanvasController {
         var strokes = doodle.dtStrokes
         strokes.formUnion(added)
         strokes.subtract(removed)
+
+        /// No change has occurred and we want to prevent unnecessary propagation.
+        if strokes == doodle.dtStrokes {
+            return
+        }
 
         doodle = PKDrawing(strokes: strokes)
         self.canvasView.loadDoodle(doodle)
