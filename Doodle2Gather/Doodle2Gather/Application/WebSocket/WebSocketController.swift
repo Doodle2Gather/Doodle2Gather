@@ -30,7 +30,7 @@ final class WebSocketController: ObservableObject {
     }
 
     func connect() {
-        self.socket = session.webSocketTask(with: URL(string: "ws://localhost:8080/socket")!)
+        self.socket = session.webSocketTask(with: URL(string: "ws://localhost:8080/rooms/devRoom")!)
         self.actions = [:]
         self.listen()
         self.socket.resume()
