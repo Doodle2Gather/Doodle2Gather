@@ -73,7 +73,7 @@ extension DTCanvasViewController: CanvasController {
         guard let (added, removed): (Set<PKStroke>, Set<PKStroke>) = action.getStrokes() else {
             return
         }
-
+        print("dispatched")
         drawing.addStrokes(added)
         drawing.removeStrokes(removed)
     }

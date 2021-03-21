@@ -6,6 +6,11 @@ struct DTAction {
     let strokesAdded: String
     let strokesRemoved: String
 
+    init(strokesAdded: String, strokesRemoved: String) {
+        self.strokesAdded = strokesAdded
+        self.strokesRemoved = strokesRemoved
+    }
+
     init?<S: DTStroke>(added: Set<S>, removed: Set<S>) {
         let encoder = JSONEncoder()
 
