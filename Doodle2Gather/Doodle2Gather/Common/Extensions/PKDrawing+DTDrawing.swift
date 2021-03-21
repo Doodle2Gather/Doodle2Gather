@@ -1,6 +1,6 @@
 import PencilKit
 
-extension PKDrawing: DTDrawing {
+extension PKDrawing: DTDoodle {
 
     var dtStrokes: Set<PKStroke> {
         get {
@@ -11,16 +11,16 @@ extension PKDrawing: DTDrawing {
         }
     }
 
-    init<D>(from drawing: D) where D: DTDrawing {
-        self.init(strokes: drawing.dtStrokes.map { PKStroke(from: $0) })
+    init<D>(from doodle: D) where D: DTDoodle {
+        self.init(strokes: doodle.dtStrokes.map { PKStroke(from: $0) })
     }
 
     mutating func removeStrokes<S>(_ removedStrokes: Set<S>) where S: DTStroke {
-        dtStrokes.subtract(removedStrokes.map { PKStroke(from: $0) })
+        dtStrokes = dtStrokes.subtracting(removedStrokes.map { PKStroke(from: $0) })
     }
 
     mutating func addStrokes<S>(_ addedStrokes: Set<S>) where S: DTStroke {
-        dtStrokes.formUnion(addedStrokes.map { PKStroke(from: $0) })
+        dtStrokes = dtStrokes.union(addedStrokes.map { PKStroke(from: $0) })
     }
 
 }
