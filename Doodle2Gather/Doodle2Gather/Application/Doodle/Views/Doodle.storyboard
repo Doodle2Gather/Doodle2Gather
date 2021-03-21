@@ -226,35 +226,28 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <containerView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2v7-Hc-qJ9">
-                                <rect key="frame" x="574" y="150" width="240" height="1024"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="240" id="rQ0-HC-w4U"/>
-                                </constraints>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2v7-Hc-qJ9" userLabel="Video Overlay View">
+                                <rect key="frame" x="0.0" y="0.0" width="834" height="1174"/>
                                 <connections>
                                     <segue destination="iqH-RH-LvU" kind="embed" id="LHe-b8-q2G"/>
                                 </connections>
-                            </containerView>
-                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fFh-LD-EKh">
-                                <rect key="frame" x="20" y="1094" width="240" height="80"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                             </containerView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="1p6-Mf-pnl"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="6vr-WX-y5Z" firstAttribute="leading" secondItem="Gvt-x0-wpX" secondAttribute="trailing" constant="20" id="6lu-Ch-ZPq"/>
+                            <constraint firstItem="2v7-Hc-qJ9" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" id="AfY-d2-THr"/>
                             <constraint firstItem="lOM-bA-4te" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" constant="20" id="EmQ-Qq-9ox"/>
                             <constraint firstItem="6vr-WX-y5Z" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" constant="20" id="N5C-Pf-XJM"/>
                             <constraint firstItem="HdL-Pj-pPB" firstAttribute="centerY" secondItem="Rvn-Q8-Irn" secondAttribute="centerY" id="Qwu-X3-bv3"/>
                             <constraint firstItem="6vr-WX-y5Z" firstAttribute="trailing" secondItem="1p6-Mf-pnl" secondAttribute="trailing" constant="-20" id="aX5-rm-eAj"/>
                             <constraint firstItem="HdL-Pj-pPB" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" constant="20" id="nVn-9r-nOE"/>
                             <constraint firstItem="lOM-bA-4te" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" constant="20" id="o7i-Qk-N3e"/>
-                            <constraint firstItem="2v7-Hc-qJ9" firstAttribute="bottom" secondItem="1p6-Mf-pnl" secondAttribute="bottom" constant="-130" id="oPQ-zZ-Ybx"/>
-                            <constraint firstItem="2v7-Hc-qJ9" firstAttribute="trailing" secondItem="1p6-Mf-pnl" secondAttribute="trailing" constant="-20" id="xBE-mZ-Wgz"/>
+                            <constraint firstItem="2v7-Hc-qJ9" firstAttribute="bottom" secondItem="1p6-Mf-pnl" secondAttribute="bottom" id="oPQ-zZ-Ybx"/>
+                            <constraint firstItem="2v7-Hc-qJ9" firstAttribute="trailing" secondItem="1p6-Mf-pnl" secondAttribute="trailing" id="xBE-mZ-Wgz"/>
                             <constraint firstItem="Gvt-x0-wpX" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" constant="20" id="xlO-w9-H22"/>
-                            <constraint firstItem="2v7-Hc-qJ9" firstAttribute="centerY" secondItem="Rvn-Q8-Irn" secondAttribute="centerY" id="yTh-sI-isM"/>
-                            <constraint firstItem="2v7-Hc-qJ9" firstAttribute="top" secondItem="6vr-WX-y5Z" secondAttribute="bottom" constant="50" id="zUl-zF-Bd8"/>
+                            <constraint firstItem="2v7-Hc-qJ9" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" id="zUl-zF-Bd8"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -267,12 +260,14 @@
             <objects>
                 <viewController id="iqH-RH-LvU" customClass="VideoViewController" customModule="Doodle2Gather" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="27U-ED-QaR">
-                        <rect key="frame" x="0.0" y="0.0" width="240" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="834" height="1174"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Bxd-CB-wII">
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="911"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Bxd-CB-wII">
+                                <rect key="frame" x="574" y="120" width="240" height="934"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="ZO1-qV-5al"/>
+                                </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="oZ4-hV-qjb">
                                     <size key="itemSize" width="240" height="135"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -286,7 +281,6 @@
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" semanticContentAttribute="spatial" insetsLayoutMarginsFromSafeArea="NO" id="Ioy-42-Bn6">
                                             <rect key="frame" x="0.0" y="0.0" width="240" height="135"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         </collectionViewCellContentView>
                                         <size key="customSize" width="240" height="135"/>
                                         <connections>
@@ -299,8 +293,8 @@
                                     <outlet property="delegate" destination="iqH-RH-LvU" id="hgb-Jl-RkM"/>
                                 </connections>
                             </collectionView>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xWj-qC-1ia" userLabel="Bottom Buttons View">
-                                <rect key="frame" x="30" y="924" width="180" height="80"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xWj-qC-1ia" userLabel="Bottom Buttons View">
+                                <rect key="frame" x="20" y="1094" width="180" height="80"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="vRG-Cw-GCR" userLabel="Button Stack">
                                         <rect key="frame" x="20" y="20" width="140" height="40"/>
@@ -361,12 +355,12 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vck-bI-o3u"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Bxd-CB-wII" firstAttribute="bottom" secondItem="vck-bI-o3u" secondAttribute="bottom" id="0hh-7n-4s0"/>
-                            <constraint firstItem="Bxd-CB-wII" firstAttribute="leading" secondItem="vck-bI-o3u" secondAttribute="leading" id="GYy-PO-JcA"/>
-                            <constraint firstItem="Bxd-CB-wII" firstAttribute="top" secondItem="vck-bI-o3u" secondAttribute="top" id="jhw-us-uLV"/>
-                            <constraint firstItem="Bxd-CB-wII" firstAttribute="trailing" secondItem="vck-bI-o3u" secondAttribute="trailing" id="xZp-gx-9TP"/>
+                            <constraint firstItem="Bxd-CB-wII" firstAttribute="bottom" secondItem="vck-bI-o3u" secondAttribute="bottom" constant="-120" id="0hh-7n-4s0"/>
+                            <constraint firstItem="vck-bI-o3u" firstAttribute="trailing" secondItem="Bxd-CB-wII" secondAttribute="trailing" constant="20" id="3e2-bG-Hms"/>
+                            <constraint firstItem="xWj-qC-1ia" firstAttribute="leading" secondItem="vck-bI-o3u" secondAttribute="leading" constant="20" id="dpc-NC-3Tn"/>
+                            <constraint firstItem="Bxd-CB-wII" firstAttribute="top" secondItem="vck-bI-o3u" secondAttribute="top" constant="120" id="jhw-us-uLV"/>
+                            <constraint firstItem="xWj-qC-1ia" firstAttribute="bottom" secondItem="vck-bI-o3u" secondAttribute="bottom" id="rp4-mA-nby"/>
                         </constraints>
                     </view>
                     <connections>
@@ -377,7 +371,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7qd-xc-JKb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="538.84892086330944" y="23.618090452261306"/>
+            <point key="canvasLocation" x="808" y="70"/>
         </scene>
     </scenes>
     <resources>
