@@ -271,6 +271,9 @@
                             <constraint firstItem="2v7-Hc-qJ9" firstAttribute="trailing" secondItem="1p6-Mf-pnl" secondAttribute="trailing" id="zIt-xX-Snl"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="fileNameLabel" destination="cdg-gm-cRI" id="HYc-yD-rMc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Ek-Ny-NIM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
