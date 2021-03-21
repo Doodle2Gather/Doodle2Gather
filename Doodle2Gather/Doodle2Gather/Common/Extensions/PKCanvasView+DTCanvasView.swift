@@ -8,8 +8,8 @@ extension PKCanvasView: DTCanvasView {
         return wrapperDelegate
     }
 
-    func loadDrawing<D>(_: D) where D: DTDrawing {
-        self.drawing = PKDrawing(from: drawing)
+    func loadDoodle<D>(_ doodle: D) where D: DTDoodle {
+        self.drawing = PKDrawing(from: doodle)
         self.alwaysBounceVertical = true
         // TODO: Remove this line once a DT version of drawing policy is added.
         self.drawingPolicy = .anyInput
@@ -19,7 +19,7 @@ extension PKCanvasView: DTCanvasView {
         drawing.dtStrokes as? Set<S>
     }
 
-    func getDrawing<D>() -> D? where D: DTDrawing {
+    func getDoodle<D>() -> D? where D: DTDoodle {
         drawing as? D
     }
 
@@ -34,11 +34,11 @@ class WrapperPKCanvasViewDelegate: NSObject, PKCanvasViewDelegate, DTCanvasViewD
     }
 
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
-        actualDelegate?.canvasViewDrawingDidChange(canvasView)
+        actualDelegate?.canvasViewDoodleDidChange(canvasView)
     }
 
-    func canvasViewDrawingDidChange(_ canvasView: DTCanvasView) {
-        actualDelegate?.canvasViewDrawingDidChange(canvasView)
+    func canvasViewDoodleDidChange(_ canvasView: DTCanvasView) {
+        actualDelegate?.canvasViewDoodleDidChange(canvasView)
     }
 
 }
