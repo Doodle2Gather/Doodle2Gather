@@ -115,6 +115,7 @@ extension AgoraVideoEngine: AgoraRtcEngineDelegate {
     }
 
     func rtcEngine(_ engine: AgoraRtcEngineKit, didOfflineOfUid uid: UInt, reason: AgoraUserOfflineReason) {
+        print("Left call of uid: \(uid)")
         delegate?.didLeaveCall(id: uid)
     }
 }
