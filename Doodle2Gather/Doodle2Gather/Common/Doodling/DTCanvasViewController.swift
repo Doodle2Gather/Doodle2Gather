@@ -53,7 +53,7 @@ extension DTCanvasViewController: DTCanvasViewDelegate {
 
     // TODO: Look into ways to generalise this method.
     // Currently depends on PencilKit.
-    func canvasViewDoodleDidChange(_ canvas: DTCanvasView) {
+    func canvasViewDidEndUsingTool(_ canvas: DTCanvasView) {
         guard let newStrokes: Set<PKStroke> = canvas.getStrokes() else {
             return
         }
