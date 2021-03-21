@@ -19,6 +19,10 @@ extension PKCanvasView: DTCanvasView {
         drawing.dtStrokes as? Set<S>
     }
 
+    func getDrawing<D>() -> D? where D: DTDrawing {
+        drawing as? D
+    }
+
 }
 
 class WrapperPKCanvasViewDelegate: NSObject, PKCanvasViewDelegate, DTCanvasViewDelegate {

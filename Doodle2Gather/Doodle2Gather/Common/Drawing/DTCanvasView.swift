@@ -20,4 +20,7 @@ protocol DTCanvasView where Self: UIView {
     /// Gets the strokes displayed on the canvas.
     func getStrokes<S: DTStroke>() -> Set<S>?
 
+    /// Gets the drawing displayed on the canvas.
+    func getDrawing<D: DTDrawing>() -> D?
+
 }
