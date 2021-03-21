@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E7D781E26070BE2007ADFA7 /* Pods_Doodle2Gather.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E53B4F895F761EF4405A8DB /* Pods_Doodle2Gather.framework */; };
 		2ED7A3C62601B7740006D873 /* Doodle.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2ED7A3C52601B7740006D873 /* Doodle.storyboard */; };
 		2ED7A3CC2601C0450006D873 /* DoodleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED7A3CB2601C0450006D873 /* DoodleViewController.swift */; };
 		2EF8E92325F754C600C7EE7D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8E92225F754C600C7EE7D /* AppDelegate.swift */; };
@@ -18,7 +19,6 @@
 		2EF8E93A25F754C700C7EE7D /* Doodle2GatherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8E93925F754C700C7EE7D /* Doodle2GatherTests.swift */; };
 		2EF8E94525F754C700C7EE7D /* Doodle2GatherUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8E94425F754C700C7EE7D /* Doodle2GatherUITests.swift */; };
 		3AB2AF62CA4D82CD0089584E /* Pods_Doodle2Gather_Doodle2GatherUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE632583EE64F0948370B28 /* Pods_Doodle2Gather_Doodle2GatherUITests.framework */; };
-		467EC4FB47E519FEB6349B5B /* Pods_Doodle2Gather.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E53B4F895F761EF4405A8DB /* Pods_Doodle2Gather.framework */; };
 		6701369B260638C5005E327A /* WebSocketTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6701369A260638C5005E327A /* WebSocketTypes.swift */; };
 		670136A426063926005E327A /* WebSocketController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670136A326063926005E327A /* WebSocketController.swift */; };
 		79340BAF4DD45B98CA0F5BFD /* Pods_Doodle2GatherTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA956A97BA5025014186D6AC /* Pods_Doodle2GatherTests.framework */; };
@@ -84,7 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				467EC4FB47E519FEB6349B5B /* Pods_Doodle2Gather.framework in Frameworks */,
+				2E7D781E26070BE2007ADFA7 /* Pods_Doodle2Gather.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -731,6 +731,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				EXCLUDED_ARCHS = arm64;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -748,7 +749,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -792,6 +793,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXCLUDED_ARCHS = arm64;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -818,6 +820,19 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = K9H85859Q4;
+				EXCLUDED_ARCHS = arm64;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/AgoraRtcEngine_iOS\"",
+					"\"${PODS_XCFRAMEWORKS_BUILD_DIR}/AgoraAIDenoiseExtension\"",
+					"\"${PODS_XCFRAMEWORKS_BUILD_DIR}/AgoraCore\"",
+					"\"${PODS_XCFRAMEWORKS_BUILD_DIR}/AgoraDav1dExtension\"",
+					"\"${PODS_XCFRAMEWORKS_BUILD_DIR}/AgoraRtcKit\"",
+					"\"${PODS_XCFRAMEWORKS_BUILD_DIR}/AgoraSoundTouch\"",
+					"\"${PODS_XCFRAMEWORKS_BUILD_DIR}/Agorafdkaac\"",
+					"\"${PODS_XCFRAMEWORKS_BUILD_DIR}/Agoraffmpeg\"",
+					"\"${SRCROOT}/..\"/**",
+				);
 				INFOPLIST_FILE = "Doodle2Gather/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -838,6 +853,19 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = K9H85859Q4;
+				EXCLUDED_ARCHS = arm64;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/AgoraRtcEngine_iOS\"",
+					"\"${PODS_XCFRAMEWORKS_BUILD_DIR}/AgoraAIDenoiseExtension\"",
+					"\"${PODS_XCFRAMEWORKS_BUILD_DIR}/AgoraCore\"",
+					"\"${PODS_XCFRAMEWORKS_BUILD_DIR}/AgoraDav1dExtension\"",
+					"\"${PODS_XCFRAMEWORKS_BUILD_DIR}/AgoraRtcKit\"",
+					"\"${PODS_XCFRAMEWORKS_BUILD_DIR}/AgoraSoundTouch\"",
+					"\"${PODS_XCFRAMEWORKS_BUILD_DIR}/Agorafdkaac\"",
+					"\"${PODS_XCFRAMEWORKS_BUILD_DIR}/Agoraffmpeg\"",
+					"\"${SRCROOT}/..\"/**",
+				);
 				INFOPLIST_FILE = "Doodle2Gather/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
