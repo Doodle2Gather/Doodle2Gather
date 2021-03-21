@@ -26,7 +26,7 @@ struct DoodleActionController: RouteCollection {
 
     func index(req: Request) throws -> EventLoopFuture<View> {
         DoodleAction.query(on: req.db).all().flatMap {
-            return req.view.render("actions", DoodleActionContext(actions: $0))
+            req.view.render("actions", DoodleActionContext(actions: $0))
         }
     }
 }

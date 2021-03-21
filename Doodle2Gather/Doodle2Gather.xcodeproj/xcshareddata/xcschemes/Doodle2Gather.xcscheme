@@ -28,6 +28,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "2EF8E93425F754C700C7EE7D"
+               BuildableName = "Doodle2GatherTests.xctest"
+               BlueprintName = "Doodle2GatherTests"
+               ReferencedContainer = "container:Doodle2Gather.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "2EF8E93F25F754C700C7EE7D"
+               BuildableName = "Doodle2GatherUITests.xctest"
+               BlueprintName = "Doodle2GatherUITests"
+               ReferencedContainer = "container:Doodle2Gather.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

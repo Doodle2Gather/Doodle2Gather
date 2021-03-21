@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -35,56 +36,6 @@
                                     <constraint firstAttribute="trailing" secondItem="cdg-gm-cRI" secondAttribute="trailing" constant="20" id="cpd-26-Uyo"/>
                                     <constraint firstItem="cdg-gm-cRI" firstAttribute="leading" secondItem="lOM-bA-4te" secondAttribute="leading" constant="20" id="vH8-gy-Wg9"/>
                                     <constraint firstAttribute="bottom" secondItem="cdg-gm-cRI" secondAttribute="bottom" constant="20" id="xtx-9d-5QA"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="15"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                        <integer key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pj8-uP-anp" userLabel="Bottom Buttons View">
-                                <rect key="frame" x="20" y="1074" width="180" height="80"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="adf-Vb-Aza" userLabel="Button Stack">
-                                        <rect key="frame" x="20" y="20" width="140" height="40"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qsL-Oh-rQj" userLabel="Chat Button">
-                                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
-                                                <color key="backgroundColor" systemColor="linkColor"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="40" id="9Qw-hx-X1t"/>
-                                                    <constraint firstAttribute="height" constant="40" id="pUB-xx-DS2"/>
-                                                </constraints>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LAR-uc-EIt" userLabel="Video Button">
-                                                <rect key="frame" x="50" y="0.0" width="40" height="40"/>
-                                                <color key="backgroundColor" systemColor="systemPinkColor"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="40" id="Ccp-6m-vok"/>
-                                                    <constraint firstAttribute="height" constant="40" id="sxc-K4-CzW"/>
-                                                </constraints>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AIl-bT-RAd" userLabel="Audio Button">
-                                                <rect key="frame" x="100" y="0.0" width="40" height="40"/>
-                                                <color key="backgroundColor" systemColor="systemPurpleColor"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="40" id="P5f-aw-y7C"/>
-                                                    <constraint firstAttribute="height" constant="40" id="k2T-bU-XQY"/>
-                                                </constraints>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstItem="adf-Vb-Aza" firstAttribute="leading" secondItem="Pj8-uP-anp" secondAttribute="leading" constant="20" id="H6p-RL-fWO"/>
-                                    <constraint firstAttribute="trailing" secondItem="adf-Vb-Aza" secondAttribute="trailing" constant="20" id="J0z-td-1e1"/>
-                                    <constraint firstAttribute="bottom" secondItem="adf-Vb-Aza" secondAttribute="bottom" constant="20" id="KgJ-Y7-Lu0"/>
-                                    <constraint firstItem="adf-Vb-Aza" firstAttribute="top" secondItem="Pj8-uP-anp" secondAttribute="top" constant="20" id="gHG-bn-uLA"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -275,82 +226,28 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="qRd-vj-jsu">
-                                <rect key="frame" x="600.5" y="397" width="213.5" height="400"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="48R-gD-bhw" userLabel="Video View 1">
-                                        <rect key="frame" x="0.0" y="0.0" width="213.5" height="120"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="120" id="Bi9-1P-Ixo"/>
-                                            <constraint firstAttribute="width" secondItem="48R-gD-bhw" secondAttribute="height" multiplier="16:9" id="Re8-P6-5cT"/>
-                                        </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="15"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                                <integer key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ifm-p7-wyI" userLabel="Video View 2">
-                                        <rect key="frame" x="0.0" y="140" width="213.5" height="120"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="120" id="Ri6-Hs-6YY"/>
-                                            <constraint firstAttribute="width" secondItem="Ifm-p7-wyI" secondAttribute="height" multiplier="16:9" id="acg-X4-smM"/>
-                                        </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="15"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                                <integer key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jo4-o8-xaV" userLabel="Video View 3">
-                                        <rect key="frame" x="0.0" y="280" width="213.5" height="120"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="120" id="0II-eS-6Lj"/>
-                                            <constraint firstAttribute="width" secondItem="Jo4-o8-xaV" secondAttribute="height" multiplier="16:9" id="gxQ-HY-ihN"/>
-                                        </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="15"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                                <integer key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="Ifm-p7-wyI" firstAttribute="width" secondItem="Ifm-p7-wyI" secondAttribute="height" multiplier="16:9" id="EDb-lY-6IH"/>
-                                    <constraint firstItem="48R-gD-bhw" firstAttribute="width" secondItem="48R-gD-bhw" secondAttribute="height" multiplier="16:9" id="euK-ET-ebF"/>
-                                </constraints>
-                            </stackView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2v7-Hc-qJ9" userLabel="Video Overlay View">
+                                <rect key="frame" x="0.0" y="0.0" width="834" height="1174"/>
+                                <connections>
+                                    <segue destination="iqH-RH-LvU" kind="embed" id="LHe-b8-q2G"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="1p6-Mf-pnl"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Pj8-uP-anp" firstAttribute="bottom" secondItem="1p6-Mf-pnl" secondAttribute="bottom" constant="-20" id="1tF-M2-WoR"/>
                             <constraint firstItem="6vr-WX-y5Z" firstAttribute="leading" secondItem="Gvt-x0-wpX" secondAttribute="trailing" constant="20" id="6lu-Ch-ZPq"/>
-                            <constraint firstItem="qRd-vj-jsu" firstAttribute="trailing" secondItem="1p6-Mf-pnl" secondAttribute="trailing" constant="-20" id="EEw-Te-sXI"/>
+                            <constraint firstItem="2v7-Hc-qJ9" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" id="AfY-d2-THr"/>
                             <constraint firstItem="lOM-bA-4te" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" constant="20" id="EmQ-Qq-9ox"/>
                             <constraint firstItem="6vr-WX-y5Z" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" constant="20" id="N5C-Pf-XJM"/>
                             <constraint firstItem="HdL-Pj-pPB" firstAttribute="centerY" secondItem="Rvn-Q8-Irn" secondAttribute="centerY" id="Qwu-X3-bv3"/>
-                            <constraint firstItem="Pj8-uP-anp" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" constant="20" id="ZeU-AA-KEz"/>
                             <constraint firstItem="6vr-WX-y5Z" firstAttribute="trailing" secondItem="1p6-Mf-pnl" secondAttribute="trailing" constant="-20" id="aX5-rm-eAj"/>
-                            <constraint firstItem="qRd-vj-jsu" firstAttribute="centerY" secondItem="Rvn-Q8-Irn" secondAttribute="centerY" id="gkG-jK-Abe"/>
                             <constraint firstItem="HdL-Pj-pPB" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" constant="20" id="nVn-9r-nOE"/>
                             <constraint firstItem="lOM-bA-4te" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" constant="20" id="o7i-Qk-N3e"/>
+                            <constraint firstItem="2v7-Hc-qJ9" firstAttribute="bottom" secondItem="1p6-Mf-pnl" secondAttribute="bottom" id="oPQ-zZ-Ybx"/>
+                            <constraint firstItem="2v7-Hc-qJ9" firstAttribute="trailing" secondItem="1p6-Mf-pnl" secondAttribute="trailing" id="xBE-mZ-Wgz"/>
                             <constraint firstItem="Gvt-x0-wpX" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" constant="20" id="xlO-w9-H22"/>
+                            <constraint firstItem="2v7-Hc-qJ9" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" id="zUl-zF-Bd8"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -358,8 +255,130 @@
             </objects>
             <point key="canvasLocation" x="119.42446043165468" y="75.879396984924625"/>
         </scene>
+        <!--Video View Controller-->
+        <scene sceneID="3Z1-bq-AZB">
+            <objects>
+                <viewController id="iqH-RH-LvU" customClass="VideoViewController" customModule="Doodle2Gather" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="27U-ED-QaR">
+                        <rect key="frame" x="0.0" y="0.0" width="834" height="1174"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Bxd-CB-wII">
+                                <rect key="frame" x="574" y="120" width="240" height="934"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="ZO1-qV-5al"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="oZ4-hV-qjb">
+                                    <size key="itemSize" width="240" height="135"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="videoCell" id="OFl-9u-xZa" customClass="VideoCollectionViewCell" customModule="Doodle2Gather" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="240" height="135"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" semanticContentAttribute="spatial" insetsLayoutMarginsFromSafeArea="NO" id="Ioy-42-Bn6">
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="135"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                        <size key="customSize" width="240" height="135"/>
+                                        <connections>
+                                            <outlet property="videoView" destination="Ioy-42-Bn6" id="daj-BI-aRn"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="iqH-RH-LvU" id="TjT-Os-FCR"/>
+                                    <outlet property="delegate" destination="iqH-RH-LvU" id="hgb-Jl-RkM"/>
+                                </connections>
+                            </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xWj-qC-1ia" userLabel="Bottom Buttons View">
+                                <rect key="frame" x="20" y="1094" width="180" height="80"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="vRG-Cw-GCR" userLabel="Button Stack">
+                                        <rect key="frame" x="20" y="20" width="140" height="40"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mmL-ay-rCs" userLabel="Chat Button">
+                                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="1pb-xp-25O"/>
+                                                    <constraint firstAttribute="height" constant="40" id="otm-In-MpB"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                <state key="normal" image="message.fill" catalog="system"/>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yDB-Q3-4ya" userLabel="Video Button">
+                                                <rect key="frame" x="50" y="0.0" width="40" height="40"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="ef9-hn-lfI"/>
+                                                    <constraint firstAttribute="height" constant="40" id="yH5-iU-BGb"/>
+                                                </constraints>
+                                                <state key="normal" image="video.fill" catalog="system"/>
+                                                <connections>
+                                                    <action selector="didToggleVideo:" destination="iqH-RH-LvU" eventType="touchUpInside" id="cL9-NY-3n5"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AkO-hK-cSB" userLabel="Audio Button">
+                                                <rect key="frame" x="100" y="0.0" width="40" height="40"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="8mR-ka-RxT"/>
+                                                    <constraint firstAttribute="height" constant="40" id="PTZ-bB-ztK"/>
+                                                </constraints>
+                                                <state key="normal" image="mic.fill" catalog="system"/>
+                                                <connections>
+                                                    <action selector="didToggleAudio:" destination="iqH-RH-LvU" eventType="touchUpInside" id="GOP-mD-z10"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="vRG-Cw-GCR" secondAttribute="trailing" constant="20" id="4VE-Cs-vd4"/>
+                                    <constraint firstAttribute="bottom" secondItem="vRG-Cw-GCR" secondAttribute="bottom" constant="20" id="Ckm-Md-Mnf"/>
+                                    <constraint firstItem="vRG-Cw-GCR" firstAttribute="top" secondItem="xWj-qC-1ia" secondAttribute="top" constant="20" id="Oze-qF-VjS"/>
+                                    <constraint firstItem="vRG-Cw-GCR" firstAttribute="leading" secondItem="xWj-qC-1ia" secondAttribute="leading" constant="20" id="tcU-tI-B8d"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vck-bI-o3u"/>
+                        <constraints>
+                            <constraint firstItem="Bxd-CB-wII" firstAttribute="bottom" secondItem="vck-bI-o3u" secondAttribute="bottom" constant="-120" id="0hh-7n-4s0"/>
+                            <constraint firstItem="vck-bI-o3u" firstAttribute="trailing" secondItem="Bxd-CB-wII" secondAttribute="trailing" constant="20" id="3e2-bG-Hms"/>
+                            <constraint firstItem="xWj-qC-1ia" firstAttribute="leading" secondItem="vck-bI-o3u" secondAttribute="leading" constant="20" id="dpc-NC-3Tn"/>
+                            <constraint firstItem="Bxd-CB-wII" firstAttribute="top" secondItem="vck-bI-o3u" secondAttribute="top" constant="120" id="jhw-us-uLV"/>
+                            <constraint firstItem="xWj-qC-1ia" firstAttribute="bottom" secondItem="vck-bI-o3u" secondAttribute="bottom" id="rp4-mA-nby"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="audioButton" destination="AkO-hK-cSB" id="a3j-SW-FOS"/>
+                        <outlet property="collectionView" destination="Bxd-CB-wII" id="oSa-98-sii"/>
+                        <outlet property="videoButton" destination="yDB-Q3-4ya" id="uc5-9l-a18"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7qd-xc-JKb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="808" y="70"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="message.fill" catalog="system" width="128" height="113"/>
+        <image name="mic.fill" catalog="system" width="108" height="128"/>
+        <image name="video.fill" catalog="system" width="128" height="82"/>
         <systemColor name="linkColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

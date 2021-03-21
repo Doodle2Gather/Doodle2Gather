@@ -9,7 +9,8 @@ target 'Doodle2Gather' do
   use_frameworks!
 
   # Pods for Doodle2Gather
-
+  pod 'AgoraRtcEngine_iOS'
+  
   target 'Doodle2GatherTests' do
     inherit! :search_paths
     # Pods for testing
