@@ -56,9 +56,11 @@ class VideoViewController: UIViewController {
     @IBAction private func didToggleVideo(_ sender: Any) {
         if isVideoOff {
             videoEngine?.showVideo()
+            collectionView.cellForItem(at: IndexPath(row: remoteUserIDs.count, section: 0))?.isHidden = false
             videoButton.setImage(UIImage(systemName: "video.fill"), for: .normal)
         } else {
             videoEngine?.hideVideo()
+            collectionView.cellForItem(at: IndexPath(row: remoteUserIDs.count, section: 0))?.isHidden = true
             videoButton.setImage(UIImage(systemName: "video.slash.fill"), for: .normal)
         }
         isVideoOff.toggle()
@@ -115,6 +117,6 @@ extension VideoViewController: UICollectionViewDelegateFlowLayout {
             - collectionView.adjustedContentInset.left
             - collectionView.adjustedContentInset.right
 
-        return CGSize(width: totalWidth, height: totalWidth * 9 / 16)
+        return CGSize(width: totalWidth, height: totalWidth * VideoConstants.aspectRatio)
     }
 }
