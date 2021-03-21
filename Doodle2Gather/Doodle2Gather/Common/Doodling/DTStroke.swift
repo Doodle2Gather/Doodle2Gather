@@ -43,14 +43,14 @@ extension DTStroke {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DTStrokeCodingKeys.self)
-        try container.encode(CodableColor(uiColor: color), forKey: .color)
+        try container.encode(DTCodableColor(uiColor: color), forKey: .color)
         try container.encode(tool.rawValue, forKey: .tool)
         try container.encode(points, forKey: .points)
     }
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: DTStrokeCodingKeys.self)
-        let color = try container.decode(CodableColor.self, forKey: .color).uiColor
+        let color = try container.decode(DTCodableColor.self, forKey: .color).uiColor
         let tool = DTTool(rawValue: try container.decode(String.self, forKey: .tool)) ?? .pen
         let points = try container.decode(Array<Point>.self, forKey: .points)
 
