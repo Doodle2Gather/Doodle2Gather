@@ -7,19 +7,25 @@ class HomeViewController: UIViewController {
     @IBOutlet private var loginButton: UIStackView!
     @IBOutlet private var errorMessageLabel: UILabel!
 
-    enum ErrorMessages {
+    private enum ErrorMessages {
         static let incorrectCredentials = "Incorrect credentials"
         static let unableToFetchResponse = "Unable to fetch response. Is your internet connection working?"
+    }
 
+    private enum DefaultValues {
+        static let username = UIDevice.current.name
+        // For ease of development
+        static let password = "goodpassword"
+        static let roomName = "devRoom"
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         errorMessageLabel.text = ""
-        usernameTextField.text = UIDevice.current.name
-        passwordTextField.text = "goodpassword"
-        roomNameTextField.text = "devRoom"
+        usernameTextField.text = DefaultValues.username
+        passwordTextField.text = DefaultValues.password
+        roomNameTextField.text = DefaultValues.roomName
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -37,10 +43,11 @@ class HomeViewController: UIViewController {
     }
 
     private func attemptLogin() {
+        let loginEndpoint = "http://d2g.christopher.sg:8080/login"
         let params = ["username": usernameTextField.text,
                       "password": passwordTextField.text,
                       "roomName": roomNameTextField.text]
-        let url = URL(string: "http://d2g.christopher.sg:8080/login")!
+        let url = URL(string: loginEndpoint)!
         var request = URLRequest(url: url)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
