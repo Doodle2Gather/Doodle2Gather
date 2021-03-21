@@ -159,7 +159,6 @@
 				2EA8C3172606682500BE750C /* PKCanvasView+DTCanvasView.swift */,
 				2EA8C334260677C800BE750C /* PKDrawing+DTDrawing.swift */,
 				2EA8C34126067F0000BE750C /* PKStroke+DTStroke.swift */,
-				2E26E56F260692880016A8FC /* CodableColor.swift */,
 				2E987E6D2607468000352E7D /* PKStrokePoint+DTPoint.swift */,
 			);
 			path = Extensions;
@@ -202,6 +201,7 @@
 				2EA8C33C260677F800BE750C /* DTStroke.swift */,
 				2E987E5B2607442A00352E7D /* DTPoint.swift */,
 				2E987E76260747A000352E7D /* DTTool.swift */,
+				2E26E56F260692880016A8FC /* CodableColor.swift */,
 			);
 			path = Doodling;
 			sourceTree = "<group>";
