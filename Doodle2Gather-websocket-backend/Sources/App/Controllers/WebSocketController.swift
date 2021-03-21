@@ -26,8 +26,12 @@ class WebSocketController {
         return options
     }
 
-    func getAllWebSocketOptionsExcept(_ uuid: UUID) {
-        getAllWebSocketOptions.remove(sockets[uuid])
+    func getAllWebSocketOptionsExcept(_ uuid: UUID) -> [WebSocketSendOption] {
+        var options = [WebSocketSendOption]()
+        for ws in sockets where ws.key != uuid {
+            options.append(.socket(ws.value))
+        }
+        return options
     }
 
     func connect(_ ws: WebSocket) {
@@ -129,7 +133,7 @@ class WebSocketController {
                 message = "Action added"
             }
             // 4
-            self.sendActionToSockets(action, to: self.getAllWebSocketOptionsExcept[id],
+            self.sendActionToSockets(action, to: self.getAllWebSocketOptionsExcept(id),
                                      success: success, message: message)
         }
     }
