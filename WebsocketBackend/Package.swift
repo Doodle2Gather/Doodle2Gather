@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-  name: "Doodle2Gather-websocket-backend",
+  name: "WebsocketBackend",
   platforms: [
      .macOS(.v10_15)
   ],
