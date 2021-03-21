@@ -9,7 +9,7 @@ public func configure(_ app: Application) throws {
 
     // Set up hostname and port
     app.http.server.configuration.hostname = "0.0.0.0"
-    app.http.server.configuration.port = 8080
+    app.http.server.configuration.port = 8_080
 
     // Configure database
     app.databases.use(.sqlite(), as: .sqlite)

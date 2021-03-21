@@ -11,8 +11,8 @@ struct AddAction: Migration {
     func prepare(on database: Database) -> EventLoopFuture<Void> {
         database.schema(DoodleAction.schema)
             .id()
-            .field("content", .string, .required)
-            //      .field("answered", .bool, .required, .sql(.default(false)))
+            .field("strokesAdded", .string, .required)
+            .field("strokesRemoved", .string, .required)
             .field("created_by", .uuid, .required)
             .field("created_at", .date)
             .create()

@@ -7,13 +7,9 @@
 
 import Foundation
 
-struct AlertWrapper: Identifiable {
-    let id = UUID()
-}
+final class DTWebSocketController {
 
-final class WebSocketController: ObservableObject {
-    @Published var actions: [UUID: WebSocketTypes.NewDoodleActionResponse]
-    @Published var alertWrapper: AlertWrapper?
+    weak var delegate: SocketControllerDelegate?
 
     private var id: UUID!
     private let session: URLSession
@@ -22,16 +18,12 @@ final class WebSocketController: ObservableObject {
     private let encoder = JSONEncoder()
 
     init() {
-        self.actions = [:]
-        self.alertWrapper = nil
-
         self.session = URLSession(configuration: .default)
         self.connect()
     }
 
     func connect() {
-        self.socket = session.webSocketTask(with: URL(string: "ws://localhost:8080/rooms/devRoom")!)
-        self.actions = [:]
+        self.socket = session.webSocketTask(with: URL(string: "ws://d2g.christopher.sg:8080/rooms/devRoom")!)
         self.listen()
         self.socket.resume()
     }
@@ -62,11 +54,49 @@ final class WebSocketController: ObservableObject {
         }
     }
 
-    func addAction(_ content: String) {
+    func handle(_ data: Data) {
+        do {
+            let decodedData = try decoder.decode(DoodleActionMessageData.self, from: data)
+            switch decodedData.type {
+            case .handshake:
+                print("Shook the hand")
+                let message = try decoder.decode(DoodleActionHandShake.self, from: data)
+                self.id = message.id
+            case .feedback:
+                try self.handleNewActionFeedback(data)
+            default:
+                break
+            }
+        } catch {
+            print(error)
+        }
+    }
+
+    func handleNewActionFeedback(_ data: Data) throws {
+        let feedback = try decoder.decode(NewDoodleActionFeedback.self, from: data)
+        DispatchQueue.main.async {
+            if feedback.success, feedback.id != nil {
+                let action = DTAction(strokesAdded: feedback.strokesAdded, strokesRemoved: feedback.strokesRemoved)
+                self.delegate?.dispatchAction(action)
+            } else {
+                print(feedback.message)
+            }
+        }
+    }
+
+}
+
+// MARK: - SocketController
+
+extension DTWebSocketController: SocketController {
+
+    func addAction(_ action: DTAction) {
         guard let id = self.id else {
             return
         }
-        let message = WebSocketTypes.NewDoodleActionMessage(id: id, content: content)
+        print("adding action")
+        let message = NewDoodleActionMessage(
+            id: id, strokesAdded: action.strokesAdded, strokesRemoved: action.strokesRemoved)
         do {
             let data = try encoder.encode(message)
             self.socket.send(.data(data)) { err in
@@ -79,33 +109,4 @@ final class WebSocketController: ObservableObject {
         }
     }
 
-    func handle(_ data: Data) {
-        do {
-            let decodedData = try decoder.decode(WebSocketTypes.DoodleActionMessageData.self, from: data)
-            switch decodedData.type {
-            case .handshake:
-                print("Shook the hand")
-                let message = try decoder.decode(WebSocketTypes.DoodleActionHandShake.self, from: data)
-                self.id = message.id
-            case .response:
-                try self.handleQuestionResponse(data)
-            default:
-                break
-            }
-        } catch {
-            print(error)
-        }
-    }
-
-    func handleQuestionResponse(_ data: Data) throws {
-        // 1
-        let response = try decoder.decode(WebSocketTypes.NewDoodleActionResponse.self, from: data)
-        DispatchQueue.main.async {
-            if response.success, let id = response.id {
-                self.actions[id] = response
-            } else {
-                print(response.message)
-            }
-        }
-    }
 }

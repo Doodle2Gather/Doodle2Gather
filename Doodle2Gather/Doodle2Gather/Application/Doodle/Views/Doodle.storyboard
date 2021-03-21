@@ -17,6 +17,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CRw-tT-Mu5" userLabel="Canvas Container View">
+                                <rect key="frame" x="0.0" y="0.0" width="834" height="1174"/>
+                                <connections>
+                                    <segue destination="rKz-2I-ekB" kind="embed" identifier="ToCanvas" id="h1y-4w-gMZ"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2v7-Hc-qJ9" userLabel="Video Overlay View" customClass="SubviewTouchView" customModule="Doodle2Gather" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="834" height="1174"/>
+                                <connections>
+                                    <segue destination="iqH-RH-LvU" kind="embed" id="LHe-b8-q2G"/>
+                                </connections>
+                            </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lOM-bA-4te" userLabel="File Name View">
                                 <rect key="frame" x="20" y="20" width="127" height="64"/>
                                 <subviews>
@@ -48,10 +60,10 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6vr-WX-y5Z" userLabel="Top Buttons View">
-                                <rect key="frame" x="634" y="20" width="180" height="80"/>
+                                <rect key="frame" x="584" y="20" width="230" height="80"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="sNZ-bH-sjq" userLabel="Button Stack">
-                                        <rect key="frame" x="20" y="20" width="140" height="40"/>
+                                        <rect key="frame" x="20" y="20" width="190" height="40"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0qc-3D-YEj" userLabel="Undo Button">
                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
@@ -69,13 +81,24 @@
                                                     <constraint firstAttribute="height" constant="40" id="rU5-2B-rcf"/>
                                                 </constraints>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wk4-DT-GBd" userLabel="Export Button">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wk4-DT-GBd" userLabel="Export Button">
                                                 <rect key="frame" x="100" y="0.0" width="40" height="40"/>
                                                 <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="40" id="anB-7w-ej2"/>
                                                     <constraint firstAttribute="height" constant="40" id="m6d-Vj-kKU"/>
                                                 </constraints>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TBl-Bd-PJM" userLabel="Trash Button">
+                                                <rect key="frame" x="150" y="0.0" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="XI5-Zd-TXo"/>
+                                                    <constraint firstAttribute="width" constant="40" id="ZvH-VE-0u3"/>
+                                                </constraints>
+                                                <state key="normal" image="trash.fill" catalog="system"/>
+                                                <connections>
+                                                    <action selector="trashButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="XAo-uC-VE2"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -148,7 +171,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gvt-x0-wpX" userLabel="Profile Images View">
-                                <rect key="frame" x="464" y="20" width="150" height="80"/>
+                                <rect key="frame" x="414" y="20" width="150" height="80"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="DwN-FB-eIE">
                                         <rect key="frame" x="20" y="20" width="110" height="40"/>
@@ -226,28 +249,26 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2v7-Hc-qJ9" userLabel="Video Overlay View">
-                                <rect key="frame" x="0.0" y="0.0" width="834" height="1174"/>
-                                <connections>
-                                    <segue destination="iqH-RH-LvU" kind="embed" id="LHe-b8-q2G"/>
-                                </connections>
-                            </containerView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="1p6-Mf-pnl"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="CRw-tT-Mu5" firstAttribute="trailing" secondItem="1p6-Mf-pnl" secondAttribute="trailing" id="5Wa-E0-WET"/>
                             <constraint firstItem="6vr-WX-y5Z" firstAttribute="leading" secondItem="Gvt-x0-wpX" secondAttribute="trailing" constant="20" id="6lu-Ch-ZPq"/>
-                            <constraint firstItem="2v7-Hc-qJ9" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" id="AfY-d2-THr"/>
+                            <constraint firstItem="CRw-tT-Mu5" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" id="8jE-v5-stq"/>
                             <constraint firstItem="lOM-bA-4te" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" constant="20" id="EmQ-Qq-9ox"/>
+                            <constraint firstItem="2v7-Hc-qJ9" firstAttribute="bottom" secondItem="1p6-Mf-pnl" secondAttribute="bottom" id="J40-8D-zNP"/>
                             <constraint firstItem="6vr-WX-y5Z" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" constant="20" id="N5C-Pf-XJM"/>
+                            <constraint firstItem="CRw-tT-Mu5" firstAttribute="bottom" secondItem="1p6-Mf-pnl" secondAttribute="bottom" id="NSu-1l-xzM"/>
                             <constraint firstItem="HdL-Pj-pPB" firstAttribute="centerY" secondItem="Rvn-Q8-Irn" secondAttribute="centerY" id="Qwu-X3-bv3"/>
+                            <constraint firstItem="2v7-Hc-qJ9" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" id="T0g-Ac-o8n"/>
                             <constraint firstItem="6vr-WX-y5Z" firstAttribute="trailing" secondItem="1p6-Mf-pnl" secondAttribute="trailing" constant="-20" id="aX5-rm-eAj"/>
                             <constraint firstItem="HdL-Pj-pPB" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" constant="20" id="nVn-9r-nOE"/>
                             <constraint firstItem="lOM-bA-4te" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" constant="20" id="o7i-Qk-N3e"/>
-                            <constraint firstItem="2v7-Hc-qJ9" firstAttribute="bottom" secondItem="1p6-Mf-pnl" secondAttribute="bottom" id="oPQ-zZ-Ybx"/>
-                            <constraint firstItem="2v7-Hc-qJ9" firstAttribute="trailing" secondItem="1p6-Mf-pnl" secondAttribute="trailing" id="xBE-mZ-Wgz"/>
                             <constraint firstItem="Gvt-x0-wpX" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" constant="20" id="xlO-w9-H22"/>
-                            <constraint firstItem="2v7-Hc-qJ9" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" id="zUl-zF-Bd8"/>
+                            <constraint firstItem="CRw-tT-Mu5" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" id="yf0-Dt-Yxp"/>
+                            <constraint firstItem="2v7-Hc-qJ9" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" id="yyv-Qd-LDk"/>
+                            <constraint firstItem="2v7-Hc-qJ9" firstAttribute="trailing" secondItem="1p6-Mf-pnl" secondAttribute="trailing" id="zIt-xX-Snl"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -255,11 +276,26 @@
             </objects>
             <point key="canvasLocation" x="119.42446043165468" y="75.879396984924625"/>
         </scene>
+        <!--Canvas View Controller-->
+        <scene sceneID="Tgk-Yf-Cei">
+            <objects>
+                <viewController id="rKz-2I-ekB" customClass="DTCanvasViewController" customModule="Doodle2Gather" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0hy-zQ-mJQ">
+                        <rect key="frame" x="0.0" y="0.0" width="834" height="1174"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="Rkb-Od-Feo"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IYE-lh-cwc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="831" y="76"/>
+        </scene>
         <!--Video View Controller-->
         <scene sceneID="3Z1-bq-AZB">
             <objects>
                 <viewController id="iqH-RH-LvU" customClass="VideoViewController" customModule="Doodle2Gather" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="27U-ED-QaR">
+                    <view key="view" contentMode="scaleToFill" id="27U-ED-QaR" customClass="SubviewTouchView" customModule="Doodle2Gather" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="834" height="1174"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -295,7 +331,7 @@
                                 </connections>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xWj-qC-1ia" userLabel="Bottom Buttons View">
-                                <rect key="frame" x="20" y="1094" width="180" height="80"/>
+                                <rect key="frame" x="20" y="1074" width="180" height="80"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="vRG-Cw-GCR" userLabel="Button Stack">
                                         <rect key="frame" x="20" y="20" width="140" height="40"/>
@@ -358,10 +394,10 @@
                         <viewLayoutGuide key="safeArea" id="vck-bI-o3u"/>
                         <constraints>
                             <constraint firstItem="Bxd-CB-wII" firstAttribute="bottom" secondItem="vck-bI-o3u" secondAttribute="bottom" constant="-120" id="0hh-7n-4s0"/>
-                            <constraint firstItem="vck-bI-o3u" firstAttribute="trailing" secondItem="Bxd-CB-wII" secondAttribute="trailing" constant="20" id="3e2-bG-Hms"/>
+                            <constraint firstItem="Bxd-CB-wII" firstAttribute="trailing" secondItem="vck-bI-o3u" secondAttribute="trailing" constant="-20" id="3e2-bG-Hms"/>
                             <constraint firstItem="xWj-qC-1ia" firstAttribute="leading" secondItem="vck-bI-o3u" secondAttribute="leading" constant="20" id="dpc-NC-3Tn"/>
                             <constraint firstItem="Bxd-CB-wII" firstAttribute="top" secondItem="vck-bI-o3u" secondAttribute="top" constant="120" id="jhw-us-uLV"/>
-                            <constraint firstItem="xWj-qC-1ia" firstAttribute="bottom" secondItem="vck-bI-o3u" secondAttribute="bottom" id="rp4-mA-nby"/>
+                            <constraint firstItem="xWj-qC-1ia" firstAttribute="bottom" secondItem="vck-bI-o3u" secondAttribute="bottom" constant="-20" id="rp4-mA-nby"/>
                         </constraints>
                     </view>
                     <connections>
@@ -372,12 +408,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7qd-xc-JKb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="808" y="70"/>
+            <point key="canvasLocation" x="119" y="779"/>
         </scene>
     </scenes>
     <resources>
         <image name="message.fill" catalog="system" width="128" height="113"/>
         <image name="mic.fill" catalog="system" width="108" height="128"/>
+        <image name="trash.fill" catalog="system" width="121" height="128"/>
         <image name="video.fill" catalog="system" width="128" height="82"/>
         <systemColor name="linkColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

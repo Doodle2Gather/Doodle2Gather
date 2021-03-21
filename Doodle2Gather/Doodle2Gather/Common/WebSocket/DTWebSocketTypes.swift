@@ -1,6 +1,13 @@
+//
+//  WebSocketTypes.swift
+//  Doodle2Gather
+//
+//  Created by eksinyue on 20/3/21.
+//
+
 import Foundation
 
-struct WebSocketTypes { }
+struct DTWebSocketTypes {}
 
 enum DoodleActionMessageType: String, Codable {
     // Client to server types
@@ -20,6 +27,8 @@ struct DoodleActionHandShake: Codable {
 }
 
 struct NewDoodleActionMessage: Codable {
+    var type: DoodleActionMessageType = .newAction
+    let id: UUID
     let strokesAdded: String
     let strokesRemoved: String
 }

@@ -7,6 +7,12 @@ class HomeViewController: UIViewController {
     @IBOutlet private var loginButton: UIStackView!
     @IBOutlet private var errorMessageLabel: UILabel!
 
+    enum ErrorMessages {
+        static let incorrectCredentials = "Incorrect credentials"
+        static let unableToFetchResponse = "Unable to fetch response. Is your internet connection working?"
+
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -49,36 +55,29 @@ class HomeViewController: UIViewController {
         }
 
         let task = URLSession.shared.dataTask(with: request, completionHandler: { data, response, error in
-          if let error = error {
-            DispatchQueue.main.async {
-                self.errorMessageLabel.text = error.localizedDescription
-            }
-            return
-          }
-
-          guard let httpResponse = response as? HTTPURLResponse,
-                (200...299).contains(httpResponse.statusCode) else {
+            if let error = error {
                 DispatchQueue.main.async {
-                    self.errorMessageLabel.text = "Incorrect credentials"
-                }
-            return
-          }
-
-            guard let data = data else {
-                DispatchQueue.main.async {
-                    self.errorMessageLabel.text = "Unable to fetch response. Is your internet connection working?"
+                    self.errorMessageLabel.text = error.localizedDescription
                 }
                 return
             }
 
-            do {
-                try JSONDecoder().decode(LoginResponse.self, from: data)
-            } catch {
+            guard let httpResponse = response as? HTTPURLResponse,
+                  (200...299).contains(httpResponse.statusCode) else {
                 DispatchQueue.main.async {
-                    self.errorMessageLabel.text = "Unable to fetch response. Is your internet connection working?"
+                    self.errorMessageLabel.text = ErrorMessages.incorrectCredentials
                 }
                 return
             }
+
+            guard let data = data,
+                  (try? JSONDecoder().decode(LoginResponse.self, from: data)) != nil else {
+                DispatchQueue.main.async {
+                    self.errorMessageLabel.text = ErrorMessages.unableToFetchResponse
+                }
+                return
+            }
+
             DispatchQueue.main.async {
                 self.performSegue(withIdentifier: "goToDoodle", sender: self)
             }
