@@ -10,21 +10,24 @@ class DTCanvasViewController: UIViewController {
 
     /// Main canvas view that we will work with.
     var canvasView: DTCanvasView = PKCanvasView()
-    /// Drawing that will be injected into this controller.
-    var drawing: some DTDrawing = PKDrawing()
+
+    /// Doodle that will be injected into this controller.
+    /// TODO: Look into a way to generalise this. Need to discuss this with
+    /// the teaching team, because this is really not ideal.
+    var doodle = PKDrawing()
 
     /// Delegate for action dispatching.
     internal weak var delegate: CanvasControllerDelegate?
     /// Reference to the (wrapper) delegate used by canvas.
     var delegateReference: DTCanvasViewDelegate?
 
-    /// Sets up the canvas view and the initial drawing.
+    /// Sets up the canvas view and the initial doodle.
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         addCanvasView()
         delegateReference = canvasView.registerDelegate(self)
-        canvasView.loadDrawing(drawing)
+        canvasView.loadDoodle(doodle)
     }
 
     override func viewDidLayoutSubviews() {
@@ -50,14 +53,17 @@ extension DTCanvasViewController: DTCanvasViewDelegate {
 
     // TODO: Look into ways to generalise this method.
     // Currently depends on PencilKit.
-    func canvasViewDrawingDidChange(_ canvas: DTCanvasView) {
-        guard let newStrokes: Set<PKStroke> = canvas.getStrokes(),
-              let oldStrokes = drawing.dtStrokes as? Set<PKStroke> else {
+    func canvasViewDoodleDidChange(_ canvas: DTCanvasView) {
+        guard let newStrokes: Set<PKStroke> = canvas.getStrokes() else {
             return
         }
 
+        let oldStrokes = doodle.dtStrokes
+
         let addedStrokes = newStrokes.subtracting(oldStrokes)
         let removedStrokes = oldStrokes.subtracting(newStrokes)
+
+        doodle = PKDrawing(strokes: newStrokes)
 
         guard let action = DTAction(added: addedStrokes, removed: removedStrokes) else {
             return
@@ -73,9 +79,16 @@ extension DTCanvasViewController: CanvasController {
         guard let (added, removed): (Set<PKStroke>, Set<PKStroke>) = action.getStrokes() else {
             return
         }
-        print("dispatched \(action)")
-        drawing.addStrokes(added)
-        drawing.removeStrokes(removed)
+        var strokes = doodle.dtStrokes
+        strokes.formUnion(added)
+        strokes.subtract(removed)
+
+        doodle = PKDrawing(strokes: strokes)
+        self.canvasView.loadDoodle(doodle)
+    }
+
+    func loadDoodle<D: DTDoodle>(_ doodle: D) {
+        self.doodle = PKDrawing(from: doodle)
     }
 
 }

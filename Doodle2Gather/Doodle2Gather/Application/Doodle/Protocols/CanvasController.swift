@@ -8,4 +8,7 @@ protocol CanvasController {
     /// Dispatches an action that will update the canvas accordingly.
     func dispatch(action: DTAction)
 
+    /// Loads a given `DTDoodle`.
+    func loadDoodle<D: DTDoodle>(_ doodle: D)
+
 }
