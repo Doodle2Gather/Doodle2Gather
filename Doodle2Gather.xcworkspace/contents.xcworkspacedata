@@ -5,6 +5,9 @@
       location = "group:Doodle2Gather/Doodle2Gather.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:Doodle2Gather-websocket-backend">
+   </FileRef>
+   <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>
