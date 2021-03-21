@@ -6,12 +6,12 @@ protocol DTStroke: Hashable, Codable {
 
     var color: UIColor { get set }
     var tool: DTTool { get set }
-    var points: Set<Point> { get set }
+    var points: [Point] { get set }
 
     /// Instantiates self using a generalised `DTStroke`.
     init<S: DTStroke>(from stroke: S)
 
-    init<P: DTPoint>(color: UIColor, tool: DTTool, points: Set<P>)
+    init<P: DTPoint>(color: UIColor, tool: DTTool, points: [P])
 
 }
 
@@ -52,7 +52,7 @@ extension DTStroke {
         let container = try decoder.container(keyedBy: DTStrokeCodingKeys.self)
         let color = try container.decode(CodableColor.self, forKey: .color).uiColor
         let tool = DTTool(rawValue: try container.decode(String.self, forKey: .tool)) ?? .pen
-        let points = try container.decode(Set<Point>.self, forKey: .points)
+        let points = try container.decode(Array<Point>.self, forKey: .points)
 
         self.init(color: color, tool: tool, points: points)
     }

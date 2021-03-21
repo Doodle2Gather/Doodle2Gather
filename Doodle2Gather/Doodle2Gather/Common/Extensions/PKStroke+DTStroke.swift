@@ -2,9 +2,9 @@ import PencilKit
 
 extension PKStroke: DTStroke {
 
-    var points: Set<PKStrokePoint> {
+    var points: [PKStrokePoint] {
         get {
-            Set(path)
+            path.compactMap { $0 }
         }
         set {
             path = PKStrokePath(controlPoints: newValue, creationDate: Date())
@@ -33,7 +33,7 @@ extension PKStroke: DTStroke {
         self.init(color: stroke.color, tool: stroke.tool, points: stroke.points)
     }
 
-    init<P>(color: UIColor, tool: DTTool, points: Set<P>) where P: DTPoint {
+    init<P>(color: UIColor, tool: DTTool, points: [P]) where P: DTPoint {
         var ink = PKInk.InkType.pen
         switch tool {
         case .pen:
