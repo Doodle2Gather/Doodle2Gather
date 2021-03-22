@@ -54,10 +54,10 @@ final class DTWebSocketController {
             switch decodedData.type {
             case .handshake:
                 print("Shook the hand")
-                let message = try decoder.decode(DoodleActionHandShake.self, from: data)
+                let message = try decoder.decode(DoodleActionHandShake.self, from: uncompressedData)
                 self.id = message.id
             case .feedback:
-                try self.handleNewActionFeedback(data)
+                try self.handleNewActionFeedback(uncompressedData)
             default:
                 break
             }
