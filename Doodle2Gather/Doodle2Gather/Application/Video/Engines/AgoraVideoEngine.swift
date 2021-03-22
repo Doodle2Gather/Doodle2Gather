@@ -19,7 +19,7 @@ class AgoraVideoEngine: NSObject, VideoEngine {
     }
 
     private func getAgoraTokenAndJoinChannel(channelName: String) {
-        let url = URL(string: "http://z.christopher.sg:2703/access_token?uid=\(callID)&channel=\(channelName)")!
+        let url = URL(string: "\(ApiEndpoints.AgoraTokenServer)?uid=\(callID)&channel=\(channelName)")!
 
         let task = URLSession.shared.dataTask(with: url, completionHandler: { data, response, error in
           if let error = error {

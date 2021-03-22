@@ -43,11 +43,10 @@ class HomeViewController: UIViewController {
     }
 
     private func attemptLogin() {
-        let loginEndpoint = "http://d2g.christopher.sg:8080/login"
         let params = ["username": usernameTextField.text,
                       "password": passwordTextField.text,
                       "roomName": roomNameTextField.text]
-        let url = URL(string: loginEndpoint)!
+        let url = URL(string: ApiEndpoints.Login)!
         var request = URLRequest(url: url)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
