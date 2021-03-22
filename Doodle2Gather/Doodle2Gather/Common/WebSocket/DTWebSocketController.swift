@@ -49,7 +49,8 @@ final class DTWebSocketController {
 
     func handle(_ data: Data) {
         do {
-            let decodedData = try decoder.decode(DoodleActionMessageData.self, from: data)
+            let uncompressedData = try Data(referencing: NSData(data: data).decompressed(using: .lzfse))
+            let decodedData = try decoder.decode(DoodleActionMessageData.self, from: uncompressedData)
             switch decodedData.type {
             case .handshake:
                 print("Shook the hand")
@@ -92,13 +93,20 @@ extension DTWebSocketController: SocketController {
             id: id, strokesAdded: action.strokesAdded, strokesRemoved: action.strokesRemoved)
         do {
             let data = try encoder.encode(message)
-            self.socket.send(.data(data)) { err in
+            let compressedData: Data
+            do {
+                compressedData = try Data(referencing: NSData(data: data).compressed(using: .lzfse))
+            } catch {
+                print(error.localizedDescription)
+                return
+            }
+            self.socket.send(.data(compressedData)) { err in
                 if err != nil {
                     print(err.debugDescription)
                 }
             }
         } catch {
-            print(error)
+            print(error.localizedDescription)
         }
     }
 
