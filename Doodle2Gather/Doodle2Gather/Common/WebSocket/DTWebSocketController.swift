@@ -1,10 +1,3 @@
-//
-//  WebSocketController.swift
-//  Doodle2Gather
-//
-//  Created by eksinyue on 20/3/21.
-//
-
 import Foundation
 
 final class DTWebSocketController {

@@ -1,11 +1,3 @@
-//
-//  DoodleActionController.swift
-//  
-//
-//  Created by eksinyue on 17/3/21.
-//
-
-import Fluent
 import Vapor
 
 struct DoodleActionController: RouteCollection {

@@ -1,10 +1,3 @@
-//
-//  Doodle2GatherUITests.swift
-//  Doodle2GatherUITests
-//
-//  Created by Hanming on 9/3/21.
-//
-
 import XCTest
 
 class Doodle2GatherUITests: XCTestCase {

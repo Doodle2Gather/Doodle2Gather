@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  Doodle2Gather
-//
-//  Created by Hanming on 9/3/21.
-//
-
 import UIKit
 
 @main

@@ -1,10 +1,3 @@
-//
-//  AddAction.swift
-//  
-//
-//  Created by eksinyue on 17/3/21.
-//
-
 import Fluent
 
 struct AddAction: Migration {

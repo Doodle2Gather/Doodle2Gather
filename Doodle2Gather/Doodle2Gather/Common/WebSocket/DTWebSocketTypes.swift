@@ -1,10 +1,3 @@
-//
-//  WebSocketTypes.swift
-//  Doodle2Gather
-//
-//  Created by eksinyue on 20/3/21.
-//
-
 import Foundation
 
 struct DTWebSocketTypes {}

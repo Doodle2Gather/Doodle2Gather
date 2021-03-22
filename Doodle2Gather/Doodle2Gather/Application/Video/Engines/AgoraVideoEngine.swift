@@ -1,10 +1,3 @@
-//
-//  AgoraVideoEngine.swift
-//  Doodle2Gather
-//
-//  Created by Christopher Goh on 21/3/21.
-//
-
 import AgoraRtcKit
 
 /**

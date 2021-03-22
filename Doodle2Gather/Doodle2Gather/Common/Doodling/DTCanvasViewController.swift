@@ -1,4 +1,3 @@
-import UIKit
 import PencilKit
 
 /// A `UIViewController` that manages a canvas and works with the
