@@ -86,9 +86,10 @@ class WebSocketController {
 
             let encoder = JSONEncoder()
             let data = try encoder.encode(message)
+            let compressedData = try Data(referencing: NSData(data: data).compressed(using: .lzfse))
 
             sockets.forEach {
-                $0.send(raw: data, opcode: .binary)
+                $0.send(raw: compressedData, opcode: .binary)
             }
         } catch {
             logger.report(error: error)
@@ -98,11 +99,12 @@ class WebSocketController {
     func onData(_ ws: WebSocket, _ data: Data) {
         let decoder = JSONDecoder()
         do {
-            let decodedData = try decoder.decode(DoodleActionMessageData.self, from: data)
+            let decompressedData = try Data(referencing: NSData(data: data).decompressed(using: .lzfse))
+            let decodedData = try decoder.decode(DoodleActionMessageData.self, from: decompressedData)
             switch decodedData.type {
             case .newAction:
                 let newActionData = try decoder.decode(
-                    NewDoodleActionMessage.self, from: data)
+                    NewDoodleActionMessage.self, from: decompressedData)
                 self.onNewAction(ws, decodedData.id, newActionData)
             default:
                 break
