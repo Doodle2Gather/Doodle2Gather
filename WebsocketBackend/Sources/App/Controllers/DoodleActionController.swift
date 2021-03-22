@@ -4,7 +4,9 @@ struct DoodleActionController: RouteCollection {
     let wsController: WebSocketController
 
     func boot(routes: RoutesBuilder) throws {
-        routes.webSocket("rooms", "devRoom", onUpgrade: self.webSocket)
+        routes.webSocket("rooms", "devRoom",
+                         maxFrameSize: WebSocketMaxFrameSize(integerLiteral: 1 << 24),
+                         onUpgrade: self.webSocket)
         routes.get(use: index)
     }
 
