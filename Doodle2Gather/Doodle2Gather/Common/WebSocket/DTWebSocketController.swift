@@ -17,6 +17,7 @@ final class DTWebSocketController {
 
     func connect() {
         self.socket = session.webSocketTask(with: URL(string: ApiEndpoints.Room)!)
+        self.socket.maximumMessageSize = Int.max
         self.listen()
         self.socket.resume()
     }
