@@ -133,6 +133,9 @@
                                                     <constraint firstAttribute="height" constant="40" id="kyv-a9-dtY"/>
                                                 </constraints>
                                                 <state key="normal" image="pencil.tip" catalog="system"/>
+                                                <connections>
+                                                    <action selector="penButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="yke-zi-6lO"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zpi-bt-ewc" userLabel="Eraser Button">
                                                 <rect key="frame" x="0.0" y="50" width="40" height="40"/>
@@ -142,6 +145,9 @@
                                                 </constraints>
                                                 <inset key="imageEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
                                                 <state key="normal" image="eraser"/>
+                                                <connections>
+                                                    <action selector="eraserButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="VED-8b-0jX"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Va2-Px-Ku6" userLabel="Text Button">
                                                 <rect key="frame" x="0.0" y="100" width="40" height="40"/>

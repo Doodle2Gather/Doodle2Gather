@@ -26,4 +26,7 @@ protocol DTCanvasView where Self: UIView {
     /// Gets the doodle displayed on the canvas.
     func getDoodle<D: DTDoodle>() -> D?
 
+    /// Sets the current tool used on the canvas.
+    func setTool(_ tool: DTTool)
+
 }

@@ -23,6 +23,19 @@ extension PKCanvasView: DTCanvasView {
         drawing as? D
     }
 
+    func setTool(_ tool: DTTool) {
+        switch tool {
+        case .pen:
+            self.tool = PKInkingTool(.pen)
+        case .pencil:
+            self.tool = PKInkingTool(.pencil)
+        case .marker:
+            self.tool = PKInkingTool(.marker)
+        case .eraser:
+            self.tool = PKEraserTool(.bitmap)
+        }
+    }
+
 }
 
 class WrapperPKCanvasViewDelegate: NSObject, PKCanvasViewDelegate, DTCanvasViewDelegate {

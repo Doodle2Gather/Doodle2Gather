@@ -51,6 +51,14 @@ class DoodleViewController: UIViewController {
 
 extension DoodleViewController {
 
+    @IBAction private func penButtonDidTap(_ sender: UIButton) {
+        canvasController?.setPenTool()
+    }
+
+    @IBAction private func eraserButtonDidTap(_ sender: UIButton) {
+        canvasController?.setEraserTool()
+    }
+
     @IBAction private func trashButtonDidTap(_ sender: UIButton) {
         canvasController?.clearDoodle()
     }

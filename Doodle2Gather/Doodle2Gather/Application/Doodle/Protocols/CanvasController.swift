@@ -14,4 +14,10 @@ protocol CanvasController {
     /// Clears the canvas.
     func clearDoodle()
 
+    /// Sets the current tool to the eraser tool.
+    func setEraserTool()
+
+    /// Sets the current tool to the pen tool.
+    func setPenTool()
+
 }

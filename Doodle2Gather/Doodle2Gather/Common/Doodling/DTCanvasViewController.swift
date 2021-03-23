@@ -106,4 +106,12 @@ extension DTCanvasViewController: CanvasController {
         canvasView.loadDoodle(PKDrawing())
     }
 
+    func setPenTool() {
+        canvasView.setTool(.pen)
+    }
+
+    func setEraserTool() {
+        canvasView.setTool(.eraser)
+    }
+
 }
