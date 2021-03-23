@@ -28,6 +28,7 @@
 		2EB929D9260778F600AAB396 /* SubviewTouchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB929D8260778F600AAB396 /* SubviewTouchView.swift */; };
 		2ED7A3C62601B7740006D873 /* Doodle.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2ED7A3C52601B7740006D873 /* Doodle.storyboard */; };
 		2ED7A3CC2601C0450006D873 /* DoodleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED7A3CB2601C0450006D873 /* DoodleViewController.swift */; };
+		2EF0E51D26096B5C0008184D /* SubviewTouchCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF0E51C26096B5C0008184D /* SubviewTouchCollectionView.swift */; };
 		2EF8E92325F754C600C7EE7D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8E92225F754C600C7EE7D /* AppDelegate.swift */; };
 		2EF8E92525F754C600C7EE7D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8E92425F754C600C7EE7D /* SceneDelegate.swift */; };
 		2EF8E92725F754C600C7EE7D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8E92625F754C600C7EE7D /* HomeViewController.swift */; };
@@ -88,6 +89,7 @@
 		2EB929D8260778F600AAB396 /* SubviewTouchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubviewTouchView.swift; sourceTree = "<group>"; };
 		2ED7A3C52601B7740006D873 /* Doodle.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Doodle.storyboard; sourceTree = "<group>"; };
 		2ED7A3CB2601C0450006D873 /* DoodleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodleViewController.swift; sourceTree = "<group>"; };
+		2EF0E51C26096B5C0008184D /* SubviewTouchCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubviewTouchCollectionView.swift; sourceTree = "<group>"; };
 		2EF8E91F25F754C600C7EE7D /* Doodle2Gather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doodle2Gather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EF8E92225F754C600C7EE7D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2EF8E92425F754C600C7EE7D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -208,6 +210,15 @@
 				2E26E56F260692880016A8FC /* DTCodableColor.swift */,
 			);
 			path = Doodling;
+			sourceTree = "<group>";
+		};
+		2EF0E51B26096B490008184D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2EB929D8260778F600AAB396 /* SubviewTouchView.swift */,
+				2EF0E51C26096B5C0008184D /* SubviewTouchCollectionView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		2EF8E91625F754C600C7EE7D = {
@@ -347,7 +358,7 @@
 				2ED7A3D32601E71B0006D873 /* Doodling */,
 				2EA8C3162606680500BE750C /* Extensions */,
 				84B17FFA2601C5B5009530A0 /* Constants */,
-				2EB929D8260778F600AAB396 /* SubviewTouchView.swift */,
+				2EF0E51B26096B490008184D /* Views */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -725,6 +736,7 @@
 				2EF8E92325F754C600C7EE7D /* AppDelegate.swift in Sources */,
 				2EA8C34226067F0000BE750C /* PKStroke+DTStroke.swift in Sources */,
 				2E26E570260692880016A8FC /* DTCodableColor.swift in Sources */,
+				2EF0E51D26096B5C0008184D /* SubviewTouchCollectionView.swift in Sources */,
 				2EA8C3302606714500BE750C /* DTCanvasViewDelegate.swift in Sources */,
 				6701369B260638C5005E327A /* DTWebSocketTypes.swift in Sources */,
 				670136A426063926005E327A /* DTWebSocketController.swift in Sources */,
