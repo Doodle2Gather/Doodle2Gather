@@ -126,21 +126,22 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Pqb-uy-IVC" userLabel="Button Stack">
                                         <rect key="frame" x="20" y="20" width="40" height="140"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IP2-Vo-DRb" userLabel="Pencil Button">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IP2-Vo-DRb" userLabel="Pencil Button">
                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
-                                                <color key="backgroundColor" systemColor="linkColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="40" id="g6H-cL-8dT"/>
                                                     <constraint firstAttribute="height" constant="40" id="kyv-a9-dtY"/>
                                                 </constraints>
+                                                <state key="normal" image="pencil.tip" catalog="system"/>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zpi-bt-ewc" userLabel="Eraser Button">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zpi-bt-ewc" userLabel="Eraser Button">
                                                 <rect key="frame" x="0.0" y="50" width="40" height="40"/>
-                                                <color key="backgroundColor" systemColor="systemPinkColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="40" id="Vbe-Hd-oAx"/>
                                                     <constraint firstAttribute="height" constant="40" id="Wqd-nz-xT3"/>
                                                 </constraints>
+                                                <inset key="imageEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                                <state key="normal" image="eraser"/>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Va2-Px-Ku6" userLabel="Text Button">
                                                 <rect key="frame" x="0.0" y="100" width="40" height="40"/>
@@ -302,9 +303,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="834" height="1174"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Bxd-CB-wII">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Bxd-CB-wII" customClass="SubviewTouchCollectionView" customModule="Doodle2Gather" customModuleProvider="target">
                                 <rect key="frame" x="574" y="120" width="240" height="934"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="ZO1-qV-5al"/>
                                 </constraints>
@@ -415,8 +416,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="eraser" width="480.00100708007812" height="480.00100708007812"/>
         <image name="message.fill" catalog="system" width="128" height="113"/>
         <image name="mic.fill" catalog="system" width="108" height="128"/>
+        <image name="pencil.tip" catalog="system" width="99" height="128"/>
         <image name="trash.fill" catalog="system" width="121" height="128"/>
         <image name="video.fill" catalog="system" width="128" height="82"/>
         <systemColor name="linkColor">
