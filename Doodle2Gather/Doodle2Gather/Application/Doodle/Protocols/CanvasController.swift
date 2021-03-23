@@ -1,3 +1,5 @@
+import UIKit
+
 /// An interface for a controller that manages the canvas.
 /// This abstracts away all canvas-level operations.
 protocol CanvasController {
@@ -19,5 +21,17 @@ protocol CanvasController {
 
     /// Sets the current tool to the pen tool.
     func setPenTool()
+
+    /// Sets the current tool to the pencil tool.
+    func setPencilTool()
+
+    /// Sets the current tool to the marker tool.
+    func setMarkerTool()
+
+    /// Sets the current color used for doodling.
+    func setColor(_ color: UIColor)
+
+    /// Sets the size of the brush.
+    func setSize(_ size: Float)
 
 }

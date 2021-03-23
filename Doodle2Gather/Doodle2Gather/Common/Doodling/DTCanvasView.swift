@@ -29,4 +29,10 @@ protocol DTCanvasView where Self: UIView {
     /// Sets the current tool used on the canvas.
     func setTool(_ tool: DTTool)
 
+    /// Sets the current color used on the canvas.
+    func setColor(_ color: UIColor)
+
+    /// Sets the current width of the brush
+    func setWidth(_ width: CGFloat)
+
 }

@@ -114,4 +114,20 @@ extension DTCanvasViewController: CanvasController {
         canvasView.setTool(.eraser)
     }
 
+    func setPencilTool() {
+        canvasView.setTool(.pencil)
+    }
+
+    func setMarkerTool() {
+        canvasView.setTool(.marker)
+    }
+
+    func setColor(_ color: UIColor) {
+        canvasView.setColor(color)
+    }
+
+    func setSize(_ size: Float) {
+        canvasView.setWidth(CGFloat(size))
+    }
+
 }
