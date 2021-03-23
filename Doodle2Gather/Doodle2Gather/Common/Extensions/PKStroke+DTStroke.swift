@@ -36,7 +36,7 @@ extension PKStroke: DTStroke {
     init<P>(color: UIColor, tool: DTTool, points: [P]) where P: DTPoint {
         var ink = PKInk.InkType.pen
         switch tool {
-        case .pen:
+        case .pen, .eraser:
             ink = .pen
         case .pencil:
             ink = .pencil
@@ -51,7 +51,7 @@ extension PKStroke: DTStroke {
 
     private func convertToolToInk(tool: DTTool) -> PKInk.InkType {
         switch tool {
-        case .pen:
+        case .pen, .eraser:
             return .pen
         case .pencil:
             return .pencil
