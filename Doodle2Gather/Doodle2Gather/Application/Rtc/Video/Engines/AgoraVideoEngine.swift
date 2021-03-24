@@ -89,7 +89,7 @@ class AgoraVideoEngine: NSObject, VideoEngine {
      */
     private func getAgoraEngine() -> AgoraRtcEngineKit {
         if agoraKit == nil {
-            agoraKit = AgoraRtcEngineKit.sharedEngine(withAppId: VideoConstants.appID, delegate: self)
+            agoraKit = AgoraRtcEngineKit.sharedEngine(withAppId: RtcConstants.appID, delegate: self)
         }
         return agoraKit!
     }
