@@ -16,7 +16,7 @@ class AgoraChatEngine: NSObject, ChatEngine {
     var agoraRtmKit: AgoraRtmKit?
     var rtmChannel: AgoraRtmChannel?
     private var chatID: UInt = 0
-    var account: String = UIDevice.current.name
+    var account: String = "test_user"
 
     func initialize() {
         agoraRtmKit = AgoraRtmKit(appId: RtcConstants.appID, delegate: self)
@@ -26,7 +26,7 @@ class AgoraChatEngine: NSObject, ChatEngine {
 
     // Currently reusing the logic for video, need to change to rtm
     private func getAgoraTokenAndJoinChannel(channelName: String) {
-        let url = URL(string: "\(ApiEndpoints.AgoraTokenServer)?uid=\(chatID)&channel=\(channelName)")!
+        let url = URL(string: "\(ApiEndpoints.AgoraRtmTokenServer)?account=\(account)")!
 
         let task = URLSession.shared.dataTask(with: url, completionHandler: { data, response, error in
           if let error = error {
@@ -41,16 +41,17 @@ class AgoraChatEngine: NSObject, ChatEngine {
           }
 
           if let data = data,
-             let tokenResponse = try? JSONDecoder().decode(AgoraTokenAPIResponse.self, from: data) {
+             let tokenResponse = try? JSONDecoder().decode(AgoraRtmTokenResponse.self, from: data) {
             // TODO: CHange "username" to when authentication is done
             // Also, the username cannot contain special characters
-            self.agoraRtmKit?.login(byToken: tokenResponse.token,
-                                    user: "username") { errorCode in
+            print("Hello")
+            self.agoraRtmKit?.login(byToken: tokenResponse.key,
+                                    user: self.account) { errorCode in
                 guard errorCode == .ok else {
                     print("Error with logging in to Agora server: code \(errorCode.rawValue)")
                     return
                 }
-                self.joinChannel(channelName: "testing")
+                self.joinChannel(channelName: channelName)
             }
           }
 
@@ -123,4 +124,8 @@ extension AgoraChatEngine: AgoraRtmChannelDelegate {
         print("Received from channel: \(message.text)")
         delegate?.deliverMessage(from: member.userId, message: message.text)
     }
+}
+
+private struct AgoraRtmTokenResponse: Codable {
+    let key: String
 }
