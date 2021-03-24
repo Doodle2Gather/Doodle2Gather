@@ -46,6 +46,11 @@
 		840D6B2B260236CF001F3D43 /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D6B2A260236CF001F3D43 /* VideoViewController.swift */; };
 		840D6B3326023F90001F3D43 /* VideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D6B3226023F90001F3D43 /* VideoCollectionViewCell.swift */; };
 		84B17FFC2601C5C4009530A0 /* VideoConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B17FFB2601C5C4009530A0 /* VideoConstants.swift */; };
+		84E847A0260AD4C800E39C1F /* AgoraChatEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E8479F260AD4C800E39C1F /* AgoraChatEngine.swift */; };
+		84E847A8260AD4EB00E39C1F /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E847A7260AD4EB00E39C1F /* ChatViewController.swift */; };
+		84E847AD260ADF9900E39C1F /* RtcConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E847AC260ADF9900E39C1F /* RtcConstants.swift */; };
+		84E847CA260B21AA00E39C1F /* AgoraTokenAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E847C9260B21AA00E39C1F /* AgoraTokenAPIResponse.swift */; };
+		84F39C91260B40EC00AFFE6C /* MessageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F39C90260B40EC00AFFE6C /* MessageViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,6 +117,11 @@
 		840D6B2A260236CF001F3D43 /* VideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
 		840D6B3226023F90001F3D43 /* VideoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewCell.swift; sourceTree = "<group>"; };
 		84B17FFB2601C5C4009530A0 /* VideoConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoConstants.swift; sourceTree = "<group>"; };
+		84E8479F260AD4C800E39C1F /* AgoraChatEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgoraChatEngine.swift; sourceTree = "<group>"; };
+		84E847A7260AD4EB00E39C1F /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		84E847AC260ADF9900E39C1F /* RtcConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RtcConstants.swift; sourceTree = "<group>"; };
+		84E847C9260B21AA00E39C1F /* AgoraTokenAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgoraTokenAPIResponse.swift; sourceTree = "<group>"; };
+		84F39C90260B40EC00AFFE6C /* MessageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewCell.swift; sourceTree = "<group>"; };
 		A7F96AAB1FEAB53D88427D90 /* Pods-Doodle2Gather.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Doodle2Gather.debug.xcconfig"; path = "Target Support Files/Pods-Doodle2Gather/Pods-Doodle2Gather.debug.xcconfig"; sourceTree = "<group>"; };
 		CCE632583EE64F0948370B28 /* Pods_Doodle2Gather_Doodle2GatherUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Doodle2Gather_Doodle2GatherUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D674EFEBE3CA3B2B8CA15375 /* Pods-Doodle2Gather-Doodle2GatherUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Doodle2Gather-Doodle2GatherUITests.release.xcconfig"; path = "Target Support Files/Pods-Doodle2Gather-Doodle2GatherUITests/Pods-Doodle2Gather-Doodle2GatherUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -311,7 +321,7 @@
 		2EF8E97A25F75EAE00C7EE7D /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				84B17FDD2601C443009530A0 /* Video */,
+				84E847B2260AE09C00E39C1F /* Rtc */,
 				2EF8E97B25F75EB500C7EE7D /* Home */,
 				2ED7A3C32601B7570006D873 /* Doodle */,
 			);
@@ -418,8 +428,61 @@
 			children = (
 				84B17FFB2601C5C4009530A0 /* VideoConstants.swift */,
 				83D2EC3D2609283A004F875D /* ApiEndpoints.swift */,
+				84E847AC260ADF9900E39C1F /* RtcConstants.swift */,
 			);
 			path = Constants;
+			sourceTree = "<group>";
+		};
+		84E8479B260AD49F00E39C1F /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				84E8479E260AD4B800E39C1F /* Engines */,
+				84E8479D260AD4B100E39C1F /* Controllers */,
+				84E8479C260AD4AB00E39C1F /* Views */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		84E8479C260AD4AB00E39C1F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				84F39C90260B40EC00AFFE6C /* MessageViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		84E8479D260AD4B100E39C1F /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				84E847A7260AD4EB00E39C1F /* ChatViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		84E8479E260AD4B800E39C1F /* Engines */ = {
+			isa = PBXGroup;
+			children = (
+				84E8479F260AD4C800E39C1F /* AgoraChatEngine.swift */,
+			);
+			path = Engines;
+			sourceTree = "<group>";
+		};
+		84E847B2260AE09C00E39C1F /* Rtc */ = {
+			isa = PBXGroup;
+			children = (
+				84E847B3260AE0AE00E39C1F /* Common */,
+				84E8479B260AD49F00E39C1F /* Chat */,
+				84B17FDD2601C443009530A0 /* Video */,
+			);
+			path = Rtc;
+			sourceTree = "<group>";
+		};
+		84E847B3260AE0AE00E39C1F /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				84E847C9260B21AA00E39C1F /* AgoraTokenAPIResponse.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		8B03623CDC31B0041B73D437 /* Pods */ = {
@@ -733,6 +796,7 @@
 				2EA8C335260677C800BE750C /* PKDrawing+DTDrawing.swift in Sources */,
 				2EA8C33D260677F800BE750C /* DTStroke.swift in Sources */,
 				2E987E5C2607442A00352E7D /* DTPoint.swift in Sources */,
+				84E847A0260AD4C800E39C1F /* AgoraChatEngine.swift in Sources */,
 				2EF8E92325F754C600C7EE7D /* AppDelegate.swift in Sources */,
 				2EA8C34226067F0000BE750C /* PKStroke+DTStroke.swift in Sources */,
 				2E26E570260692880016A8FC /* DTCodableColor.swift in Sources */,
@@ -741,12 +805,16 @@
 				6701369B260638C5005E327A /* DTWebSocketTypes.swift in Sources */,
 				670136A426063926005E327A /* DTWebSocketController.swift in Sources */,
 				84B17FFC2601C5C4009530A0 /* VideoConstants.swift in Sources */,
+				84E847A8260AD4EB00E39C1F /* ChatViewController.swift in Sources */,
+				84E847CA260B21AA00E39C1F /* AgoraTokenAPIResponse.swift in Sources */,
 				2EF8E92525F754C600C7EE7D /* SceneDelegate.swift in Sources */,
 				2E987E6E2607468000352E7D /* PKStrokePoint+DTPoint.swift in Sources */,
 				2E987E7D26075C0200352E7D /* SocketController.swift in Sources */,
+				84E847AD260ADF9900E39C1F /* RtcConstants.swift in Sources */,
 				2EA8C3052605E5B700BE750C /* CanvasControllerDelegate.swift in Sources */,
 				2E987E8226075C5200352E7D /* SocketControllerDelegate.swift in Sources */,
 				2EA8C30A2605E95400BE750C /* DTDoodle.swift in Sources */,
+				84F39C91260B40EC00AFFE6C /* MessageViewCell.swift in Sources */,
 				83D2EC3E2609283A004F875D /* ApiEndpoints.swift in Sources */,
 				2ED7A3CC2601C0450006D873 /* DoodleViewController.swift in Sources */,
 				2EA8C32826066F9300BE750C /* DTCanvasViewController.swift in Sources */,
@@ -931,13 +999,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = K9H85859Q4;
+				DEVELOPMENT_TEAM = 96B284D7CD;
 				INFOPLIST_FILE = "Doodle2Gather/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.hanmingdev.Doodle2Gather4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.asthenosphere.Doodle2Gather;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -951,13 +1019,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = K9H85859Q4;
+				DEVELOPMENT_TEAM = 96B284D7CD;
 				INFOPLIST_FILE = "Doodle2Gather/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.hanmingdev.Doodle2Gather4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.asthenosphere.Doodle2Gather;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;

@@ -112,7 +112,3 @@ extension AgoraVideoEngine: AgoraRtcEngineDelegate {
         delegate?.didLeaveCall(id: uid)
     }
 }
-
-private struct AgoraTokenAPIResponse: Codable {
-    let token: String
-}

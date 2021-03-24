@@ -68,7 +68,6 @@ extension VideoViewController: VideoEngineDelegate {
 
     func didLeaveCall(id: UInt) {
         if let index = remoteUserIDs.firstIndex(where: { $0 == id }) {
-            print(remoteUserIDs.count)
             remoteUserIDs.remove(at: index)
             collectionView.reloadData()
         }
