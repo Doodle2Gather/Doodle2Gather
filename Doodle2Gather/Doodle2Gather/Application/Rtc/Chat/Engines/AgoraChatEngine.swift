@@ -20,8 +20,11 @@ class AgoraChatEngine: NSObject, ChatEngine {
 
     func initialize() {
         agoraRtmKit = AgoraRtmKit(appId: RtcConstants.appID, delegate: self)
+        agoraRtmKit?.agoraRtmDelegate = self
+        getAgoraTokenAndJoinChannel(channelName: "messaging")
     }
 
+    // Currently reusing the logic for video, need to change to rtm
     private func getAgoraTokenAndJoinChannel(channelName: String) {
         let url = URL(string: "\(ApiEndpoints.AgoraTokenServer)?uid=\(chatID)&channel=\(channelName)")!
 
@@ -39,15 +42,18 @@ class AgoraChatEngine: NSObject, ChatEngine {
 
           if let data = data,
              let tokenResponse = try? JSONDecoder().decode(AgoraTokenAPIResponse.self, from: data) {
+            // TODO: CHange "username" to when authentication is done
+            // Also, the username cannot contain special characters
             self.agoraRtmKit?.login(byToken: tokenResponse.token,
-                                    user: self.account) { errorCode in
+                                    user: "username") { errorCode in
                 guard errorCode == .ok else {
-                    print("Error with logging in to Agora server")
+                    print("Error with logging in to Agora server: code \(errorCode.rawValue)")
                     return
                 }
                 self.joinChannel(channelName: "testing")
             }
           }
+
         })
         task.resume()
     }
@@ -73,12 +79,27 @@ class AgoraChatEngine: NSObject, ChatEngine {
     }
 
     func send(message: String) {
-
+        let rtmMessage = AgoraRtmMessage(text: message)
+        rtmChannel?.send(rtmMessage) { errorCode in
+            if errorCode != .errorOk {
+                print("Error sending the message: code \(errorCode.rawValue)")
+            } else {
+                self.delegate?.deliverMessage(from: self.account, message: message)
+            }
+        }
     }
 }
 
 extension AgoraChatEngine: AgoraRtmDelegate {
+    func rtmKit(_ kit: AgoraRtmKit,
+                connectionStateChanged state: AgoraRtmConnectionState,
+                reason: AgoraRtmConnectionChangeReason) {
+        print("Connection state changed: \(state)")
+    }
 
+    func rtmKit(_ kit: AgoraRtmKit, messageReceived message: AgoraRtmMessage, fromPeer peerId: String) {
+        delegate?.deliverMessage(from: peerId, message: message.text)
+    }
 }
 
 // MARK: - AgoraRtmChannelDelegate
@@ -99,6 +120,7 @@ extension AgoraChatEngine: AgoraRtmChannelDelegate {
     func channel(_ channel: AgoraRtmChannel,
                  messageReceived message: AgoraRtmMessage,
                  from member: AgoraRtmMember) {
+        print("Received from channel: \(message.text)")
         delegate?.deliverMessage(from: member.userId, message: message.text)
     }
 }

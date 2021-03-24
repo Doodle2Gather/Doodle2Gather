@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AgoraRtmKit
 
 protocol ChatEngine {
     var delegate: ChatEngineDelegate? { get set }
@@ -24,6 +25,10 @@ struct Message {
 }
 
 class ChatViewController: UIViewController {
+    @IBOutlet private var inputTextField: UITextField!
+    @IBOutlet private var sendButton: UIButton!
+    @IBOutlet private var tableView: UITableView!
+
     var chatEngine: ChatEngine?
     lazy var list = [Message]()
     var account = UIDevice.current.name
@@ -31,12 +36,8 @@ class ChatViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         chatEngine = AgoraChatEngine()
-        list.append(Message(userId: "Wang", text: "How are you?"))
-        list.append(Message(userId: "Wang", text: "How are you?"))
-        list.append(Message(userId: "Wang", text: "How are you?"))
-        list.append(Message(userId: "Wang", text: "How are you?"))
-
-        // Do any additional setup after loading the view.
+        chatEngine?.delegate = self
+        chatEngine?.initialize()
     }
 
     func pressedReturnToSendText(_ text: String?) -> Bool {
@@ -46,11 +47,25 @@ class ChatViewController: UIViewController {
         chatEngine?.send(message: text)
         return true
     }
+
+    @IBAction private func send(_ sender: Any) {
+        guard let text = inputTextField.text else {
+            return
+        }
+        chatEngine?.send(message: text)
+    }
 }
 
 extension ChatViewController: ChatEngineDelegate {
     func deliverMessage(from user: String, message: String) {
+        print("Reached here")
         self.list.append(Message(userId: user, text: message))
+        if self.list.count > 100 {
+            self.list.removeFirst()
+        }
+        let end = IndexPath(row: self.list.count - 1, section: 0)
+        self.tableView.reloadData()
+        self.tableView.scrollToRow(at: end, at: .bottom, animated: true)
     }
 }
 
