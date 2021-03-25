@@ -92,11 +92,13 @@ extension VideoViewController: UICollectionViewDataSource {
         guard let videoCell = cell as? VideoCollectionViewCell else {
             fatalError("Cell is not VideoCollectionViewCell")
         }
-        if indexPath.row == remoteUserIDs.count { // Put our local video last
+        if indexPath.row == 0 { // Put our local video last
             videoEngine?.setupLocalUserView(view: videoCell.getVideoView())
         } else {
-            let remoteID = remoteUserIDs[indexPath.row]
-            videoEngine?.setupRemoteUserView(view: videoCell.getVideoView(), id: remoteID)
+            let remoteID = remoteUserIDs[indexPath.row - 1]
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+                self.videoEngine?.setupRemoteUserView(view: videoCell.getVideoView(), id: remoteID)
+            })
         }
         return cell
     }

@@ -465,6 +465,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="240" height="135"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </collectionViewCellContentView>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <size key="customSize" width="240" height="135"/>
                                         <connections>
                                             <outlet property="videoView" destination="Ioy-42-Bn6" id="daj-BI-aRn"/>

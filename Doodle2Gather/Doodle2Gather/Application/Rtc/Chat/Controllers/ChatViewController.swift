@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import AgoraRtmKit
 
 protocol ChatEngine {
     var delegate: ChatEngineDelegate? { get set }
