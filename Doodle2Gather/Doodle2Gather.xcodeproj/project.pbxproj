@@ -331,7 +331,7 @@
 		2EF8E97A25F75EAE00C7EE7D /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				84E847B2260AE09C00E39C1F /* Rtc */,
+				84E847B2260AE09C00E39C1F /* Conference */,
 				2EF8E97B25F75EB500C7EE7D /* Home */,
 				2ED7A3C32601B7570006D873 /* Doodle */,
 			);
@@ -436,7 +436,7 @@
 			path = Constants;
 			sourceTree = "<group>";
 		};
-		84E847B2260AE09C00E39C1F /* Rtc */ = {
+		84E847B2260AE09C00E39C1F /* Conference */ = {
 			isa = PBXGroup;
 			children = (
 				84E9594D260D753400D587CC /* Protocols */,
@@ -445,7 +445,7 @@
 				835D3BFE2606C19B004491D5 /* Engines */,
 				84E847B3260AE0AE00E39C1F /* Common */,
 			);
-			path = Rtc;
+			path = Conference;
 			sourceTree = "<group>";
 		};
 		84E847B3260AE0AE00E39C1F /* Common */ = {
