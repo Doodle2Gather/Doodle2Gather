@@ -7,17 +7,6 @@
 
 import UIKit
 
-protocol ChatEngine {
-    var delegate: ChatEngineDelegate? { get set }
-    func initialize()
-    func joinChannel(channelName: String)
-    func send(message: String)
-}
-
-protocol ChatEngineDelegate: AnyObject {
-    func deliverMessage(from user: String, message: String)
-}
-
 struct Message {
     var userId: String
     var text: String
@@ -30,13 +19,11 @@ class ChatViewController: UIViewController {
 
     var chatEngine: ChatEngine?
     lazy var list = [Message]()
-    var account = UIDevice.current.name
+    var account = "test_user3"
+    var deliverHandler: ((Message) -> Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        chatEngine = AgoraChatEngine()
-        chatEngine?.delegate = self
-        chatEngine?.initialize()
     }
 
     func pressedReturnToSendText(_ text: String?) -> Bool {
@@ -55,10 +42,9 @@ class ChatViewController: UIViewController {
     }
 }
 
-extension ChatViewController: ChatEngineDelegate {
-    func deliverMessage(from user: String, message: String) {
-        print("Reached here")
-        self.list.append(Message(userId: user, text: message))
+extension ChatViewController: ChatBoxDelegate {
+    func onReceiveMessage(_ message: Message) {
+        self.list.append(message)
         if self.list.count > 100 {
             self.list.removeFirst()
         }

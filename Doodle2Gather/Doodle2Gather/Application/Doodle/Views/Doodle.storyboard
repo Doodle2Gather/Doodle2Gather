@@ -26,7 +26,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2v7-Hc-qJ9" userLabel="Video Overlay View" customClass="SubviewTouchView" customModule="Doodle2Gather" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="834" height="1174"/>
                                 <connections>
-                                    <segue destination="iqH-RH-LvU" kind="embed" id="LHe-b8-q2G"/>
+                                    <segue destination="iqH-RH-LvU" kind="embed" identifier="" id="LHe-b8-q2G"/>
                                 </connections>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lOM-bA-4te" userLabel="File Name View">
@@ -437,10 +437,10 @@
             </objects>
             <point key="canvasLocation" x="831" y="76"/>
         </scene>
-        <!--Video View Controller-->
+        <!--Conference View Controller-->
         <scene sceneID="3Z1-bq-AZB">
             <objects>
-                <viewController id="iqH-RH-LvU" customClass="VideoViewController" customModule="Doodle2Gather" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="iqH-RH-LvU" customClass="ConferenceViewController" customModule="Doodle2Gather" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="27U-ED-QaR" customClass="SubviewTouchView" customModule="Doodle2Gather" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="834" height="1174"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -493,7 +493,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                 <state key="normal" image="message.fill" catalog="system"/>
                                                 <connections>
-                                                    <segue destination="Y1u-lB-jaG" kind="presentation" id="axU-Z7-9jf"/>
+                                                    <segue destination="Y1u-lB-jaG" kind="presentation" identifier="toChat" id="axU-Z7-9jf"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yDB-Q3-4ya" userLabel="Video Button">
@@ -552,6 +552,7 @@
                     </view>
                     <connections>
                         <outlet property="audioButton" destination="AkO-hK-cSB" id="a3j-SW-FOS"/>
+                        <outlet property="chatButton" destination="mmL-ay-rCs" id="eQn-nO-h29"/>
                         <outlet property="collectionView" destination="Bxd-CB-wII" id="oSa-98-sii"/>
                         <outlet property="videoButton" destination="yDB-Q3-4ya" id="uc5-9l-a18"/>
                     </connections>

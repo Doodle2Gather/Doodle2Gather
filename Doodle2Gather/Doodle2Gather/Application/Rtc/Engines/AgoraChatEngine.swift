@@ -16,7 +16,7 @@ class AgoraChatEngine: NSObject, ChatEngine {
     var agoraRtmKit: AgoraRtmKit?
     var rtmChannel: AgoraRtmChannel?
     private var chatID: UInt = 0
-    var account: String = "test_user"
+    var account: String = "test_user2"
 
     func initialize() {
         agoraRtmKit = AgoraRtmKit(appId: RtcConstants.appID, delegate: self)
@@ -44,7 +44,6 @@ class AgoraChatEngine: NSObject, ChatEngine {
              let tokenResponse = try? JSONDecoder().decode(AgoraRtmTokenResponse.self, from: data) {
             // TODO: CHange "username" to when authentication is done
             // Also, the username cannot contain special characters
-            print("Hello")
             self.agoraRtmKit?.login(byToken: tokenResponse.key,
                                     user: self.account) { errorCode in
                 guard errorCode == .ok else {

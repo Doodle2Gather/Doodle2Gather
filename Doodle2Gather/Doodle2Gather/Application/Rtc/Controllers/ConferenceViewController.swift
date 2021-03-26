@@ -1,22 +1,5 @@
 import UIKit
 
-protocol VideoEngine {
-    var delegate: VideoEngineDelegate? { get set }
-    func initialize()
-    func joinChannel(channelName: String)
-    func muteAudio()
-    func unmuteAudio()
-    func showVideo()
-    func hideVideo()
-    func setupLocalUserView(view: VideoCollectionViewCell)
-    func setupRemoteUserView(view: VideoCollectionViewCell, id: UInt)
-}
-
-protocol VideoEngineDelegate: AnyObject {
-    func didJoinCall(id: UInt)
-    func didLeaveCall(id: UInt)
-}
-
 class ConferenceViewController: UIViewController {
 
     @IBOutlet private var collectionView: UICollectionView!
@@ -25,7 +8,10 @@ class ConferenceViewController: UIViewController {
     @IBOutlet private var chatButton: UIButton!
 
     var videoEngine: VideoEngine?
+    var chatEngine: ChatEngine?
+    var chatBox: ChatBoxDelegate?
     var remoteUserIDs: [UInt] = []
+    lazy var chatList = [Message]()
     var isMuted = false
     var isVideoOff = false
     var isChatShown = false
@@ -36,6 +22,8 @@ class ConferenceViewController: UIViewController {
         videoEngine?.delegate = self
         videoEngine?.initialize()
         videoEngine?.joinChannel(channelName: "testing")
+        chatEngine = AgoraChatEngine()
+        chatEngine?.initialize()
     }
 
     @IBAction private func didToggleAudio(_ sender: Any) {
@@ -59,9 +47,28 @@ class ConferenceViewController: UIViewController {
         }
         isVideoOff.toggle()
     }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toChat" {
+            guard let vc = segue.destination as? ChatViewController else {
+                fatalError("Unable to get ChatViewController")
+            }
+            chatEngine?.delegate = self
+            vc.chatEngine = chatEngine
+            self.chatBox = vc
+            vc.deliverHandler = { message in
+                self.chatList.append(message)
+            }
+            for msg in chatList {
+                vc.list.append(msg)
+            }
+        }
+    }
 }
 
-extension VideoViewController: VideoEngineDelegate {
+// MARK: - VideoEngineDelegate
+
+extension ConferenceViewController: VideoEngineDelegate {
     func didJoinCall(id: UInt) {
         remoteUserIDs.append(id)
         collectionView.reloadData()
@@ -75,14 +82,25 @@ extension VideoViewController: VideoEngineDelegate {
     }
 }
 
+extension ConferenceViewController: ChatEngineDelegate {
+    func deliverMessage(from user: String, message: String) {
+        let message = Message(userId: user, text: message)
+        self.chatList.append(message)
+        if self.chatList.count > 100 {
+            self.chatList.removeFirst()
+        }
+        chatBox?.onReceiveMessage(message)
+    }
+}
+
 // MARK: - UICollectionViewDelegate
 
-extension VideoViewController: UICollectionViewDelegate {
+extension ConferenceViewController: UICollectionViewDelegate {
 }
 
 // MARK: - UICollectionViewDataSource
 
-extension VideoViewController: UICollectionViewDataSource {
+extension ConferenceViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         remoteUserIDs.count + 1
     }
@@ -107,7 +125,7 @@ extension VideoViewController: UICollectionViewDataSource {
 
 // MARK: - UICollectionViewDelegateFlowLayout
 
-extension VideoViewController: UICollectionViewDelegateFlowLayout {
+extension ConferenceViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
