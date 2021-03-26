@@ -17,16 +17,18 @@ protocol VideoEngineDelegate: AnyObject {
     func didLeaveCall(id: UInt)
 }
 
-class VideoViewController: UIViewController {
+class ConferenceViewController: UIViewController {
 
     @IBOutlet private var collectionView: UICollectionView!
     @IBOutlet private var videoButton: UIButton!
     @IBOutlet private var audioButton: UIButton!
+    @IBOutlet private var chatButton: UIButton!
 
     var videoEngine: VideoEngine?
     var remoteUserIDs: [UInt] = []
     var isMuted = false
     var isVideoOff = false
+    var isChatShown = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,7 +59,6 @@ class VideoViewController: UIViewController {
         }
         isVideoOff.toggle()
     }
-
 }
 
 extension VideoViewController: VideoEngineDelegate {
@@ -92,7 +93,7 @@ extension VideoViewController: UICollectionViewDataSource {
         guard let videoCell = cell as? VideoCollectionViewCell else {
             fatalError("Cell is not VideoCollectionViewCell")
         }
-        if indexPath.row == 0 { // Put our local video last
+        if indexPath.row == 0 { // Put our local video first
             videoEngine?.setupLocalUserView(view: videoCell.getVideoView())
         } else {
             let remoteID = remoteUserIDs[indexPath.row - 1]
