@@ -39,6 +39,11 @@ class ChatViewController: UIViewController {
             return
         }
         chatEngine?.send(message: text)
+        inputTextField.text = ""
+    }
+
+    @IBAction private func didTapClose(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
     }
 }
 
