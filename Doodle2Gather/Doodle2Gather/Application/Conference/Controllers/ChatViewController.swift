@@ -14,6 +14,7 @@ struct Message {
 
 class ChatViewController: UIViewController {
     @IBOutlet private var inputTextField: UITextField!
+    @IBOutlet private var sendButton: UIButton!
     @IBOutlet private var tableView: UITableView!
 
     var chatEngine: ChatEngine?
@@ -24,21 +25,17 @@ class ChatViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         updateViews()
-        addKeyboardObserver()
-        inputTextField.returnKeyType = .send
-        inputTextField.enablesReturnKeyAutomatically = true
     }
 
-    func pressedReturnToSendText(_ text: String?) -> Bool {
+    @IBAction private func send(_ sender: Any) {
         guard let text = inputTextField.text else {
-            return false
+            return
         }
         guard !text.isEmpty else {
-            return false
+            return
         }
         chatEngine?.send(message: text)
         inputTextField.text = ""
-        return true
     }
 
     @IBAction private func didTapClose(_ sender: UIBarButtonItem) {
@@ -49,49 +46,6 @@ class ChatViewController: UIViewController {
     func updateViews() {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = ConferenceConstants.messageCellHeight
-    }
-
-    func addKeyboardObserver() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardFrameWillChange(notification:)),
-                                               name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
-    }
-
-    @objc func keyboardFrameWillChange(notification: NSNotification) {
-        guard let userInfo = notification.userInfo,
-            let endKeyboardFrameValue = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
-            let durationValue = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber else {
-                return
-        }
-
-        let endKeyboardFrame = endKeyboardFrameValue.cgRectValue
-        let duration = durationValue.doubleValue
-
-        let isShowing: Bool = endKeyboardFrame.maxY > UIScreen.main.bounds.height ? false : true
-
-        UIView.animate(withDuration: duration) { [weak self] in
-            guard let strongSelf = self else {
-                return
-            }
-
-            if isShowing {
-                let keyboardHeight = endKeyboardFrame.height
-                let heightOffset = strongSelf.inputTextField.frame.height + keyboardHeight
-                    - (UIScreen.main.bounds.height - strongSelf.view.frame.maxY)
-                if heightOffset > 0 {
-                    strongSelf.inputTextField.frame.origin.y = -heightOffset
-                } else {
-                    strongSelf.inputTextField.frame.origin.y = 0
-                }
-            } else {
-                strongSelf.inputTextField.frame.origin.y = 0
-            }
-            strongSelf.view.layoutIfNeeded()
-        }
-    }
-
-    deinit {
-        NotificationCenter.default.removeObserver(self)
     }
 }
 
@@ -118,17 +72,5 @@ extension ChatViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "messageCell", for: indexPath) as? MessageViewCell
         cell?.update(type: type, message: msg)
         return cell!
-    }
-}
-
-extension ChatViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if pressedReturnToSendText(textField.text) {
-            textField.text = nil
-        } else {
-            view.endEditing(true)
-        }
-
-        return true
     }
 }

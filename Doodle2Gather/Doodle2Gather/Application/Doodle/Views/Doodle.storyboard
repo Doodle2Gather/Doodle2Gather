@@ -3,6 +3,7 @@
     <device id="ipad11_0rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -566,14 +567,14 @@
             <objects>
                 <viewController id="Y1u-lB-jaG" customClass="ChatViewController" customModule="Doodle2Gather" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BFt-T2-OBM">
-                        <rect key="frame" x="0.0" y="0.0" width="704" height="995"/>
+                        <rect key="frame" x="0.0" y="0.0" width="704" height="995.5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="50" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="86U-mL-Hbs">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="50" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="86U-mL-Hbs">
                                 <rect key="frame" x="20" y="79" width="664" height="842.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="messageCell" id="Ik8-f0-oJA" customClass="MessageViewCell" customModule="Doodle2Gather" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="messageCell" id="Ik8-f0-oJA" customClass="MessageViewCell" customModule="Doodle2Gather" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="664" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ik8-f0-oJA" id="Ie5-1f-EmL">
@@ -704,22 +705,35 @@
                                 <rect key="frame" x="20" y="941.5" width="664" height="34"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type your message here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3Pq-cT-tBB">
-                                        <rect key="frame" x="0.0" y="0.0" width="664" height="34"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="628" height="34"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="34" id="Dtd-8l-Uox"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
-                                        <connections>
-                                            <outlet property="delegate" destination="Y1u-lB-jaG" id="itk-64-day"/>
-                                        </connections>
                                     </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uqE-Of-Dpa">
+                                        <rect key="frame" x="638" y="4" width="26" height="26"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="26" id="o06-7o-uE8"/>
+                                            <constraint firstAttribute="height" constant="26" id="o19-LR-oXB"/>
+                                        </constraints>
+                                        <state key="normal">
+                                            <imageReference key="image" image="paperplane.fill" catalog="system" symbolScale="large"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="send:" destination="Y1u-lB-jaG" eventType="touchUpInside" id="xID-dF-DLY"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="3Pq-cT-tBB" secondAttribute="trailing" id="Czr-r1-MO9"/>
+                                    <constraint firstItem="3Pq-cT-tBB" firstAttribute="trailing" secondItem="uqE-Of-Dpa" secondAttribute="leading" constant="-10" id="CdD-vf-R9P"/>
                                     <constraint firstItem="3Pq-cT-tBB" firstAttribute="leading" secondItem="Pnu-zl-MoS" secondAttribute="leading" id="F7J-LG-eCM"/>
+                                    <constraint firstItem="uqE-Of-Dpa" firstAttribute="centerY" secondItem="Pnu-zl-MoS" secondAttribute="centerY" id="IUU-pE-dgq"/>
                                     <constraint firstItem="3Pq-cT-tBB" firstAttribute="bottom" secondItem="Pnu-zl-MoS" secondAttribute="bottom" id="Lc6-hc-cWZ"/>
+                                    <constraint firstItem="uqE-Of-Dpa" firstAttribute="trailing" secondItem="Pnu-zl-MoS" secondAttribute="trailing" id="UuI-En-oc9"/>
                                     <constraint firstItem="3Pq-cT-tBB" firstAttribute="top" secondItem="Pnu-zl-MoS" secondAttribute="top" id="qip-4f-xId"/>
                                 </constraints>
                             </view>
@@ -757,6 +771,7 @@
                     </view>
                     <connections>
                         <outlet property="inputTextField" destination="3Pq-cT-tBB" id="b8d-LC-GI0"/>
+                        <outlet property="sendButton" destination="uqE-Of-Dpa" id="goB-kX-aJe"/>
                         <outlet property="tableView" destination="86U-mL-Hbs" id="4w9-uB-Hwx"/>
                     </connections>
                 </viewController>
@@ -770,6 +785,7 @@
         <image name="highlighter" catalog="system" width="128" height="119"/>
         <image name="message.fill" catalog="system" width="128" height="113"/>
         <image name="mic.fill" catalog="system" width="108" height="128"/>
+        <image name="paperplane.fill" catalog="system" width="128" height="118"/>
         <image name="pencil" catalog="system" width="128" height="113"/>
         <image name="pencil.tip" catalog="system" width="99" height="128"/>
         <image name="scribble.variable" catalog="system" width="128" height="118"/>
