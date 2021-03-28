@@ -134,6 +134,6 @@ extension ConferenceViewController: UICollectionViewDelegateFlowLayout {
             - collectionView.adjustedContentInset.left
             - collectionView.adjustedContentInset.right
 
-        return CGSize(width: totalWidth, height: totalWidth * VideoConstants.aspectRatio)
+        return CGSize(width: totalWidth, height: totalWidth * ConferenceConstants.aspectRatio)
     }
 }

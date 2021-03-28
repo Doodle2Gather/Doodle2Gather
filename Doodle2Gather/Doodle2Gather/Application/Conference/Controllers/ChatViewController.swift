@@ -19,23 +19,18 @@ class ChatViewController: UIViewController {
 
     var chatEngine: ChatEngine?
     lazy var list = [Message]()
-    var account = "test_user3"
+    var account = ConferenceConstants.testUser
     var deliverHandler: ((Message) -> Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 
-    func pressedReturnToSendText(_ text: String?) -> Bool {
-        guard let text = text, !text.isEmpty else {
-            return false
-        }
-        chatEngine?.send(message: text)
-        return true
-    }
-
     @IBAction private func send(_ sender: Any) {
         guard let text = inputTextField.text else {
+            return
+        }
+        guard !text.isEmpty else {
             return
         }
         chatEngine?.send(message: text)
@@ -70,17 +65,5 @@ extension ChatViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "messageCell", for: indexPath) as? MessageViewCell
         cell?.update(type: type, message: msg)
         return cell!
-    }
-}
-
-extension ChatViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if pressedReturnToSendText(textField.text) {
-            textField.text = nil
-        } else {
-            view.endEditing(true)
-        }
-
-        return true
     }
 }

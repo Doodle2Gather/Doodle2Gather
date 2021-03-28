@@ -16,10 +16,10 @@ class AgoraChatEngine: NSObject, ChatEngine {
     var agoraRtmKit: AgoraRtmKit?
     var rtmChannel: AgoraRtmChannel?
     private var chatID: UInt = 0
-    var account: String = "test_user2"
+    var account: String = ConferenceConstants.testUser
 
     func initialize() {
-        agoraRtmKit = AgoraRtmKit(appId: RtcConstants.appID, delegate: self)
+        agoraRtmKit = AgoraRtmKit(appId: ConferenceConstants.appID, delegate: self)
         agoraRtmKit?.agoraRtmDelegate = self
         getAgoraTokenAndJoinChannel(channelName: "messaging")
     }
@@ -120,7 +120,7 @@ extension AgoraChatEngine: AgoraRtmChannelDelegate {
     func channel(_ channel: AgoraRtmChannel,
                  messageReceived message: AgoraRtmMessage,
                  from member: AgoraRtmMember) {
-        print("Received from channel: \(message.text)")
+        print("Received from userId \(member.userId): \(message.text)")
         delegate?.deliverMessage(from: member.userId, message: message.text)
     }
 }
