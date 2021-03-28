@@ -16,6 +16,8 @@ class ChatViewController: UIViewController {
     @IBOutlet private var inputTextField: UITextField!
     @IBOutlet private var sendButton: UIButton!
     @IBOutlet private var tableView: UITableView!
+    @IBOutlet private var inputContainerView: UIView!
+    @IBOutlet private var inputBottomConstraint: NSLayoutConstraint!
 
     var chatEngine: ChatEngine?
     lazy var list = [Message]()
@@ -25,12 +27,14 @@ class ChatViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         updateViews()
+        addKeyboardObserver()
     }
 
     // Make table cell height dynamic
      func updateViews() {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = ConferenceConstants.messageCellHeight
+        tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
      }
 
     @IBAction private func send(_ sender: Any) {
@@ -46,6 +50,41 @@ class ChatViewController: UIViewController {
 
     @IBAction private func didTapClose(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
+    }
+
+    func addKeyboardObserver() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardFrameWillChange(notification:)),
+                                               name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+    }
+
+    @objc func keyboardFrameWillChange(notification: NSNotification) {
+        guard let userInfo = notification.userInfo,
+            let endKeyboardFrameValue = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
+            let durationValue = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber else {
+                return
+        }
+
+        let endKeyboardFrame = endKeyboardFrameValue.cgRectValue
+        let duration = durationValue.doubleValue
+
+        let isShowing: Bool = endKeyboardFrame.maxY > UIScreen.main.bounds.height ? false : true
+        UIView.animate(withDuration: duration) { [weak self] in
+            guard let strongSelf = self else {
+                return
+            }
+
+            if isShowing {
+                let offsetY = strongSelf.inputContainerView.frame.maxY - endKeyboardFrame.minY
+                guard offsetY > 0 else {
+                    return
+                }
+                strongSelf.inputBottomConstraint.constant = -offsetY - strongSelf.inputContainerView.frame.height - 44
+            } else {
+                strongSelf.inputBottomConstraint.constant = -20
+            }
+            strongSelf.view.layoutIfNeeded()
+        }
     }
 }
 

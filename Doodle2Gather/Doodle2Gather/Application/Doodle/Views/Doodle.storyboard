@@ -565,20 +565,25 @@
         <!--Chat View Controller-->
         <scene sceneID="JwE-Yx-emj">
             <objects>
-                <viewController id="Y1u-lB-jaG" customClass="ChatViewController" customModule="Doodle2Gather" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="formSheet" id="Y1u-lB-jaG" customClass="ChatViewController" customModule="Doodle2Gather" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BFt-T2-OBM">
-                        <rect key="frame" x="0.0" y="0.0" width="704" height="995.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="50" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="86U-mL-Hbs">
-                                <rect key="frame" x="20" y="79" width="664" height="842.5"/>
+                                <rect key="frame" x="20" y="56" width="500" height="490"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="pGQ-Af-Qfc">
+                                    <rect key="frame" x="0.0" y="0.0" width="500" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="messageCell" id="goO-uM-wEb" customClass="MessageViewCell" customModule="Doodle2Gather" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="664" height="50"/>
+                                        <rect key="frame" x="0.0" y="72" width="500" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="goO-uM-wEb" id="57r-l3-JYk">
-                                            <rect key="frame" x="0.0" y="0.0" width="664" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="500" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K2V-Fa-X2V">
@@ -624,7 +629,7 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6PN-ZS-eMq">
-                                                    <rect key="frame" x="614" y="5" width="40" height="40"/>
+                                                    <rect key="frame" x="450" y="5" width="40" height="40"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TMd-oI-PJx">
                                                             <rect key="frame" x="6" y="6" width="28" height="28"/>
@@ -649,7 +654,7 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GMA-pS-Oyw">
-                                                    <rect key="frame" x="536.5" y="5" width="61.5" height="37"/>
+                                                    <rect key="frame" x="372.5" y="5" width="61.5" height="37"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y8j-dA-MoV">
                                                             <rect key="frame" x="12" y="6" width="37.5" height="25"/>
@@ -702,10 +707,10 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pnu-zl-MoS" userLabel="Text Box and Button">
-                                <rect key="frame" x="20" y="941.5" width="664" height="34"/>
+                                <rect key="frame" x="20" y="566" width="500" height="34"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type your message here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3Pq-cT-tBB">
-                                        <rect key="frame" x="0.0" y="0.0" width="628" height="34"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="464" height="34"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="34" id="Dtd-8l-Uox"/>
                                         </constraints>
@@ -713,7 +718,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uqE-Of-Dpa">
-                                        <rect key="frame" x="638" y="4" width="26" height="26"/>
+                                        <rect key="frame" x="474" y="4" width="26" height="26"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="26" id="o06-7o-uE8"/>
@@ -738,7 +743,7 @@
                                 </constraints>
                             </view>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uvs-c8-FoQ">
-                                <rect key="frame" x="0.0" y="0.0" width="704" height="44"/>
+                                <rect key="frame" x="0.0" y="0.0" width="540" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="GhC-bW-RMS"/>
                                 </constraints>
@@ -763,13 +768,15 @@
                             <constraint firstItem="Uvs-c8-FoQ" firstAttribute="leading" secondItem="kGZ-tW-Jla" secondAttribute="leading" id="YlD-R9-ePc"/>
                             <constraint firstItem="Pnu-zl-MoS" firstAttribute="top" secondItem="86U-mL-Hbs" secondAttribute="bottom" constant="20" id="Zlc-Xr-FTC"/>
                             <constraint firstItem="86U-mL-Hbs" firstAttribute="leading" secondItem="kGZ-tW-Jla" secondAttribute="leading" constant="20" id="h4u-pj-gSv"/>
-                            <constraint firstItem="86U-mL-Hbs" firstAttribute="top" secondItem="Uvs-c8-FoQ" secondAttribute="bottom" constant="35" id="jm9-IW-fvz"/>
+                            <constraint firstItem="86U-mL-Hbs" firstAttribute="top" secondItem="Uvs-c8-FoQ" secondAttribute="bottom" constant="12" id="jm9-IW-fvz"/>
                             <constraint firstItem="Uvs-c8-FoQ" firstAttribute="top" secondItem="kGZ-tW-Jla" secondAttribute="top" id="mAq-gD-MDe"/>
                             <constraint firstItem="Pnu-zl-MoS" firstAttribute="leading" secondItem="kGZ-tW-Jla" secondAttribute="leading" constant="20" id="nb8-DD-dMs"/>
                             <constraint firstItem="86U-mL-Hbs" firstAttribute="trailing" secondItem="kGZ-tW-Jla" secondAttribute="trailing" constant="-20" id="zoY-Q5-YS8"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="inputBottomConstraint" destination="F0Z-pA-j0d" id="svt-I3-iEe"/>
+                        <outlet property="inputContainerView" destination="Pnu-zl-MoS" id="TKE-iC-Yic"/>
                         <outlet property="inputTextField" destination="3Pq-cT-tBB" id="b8d-LC-GI0"/>
                         <outlet property="sendButton" destination="uqE-Of-Dpa" id="goB-kX-aJe"/>
                         <outlet property="tableView" destination="86U-mL-Hbs" id="4w9-uB-Hwx"/>
