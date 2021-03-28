@@ -19,32 +19,27 @@ class ChatViewController: UIViewController {
 
     var chatEngine: ChatEngine?
     lazy var list = [Message]()
-    var account = RtcConstants.testUser
+    var account = "test_user3"
     var deliverHandler: ((Message) -> Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toChat" {
-            guard let vc = segue.destination as? ConferenceViewController else {
-                fatalError("Unable to get ConferenceViewController")
-            }
-            vc.chatList.removeAll()
-            for msg in list {
-                vc.chatList.append(msg)
-            }
+    func pressedReturnToSendText(_ text: String?) -> Bool {
+        guard let text = text, !text.isEmpty else {
+            return false
         }
+        chatEngine?.send(message: text)
+        return true
     }
 
     @IBAction private func send(_ sender: Any) {
         guard let text = inputTextField.text else {
             return
         }
-        chatEngine?.send(from: account, message: text)
+        chatEngine?.send(message: text)
         inputTextField.text = ""
-        tableView.reloadData()
     }
 
     @IBAction private func didTapClose(_ sender: UIBarButtonItem) {
@@ -54,14 +49,13 @@ class ChatViewController: UIViewController {
 
 extension ChatViewController: ChatBoxDelegate {
     func onReceiveMessage(_ message: Message) {
-        list.append(message)
-        if list.count > 100 {
-            list.removeFirst()
+        self.list.append(message)
+        if self.list.count > 100 {
+            self.list.removeFirst()
         }
         let end = IndexPath(row: self.list.count - 1, section: 0)
-
-        tableView.reloadData()
-        tableView.scrollToRow(at: end, at: .bottom, animated: true)
+        self.tableView.reloadData()
+        self.tableView.scrollToRow(at: end, at: .bottom, animated: true)
     }
 }
 
@@ -80,4 +74,13 @@ extension ChatViewController: UITableViewDataSource {
 }
 
 extension ChatViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if pressedReturnToSendText(textField.text) {
+            textField.text = nil
+        } else {
+            view.endEditing(true)
+        }
+
+        return true
+    }
 }

@@ -59,7 +59,6 @@ class ConferenceViewController: UIViewController {
             vc.deliverHandler = { message in
                 self.chatList.append(message)
             }
-            vc.list.removeAll()
             for msg in chatList {
                 vc.list.append(msg)
             }

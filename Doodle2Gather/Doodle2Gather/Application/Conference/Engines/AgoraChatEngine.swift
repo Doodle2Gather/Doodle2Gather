@@ -16,7 +16,7 @@ class AgoraChatEngine: NSObject, ChatEngine {
     var agoraRtmKit: AgoraRtmKit?
     var rtmChannel: AgoraRtmChannel?
     private var chatID: UInt = 0
-    var account: String = RtcConstants.testUser
+    var account: String = "test_user2"
 
     func initialize() {
         agoraRtmKit = AgoraRtmKit(appId: RtcConstants.appID, delegate: self)
@@ -78,13 +78,13 @@ class AgoraChatEngine: NSObject, ChatEngine {
         }
     }
 
-    func send(from userId: String, message: String) {
+    func send(message: String) {
         let rtmMessage = AgoraRtmMessage(text: message)
         rtmChannel?.send(rtmMessage) { errorCode in
             if errorCode != .errorOk {
                 print("Error sending the message: code \(errorCode.rawValue)")
             } else {
-                self.delegate?.deliverMessage(from: userId, message: message)
+                self.delegate?.deliverMessage(from: self.account, message: message)
             }
         }
     }
@@ -120,7 +120,7 @@ extension AgoraChatEngine: AgoraRtmChannelDelegate {
     func channel(_ channel: AgoraRtmChannel,
                  messageReceived message: AgoraRtmMessage,
                  from member: AgoraRtmMember) {
-        print("Received from userId \(member.userId): \(message.text)")
+        print("Received from channel: \(message.text)")
         delegate?.deliverMessage(from: member.userId, message: message.text)
     }
 }
