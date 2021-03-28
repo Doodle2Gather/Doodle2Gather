@@ -24,6 +24,7 @@ class ChatViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        updateViews()
     }
 
     @IBAction private func send(_ sender: Any) {
@@ -39,6 +40,12 @@ class ChatViewController: UIViewController {
 
     @IBAction private func didTapClose(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
+    }
+
+    // Make table cell height dynamic
+    func updateViews() {
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = ConferenceConstants.messageCellHeight
     }
 }
 
