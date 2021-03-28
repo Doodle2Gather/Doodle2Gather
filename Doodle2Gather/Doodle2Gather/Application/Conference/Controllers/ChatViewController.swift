@@ -24,7 +24,14 @@ class ChatViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        updateViews()
     }
+
+    // Make table cell height dynamic
+     func updateViews() {
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = ConferenceConstants.messageCellHeight
+     }
 
     @IBAction private func send(_ sender: Any) {
         guard let text = inputTextField.text else {

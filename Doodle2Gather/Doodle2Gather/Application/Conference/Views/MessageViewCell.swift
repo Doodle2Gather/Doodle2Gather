@@ -61,11 +61,19 @@ class MessageViewCell: UITableViewCell {
                 leftContentLabel.isHidden = true
                 leftUserBgView.isHidden = true
                 leftContentBgView.isHidden = true
+                rightUserLabel.isHidden = false
+                rightContentLabel.isHidden = false
+                rightUserBgView.isHidden = false
+                rightContentBgView.isHidden = false
             } else {
                 rightUserLabel.isHidden = true
                 rightContentLabel.isHidden = true
                 rightUserBgView.isHidden = true
                 rightContentBgView.isHidden = true
+                leftUserLabel.isHidden = false
+                leftContentLabel.isHidden = false
+                leftUserBgView.isHidden = false
+                leftContentBgView.isHidden = false
             }
         }
     }

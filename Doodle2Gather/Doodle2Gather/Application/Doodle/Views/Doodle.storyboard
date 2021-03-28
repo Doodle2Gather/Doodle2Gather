@@ -574,7 +574,7 @@
                                 <rect key="frame" x="20" y="79" width="664" height="842.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="messageCell" rowHeight="50" id="goO-uM-wEb" customClass="MessageViewCell" customModule="Doodle2Gather" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="messageCell" id="goO-uM-wEb" customClass="MessageViewCell" customModule="Doodle2Gather" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="664" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="goO-uM-wEb" id="57r-l3-JYk">
