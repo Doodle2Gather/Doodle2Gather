@@ -574,13 +574,13 @@
                                 <rect key="frame" x="20" y="56" width="500" height="490"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="pGQ-Af-Qfc">
-                                    <rect key="frame" x="0.0" y="0.0" width="500" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="500" height="20"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="messageCell" id="goO-uM-wEb" customClass="MessageViewCell" customModule="Doodle2Gather" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="72" width="500" height="50"/>
+                                        <rect key="frame" x="0.0" y="48" width="500" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="goO-uM-wEb" id="57r-l3-JYk">
                                             <rect key="frame" x="0.0" y="0.0" width="500" height="50"/>
@@ -707,10 +707,10 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pnu-zl-MoS" userLabel="Text Box and Button">
-                                <rect key="frame" x="20" y="566" width="500" height="34"/>
+                                <rect key="frame" x="0.0" y="546" width="540" height="74"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type your message here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3Pq-cT-tBB">
-                                        <rect key="frame" x="0.0" y="0.0" width="464" height="34"/>
+                                        <rect key="frame" x="20" y="20" width="464" height="34"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="34" id="Dtd-8l-Uox"/>
                                         </constraints>
@@ -718,7 +718,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uqE-Of-Dpa">
-                                        <rect key="frame" x="474" y="4" width="26" height="26"/>
+                                        <rect key="frame" x="494" y="24" width="26" height="26"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="26" id="o06-7o-uE8"/>
@@ -735,11 +735,11 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="3Pq-cT-tBB" firstAttribute="trailing" secondItem="uqE-Of-Dpa" secondAttribute="leading" constant="-10" id="CdD-vf-R9P"/>
-                                    <constraint firstItem="3Pq-cT-tBB" firstAttribute="leading" secondItem="Pnu-zl-MoS" secondAttribute="leading" id="F7J-LG-eCM"/>
+                                    <constraint firstItem="3Pq-cT-tBB" firstAttribute="leading" secondItem="Pnu-zl-MoS" secondAttribute="leading" constant="20" id="F7J-LG-eCM"/>
                                     <constraint firstItem="uqE-Of-Dpa" firstAttribute="centerY" secondItem="Pnu-zl-MoS" secondAttribute="centerY" id="IUU-pE-dgq"/>
-                                    <constraint firstItem="3Pq-cT-tBB" firstAttribute="bottom" secondItem="Pnu-zl-MoS" secondAttribute="bottom" id="Lc6-hc-cWZ"/>
-                                    <constraint firstItem="uqE-Of-Dpa" firstAttribute="trailing" secondItem="Pnu-zl-MoS" secondAttribute="trailing" id="UuI-En-oc9"/>
-                                    <constraint firstItem="3Pq-cT-tBB" firstAttribute="top" secondItem="Pnu-zl-MoS" secondAttribute="top" id="qip-4f-xId"/>
+                                    <constraint firstItem="3Pq-cT-tBB" firstAttribute="bottom" secondItem="Pnu-zl-MoS" secondAttribute="bottom" constant="-20" id="Lc6-hc-cWZ"/>
+                                    <constraint firstItem="uqE-Of-Dpa" firstAttribute="trailing" secondItem="Pnu-zl-MoS" secondAttribute="trailing" constant="-20" id="UuI-En-oc9"/>
+                                    <constraint firstItem="3Pq-cT-tBB" firstAttribute="top" secondItem="Pnu-zl-MoS" secondAttribute="top" constant="20" id="qip-4f-xId"/>
                                 </constraints>
                             </view>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uvs-c8-FoQ">
@@ -762,15 +762,15 @@
                         <viewLayoutGuide key="safeArea" id="kGZ-tW-Jla"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Pnu-zl-MoS" firstAttribute="trailing" secondItem="kGZ-tW-Jla" secondAttribute="trailing" constant="-20" id="9MG-Bp-XI6"/>
-                            <constraint firstItem="Pnu-zl-MoS" firstAttribute="bottom" secondItem="kGZ-tW-Jla" secondAttribute="bottom" constant="-20" id="F0Z-pA-j0d"/>
+                            <constraint firstItem="Pnu-zl-MoS" firstAttribute="trailing" secondItem="kGZ-tW-Jla" secondAttribute="trailing" id="9MG-Bp-XI6"/>
+                            <constraint firstItem="Pnu-zl-MoS" firstAttribute="bottom" secondItem="kGZ-tW-Jla" secondAttribute="bottom" id="F0Z-pA-j0d"/>
                             <constraint firstItem="Uvs-c8-FoQ" firstAttribute="trailing" secondItem="kGZ-tW-Jla" secondAttribute="trailing" id="WlG-aY-sMV"/>
                             <constraint firstItem="Uvs-c8-FoQ" firstAttribute="leading" secondItem="kGZ-tW-Jla" secondAttribute="leading" id="YlD-R9-ePc"/>
-                            <constraint firstItem="Pnu-zl-MoS" firstAttribute="top" secondItem="86U-mL-Hbs" secondAttribute="bottom" constant="20" id="Zlc-Xr-FTC"/>
+                            <constraint firstItem="Pnu-zl-MoS" firstAttribute="top" secondItem="86U-mL-Hbs" secondAttribute="bottom" id="Zlc-Xr-FTC"/>
                             <constraint firstItem="86U-mL-Hbs" firstAttribute="leading" secondItem="kGZ-tW-Jla" secondAttribute="leading" constant="20" id="h4u-pj-gSv"/>
                             <constraint firstItem="86U-mL-Hbs" firstAttribute="top" secondItem="Uvs-c8-FoQ" secondAttribute="bottom" constant="12" id="jm9-IW-fvz"/>
                             <constraint firstItem="Uvs-c8-FoQ" firstAttribute="top" secondItem="kGZ-tW-Jla" secondAttribute="top" id="mAq-gD-MDe"/>
-                            <constraint firstItem="Pnu-zl-MoS" firstAttribute="leading" secondItem="kGZ-tW-Jla" secondAttribute="leading" constant="20" id="nb8-DD-dMs"/>
+                            <constraint firstItem="Pnu-zl-MoS" firstAttribute="leading" secondItem="kGZ-tW-Jla" secondAttribute="leading" id="nb8-DD-dMs"/>
                             <constraint firstItem="86U-mL-Hbs" firstAttribute="trailing" secondItem="kGZ-tW-Jla" secondAttribute="trailing" constant="-20" id="zoY-Q5-YS8"/>
                         </constraints>
                     </view>

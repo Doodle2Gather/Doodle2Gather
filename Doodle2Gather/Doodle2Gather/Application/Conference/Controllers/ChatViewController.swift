@@ -34,7 +34,6 @@ class ChatViewController: UIViewController {
      func updateViews() {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = ConferenceConstants.messageCellHeight
-        tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
      }
 
     @IBAction private func send(_ sender: Any) {
@@ -79,9 +78,9 @@ class ChatViewController: UIViewController {
                 guard offsetY > 0 else {
                     return
                 }
-                strongSelf.inputBottomConstraint.constant = -offsetY - strongSelf.inputContainerView.frame.height - 44
+                strongSelf.inputBottomConstraint.constant = -offsetY - strongSelf.inputContainerView.frame.height + 32
             } else {
-                strongSelf.inputBottomConstraint.constant = -20
+                strongSelf.inputBottomConstraint.constant = 0
             }
             strongSelf.view.layoutIfNeeded()
         }
