@@ -1,10 +1,3 @@
-//
-//  ChatViewController.swift
-//  Doodle2Gather
-//
-//  Created by Wang on 24/3/21.
-//
-
 import UIKit
 
 struct Message {
@@ -19,7 +12,7 @@ class ChatViewController: UIViewController {
     @IBOutlet private var inputContainerView: UIView!
     @IBOutlet private var inputBottomConstraint: NSLayoutConstraint!
     @IBOutlet private var textBoxAndButton: UIView!
-
+    
     var chatEngine: ChatEngine?
     lazy var list = [Message]()
     var account = ConferenceConstants.testUser
@@ -34,23 +27,21 @@ class ChatViewController: UIViewController {
         view.addGestureRecognizer(tap)
     }
 
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+    // Handle change of orientation for chat box
+    override func viewWillTransition(to size: CGSize,
+                                     with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         if UIDevice.current.orientation.isPortrait {
             self.inputBottomConstraint.constant = 0
         }
     }
 
-    // Calls this function when the tap is recognized.
-    @objc func dismissKeyboard() {
-        // Causes the view (or one of its embedded text fields) to resign the first responder status.
-        view.endEditing(true)
-    }
-
-    // Make table cell height dynamic
     func updateViews() {
+        // Set table cell height to be dynamic
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = ConferenceConstants.messageCellHeight
+
+        // Style input text box
         inputTextView.layer.borderWidth = ConferenceConstants.defaultBorderWidth
         inputTextView.layer.borderColor = UIColor.lightGray.cgColor
         inputTextView.layer.cornerRadius = ConferenceConstants.defaultCornerRadius
@@ -60,7 +51,8 @@ class ChatViewController: UIViewController {
         inputTextView.isScrollEnabled = false
         inputTextView.sizeToFit()
         inputTextView.delegate = self
-
+        
+        // Add top border to the input area
         let topBorder = CALayer()
         topBorder.frame = CGRect(x: 0, y: 0,
                                  width: textBoxAndButton.frame.size.width,
@@ -91,6 +83,13 @@ class ChatViewController: UIViewController {
                                                object: nil)
     }
 
+    // Tap anywhere else to dismiss the keyboard
+    @objc func dismissKeyboard() {
+        // Causes the view (or one of its embedded text fields) to resign the first responder status
+        view.endEditing(true)
+    }
+
+    // Handle keyboard blocking input area
     @objc func keyboardFrameWillChange(notification: NSNotification) {
         guard let userInfo
                 = notification.userInfo,
@@ -129,6 +128,9 @@ class ChatViewController: UIViewController {
     }
 }
 
+// MARK: - ChatBoxDelegate
+// Receives message from ConferenceViewController
+
 extension ChatViewController: ChatBoxDelegate {
     func onReceiveMessage(_ message: Message) {
         self.list.append(message)
@@ -140,6 +142,8 @@ extension ChatViewController: ChatBoxDelegate {
         self.tableView.scrollToRow(at: end, at: .bottom, animated: true)
     }
 }
+
+// MARK: - UITableViewDataSource
 
 extension ChatViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -155,6 +159,9 @@ extension ChatViewController: UITableViewDataSource {
         return cell!
     }
 }
+
+// MARK: - UITextViewDelegate
+// Handles placeholder text
 
 extension ChatViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {

@@ -48,6 +48,7 @@ class ConferenceViewController: UIViewController {
         isVideoOff.toggle()
     }
 
+    // Passes data to the ChatViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toChat" {
             guard let vc = segue.destination as? ChatViewController else {
@@ -81,6 +82,9 @@ extension ConferenceViewController: VideoEngineDelegate {
         }
     }
 }
+
+// MARK: - ChatEngineDelegate
+// Receives message from the server and delivers the message to the delegate
 
 extension ConferenceViewController: ChatEngineDelegate {
     func deliverMessage(from user: String, message: String) {
