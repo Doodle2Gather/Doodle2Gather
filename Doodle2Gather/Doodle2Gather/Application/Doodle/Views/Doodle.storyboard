@@ -778,6 +778,7 @@
                         <outlet property="inputTextView" destination="Row-Qp-7Z2" id="kpn-Li-MCU"/>
                         <outlet property="sendButton" destination="uqE-Of-Dpa" id="goB-kX-aJe"/>
                         <outlet property="tableView" destination="86U-mL-Hbs" id="4w9-uB-Hwx"/>
+                        <outlet property="textBoxAndButton" destination="Pnu-zl-MoS" id="Qmw-O6-Vv1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dPj-ZZ-zFx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

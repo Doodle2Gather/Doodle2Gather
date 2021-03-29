@@ -18,6 +18,7 @@ class ChatViewController: UIViewController {
     @IBOutlet private var tableView: UITableView!
     @IBOutlet private var inputContainerView: UIView!
     @IBOutlet private var inputBottomConstraint: NSLayoutConstraint!
+    @IBOutlet private var textBoxAndButton: UIView!
 
     var chatEngine: ChatEngine?
     lazy var list = [Message]()
@@ -59,6 +60,13 @@ class ChatViewController: UIViewController {
         inputTextView.isScrollEnabled = false
         inputTextView.sizeToFit()
         inputTextView.delegate = self
+
+        let topBorder = CALayer()
+        topBorder.frame = CGRect(x: 0, y: 0,
+                                 width: textBoxAndButton.frame.size.width,
+                                 height: ConferenceConstants.defaultBorderWidth)
+        topBorder.backgroundColor = UIColor.systemGray5.cgColor
+        textBoxAndButton.layer.addSublayer(topBorder)
     }
 
     @IBAction private func send(_ sender: Any) {
