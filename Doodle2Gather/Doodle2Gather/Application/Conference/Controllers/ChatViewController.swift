@@ -54,13 +54,17 @@ class ChatViewController: UIViewController {
     func addKeyboardObserver() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardFrameWillChange(notification:)),
-                                               name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+                                               name: UIResponder.keyboardWillChangeFrameNotification,
+                                               object: nil)
     }
 
     @objc func keyboardFrameWillChange(notification: NSNotification) {
-        guard let userInfo = notification.userInfo,
-            let endKeyboardFrameValue = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
-            let durationValue = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber else {
+        guard let userInfo
+                = notification.userInfo,
+              let endKeyboardFrameValue
+                = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
+              let durationValue
+                = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber else {
                 return
         }
 
@@ -78,11 +82,16 @@ class ChatViewController: UIViewController {
                 guard offsetY > 0 else {
                     return
                 }
-                strongSelf.inputBottomConstraint.constant = -offsetY - strongSelf.inputContainerView.frame.height + 32
+                strongSelf.inputBottomConstraint.constant = -offsetY
+                    - strongSelf.inputContainerView.frame.height + 32
             } else {
                 strongSelf.inputBottomConstraint.constant = 0
             }
             strongSelf.view.layoutIfNeeded()
+            if !strongSelf.list.isEmpty {
+                let end = IndexPath(row: strongSelf.list.count - 1, section: 0)
+                strongSelf.tableView.scrollToRow(at: end, at: .bottom, animated: false)
+            }
         }
     }
 }
@@ -107,7 +116,8 @@ extension ChatViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let msg = list[indexPath.row]
         let type: CellType = msg.userId == self.account ? .right : .left
-        let cell = tableView.dequeueReusableCell(withIdentifier: "messageCell", for: indexPath) as? MessageViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "messageCell",
+                                                 for: indexPath) as? MessageViewCell
         cell?.update(type: type, message: msg)
         return cell!
     }
