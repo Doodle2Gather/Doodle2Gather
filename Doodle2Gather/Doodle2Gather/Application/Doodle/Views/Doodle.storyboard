@@ -570,7 +570,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="50" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="86U-mL-Hbs">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="50" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="86U-mL-Hbs">
                                 <rect key="frame" x="20" y="56" width="500" height="490"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="pGQ-Af-Qfc">
@@ -706,18 +706,10 @@
                                     <outlet property="delegate" destination="Y1u-lB-jaG" id="s7j-s2-Bjj"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pnu-zl-MoS" userLabel="Text Box and Button">
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pnu-zl-MoS" userLabel="Text Box and Button">
                                 <rect key="frame" x="0.0" y="546" width="540" height="74"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type your message here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3Pq-cT-tBB">
-                                        <rect key="frame" x="20" y="20" width="464" height="34"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="34" id="Dtd-8l-Uox"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uqE-Of-Dpa">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uqE-Of-Dpa">
                                         <rect key="frame" x="494" y="24" width="26" height="26"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
@@ -731,15 +723,21 @@
                                             <action selector="send:" destination="Y1u-lB-jaG" eventType="touchUpInside" id="xID-dF-DLY"/>
                                         </connections>
                                     </button>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" text="Type your message here..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Row-Qp-7Z2">
+                                        <rect key="frame" x="20" y="20" width="464" height="34"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="3Pq-cT-tBB" firstAttribute="trailing" secondItem="uqE-Of-Dpa" secondAttribute="leading" constant="-10" id="CdD-vf-R9P"/>
-                                    <constraint firstItem="3Pq-cT-tBB" firstAttribute="leading" secondItem="Pnu-zl-MoS" secondAttribute="leading" constant="20" id="F7J-LG-eCM"/>
+                                    <constraint firstItem="Row-Qp-7Z2" firstAttribute="leading" secondItem="Pnu-zl-MoS" secondAttribute="leading" constant="20" id="9QI-dd-BUp"/>
                                     <constraint firstItem="uqE-Of-Dpa" firstAttribute="centerY" secondItem="Pnu-zl-MoS" secondAttribute="centerY" id="IUU-pE-dgq"/>
-                                    <constraint firstItem="3Pq-cT-tBB" firstAttribute="bottom" secondItem="Pnu-zl-MoS" secondAttribute="bottom" constant="-20" id="Lc6-hc-cWZ"/>
                                     <constraint firstItem="uqE-Of-Dpa" firstAttribute="trailing" secondItem="Pnu-zl-MoS" secondAttribute="trailing" constant="-20" id="UuI-En-oc9"/>
-                                    <constraint firstItem="3Pq-cT-tBB" firstAttribute="top" secondItem="Pnu-zl-MoS" secondAttribute="top" constant="20" id="qip-4f-xId"/>
+                                    <constraint firstItem="Row-Qp-7Z2" firstAttribute="top" secondItem="Pnu-zl-MoS" secondAttribute="top" constant="20" id="VAR-Av-Zcx"/>
+                                    <constraint firstAttribute="bottom" secondItem="Row-Qp-7Z2" secondAttribute="bottom" constant="20" id="s7b-SQ-tet"/>
+                                    <constraint firstItem="uqE-Of-Dpa" firstAttribute="leading" secondItem="Row-Qp-7Z2" secondAttribute="trailing" constant="10" id="tsg-f3-TQb"/>
                                 </constraints>
                             </view>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uvs-c8-FoQ">
@@ -777,7 +775,7 @@
                     <connections>
                         <outlet property="inputBottomConstraint" destination="F0Z-pA-j0d" id="svt-I3-iEe"/>
                         <outlet property="inputContainerView" destination="Pnu-zl-MoS" id="TKE-iC-Yic"/>
-                        <outlet property="inputTextField" destination="3Pq-cT-tBB" id="b8d-LC-GI0"/>
+                        <outlet property="inputTextView" destination="Row-Qp-7Z2" id="kpn-Li-MCU"/>
                         <outlet property="sendButton" destination="uqE-Of-Dpa" id="goB-kX-aJe"/>
                         <outlet property="tableView" destination="86U-mL-Hbs" id="4w9-uB-Hwx"/>
                     </connections>

@@ -13,7 +13,7 @@ struct Message {
 }
 
 class ChatViewController: UIViewController {
-    @IBOutlet private var inputTextField: UITextField!
+    @IBOutlet private var inputTextView: UITextView!
     @IBOutlet private var sendButton: UIButton!
     @IBOutlet private var tableView: UITableView!
     @IBOutlet private var inputContainerView: UIView!
@@ -28,23 +28,48 @@ class ChatViewController: UIViewController {
         super.viewDidLoad()
         updateViews()
         addKeyboardObserver()
+        let tap = UITapGestureRecognizer(target: self,
+                                         action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        if UIDevice.current.orientation.isPortrait {
+            self.inputBottomConstraint.constant = 0
+        }
+    }
+
+    // Calls this function when the tap is recognized.
+    @objc func dismissKeyboard() {
+        // Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
     }
 
     // Make table cell height dynamic
-     func updateViews() {
+    func updateViews() {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = ConferenceConstants.messageCellHeight
-     }
+        inputTextView.layer.borderWidth = 1.0
+        inputTextView.layer.borderColor = UIColor.lightGray.cgColor
+        inputTextView.layer.cornerRadius = 10
+        inputTextView.text = "Type your message here..."
+        inputTextView.textColor = .lightGray
+        inputTextView.textContainerInset = UIEdgeInsets(top: 8, left: 5, bottom: 8, right: 5)
+        inputTextView.isScrollEnabled = false
+        inputTextView.sizeToFit()
+        inputTextView.delegate = self
+    }
 
     @IBAction private func send(_ sender: Any) {
-        guard let text = inputTextField.text else {
+        guard let text = inputTextView.text else {
             return
         }
         guard !text.isEmpty else {
             return
         }
         chatEngine?.send(message: text)
-        inputTextField.text = ""
+        inputTextView.text = ""
     }
 
     @IBAction private func didTapClose(_ sender: UIBarButtonItem) {
@@ -79,11 +104,11 @@ class ChatViewController: UIViewController {
 
             if isShowing {
                 let offsetY = strongSelf.inputContainerView.frame.maxY - endKeyboardFrame.minY
-                guard offsetY > 0 else {
+                if offsetY < 0 {
                     return
+                } else {
+                    strongSelf.inputBottomConstraint.constant = -offsetY - 40
                 }
-                strongSelf.inputBottomConstraint.constant = -offsetY
-                    - strongSelf.inputContainerView.frame.height + 32
             } else {
                 strongSelf.inputBottomConstraint.constant = 0
             }
@@ -120,5 +145,21 @@ extension ChatViewController: UITableViewDataSource {
                                                  for: indexPath) as? MessageViewCell
         cell?.update(type: type, message: msg)
         return cell!
+    }
+}
+
+extension ChatViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == .lightGray {
+            textView.text = ""
+            textView.textColor = .black
+        }
+    }
+
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "Type your message here..."
+            textView.textColor = .lightGray
+        }
     }
 }
