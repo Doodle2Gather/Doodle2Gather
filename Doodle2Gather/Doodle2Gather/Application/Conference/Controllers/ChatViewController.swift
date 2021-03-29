@@ -50,12 +50,12 @@ class ChatViewController: UIViewController {
     func updateViews() {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = ConferenceConstants.messageCellHeight
-        inputTextView.layer.borderWidth = 1.0
+        inputTextView.layer.borderWidth = ConferenceConstants.defaultBorderWidth
         inputTextView.layer.borderColor = UIColor.lightGray.cgColor
-        inputTextView.layer.cornerRadius = 10
-        inputTextView.text = "Type your message here..."
+        inputTextView.layer.cornerRadius = ConferenceConstants.defaultCornerRadius
+        inputTextView.text = ConferenceConstants.placeholderText
         inputTextView.textColor = .lightGray
-        inputTextView.textContainerInset = UIEdgeInsets(top: 8, left: 5, bottom: 8, right: 5)
+        inputTextView.textContainerInset = ConferenceConstants.textBoxDefaultInsets
         inputTextView.isScrollEnabled = false
         inputTextView.sizeToFit()
         inputTextView.delegate = self

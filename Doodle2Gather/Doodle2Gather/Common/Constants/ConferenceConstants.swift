@@ -14,4 +14,8 @@ struct ConferenceConstants {
         + "zrfxn8CjDQsvfC/evpAZ9PxbntFAZa8+gAAAAAEAC5X9YG8BBXYAEAAQDwEFdg"
     static let testUser = "bye"
     static let messageCellHeight: CGFloat = 42
+    static let placeholderText = "Type your message here..."
+    static let defaultBorderWidth: CGFloat = 1.0
+    static let defaultCornerRadius: CGFloat = 10.0
+    static let textBoxDefaultInsets = UIEdgeInsets(top: 8, left: 5, bottom: 8, right: 5)
 }
