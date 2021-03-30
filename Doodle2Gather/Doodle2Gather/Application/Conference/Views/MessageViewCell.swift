@@ -80,7 +80,7 @@ class MessageViewCell: UITableViewCell {
 
     func update(type: CellType, message: Message) {
         self.type = type
-        self.user = message.userId
-        self.content = message.text
+        self.user = message.sender.senderId
+        self.content = message.messageId
     }
 }

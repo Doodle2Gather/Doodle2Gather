@@ -1,3 +1,3 @@
 protocol ChatBoxDelegate: AnyObject {
-    func onReceiveMessage(_ message: Message)
+    func onReceiveMessage(from user: String, message: String)
 }

@@ -84,6 +84,7 @@ class AgoraChatEngine: NSObject, ChatEngine {
             if errorCode != .errorOk {
                 print("Error sending the message: code \(errorCode.rawValue)")
             } else {
+                print("Successfully send message: \(message)")
                 self.delegate?.deliverMessage(from: self.account, message: message)
             }
         }

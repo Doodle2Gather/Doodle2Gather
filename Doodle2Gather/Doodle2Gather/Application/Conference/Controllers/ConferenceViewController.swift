@@ -51,17 +51,22 @@ class ConferenceViewController: UIViewController {
     // Passes data to the ChatViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toChat" {
-            guard let vc = segue.destination as? ChatViewController else {
-                fatalError("Unable to get ChatViewController")
+            guard let nav = segue.destination as? UINavigationController else {
+                return
+            }
+            guard let vc = nav.topViewController as? ChatViewController else {
+                return
             }
             chatEngine?.delegate = self
             vc.chatEngine = chatEngine
+            print("In segue")
+            print(vc)
             self.chatBox = vc
             vc.deliverHandler = { message in
                 self.chatList.append(message)
             }
             for msg in chatList {
-                vc.list.append(msg)
+                vc.messages.append(msg)
             }
         }
     }
@@ -88,12 +93,7 @@ extension ConferenceViewController: VideoEngineDelegate {
 
 extension ConferenceViewController: ChatEngineDelegate {
     func deliverMessage(from user: String, message: String) {
-        let message = Message(userId: user, text: message)
-        self.chatList.append(message)
-        if self.chatList.count > 100 {
-            self.chatList.removeFirst()
-        }
-        chatBox?.onReceiveMessage(message)
+        chatBox?.onReceiveMessage(from: user, message: message)
     }
 }
 

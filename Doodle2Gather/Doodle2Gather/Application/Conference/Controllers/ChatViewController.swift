@@ -1,183 +1,205 @@
 import UIKit
+import MessageKit
+import InputBarAccessoryView
 
-struct Message {
-    var userId: String
-    var text: String
+struct Message: MessageType {
+    var sender: SenderType
+    var messageId: String
+    var sentDate: Date
+    var kind: MessageKind
 }
 
-class ChatViewController: UIViewController {
-    @IBOutlet private var inputTextView: UITextView!
-    @IBOutlet private var sendButton: UIButton!
-    @IBOutlet private var tableView: UITableView!
-    @IBOutlet private var inputContainerView: UIView!
-    @IBOutlet private var inputBottomConstraint: NSLayoutConstraint!
-    @IBOutlet private var textBoxAndButton: UIView!
+struct Sender: SenderType {
+    var senderId: String
+    var displayName: String
+}
 
+class ChatViewController: MessagesViewController {
     var chatEngine: ChatEngine?
-    lazy var list = [Message]()
+    var messages = [Message]()
     var account = ConferenceConstants.testUser
+    var currentUser = Sender(senderId: ConferenceConstants.testUser,
+                             displayName: ConferenceConstants.testUser)
     var deliverHandler: ((Message) -> Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateViews()
+
         addKeyboardObserver()
-        let tap = UITapGestureRecognizer(target: self,
-                                         action: #selector(dismissKeyboard))
-        view.addGestureRecognizer(tap)
+
+        messagesCollectionView.messagesDataSource = self
+        messagesCollectionView.messagesLayoutDelegate = self
+        messagesCollectionView.messagesDisplayDelegate = self
+        messagesCollectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 20, right: 10)
+        guard let layout = messagesCollectionView.collectionViewLayout as? MessagesCollectionViewFlowLayout else {
+            return
+        }
+        layout.textMessageSizeCalculator.incomingMessageTopLabelAlignment.textInsets =
+            UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+        layout.textMessageSizeCalculator.outgoingMessageTopLabelAlignment.textInsets =
+            UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
+        
+        messageInputBar.delegate = self
+
+        messageInputBar.layoutMargins = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
+
+        if let layout = messagesCollectionView.collectionViewLayout as? MessagesCollectionViewFlowLayout {
+            layout.textMessageSizeCalculator.outgoingAvatarSize = .zero
+            layout.textMessageSizeCalculator.incomingAvatarSize = .zero
+        }
     }
 
     // Handle change of orientation for chat box
     override func viewWillTransition(to size: CGSize,
                                      with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        if UIDevice.current.orientation.isPortrait {
-            self.inputBottomConstraint.constant = 0
-        }
-    }
-
-    func updateViews() {
-        // Set table cell height to be dynamic
-        // tableView.rowHeight = UITableView.automaticDimension
-
-        // Style input text box
-        inputTextView.layer.borderWidth = ConferenceConstants.defaultBorderWidth
-        inputTextView.layer.borderColor = UIColor.lightGray.cgColor
-        inputTextView.layer.cornerRadius = ConferenceConstants.defaultCornerRadius
-        inputTextView.text = ConferenceConstants.placeholderText
-        inputTextView.textColor = .lightGray
-        inputTextView.textContainerInset = ConferenceConstants.textBoxDefaultInsets
-        inputTextView.isScrollEnabled = false
-        inputTextView.sizeToFit()
-        inputTextView.delegate = self
-
-        // Add top border to the input area
-        let topBorder = CALayer()
-        topBorder.frame = CGRect(x: 0, y: 0,
-                                 width: textBoxAndButton.frame.size.width,
-                                 height: ConferenceConstants.defaultBorderWidth)
-        topBorder.backgroundColor = UIColor.systemGray5.cgColor
-        textBoxAndButton.layer.addSublayer(topBorder)
-    }
-
-    @IBAction private func send(_ sender: Any) {
-        guard let text = inputTextView.text else {
-            return
-        }
-        guard !text.isEmpty else {
-            return
-        }
-        chatEngine?.send(message: text)
-        inputTextView.text = ""
-    }
-
-    @IBAction private func didTapClose(_ sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
     }
 
     func addKeyboardObserver() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardFrameWillChange(notification:)),
-                                               name: UIResponder.keyboardWillChangeFrameNotification,
-                                               object: nil)
-    }
+         NotificationCenter.default.addObserver(self,
+                                                selector: #selector(keyboardFrameWillChange(notification:)),
+                                                name: UIResponder.keyboardWillChangeFrameNotification,
+                                                object: nil)
+     }
 
-    // Tap anywhere else to dismiss the keyboard
-    @objc func dismissKeyboard() {
-        // Causes the view (or one of its embedded text fields) to resign the first responder status
-        view.endEditing(true)
-    }
+     // Tap anywhere else to dismiss the keyboard
+     @objc func dismissKeyboard() {
+         // Causes the view (or one of its embedded text fields) to resign the first responder status
+         view.endEditing(true)
+     }
 
-    // Handle keyboard blocking input area
-    @objc func keyboardFrameWillChange(notification: NSNotification) {
-        guard let userInfo
-                = notification.userInfo,
-              let endKeyboardFrameValue
-                = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
-              let durationValue
-                = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber else {
-                return
-        }
+     // Handle keyboard blocking input area
+     @objc func keyboardFrameWillChange(notification: NSNotification) {
+         guard let userInfo
+                 = notification.userInfo,
+               let endKeyboardFrameValue
+                 = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
+               let durationValue
+                 = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber else {
+                 return
+         }
 
-        let endKeyboardFrame = endKeyboardFrameValue.cgRectValue
-        let duration = durationValue.doubleValue
+         let endKeyboardFrame = endKeyboardFrameValue.cgRectValue
+         let duration = durationValue.doubleValue
 
-        let isShowing: Bool = endKeyboardFrame.maxY > UIScreen.main.bounds.height ? false : true
-        UIView.animate(withDuration: duration) { [weak self] in
-            guard let strongSelf = self else {
-                return
-            }
+         let isShowing: Bool = endKeyboardFrame.maxY > UIScreen.main.bounds.height ? false : true
+         UIView.animate(withDuration: duration) { [weak self] in
+             guard let strongSelf = self else {
+                 return
+             }
 
-            if isShowing {
-                let offsetY = strongSelf.inputContainerView.frame.maxY - endKeyboardFrame.minY
-                if offsetY < 0 {
-                    return
-                } else {
-                    strongSelf.inputBottomConstraint.constant = -offsetY - 40
-                }
-            } else {
-                strongSelf.inputBottomConstraint.constant = 0
-            }
-            strongSelf.view.layoutIfNeeded()
-            if !strongSelf.list.isEmpty {
-                let end = IndexPath(row: strongSelf.list.count - 1, section: 0)
-                strongSelf.tableView.scrollToRow(at: end, at: .bottom, animated: false)
-            }
-        }
-    }
+             if isShowing {
+                 let offsetY = strongSelf.messagesCollectionView.frame.maxY - endKeyboardFrame.minY
+                 if offsetY < 0 {
+                     return
+                 } else {
+                    strongSelf.messagesCollectionView.contentInset = UIEdgeInsets(top: 10,
+                                                                                  left: 10,
+                                                                                  bottom: offsetY + 44,
+                                                                                  right: 10)
+                 }
+             } else {
+                strongSelf.messagesCollectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 20, right: 10)
+             }
+             strongSelf.view.layoutIfNeeded()
+             if !strongSelf.messages.isEmpty {
+                 strongSelf.messagesCollectionView.scrollToLastItem()
+             }
+         }
+     }
 }
 
 // MARK: - ChatBoxDelegate
 // Receives message from ConferenceViewController
 
 extension ChatViewController: ChatBoxDelegate {
-    func onReceiveMessage(_ message: Message) {
-        self.list.append(message)
-        if self.list.count > 100 {
-            self.list.removeFirst()
+    func onReceiveMessage(from user: String, message: String) {
+        let msg = Message(sender: Sender(senderId: user, displayName: user),
+                          messageId: UUID().uuidString,
+                          sentDate: Date(),
+                          kind: .text(message))
+        messages.append(msg)
+        messagesCollectionView.reloadData()
+        DispatchQueue.main.async {
+            self.messagesCollectionView.scrollToLastItem(animated: true)
         }
-        let end = IndexPath(row: self.list.count - 1, section: 0)
-        self.tableView.reloadData()
-        self.tableView.scrollToRow(at: end, at: .bottom, animated: true)
     }
 }
 
 // MARK: - UITableViewDataSource
 
-extension ChatViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        list.count
+extension ChatViewController: MessagesDataSource {
+    func currentSender() -> SenderType {
+        currentUser
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let msg = list[indexPath.row]
-        let type: CellType = msg.userId == self.account ? .right : .left
-        let cell = tableView.dequeueReusableCell(withIdentifier: "messageCell",
-                                                 for: indexPath) as? MessageViewCell
-        cell?.update(type: type, message: msg)
-        return cell!
+    func messageForItem(at indexPath: IndexPath,
+                        in messagesCollectionView: MessagesCollectionView) -> MessageType {
+        messages[indexPath.section]
     }
 
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        ConferenceConstants.messageCellHeight
+    func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int {
+        messages.count
+    }
+
+    func messageTopLabelHeight(
+        for message: MessageType,
+        at indexPath: IndexPath,
+        in messagesCollectionView: MessagesCollectionView) -> CGFloat {
+        20
+    }
+
+    func messageTopLabelAttributedText(
+        for message: MessageType,
+        at indexPath: IndexPath) -> NSAttributedString? {
+
+        NSAttributedString(
+            string: message.sender.displayName,
+            attributes: [.font: UIFont.preferredFont(forTextStyle: .caption1),
+                         .foregroundColor: UIColor.darkGray])
     }
 }
 
-// MARK: - UITextViewDelegate
-// Handles placeholder text
+// MARK: - MessagesLayoutDelegate
 
-extension ChatViewController: UITextViewDelegate {
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.textColor == .lightGray {
-            textView.text = ""
-            textView.textColor = .black
-        }
+extension ChatViewController: MessagesLayoutDelegate {
+    func messagePadding(for message: MessageType,
+                        at indexPath: IndexPath,
+                        in messagesCollectionView: MessagesCollectionView) -> UIEdgeInsets {
+        UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
     }
 
-    func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.text.isEmpty {
-            textView.text = "Type your message here..."
-            textView.textColor = .lightGray
+    func messageLabelInset(for message: MessageType,
+                           at indexPath: IndexPath,
+                           in messagesCollectionView: MessagesCollectionView) -> UIEdgeInsets {
+        UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+    }
+}
+
+// MARK: - MessagesDisplayDelegate
+
+extension ChatViewController: MessagesDisplayDelegate {
+    func messageStyle(for message: MessageType,
+                      at indexPath: IndexPath,
+                      in messagesCollectionView: MessagesCollectionView) -> MessageStyle {
+        let corner: MessageStyle.TailCorner = isFromCurrentSender(message: message) ? .bottomRight: .bottomLeft
+        return .bubbleTail(corner, .curved)
+    }
+}
+
+// MARK: - InputBarAccessoryViewDelegate
+
+extension ChatViewController: InputBarAccessoryViewDelegate {
+    func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
+        guard !text.replacingOccurrences(of: " ", with: "").isEmpty else {
+            return
         }
+
+        // Send message through chat engine
+        chatEngine?.send(message: text)
+        DispatchQueue.main.async {
+            self.messagesCollectionView.scrollToLastItem(animated: true)
+        }
+        inputBar.inputTextView.text = ""
     }
 }
