@@ -1,4 +1,4 @@
-git_scripts/config.sh
+.github/scripts/config.sh
 
 # From https://github.com/github/gitignore/blob/master/Swift.gitignore 
 #
