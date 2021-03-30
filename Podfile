@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+platform :ios, '14.1'
 
 workspace 'Doodle2Gather'
 project 'Doodle2Gather/Doodle2Gather.xcodeproj'
