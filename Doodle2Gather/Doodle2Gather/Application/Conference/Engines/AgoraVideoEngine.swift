@@ -19,7 +19,7 @@ class AgoraVideoEngine: NSObject, VideoEngine {
     }
 
     private func getAgoraTokenAndJoinChannel(channelName: String) {
-        let url = URL(string: "\(ApiEndpoints.AgoraTokenServer)?uid=\(callID)&channel=\(channelName)")!
+        let url = URL(string: "\(ApiEndpoints.AgoraRtcTokenServer)?uid=\(callID)&channelName=\(channelName)")!
 
         let task = URLSession.shared.dataTask(with: url, completionHandler: { data, response, error in
           if let error = error {
@@ -35,7 +35,7 @@ class AgoraVideoEngine: NSObject, VideoEngine {
 
           if let data = data,
              let tokenResponse = try? JSONDecoder().decode(AgoraTokenAPIResponse.self, from: data) {
-            self.getAgoraEngine().joinChannel(byToken: tokenResponse.token,
+            self.getAgoraEngine().joinChannel(byToken: tokenResponse.key,
                                               channelId: channelName,
                                               info: nil,
                                               uid: self.callID) { [weak self] _, uid, _ in

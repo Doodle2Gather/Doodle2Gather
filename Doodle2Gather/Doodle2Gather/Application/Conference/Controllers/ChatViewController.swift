@@ -12,7 +12,7 @@ class ChatViewController: UIViewController {
     @IBOutlet private var inputContainerView: UIView!
     @IBOutlet private var inputBottomConstraint: NSLayoutConstraint!
     @IBOutlet private var textBoxAndButton: UIView!
-    
+
     var chatEngine: ChatEngine?
     lazy var list = [Message]()
     var account = ConferenceConstants.testUser
@@ -38,8 +38,7 @@ class ChatViewController: UIViewController {
 
     func updateViews() {
         // Set table cell height to be dynamic
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = ConferenceConstants.messageCellHeight
+        // tableView.rowHeight = UITableView.automaticDimension
 
         // Style input text box
         inputTextView.layer.borderWidth = ConferenceConstants.defaultBorderWidth
@@ -51,7 +50,7 @@ class ChatViewController: UIViewController {
         inputTextView.isScrollEnabled = false
         inputTextView.sizeToFit()
         inputTextView.delegate = self
-        
+
         // Add top border to the input area
         let topBorder = CALayer()
         topBorder.frame = CGRect(x: 0, y: 0,
@@ -157,6 +156,10 @@ extension ChatViewController: UITableViewDataSource {
                                                  for: indexPath) as? MessageViewCell
         cell?.update(type: type, message: msg)
         return cell!
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        ConferenceConstants.messageCellHeight
     }
 }
 

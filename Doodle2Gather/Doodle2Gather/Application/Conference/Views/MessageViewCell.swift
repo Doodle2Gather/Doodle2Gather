@@ -32,7 +32,7 @@ class MessageViewCell: UITableViewCell {
         leftContentBgView.layer.cornerRadius = 10
     }
 
-    private var user: String? {
+    var user: String? {
         didSet {
             switch type {
             case .left:
@@ -43,7 +43,7 @@ class MessageViewCell: UITableViewCell {
         }
     }
 
-    private var content: String? {
+    var content: String? {
         didSet {
             switch type {
             case .left:
@@ -54,7 +54,7 @@ class MessageViewCell: UITableViewCell {
         }
     }
 
-    private var type: CellType = .right {
+    var type: CellType = .right {
         didSet {
             if type == .right {
                 leftUserLabel.isHidden = true

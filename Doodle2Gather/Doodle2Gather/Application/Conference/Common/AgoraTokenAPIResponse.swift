@@ -1,3 +1,3 @@
 struct AgoraTokenAPIResponse: Codable {
-    let token: String
+    let key: String
 }

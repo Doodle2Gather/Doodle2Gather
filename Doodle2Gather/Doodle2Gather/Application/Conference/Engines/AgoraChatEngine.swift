@@ -41,7 +41,7 @@ class AgoraChatEngine: NSObject, ChatEngine {
           }
 
           if let data = data,
-             let tokenResponse = try? JSONDecoder().decode(AgoraRtmTokenResponse.self, from: data) {
+             let tokenResponse = try? JSONDecoder().decode(AgoraTokenAPIResponse.self, from: data) {
             // TODO: CHange "username" to when authentication is done
             // Also, the username cannot contain special characters
             self.agoraRtmKit?.login(byToken: tokenResponse.key,
@@ -123,8 +123,4 @@ extension AgoraChatEngine: AgoraRtmChannelDelegate {
         print("Received from userId \(member.userId): \(message.text)")
         delegate?.deliverMessage(from: member.userId, message: message.text)
     }
-}
-
-private struct AgoraRtmTokenResponse: Codable {
-    let key: String
 }
