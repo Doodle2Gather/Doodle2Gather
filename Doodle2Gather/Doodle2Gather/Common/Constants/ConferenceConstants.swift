@@ -12,7 +12,7 @@ struct ConferenceConstants {
     static let appID = "4bc7d320fa674c4bbba8abbfddbfd4d3"
     static let tempToken: String? = "0064bc7d320fa674c4bbba8abbfddbfd4d3IACl27eym7MDuUmqz+"
         + "zrfxn8CjDQsvfC/evpAZ9PxbntFAZa8+gAAAAAEAC5X9YG8BBXYAEAAQDwEFdg"
-    static let testUser = "bye"
+    static let testUser = "hi"
     static let messageCellHeight: CGFloat = 42
     static let placeholderText = "Type your message here..."
     static let defaultBorderWidth: CGFloat = 1.0

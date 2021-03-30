@@ -93,6 +93,10 @@ extension ConferenceViewController: VideoEngineDelegate {
 
 extension ConferenceViewController: ChatEngineDelegate {
     func deliverMessage(from user: String, message: String) {
+        let msg = Message(sender: Sender(senderId: user, displayName: user),
+                          messageId: UUID().uuidString,
+                          sentDate: Date(), kind: .text(message))
+        chatList.append(msg)
         chatBox?.onReceiveMessage(from: user, message: message)
     }
 }

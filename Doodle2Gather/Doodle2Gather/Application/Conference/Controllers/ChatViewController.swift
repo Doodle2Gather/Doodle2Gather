@@ -38,7 +38,7 @@ class ChatViewController: MessagesViewController {
             UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
         layout.textMessageSizeCalculator.outgoingMessageTopLabelAlignment.textInsets =
             UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
-        
+
         messageInputBar.delegate = self
 
         messageInputBar.layoutMargins = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
@@ -82,7 +82,8 @@ class ChatViewController: MessagesViewController {
          let endKeyboardFrame = endKeyboardFrameValue.cgRectValue
          let duration = durationValue.doubleValue
 
-         let isShowing: Bool = endKeyboardFrame.maxY > UIScreen.main.bounds.height ? false : true
+         let isShowing: Bool = endKeyboardFrame.maxY
+            > UIScreen.main.bounds.height ? false : true
          UIView.animate(withDuration: duration) { [weak self] in
              guard let strongSelf = self else {
                  return
@@ -99,7 +100,10 @@ class ChatViewController: MessagesViewController {
                                                                                   right: 10)
                  }
              } else {
-                strongSelf.messagesCollectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 20, right: 10)
+                strongSelf.messagesCollectionView.contentInset = UIEdgeInsets(top: 10,
+                                                                              left: 10,
+                                                                              bottom: 20,
+                                                                              right: 10)
              }
              strongSelf.view.layoutIfNeeded()
              if !strongSelf.messages.isEmpty {
@@ -182,7 +186,9 @@ extension ChatViewController: MessagesDisplayDelegate {
     func messageStyle(for message: MessageType,
                       at indexPath: IndexPath,
                       in messagesCollectionView: MessagesCollectionView) -> MessageStyle {
-        let corner: MessageStyle.TailCorner = isFromCurrentSender(message: message) ? .bottomRight: .bottomLeft
+        let corner: MessageStyle.TailCorner = isFromCurrentSender(message: message)
+            ? .bottomRight :
+            .bottomLeft
         return .bubbleTail(corner, .curved)
     }
 }
