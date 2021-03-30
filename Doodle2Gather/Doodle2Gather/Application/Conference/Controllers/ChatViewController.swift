@@ -12,7 +12,7 @@ class ChatViewController: UIViewController {
     @IBOutlet private var inputContainerView: UIView!
     @IBOutlet private var inputBottomConstraint: NSLayoutConstraint!
     @IBOutlet private var textBoxAndButton: UIView!
-    
+
     var chatEngine: ChatEngine?
     lazy var list = [Message]()
     var account = ConferenceConstants.testUser
@@ -51,7 +51,7 @@ class ChatViewController: UIViewController {
         inputTextView.isScrollEnabled = false
         inputTextView.sizeToFit()
         inputTextView.delegate = self
-        
+
         // Add top border to the input area
         let topBorder = CALayer()
         topBorder.frame = CGRect(x: 0, y: 0,
