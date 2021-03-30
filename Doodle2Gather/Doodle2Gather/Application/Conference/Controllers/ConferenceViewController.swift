@@ -59,8 +59,6 @@ class ConferenceViewController: UIViewController {
             }
             chatEngine?.delegate = self
             vc.chatEngine = chatEngine
-            print("In segue")
-            print(vc)
             self.chatBox = vc
             vc.deliverHandler = { message in
                 self.chatList.append(message)
