@@ -1,7 +1,7 @@
 import UIKit
 
 /// Represents a single stroke, consisting of multiple points.
-protocol DTStroke: Hashable, Codable {
+public protocol DTStroke: Hashable, Codable {
     associatedtype Point: DTPoint
 
     var color: UIColor { get set }

@@ -9,7 +9,7 @@ import UIKit
 ///
 /// Possible changes in the future:
 /// - Combining this with `DTCanvasViewController`.
-protocol DTCanvasView where Self: UIView {
+public protocol DTCanvasView where Self: UIView {
 
     /// Registers a delegate that will be notified when the doodle changes and
     /// returns either the passed in delegate or a wrapper for that.

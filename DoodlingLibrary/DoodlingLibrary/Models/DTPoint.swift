@@ -3,7 +3,7 @@ import CoreGraphics
 /// Represents a single point that's contained in a stroke.
 /// This protocol is modeled after PencilKit's PKStrokePoint, but is designed
 /// for further extensions in the future.
-protocol DTPoint: Hashable, Codable {
+public protocol DTPoint: Hashable, Codable {
 
     /// The position of the point.
     var location: CGPoint { get }

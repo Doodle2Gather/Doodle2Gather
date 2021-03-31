@@ -1,5 +1,5 @@
 /// Represents a doodle that contains strokes and can be rendered.
-protocol DTDoodle {
+public protocol DTDoodle {
     associatedtype Stroke: DTStroke
     var dtStrokes: Set<Stroke> { get set }
 
