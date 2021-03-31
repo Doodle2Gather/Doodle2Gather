@@ -1,7 +1,7 @@
 class DTLogger {
     private static let shared = DTLogger()
     private var logger: DTAbstractLogger = WillowLogger()
-    
+
     static func debug(_ message: String) {
         shared.logger.debug(message)
     }
