@@ -26,7 +26,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2v7-Hc-qJ9" userLabel="Video Overlay View" customClass="SubviewTouchView" customModule="Doodle2Gather" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="834" height="1174"/>
                                 <connections>
-                                    <segue destination="iqH-RH-LvU" kind="embed" id="LHe-b8-q2G"/>
+                                    <segue destination="iqH-RH-LvU" kind="embed" identifier="" id="LHe-b8-q2G"/>
                                 </connections>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lOM-bA-4te" userLabel="File Name View">
@@ -437,10 +437,10 @@
             </objects>
             <point key="canvasLocation" x="831" y="76"/>
         </scene>
-        <!--Video View Controller-->
+        <!--Conference View Controller-->
         <scene sceneID="3Z1-bq-AZB">
             <objects>
-                <viewController id="iqH-RH-LvU" customClass="VideoViewController" customModule="Doodle2Gather" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="iqH-RH-LvU" customClass="ConferenceViewController" customModule="Doodle2Gather" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="27U-ED-QaR" customClass="SubviewTouchView" customModule="Doodle2Gather" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="834" height="1174"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -465,6 +465,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="240" height="135"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </collectionViewCellContentView>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <size key="customSize" width="240" height="135"/>
                                         <connections>
                                             <outlet property="videoView" destination="Ioy-42-Bn6" id="daj-BI-aRn"/>
@@ -491,6 +492,9 @@
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                 <state key="normal" image="message.fill" catalog="system"/>
+                                                <connections>
+                                                    <segue destination="J9c-hq-3ed" kind="presentation" identifier="toChat" id="jjd-H4-1ww"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yDB-Q3-4ya" userLabel="Video Button">
                                                 <rect key="frame" x="50" y="0.0" width="40" height="40"/>
@@ -548,6 +552,7 @@
                     </view>
                     <connections>
                         <outlet property="audioButton" destination="AkO-hK-cSB" id="a3j-SW-FOS"/>
+                        <outlet property="chatButton" destination="mmL-ay-rCs" id="eQn-nO-h29"/>
                         <outlet property="collectionView" destination="Bxd-CB-wII" id="oSa-98-sii"/>
                         <outlet property="videoButton" destination="yDB-Q3-4ya" id="uc5-9l-a18"/>
                     </connections>
@@ -555,6 +560,45 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7qd-xc-JKb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="119" y="779"/>
+        </scene>
+        <!--Chat-->
+        <scene sceneID="JwE-Yx-emj">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dPj-ZZ-zFx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <viewController providesPresentationContextTransitionStyle="YES" id="Y1u-lB-jaG" customClass="ChatViewController" customModule="Doodle2Gather" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="BFt-T2-OBM">
+                        <rect key="frame" x="0.0" y="0.0" width="704" height="995"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="kGZ-tW-Jla"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Chat" largeTitleDisplayMode="never" id="J3r-ox-QDF">
+                        <barButtonItem key="backBarButtonItem" title="Close" id="O7c-us-0kn"/>
+                        <barButtonItem key="leftBarButtonItem" title="Close" id="osI-lR-6MO">
+                            <connections>
+                                <action selector="didTapClose:" destination="Y1u-lB-jaG" id="Bof-KB-apk"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="119" y="2079"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="NN2-wU-Mzk">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5rK-Ka-Yrs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <navigationController id="J9c-hq-3ed" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="MXT-1c-aqf">
+                        <rect key="frame" x="0.0" y="0.0" width="704" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Y1u-lB-jaG" kind="relationship" relationship="rootViewController" id="17i-J9-IqA"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="118" y="1423"/>
         </scene>
     </scenes>
     <resources>

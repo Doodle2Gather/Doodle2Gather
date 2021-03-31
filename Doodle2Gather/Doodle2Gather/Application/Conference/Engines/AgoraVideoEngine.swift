@@ -19,7 +19,7 @@ class AgoraVideoEngine: NSObject, VideoEngine {
     }
 
     private func getAgoraTokenAndJoinChannel(channelName: String) {
-        let url = URL(string: "\(ApiEndpoints.AgoraTokenServer)?uid=\(callID)&channelName=\(channelName)")!
+        let url = URL(string: "\(ApiEndpoints.AgoraRtcTokenServer)?uid=\(callID)&channelName=\(channelName)")!
 
         let task = URLSession.shared.dataTask(with: url, completionHandler: { data, response, error in
           if let error = error {
@@ -89,7 +89,7 @@ class AgoraVideoEngine: NSObject, VideoEngine {
      */
     private func getAgoraEngine() -> AgoraRtcEngineKit {
         if agoraKit == nil {
-            agoraKit = AgoraRtcEngineKit.sharedEngine(withAppId: VideoConstants.appID, delegate: self)
+            agoraKit = AgoraRtcEngineKit.sharedEngine(withAppId: ConferenceConstants.appID, delegate: self)
         }
         return agoraKit!
     }
@@ -111,8 +111,4 @@ extension AgoraVideoEngine: AgoraRtcEngineDelegate {
         print("Left call of uid: \(uid)")
         delegate?.didLeaveCall(id: uid)
     }
-}
-
-private struct AgoraTokenAPIResponse: Codable {
-    let key: String
 }

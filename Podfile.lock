@@ -1,16 +1,30 @@
 PODS:
   - AgoraRtcEngine_iOS (3.3.1)
+  - AgoraRtm_iOS (1.4.3)
+  - InputBarAccessoryView (5.3.0):
+    - InputBarAccessoryView/Core (= 5.3.0)
+  - InputBarAccessoryView/Core (5.3.0)
+  - MessageKit (3.5.1):
+    - InputBarAccessoryView (~> 5.3.0)
 
 DEPENDENCIES:
   - AgoraRtcEngine_iOS
+  - AgoraRtm_iOS
+  - MessageKit
 
 SPEC REPOS:
   trunk:
     - AgoraRtcEngine_iOS
+    - AgoraRtm_iOS
+    - InputBarAccessoryView
+    - MessageKit
 
 SPEC CHECKSUMS:
   AgoraRtcEngine_iOS: 17e55feec1bde14adc30fd9d743332d1e7821b62
+  AgoraRtm_iOS: 178257883dd6773d3d26ca51045456c35221b715
+  InputBarAccessoryView: 1638fc3336698eaead9cd83ff2da6c6218fcb6bc
+  MessageKit: 6a15a240a9a4767279de542a8fae861e83d8aedc
 
-PODFILE CHECKSUM: 8151f68261e09f5f49223520dc2eb0797664c4f1
+PODFILE CHECKSUM: 7a48ac0b582e5b9c7faafd4072d43b2e16324eec
 
 COCOAPODS: 1.10.1
