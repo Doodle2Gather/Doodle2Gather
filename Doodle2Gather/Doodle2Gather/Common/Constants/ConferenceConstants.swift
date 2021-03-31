@@ -1,10 +1,3 @@
-//
-//  ConferenceConstants.swift
-//  Doodle2Gather
-//
-//  Created by Wang on 28/3/21.
-//
-
 import UIKit
 
 struct ConferenceConstants {

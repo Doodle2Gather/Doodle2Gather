@@ -1,10 +1,3 @@
-//
-//  AgoraChatEngine.swift
-//  Doodle2Gather
-//
-//  Created by Wang on 24/3/21.
-//
-
 import UIKit
 import AgoraRtmKit
 
@@ -24,7 +17,7 @@ class AgoraChatEngine: NSObject, ChatEngine {
         getAgoraTokenAndJoinChannel(channelName: "messaging")
     }
 
-    // Currently reusing the logic for video, need to change to rtm
+    // TODO: Currently reusing the logic for video, need to change to our own user model
     private func getAgoraTokenAndJoinChannel(channelName: String) {
         let url = URL(string: "\(ApiEndpoints.AgoraRtmTokenServer)?account=\(account)")!
 

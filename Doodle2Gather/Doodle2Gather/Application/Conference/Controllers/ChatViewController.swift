@@ -2,23 +2,7 @@ import UIKit
 import MessageKit
 import InputBarAccessoryView
 
-struct Message: MessageType {
-    var sender: SenderType
-    var messageId: String
-    var sentDate: Date
-    var kind: MessageKind
-}
-
-struct Sender: SenderType {
-    var senderId: String
-    var displayName: String
-}
-
 class ChatViewController: MessagesViewController {
-
-    @IBAction private func didTapClose(_ sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
-    }
 
     var chatEngine: ChatEngine?
     var messages = [Message]()
@@ -59,6 +43,10 @@ class ChatViewController: MessagesViewController {
         messageInputBar.layoutMargins = ConferenceConstants.messageInputBarInset
         layout.textMessageSizeCalculator.outgoingAvatarSize = .zero
         layout.textMessageSizeCalculator.incomingAvatarSize = .zero
+    }
+
+    @IBAction private func didTapClose(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
     }
 
     // Handle change of orientation for chat box
