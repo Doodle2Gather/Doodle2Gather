@@ -132,6 +132,7 @@
 			buildConfigurationList = 2E8AC7D22613F9FD0033869E /* Build configuration list for PBXNativeTarget "DoodleAutomerge" */;
 			buildPhases = (
 				2E8AC7B92613F9FD0033869E /* Headers */,
+				2E8AC7EC2613FB410033869E /* ShellScript */,
 				2E8AC7BA2613F9FD0033869E /* Sources */,
 				2E8AC7BB2613F9FD0033869E /* Frameworks */,
 				2E8AC7BC2613F9FD0033869E /* Resources */,
@@ -216,6 +217,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2E8AC7EC2613FB410033869E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint autocorrect && swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2E8AC7BA2613F9FD0033869E /* Sources */ = {
