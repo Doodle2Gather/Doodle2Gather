@@ -15,6 +15,11 @@ struct Sender: SenderType {
 }
 
 class ChatViewController: MessagesViewController {
+
+    @IBAction private func didTapClose(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
+    }
+
     var chatEngine: ChatEngine?
     var messages = [Message]()
     var account = ConferenceConstants.testUser
@@ -30,23 +35,26 @@ class ChatViewController: MessagesViewController {
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
-        messagesCollectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 20, right: 10)
-        guard let layout = messagesCollectionView.collectionViewLayout as? MessagesCollectionViewFlowLayout else {
-            return
-        }
-        layout.textMessageSizeCalculator.incomingMessageTopLabelAlignment.textInsets =
-            UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
-        layout.textMessageSizeCalculator.outgoingMessageTopLabelAlignment.textInsets =
-            UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
 
         messageInputBar.delegate = self
 
-        messageInputBar.layoutMargins = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
-
-        if let layout = messagesCollectionView.collectionViewLayout as? MessagesCollectionViewFlowLayout {
-            layout.textMessageSizeCalculator.outgoingAvatarSize = .zero
-            layout.textMessageSizeCalculator.incomingAvatarSize = .zero
+        updateViews()
+    }
+    
+    private func updateViews() {
+        messagesCollectionView.contentInset = ConferenceConstants.defaultContentInset
+        guard let layout = messagesCollectionView.collectionViewLayout
+                as? MessagesCollectionViewFlowLayout else {
+            return
         }
+        layout.textMessageSizeCalculator.incomingMessageTopLabelAlignment.textInsets =
+            ConferenceConstants.defaultNameLeftInset
+        layout.textMessageSizeCalculator.outgoingMessageTopLabelAlignment.textInsets =
+            ConferenceConstants.defaultNameRightInset
+        
+        messageInputBar.layoutMargins = ConferenceConstants.messageInputBarInset
+        layout.textMessageSizeCalculator.outgoingAvatarSize = .zero
+        layout.textMessageSizeCalculator.incomingAvatarSize = .zero
     }
 
     // Handle change of orientation for chat box
@@ -94,16 +102,11 @@ class ChatViewController: MessagesViewController {
                  if offsetY < 0 {
                      return
                  } else {
-                    strongSelf.messagesCollectionView.contentInset = UIEdgeInsets(top: 10,
-                                                                                  left: 10,
-                                                                                  bottom: offsetY + 44,
-                                                                                  right: 10)
+                    strongSelf.messagesCollectionView.contentInset =
+                        ConferenceConstants.messageInputBarOffsetCalculator(offset: offsetY)
                  }
              } else {
-                strongSelf.messagesCollectionView.contentInset = UIEdgeInsets(top: 10,
-                                                                              left: 10,
-                                                                              bottom: 20,
-                                                                              right: 10)
+                strongSelf.messagesCollectionView.contentInset = ConferenceConstants.defaultContentInset
              }
              strongSelf.view.layoutIfNeeded()
              if !strongSelf.messages.isEmpty {

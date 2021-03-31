@@ -91,6 +91,8 @@ class AgoraChatEngine: NSObject, ChatEngine {
     }
 }
 
+// MARK: - AgoraRtmDelegate
+
 extension AgoraChatEngine: AgoraRtmDelegate {
     func rtmKit(_ kit: AgoraRtmKit,
                 connectionStateChanged state: AgoraRtmConnectionState,
