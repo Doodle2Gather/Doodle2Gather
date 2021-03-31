@@ -1,10 +1,7 @@
 language: swift
 osx_image: xcode12.2
 podfile: Podfile
-cache:
-  - bundler
 before_install:
-  - gem install cocoapods
   - pod repo update
 
 jobs:
