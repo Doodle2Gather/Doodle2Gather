@@ -48,9 +48,13 @@ class ChatViewController: MessagesViewController {
             return
         }
         layout.textMessageSizeCalculator.incomingMessageTopLabelAlignment.textInsets =
-            ConferenceConstants.defaultNameLeftInset
+            ConferenceConstants.defaultLeftInset
         layout.textMessageSizeCalculator.outgoingMessageTopLabelAlignment.textInsets =
-            ConferenceConstants.defaultNameRightInset
+            ConferenceConstants.defaultRightInset
+        layout.textMessageSizeCalculator.incomingMessageBottomLabelAlignment.textInsets =
+            ConferenceConstants.defaultLeftInset
+        layout.textMessageSizeCalculator.outgoingMessageBottomLabelAlignment.textInsets =
+            ConferenceConstants.defaultRightInset
 
         messageInputBar.layoutMargins = ConferenceConstants.messageInputBarInset
         layout.textMessageSizeCalculator.outgoingAvatarSize = .zero
@@ -114,6 +118,13 @@ class ChatViewController: MessagesViewController {
              }
          }
      }
+
+    private let formatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.dateFormat = "H:m:ss"
+        return formatter
+    }()
 }
 
 // MARK: - ChatBoxDelegate
@@ -153,7 +164,18 @@ extension ChatViewController: MessagesDataSource {
         for message: MessageType,
         at indexPath: IndexPath,
         in messagesCollectionView: MessagesCollectionView) -> CGFloat {
-        20
+        if indexPath.section > 0
+            && messages[indexPath.section].sender.senderId
+            == messages[indexPath.section - 1].sender.senderId {
+            return 0
+        }
+        return 15
+    }
+
+    func messageBottomLabelHeight(for message: MessageType,
+                                  at indexPath: IndexPath,
+                                  in messagesCollectionView: MessagesCollectionView) -> CGFloat {
+        15
     }
 
     func messageTopLabelAttributedText(
@@ -164,6 +186,14 @@ extension ChatViewController: MessagesDataSource {
             string: message.sender.displayName,
             attributes: [.font: UIFont.preferredFont(forTextStyle: .caption1),
                          .foregroundColor: UIColor.darkGray])
+    }
+
+    func messageBottomLabelAttributedText(for message: MessageType,
+                                          at indexPath: IndexPath) -> NSAttributedString? {
+        let dateString = formatter.string(from: message.sentDate)
+        return NSAttributedString(string: dateString,
+                                  attributes: [NSAttributedString.Key.font:
+                                                UIFont.preferredFont(forTextStyle: .caption2)])
     }
 }
 
