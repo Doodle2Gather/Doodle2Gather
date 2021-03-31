@@ -1,4 +1,5 @@
 import PencilKit
+import DoodlingLibrary
 
 /// A `UIViewController` that manages a canvas and works with the
 /// abstractions established in the `Drawing` directory.

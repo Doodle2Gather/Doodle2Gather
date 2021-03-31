@@ -7,23 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2E26E570260692880016A8FC /* DTCodableColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E26E56F260692880016A8FC /* DTCodableColor.swift */; };
-		2E3F8FAE2607380100C58F33 /* Pods_Doodle2Gather.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E3F8FAD2607380100C58F33 /* Pods_Doodle2Gather.framework */; };
-		2E987E5C2607442A00352E7D /* DTPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E987E5B2607442A00352E7D /* DTPoint.swift */; };
+		2E8AC71E2613F3020033869E /* DoodlingLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E8AC71D2613F3020033869E /* DoodlingLibrary.framework */; };
+		2E8AC71F2613F3020033869E /* DoodlingLibrary.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2E8AC71D2613F3020033869E /* DoodlingLibrary.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2E8AC7212613F3060033869E /* Pods_Doodle2Gather.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E3F8FAD2607380100C58F33 /* Pods_Doodle2Gather.framework */; };
+		2E8AC7222613F3060033869E /* Pods_Doodle2Gather.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2E3F8FAD2607380100C58F33 /* Pods_Doodle2Gather.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2E8AC74A2613F4C90033869E /* DTCanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8AC7492613F4C90033869E /* DTCanvasViewController.swift */; };
 		2E987E6E2607468000352E7D /* PKStrokePoint+DTPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E987E6D2607468000352E7D /* PKStrokePoint+DTPoint.swift */; };
-		2E987E77260747A000352E7D /* DTTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E987E76260747A000352E7D /* DTTool.swift */; };
 		2E987E7D26075C0200352E7D /* SocketController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E987E7C26075C0200352E7D /* SocketController.swift */; };
 		2E987E8226075C5200352E7D /* SocketControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E987E8126075C5200352E7D /* SocketControllerDelegate.swift */; };
-		2EA8C2F42605E3AD00BE750C /* DTCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8C2F32605E3AD00BE750C /* DTCanvasView.swift */; };
 		2EA8C2FA2605E51500BE750C /* CanvasController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8C2F92605E51500BE750C /* CanvasController.swift */; };
 		2EA8C3002605E57900BE750C /* DTAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8C2FF2605E57900BE750C /* DTAction.swift */; };
 		2EA8C3052605E5B700BE750C /* CanvasControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8C3042605E5B700BE750C /* CanvasControllerDelegate.swift */; };
-		2EA8C30A2605E95400BE750C /* DTDoodle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8C3092605E95400BE750C /* DTDoodle.swift */; };
 		2EA8C3182606682500BE750C /* PKCanvasView+DTCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8C3172606682500BE750C /* PKCanvasView+DTCanvasView.swift */; };
-		2EA8C32826066F9300BE750C /* DTCanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8C32726066F9300BE750C /* DTCanvasViewController.swift */; };
-		2EA8C3302606714500BE750C /* DTCanvasViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8C32F2606714500BE750C /* DTCanvasViewDelegate.swift */; };
 		2EA8C335260677C800BE750C /* PKDrawing+DTDrawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8C334260677C800BE750C /* PKDrawing+DTDrawing.swift */; };
-		2EA8C33D260677F800BE750C /* DTStroke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8C33C260677F800BE750C /* DTStroke.swift */; };
 		2EA8C34226067F0000BE750C /* PKStroke+DTStroke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8C34126067F0000BE750C /* PKStroke+DTStroke.swift */; };
 		2EB929D9260778F600AAB396 /* SubviewTouchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB929D8260778F600AAB396 /* SubviewTouchView.swift */; };
 		2ED7A3C62601B7740006D873 /* Doodle.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2ED7A3C52601B7740006D873 /* Doodle.storyboard */; };
@@ -65,26 +61,35 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		2E8AC7202613F3030033869E /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				2E8AC71F2613F3020033869E /* DoodlingLibrary.framework in Embed Frameworks */,
+				2E8AC7222613F3060033869E /* Pods_Doodle2Gather.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		0E53B4F895F761EF4405A8DB /* Pods_Doodle2Gather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Doodle2Gather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1890AB750E84E15DDAD20FBF /* Pods-Doodle2GatherTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Doodle2GatherTests.debug.xcconfig"; path = "Target Support Files/Pods-Doodle2GatherTests/Pods-Doodle2GatherTests.debug.xcconfig"; sourceTree = "<group>"; };
-		2E26E56F260692880016A8FC /* DTCodableColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTCodableColor.swift; sourceTree = "<group>"; };
 		2E3F8FAD2607380100C58F33 /* Pods_Doodle2Gather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Doodle2Gather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2E987E5B2607442A00352E7D /* DTPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTPoint.swift; sourceTree = "<group>"; };
+		2E8AC71D2613F3020033869E /* DoodlingLibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DoodlingLibrary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2E8AC7492613F4C90033869E /* DTCanvasViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTCanvasViewController.swift; sourceTree = "<group>"; };
 		2E987E6D2607468000352E7D /* PKStrokePoint+DTPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PKStrokePoint+DTPoint.swift"; sourceTree = "<group>"; };
-		2E987E76260747A000352E7D /* DTTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTTool.swift; sourceTree = "<group>"; };
 		2E987E7C26075C0200352E7D /* SocketController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketController.swift; sourceTree = "<group>"; };
 		2E987E8126075C5200352E7D /* SocketControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketControllerDelegate.swift; sourceTree = "<group>"; };
-		2EA8C2F32605E3AD00BE750C /* DTCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTCanvasView.swift; sourceTree = "<group>"; };
 		2EA8C2F92605E51500BE750C /* CanvasController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasController.swift; sourceTree = "<group>"; };
 		2EA8C2FF2605E57900BE750C /* DTAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTAction.swift; sourceTree = "<group>"; };
 		2EA8C3042605E5B700BE750C /* CanvasControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasControllerDelegate.swift; sourceTree = "<group>"; };
-		2EA8C3092605E95400BE750C /* DTDoodle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTDoodle.swift; sourceTree = "<group>"; };
 		2EA8C3172606682500BE750C /* PKCanvasView+DTCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PKCanvasView+DTCanvasView.swift"; sourceTree = "<group>"; };
-		2EA8C32726066F9300BE750C /* DTCanvasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTCanvasViewController.swift; sourceTree = "<group>"; };
-		2EA8C32F2606714500BE750C /* DTCanvasViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTCanvasViewDelegate.swift; sourceTree = "<group>"; };
 		2EA8C334260677C800BE750C /* PKDrawing+DTDrawing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PKDrawing+DTDrawing.swift"; sourceTree = "<group>"; };
-		2EA8C33C260677F800BE750C /* DTStroke.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTStroke.swift; sourceTree = "<group>"; };
 		2EA8C34126067F0000BE750C /* PKStroke+DTStroke.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PKStroke+DTStroke.swift"; sourceTree = "<group>"; };
 		2EB929D8260778F600AAB396 /* SubviewTouchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubviewTouchView.swift; sourceTree = "<group>"; };
 		2ED7A3C52601B7740006D873 /* Doodle.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Doodle.storyboard; sourceTree = "<group>"; };
@@ -125,7 +130,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2E3F8FAE2607380100C58F33 /* Pods_Doodle2Gather.framework in Frameworks */,
+				2E8AC71E2613F3020033869E /* DoodlingLibrary.framework in Frameworks */,
+				2E8AC7212613F3060033869E /* Pods_Doodle2Gather.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,15 +165,16 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
-		2EA8C3162606680500BE750C /* Extensions */ = {
+		2EA8C3162606680500BE750C /* Doodling Adapters */ = {
 			isa = PBXGroup;
 			children = (
+				2E8AC7492613F4C90033869E /* DTCanvasViewController.swift */,
 				2EA8C3172606682500BE750C /* PKCanvasView+DTCanvasView.swift */,
 				2EA8C334260677C800BE750C /* PKDrawing+DTDrawing.swift */,
 				2EA8C34126067F0000BE750C /* PKStroke+DTStroke.swift */,
 				2E987E6D2607468000352E7D /* PKStrokePoint+DTPoint.swift */,
 			);
-			path = Extensions;
+			path = "Doodling Adapters";
 			sourceTree = "<group>";
 		};
 		2ED7A3C32601B7570006D873 /* Doodle */ = {
@@ -195,21 +202,6 @@
 				2ED7A3CB2601C0450006D873 /* DoodleViewController.swift */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		2ED7A3D32601E71B0006D873 /* Doodling */ = {
-			isa = PBXGroup;
-			children = (
-				2EA8C32726066F9300BE750C /* DTCanvasViewController.swift */,
-				2EA8C2F32605E3AD00BE750C /* DTCanvasView.swift */,
-				2EA8C32F2606714500BE750C /* DTCanvasViewDelegate.swift */,
-				2EA8C3092605E95400BE750C /* DTDoodle.swift */,
-				2EA8C33C260677F800BE750C /* DTStroke.swift */,
-				2E987E5B2607442A00352E7D /* DTPoint.swift */,
-				2E987E76260747A000352E7D /* DTTool.swift */,
-				2E26E56F260692880016A8FC /* DTCodableColor.swift */,
-			);
-			path = Doodling;
 			sourceTree = "<group>";
 		};
 		2EF0E51B26096B490008184D /* Views */ = {
@@ -355,8 +347,7 @@
 			isa = PBXGroup;
 			children = (
 				670136A226063906005E327A /* WebSocket */,
-				2ED7A3D32601E71B0006D873 /* Doodling */,
-				2EA8C3162606680500BE750C /* Extensions */,
+				2EA8C3162606680500BE750C /* Doodling Adapters */,
 				84B17FFA2601C5B5009530A0 /* Constants */,
 				2EF0E51B26096B490008184D /* Views */,
 			);
@@ -439,6 +430,7 @@
 		CD2A37479AA1991CD8015EDE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2E8AC71D2613F3020033869E /* DoodlingLibrary.framework */,
 				2E3F8FAD2607380100C58F33 /* Pods_Doodle2Gather.framework */,
 				0E53B4F895F761EF4405A8DB /* Pods_Doodle2Gather.framework */,
 				CCE632583EE64F0948370B28 /* Pods_Doodle2Gather_Doodle2GatherUITests.framework */,
@@ -461,6 +453,7 @@
 				2EF8E91C25F754C600C7EE7D /* Frameworks */,
 				2EF8E91D25F754C600C7EE7D /* Resources */,
 				6387808665C6F5C74A643CDE /* [CP] Embed Pods Frameworks */,
+				2E8AC7202613F3030033869E /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -729,30 +722,23 @@
 				840D6B2B260236CF001F3D43 /* VideoViewController.swift in Sources */,
 				2EF8E92725F754C600C7EE7D /* HomeViewController.swift in Sources */,
 				2EA8C2FA2605E51500BE750C /* CanvasController.swift in Sources */,
-				2E987E77260747A000352E7D /* DTTool.swift in Sources */,
 				2EA8C335260677C800BE750C /* PKDrawing+DTDrawing.swift in Sources */,
-				2EA8C33D260677F800BE750C /* DTStroke.swift in Sources */,
-				2E987E5C2607442A00352E7D /* DTPoint.swift in Sources */,
 				2EF8E92325F754C600C7EE7D /* AppDelegate.swift in Sources */,
 				2EA8C34226067F0000BE750C /* PKStroke+DTStroke.swift in Sources */,
-				2E26E570260692880016A8FC /* DTCodableColor.swift in Sources */,
 				2EF0E51D26096B5C0008184D /* SubviewTouchCollectionView.swift in Sources */,
-				2EA8C3302606714500BE750C /* DTCanvasViewDelegate.swift in Sources */,
 				6701369B260638C5005E327A /* DTWebSocketTypes.swift in Sources */,
 				670136A426063926005E327A /* DTWebSocketController.swift in Sources */,
 				84B17FFC2601C5C4009530A0 /* VideoConstants.swift in Sources */,
 				2EF8E92525F754C600C7EE7D /* SceneDelegate.swift in Sources */,
+				2E8AC74A2613F4C90033869E /* DTCanvasViewController.swift in Sources */,
 				2E987E6E2607468000352E7D /* PKStrokePoint+DTPoint.swift in Sources */,
 				2E987E7D26075C0200352E7D /* SocketController.swift in Sources */,
 				2EA8C3052605E5B700BE750C /* CanvasControllerDelegate.swift in Sources */,
 				2E987E8226075C5200352E7D /* SocketControllerDelegate.swift in Sources */,
-				2EA8C30A2605E95400BE750C /* DTDoodle.swift in Sources */,
 				83D2EC3E2609283A004F875D /* ApiEndpoints.swift in Sources */,
 				2ED7A3CC2601C0450006D873 /* DoodleViewController.swift in Sources */,
-				2EA8C32826066F9300BE750C /* DTCanvasViewController.swift in Sources */,
 				2EB929D9260778F600AAB396 /* SubviewTouchView.swift in Sources */,
 				2EA8C3182606682500BE750C /* PKCanvasView+DTCanvasView.swift in Sources */,
-				2EA8C2F42605E3AD00BE750C /* DTCanvasView.swift in Sources */,
 				2EA8C3002605E57900BE750C /* DTAction.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

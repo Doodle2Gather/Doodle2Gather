@@ -1,8 +1,9 @@
 import PencilKit
+import DoodlingLibrary
 
 extension PKStroke: DTStroke {
 
-    var points: [PKStrokePoint] {
+    public var points: [PKStrokePoint] {
         get {
             path.compactMap { $0 }
         }
@@ -11,7 +12,7 @@ extension PKStroke: DTStroke {
         }
     }
 
-    var color: UIColor {
+    public var color: UIColor {
         get {
             ink.color
         }
@@ -20,7 +21,7 @@ extension PKStroke: DTStroke {
         }
     }
 
-    var tool: DTTool {
+    public var tool: DTTool {
         get {
             convertInkToTool(ink: ink.inkType)
         }
@@ -29,11 +30,11 @@ extension PKStroke: DTStroke {
         }
     }
 
-    init<S>(from stroke: S) where S: DTStroke {
+    public init<S>(from stroke: S) where S: DTStroke {
         self.init(color: stroke.color, tool: stroke.tool, points: stroke.points)
     }
 
-    init<P>(color: UIColor, tool: DTTool, points: [P]) where P: DTPoint {
+    public init<P>(color: UIColor, tool: DTTool, points: [P]) where P: DTPoint {
         var ink = PKInk.InkType.pen
         switch tool {
         case .pen, .eraser:
