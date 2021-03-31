@@ -2,7 +2,7 @@ import Vapor
 
 func routes(_ app: Application) throws {
     let webSocketController = WebSocketController(db: app.db)
-    try app.register(collection: DoodleActionController(wsController: webSocketController))
+    try app.register(collection: DTBackendController(wsController: webSocketController))
 
     app.post("action") { req -> EventLoopFuture<DoodleAction> in
         let action = try req.content.decode(DoodleAction.self)

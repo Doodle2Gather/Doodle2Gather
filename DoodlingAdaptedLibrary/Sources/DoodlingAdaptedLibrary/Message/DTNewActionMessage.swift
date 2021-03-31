@@ -1,7 +1,7 @@
 import Foundation
 
-public struct NewActionMessage: Codable {
-    var type = DTMessageType.newAction
+public struct DTInitiateActionMessage: Codable {
+    var type = DTMessageType.initiateAction
     public let strokesAdded: String
     public let strokesRemoved: String
 }

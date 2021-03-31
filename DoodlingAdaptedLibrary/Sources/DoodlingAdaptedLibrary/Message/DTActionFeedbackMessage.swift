@@ -1,7 +1,7 @@
 import Foundation
 
-public struct DispatchActionMessage: Codable, Comparable {
-    var type = DTMessageType.dispatchAction
+public struct DTActionFeedbackMessage: Codable, Comparable {
+    var type = DTMessageType.actionFeedback
     let success: Bool
     let message: String
     let id: UUID?
@@ -18,14 +18,14 @@ public struct DispatchActionMessage: Codable, Comparable {
         self.createdAt = createdAt
     }
 
-    public static func < (lhs: DispatchActionMessage, rhs: DispatchActionMessage) -> Bool {
+    public static func < (lhs: DTActionFeedbackMessage, rhs: DTActionFeedbackMessage) -> Bool {
         guard let lhsDate = lhs.createdAt, let rhsDate = rhs.createdAt else {
             return false
         }
         return lhsDate < rhsDate
     }
 
-    public static func == (lhs: DispatchActionMessage, rhs: DispatchActionMessage) -> Bool {
+    public static func == (lhs: DTActionFeedbackMessage, rhs: DTActionFeedbackMessage) -> Bool {
         lhs.id == rhs.id
     }
 }

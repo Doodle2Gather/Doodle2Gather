@@ -53,7 +53,7 @@ class WebSocketController {
             }
             self.onData(ws, data)
         }
-        self.send(message: Handshake(id: uuid), to: [.socket(ws)])
+        self.send(message: DTHandshake(id: uuid), to: [.socket(ws)])
 
         DoodleAction.query(on: self.db).all().whenComplete { res in
             switch res {
@@ -63,12 +63,53 @@ class WebSocketController {
             case .success(let actions):
                 self.logger.info("Load existing action. Action count: \(actions.count)")
                 actions.forEach {
-                    self.sendActionToSockets($0, to: [.socket(ws)])
+                    self.dispatchActionToPeers($0, to: [.socket(ws)])
                 }
             }
         }
     }
 
+    func onData(_ ws: WebSocket, _ data: Data) {
+        let decoder = JSONDecoder()
+        do {
+            let decodedData = try decoder.decode(DTMessage.self, from: data)
+            switch decodedData.type {
+            case .initiateAction:
+                let newActionData = try decoder.decode(
+                    DTInitiateActionMessage.self, from: data)
+                self.onNewAction(ws, decodedData.id, newActionData)
+            default:
+                break
+            }
+        } catch {
+            logger.report(error: error)
+        }
+    }
+
+    func onNewAction(_ ws: WebSocket, _ id: UUID, _ message: DTInitiateActionMessage) {
+        let action = DoodleAction(strokesAdded: message.strokesAdded,
+                                  strokesRemoved: message.strokesRemoved, createdBy: id)
+        self.db.withConnection {
+            action.save(on: $0)
+        }.whenComplete { res in
+            let success: Bool
+            let message: String
+            switch res {
+            case .failure(let err):
+                self.logger.report(error: err)
+                success = false
+                message = "Something went wrong adding the action."
+            case .success:
+                self.logger.info("Got a new action!")
+                success = true
+                message = "Action added"
+            }
+            self.dispatchActionToPeers(action, to: self.getAllWebSocketOptionsExcept(id),
+                                     success: success, message: message)
+            self.sendActionFeedback(action, to: .id(id), success: success, message: message)
+        }
+    }
+    
     func send<T: Codable>(message: T, to sendOption: [WebSocketSendOption]) {
         logger.info("Sending \(T.self) to \(sendOption)")
         do {
@@ -96,53 +137,10 @@ class WebSocketController {
         }
     }
 
-    func onData(_ ws: WebSocket, _ data: Data) {
-        let decoder = JSONDecoder()
-        do {
-            let decodedData = try decoder.decode(DTMessage.self, from: data)
-            switch decodedData.type {
-            case .newAction:
-                let newActionData = try decoder.decode(
-                    NewActionMessage.self, from: data)
-                self.onNewAction(ws, decodedData.id, newActionData)
-            default:
-                break
-            }
-        } catch {
-            logger.report(error: error)
-        }
-    }
-
-    func onNewAction(_ ws: WebSocket, _ id: UUID, _ message: NewActionMessage) {
-        let action = DoodleAction(strokesAdded: message.strokesAdded,
-                                  strokesRemoved: message.strokesRemoved, createdBy: id)
-        self.db.withConnection {
-            action.save(on: $0)
-        }.whenComplete { res in
-            let success: Bool
-            let message: String
-            switch res {
-            case .failure(let err):
-                // 2
-                self.logger.report(error: err)
-                success = false
-                message = "Something went wrong adding the action."
-            case .success:
-                // 3
-                self.logger.info("Got a new action!")
-                success = true
-                message = "Action added"
-            }
-            // 4
-            self.sendActionToSockets(action, to: self.getAllWebSocketOptionsExcept(id),
-                                     success: success, message: message)
-        }
-    }
-
-    func sendActionToSockets(_ action: DoodleAction, to sendOptions: [WebSocketSendOption],
+    func dispatchActionToPeers(_ action: DoodleAction, to sendOptions: [WebSocketSendOption],
                              success: Bool = true, message: String = "") {
-        self.logger.info("Sent an action response!")
-        try? self.send(message: DispatchActionMessage(
+        self.logger.info("Dispatched an action to peers!")
+        try? self.send(message: DTDispatchActionMessage(
             success: success,
             message: message,
             id: action.requireID(),
@@ -150,5 +148,18 @@ class WebSocketController {
             strokesRemoved: action.strokesRemoved,
             createdAt: action.createdAt
         ), to: sendOptions)
+    }
+    
+    func sendActionFeedback(_ action: DoodleAction, to sendOption: WebSocketSendOption,
+                             success: Bool = true, message: String = "") {
+        self.logger.info("Sent an action feedback!")
+        try? self.send(message: DTActionFeedbackMessage(
+            success: success,
+            message: message,
+            id: action.requireID(),
+            strokesAdded: action.strokesAdded,
+            strokesRemoved: action.strokesRemoved,
+            createdAt: action.createdAt
+        ), to: [sendOption])
     }
 }

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,6 +12,7 @@
 		2E8AC7CF2613F9FD0033869E /* DoodleAutomerge.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E8AC7C12613F9FD0033869E /* DoodleAutomerge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2E8AC7E42613FADA0033869E /* DoodlingLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E8AC7E32613FADA0033869E /* DoodlingLibrary.framework */; };
 		2E8AC7E52613FADA0033869E /* DoodlingLibrary.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2E8AC7E32613FADA0033869E /* DoodlingLibrary.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		67DECF7326146EA4008A9E70 /* DoodlingAdaptedLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 67DECF7226146EA4008A9E70 /* DoodlingAdaptedLibrary */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67DECF7326146EA4008A9E70 /* DoodlingAdaptedLibrary in Frameworks */,
 				2E8AC7E42613FADA0033869E /* DoodlingLibrary.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -143,6 +145,9 @@
 			dependencies = (
 			);
 			name = DoodleAutomerge;
+			packageProductDependencies = (
+				67DECF7226146EA4008A9E70 /* DoodlingAdaptedLibrary */,
+			);
 			productName = DoodleAutomerge;
 			productReference = 2E8AC7BE2613F9FD0033869E /* DoodleAutomerge.framework */;
 			productType = "com.apple.product-type.framework";
@@ -506,6 +511,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		67DECF7226146EA4008A9E70 /* DoodlingAdaptedLibrary */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DoodlingAdaptedLibrary;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2E8AC7B52613F9FD0033869E /* Project object */;
 }

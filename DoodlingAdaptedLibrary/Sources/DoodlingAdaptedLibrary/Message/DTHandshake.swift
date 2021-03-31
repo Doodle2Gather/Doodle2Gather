@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Handshake: Codable {
+public struct DTHandshake: Codable {
     var type = DTMessageType.handshake
     let id: UUID
     

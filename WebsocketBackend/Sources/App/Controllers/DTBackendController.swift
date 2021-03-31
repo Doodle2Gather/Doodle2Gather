@@ -1,6 +1,6 @@
 import Vapor
 
-struct DoodleActionController: RouteCollection {
+struct DTBackendController: RouteCollection {
     let wsController: WebSocketController
 
     func boot(routes: RoutesBuilder) throws {
