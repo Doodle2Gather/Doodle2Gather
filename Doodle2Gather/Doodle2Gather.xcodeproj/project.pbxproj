@@ -12,6 +12,8 @@
 		2E8AC7212613F3060033869E /* Pods_Doodle2Gather.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E3F8FAD2607380100C58F33 /* Pods_Doodle2Gather.framework */; };
 		2E8AC7222613F3060033869E /* Pods_Doodle2Gather.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2E3F8FAD2607380100C58F33 /* Pods_Doodle2Gather.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2E8AC74A2613F4C90033869E /* DTCanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8AC7492613F4C90033869E /* DTCanvasViewController.swift */; };
+		2E8AC7E72613FAE50033869E /* DoodleAutomerge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E8AC7A52613F9460033869E /* DoodleAutomerge.framework */; };
+		2E8AC7E82613FAE50033869E /* DoodleAutomerge.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2E8AC7A52613F9460033869E /* DoodleAutomerge.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2E987E6E2607468000352E7D /* PKStrokePoint+DTPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E987E6D2607468000352E7D /* PKStrokePoint+DTPoint.swift */; };
 		2E987E7D26075C0200352E7D /* SocketController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E987E7C26075C0200352E7D /* SocketController.swift */; };
 		2E987E8226075C5200352E7D /* SocketControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E987E8126075C5200352E7D /* SocketControllerDelegate.swift */; };
@@ -70,6 +72,7 @@
 			files = (
 				2E8AC71F2613F3020033869E /* DoodlingLibrary.framework in Embed Frameworks */,
 				2E8AC7222613F3060033869E /* Pods_Doodle2Gather.framework in Embed Frameworks */,
+				2E8AC7E82613FAE50033869E /* DoodleAutomerge.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -82,6 +85,7 @@
 		2E3F8FAD2607380100C58F33 /* Pods_Doodle2Gather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Doodle2Gather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E8AC71D2613F3020033869E /* DoodlingLibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DoodlingLibrary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E8AC7492613F4C90033869E /* DTCanvasViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTCanvasViewController.swift; sourceTree = "<group>"; };
+		2E8AC7A52613F9460033869E /* DoodleAutomerge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DoodleAutomerge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E987E6D2607468000352E7D /* PKStrokePoint+DTPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PKStrokePoint+DTPoint.swift"; sourceTree = "<group>"; };
 		2E987E7C26075C0200352E7D /* SocketController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketController.swift; sourceTree = "<group>"; };
 		2E987E8126075C5200352E7D /* SocketControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketControllerDelegate.swift; sourceTree = "<group>"; };
@@ -132,6 +136,7 @@
 			files = (
 				2E8AC71E2613F3020033869E /* DoodlingLibrary.framework in Frameworks */,
 				2E8AC7212613F3060033869E /* Pods_Doodle2Gather.framework in Frameworks */,
+				2E8AC7E72613FAE50033869E /* DoodleAutomerge.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,6 +435,7 @@
 		CD2A37479AA1991CD8015EDE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2E8AC7A52613F9460033869E /* DoodleAutomerge.framework */,
 				2E8AC71D2613F3020033869E /* DoodlingLibrary.framework */,
 				2E3F8FAD2607380100C58F33 /* Pods_Doodle2Gather.framework */,
 				0E53B4F895F761EF4405A8DB /* Pods_Doodle2Gather.framework */,
