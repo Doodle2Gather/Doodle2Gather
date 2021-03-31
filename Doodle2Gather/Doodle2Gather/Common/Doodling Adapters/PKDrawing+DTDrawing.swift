@@ -3,12 +3,12 @@ import DoodlingLibrary
 
 extension PKDrawing: DTDoodle {
 
-    public var dtStrokes: Set<PKStroke> {
+    public var dtStrokes: [PKStroke] {
         get {
-            Set(strokes)
+            strokes
         }
         set {
-            strokes = Array(newValue)
+            strokes = newValue
         }
     }
 
@@ -17,11 +17,16 @@ extension PKDrawing: DTDoodle {
     }
 
     public mutating func removeStrokes<S>(_ removedStrokes: Set<S>) where S: DTStroke {
-        dtStrokes = dtStrokes.subtracting(removedStrokes.map { PKStroke(from: $0) })
+        dtStrokes = dtStrokes.filter({ stroke in
+            guard let stroke = stroke as? S else {
+                fatalError("Failed to convert PKStroke to DTStroke")
+            }
+            return !removedStrokes.contains(stroke)
+        })
     }
 
     public mutating func addStrokes<S>(_ addedStrokes: Set<S>) where S: DTStroke {
-        dtStrokes = dtStrokes.union(addedStrokes.map { PKStroke(from: $0) })
+        dtStrokes.append(contentsOf: (addedStrokes.map { PKStroke(from: $0) }))
     }
 
 }
