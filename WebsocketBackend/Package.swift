@@ -12,7 +12,8 @@ let package = Package(
     .package(url: "https://github.com/vapor/vapor.git", from: "4.0.0"),
     .package(url: "https://github.com/vapor/fluent.git", from: "4.0.0"),
     .package(url: "https://github.com/vapor/fluent-sqlite-driver.git", from: "4.0.0-rc"),
-    .package(url: "https://github.com/vapor/leaf", from: "4.0.0-rc")
+    .package(url: "https://github.com/vapor/leaf", from: "4.0.0-rc"),
+    .package(path: "../DoodlingAdaptedLibrary")
   ],
   targets: [
     .target(
@@ -21,7 +22,8 @@ let package = Package(
         .product(name: "Fluent", package: "fluent"),
         .product(name: "FluentSQLiteDriver", package: "fluent-sqlite-driver"),
         .product(name: "Vapor", package: "vapor"),
-        .product(name: "Leaf", package: "leaf")
+        .product(name: "Leaf", package: "leaf"),
+        "DoodlingAdaptedLibrary"
       ],
       swiftSettings: [
         // Enable better optimizations when building in Release configuration. Despite the use of
@@ -30,6 +32,6 @@ let package = Package(
         .unsafeFlags(["-cross-module-optimization"], .when(configuration: .release))
       ]
     ),
-    .target(name: "Run", dependencies: [.target(name: "App")])
+    .target(name: "WebsocketBackend", dependencies: [.target(name: "App")])
   ]
 )

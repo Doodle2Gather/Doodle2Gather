@@ -1,5 +1,6 @@
 import Vapor
 import Fluent
+import DoodlingAdaptedLibrary
 
 enum WebSocketSendOption {
     case id(UUID), socket(WebSocket)

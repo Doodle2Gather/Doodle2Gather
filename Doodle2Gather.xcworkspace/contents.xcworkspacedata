@@ -11,6 +11,9 @@
       location = "group:DoodleAutomerge/DoodleAutomerge.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:DoodlingAdaptedLibrary">
+   </FileRef>
+   <FileRef
       location = "group:WebsocketBackend">
    </FileRef>
    <FileRef
