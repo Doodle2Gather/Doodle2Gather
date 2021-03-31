@@ -382,6 +382,13 @@
                                     <segue destination="iqH-RH-LvU" kind="embed" identifier="" id="LHe-b8-q2G"/>
                                 </connections>
                             </containerView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OEo-Kd-BqH">
+                                <rect key="frame" x="20" y="104" width="12.5" height="22"/>
+                                <state key="normal" image="chevron.backward" catalog="system"/>
+                                <connections>
+                                    <action selector="didTapBack:" destination="rZI-TI-AZo" eventType="touchUpInside" id="n6g-ib-8gX"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="1p6-Mf-pnl"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -400,10 +407,12 @@
                             <constraint firstItem="6vr-WX-y5Z" firstAttribute="trailing" secondItem="1p6-Mf-pnl" secondAttribute="trailing" constant="-20" id="aX5-rm-eAj"/>
                             <constraint firstItem="HdL-Pj-pPB" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" constant="20" id="nVn-9r-nOE"/>
                             <constraint firstItem="lOM-bA-4te" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" constant="20" id="o7i-Qk-N3e"/>
+                            <constraint firstItem="OEo-Kd-BqH" firstAttribute="top" secondItem="lOM-bA-4te" secondAttribute="bottom" constant="20" id="p0b-cj-saG"/>
                             <constraint firstItem="Gvt-x0-wpX" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" constant="20" id="xlO-w9-H22"/>
                             <constraint firstItem="CRw-tT-Mu5" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" id="yf0-Dt-Yxp"/>
                             <constraint firstItem="2v7-Hc-qJ9" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" id="yyv-Qd-LDk"/>
                             <constraint firstItem="2v7-Hc-qJ9" firstAttribute="trailing" secondItem="1p6-Mf-pnl" secondAttribute="trailing" id="zIt-xX-Snl"/>
+                            <constraint firstItem="OEo-Kd-BqH" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" constant="20" id="zk2-qv-p9J"/>
                         </constraints>
                     </view>
                     <connections>
@@ -714,6 +723,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="chevron.backward" catalog="system" width="96" height="128"/>
         <image name="eraser" width="480.00100708007812" height="480.00100708007812"/>
         <image name="highlighter" catalog="system" width="128" height="119"/>
         <image name="message.fill" catalog="system" width="128" height="113"/>

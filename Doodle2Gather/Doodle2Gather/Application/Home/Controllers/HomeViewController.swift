@@ -19,6 +19,10 @@ class HomeViewController: UIViewController {
         static let roomName = "devRoom"
     }
 
+    enum Segues {
+        static let toGalley = "toGallery"
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -26,16 +30,6 @@ class HomeViewController: UIViewController {
         usernameTextField.text = DefaultValues.username
         passwordTextField.text = DefaultValues.password
         roomNameTextField.text = DefaultValues.roomName
-    }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goToDoodle" {
-            guard let vc = segue.destination as? DoodleViewController else {
-                fatalError("Unable to get DoodleViewController")
-            }
-            vc.username = usernameTextField.text
-            vc.roomName = roomNameTextField.text
-        }
     }
 
     @IBAction private func onLoginTapped(_ sender: UIButton) {

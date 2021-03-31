@@ -17,6 +17,8 @@
 		2E8AC7392613F4170033869E /* DTPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8AC7342613F4170033869E /* DTPoint.swift */; };
 		2E8AC7422613F43E0033869E /* DTCanvasViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8AC73F2613F43E0033869E /* DTCanvasViewDelegate.swift */; };
 		2E8AC7442613F43E0033869E /* DTCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8AC7412613F43E0033869E /* DTCanvasView.swift */; };
+		84A45206261486C900DFCA75 /* DTRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A45205261486C900DFCA75 /* DTRoom.swift */; };
+		84A4520C261486DD00DFCA75 /* DTParticipant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A4520B261486DD00DFCA75 /* DTParticipant.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +45,8 @@
 		2E8AC7342613F4170033869E /* DTPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTPoint.swift; sourceTree = "<group>"; };
 		2E8AC73F2613F43E0033869E /* DTCanvasViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTCanvasViewDelegate.swift; sourceTree = "<group>"; };
 		2E8AC7412613F43E0033869E /* DTCanvasView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTCanvasView.swift; sourceTree = "<group>"; };
+		84A45205261486C900DFCA75 /* DTRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTRoom.swift; sourceTree = "<group>"; };
+		84A4520B261486DD00DFCA75 /* DTParticipant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTParticipant.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +114,8 @@
 				2E8AC7342613F4170033869E /* DTPoint.swift */,
 				2E8AC7302613F4170033869E /* DTTool.swift */,
 				2E8AC7312613F4170033869E /* DTCodableColor.swift */,
+				84A45205261486C900DFCA75 /* DTRoom.swift */,
+				84A4520B261486DD00DFCA75 /* DTParticipant.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -256,7 +262,9 @@
 				2E8AC7382613F4170033869E /* DTStroke.swift in Sources */,
 				2E8AC7362613F4170033869E /* DTCodableColor.swift in Sources */,
 				2E8AC7422613F43E0033869E /* DTCanvasViewDelegate.swift in Sources */,
+				84A45206261486C900DFCA75 /* DTRoom.swift in Sources */,
 				2E8AC7442613F43E0033869E /* DTCanvasView.swift in Sources */,
+				84A4520C261486DD00DFCA75 /* DTParticipant.swift in Sources */,
 				2E8AC7392613F4170033869E /* DTPoint.swift in Sources */,
 				2E8AC7352613F4170033869E /* DTTool.swift in Sources */,
 			);

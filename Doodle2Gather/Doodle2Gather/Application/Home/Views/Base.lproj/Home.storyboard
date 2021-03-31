@@ -112,10 +112,10 @@
             </objects>
             <point key="canvasLocation" x="-212.23021582733816" y="78.894472361809051"/>
         </scene>
-        <!--Doodle-->
+        <!--Gallery-->
         <scene sceneID="kuq-ae-Uxt">
             <objects>
-                <viewControllerPlaceholder storyboardName="Doodle" id="xpk-89-NAa" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="Gallery" id="xpk-89-NAa" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="cvC-4g-jCf"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r21-SQ-3gE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

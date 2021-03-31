@@ -55,6 +55,9 @@ class DoodleViewController: UIViewController {
         }
     }
 
+    @IBAction private func didTapBack(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
 }
 
 // MARK: - IBActions
