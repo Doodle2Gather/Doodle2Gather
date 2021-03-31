@@ -60,52 +60,51 @@ class ChatViewController: MessagesViewController {
                                                 selector: #selector(keyboardFrameWillChange(notification:)),
                                                 name: UIResponder.keyboardWillChangeFrameNotification,
                                                 object: nil)
-     }
+    }
 
-     // Tap anywhere else to dismiss the keyboard
-     @objc func dismissKeyboard() {
-         // Causes the view (or one of its embedded text fields) to resign the first responder status
-         view.endEditing(true)
-     }
+    // Tap anywhere else to dismiss the keyboard
+    @objc func dismissKeyboard() {
+        // Causes the view (or one of its embedded text fields) to resign the first responder status
+        view.endEditing(true)
+    }
 
-     // Handle keyboard blocking input area
-     @objc func keyboardFrameWillChange(notification: NSNotification) {
-         guard let userInfo
-                 = notification.userInfo,
-               let endKeyboardFrameValue
-                 = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
-               let durationValue
-                 = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber else {
-                 return
-         }
+    // Handle keyboard blocking input area
+    @objc func keyboardFrameWillChange(notification: NSNotification) {
+        guard let userInfo
+                = notification.userInfo,
+              let endKeyboardFrameValue
+                = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
+              let durationValue
+                = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber else {
+            return
+        }
 
-         let endKeyboardFrame = endKeyboardFrameValue.cgRectValue
-         let duration = durationValue.doubleValue
+        let endKeyboardFrame = endKeyboardFrameValue.cgRectValue
+        let duration = durationValue.doubleValue
 
-         let isShowing: Bool = endKeyboardFrame.maxY
+        let isShowing: Bool = endKeyboardFrame.maxY
             > UIScreen.main.bounds.height ? false : true
-         UIView.animate(withDuration: duration) { [weak self] in
-             guard let strongSelf = self else {
-                 return
-             }
-
-             if isShowing {
-                 let offsetY = strongSelf.messagesCollectionView.frame.maxY - endKeyboardFrame.minY
-                 if offsetY < 0 {
-                     return
-                 } else {
+        UIView.animate(withDuration: duration) { [weak self] in
+            guard let strongSelf = self else {
+                return
+            }
+            if isShowing {
+                let offsetY = strongSelf.messagesCollectionView.frame.maxY - endKeyboardFrame.minY
+                if offsetY < 0 {
+                    return
+                } else {
                     strongSelf.messagesCollectionView.contentInset =
                         ConferenceConstants.messageInputBarOffsetCalculator(offset: offsetY)
-                 }
-             } else {
+                }
+            } else {
                 strongSelf.messagesCollectionView.contentInset = ConferenceConstants.defaultContentInset
-             }
-             strongSelf.view.layoutIfNeeded()
-             if !strongSelf.messages.isEmpty {
-                 strongSelf.messagesCollectionView.scrollToLastItem()
-             }
-         }
-     }
+            }
+            strongSelf.view.layoutIfNeeded()
+            if !strongSelf.messages.isEmpty {
+                strongSelf.messagesCollectionView.scrollToLastItem()
+            }
+        }
+    }
 
     private let formatter: DateFormatter = {
         let formatter = DateFormatter()
