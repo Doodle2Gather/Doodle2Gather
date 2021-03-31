@@ -15,8 +15,6 @@
 		2E8AC7372613F4170033869E /* DTDoodle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8AC7322613F4170033869E /* DTDoodle.swift */; };
 		2E8AC7382613F4170033869E /* DTStroke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8AC7332613F4170033869E /* DTStroke.swift */; };
 		2E8AC7392613F4170033869E /* DTPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8AC7342613F4170033869E /* DTPoint.swift */; };
-		2E8AC7422613F43E0033869E /* DTCanvasViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8AC73F2613F43E0033869E /* DTCanvasViewDelegate.swift */; };
-		2E8AC7442613F43E0033869E /* DTCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8AC7412613F43E0033869E /* DTCanvasView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,8 +39,6 @@
 		2E8AC7322613F4170033869E /* DTDoodle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTDoodle.swift; sourceTree = "<group>"; };
 		2E8AC7332613F4170033869E /* DTStroke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTStroke.swift; sourceTree = "<group>"; };
 		2E8AC7342613F4170033869E /* DTPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTPoint.swift; sourceTree = "<group>"; };
-		2E8AC73F2613F43E0033869E /* DTCanvasViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTCanvasViewDelegate.swift; sourceTree = "<group>"; };
-		2E8AC7412613F43E0033869E /* DTCanvasView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTCanvasView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,7 +81,6 @@
 		2E8AC6FF2613F2110033869E /* DoodlingLibrary */ = {
 			isa = PBXGroup;
 			children = (
-				2E8AC73E2613F42D0033869E /* Views */,
 				2E8AC72D2613F3F00033869E /* Models */,
 				2E8AC7002613F2110033869E /* DoodlingLibrary.h */,
 				2E8AC7012613F2110033869E /* Info.plist */,
@@ -112,15 +107,6 @@
 				2E8AC7312613F4170033869E /* DTCodableColor.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		2E8AC73E2613F42D0033869E /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				2E8AC7412613F43E0033869E /* DTCanvasView.swift */,
-				2E8AC73F2613F43E0033869E /* DTCanvasViewDelegate.swift */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -255,8 +241,6 @@
 				2E8AC7372613F4170033869E /* DTDoodle.swift in Sources */,
 				2E8AC7382613F4170033869E /* DTStroke.swift in Sources */,
 				2E8AC7362613F4170033869E /* DTCodableColor.swift in Sources */,
-				2E8AC7422613F43E0033869E /* DTCanvasViewDelegate.swift in Sources */,
-				2E8AC7442613F43E0033869E /* DTCanvasView.swift in Sources */,
 				2E8AC7392613F4170033869E /* DTPoint.swift in Sources */,
 				2E8AC7352613F4170033869E /* DTTool.swift in Sources */,
 			);

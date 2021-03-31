@@ -1,20 +1,9 @@
 import PencilKit
 import DoodlingLibrary
 
-extension PKCanvasView: DTCanvasView {
+// MARK: - Adapters for Doodling Models
 
-    public func registerDelegate(_ delegate: DTCanvasViewDelegate) -> DTCanvasViewDelegate {
-        let wrapperDelegate = WrapperPKCanvasViewDelegate(delegate: delegate)
-        self.delegate = wrapperDelegate
-        return wrapperDelegate
-    }
-
-    public func loadDoodle<D>(_ doodle: D) where D: DTDoodle {
-        self.drawing = PKDrawing(from: doodle)
-        self.alwaysBounceVertical = true
-        // TODO: Remove this line once a DT version of drawing policy is added.
-        self.drawingPolicy = .anyInput
-    }
+extension PKCanvasView {
 
     public func getStrokes<S>() -> Set<S>? where S: DTStroke {
         Set(drawing.strokes) as? Set<S>
@@ -56,24 +45,6 @@ extension PKCanvasView: DTCanvasView {
             return
         }
         self.tool = PKInkingTool(tool.inkType, color: tool.color, width: width)
-    }
-
-}
-
-class WrapperPKCanvasViewDelegate: NSObject, PKCanvasViewDelegate, DTCanvasViewDelegate {
-
-    private weak var actualDelegate: DTCanvasViewDelegate?
-
-    init(delegate: DTCanvasViewDelegate) {
-        self.actualDelegate = delegate
-    }
-
-    func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
-        actualDelegate?.canvasViewDoodleDidChange(canvasView)
-    }
-
-    func canvasViewDoodleDidChange(_ canvasView: DTCanvasView) {
-        actualDelegate?.canvasViewDoodleDidChange(canvasView)
     }
 
 }

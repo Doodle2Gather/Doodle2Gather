@@ -9,25 +9,22 @@ import DoodlingLibrary
 class DTCanvasViewController: UIViewController {
 
     /// Main canvas view that we will work with.
-    var canvasView: DTCanvasView = PKCanvasView()
-
+    var canvasView = PKCanvasView()
     /// Doodle that will be injected into this controller.
-    /// TODO: Look into a way to generalise this. Need to discuss this with
-    /// the teaching team, because this is really not ideal.
     var doodle = PKDrawing()
-
     /// Delegate for action dispatching.
     internal weak var delegate: CanvasControllerDelegate?
-    /// Reference to the (wrapper) delegate used by canvas.
-    var delegateReference: DTCanvasViewDelegate?
 
     /// Sets up the canvas view and the initial doodle.
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         addCanvasView()
-        delegateReference = canvasView.registerDelegate(self)
-        canvasView.loadDoodle(doodle)
+        canvasView.delegate = self
+        canvasView.drawing = doodle
+
+        let pinch = UIPinchGestureRecognizer(target: self, action: #selector(self.handlePinch(_:)))
+        canvasView.addGestureRecognizer(pinch)
     }
 
     override func viewDidLayoutSubviews() {
@@ -43,25 +40,25 @@ class DTCanvasViewController: UIViewController {
     }
 
     func addCanvasView() {
+        // TODO: Load existing strokes into canvasView at this point
         view.addSubview(canvasView)
         canvasView.frame = view.frame
+        canvasView.alwaysBounceVertical = true
+        canvasView.drawingPolicy = .anyInput
     }
 
 }
 
-extension DTCanvasViewController: DTCanvasViewDelegate {
+extension DTCanvasViewController: PKCanvasViewDelegate {
 
     // TODO: Look into ways to generalise this method.
     // Currently depends on PencilKit.
-    func canvasViewDoodleDidChange(_ canvas: DTCanvasView) {
-        guard let newStrokes: Set<PKStroke> = canvas.getStrokes() else {
-            return
-        }
+    func canvasViewDrawingDidChange(_ canvas: PKCanvasView) {
+        let newStrokes = Set(canvas.drawing.strokes)
+        let oldStrokes = Set(doodle.strokes)
 
-        let oldStrokes = Set(doodle.dtStrokes)
-
-        let addedStrokes = newStrokes.subtracting(oldStrokes)
-        let removedStrokes = oldStrokes.subtracting(newStrokes)
+        let addedStrokes = canvas.drawing.strokes.filter { !oldStrokes.contains($0) }
+        let removedStrokes = doodle.strokes.filter { !newStrokes.contains($0) }
 
         /// No change has occurred and we want to prevent unnecessary propagation.
         if addedStrokes.isEmpty && removedStrokes.isEmpty {
@@ -81,7 +78,7 @@ extension DTCanvasViewController: DTCanvasViewDelegate {
 extension DTCanvasViewController: CanvasController {
 
     func dispatchAction(_ action: DTAction) {
-        guard let (added, removed): (Set<PKStroke>, Set<PKStroke>) = action.getStrokes() else {
+        guard let (added, removed): ([PKStroke], [PKStroke]) = action.getStrokes() else {
             return
         }
         var doodleCopy = doodle
@@ -94,17 +91,17 @@ extension DTCanvasViewController: CanvasController {
         }
 
         doodle = doodleCopy // This prevents an action from firing later.
-        self.canvasView.loadDoodle(doodle)
+        canvasView.drawing = doodle
     }
 
     // Note: This method does not fire off an Action.
     func loadDoodle<D: DTDoodle>(_ doodle: D) {
         self.doodle = PKDrawing(from: doodle)
-        canvasView.loadDoodle(doodle)
+        canvasView.drawing = self.doodle
     }
 
     func clearDoodle() {
-        canvasView.loadDoodle(PKDrawing())
+        canvasView.drawing = PKDrawing()
     }
 
     func setPenTool() {
@@ -129,6 +126,24 @@ extension DTCanvasViewController: CanvasController {
 
     func setSize(_ size: Float) {
         canvasView.setWidth(CGFloat(size))
+    }
+
+}
+
+// MARK: - Gesture Recognisers
+
+extension DTCanvasViewController {
+
+    @objc private func handlePinch(_ gesture: UIPinchGestureRecognizer) {
+        guard gesture.view != nil else {
+            return
+        }
+
+        if gesture.state == .began || gesture.state == .changed,
+           let transform = gesture.view?.transform {
+            gesture.view?.transform = transform.scaledBy(x: gesture.scale, y: gesture.scale)
+            gesture.scale = 1.0
+        }
     }
 
 }
