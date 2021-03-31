@@ -4,11 +4,13 @@ osx_image: xcode12.2
 jobs:
   include:
     - stage: "Tests/Lint/Build" 
-      name: "Frontend Build & Test & swiftlint"
+      name: "Frontend Build & Test"
       podfile: Podfile
       before_install: pod repo update
+      cache:
+        - bundler: true
+        - cocoapods: true
       script:
         - xcodebuild -workspace Doodle2Gather.xcworkspace -scheme Doodle2Gather -destination 'platform=iOS Simulator,OS=14.2,name=iPad Air (4th generation)' build test
-        - swiftlint
     - name: "Backend Build"
       script: cd WebsocketBackend && swift build
