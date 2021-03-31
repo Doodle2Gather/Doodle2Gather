@@ -12,7 +12,7 @@ jobs:
     - stage: "Tests/Lint/Build" 
       name: "Frontend Build & Test"
       script: xcodebuild -workspace Doodle2Gather.xcworkspace -scheme Doodle2Gather -destination 'platform=iOS Simulator,OS=14.4,name=iPad Air (4th generation)' build test
-    - name: "Backend Build
+    - name: "Backend Build"
       script: cd WebsocketBackend && swift build
     - name: "SwiftLint"
       script: swiftlint
