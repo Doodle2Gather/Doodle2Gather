@@ -15,6 +15,7 @@ class ConferenceViewController: UIViewController {
     var isMuted = false
     var isVideoOff = false
     var isChatShown = false
+    private var videoOverlays = [UIView]()
 
     enum Segues {
         static let toChat = "toChat"
@@ -45,9 +46,26 @@ class ConferenceViewController: UIViewController {
         if isVideoOff {
             videoEngine?.showVideo()
             videoButton.setImage(UIImage(systemName: "video.fill"), for: .normal)
+            if !videoOverlays.isEmpty {
+                videoOverlays[0].removeFromSuperview()
+            }
         } else {
             videoEngine?.hideVideo()
             videoButton.setImage(UIImage(systemName: "video.slash.fill"), for: .normal)
+            guard let cellView = collectionView.cellForItem(at: IndexPath(row: 0, section: 0)) else {
+                return
+            }
+            if videoOverlays.isEmpty {
+                let overlay = UIView(frame: CGRect(x: 0,
+                                                   y: 0,
+                                                   width: cellView.frame.size.width,
+                                                   height: cellView.frame.size.height))
+                overlay.backgroundColor = UIColor.darkGray
+                videoOverlays.append(overlay)
+                cellView.addSubview(overlay)
+            } else {
+                cellView.addSubview(videoOverlays[0])
+            }
         }
         isVideoOff.toggle()
     }
