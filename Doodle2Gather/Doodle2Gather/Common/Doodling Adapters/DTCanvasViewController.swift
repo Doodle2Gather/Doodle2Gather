@@ -58,7 +58,7 @@ extension DTCanvasViewController: DTCanvasViewDelegate {
             return
         }
 
-        let oldStrokes = doodle.dtStrokes
+        let oldStrokes = Set(doodle.dtStrokes)
 
         let addedStrokes = newStrokes.subtracting(oldStrokes)
         let removedStrokes = oldStrokes.subtracting(newStrokes)
@@ -84,16 +84,16 @@ extension DTCanvasViewController: CanvasController {
         guard let (added, removed): (Set<PKStroke>, Set<PKStroke>) = action.getStrokes() else {
             return
         }
-        var strokes = doodle.dtStrokes
-        strokes.formUnion(added)
-        strokes.subtract(removed)
+        var doodleCopy = doodle
+        doodleCopy.addStrokes(added)
+        doodleCopy.removeStrokes(removed)
 
         // No change has occurred and we want to prevent unnecessary propagation.
-        if strokes == doodle.dtStrokes {
+        if doodleCopy.dtStrokes == doodle.dtStrokes {
             return
         }
 
-        doodle = PKDrawing(strokes: strokes) // This prevents an action from firing later.
+        doodle = doodleCopy // This prevents an action from firing later.
         self.canvasView.loadDoodle(doodle)
     }
 
