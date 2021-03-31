@@ -6,12 +6,15 @@ final class DoodleAction: Model, Content {
 
     @ID(key: .id)
     var id: UUID?
+    
+    @Field(key: "room_id")
+    var roomId: UUID
 
-    @Field(key: "strokesAdded")
-    var strokesAdded: String
+    @Field(key: "strokes_added")
+    var strokesAdded: Data
 
-    @Field(key: "strokesRemoved")
-    var strokesRemoved: String
+    @Field(key: "strokes_removed")
+    var strokesRemoved: Data
 
     @Field(key: "created_by")
     var createdBy: UUID
@@ -21,7 +24,8 @@ final class DoodleAction: Model, Content {
 
     init() { }
 
-    init(strokesAdded: String, strokesRemoved: String, createdBy: UUID, id: UUID? = nil) {
+    init(roomId: UUID, strokesAdded: Data, strokesRemoved: Data, createdBy: UUID, id: UUID? = nil) {
+        self.roomId = roomId
         self.strokesAdded = strokesAdded
         self.strokesRemoved = strokesRemoved
         self.createdBy = createdBy

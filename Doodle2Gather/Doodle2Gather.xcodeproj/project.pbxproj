@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -38,7 +38,6 @@
 		3AB2AF62CA4D82CD0089584E /* Pods_Doodle2Gather_Doodle2GatherUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE632583EE64F0948370B28 /* Pods_Doodle2Gather_Doodle2GatherUITests.framework */; };
 		6701369B260638C5005E327A /* DTWebSocketTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6701369A260638C5005E327A /* DTWebSocketTypes.swift */; };
 		670136A426063926005E327A /* DTWebSocketController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670136A326063926005E327A /* DTWebSocketController.swift */; };
-		67DECF6F26146E67008A9E70 /* DoodlingAdaptedLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 67DECF6E26146E67008A9E70 /* DoodlingAdaptedLibrary */; };
 		79340BAF4DD45B98CA0F5BFD /* Pods_Doodle2GatherTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA956A97BA5025014186D6AC /* Pods_Doodle2GatherTests.framework */; };
 		835D3BFA2606B11A004491D5 /* AgoraVideoEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835D3BF92606B11A004491D5 /* AgoraVideoEngine.swift */; };
 		83D2EC3E2609283A004F875D /* ApiEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D2EC3D2609283A004F875D /* ApiEndpoints.swift */; };
@@ -157,7 +156,6 @@
 			files = (
 				2E8AC71E2613F3020033869E /* DoodlingLibrary.framework in Frameworks */,
 				2E8AC7212613F3060033869E /* Pods_Doodle2Gather.framework in Frameworks */,
-				67DECF6F26146E67008A9E70 /* DoodlingAdaptedLibrary in Frameworks */,
 				2E8AC7E72613FAE50033869E /* DoodleAutomerge.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -523,7 +521,6 @@
 			);
 			name = Doodle2Gather;
 			packageProductDependencies = (
-				67DECF6E26146E67008A9E70 /* DoodlingAdaptedLibrary */,
 			);
 			productName = Doodle2Gather;
 			productReference = 2EF8E91F25F754C600C7EE7D /* Doodle2Gather.app */;
@@ -1153,13 +1150,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		67DECF6E26146E67008A9E70 /* DoodlingAdaptedLibrary */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = DoodlingAdaptedLibrary;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2EF8E91725F754C600C7EE7D /* Project object */;
 }

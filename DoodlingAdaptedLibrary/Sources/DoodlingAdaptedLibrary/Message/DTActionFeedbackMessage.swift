@@ -5,14 +5,16 @@ public struct DTActionFeedbackMessage: Codable, Comparable {
     let success: Bool
     let message: String
     let id: UUID?
-    let strokesAdded: String
-    let strokesRemoved: String
+    let roomId: UUID
+    let strokesAdded: Data
+    let strokesRemoved: Data
     let createdAt: Date?
     
-    public init(success: Bool, message: String, id: UUID?, strokesAdded: String, strokesRemoved: String, createdAt: Date?) {
+    public init(success: Bool, message: String, id: UUID?, roomId: UUID, strokesAdded: Data, strokesRemoved: Data, createdAt: Date?) {
         self.success = success
         self.message = message
         self.id = id
+        self.roomId = roomId
         self.strokesAdded = strokesAdded
         self.strokesRemoved = strokesRemoved
         self.createdAt = createdAt

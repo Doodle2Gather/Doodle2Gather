@@ -87,8 +87,7 @@ class WebSocketController {
     }
 
     func onNewAction(_ ws: WebSocket, _ id: UUID, _ message: DTInitiateActionMessage) {
-        let action = DoodleAction(strokesAdded: message.strokesAdded,
-                                  strokesRemoved: message.strokesRemoved, createdBy: id)
+        let action = DoodleAction(roomId: message.roomId, strokesAdded: message.strokesAdded, strokesRemoved: message.strokesRemoved, createdBy: id)
         self.db.withConnection {
             action.save(on: $0)
         }.whenComplete { res in
@@ -109,7 +108,7 @@ class WebSocketController {
             self.sendActionFeedback(action, to: .id(id), success: success, message: message)
         }
     }
-    
+
     func send<T: Codable>(message: T, to sendOption: [WebSocketSendOption]) {
         logger.info("Sending \(T.self) to \(sendOption)")
         do {
@@ -144,12 +143,13 @@ class WebSocketController {
             success: success,
             message: message,
             id: action.requireID(),
+            roomId: action.roomId,
             strokesAdded: action.strokesAdded,
             strokesRemoved: action.strokesRemoved,
             createdAt: action.createdAt
         ), to: sendOptions)
     }
-    
+
     func sendActionFeedback(_ action: DoodleAction, to sendOption: WebSocketSendOption,
                              success: Bool = true, message: String = "") {
         self.logger.info("Sent an action feedback!")
@@ -157,6 +157,7 @@ class WebSocketController {
             success: success,
             message: message,
             id: action.requireID(),
+            roomId: action.roomId,
             strokesAdded: action.strokesAdded,
             strokesRemoved: action.strokesRemoved,
             createdAt: action.createdAt
