@@ -1,8 +1,8 @@
 import Foundation
 
-enum DoodleActionMessageType: String, Codable {
+public enum DTMessageType: String, Codable {
     // Client to server types
     case newAction
     // Server to client types
-    case handshake, feedback
+    case handshake, actionFeedback, dispatchAction
 }

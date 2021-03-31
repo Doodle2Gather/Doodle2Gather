@@ -53,7 +53,7 @@ class WebSocketController {
             }
             self.onData(ws, data)
         }
-        self.send(message: DoodleActionHandShake(id: uuid), to: [.socket(ws)])
+        self.send(message: Handshake(id: uuid), to: [.socket(ws)])
 
         DoodleAction.query(on: self.db).all().whenComplete { res in
             switch res {
@@ -99,11 +99,11 @@ class WebSocketController {
     func onData(_ ws: WebSocket, _ data: Data) {
         let decoder = JSONDecoder()
         do {
-            let decodedData = try decoder.decode(DoodleActionMessageData.self, from: data)
+            let decodedData = try decoder.decode(DTMessage.self, from: data)
             switch decodedData.type {
             case .newAction:
                 let newActionData = try decoder.decode(
-                    NewDoodleActionMessage.self, from: data)
+                    NewActionMessage.self, from: data)
                 self.onNewAction(ws, decodedData.id, newActionData)
             default:
                 break
@@ -113,7 +113,7 @@ class WebSocketController {
         }
     }
 
-    func onNewAction(_ ws: WebSocket, _ id: UUID, _ message: NewDoodleActionMessage) {
+    func onNewAction(_ ws: WebSocket, _ id: UUID, _ message: NewActionMessage) {
         let action = DoodleAction(strokesAdded: message.strokesAdded,
                                   strokesRemoved: message.strokesRemoved, createdBy: id)
         self.db.withConnection {
@@ -142,7 +142,7 @@ class WebSocketController {
     func sendActionToSockets(_ action: DoodleAction, to sendOptions: [WebSocketSendOption],
                              success: Bool = true, message: String = "") {
         self.logger.info("Sent an action response!")
-        try? self.send(message: NewDoodleActionFeedback(
+        try? self.send(message: DispatchActionMessage(
             success: success,
             message: message,
             id: action.requireID(),
