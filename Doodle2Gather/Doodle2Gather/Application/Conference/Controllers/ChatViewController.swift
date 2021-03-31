@@ -40,7 +40,7 @@ class ChatViewController: MessagesViewController {
 
         updateViews()
     }
-    
+
     private func updateViews() {
         messagesCollectionView.contentInset = ConferenceConstants.defaultContentInset
         guard let layout = messagesCollectionView.collectionViewLayout
@@ -51,7 +51,7 @@ class ChatViewController: MessagesViewController {
             ConferenceConstants.defaultNameLeftInset
         layout.textMessageSizeCalculator.outgoingMessageTopLabelAlignment.textInsets =
             ConferenceConstants.defaultNameRightInset
-        
+
         messageInputBar.layoutMargins = ConferenceConstants.messageInputBarInset
         layout.textMessageSizeCalculator.outgoingAvatarSize = .zero
         layout.textMessageSizeCalculator.incomingAvatarSize = .zero
@@ -204,8 +204,10 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
             return
         }
 
+        let message = text.trimmingCharacters(in: .whitespacesAndNewlines)
+
         // Send message through chat engine
-        chatEngine?.send(message: text)
+        chatEngine?.send(message: message)
         DispatchQueue.main.async {
             self.messagesCollectionView.scrollToLastItem(animated: true)
         }
