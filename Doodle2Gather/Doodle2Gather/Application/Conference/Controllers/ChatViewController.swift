@@ -56,56 +56,55 @@ class ChatViewController: MessagesViewController {
     }
 
     func addKeyboardObserver() {
-         NotificationCenter.default.addObserver(self,
-                                                selector: #selector(keyboardFrameWillChange(notification:)),
-                                                name: UIResponder.keyboardWillChangeFrameNotification,
-                                                object: nil)
-     }
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardFrameWillChange(notification:)),
+                                               name: UIResponder.keyboardWillChangeFrameNotification,
+                                               object: nil)
+    }
 
-     // Tap anywhere else to dismiss the keyboard
-     @objc func dismissKeyboard() {
-         // Causes the view (or one of its embedded text fields) to resign the first responder status
-         view.endEditing(true)
-     }
+    // Tap anywhere else to dismiss the keyboard
+    @objc
+    func dismissKeyboard() {
+        // Causes the view (or one of its embedded text fields) to resign the first responder status
+        view.endEditing(true)
+    }
 
-     // Handle keyboard blocking input area
-     @objc func keyboardFrameWillChange(notification: NSNotification) {
-         guard let userInfo
-                 = notification.userInfo,
-               let endKeyboardFrameValue
-                 = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
-               let durationValue
-                 = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber else {
-                 return
-         }
+    // Handle keyboard blocking input area
+    @objc
+    func keyboardFrameWillChange(notification: NSNotification) {
+        guard let userInfo = notification.userInfo,
+              let endKeyboardFrameValue = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
+              let durationValue = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber else {
+            return
+        }
 
-         let endKeyboardFrame = endKeyboardFrameValue.cgRectValue
-         let duration = durationValue.doubleValue
+        let endKeyboardFrame = endKeyboardFrameValue.cgRectValue
+        let duration = durationValue.doubleValue
 
-         let isShowing: Bool = endKeyboardFrame.maxY
+        let isShowing: Bool = endKeyboardFrame.maxY
             > UIScreen.main.bounds.height ? false : true
-         UIView.animate(withDuration: duration) { [weak self] in
-             guard let strongSelf = self else {
-                 return
-             }
+        UIView.animate(withDuration: duration) { [weak self] in
+            guard let strongSelf = self else {
+                return
+            }
 
-             if isShowing {
-                 let offsetY = strongSelf.messagesCollectionView.frame.maxY - endKeyboardFrame.minY
-                 if offsetY < 0 {
-                     return
-                 } else {
+            if isShowing {
+                let offsetY = strongSelf.messagesCollectionView.frame.maxY - endKeyboardFrame.minY
+                if offsetY < 0 {
+                    return
+                } else {
                     strongSelf.messagesCollectionView.contentInset =
                         ConferenceConstants.messageInputBarOffsetCalculator(offset: offsetY)
-                 }
-             } else {
+                }
+            } else {
                 strongSelf.messagesCollectionView.contentInset = ConferenceConstants.defaultContentInset
-             }
-             strongSelf.view.layoutIfNeeded()
-             if !strongSelf.messages.isEmpty {
-                 strongSelf.messagesCollectionView.scrollToLastItem()
-             }
-         }
-     }
+            }
+            strongSelf.view.layoutIfNeeded()
+            if !strongSelf.messages.isEmpty {
+                strongSelf.messagesCollectionView.scrollToLastItem()
+            }
+        }
+    }
 
     private let formatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -113,12 +112,14 @@ class ChatViewController: MessagesViewController {
         formatter.dateFormat = "H:m:ss"
         return formatter
     }()
+
 }
 
 // MARK: - ChatBoxDelegate
 // Receives message from ConferenceViewController
 
 extension ChatViewController: ChatBoxDelegate {
+
     func onReceiveMessage(from user: String, message: String) {
         let msg = Message(sender: Sender(senderId: user, displayName: user),
                           messageId: UUID().uuidString,
@@ -130,11 +131,13 @@ extension ChatViewController: ChatBoxDelegate {
             self.messagesCollectionView.scrollToLastItem(animated: true)
         }
     }
+
 }
 
 // MARK: - UITableViewDataSource
 
 extension ChatViewController: MessagesDataSource {
+
     func currentSender() -> SenderType {
         currentUser
     }
@@ -183,11 +186,13 @@ extension ChatViewController: MessagesDataSource {
                                   attributes: [NSAttributedString.Key.font:
                                                 UIFont.preferredFont(forTextStyle: .caption2)])
     }
+
 }
 
 // MARK: - MessagesLayoutDelegate
 
 extension ChatViewController: MessagesLayoutDelegate {
+
     func messagePadding(for message: MessageType,
                         at indexPath: IndexPath,
                         in messagesCollectionView: MessagesCollectionView) -> UIEdgeInsets {
@@ -199,11 +204,13 @@ extension ChatViewController: MessagesLayoutDelegate {
                            in messagesCollectionView: MessagesCollectionView) -> UIEdgeInsets {
         UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
     }
+
 }
 
 // MARK: - MessagesDisplayDelegate
 
 extension ChatViewController: MessagesDisplayDelegate {
+
     func messageStyle(for message: MessageType,
                       at indexPath: IndexPath,
                       in messagesCollectionView: MessagesCollectionView) -> MessageStyle {
@@ -212,11 +219,13 @@ extension ChatViewController: MessagesDisplayDelegate {
             .bottomLeft
         return .bubbleTail(corner, .curved)
     }
+
 }
 
 // MARK: - InputBarAccessoryViewDelegate
 
 extension ChatViewController: InputBarAccessoryViewDelegate {
+
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
         guard !text.replacingOccurrences(of: " ", with: "").isEmpty else {
             return
@@ -231,4 +240,5 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
         }
         inputBar.inputTextView.text = ""
     }
+
 }

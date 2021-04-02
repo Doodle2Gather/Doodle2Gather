@@ -2,7 +2,9 @@ import Willow
 
 class WillowLogger: DTAbstractLogger {
     private let logger = Logger(logLevels: .all,
-                                writers: [ConsoleWriter()],
+                                writers: [ConsoleWriter(modifiers: [
+                                                            // TimestampModifier(),
+                                                            LogLevelModifier()])],
                                 executionMethod: .synchronous(lock: NSRecursiveLock()))
 
     func debug(_ message: String) {
@@ -45,4 +47,10 @@ class WillowLogger: DTAbstractLogger {
         logger.errorMessage(message)
     }
 
+}
+
+class LogLevelModifier: LogModifier {
+    func modifyMessage(_ message: String, with logLevel: LogLevel) -> String {
+        "[\(logLevel.description)] \(message)"
+    }
 }

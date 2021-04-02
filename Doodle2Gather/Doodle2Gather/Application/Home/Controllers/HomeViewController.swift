@@ -1,6 +1,7 @@
 import UIKit
 
 class HomeViewController: UIViewController {
+
     @IBOutlet private var usernameTextField: UITextField!
     @IBOutlet private var passwordTextField: UITextField!
     @IBOutlet private var roomNameTextField: UITextField!
@@ -90,6 +91,7 @@ class HomeViewController: UIViewController {
         })
         task.resume()
     }
+
 }
 
 private struct LoginResponse: Codable {
