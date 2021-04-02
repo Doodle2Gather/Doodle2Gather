@@ -11,7 +11,7 @@ struct DTBackendController: RouteCollection {
     }
 
     func webSocket(req: Request, socket: WebSocket) {
-        self.wsController.connect(socket)x
+        self.wsController.connect(socket)
     }
 
     struct DoodleActionContext: Encodable {
