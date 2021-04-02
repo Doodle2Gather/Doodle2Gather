@@ -4,6 +4,7 @@ import AgoraRtcKit
  Engine that interfaces with Agora.
  */
 class AgoraVideoEngine: NSObject, VideoEngine {
+
     weak var delegate: VideoEngineDelegate?
     private var agoraKit: AgoraRtcEngineKit?
     private var callID: UInt = 0
@@ -22,26 +23,26 @@ class AgoraVideoEngine: NSObject, VideoEngine {
         let url = URL(string: "\(ApiEndpoints.AgoraRtcTokenServer)?uid=\(callID)&channelName=\(channelName)")!
 
         let task = URLSession.shared.dataTask(with: url, completionHandler: { data, response, error in
-          if let error = error {
-            DTLogger.error("Error with fetching Agora token \(error)")
-            return
-          }
-
-          guard let httpResponse = response as? HTTPURLResponse,
-                (200...299).contains(httpResponse.statusCode) else {
-            DTLogger.error("Error with the response, unexpected status code: \(String(describing: response))")
-            return
-          }
-
-          if let data = data,
-             let tokenResponse = try? JSONDecoder().decode(AgoraTokenAPIResponse.self, from: data) {
-            self.getAgoraEngine().joinChannel(byToken: tokenResponse.key,
-                                              channelId: channelName,
-                                              info: nil,
-                                              uid: self.callID) { [weak self] _, uid, _ in
-                self?.callID = uid
+            if let error = error {
+                DTLogger.error("Error with fetching Agora token \(error)")
+                return
             }
-          }
+
+            guard let httpResponse = response as? HTTPURLResponse,
+                  (200...299).contains(httpResponse.statusCode) else {
+                DTLogger.error("Error with the response, unexpected status code: \(String(describing: response))")
+                return
+            }
+
+            if let data = data,
+               let tokenResponse = try? JSONDecoder().decode(AgoraTokenAPIResponse.self, from: data) {
+                self.getAgoraEngine().joinChannel(byToken: tokenResponse.key,
+                                                  channelId: channelName,
+                                                  info: nil,
+                                                  uid: self.callID) { [weak self] _, uid, _ in
+                    self?.callID = uid
+                }
+            }
         })
         task.resume()
     }
@@ -97,7 +98,9 @@ class AgoraVideoEngine: NSObject, VideoEngine {
 }
 
 // MARK: - AgoraRtcEngineDelegate
+
 extension AgoraVideoEngine: AgoraRtcEngineDelegate {
+
     func rtcEngine(_ engine: AgoraRtcEngineKit, didJoinChannel channel: String, withUid uid: UInt, elapsed: Int) {
         callID = uid
     }
@@ -111,4 +114,5 @@ extension AgoraVideoEngine: AgoraRtcEngineDelegate {
         DTLogger.event("Left call of uid: \(uid)")
         delegate?.didLeaveCall(id: uid)
     }
+
 }
