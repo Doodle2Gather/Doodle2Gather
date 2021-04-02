@@ -6,11 +6,13 @@ PODS:
   - InputBarAccessoryView/Core (5.3.0)
   - MessageKit (3.5.1):
     - InputBarAccessoryView (~> 5.3.0)
+  - Willow (6.0.0)
 
 DEPENDENCIES:
   - AgoraRtcEngine_iOS
   - AgoraRtm_iOS
   - MessageKit
+  - Willow
 
 SPEC REPOS:
   trunk:
@@ -18,13 +20,15 @@ SPEC REPOS:
     - AgoraRtm_iOS
     - InputBarAccessoryView
     - MessageKit
+    - Willow
 
 SPEC CHECKSUMS:
   AgoraRtcEngine_iOS: 17e55feec1bde14adc30fd9d743332d1e7821b62
   AgoraRtm_iOS: 178257883dd6773d3d26ca51045456c35221b715
   InputBarAccessoryView: 1638fc3336698eaead9cd83ff2da6c6218fcb6bc
   MessageKit: 6a15a240a9a4767279de542a8fae861e83d8aedc
+  Willow: 8efe9bd7bb99b06fe017566848492748b763a0ac
 
-PODFILE CHECKSUM: 106b4fa0336b3f80b00dcc79925c4af8c6c3b14b
+PODFILE CHECKSUM: f5e0ec4fef2ffa248dcc357cb1556b4140e8a47e
 
 COCOAPODS: 1.10.1

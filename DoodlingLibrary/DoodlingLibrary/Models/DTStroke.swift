@@ -12,7 +12,6 @@ public protocol DTStroke: Hashable, Codable {
     init<S: DTStroke>(from stroke: S)
 
     init<P: DTPoint>(color: UIColor, tool: DTTool, points: [P])
-
 }
 
 // MARK: - Equatable

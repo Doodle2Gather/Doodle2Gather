@@ -12,13 +12,13 @@
         <!--Doodle View Controller-->
         <scene sceneID="Dg9-I5-y3w">
             <objects>
-                <viewController id="rZI-TI-AZo" customClass="DoodleViewController" customModule="Doodle2Gather" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Doodle" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rZI-TI-AZo" customClass="DoodleViewController" customModule="Doodle2Gather" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Rvn-Q8-Irn">
                         <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CRw-tT-Mu5" userLabel="Canvas Container View">
-                                <rect key="frame" x="0.0" y="0.0" width="834" height="1174"/>
+                                <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
                                 <connections>
                                     <segue destination="rKz-2I-ekB" kind="embed" identifier="ToCanvas" id="h1y-4w-gMZ"/>
                                 </connections>
@@ -393,14 +393,14 @@
                         <viewLayoutGuide key="safeArea" id="1p6-Mf-pnl"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="CRw-tT-Mu5" firstAttribute="trailing" secondItem="1p6-Mf-pnl" secondAttribute="trailing" id="5Wa-E0-WET"/>
+                            <constraint firstItem="CRw-tT-Mu5" firstAttribute="trailing" secondItem="Rvn-Q8-Irn" secondAttribute="trailing" id="5Wa-E0-WET"/>
                             <constraint firstItem="6vr-WX-y5Z" firstAttribute="leading" secondItem="Gvt-x0-wpX" secondAttribute="trailing" constant="20" id="6lu-Ch-ZPq"/>
-                            <constraint firstItem="CRw-tT-Mu5" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" id="8jE-v5-stq"/>
+                            <constraint firstItem="CRw-tT-Mu5" firstAttribute="leading" secondItem="Rvn-Q8-Irn" secondAttribute="leading" id="8jE-v5-stq"/>
                             <constraint firstItem="4Xj-kh-aUN" firstAttribute="leading" secondItem="HdL-Pj-pPB" secondAttribute="trailing" constant="10" id="BxG-tZ-mLO"/>
                             <constraint firstItem="lOM-bA-4te" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" constant="20" id="EmQ-Qq-9ox"/>
                             <constraint firstItem="2v7-Hc-qJ9" firstAttribute="bottom" secondItem="1p6-Mf-pnl" secondAttribute="bottom" id="J40-8D-zNP"/>
                             <constraint firstItem="6vr-WX-y5Z" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" constant="20" id="N5C-Pf-XJM"/>
-                            <constraint firstItem="CRw-tT-Mu5" firstAttribute="bottom" secondItem="1p6-Mf-pnl" secondAttribute="bottom" id="NSu-1l-xzM"/>
+                            <constraint firstItem="CRw-tT-Mu5" firstAttribute="bottom" secondItem="Rvn-Q8-Irn" secondAttribute="bottom" id="NSu-1l-xzM"/>
                             <constraint firstItem="HdL-Pj-pPB" firstAttribute="centerY" secondItem="Rvn-Q8-Irn" secondAttribute="centerY" id="Qwu-X3-bv3"/>
                             <constraint firstItem="2v7-Hc-qJ9" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" id="T0g-Ac-o8n"/>
                             <constraint firstItem="4Xj-kh-aUN" firstAttribute="centerY" secondItem="Rvn-Q8-Irn" secondAttribute="centerY" id="Vhb-2b-DLJ"/>
@@ -409,7 +409,7 @@
                             <constraint firstItem="lOM-bA-4te" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" constant="20" id="o7i-Qk-N3e"/>
                             <constraint firstItem="OEo-Kd-BqH" firstAttribute="top" secondItem="lOM-bA-4te" secondAttribute="bottom" constant="20" id="p0b-cj-saG"/>
                             <constraint firstItem="Gvt-x0-wpX" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" constant="20" id="xlO-w9-H22"/>
-                            <constraint firstItem="CRw-tT-Mu5" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" id="yf0-Dt-Yxp"/>
+                            <constraint firstItem="CRw-tT-Mu5" firstAttribute="top" secondItem="Rvn-Q8-Irn" secondAttribute="top" id="yf0-Dt-Yxp"/>
                             <constraint firstItem="2v7-Hc-qJ9" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" id="yyv-Qd-LDk"/>
                             <constraint firstItem="2v7-Hc-qJ9" firstAttribute="trailing" secondItem="1p6-Mf-pnl" secondAttribute="trailing" id="zIt-xX-Snl"/>
                             <constraint firstItem="OEo-Kd-BqH" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" constant="20" id="zk2-qv-p9J"/>
@@ -436,7 +436,7 @@
             <objects>
                 <viewController id="rKz-2I-ekB" customClass="DTCanvasViewController" customModule="Doodle2Gather" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0hy-zQ-mJQ">
-                        <rect key="frame" x="0.0" y="0.0" width="834" height="1174"/>
+                        <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="Rkb-Od-Feo"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>

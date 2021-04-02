@@ -3,8 +3,10 @@
     <device id="ipad11_0rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -16,35 +18,111 @@
                         <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sPE-So-uVU">
-                                <rect key="frame" x="393" y="582" width="49" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Doodle"/>
+                            <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="URB-fD-Vcz" userLabel="Top Bar View">
+                                <rect key="frame" x="0.0" y="0.0" width="834" height="80"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sPE-So-uVU">
+                                        <rect key="frame" x="392.5" y="25" width="49" height="30"/>
+                                        <state key="normal" title="Doodle">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bHL-Gb-MqR">
+                                        <rect key="frame" x="784" y="25" width="30" height="30"/>
+                                        <state key="normal" title="Add">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="titleShadowColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="didTapAdd:" destination="eAr-dz-W2E" eventType="touchUpInside" id="UQS-gk-zjB"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemTealColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="BiD-M6-iax"/>
+                                    <constraint firstItem="bHL-Gb-MqR" firstAttribute="centerY" secondItem="URB-fD-Vcz" secondAttribute="centerY" id="VMP-5q-E4q"/>
+                                    <constraint firstItem="sPE-So-uVU" firstAttribute="centerX" secondItem="URB-fD-Vcz" secondAttribute="centerX" id="Yci-uv-C8v"/>
+                                    <constraint firstItem="sPE-So-uVU" firstAttribute="centerY" secondItem="URB-fD-Vcz" secondAttribute="centerY" id="pLv-BY-2Ph"/>
+                                    <constraint firstAttribute="trailing" secondItem="bHL-Gb-MqR" secondAttribute="trailing" constant="20" id="utj-Oj-al5"/>
+                                </constraints>
+                            </view>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="l49-Pr-3Xp">
+                                <rect key="frame" x="20" y="100" width="794" height="1054"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="mfB-gE-gEU">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="documentCell" id="3kT-Zy-ncX" customClass="DocumentPreviewCell" customModule="Doodle2Gather" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="mFq-zw-FfP">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1dX-Ku-w58" userLabel="Room Name Label">
+                                                    <rect key="frame" x="43" y="99" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" name="AccentColor"/>
+                                            <constraints>
+                                                <constraint firstItem="1dX-Ku-w58" firstAttribute="centerX" secondItem="mFq-zw-FfP" secondAttribute="centerX" id="IED-Hb-gVF"/>
+                                                <constraint firstAttribute="bottom" secondItem="1dX-Ku-w58" secondAttribute="bottom" constant="8" id="joW-9U-QJl"/>
+                                            </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="10"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </collectionViewCellContentView>
+                                        <connections>
+                                            <outlet property="roomNameLabel" destination="1dX-Ku-w58" id="3w2-6D-5ee"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
                                 <connections>
-                                    <segue destination="FKp-nu-vB6" kind="presentation" identifier="toDoodle" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="xYD-aB-BtW"/>
+                                    <outlet property="dataSource" destination="eAr-dz-W2E" id="ALv-bN-xwm"/>
+                                    <outlet property="delegate" destination="eAr-dz-W2E" id="Eli-h0-d20"/>
                                 </connections>
-                            </button>
+                            </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Wk6-oU-8Ea"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="URB-fD-Vcz" firstAttribute="top" secondItem="ZT2-Qi-0wM" secondAttribute="top" id="0tI-mG-04p"/>
+                            <constraint firstItem="l49-Pr-3Xp" firstAttribute="leading" secondItem="Wk6-oU-8Ea" secondAttribute="leading" constant="20" id="47X-aY-Zr3"/>
+                            <constraint firstItem="URB-fD-Vcz" firstAttribute="centerX" secondItem="ZT2-Qi-0wM" secondAttribute="centerX" id="Qil-D5-hAg"/>
+                            <constraint firstItem="Wk6-oU-8Ea" firstAttribute="trailing" secondItem="l49-Pr-3Xp" secondAttribute="trailing" constant="20" id="U00-vl-Afw"/>
+                            <constraint firstItem="URB-fD-Vcz" firstAttribute="leading" secondItem="Wk6-oU-8Ea" secondAttribute="leading" id="aLX-JM-eas"/>
+                            <constraint firstItem="l49-Pr-3Xp" firstAttribute="top" secondItem="URB-fD-Vcz" secondAttribute="bottom" constant="20" id="n1a-CH-87r"/>
+                            <constraint firstItem="Wk6-oU-8Ea" firstAttribute="bottom" secondItem="l49-Pr-3Xp" secondAttribute="bottom" constant="20" id="sG5-5Q-o1x"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="collectionView" destination="l49-Pr-3Xp" id="2Sw-YE-joR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1o5-9Q-yuX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-456" y="-76"/>
-        </scene>
-        <!--Doodle-->
-        <scene sceneID="7bk-bq-nyZ">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Doodle" id="FKp-nu-vB6" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yrx-Nu-ZDT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-456" y="373"/>
+            <point key="canvasLocation" x="-456.11510791366908" y="-76.381909547738701"/>
         </scene>
     </scenes>
     <resources>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemTealColor">
+            <color red="0.35294117647058826" green="0.78431372549019607" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

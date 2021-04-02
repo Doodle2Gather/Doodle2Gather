@@ -1,5 +1,6 @@
 excluded:
   - Pods
+  - ".build"
 
 opt_in_rules:
   - anyobject_protocol
