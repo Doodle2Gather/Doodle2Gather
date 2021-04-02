@@ -17,10 +17,10 @@ class DTCanvasViewController: UIViewController {
     /// Delegate for action dispatching.
     internal weak var delegate: CanvasControllerDelegate?
 
+    private var hasScrolledToInitialOffset = false
+
     enum Constants {
-        static let maxScale: CGFloat = 2.0
-        static let minScale: CGFloat = 0.5
-        static let bufferSize: CGFloat = 200
+        static let canvasSize = CGSize(width: 1_000_000, height: 1_000_000)
     }
 
     /// Sets up the canvas view and the initial doodle.
@@ -30,15 +30,22 @@ class DTCanvasViewController: UIViewController {
         addCanvasView()
         canvasView.delegate = self
         canvasView.drawing = doodle
-
-        let pinch = UIPinchGestureRecognizer(target: self, action: #selector(self.handlePinch(_:)))
-        canvasView.addGestureRecognizer(pinch)
+        canvasView.contentSize = Constants.canvasSize
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        scrollToInitialOffset()
+    }
 
-        // TODO: Move current view to center of existing doodle.
+    private func scrollToInitialOffset() {
+        if hasScrolledToInitialOffset {
+            return
+        }
+        let centerOffsetX = (canvasView.contentSize.width - canvasView.frame.width) / 2
+        let centerOffsetY = (canvasView.contentSize.height - canvasView.frame.height) / 2
+        canvasView.contentOffset = CGPoint(x: centerOffsetX, y: centerOffsetY)
+        hasScrolledToInitialOffset = true
     }
 
     /// Hides the home indicator, as it will affect latency.
@@ -47,11 +54,14 @@ class DTCanvasViewController: UIViewController {
     }
 
     func addCanvasView() {
+        canvasView.initialiseDefaultProperties()
         // TODO: Load existing strokes into canvasView at this point
         view.addSubview(canvasView)
-        canvasView.frame = view.frame
-        canvasView.alwaysBounceVertical = true
-        canvasView.drawingPolicy = .anyInput
+
+        canvasView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        canvasView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        canvasView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        canvasView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 
 }
@@ -135,62 +145,6 @@ extension DTCanvasViewController: CanvasController {
 
     func setSize(_ size: Float) {
         canvasView.setWidth(CGFloat(size))
-    }
-
-}
-
-// MARK: - Gesture Recognisers
-
-extension DTCanvasViewController {
-
-    @objc private func handlePinch(_ gesture: UIPinchGestureRecognizer) {
-        guard gesture.view != nil else {
-            return
-        }
-
-        if gesture.state == .began {
-            pinchPoint = gesture.location(in: gesture.view)
-        }
-
-        if gesture.state == .changed, let transform = gesture.view?.transform {
-            let currentScale = transform.a
-            var newScale = gesture.scale
-            newScale = min(newScale, Constants.maxScale / currentScale)
-            newScale = max(newScale, Constants.minScale / currentScale)
-
-            let point = gesture.location(in: gesture.view)
-            var dx = point.x - pinchPoint.x
-            var dy = point.y - pinchPoint.y
-
-            if let strokesFrame = canvasView.drawing.strokesFrame {
-                let convertedFrame = self.view.convert(strokesFrame, from: canvasView)
-                let bufferSize = Constants.bufferSize
-                let center = self.view.center
-                let maxNewX = center.x + bufferSize
-                let maxNewY = center.y + bufferSize
-                let minNewX = center.x - bufferSize
-                let minNewY = center.y - bufferSize
-
-                if convertedFrame.minX + dx > maxNewX {
-                    dx = maxNewX - convertedFrame.minX
-                }
-                if convertedFrame.maxX + dx < minNewX {
-                    dx = minNewX - convertedFrame.maxX
-                }
-                if convertedFrame.minY + dy > maxNewY {
-                    dy = maxNewY - convertedFrame.minY
-                }
-                if convertedFrame.maxY + dy < minNewY {
-                    dy = minNewY - convertedFrame.maxY
-                }
-            }
-
-            var newTransform = transform.translatedBy(x: dx, y: dy)
-            newTransform = newTransform.scaledBy(x: newScale, y: newScale)
-
-            gesture.view?.transform = newTransform
-            gesture.scale = 1
-        }
     }
 
 }
