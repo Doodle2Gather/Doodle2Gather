@@ -12,8 +12,6 @@ class DTCanvasViewController: UIViewController {
     var canvasView = PKCanvasView()
     /// Doodle that will be injected into this controller.
     var doodle = PKDrawing()
-    /// Point of contact for pinch-based zooming
-    var pinchPoint = CGPoint()
     /// Delegate for action dispatching.
     internal weak var delegate: CanvasControllerDelegate?
 
