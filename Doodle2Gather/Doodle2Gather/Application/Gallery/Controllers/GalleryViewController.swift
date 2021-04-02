@@ -9,11 +9,6 @@ import UIKit
 
 class GalleryViewController: UIViewController {
 
-    enum Segues {
-        static let toDoodle = "goToDoodle"
-        static let toGallery = "toGallery"
-    }
-
     private enum DefaultValues {
         static let username = UIDevice.current.name
         // For ease of development
@@ -28,7 +23,7 @@ class GalleryViewController: UIViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == Segues.toDoodle {
+        if segue.identifier == SegueConstants.toDoodle {
             guard let vc = segue.destination as? DoodleViewController else {
                 fatalError("Unable to get DoodleViewController")
             }

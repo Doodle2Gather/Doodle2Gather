@@ -1,5 +1,3 @@
-import Foundation
-
 public protocol DTParticipant {
     var userId: UUID { get }
     var displayName: String { get set }

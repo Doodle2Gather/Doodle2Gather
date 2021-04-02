@@ -17,10 +17,6 @@ class ConferenceViewController: UIViewController {
     var isChatShown = false
     private var videoOverlays = [UIView]()
 
-    enum Segues {
-        static let toChat = "toChat"
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         videoEngine = AgoraVideoEngine()
@@ -72,7 +68,7 @@ class ConferenceViewController: UIViewController {
 
     // Passes data to the ChatViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == Segues.toChat {
+        if segue.identifier == SegueConstants.toChat {
             guard let nav = segue.destination as? UINavigationController else {
                 return
             }

@@ -19,10 +19,6 @@ class HomeViewController: UIViewController {
         static let roomName = "devRoom"
     }
 
-    enum Segues {
-        static let toGalley = "toGallery"
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
