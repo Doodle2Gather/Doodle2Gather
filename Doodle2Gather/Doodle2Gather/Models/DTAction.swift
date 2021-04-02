@@ -3,10 +3,10 @@ import DoodlingLibrary
 
 struct DTAction {
 
-    let strokesAdded: Data
-    let strokesRemoved: Data
+    let strokesAdded: Set<Data>
+    let strokesRemoved: Set<Data>
 
-    init(strokesAdded: Data, strokesRemoved: Data) {
+    init(strokesAdded: Set<Data>, strokesRemoved: Set<Data>) {
         self.strokesAdded = strokesAdded
         self.strokesRemoved = strokesRemoved
     }
@@ -14,9 +14,21 @@ struct DTAction {
     init?<S: DTStroke>(added: Set<S>, removed: Set<S>) {
         let encoder = JSONEncoder()
 
-        guard let addedData = try? encoder.encode(added),
-              let removedData = try? encoder.encode(removed) else {
-            return nil
+        var addedData = Set<Data>()
+        var removedData = Set<Data>()
+
+        for stroke in added {
+            guard let addedStroke = try? encoder.encode(stroke) else {
+                return nil
+            }
+            addedData.insert(addedStroke)
+        }
+
+        for stroke in removed {
+            guard let removedStroke = try? encoder.encode(stroke) else {
+                return nil
+            }
+            removedData.insert(removedStroke)
         }
 
         strokesAdded = addedData
@@ -25,13 +37,26 @@ struct DTAction {
 
     func getStrokes<S: DTStroke>() -> (added: Set<S>, removed: Set<S>)? {
         let decoder = JSONDecoder()
-        guard let added = try? decoder.decode(Set<S>.self, from: strokesAdded),
-              let removed = try? decoder.decode(Set<S>.self, from: strokesRemoved) else {
-            return nil
+
+        var added = Set<S>()
+        var removed = Set<S>()
+
+        for stroke in strokesAdded {
+            guard let addedStroke = try? decoder.decode(S.self, from: stroke) else {
+                return nil
+            }
+            added.insert(addedStroke)
         }
+
+        for stroke in strokesRemoved {
+            guard let removedStroke = try? decoder.decode(S.self, from: stroke) else {
+                return nil
+            }
+            removed.insert(removedStroke)
+        }
+
         return (added, removed)
     }
-
 }
 
 // MARK: - Hashable

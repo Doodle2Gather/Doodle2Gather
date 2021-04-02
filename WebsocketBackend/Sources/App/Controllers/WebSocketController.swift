@@ -87,11 +87,9 @@ class WebSocketController {
     }
 
     func onNewAction(_ ws: WebSocket, _ id: UUID, _ message: DTInitiateActionMessage) {
-        let action = PersistedDTAction(
-            roomId: message.roomId,
-            strokesAdded: message.strokesAdded,
-            strokesRemoved: message.strokesRemoved,
-            createdBy: id)
+        guard let action = PersistedDTAction(initiateActionMessage: message) else {
+            return
+        }
         self.db.withConnection {
             action.save(on: $0)
         }.whenComplete { res in
@@ -144,13 +142,16 @@ class WebSocketController {
     func dispatchActionToPeers(_ action: PersistedDTAction, to sendOptions: [WebSocketSendOption],
                                success: Bool = true, message: String = "") {
         self.logger.info("Dispatched an action to peers!")
+        guard let adaptedAction = action.getAdaptedAction() else {
+            return
+        }
         try? self.send(message: DTDispatchActionMessage(
             success: success,
             message: message,
             id: action.requireID(),
-            roomId: action.roomId,
-            strokesAdded: action.strokesAdded,
-            strokesRemoved: action.strokesRemoved,
+            roomId: adaptedAction.roomId,
+            strokesAdded: adaptedAction.strokesAdded,
+            strokesRemoved: adaptedAction.strokesRemoved,
             createdAt: action.createdAt
         ), to: sendOptions)
     }
@@ -158,13 +159,16 @@ class WebSocketController {
     func sendActionFeedback(_ action: PersistedDTAction, to sendOption: WebSocketSendOption,
                             success: Bool = true, message: String = "") {
         self.logger.info("Sent an action feedback!")
+        guard let adaptedAction = action.getAdaptedAction() else {
+            return
+        }
         try? self.send(message: DTActionFeedbackMessage(
             success: success,
             message: message,
             id: action.requireID(),
-            roomId: action.roomId,
-            strokesAdded: action.strokesAdded,
-            strokesRemoved: action.strokesRemoved,
+            roomId: adaptedAction.roomId,
+            strokesAdded: adaptedAction.strokesAdded,
+            strokesRemoved: adaptedAction.strokesRemoved,
             createdAt: action.createdAt
         ), to: [sendOption])
     }

@@ -1,5 +1,6 @@
 import Fluent
 import Vapor
+import DoodlingAdaptedLibrary
 
 final class PersistedDTAction: Model, Content {
     static let schema = "actions"
@@ -10,11 +11,11 @@ final class PersistedDTAction: Model, Content {
     @Field(key: "room_id")
     var roomId: UUID
 
-    @Field(key: "strokes_added")
-    var strokesAdded: Data
+    @Field(key: "adding_strokes")
+    var addingStrokes: Data
 
-    @Field(key: "strokes_removed")
-    var strokesRemoved: Data
+    @Field(key: "removing_strokes")
+    var removingStrokes: Data
 
     @Field(key: "created_by")
     var createdBy: UUID
@@ -24,11 +25,27 @@ final class PersistedDTAction: Model, Content {
 
     init() { }
 
-    init(roomId: UUID, strokesAdded: Data, strokesRemoved: Data, createdBy: UUID, id: UUID? = nil) {
+    init(roomId: UUID, addingStrokes: Data, removingStrokes: Data, createdBy: UUID, id: UUID? = nil) {
         self.roomId = roomId
-        self.strokesAdded = strokesAdded
-        self.strokesRemoved = strokesRemoved
+        self.addingStrokes = addingStrokes
+        self.removingStrokes = removingStrokes
         self.createdBy = createdBy
         self.id = id
+    }
+
+    init?(initiateActionMessage: DTInitiateActionMessage) {
+        guard let action = DTAdaptedAction(message: initiateActionMessage) else {
+            return nil
+        }
+        self.roomId = action.roomId
+        self.addingStrokes = action.addingStrokes
+        self.removingStrokes = action.removingStrokes
+        self.createdBy = action.createdBy
+        self.id = nil
+    }
+
+    func getAdaptedAction() -> DTAdaptedAction? {
+        DTAdaptedAction(addingStrokes: addingStrokes, removingStrokes: removingStrokes,
+                        roomId: roomId, createdBy: createdBy)
     }
 }

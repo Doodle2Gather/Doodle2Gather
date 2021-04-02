@@ -6,11 +6,12 @@ public struct DTDispatchActionMessage: Codable, Comparable {
     public let message: String
     public let id: UUID?
     public let roomId: UUID
-    public let strokesAdded: Data
-    public let strokesRemoved: Data
+    public let strokesAdded: Set<Data>
+    public let strokesRemoved: Set<Data>
     public let createdAt: Date?
     
-    public init(success: Bool, message: String, id: UUID?, roomId: UUID, strokesAdded: Data, strokesRemoved: Data, createdAt: Date?) {
+    public init(success: Bool, message: String, id: UUID?, roomId: UUID,
+                strokesAdded: Set<Data>, strokesRemoved: Set<Data>, createdAt: Date?) {
         self.success = success
         self.message = message
         self.id = id
