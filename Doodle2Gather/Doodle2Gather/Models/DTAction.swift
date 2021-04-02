@@ -12,7 +12,7 @@ struct DTAction {
         self.strokesRemoved = strokesRemoved
     }
 
-    init?<S: DTStroke>(added: Set<S>, removed: Set<S>) {
+    init?<S: DTStroke>(added: [S], removed: [S]) {
         let encoder = JSONEncoder()
 
         guard let addedData = try? encoder.encode(added),
@@ -26,12 +26,12 @@ struct DTAction {
         strokesRemoved = removedString
     }
 
-    func getStrokes<S: DTStroke>() -> (added: Set<S>, removed: Set<S>)? {
+    func getStrokes<S: DTStroke>() -> (added: [S], removed: [S])? {
         let decoder = JSONDecoder()
         guard let addedData = strokesAdded.data(using: .utf8),
               let removedData = strokesRemoved.data(using: .utf8),
-              let added = try? decoder.decode(Set<S>.self, from: addedData),
-              let removed = try? decoder.decode(Set<S>.self, from: removedData) else {
+              let added = try? decoder.decode([S].self, from: addedData),
+              let removed = try? decoder.decode([S].self, from: removedData) else {
             return nil
         }
         return (added, removed)
