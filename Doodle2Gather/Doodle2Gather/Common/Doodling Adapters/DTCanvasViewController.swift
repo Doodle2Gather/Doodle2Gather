@@ -54,11 +54,13 @@ extension DTCanvasViewController: PKCanvasViewDelegate {
     // TODO: Look into ways to generalise this method.
     // Currently depends on PencilKit.
     func canvasViewDrawingDidChange(_ canvas: PKCanvasView) {
-        let newStrokes = Set(canvas.drawing.strokes)
-        let oldStrokes = Set(doodle.strokes)
+        let newStrokes = canvas.drawing.dtStrokes
+        let oldStrokes = doodle.dtStrokes
+        let newStrokesSet = Set(newStrokes)
+        let oldStrokesSet = Set(oldStrokes)
 
-        let addedStrokes = canvas.drawing.strokes.filter { !oldStrokes.contains($0) }
-        let removedStrokes = doodle.strokes.filter { !newStrokes.contains($0) }
+        let addedStrokes = newStrokes.filter { !oldStrokesSet.contains($0) }
+        let removedStrokes = oldStrokes.filter { !newStrokesSet.contains($0) }
 
         /// No change has occurred and we want to prevent unnecessary propagation.
         if addedStrokes.isEmpty && removedStrokes.isEmpty {
