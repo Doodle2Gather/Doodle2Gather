@@ -72,11 +72,13 @@ class ConferenceViewController: UIViewController {
             }
         }
     }
+
 }
 
 // MARK: - VideoEngineDelegate
 
 extension ConferenceViewController: VideoEngineDelegate {
+
     func didJoinCall(id: UInt) {
         remoteUserIDs.append(id)
         collectionView.reloadData()
@@ -88,12 +90,14 @@ extension ConferenceViewController: VideoEngineDelegate {
             collectionView.reloadData()
         }
     }
+
 }
 
 // MARK: - ChatEngineDelegate
 // Receives message from the server and delivers the message to the delegate
 
 extension ConferenceViewController: ChatEngineDelegate {
+
     func deliverMessage(from user: String, message: String) {
         let msg = Message(sender: Sender(senderId: user, displayName: user),
                           messageId: UUID().uuidString,
@@ -101,6 +105,7 @@ extension ConferenceViewController: ChatEngineDelegate {
         chatList.append(msg)
         chatBox?.onReceiveMessage(from: user, message: message)
     }
+
 }
 
 // MARK: - UICollectionViewDelegate
@@ -111,6 +116,7 @@ extension ConferenceViewController: UICollectionViewDelegate {
 // MARK: - UICollectionViewDataSource
 
 extension ConferenceViewController: UICollectionViewDataSource {
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         remoteUserIDs.count + 1
     }
@@ -131,11 +137,13 @@ extension ConferenceViewController: UICollectionViewDataSource {
         }
         return cell
     }
+
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
 
 extension ConferenceViewController: UICollectionViewDelegateFlowLayout {
+
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -146,4 +154,5 @@ extension ConferenceViewController: UICollectionViewDelegateFlowLayout {
 
         return CGSize(width: totalWidth, height: totalWidth * ConferenceConstants.aspectRatio)
     }
+
 }
