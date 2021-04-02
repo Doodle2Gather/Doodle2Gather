@@ -5,15 +5,31 @@ import DoodlingLibrary
 
 extension PKCanvasView {
 
-    public func getStrokes<S>() -> Set<S>? where S: DTStroke {
+    enum Constants {
+        static let minZoom: CGFloat = 0.25
+        static let maxZoom: CGFloat = 2
+        static let currentZoom: CGFloat = 1
+    }
+
+    func initialiseDefaultProperties() {
+        translatesAutoresizingMaskIntoConstraints = false
+        minimumZoomScale = Constants.minZoom
+        maximumZoomScale = Constants.maxZoom
+        zoomScale = Constants.currentZoom
+        showsVerticalScrollIndicator = false
+        showsHorizontalScrollIndicator = false
+        drawingPolicy = .anyInput
+    }
+
+    func getStrokes<S>() -> Set<S>? where S: DTStroke {
         Set(drawing.strokes) as? Set<S>
     }
 
-    public func getDoodle<D>() -> D? where D: DTDoodle {
+    func getDoodle<D>() -> D? where D: DTDoodle {
         drawing as? D
     }
 
-    public func setTool(_ tool: DTTool) {
+    func setTool(_ tool: DTTool) {
         var color = UIColor.black
         var width: CGFloat?
         if let currentTool = self.tool as? PKInkingTool {
@@ -33,14 +49,14 @@ extension PKCanvasView {
         }
     }
 
-    public func setColor(_ color: UIColor) {
+    func setColor(_ color: UIColor) {
         guard let tool = tool as? PKInkingTool else {
             return
         }
         self.tool = PKInkingTool(tool.inkType, color: color, width: tool.width)
     }
 
-    public func setWidth(_ width: CGFloat) {
+    func setWidth(_ width: CGFloat) {
         guard let tool = tool as? PKInkingTool else {
             return
         }
