@@ -4,10 +4,11 @@ set -o errexit
 set -o nounset
 
 readonly SSH_STRING=root@d2g.christopher.sg
+readonly GIT_BRANCH=$(git rev-parse --symbolic-full-name --abbrev-ref HEAD)
 
 ssh $SSH_STRING "
   tmux respawn-window -k -t backend
-  tmux send-keys -t backend './server_redeployBE.sh' Enter
+  tmux send-keys -t backend './server_redeployBE.sh $GIT_BRANCH' Enter
   tmux select-window -t backend
 "
 
