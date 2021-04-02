@@ -2,7 +2,7 @@ import Foundation
 
 public struct DTHandshake: Codable {
     var type = DTMessageType.handshake
-    let id: UUID
+    public let id: UUID
     
     public init(id: UUID) {
         self.id = id

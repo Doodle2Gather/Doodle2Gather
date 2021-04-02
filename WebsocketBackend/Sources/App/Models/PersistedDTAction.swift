@@ -6,7 +6,7 @@ final class PersistedDTAction: Model, Content {
 
     @ID(key: .id)
     var id: UUID?
-    
+
     @Field(key: "room_id")
     var roomId: UUID
 

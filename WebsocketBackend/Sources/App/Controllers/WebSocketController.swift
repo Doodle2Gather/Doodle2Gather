@@ -87,7 +87,11 @@ class WebSocketController {
     }
 
     func onNewAction(_ ws: WebSocket, _ id: UUID, _ message: DTInitiateActionMessage) {
-        let action = PersistedDTAction(roomId: message.roomId, strokesAdded: message.strokesAdded, strokesRemoved: message.strokesRemoved, createdBy: id)
+        let action = PersistedDTAction(
+            roomId: message.roomId,
+            strokesAdded: message.strokesAdded,
+            strokesRemoved: message.strokesRemoved,
+            createdBy: id)
         self.db.withConnection {
             action.save(on: $0)
         }.whenComplete { res in
@@ -103,8 +107,9 @@ class WebSocketController {
                 success = true
                 message = "Action added"
             }
-            self.dispatchActionToPeers(action, to: self.getAllWebSocketOptionsExcept(id),
-                                     success: success, message: message)
+            self.dispatchActionToPeers(
+                action, to: self.getAllWebSocketOptionsExcept(id),
+                success: success, message: message)
             self.sendActionFeedback(action, to: .id(id), success: success, message: message)
         }
     }
@@ -137,7 +142,7 @@ class WebSocketController {
     }
 
     func dispatchActionToPeers(_ action: PersistedDTAction, to sendOptions: [WebSocketSendOption],
-                             success: Bool = true, message: String = "") {
+                               success: Bool = true, message: String = "") {
         self.logger.info("Dispatched an action to peers!")
         try? self.send(message: DTDispatchActionMessage(
             success: success,
@@ -151,7 +156,7 @@ class WebSocketController {
     }
 
     func sendActionFeedback(_ action: PersistedDTAction, to sendOption: WebSocketSendOption,
-                             success: Bool = true, message: String = "") {
+                            success: Bool = true, message: String = "") {
         self.logger.info("Sent an action feedback!")
         try? self.send(message: DTActionFeedbackMessage(
             success: success,

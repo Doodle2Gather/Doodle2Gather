@@ -1,4 +1,5 @@
 import Foundation
+import DoodlingAdaptedLibrary
 
 final class DTWebSocketController {
 
@@ -16,7 +17,7 @@ final class DTWebSocketController {
     }
 
     func connect() {
-        self.socket = session.webSocketTask(with: URL(string: ApiEndpoints.Room)!)
+        self.socket = session.webSocketTask(with: URL(string: ApiEndpoints.localRoom)!)
         self.socket.maximumMessageSize = Int.max
         self.listen()
         self.socket.resume()
@@ -50,14 +51,14 @@ final class DTWebSocketController {
 
     func handle(_ data: Data) {
         do {
-            let decodedData = try decoder.decode(DoodleActionMessageData.self, from: data)
+            let decodedData = try decoder.decode(DTMessage.self, from: data)
             switch decodedData.type {
             case .handshake:
                 print("Shook the hand")
-                let message = try decoder.decode(DoodleActionHandShake.self, from: data)
+                let message = try decoder.decode(DTHandshake.self, from: data)
                 self.id = message.id
-            case .feedback:
-                try self.handleNewActionFeedback(data)
+            case .dispatchAction:
+                try self.handleDispatchedAction(data)
             default:
                 break
             }
@@ -66,8 +67,8 @@ final class DTWebSocketController {
         }
     }
 
-    func handleNewActionFeedback(_ data: Data) throws {
-        let feedback = try decoder.decode(NewDoodleActionFeedback.self, from: data)
+    func handleDispatchedAction(_ data: Data) throws {
+        let feedback = try decoder.decode(DTDispatchActionMessage.self, from: data)
         DispatchQueue.main.async {
             if feedback.success, feedback.id != nil {
                 let action = DTAction(strokesAdded: feedback.strokesAdded, strokesRemoved: feedback.strokesRemoved)
@@ -77,7 +78,6 @@ final class DTWebSocketController {
             }
         }
     }
-
 }
 
 // MARK: - SocketController
@@ -89,8 +89,9 @@ extension DTWebSocketController: SocketController {
             return
         }
         print("adding action")
-        let message = NewDoodleActionMessage(
-            id: id, strokesAdded: action.strokesAdded, strokesRemoved: action.strokesRemoved)
+        let message = DTInitiateActionMessage(
+            strokesAdded: action.strokesAdded, strokesRemoved: action.strokesRemoved,
+            id: id, roomId: UUID())
         do {
             let data = try encoder.encode(message)
             self.socket.send(.data(data)) { err in

@@ -3,11 +3,10 @@ import DoodlingLibrary
 
 struct DTAction {
 
-    /// Encoded strings containing the strokes added or removed.
-    let strokesAdded: String
-    let strokesRemoved: String
+    let strokesAdded: Data
+    let strokesRemoved: Data
 
-    init(strokesAdded: String, strokesRemoved: String) {
+    init(strokesAdded: Data, strokesRemoved: Data) {
         self.strokesAdded = strokesAdded
         self.strokesRemoved = strokesRemoved
     }
@@ -16,22 +15,18 @@ struct DTAction {
         let encoder = JSONEncoder()
 
         guard let addedData = try? encoder.encode(added),
-              let removedData = try? encoder.encode(removed),
-              let addedString = String(data: addedData, encoding: .utf8),
-              let removedString = String(data: removedData, encoding: .utf8) else {
+              let removedData = try? encoder.encode(removed) else {
             return nil
         }
 
-        strokesAdded = addedString
-        strokesRemoved = removedString
+        strokesAdded = addedData
+        strokesRemoved = removedData
     }
 
     func getStrokes<S: DTStroke>() -> (added: Set<S>, removed: Set<S>)? {
         let decoder = JSONDecoder()
-        guard let addedData = strokesAdded.data(using: .utf8),
-              let removedData = strokesRemoved.data(using: .utf8),
-              let added = try? decoder.decode(Set<S>.self, from: addedData),
-              let removed = try? decoder.decode(Set<S>.self, from: removedData) else {
+        guard let added = try? decoder.decode(Set<S>.self, from: strokesAdded),
+              let removed = try? decoder.decode(Set<S>.self, from: strokesRemoved) else {
             return nil
         }
         return (added, removed)

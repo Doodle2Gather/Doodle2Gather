@@ -4,8 +4,9 @@ struct AddAction: Migration {
     func prepare(on database: Database) -> EventLoopFuture<Void> {
         database.schema(PersistedDTAction.schema)
             .id()
-            .field("strokesAdded", .string, .required)
-            .field("strokesRemoved", .string, .required)
+            .field("strokes_added", .string, .required)
+            .field("strokes_removed", .string, .required)
+            .field("room_id", .uuid, .required)
             .field("created_by", .uuid, .required)
             .field("created_at", .date)
             .create()

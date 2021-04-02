@@ -36,7 +36,6 @@
 		2EF8E93A25F754C700C7EE7D /* Doodle2GatherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8E93925F754C700C7EE7D /* Doodle2GatherTests.swift */; };
 		2EF8E94525F754C700C7EE7D /* Doodle2GatherUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8E94425F754C700C7EE7D /* Doodle2GatherUITests.swift */; };
 		3AB2AF62CA4D82CD0089584E /* Pods_Doodle2Gather_Doodle2GatherUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE632583EE64F0948370B28 /* Pods_Doodle2Gather_Doodle2GatherUITests.framework */; };
-		6701369B260638C5005E327A /* DTWebSocketTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6701369A260638C5005E327A /* DTWebSocketTypes.swift */; };
 		670136A426063926005E327A /* DTWebSocketController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670136A326063926005E327A /* DTWebSocketController.swift */; };
 		79340BAF4DD45B98CA0F5BFD /* Pods_Doodle2GatherTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA956A97BA5025014186D6AC /* Pods_Doodle2GatherTests.framework */; };
 		835D3BFA2606B11A004491D5 /* AgoraVideoEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835D3BF92606B11A004491D5 /* AgoraVideoEngine.swift */; };
@@ -124,7 +123,6 @@
 		2EF8E94425F754C700C7EE7D /* Doodle2GatherUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doodle2GatherUITests.swift; sourceTree = "<group>"; };
 		2EF8E94625F754C700C7EE7D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5630A42182E9C28155E1A130 /* Pods-Doodle2Gather.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Doodle2Gather.release.xcconfig"; path = "Target Support Files/Pods-Doodle2Gather/Pods-Doodle2Gather.release.xcconfig"; sourceTree = "<group>"; };
-		6701369A260638C5005E327A /* DTWebSocketTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTWebSocketTypes.swift; sourceTree = "<group>"; };
 		670136A326063926005E327A /* DTWebSocketController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTWebSocketController.swift; sourceTree = "<group>"; };
 		835D3BF92606B11A004491D5 /* AgoraVideoEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgoraVideoEngine.swift; sourceTree = "<group>"; };
 		83D2EC3D2609283A004F875D /* ApiEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiEndpoints.swift; sourceTree = "<group>"; };
@@ -389,7 +387,6 @@
 		670136A226063906005E327A /* WebSocket */ = {
 			isa = PBXGroup;
 			children = (
-				6701369A260638C5005E327A /* DTWebSocketTypes.swift */,
 				670136A326063926005E327A /* DTWebSocketController.swift */,
 			);
 			path = WebSocket;
@@ -791,7 +788,6 @@
 				84E95957260D755A00D587CC /* VideoEngineDelegate.swift in Sources */,
 				2EA8C34226067F0000BE750C /* PKStroke+DTStroke.swift in Sources */,
 				2EF0E51D26096B5C0008184D /* SubviewTouchCollectionView.swift in Sources */,
-				6701369B260638C5005E327A /* DTWebSocketTypes.swift in Sources */,
 				670136A426063926005E327A /* DTWebSocketController.swift in Sources */,
 				84EEC6C326102B5100876F66 /* ConferenceConstants.swift in Sources */,
 				84E847A8260AD4EB00E39C1F /* ChatViewController.swift in Sources */,
