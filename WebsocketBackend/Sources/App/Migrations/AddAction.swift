@@ -2,7 +2,7 @@ import Fluent
 
 struct AddAction: Migration {
     func prepare(on database: Database) -> EventLoopFuture<Void> {
-        database.schema(DoodleAction.schema)
+        database.schema(PersistedDTAction.schema)
             .id()
             .field("strokesAdded", .string, .required)
             .field("strokesRemoved", .string, .required)
@@ -12,6 +12,6 @@ struct AddAction: Migration {
     }
 
     func revert(on database: Database) -> EventLoopFuture<Void> {
-        database.schema(DoodleAction.schema).delete()
+        database.schema(PersistedDTAction.schema).delete()
     }
 }

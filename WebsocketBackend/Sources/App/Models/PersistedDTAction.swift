@@ -1,7 +1,7 @@
 import Fluent
 import Vapor
 
-final class DoodleAction: Model, Content {
+final class PersistedDTAction: Model, Content {
     static let schema = "actions"
 
     @ID(key: .id)

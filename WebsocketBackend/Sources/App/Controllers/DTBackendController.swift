@@ -11,15 +11,15 @@ struct DTBackendController: RouteCollection {
     }
 
     func webSocket(req: Request, socket: WebSocket) {
-        self.wsController.connect(socket)
+        self.wsController.connect(socket)x
     }
 
     struct DoodleActionContext: Encodable {
-        let actions: [DoodleAction]
+        let actions: [PersistedDTAction]
     }
 
     func index(req: Request) throws -> EventLoopFuture<View> {
-        DoodleAction.query(on: req.db).all().flatMap {
+        PersistedDTAction.query(on: req.db).all().flatMap {
             req.view.render("actions", DoodleActionContext(actions: $0))
         }
     }

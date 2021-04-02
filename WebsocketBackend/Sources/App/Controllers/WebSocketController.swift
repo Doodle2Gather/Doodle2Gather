@@ -55,7 +55,7 @@ class WebSocketController {
         }
         self.send(message: DTHandshake(id: uuid), to: [.socket(ws)])
 
-        DoodleAction.query(on: self.db).all().whenComplete { res in
+        PersistedDTAction.query(on: self.db).all().whenComplete { res in
             switch res {
             case .failure(let err):
                 self.logger.report(error: err)
@@ -87,7 +87,7 @@ class WebSocketController {
     }
 
     func onNewAction(_ ws: WebSocket, _ id: UUID, _ message: DTInitiateActionMessage) {
-        let action = DoodleAction(roomId: message.roomId, strokesAdded: message.strokesAdded, strokesRemoved: message.strokesRemoved, createdBy: id)
+        let action = PersistedDTAction(roomId: message.roomId, strokesAdded: message.strokesAdded, strokesRemoved: message.strokesRemoved, createdBy: id)
         self.db.withConnection {
             action.save(on: $0)
         }.whenComplete { res in
@@ -136,7 +136,7 @@ class WebSocketController {
         }
     }
 
-    func dispatchActionToPeers(_ action: DoodleAction, to sendOptions: [WebSocketSendOption],
+    func dispatchActionToPeers(_ action: PersistedDTAction, to sendOptions: [WebSocketSendOption],
                              success: Bool = true, message: String = "") {
         self.logger.info("Dispatched an action to peers!")
         try? self.send(message: DTDispatchActionMessage(
@@ -150,7 +150,7 @@ class WebSocketController {
         ), to: sendOptions)
     }
 
-    func sendActionFeedback(_ action: DoodleAction, to sendOption: WebSocketSendOption,
+    func sendActionFeedback(_ action: PersistedDTAction, to sendOption: WebSocketSendOption,
                              success: Bool = true, message: String = "") {
         self.logger.info("Sent an action feedback!")
         try? self.send(message: DTActionFeedbackMessage(
