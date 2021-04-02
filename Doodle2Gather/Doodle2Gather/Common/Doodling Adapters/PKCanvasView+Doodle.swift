@@ -7,7 +7,7 @@ extension PKCanvasView {
 
     /// Constants used in PKCanvasView specifically.
     enum Constants {
-        static let minZoom: CGFloat = 0.25
+        static let minZoom: CGFloat = 0.1
         static let maxZoom: CGFloat = 2
         static let currentZoom: CGFloat = 1
     }
