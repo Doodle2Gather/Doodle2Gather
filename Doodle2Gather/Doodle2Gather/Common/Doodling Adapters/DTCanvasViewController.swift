@@ -12,8 +12,16 @@ class DTCanvasViewController: UIViewController {
     var canvasView = PKCanvasView()
     /// Doodle that will be injected into this controller.
     var doodle = PKDrawing()
+    /// Point of contact for pinch-based zooming
+    var pinchPoint = CGPoint()
     /// Delegate for action dispatching.
     internal weak var delegate: CanvasControllerDelegate?
+
+    enum Constants {
+        static let maxScale: CGFloat = 2.0
+        static let minScale: CGFloat = 0.5
+        static let bufferSize: CGFloat = 200
+    }
 
     /// Sets up the canvas view and the initial doodle.
     override func viewWillAppear(_ animated: Bool) {
@@ -30,8 +38,7 @@ class DTCanvasViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        // TODO: Add zoom-related configurations, e.g. set min and max zoom.
-        // TODO: After zooming, scroll view to the top.
+        // TODO: Move current view to center of existing doodle.
     }
 
     /// Hides the home indicator, as it will affect latency.
@@ -141,10 +148,48 @@ extension DTCanvasViewController {
             return
         }
 
-        if gesture.state == .began || gesture.state == .changed,
-           let transform = gesture.view?.transform {
-            gesture.view?.transform = transform.scaledBy(x: gesture.scale, y: gesture.scale)
-            gesture.scale = 1.0
+        if gesture.state == .began {
+            pinchPoint = gesture.location(in: gesture.view)
+        }
+
+        if gesture.state == .changed, let transform = gesture.view?.transform {
+            let currentScale = transform.a
+            var newScale = gesture.scale
+            newScale = min(newScale, Constants.maxScale / currentScale)
+            newScale = max(newScale, Constants.minScale / currentScale)
+
+            let point = gesture.location(in: gesture.view)
+            var dx = point.x - pinchPoint.x
+            var dy = point.y - pinchPoint.y
+
+            if let strokesFrame = canvasView.drawing.strokesFrame {
+                let convertedFrame = self.view.convert(strokesFrame, from: canvasView)
+                let bufferSize = Constants.bufferSize
+                let center = self.view.center
+                let maxNewX = center.x + bufferSize
+                let maxNewY = center.y + bufferSize
+                let minNewX = center.x - bufferSize
+                let minNewY = center.y - bufferSize
+
+                if convertedFrame.minX + dx > maxNewX {
+                    dx = maxNewX - convertedFrame.minX
+                }
+                if convertedFrame.maxX + dx < minNewX {
+                    dx = minNewX - convertedFrame.maxX
+                }
+                if convertedFrame.minY + dy > maxNewY {
+                    dy = maxNewY - convertedFrame.minY
+                }
+                if convertedFrame.maxY + dy < minNewY {
+                    dy = minNewY - convertedFrame.maxY
+                }
+            }
+
+            var newTransform = transform.translatedBy(x: dx, y: dy)
+            newTransform = newTransform.scaledBy(x: newScale, y: newScale)
+
+            gesture.view?.transform = newTransform
+            gesture.scale = 1
         }
     }
 
