@@ -14,9 +14,11 @@ class DTCanvasViewController: UIViewController {
     var doodle = PKDrawing()
     /// Delegate for action dispatching.
     internal weak var delegate: CanvasControllerDelegate?
-
+    
+    /// Tracks whether a initial scroll to offset has already been done.
     private var hasScrolledToInitialOffset = false
 
+    /// Constants used in DTCanvasViewController specifically.
     enum Constants {
         static let canvasSize = CGSize(width: 1_000_000, height: 1_000_000)
     }
@@ -36,6 +38,7 @@ class DTCanvasViewController: UIViewController {
         scrollToInitialOffset()
     }
 
+    /// Scrolls to view to the center of the canvas. Only performed once.
     private func scrollToInitialOffset() {
         if hasScrolledToInitialOffset {
             return
@@ -51,6 +54,7 @@ class DTCanvasViewController: UIViewController {
         true
     }
 
+    /// Configures the canvasView and adds it to the current view.
     func addCanvasView() {
         canvasView.initialiseDefaultProperties()
         // TODO: Load existing strokes into canvasView at this point
@@ -66,8 +70,7 @@ class DTCanvasViewController: UIViewController {
 
 extension DTCanvasViewController: PKCanvasViewDelegate {
 
-    // TODO: Look into ways to generalise this method.
-    // Currently depends on PencilKit.
+    // TODO: Fix issues with erasure + build more sustainable solution.
     func canvasViewDrawingDidChange(_ canvas: PKCanvasView) {
         let newStrokes = canvas.drawing.dtStrokes
         let oldStrokes = doodle.dtStrokes
