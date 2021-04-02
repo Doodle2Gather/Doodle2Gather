@@ -30,7 +30,7 @@ final class DTWebSocketController {
             }
             switch result {
             case .failure(let error):
-                print(error)
+                DTLogger.error(error.localizedDescription)
                 return
             case .success(let message):
                 switch message {
@@ -54,7 +54,7 @@ final class DTWebSocketController {
             let decodedData = try decoder.decode(DTMessage.self, from: data)
             switch decodedData.type {
             case .handshake:
-                print("Shook the hand")
+                DTLogger.event("Shook the hand")
                 let message = try decoder.decode(DTHandshake.self, from: data)
                 self.id = message.id
             case .dispatchAction:
@@ -63,18 +63,19 @@ final class DTWebSocketController {
                 break
             }
         } catch {
-            print(error)
+            DTLogger.error(error.localizedDescription)
         }
     }
 
     func handleDispatchedAction(_ data: Data) throws {
         let feedback = try decoder.decode(DTDispatchActionMessage.self, from: data)
         DispatchQueue.main.async {
+            // TODO: refactor unhappy path to be at the top
             if feedback.success, feedback.id != nil {
                 let action = DTAction(strokesAdded: feedback.strokesAdded, strokesRemoved: feedback.strokesRemoved)
                 self.delegate?.dispatchAction(action)
             } else {
-                print(feedback.message)
+                DTLogger.error(feedback.message)
             }
         }
     }
@@ -88,7 +89,7 @@ extension DTWebSocketController: SocketController {
         guard let id = self.id else {
             return
         }
-        print("adding action")
+        DTLogger.info("adding action")
         let message = DTInitiateActionMessage(
             strokesAdded: action.strokesAdded, strokesRemoved: action.strokesRemoved,
             id: id, roomId: UUID())
@@ -96,11 +97,11 @@ extension DTWebSocketController: SocketController {
             let data = try encoder.encode(message)
             self.socket.send(.data(data)) { err in
                 if err != nil {
-                    print(err.debugDescription)
+                    DTLogger.error(err.debugDescription)
                 }
             }
         } catch {
-            print(error)
+            DTLogger.error(error.localizedDescription)
         }
     }
 

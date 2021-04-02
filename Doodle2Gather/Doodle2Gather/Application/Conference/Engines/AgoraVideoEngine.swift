@@ -23,13 +23,13 @@ class AgoraVideoEngine: NSObject, VideoEngine {
 
         let task = URLSession.shared.dataTask(with: url, completionHandler: { data, response, error in
           if let error = error {
-            print("Error with fetching Agora token \(error)")
+            DTLogger.error("Error with fetching Agora token \(error)")
             return
           }
 
           guard let httpResponse = response as? HTTPURLResponse,
                 (200...299).contains(httpResponse.statusCode) else {
-            print("Error with the response, unexpected status code: \(String(describing: response))")
+            DTLogger.error("Error with the response, unexpected status code: \(String(describing: response))")
             return
           }
 
@@ -103,12 +103,12 @@ extension AgoraVideoEngine: AgoraRtcEngineDelegate {
     }
 
     func rtcEngine(_ engine: AgoraRtcEngineKit, didJoinedOfUid uid: UInt, elapsed: Int) {
-        print("Joined call of uid: \(uid)")
+        DTLogger.event("Joined call of uid: \(uid)")
         delegate?.didJoinCall(id: uid)
     }
 
     func rtcEngine(_ engine: AgoraRtcEngineKit, didOfflineOfUid uid: UInt, reason: AgoraUserOfflineReason) {
-        print("Left call of uid: \(uid)")
+        DTLogger.event("Left call of uid: \(uid)")
         delegate?.didLeaveCall(id: uid)
     }
 }
