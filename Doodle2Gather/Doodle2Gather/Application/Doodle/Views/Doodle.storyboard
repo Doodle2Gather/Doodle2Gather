@@ -564,10 +564,9 @@
         <!--Chat-->
         <scene sceneID="JwE-Yx-emj">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dPj-ZZ-zFx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController providesPresentationContextTransitionStyle="YES" id="Y1u-lB-jaG" customClass="ChatViewController" customModule="Doodle2Gather" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BFt-T2-OBM">
-                        <rect key="frame" x="0.0" y="0.0" width="704" height="995"/>
+                        <rect key="frame" x="0.0" y="0.0" width="704" height="995.5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="kGZ-tW-Jla"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -581,13 +580,13 @@
                         </barButtonItem>
                     </navigationItem>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dPj-ZZ-zFx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="119" y="2079"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="NN2-wU-Mzk">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5rK-Ka-Yrs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController id="J9c-hq-3ed" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="MXT-1c-aqf">
                         <rect key="frame" x="0.0" y="0.0" width="704" height="56"/>
@@ -597,6 +596,7 @@
                         <segue destination="Y1u-lB-jaG" kind="relationship" relationship="rootViewController" id="17i-J9-IqA"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5rK-Ka-Yrs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="118" y="1423"/>
         </scene>
