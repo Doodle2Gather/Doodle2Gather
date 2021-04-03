@@ -14,4 +14,13 @@ public struct DTInitiateActionMessage: Codable {
         self.id = id
         self.roomId = roomId
     }
+    
+    public func makeAdaptedAction() -> DTAdaptedAction {
+        DTAdaptedAction(
+            strokesAdded: strokesAdded,
+            strokesRemoved: strokesRemoved,
+            roomId: roomId,
+            createdBy: id
+        )
+    }
 }
