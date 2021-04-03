@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E146CC126190246001F6845 /* Participants.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E146CC026190246001F6845 /* Participants.storyboard */; };
 		2E4A0B422616FDFF003257D4 /* PKDrawing+StrokesFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4A0B412616FDFF003257D4 /* PKDrawing+StrokesFrame.swift */; };
 		2E8AC71E2613F3020033869E /* DoodlingLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E8AC71D2613F3020033869E /* DoodlingLibrary.framework */; };
 		2E8AC71F2613F3020033869E /* DoodlingLibrary.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2E8AC71D2613F3020033869E /* DoodlingLibrary.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -25,6 +26,7 @@
 		2EA8C335260677C800BE750C /* PKDrawing+DTDrawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8C334260677C800BE750C /* PKDrawing+DTDrawing.swift */; };
 		2EA8C34226067F0000BE750C /* PKStroke+DTStroke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8C34126067F0000BE750C /* PKStroke+DTStroke.swift */; };
 		2EB929D9260778F600AAB396 /* SubviewTouchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB929D8260778F600AAB396 /* SubviewTouchView.swift */; };
+		2ED6297A2618FD37009F92D0 /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2ED629792618FD37009F92D0 /* Chat.storyboard */; };
 		2ED7A3C62601B7740006D873 /* Doodle.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2ED7A3C52601B7740006D873 /* Doodle.storyboard */; };
 		2ED7A3CC2601C0450006D873 /* DoodleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED7A3CB2601C0450006D873 /* DoodleViewController.swift */; };
 		2EF0E51D26096B5C0008184D /* SubviewTouchCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF0E51C26096B5C0008184D /* SubviewTouchCollectionView.swift */; };
@@ -103,6 +105,7 @@
 /* Begin PBXFileReference section */
 		0E53B4F895F761EF4405A8DB /* Pods_Doodle2Gather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Doodle2Gather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1890AB750E84E15DDAD20FBF /* Pods-Doodle2GatherTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Doodle2GatherTests.debug.xcconfig"; path = "Target Support Files/Pods-Doodle2GatherTests/Pods-Doodle2GatherTests.debug.xcconfig"; sourceTree = "<group>"; };
+		2E146CC026190246001F6845 /* Participants.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Participants.storyboard; sourceTree = "<group>"; };
 		2E3F8FAD2607380100C58F33 /* Pods_Doodle2Gather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Doodle2Gather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E4A0B412616FDFF003257D4 /* PKDrawing+StrokesFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PKDrawing+StrokesFrame.swift"; sourceTree = "<group>"; };
 		2E8AC71D2613F3020033869E /* DoodlingLibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DoodlingLibrary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -118,6 +121,7 @@
 		2EA8C334260677C800BE750C /* PKDrawing+DTDrawing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PKDrawing+DTDrawing.swift"; sourceTree = "<group>"; };
 		2EA8C34126067F0000BE750C /* PKStroke+DTStroke.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PKStroke+DTStroke.swift"; sourceTree = "<group>"; };
 		2EB929D8260778F600AAB396 /* SubviewTouchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubviewTouchView.swift; sourceTree = "<group>"; };
+		2ED629792618FD37009F92D0 /* Chat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
 		2ED7A3C52601B7740006D873 /* Doodle.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Doodle.storyboard; sourceTree = "<group>"; };
 		2ED7A3CB2601C0450006D873 /* DoodleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodleViewController.swift; sourceTree = "<group>"; };
 		2EF0E51C26096B5C0008184D /* SubviewTouchCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubviewTouchCollectionView.swift; sourceTree = "<group>"; };
@@ -201,6 +205,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2E146CBF2619023A001F6845 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				848F3580261451D400AD46C6 /* ParticipantViewCell.swift */,
+				2E146CC026190246001F6845 /* Participants.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		2E146CC4261902DD001F6845 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				848F356826142D8800AD46C6 /* ParticipantsViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		2EA8C2F82605E50100BE750C /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -212,7 +233,72 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
-		2EA8C3162606680500BE750C /* Doodling Adapters */ = {
+		2EA8C3162606680500BE750C /* Adapters */ = {
+			isa = PBXGroup;
+			children = (
+				2ED629852618FFE6009F92D0 /* Agora */,
+				2ED6297E2618FEEB009F92D0 /* Chat */,
+				2ED629822618FFD6009F92D0 /* Doodling */,
+				670136A226063906005E327A /* WebSocket */,
+			);
+			path = Adapters;
+			sourceTree = "<group>";
+		};
+		2ED629742618FCC9009F92D0 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				2ED629782618FD20009F92D0 /* Views */,
+				2ED6297D2618FE96009F92D0 /* Controllers */,
+				2ED6297F2618FF7F009F92D0 /* Protocols */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		2ED629752618FCD5009F92D0 /* Participants */ = {
+			isa = PBXGroup;
+			children = (
+				2E146CBF2619023A001F6845 /* Views */,
+				2E146CC4261902DD001F6845 /* Controllers */,
+			);
+			path = Participants;
+			sourceTree = "<group>";
+		};
+		2ED629782618FD20009F92D0 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2ED629792618FD37009F92D0 /* Chat.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		2ED6297D2618FE96009F92D0 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				84E847A7260AD4EB00E39C1F /* ChatViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		2ED6297E2618FEEB009F92D0 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				848F354E2614177000AD46C6 /* Sender.swift */,
+				848F35462614174000AD46C6 /* Message.swift */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		2ED6297F2618FF7F009F92D0 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				84E9595B260D757700D587CC /* ChatEngine.swift */,
+				84E95960260D758B00D587CC /* ChatEngineDelegate.swift */,
+				84E95965260D805C00D587CC /* ChatBoxDelegate.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		2ED629822618FFD6009F92D0 /* Doodling */ = {
 			isa = PBXGroup;
 			children = (
 				2E8AC7492613F4C90033869E /* DTCanvasViewController.swift */,
@@ -222,13 +308,31 @@
 				2E987E6D2607468000352E7D /* PKStrokePoint+DTPoint.swift */,
 				2E4A0B412616FDFF003257D4 /* PKDrawing+StrokesFrame.swift */,
 			);
-			path = "Doodling Adapters";
+			path = Doodling;
+			sourceTree = "<group>";
+		};
+		2ED629852618FFE6009F92D0 /* Agora */ = {
+			isa = PBXGroup;
+			children = (
+				84E847C9260B21AA00E39C1F /* AgoraTokenAPIResponse.swift */,
+				835D3BF92606B11A004491D5 /* AgoraVideoEngine.swift */,
+				84E8479F260AD4C800E39C1F /* AgoraChatEngine.swift */,
+			);
+			path = Agora;
+			sourceTree = "<group>";
+		};
+		2ED6298826190047009F92D0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2EA8C2FF2605E57900BE750C /* DTAction.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		2ED7A3C32601B7570006D873 /* Doodle */ = {
 			isa = PBXGroup;
 			children = (
-				6701369826063880005E327A /* Models */,
+				2ED6298826190047009F92D0 /* Models */,
 				2ED7A3C42601B7660006D873 /* Views */,
 				2ED7A3CA2601C0280006D873 /* Controllers */,
 				2EA8C2F82605E50100BE750C /* Protocols */,
@@ -286,7 +390,7 @@
 		2EF8E92125F754C600C7EE7D /* Doodle2Gather */ = {
 			isa = PBXGroup;
 			children = (
-				2EF8E97925F75EA100C7EE7D /* Models */,
+				2EA8C3162606680500BE750C /* Adapters */,
 				2EF8E97A25F75EAE00C7EE7D /* Application */,
 				2EF8E97F25F75F5100C7EE7D /* Common */,
 				2EF8E97225F75E2900C7EE7D /* Assets */,
@@ -340,21 +444,15 @@
 			path = Assets;
 			sourceTree = "<group>";
 		};
-		2EF8E97925F75EA100C7EE7D /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				2EA8C2FF2605E57900BE750C /* DTAction.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		2EF8E97A25F75EAE00C7EE7D /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				84A451CD2614706000DFCA75 /* Gallery */,
-				84E847B2260AE09C00E39C1F /* Conference */,
 				2EF8E97B25F75EB500C7EE7D /* Home */,
+				84A451CD2614706000DFCA75 /* Gallery */,
 				2ED7A3C32601B7570006D873 /* Doodle */,
+				84E847B2260AE09C00E39C1F /* Conference */,
+				2ED629742618FCC9009F92D0 /* Chat */,
+				2ED629752618FCD5009F92D0 /* Participants */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -396,19 +494,10 @@
 			isa = PBXGroup;
 			children = (
 				832607EC26145D3900B90F25 /* Utils */,
-				670136A226063906005E327A /* WebSocket */,
-				2EA8C3162606680500BE750C /* Doodling Adapters */,
 				84B17FFA2601C5B5009530A0 /* Constants */,
 				2EF0E51B26096B490008184D /* Views */,
 			);
 			path = Common;
-			sourceTree = "<group>";
-		};
-		6701369826063880005E327A /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		670136A226063906005E327A /* WebSocket */ = {
@@ -446,21 +535,10 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
-		835D3BFE2606C19B004491D5 /* Engines */ = {
-			isa = PBXGroup;
-			children = (
-				835D3BF92606B11A004491D5 /* AgoraVideoEngine.swift */,
-				84E8479F260AD4C800E39C1F /* AgoraChatEngine.swift */,
-			);
-			path = Engines;
-			sourceTree = "<group>";
-		};
 		8460D73B2605A65800F160B1 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				840D6B2A260236CF001F3D43 /* ConferenceViewController.swift */,
-				84E847A7260AD4EB00E39C1F /* ChatViewController.swift */,
-				848F356826142D8800AD46C6 /* ParticipantsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -469,18 +547,8 @@
 			isa = PBXGroup;
 			children = (
 				840D6B3226023F90001F3D43 /* VideoCollectionViewCell.swift */,
-				848F3580261451D400AD46C6 /* ParticipantViewCell.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		848F35452614173700AD46C6 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				848F35462614174000AD46C6 /* Message.swift */,
-				848F354E2614177000AD46C6 /* Sender.swift */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		84A451CD2614706000DFCA75 /* Gallery */ = {
@@ -523,22 +591,11 @@
 		84E847B2260AE09C00E39C1F /* Conference */ = {
 			isa = PBXGroup;
 			children = (
-				848F35452614173700AD46C6 /* Models */,
-				84E9594D260D753400D587CC /* Protocols */,
 				8460D73D2605A67D00F160B1 /* Views */,
 				8460D73B2605A65800F160B1 /* Controllers */,
-				835D3BFE2606C19B004491D5 /* Engines */,
-				84E847B3260AE0AE00E39C1F /* Common */,
+				84E9594D260D753400D587CC /* Protocols */,
 			);
 			path = Conference;
-			sourceTree = "<group>";
-		};
-		84E847B3260AE0AE00E39C1F /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				84E847C9260B21AA00E39C1F /* AgoraTokenAPIResponse.swift */,
-			);
-			path = Common;
 			sourceTree = "<group>";
 		};
 		84E9594D260D753400D587CC /* Protocols */ = {
@@ -546,9 +603,6 @@
 			children = (
 				84E9594E260D754100D587CC /* VideoEngine.swift */,
 				84E95956260D755A00D587CC /* VideoEngineDelegate.swift */,
-				84E9595B260D757700D587CC /* ChatEngine.swift */,
-				84E95960260D758B00D587CC /* ChatEngineDelegate.swift */,
-				84E95965260D805C00D587CC /* ChatBoxDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -691,6 +745,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E146CC126190246001F6845 /* Participants.storyboard in Resources */,
+				2ED6297A2618FD37009F92D0 /* Chat.storyboard in Resources */,
 				2EF8E92F25F754C700C7EE7D /* LaunchScreen.storyboard in Resources */,
 				84A451EA2614804B00DFCA75 /* Gallery.storyboard in Resources */,
 				2EF8E92C25F754C700C7EE7D /* Assets.xcassets in Resources */,

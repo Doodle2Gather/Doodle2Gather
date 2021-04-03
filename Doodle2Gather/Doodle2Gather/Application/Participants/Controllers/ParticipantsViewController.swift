@@ -1,10 +1,3 @@
-//
-//  ParticipantsViewController.swift
-//  Doodle2Gather
-//
-//  Created by Wang on 31/3/21.
-//
-
 import UIKit
 import DoodlingLibrary
 
