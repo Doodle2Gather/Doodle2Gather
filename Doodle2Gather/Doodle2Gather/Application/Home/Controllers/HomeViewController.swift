@@ -29,16 +29,6 @@ class HomeViewController: UIViewController {
         roomNameTextField.text = DefaultValues.roomName
     }
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goToDoodle" {
-            guard let vc = segue.destination as? DoodleViewController else {
-                fatalError("Unable to get DoodleViewController")
-            }
-            vc.username = usernameTextField.text
-            vc.roomName = roomNameTextField.text
-        }
-    }
-
     @IBAction private func onLoginTapped(_ sender: UIButton) {
         attemptLogin()
     }

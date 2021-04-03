@@ -28,6 +28,7 @@ class DoodleViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         // TODO: Replace this with dependency injection from AppDelegate / HomeController
         let socketController = DTWebSocketController()
         socketController.delegate = self
@@ -55,6 +56,9 @@ class DoodleViewController: UIViewController {
         }
     }
 
+    @IBAction private func didTapBack(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
 }
 
 // MARK: - IBActions
