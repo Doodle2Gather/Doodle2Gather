@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E146CC126190246001F6845 /* Participants.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E146CC026190246001F6845 /* Participants.storyboard */; };
 		2E4A0B422616FDFF003257D4 /* PKDrawing+StrokesFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4A0B412616FDFF003257D4 /* PKDrawing+StrokesFrame.swift */; };
 		2E8AC71E2613F3020033869E /* DoodlingLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E8AC71D2613F3020033869E /* DoodlingLibrary.framework */; };
 		2E8AC71F2613F3020033869E /* DoodlingLibrary.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2E8AC71D2613F3020033869E /* DoodlingLibrary.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -104,6 +105,7 @@
 /* Begin PBXFileReference section */
 		0E53B4F895F761EF4405A8DB /* Pods_Doodle2Gather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Doodle2Gather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1890AB750E84E15DDAD20FBF /* Pods-Doodle2GatherTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Doodle2GatherTests.debug.xcconfig"; path = "Target Support Files/Pods-Doodle2GatherTests/Pods-Doodle2GatherTests.debug.xcconfig"; sourceTree = "<group>"; };
+		2E146CC026190246001F6845 /* Participants.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Participants.storyboard; sourceTree = "<group>"; };
 		2E3F8FAD2607380100C58F33 /* Pods_Doodle2Gather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Doodle2Gather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E4A0B412616FDFF003257D4 /* PKDrawing+StrokesFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PKDrawing+StrokesFrame.swift"; sourceTree = "<group>"; };
 		2E8AC71D2613F3020033869E /* DoodlingLibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DoodlingLibrary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -203,6 +205,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2E146CBF2619023A001F6845 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				848F3580261451D400AD46C6 /* ParticipantViewCell.swift */,
+				2E146CC026190246001F6845 /* Participants.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		2E146CC4261902DD001F6845 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				848F356826142D8800AD46C6 /* ParticipantsViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		2EA8C2F82605E50100BE750C /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -227,7 +246,6 @@
 		2ED629742618FCC9009F92D0 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
-				2ED6298726190016009F92D0 /* Models */,
 				2ED629782618FD20009F92D0 /* Views */,
 				2ED6297D2618FE96009F92D0 /* Controllers */,
 				2ED6297F2618FF7F009F92D0 /* Protocols */,
@@ -238,6 +256,8 @@
 		2ED629752618FCD5009F92D0 /* Participants */ = {
 			isa = PBXGroup;
 			children = (
+				2E146CBF2619023A001F6845 /* Views */,
+				2E146CC4261902DD001F6845 /* Controllers */,
 			);
 			path = Participants;
 			sourceTree = "<group>";
@@ -294,16 +314,10 @@
 			isa = PBXGroup;
 			children = (
 				84E847C9260B21AA00E39C1F /* AgoraTokenAPIResponse.swift */,
-			);
-			path = Agora;
-			sourceTree = "<group>";
-		};
-		2ED6298726190016009F92D0 /* Models */ = {
-			isa = PBXGroup;
-			children = (
+				835D3BF92606B11A004491D5 /* AgoraVideoEngine.swift */,
 				84E8479F260AD4C800E39C1F /* AgoraChatEngine.swift */,
 			);
-			path = Models;
+			path = Agora;
 			sourceTree = "<group>";
 		};
 		2ED6298826190047009F92D0 /* Models */ = {
@@ -521,19 +535,10 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
-		835D3BFE2606C19B004491D5 /* Engines */ = {
-			isa = PBXGroup;
-			children = (
-				835D3BF92606B11A004491D5 /* AgoraVideoEngine.swift */,
-			);
-			path = Engines;
-			sourceTree = "<group>";
-		};
 		8460D73B2605A65800F160B1 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				840D6B2A260236CF001F3D43 /* ConferenceViewController.swift */,
-				848F356826142D8800AD46C6 /* ParticipantsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -542,7 +547,6 @@
 			isa = PBXGroup;
 			children = (
 				840D6B3226023F90001F3D43 /* VideoCollectionViewCell.swift */,
-				848F3580261451D400AD46C6 /* ParticipantViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -587,10 +591,9 @@
 		84E847B2260AE09C00E39C1F /* Conference */ = {
 			isa = PBXGroup;
 			children = (
-				84E9594D260D753400D587CC /* Protocols */,
 				8460D73D2605A67D00F160B1 /* Views */,
 				8460D73B2605A65800F160B1 /* Controllers */,
-				835D3BFE2606C19B004491D5 /* Engines */,
+				84E9594D260D753400D587CC /* Protocols */,
 			);
 			path = Conference;
 			sourceTree = "<group>";
@@ -742,6 +745,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E146CC126190246001F6845 /* Participants.storyboard in Resources */,
 				2ED6297A2618FD37009F92D0 /* Chat.storyboard in Resources */,
 				2EF8E92F25F754C700C7EE7D /* LaunchScreen.storyboard in Resources */,
 				84A451EA2614804B00DFCA75 /* Gallery.storyboard in Resources */,
