@@ -91,8 +91,10 @@ extension DTWebSocketController: SocketController {
         }
         DTLogger.info("adding action")
         let message = DTInitiateActionMessage(
-            strokesAdded: action.strokesAdded, strokesRemoved: action.strokesRemoved,
-            id: id, roomId: UUID())
+            strokesAdded: action.strokesAdded,
+            strokesRemoved: action.strokesRemoved,
+            id: id,
+            roomId: UUID())
         do {
             let data = try encoder.encode(message)
             self.socket.send(.data(data)) { err in

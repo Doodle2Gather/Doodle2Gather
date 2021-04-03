@@ -31,7 +31,8 @@ public struct Endpoints {
   public struct Action {
     public static let root = ["actions"]
     public static let getAll = RouteDefinition(root: root, method: .GET, path: [])
-    public static let getSingle = RouteDefinition(root: root, method: .GET, path: [":actionID"])
+    public static let getRoomAll = RouteDefinition(root: root, method: .GET, path: [":roomId"])
+    public static let getSingle = RouteDefinition(root: root, method: .GET, path: [":actionId"])
     public static let create = RouteDefinition(root: root, method: .POST, path: [])
     public static let delete = RouteDefinition(root: root, method: .DELETE, path: getSingle.path)
   }
@@ -39,7 +40,8 @@ public struct Endpoints {
   public struct Stroke {
     public static let root = ["strokes"]
     public static let getAll = RouteDefinition(root: root, method: .GET, path: [])
-    public static let getSingle = RouteDefinition(root: root, method: .GET, path: [":strokeID"])
+    public static let getRoomAll = RouteDefinition(root: root, method: .GET, path: [":roomId"])
+    public static let getSingle = RouteDefinition(root: root, method: .GET, path: [":strokeId"])
     public static let create = RouteDefinition(root: root, method: .POST, path: [])
   }
 }

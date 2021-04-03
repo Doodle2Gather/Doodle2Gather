@@ -3,8 +3,8 @@ import Vapor
 
 // configures your application
 public func configure(_ app: Application) throws {
-    // Configure rendering engine
-    //  app.views.use(.leaf)
+    // Configure Middleware
+    app.middleware.use(DTErrorMiddleware())
 
     // Set up hostname and port
     app.http.server.configuration.hostname = "0.0.0.0"
