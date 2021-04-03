@@ -19,7 +19,7 @@ class FirebaseAuthProvider: DTAbstractAuthProvider {
 
     weak var delegate: DTAuthDelegate?
     var user: User? {
-        get { Auth.auth().currentUser }
+        Auth.auth().currentUser
     }
 
     func signUp(email: String, password: String, displayName: String) {

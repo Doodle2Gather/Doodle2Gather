@@ -10,7 +10,7 @@ class DTAuth {
     }
 
     static var user: User? {
-        get { shared.authProvider.user }
+        shared.authProvider.user
     }
 
     static func signUp(email: String, password: String, displayName: String) {

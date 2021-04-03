@@ -54,9 +54,7 @@ class HomeViewController: UIViewController {
       NotificationCenter.default.removeObserver(self)
     }
 
-    /**
-     For TextField keyboard avoidance
-     */
+    /// For keyboard avoidance with TextFields
     @objc
     func keyboardNotification(notification: NSNotification) {
       guard let userInfo = notification.userInfo else {

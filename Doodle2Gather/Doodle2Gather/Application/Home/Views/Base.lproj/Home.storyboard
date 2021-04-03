@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="ipad11_0rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
+    <device id="ipad12_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -13,11 +13,11 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="HomeViewController" customModule="Doodle2Gather" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JDu-zr-f28" userLabel="Auth Controls">
-                                <rect key="frame" x="193" y="387" width="448" height="420"/>
+                                <rect key="frame" x="288" y="473" width="448" height="420"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Doodle2Gather" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ruv-9Z-GeO">
                                         <rect key="frame" x="0.0" y="0.0" width="448" height="60"/>
@@ -86,7 +86,7 @@
                                     <constraint firstAttribute="height" constant="420" id="PXD-UY-cUO"/>
                                     <constraint firstItem="qY8-ug-Nlu" firstAttribute="leading" secondItem="JDu-zr-f28" secondAttribute="leading" constant="120" id="Vgw-jV-p3P"/>
                                     <constraint firstAttribute="trailing" secondItem="San-it-z9u" secondAttribute="trailing" id="doT-XM-NTU"/>
-                                    <constraint firstAttribute="trailing" secondItem="qY8-ug-Nlu" secondAttribute="trailing" constant="120" id="f93-Ry-6SF"/>
+                                    <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="qY8-ug-Nlu" secondAttribute="trailing" constant="120" id="f93-Ry-6SF"/>
                                     <constraint firstItem="San-it-z9u" firstAttribute="leading" secondItem="JDu-zr-f28" secondAttribute="leading" id="h4V-FH-1Mo"/>
                                     <constraint firstItem="Ruv-9Z-GeO" firstAttribute="leading" secondItem="JDu-zr-f28" secondAttribute="leading" id="mbn-WH-pbg"/>
                                     <constraint firstItem="qY8-ug-Nlu" firstAttribute="top" secondItem="Y8X-21-xQM" secondAttribute="bottom" constant="40" id="qac-oP-Y3D"/>
@@ -102,7 +102,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="12" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bAy-R5-JrA">
-                                <rect key="frame" x="100" y="837" width="634" height="287"/>
+                                <rect key="frame" x="100" y="923" width="824" height="373"/>
                                 <string key="text">Error Message Here: Cat ipsum dolor sit amet, human is behind a closed door, emergency! abandoned! meeooowwww!!!. Hey! you there, with the hands scratch the box but i like to spend my days sleeping and eating fishes that my human fished for me we live on a luxurious yacht, sailing proudly under the sun, i like to walk on the deck, watching the horizon, dreaming of a good bowl of milk grass smells good.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" systemColor="systemPinkColor"/>
@@ -115,7 +115,7 @@
                             <constraint firstItem="bAy-R5-JrA" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="100" id="8ml-wx-jj7"/>
                             <constraint firstItem="JDu-zr-f28" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="A8p-Lw-fm0"/>
                             <constraint firstItem="bAy-R5-JrA" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="FZH-OU-Cqn"/>
-                            <constraint firstAttribute="trailing" secondItem="bAy-R5-JrA" secondAttribute="trailing" constant="100" id="JeP-EF-BxS"/>
+                            <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="bAy-R5-JrA" secondAttribute="trailing" constant="100" id="JeP-EF-BxS"/>
                             <constraint firstItem="JDu-zr-f28" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Kza-CP-vvh"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="bAy-R5-JrA" secondAttribute="bottom" constant="50" id="qg2-cO-vy4"/>
                             <constraint firstItem="bAy-R5-JrA" firstAttribute="top" secondItem="JDu-zr-f28" secondAttribute="bottom" constant="30" id="xkA-VG-4sL"/>
