@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>79510140656-t3iasjsmai49suiqpbd6pmanod4602hm.apps.googleusercontent.com</string>
+	<string>79510140656-khsfaihngpq0kclamgldschfq299cmo1.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.79510140656-t3iasjsmai49suiqpbd6pmanod4602hm</string>
+	<string>com.googleusercontent.apps.79510140656-khsfaihngpq0kclamgldschfq299cmo1</string>
 	<key>API_KEY</key>
 	<string>AIzaSyAmDq29dx7y6t4HkZ_SJMY-XdA4aXSSV9g</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>sg.christopher.d2g</string>
+	<string>CS3217.Doodle2Gather</string>
 	<key>PROJECT_ID</key>
 	<string>doodle2gather</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:79510140656:ios:32d5522213945aa72a7435</string>
+	<string>1:79510140656:ios:7a3636f59531ebc72a7435</string>
 </dict>
 </plist>
