@@ -18,7 +18,7 @@ class ParticipantViewCell: UITableViewCell {
         }
     }
 
-    var isVideoOn: Bool = false {
+    var isVideoOn = false {
         didSet {
             if isVideoOn {
                 videoButton.setImage(UIImage(systemName: "video.fill"), for: .normal)
@@ -28,7 +28,7 @@ class ParticipantViewCell: UITableViewCell {
         }
     }
 
-    var isAudioOn: Bool = false {
+    var isAudioOn = false {
         didSet {
             if isAudioOn {
                 audioButton.setImage(UIImage(systemName: "mic.fill"), for: .normal)
