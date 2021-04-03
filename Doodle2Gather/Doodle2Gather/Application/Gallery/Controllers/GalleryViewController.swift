@@ -22,6 +22,8 @@ class GalleryViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        rooms.append(Room(roomId: UUID(), roomName: DefaultValues.roomName))
         // Do any additional setup after loading the view.
     }
 

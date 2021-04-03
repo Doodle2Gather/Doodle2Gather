@@ -19,10 +19,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="URB-fD-Vcz" userLabel="Top Bar View">
-                                <rect key="frame" x="0.0" y="0.0" width="834" height="80"/>
+                                <rect key="frame" x="20" y="20" width="794" height="80"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Fy-q2-Q8w" userLabel="Add Button">
-                                        <rect key="frame" x="758" y="38" width="18" height="22"/>
+                                        <rect key="frame" x="718" y="29" width="18" height="22"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" image="plus" catalog="system">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -33,7 +33,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pjC-7q-Uei" userLabel="Edit Button">
-                                        <rect key="frame" x="796" y="38" width="18" height="22"/>
+                                        <rect key="frame" x="756" y="29" width="18" height="22"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" image="pencil" catalog="system">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -43,17 +43,22 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="pjC-7q-Uei" secondAttribute="bottom" constant="20" id="3Fx-R6-6f8"/>
+                                    <constraint firstItem="6Fy-q2-Q8w" firstAttribute="centerY" secondItem="URB-fD-Vcz" secondAttribute="centerY" id="0f0-J9-osk"/>
                                     <constraint firstItem="pjC-7q-Uei" firstAttribute="leading" secondItem="6Fy-q2-Q8w" secondAttribute="trailing" constant="20" id="3On-uJ-cVA"/>
                                     <constraint firstAttribute="height" constant="80" id="BiD-M6-iax"/>
-                                    <constraint firstAttribute="bottom" secondItem="6Fy-q2-Q8w" secondAttribute="bottom" constant="20" id="Cdw-1N-otG"/>
                                     <constraint firstAttribute="trailing" secondItem="pjC-7q-Uei" secondAttribute="trailing" constant="20" id="KAF-xX-Wf2"/>
+                                    <constraint firstItem="pjC-7q-Uei" firstAttribute="centerY" secondItem="URB-fD-Vcz" secondAttribute="centerY" id="uPg-gW-Ulx"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="l49-Pr-3Xp">
-                                <rect key="frame" x="20" y="100" width="794" height="1054"/>
+                                <rect key="frame" x="20" y="120" width="794" height="1034"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="mfB-gE-gEU">
                                     <size key="itemSize" width="128" height="128"/>
@@ -71,7 +76,7 @@
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="O93-aF-sDh">
                                                     <rect key="frame" x="0.0" y="0.0" width="128" height="91"/>
-                                                    <color key="backgroundColor" name="AccentColor"/>
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1dX-Ku-w58" userLabel="Room Name Label">
                                                     <rect key="frame" x="43" y="99" width="42" height="21"/>
@@ -80,7 +85,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="1dX-Ku-w58" firstAttribute="top" secondItem="O93-aF-sDh" secondAttribute="bottom" constant="8" id="3Ux-pT-d3y"/>
                                                 <constraint firstItem="O93-aF-sDh" firstAttribute="leading" secondItem="mFq-zw-FfP" secondAttribute="leading" id="5FQ-4f-ZQL"/>
@@ -91,7 +96,7 @@
                                             </constraints>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                    <integer key="value" value="10"/>
+                                                    <integer key="value" value="20"/>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </collectionViewCellContentView>
@@ -109,11 +114,12 @@
                         <viewLayoutGuide key="safeArea" id="Wk6-oU-8Ea"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="URB-fD-Vcz" firstAttribute="top" secondItem="ZT2-Qi-0wM" secondAttribute="top" id="0tI-mG-04p"/>
+                            <constraint firstItem="URB-fD-Vcz" firstAttribute="top" secondItem="Wk6-oU-8Ea" secondAttribute="top" constant="20" id="0tI-mG-04p"/>
                             <constraint firstItem="l49-Pr-3Xp" firstAttribute="leading" secondItem="Wk6-oU-8Ea" secondAttribute="leading" constant="20" id="47X-aY-Zr3"/>
                             <constraint firstItem="URB-fD-Vcz" firstAttribute="centerX" secondItem="ZT2-Qi-0wM" secondAttribute="centerX" id="Qil-D5-hAg"/>
                             <constraint firstItem="Wk6-oU-8Ea" firstAttribute="trailing" secondItem="l49-Pr-3Xp" secondAttribute="trailing" constant="20" id="U00-vl-Afw"/>
-                            <constraint firstItem="URB-fD-Vcz" firstAttribute="leading" secondItem="Wk6-oU-8Ea" secondAttribute="leading" id="aLX-JM-eas"/>
+                            <constraint firstItem="Wk6-oU-8Ea" firstAttribute="trailing" secondItem="URB-fD-Vcz" secondAttribute="trailing" constant="20" id="YbU-rI-ay4"/>
+                            <constraint firstItem="URB-fD-Vcz" firstAttribute="leading" secondItem="Wk6-oU-8Ea" secondAttribute="leading" constant="20" id="aLX-JM-eas"/>
                             <constraint firstItem="l49-Pr-3Xp" firstAttribute="top" secondItem="URB-fD-Vcz" secondAttribute="bottom" constant="20" id="n1a-CH-87r"/>
                             <constraint firstItem="Wk6-oU-8Ea" firstAttribute="bottom" secondItem="l49-Pr-3Xp" secondAttribute="bottom" constant="20" id="sG5-5Q-o1x"/>
                         </constraints>
@@ -188,9 +194,6 @@
     <resources>
         <image name="pencil" catalog="system" width="128" height="113"/>
         <image name="plus" catalog="system" width="128" height="113"/>
-        <namedColor name="AccentColor">
-            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="avatarViewBackground">
             <color red="0.55699998140335083" green="0.55699998140335083" blue="0.57599997520446777" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
