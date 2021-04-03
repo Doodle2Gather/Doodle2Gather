@@ -1,4 +1,4 @@
-import Firebase
+import DoodlingLibrary
 
 class DTAuth {
     static let shared = DTAuth()
@@ -9,7 +9,7 @@ class DTAuth {
         set { shared.authProvider.delegate = newValue }
     }
 
-    static var user: User? {
+    static var user: DTUser? {
         shared.authProvider.user
     }
 

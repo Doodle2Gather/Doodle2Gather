@@ -1,16 +1,5 @@
 import Firebase
-
-protocol DTAbstractAuthProvider {
-    var delegate: DTAuthDelegate? { get set }
-    var user: User? { get }
-    func signUp(email: String, password: String, displayName: String)
-    func login(email: String, password: String)
-}
-
-protocol DTAuthDelegate: AnyObject {
-    func displayError(_ error: Error)
-    func loginDidSucceed()
-}
+import DoodlingLibrary
 
 class FirebaseAuthProvider: DTAbstractAuthProvider {
 
@@ -18,8 +7,18 @@ class FirebaseAuthProvider: DTAbstractAuthProvider {
     }
 
     weak var delegate: DTAuthDelegate?
-    var user: User? {
+
+    private var fbUser: User? {
         Auth.auth().currentUser
+    }
+
+    private var storedUser: DTUser?
+
+    var user: DTUser? {
+        if self.storedUser == nil {
+            self.storedUser = Auth.auth().currentUser?.toDTUser()
+        }
+        return self.storedUser!
     }
 
     func signUp(email: String, password: String, displayName: String) {
@@ -44,11 +43,11 @@ class FirebaseAuthProvider: DTAbstractAuthProvider {
     }
 
     private func setUserDisplayName(_ displayName: String) {
-        guard let user = user else {
+        guard let fbUser = fbUser else {
             DTLogger.error("Unable to get logged in user")
             return
         }
-        let changeRequest = user.createProfileChangeRequest()
+        let changeRequest = fbUser.createProfileChangeRequest()
         changeRequest.displayName = displayName
         changeRequest.commitChanges { error in
             guard error == nil else {
@@ -56,5 +55,15 @@ class FirebaseAuthProvider: DTAbstractAuthProvider {
                 return
             }
         }
+    }
+}
+
+extension User {
+    func toDTUser() -> DTUser {
+        guard let displayName = displayName,
+              let email = email else {
+            fatalError("Unable to get account info")
+        }
+        return DTUser(uid: uid, displayName: displayName, email: email)
     }
 }
