@@ -5,11 +5,13 @@ import DoodlingAdaptedLibrary
 class AutoMergeController {
     let db: Database
     let newAction: DTAdaptedAction
+    let persistedAction: PersistedDTAction
     let logger: Logger
 
-    init(db: Database, newAction: DTAdaptedAction) {
+    init(db: Database, newAction: DTAdaptedAction, persistedAction: PersistedDTAction) {
         self.db = db
         self.newAction = newAction
+        self.persistedAction = persistedAction
         self.logger = Logger(label: "AutoMergeController")
     }
 
@@ -21,38 +23,51 @@ class AutoMergeController {
         newAction.makeStrokesRemoved()
     }
 
-    func getAllStrokesOfRoom() throws -> [PersistedDTStroke] {
-        try PersistedDTStroke.getRoomAll(newAction.roomId, on: db).wait()
+    func getAllStrokesOfRoom() -> EventLoopFuture<[PersistedDTStroke]> {
+        PersistedDTStroke.getRoomAll(newAction.roomId, on: db)
     }
 
-    func checkMergeConflict() throws -> Bool {
-        if removed.isEmpty {
+    func checkMergeConflict() -> EventLoopFuture<Bool> {
+        getAllStrokesOfRoom().flatMapThrowing {
+            if self.removed.isEmpty {
+                return false
+            }
+
+            for stroke in self.removed {
+                if $0.filter({ stroke.isSameStroke(as: $0) }).isEmpty {
+                    return true
+                }
+            }
             return false
         }
-        let existingStrokes = try getAllStrokesOfRoom()
-
-        for stroke in removed {
-            if existingStrokes.filter({ stroke.isSameStroke(as: $0) }).isEmpty {
-                return true
-            }
-        }
-        return false
     }
-    
-    func getLatestDispatchedActions() throws -> [DTAdaptedAction] {
-        try PersistedDTAction.getLatest(on: db).wait()
-            .map{ DTAdaptedAction(action: $0) }
+
+    var latestDispatchedActions = [DTAdaptedAction]()
+
+    func getLatestDispatchedActions() {
+        PersistedDTAction.getLatest(on: db)
+            .flatMapThrowing { actions in
+                actions.map(DTAdaptedAction.init)
+            }
+            .whenComplete { res in
+                switch res {
+                case .failure(let err):
+                    self.logger.report(error: err)
+                case .success(let actions):
+                    self.latestDispatchedActions = actions
+                }
+            }
     }
 
     func saveAction() -> EventLoopFuture<Void> {
-        self.newAction.makePersistedAction().save(on: self.db)
+        persistedAction.save(on: self.db)
     }
 
     func addStrokes() -> [EventLoopFuture<Void>] {
         added.compactMap { $0.makePersistedStroke().save(on: self.db) }
     }
 
-    func removeStrokes() throws -> [EventLoopFuture<Void>] {
+    func removeStrokes() -> [EventLoopFuture<Void>] {
         removed.compactMap {
             PersistedDTStroke.getSingle($0.stroke, on: self.db)
                 .flatMap { $0.delete(on: self.db) }
@@ -60,28 +75,52 @@ class AutoMergeController {
     }
 
     func updateDatabase() -> Bool {
-        do {
-            let tasks = try [saveAction()] + addStrokes() + removeStrokes()
-            try tasks.forEach { try $0.wait() }
-        } catch {
-            logger.report(error: error)
-            return false
+        addStrokes().forEach {
+            $0.whenComplete { res in
+                switch res {
+                case .failure(let err):
+                    self.logger.report(error: err)
+                case .success:
+                    print("added")
+                }
+            }
         }
 
+        removeStrokes().forEach {
+            print("try to remove")
+            $0.whenComplete { res in
+                switch res {
+                case .failure(let err):
+                    self.logger.report(error: err)
+                case .success:
+                    print("removed")
+                }
+            }
+        }
+
+        saveAction().whenComplete { res in
+            switch res {
+            case .failure(let err):
+                self.logger.report(error: err)
+            case .success:
+                print("added action")
+            }
+        }
         return true
     }
 
-    func perform() throws -> (isActionDenied: Bool, message: String) {
-        let isActionDenied = try checkMergeConflict()
+    func perform() -> EventLoopFuture<(isActionDenied: Bool, message: String)> {
+        checkMergeConflict()
+            .map { isActionDenied in
+                var message: String
 
-        var message: String
+                if isActionDenied {
+                    message = "Merge conflict."
+                } else {
+                    message = self.updateDatabase() ? "Action added" : "Something went wrong adding the action."
+                }
 
-        if isActionDenied {
-            message = "Merge conflict."
-        } else {
-            message = updateDatabase() ? "Action added" : "Something went wrong adding the action."
-        }
-
-        return (isActionDenied, message)
+                return (isActionDenied, message)
+            }
     }
 }

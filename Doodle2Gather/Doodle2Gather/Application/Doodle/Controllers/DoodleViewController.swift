@@ -143,6 +143,18 @@ extension DoodleViewController: SocketControllerDelegate {
         canvasController?.dispatchAction(action)
     }
 
+    func handleConflict(_ undoAction: DTAction, histories: [DTAction]) {
+
+        for action in histories {
+            canvasController?.dispatchAction(action)
+        }
+
+        canvasController?.dispatchAction(undoAction)
+
+        for action in histories.reversed() {
+            canvasController?.dispatchAction(action)
+        }
+    }
 }
 
 extension DoodleViewController: UIColorPickerViewControllerDelegate {

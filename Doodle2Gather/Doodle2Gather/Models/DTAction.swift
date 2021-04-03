@@ -1,10 +1,16 @@
 import Foundation
 import DoodlingLibrary
+import DoodlingAdaptedLibrary
 
 struct DTAction {
 
     let strokesAdded: Set<Data>
     let strokesRemoved: Set<Data>
+
+    init(action: DTAdaptedAction) {
+        self.strokesAdded = action.strokesAdded
+        self.strokesRemoved = action.strokesRemoved
+    }
 
     init(strokesAdded: Set<Data>, strokesRemoved: Set<Data>) {
         self.strokesAdded = strokesAdded

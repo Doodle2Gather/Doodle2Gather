@@ -88,40 +88,44 @@ class WebSocketController {
     }
 
     func onNewAction(_ ws: WebSocket, _ id: UUID, _ message: DTInitiateActionMessage) {
-        logger.info("Checking merge conflicts")
         let action = message.action.makePersistedAction()
 
-        do {
+        let autoMerge = AutoMergeController(
+            db: self.db, newAction: message.action,
+            persistedAction: action
+        )
 
-            let autoMerge = AutoMergeController(
-                db: self.db, newAction: message.action
-            )
-            let (isActionDenied, message) = try autoMerge.perform()
-            
-            if !isActionDenied {
-                self.dispatchActionToPeers(
-                    action, to: self.getAllWebSocketOptionsExcept(id), success: true, message: message
-                )
+        autoMerge.perform().whenComplete { res in
+            switch res {
+            case .failure(let err):
+                self.logger.report(error: err)
+            case .success(let (isActionDenied, message)):
+                if !isActionDenied {
+
+                    self.dispatchActionToPeers(
+                        action, to: self.getAllWebSocketOptionsExcept(id), success: true, message: message
+                    )
+                    self.sendActionFeedback(
+                        action, to: .id(id), success: true, message: message
+                    )
+                    return
+                }
+
+                self.logger.info("Merge conflict. ")
+                autoMerge.getLatestDispatchedActions()
                 self.sendActionFeedback(
-                    action, to: .id(id), success: true, message: message
+                    action, to: .id(id), success: true, message: message,
+                    isActionDenied: isActionDenied,
+                    actionHistories: autoMerge.latestDispatchedActions
                 )
-                return
             }
-            
-            let histories = try autoMerge.getLatestDispatchedActions()
-            self.sendActionFeedback(
-                action, to: .id(id), success: true, message: message,
-                isActionDenied: isActionDenied,
-                actionHistories: histories
-            )
-
-        } catch {
-            logger.report(error: error)
-
-            self.sendActionFeedback(
-                action, to: .id(id), success: false, message: "Something went wrong adding the action."
-            )
         }
+
+        //            logger.report(error: error)
+        //
+        //            self.sendActionFeedback(
+        //                action, to: .id(id), success: false, message: "Something went wrong adding the action."
+        //            )
     }
 
     func send<T: Codable>(message: T, to sendOption: [WebSocketSendOption]) {

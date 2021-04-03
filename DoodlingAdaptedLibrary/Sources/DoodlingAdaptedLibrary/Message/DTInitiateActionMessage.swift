@@ -2,6 +2,7 @@ import Foundation
 
 public struct DTInitiateActionMessage: Codable {
     var type = DTMessageType.initiateAction
+    public let id: UUID
     public let action: DTAdaptedAction
     
     public init(strokesAdded: Set<Data>, strokesRemoved: Set<Data>,
@@ -12,5 +13,6 @@ public struct DTInitiateActionMessage: Codable {
             roomId: roomId,
             createdBy: id
         )
+        self.id = id
     }
 }
