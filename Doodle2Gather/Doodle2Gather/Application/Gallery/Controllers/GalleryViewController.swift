@@ -30,6 +30,10 @@ class GalleryViewController: UIViewController {
         count += 1
         collectionView.reloadData()
     }
+
+    @IBAction private func didTapEdit(_ sender: Any) {
+
+    }
 }
 
 extension GalleryViewController: UICollectionViewDelegate {
