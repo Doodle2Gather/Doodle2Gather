@@ -9,32 +9,44 @@ import DoodlingLibrary
 class DTCanvasViewController: UIViewController {
 
     /// Main canvas view that we will work with.
-    var canvasView: DTCanvasView = PKCanvasView()
-
+    var canvasView = PKCanvasView()
     /// Doodle that will be injected into this controller.
-    /// TODO: Look into a way to generalise this. Need to discuss this with
-    /// the teaching team, because this is really not ideal.
     var doodle = PKDrawing()
-
     /// Delegate for action dispatching.
     internal weak var delegate: CanvasControllerDelegate?
-    /// Reference to the (wrapper) delegate used by canvas.
-    var delegateReference: DTCanvasViewDelegate?
+
+    /// Tracks whether a initial scroll to offset has already been done.
+    private var hasScrolledToInitialOffset = false
+
+    /// Constants used in DTCanvasViewController specifically.
+    enum Constants {
+        static let canvasSize = CGSize(width: 1_000_000, height: 1_000_000)
+    }
 
     /// Sets up the canvas view and the initial doodle.
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         addCanvasView()
-        delegateReference = canvasView.registerDelegate(self)
-        canvasView.loadDoodle(doodle)
+        canvasView.delegate = self
+        canvasView.drawing = doodle
+        canvasView.contentSize = Constants.canvasSize
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        scrollToInitialOffset()
+    }
 
-        // TODO: Add zoom-related configurations, e.g. set min and max zoom.
-        // TODO: After zooming, scroll view to the top.
+    /// Scrolls to view to the center of the canvas. Only performed once.
+    private func scrollToInitialOffset() {
+        if hasScrolledToInitialOffset {
+            return
+        }
+        let centerOffsetX = (canvasView.contentSize.width - canvasView.frame.width) / 2
+        let centerOffsetY = (canvasView.contentSize.height - canvasView.frame.height) / 2
+        canvasView.contentOffset = CGPoint(x: centerOffsetX, y: centerOffsetY)
+        hasScrolledToInitialOffset = true
     }
 
     /// Hides the home indicator, as it will affect latency.
@@ -42,26 +54,31 @@ class DTCanvasViewController: UIViewController {
         true
     }
 
+    /// Configures the canvasView and adds it to the current view.
     func addCanvasView() {
+        canvasView.initialiseDefaultProperties()
+        // TODO: Load existing strokes into canvasView at this point
         view.addSubview(canvasView)
-        canvasView.frame = view.frame
+
+        canvasView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        canvasView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        canvasView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        canvasView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 
 }
 
-extension DTCanvasViewController: DTCanvasViewDelegate {
+extension DTCanvasViewController: PKCanvasViewDelegate {
 
-    // TODO: Look into ways to generalise this method.
-    // Currently depends on PencilKit.
-    func canvasViewDoodleDidChange(_ canvas: DTCanvasView) {
-        guard let newStrokes: Set<PKStroke> = canvas.getStrokes() else {
-            return
-        }
+    // TODO: Fix issues with erasure + build more sustainable solution.
+    func canvasViewDrawingDidChange(_ canvas: PKCanvasView) {
+        let newStrokes = canvas.drawing.dtStrokes
+        let oldStrokes = doodle.dtStrokes
+        let newStrokesSet = Set(newStrokes)
+        let oldStrokesSet = Set(oldStrokes)
 
-        let oldStrokes = Set(doodle.dtStrokes)
-
-        let addedStrokes = newStrokes.subtracting(oldStrokes)
-        let removedStrokes = oldStrokes.subtracting(newStrokes)
+        let addedStrokes = newStrokes.filter { !oldStrokesSet.contains($0) }
+        let removedStrokes = oldStrokes.filter { !newStrokesSet.contains($0) }
 
         /// No change has occurred and we want to prevent unnecessary propagation.
         if addedStrokes.isEmpty && removedStrokes.isEmpty {
@@ -81,7 +98,7 @@ extension DTCanvasViewController: DTCanvasViewDelegate {
 extension DTCanvasViewController: CanvasController {
 
     func dispatchAction(_ action: DTAction) {
-        guard let (added, removed): (Set<PKStroke>, Set<PKStroke>) = action.getStrokes() else {
+        guard let (added, removed): ([PKStroke], [PKStroke]) = action.getStrokes() else {
             return
         }
         var doodleCopy = doodle
@@ -94,17 +111,17 @@ extension DTCanvasViewController: CanvasController {
         }
 
         doodle = doodleCopy // This prevents an action from firing later.
-        self.canvasView.loadDoodle(doodle)
+        canvasView.drawing = doodle
     }
 
     // Note: This method does not fire off an Action.
     func loadDoodle<D: DTDoodle>(_ doodle: D) {
         self.doodle = PKDrawing(from: doodle)
-        canvasView.loadDoodle(doodle)
+        canvasView.drawing = self.doodle
     }
 
     func clearDoodle() {
-        canvasView.loadDoodle(PKDrawing())
+        canvasView.drawing = PKDrawing()
     }
 
     func setPenTool() {

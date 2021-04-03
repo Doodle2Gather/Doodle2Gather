@@ -75,6 +75,7 @@ final class DTWebSocketController {
     }
 
     func handleActionFeedback(_ data: Data) throws {
+        // TODO: yet to be tested.
         let feedback = try decoder.decode(DTActionFeedbackMessage.self, from: data)
         DispatchQueue.main.async {
             if !feedback.success || feedback.id == nil {

@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-readonly ORIGINAL_DEV_TEAM="K9H85859Q4"
-readonly ORIGINAL_BUNDLE_ID="com.hanmingdev.Doodle2Gather4"
-
-# Replace with your dev team identifier
-readonly NEW_DEV_TEAM="7E2G8573A5"
-# Replace with your bundle id
-readonly NEW_BUNDLE_ID="sg.christopher.d2g"

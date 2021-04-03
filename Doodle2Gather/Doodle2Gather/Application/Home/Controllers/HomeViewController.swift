@@ -1,6 +1,7 @@
 import UIKit
 
 class HomeViewController: UIViewController {
+
     @IBOutlet private var usernameTextField: UITextField!
     @IBOutlet private var passwordTextField: UITextField!
     @IBOutlet private var roomNameTextField: UITextField!
@@ -26,16 +27,6 @@ class HomeViewController: UIViewController {
         usernameTextField.text = DefaultValues.username
         passwordTextField.text = DefaultValues.password
         roomNameTextField.text = DefaultValues.roomName
-    }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goToDoodle" {
-            guard let vc = segue.destination as? DoodleViewController else {
-                fatalError("Unable to get DoodleViewController")
-            }
-            vc.username = usernameTextField.text
-            vc.roomName = roomNameTextField.text
-        }
     }
 
     @IBAction private func onLoginTapped(_ sender: UIButton) {
@@ -90,6 +81,7 @@ class HomeViewController: UIViewController {
         })
         task.resume()
     }
+
 }
 
 private struct LoginResponse: Codable {

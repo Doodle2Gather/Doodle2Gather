@@ -5,6 +5,7 @@ import AgoraRtmKit
  Engine that interfaces with Agora.
  */
 class AgoraChatEngine: NSObject, ChatEngine {
+
     weak var delegate: ChatEngineDelegate?
     var agoraRtmKit: AgoraRtmKit?
     var rtmChannel: AgoraRtmChannel?
@@ -22,30 +23,30 @@ class AgoraChatEngine: NSObject, ChatEngine {
         let url = URL(string: "\(ApiEndpoints.AgoraRtmTokenServer)?account=\(account)")!
 
         let task = URLSession.shared.dataTask(with: url, completionHandler: { data, response, error in
-          if let error = error {
-            DTLogger.error("Error with fetching Agora token \(error)")
-            return
-          }
-
-          guard let httpResponse = response as? HTTPURLResponse,
-                (200...299).contains(httpResponse.statusCode) else {
-            DTLogger.error("Error with the response, unexpected status code: \(String(describing: response))")
-            return
-          }
-
-          if let data = data,
-             let tokenResponse = try? JSONDecoder().decode(AgoraTokenAPIResponse.self, from: data) {
-            // TODO: CHange "username" to when authentication is done
-            // Also, the username cannot contain special characters
-            self.agoraRtmKit?.login(byToken: tokenResponse.key,
-                                    user: self.account) { errorCode in
-                guard errorCode == .ok else {
-                    DTLogger.error("Error with logging in to Agora server: code \(errorCode.rawValue)")
-                    return
-                }
-                self.joinChannel(channelName: channelName)
+            if let error = error {
+                DTLogger.error("Error with fetching Agora token \(error)")
+                return
             }
-          }
+
+            guard let httpResponse = response as? HTTPURLResponse,
+                  (200...299).contains(httpResponse.statusCode) else {
+                DTLogger.error("Error with the response, unexpected status code: \(String(describing: response))")
+                return
+            }
+
+            if let data = data,
+               let tokenResponse = try? JSONDecoder().decode(AgoraTokenAPIResponse.self, from: data) {
+                // TODO: CHange "username" to when authentication is done
+                // Also, the username cannot contain special characters
+                self.agoraRtmKit?.login(byToken: tokenResponse.key,
+                                        user: self.account) { errorCode in
+                    guard errorCode == .ok else {
+                        DTLogger.error("Error with logging in to Agora server: code \(errorCode.rawValue)")
+                        return
+                    }
+                    self.joinChannel(channelName: channelName)
+                }
+            }
 
         })
         task.resume()
@@ -82,11 +83,13 @@ class AgoraChatEngine: NSObject, ChatEngine {
             }
         }
     }
+
 }
 
 // MARK: - AgoraRtmDelegate
 
 extension AgoraChatEngine: AgoraRtmDelegate {
+
     func rtmKit(_ kit: AgoraRtmKit,
                 connectionStateChanged state: AgoraRtmConnectionState,
                 reason: AgoraRtmConnectionChangeReason) {
@@ -96,11 +99,13 @@ extension AgoraChatEngine: AgoraRtmDelegate {
     func rtmKit(_ kit: AgoraRtmKit, messageReceived message: AgoraRtmMessage, fromPeer peerId: String) {
         delegate?.deliverMessage(from: peerId, message: message.text)
     }
+
 }
 
 // MARK: - AgoraRtmChannelDelegate
 
 extension AgoraChatEngine: AgoraRtmChannelDelegate {
+
     func channel(_ channel: AgoraRtmChannel, memberJoined member: AgoraRtmMember) {
         DTLogger.event("\(member.userId) join")
     }
@@ -115,4 +120,5 @@ extension AgoraChatEngine: AgoraRtmChannelDelegate {
         DTLogger.event("Received from userId \(member.userId): \(message.text)")
         delegate?.deliverMessage(from: member.userId, message: message.text)
     }
+
 }

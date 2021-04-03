@@ -17,7 +17,7 @@ struct DTAction {
         self.strokesRemoved = strokesRemoved
     }
 
-    init?<S: DTStroke>(added: Set<S>, removed: Set<S>) {
+    init?<S: DTStroke>(added: [S], removed: [S]) {
         let encoder = JSONEncoder()
 
         var addedData = Set<Data>()
@@ -41,24 +41,24 @@ struct DTAction {
         strokesRemoved = removedData
     }
 
-    func getStrokes<S: DTStroke>() -> (added: Set<S>, removed: Set<S>)? {
+    func getStrokes<S: DTStroke>() -> (added: [S], removed: [S])? {
         let decoder = JSONDecoder()
 
-        var added = Set<S>()
-        var removed = Set<S>()
+        var added = [S]()
+        var removed = [S]()
 
         for stroke in strokesAdded {
             guard let addedStroke = try? decoder.decode(S.self, from: stroke) else {
                 return nil
             }
-            added.insert(addedStroke)
+            added.append(addedStroke)
         }
 
         for stroke in strokesRemoved {
             guard let removedStroke = try? decoder.decode(S.self, from: stroke) else {
                 return nil
             }
-            removed.insert(removedStroke)
+            removed.append(removedStroke)
         }
 
         return (added, removed)

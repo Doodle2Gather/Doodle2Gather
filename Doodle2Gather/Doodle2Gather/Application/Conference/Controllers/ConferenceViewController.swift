@@ -15,10 +15,7 @@ class ConferenceViewController: UIViewController {
     var isMuted = false
     var isVideoOff = false
     var isChatShown = false
-
-    enum Segues {
-        static let toChat = "toChat"
-    }
+    private var videoOverlays = [UIView]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,16 +42,33 @@ class ConferenceViewController: UIViewController {
         if isVideoOff {
             videoEngine?.showVideo()
             videoButton.setImage(UIImage(systemName: "video.fill"), for: .normal)
+            if !videoOverlays.isEmpty {
+                videoOverlays[0].removeFromSuperview()
+            }
         } else {
             videoEngine?.hideVideo()
             videoButton.setImage(UIImage(systemName: "video.slash.fill"), for: .normal)
+            guard let cellView = collectionView.cellForItem(at: IndexPath(row: 0, section: 0)) else {
+                return
+            }
+            if videoOverlays.isEmpty {
+                let overlay = UIView(frame: CGRect(x: 0,
+                                                   y: 0,
+                                                   width: cellView.frame.size.width,
+                                                   height: cellView.frame.size.height))
+                overlay.backgroundColor = UIColor.darkGray
+                videoOverlays.append(overlay)
+                cellView.addSubview(overlay)
+            } else {
+                cellView.addSubview(videoOverlays[0])
+            }
         }
         isVideoOff.toggle()
     }
 
     // Passes data to the ChatViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == Segues.toChat {
+        if segue.identifier == SegueConstants.toChat {
             guard let nav = segue.destination as? UINavigationController else {
                 return
             }
@@ -72,11 +86,13 @@ class ConferenceViewController: UIViewController {
             }
         }
     }
+
 }
 
 // MARK: - VideoEngineDelegate
 
 extension ConferenceViewController: VideoEngineDelegate {
+
     func didJoinCall(id: UInt) {
         remoteUserIDs.append(id)
         collectionView.reloadData()
@@ -88,12 +104,14 @@ extension ConferenceViewController: VideoEngineDelegate {
             collectionView.reloadData()
         }
     }
+
 }
 
 // MARK: - ChatEngineDelegate
 // Receives message from the server and delivers the message to the delegate
 
 extension ConferenceViewController: ChatEngineDelegate {
+
     func deliverMessage(from user: String, message: String) {
         let msg = Message(sender: Sender(senderId: user, displayName: user),
                           messageId: UUID().uuidString,
@@ -101,6 +119,7 @@ extension ConferenceViewController: ChatEngineDelegate {
         chatList.append(msg)
         chatBox?.onReceiveMessage(from: user, message: message)
     }
+
 }
 
 // MARK: - UICollectionViewDelegate
@@ -111,6 +130,7 @@ extension ConferenceViewController: UICollectionViewDelegate {
 // MARK: - UICollectionViewDataSource
 
 extension ConferenceViewController: UICollectionViewDataSource {
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         remoteUserIDs.count + 1
     }
@@ -131,11 +151,13 @@ extension ConferenceViewController: UICollectionViewDataSource {
         }
         return cell
     }
+
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
 
 extension ConferenceViewController: UICollectionViewDelegateFlowLayout {
+
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -146,4 +168,5 @@ extension ConferenceViewController: UICollectionViewDelegateFlowLayout {
 
         return CGSize(width: totalWidth, height: totalWidth * ConferenceConstants.aspectRatio)
     }
+
 }
