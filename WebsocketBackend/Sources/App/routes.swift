@@ -4,7 +4,7 @@ import DoodlingAdaptedLibrary
 func routes(_ app: Application) throws {
     let webSocketController = WebSocketController(db: app.db)
     try app.register(collection: DTWebSocketController(wsController: webSocketController))
-    
+
     let api = app.grouped("api")
     try api.grouped(Endpoints.Action.root.toPathComponents).register(collection: DTActionController())
     try api.grouped(Endpoints.Stroke.root.toPathComponents).register(collection: DTStrokeController())

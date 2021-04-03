@@ -10,7 +10,7 @@ extension DTAdaptedAction {
             createdBy: action.createdBy
         )
     }
-    
+
     func makePersistedAction() -> PersistedDTAction {
         PersistedDTAction(
             strokesAdded: strokesAdded,

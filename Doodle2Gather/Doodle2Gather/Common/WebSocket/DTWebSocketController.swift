@@ -72,7 +72,9 @@ final class DTWebSocketController {
         DispatchQueue.main.async {
             // TODO: refactor unhappy path to be at the top
             if feedback.success, feedback.id != nil {
-                let action = DTAction(strokesAdded: feedback.strokesAdded, strokesRemoved: feedback.strokesRemoved)
+                let action = DTAction(
+                    strokesAdded: feedback.action.strokesAdded,
+                    strokesRemoved: feedback.action.strokesRemoved)
                 self.delegate?.dispatchAction(action)
             } else {
                 DTLogger.error(feedback.message)

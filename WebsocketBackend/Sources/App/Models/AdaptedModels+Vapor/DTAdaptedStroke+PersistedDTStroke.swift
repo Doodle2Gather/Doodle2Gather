@@ -9,7 +9,7 @@ extension DTAdaptedStroke {
             createdBy: action.createdBy
         )
     }
-    
+
     func makePersistedStroke() -> PersistedDTStroke {
         PersistedDTStroke(
             strokeData: stroke,
@@ -17,7 +17,7 @@ extension DTAdaptedStroke {
             createdBy: createdBy
         )
     }
-    
+
     func isSameStroke(as persisted: PersistedDTStroke) -> Bool {
         stroke == persisted.strokeData &&
             roomId == persisted.roomId &&

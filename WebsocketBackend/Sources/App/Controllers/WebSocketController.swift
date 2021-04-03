@@ -88,42 +88,25 @@ class WebSocketController {
 
     func onNewAction(_ ws: WebSocket, _ id: UUID, _ message: DTInitiateActionMessage) {
         logger.info("Checking merge conflicts")
+
         do {
             let action = message.action.makePersistedAction()
-            
+
             let autoMerge = AutoMergeController(
                 db: self.db, newAction: message.action
             )
-            let hasConflict = try autoMerge.checkMergeConflict()
-            
-            if hasConflict {
-                self.sendActionFeedback(
-                    action, to: .id(id), success: false, message: "Merge conflict."
-                )
-            }
-        
-            self.db.withConnection {
-                action.save(on: $0)
-            }.whenComplete { res in
-                let success: Bool
-                let message: String
-                switch res {
-                case .failure(let err):
-                    self.logger.report(error: err)
-                    success = false
-                    message = "Something went wrong adding the action."
-                case .success:
-                    self.logger.info("Got a new action!")
-                    success = true
-                    message = "Action added"
-                }
+            let (success, message) = try autoMerge.perform()
+
+            self.sendActionFeedback(
+                action, to: .id(id), success: success, message: message
+            )
+
+            if success {
                 self.dispatchActionToPeers(
                     action, to: self.getAllWebSocketOptionsExcept(id), success: success, message: message
                 )
-                self.sendActionFeedback(
-                    action, to: .id(id), success: success, message: message
-                )
             }
+
         } catch {
             logger.report(error: error)
         }

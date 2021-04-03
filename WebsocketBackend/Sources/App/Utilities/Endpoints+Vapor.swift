@@ -1,6 +1,8 @@
 import Vapor
 import DoodlingAdaptedLibrary
 
+extension Endpoints {}
+
 extension Endpoints.RouteDefinition {
     var httpMethod: Vapor.HTTPMethod { .init(rawValue: method.rawValue) }
     var pathComponents: [Vapor.PathComponent] { path.toPathComponents }
