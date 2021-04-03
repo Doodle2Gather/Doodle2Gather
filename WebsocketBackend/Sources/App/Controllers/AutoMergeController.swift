@@ -32,11 +32,16 @@ class AutoMergeController {
         let existingStrokes = try getAllStrokesOfRoom()
 
         for stroke in removed {
-            if existingStrokes.contains({ stroke.isSameStroke(as: $0) }) {
+            if existingStrokes.filter({ stroke.isSameStroke(as: $0) }).isEmpty {
                 return true
             }
         }
         return false
+    }
+    
+    func getLatestDispatchedActions() throws -> [DTAdaptedAction] {
+        try PersistedDTAction.getLatest(on: db).wait()
+            .map{ DTAdaptedAction(action: $0) }
     }
 
     func saveAction() -> EventLoopFuture<Void> {
@@ -66,20 +71,17 @@ class AutoMergeController {
         return true
     }
 
-    func perform() throws -> (success: Bool, message: String) {
-        let hasConflict = try checkMergeConflict()
+    func perform() throws -> (isActionDenied: Bool, message: String) {
+        let isActionDenied = try checkMergeConflict()
 
-        var success: Bool
         var message: String
 
-        if hasConflict {
-            success = false
+        if isActionDenied {
             message = "Merge conflict."
         } else {
-            success = updateDatabase()
-            message = success ? "Action added" : "Something went wrong adding the action."
+            message = updateDatabase() ? "Action added" : "Something went wrong adding the action."
         }
 
-        return (success, message)
+        return (isActionDenied, message)
     }
 }

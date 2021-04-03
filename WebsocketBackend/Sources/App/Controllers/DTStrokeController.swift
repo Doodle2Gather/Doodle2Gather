@@ -31,7 +31,8 @@ extension PersistedDTStroke {
 
     static func getSingle(_ stroke: Data, on db: Database) -> EventLoopFuture<PersistedDTStroke> {
         PersistedDTStroke.query(on: db)
-            .first(where: \.$strokeData == stroke)
+            .filter(\.$strokeData == stroke)
+            .first()
             .unwrap(or: DTError.modelNotFound(type: "PersistedDTStroke"))
     }
 

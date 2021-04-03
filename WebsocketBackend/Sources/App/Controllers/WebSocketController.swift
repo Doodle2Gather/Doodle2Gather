@@ -55,6 +55,7 @@ class WebSocketController {
         }
         self.send(message: DTHandshake(id: uuid), to: [.socket(ws)])
 
+        // TODO: replace with RESTful route
         PersistedDTAction.query(on: self.db).all().whenComplete { res in
             switch res {
             case .failure(let err):
@@ -88,27 +89,38 @@ class WebSocketController {
 
     func onNewAction(_ ws: WebSocket, _ id: UUID, _ message: DTInitiateActionMessage) {
         logger.info("Checking merge conflicts")
+        let action = message.action.makePersistedAction()
 
         do {
-            let action = message.action.makePersistedAction()
 
             let autoMerge = AutoMergeController(
                 db: self.db, newAction: message.action
             )
-            let (success, message) = try autoMerge.perform()
-
-            self.sendActionFeedback(
-                action, to: .id(id), success: success, message: message
-            )
-
-            if success {
+            let (isActionDenied, message) = try autoMerge.perform()
+            
+            if !isActionDenied {
                 self.dispatchActionToPeers(
-                    action, to: self.getAllWebSocketOptionsExcept(id), success: success, message: message
+                    action, to: self.getAllWebSocketOptionsExcept(id), success: true, message: message
                 )
+                self.sendActionFeedback(
+                    action, to: .id(id), success: true, message: message
+                )
+                return
             }
+            
+            let histories = try autoMerge.getLatestDispatchedActions()
+            self.sendActionFeedback(
+                action, to: .id(id), success: true, message: message,
+                isActionDenied: isActionDenied,
+                actionHistories: histories
+            )
 
         } catch {
             logger.report(error: error)
+
+            self.sendActionFeedback(
+                action, to: .id(id), success: false, message: "Something went wrong adding the action."
+            )
         }
     }
 
@@ -152,14 +164,18 @@ class WebSocketController {
     }
 
     func sendActionFeedback(_ action: PersistedDTAction, to sendOption: WebSocketSendOption,
-                            success: Bool = true, message: String = "") {
+                            success: Bool = true, message: String = "",
+                            isActionDenied: Bool = false,
+                            actionHistories: [DTAdaptedAction] = []) {
         self.logger.info("Sent an action feedback!")
         try? self.send(message: DTActionFeedbackMessage(
             success: success,
             message: message,
             id: action.requireID(),
             createdAt: action.createdAt,
-            action: DTAdaptedAction(action: action)
+            action: DTAdaptedAction(action: action),
+            isActionDenied: isActionDenied,
+            actionHistories: actionHistories
         ), to: [sendOption])
     }
 }
