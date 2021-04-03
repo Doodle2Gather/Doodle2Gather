@@ -1,10 +1,3 @@
-//
-//  NewDocumentViewController.swift
-//  Doodle2Gather
-//
-//  Created by Wang on 3/4/21.
-//
-
 import UIKit
 
 enum CreateDocumentStatus {

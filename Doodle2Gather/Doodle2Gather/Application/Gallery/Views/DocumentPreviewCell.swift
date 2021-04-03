@@ -1,10 +1,3 @@
-//
-//  DocumentPreviewCell.swift
-//  Doodle2Gather
-//
-//  Created by Wang on 2/4/21.
-//
-
 import UIKit
 
 class DocumentPreviewCell: UICollectionViewCell {
