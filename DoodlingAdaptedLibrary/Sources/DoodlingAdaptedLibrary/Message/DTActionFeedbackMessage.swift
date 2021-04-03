@@ -2,25 +2,34 @@ import Foundation
 
 public struct DTActionFeedbackMessage: Codable, Comparable {
     var type = DTMessageType.actionFeedback
+    
     public let success: Bool
     public let message: String
     public let id: UUID?
     public let createdAt: Date?
     public let orginalAction: DTAdaptedAction
-    public let actionToTake: DTAdaptedAction?
+    
+    public var isActionDenied: Bool
+    public var undoAction: DTAdaptedAction? = nil
+    public let actionHistories: [DTAdaptedAction]
     
     public init(success: Bool, message: String,
                 id: UUID?, createdAt: Date?,
-                action: DTAdaptedAction) {
+                action: DTAdaptedAction,
+                isActionDenied: Bool = false,
+                actionHistories: [DTAdaptedAction] = []
+    ) {
         self.success = success
         self.message = message
         self.id = id
         self.createdAt = createdAt
         self.orginalAction = action
-        if success {
-            actionToTake = nil
-        } else {
-            actionToTake = action.reverse()
+        
+        self.isActionDenied = isActionDenied
+        self.actionHistories = actionHistories
+        if isActionDenied {
+            // TODO: get partial action to be reverted
+            self.undoAction = action.reverse()
         }
     }
 
