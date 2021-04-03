@@ -2,40 +2,54 @@ import UIKit
 
 class HomeViewController: UIViewController {
 
-    @IBOutlet private var usernameTextField: UITextField!
+    @IBOutlet private var emailTextField: UITextField!
     @IBOutlet private var passwordTextField: UITextField!
-    @IBOutlet private var roomNameTextField: UITextField!
-    @IBOutlet private var loginButton: UIStackView!
+    @IBOutlet private var displayNameTextField: UITextField!
     @IBOutlet private var errorMessageLabel: UILabel!
+    @IBOutlet private var submitButton: UIButton!
+    @IBOutlet private var formActionSegmentedControl: UISegmentedControl!
 
-    private enum ErrorMessages {
-        static let incorrectCredentials = "Incorrect credentials"
-        static let unableToFetchResponse = "Unable to fetch response. Is your internet connection working?"
+    private enum Segment: Int {
+        case login
+        case register
     }
 
-    private enum DefaultValues {
-        static let username = "chrisgzf@gmail.com"
-        // For ease of development
-        static let password = "goodpassword"
-        static let roomName = "devRoom"
+    private func updateFormViews() {
+        let segment = Segment(rawValue: formActionSegmentedControl.selectedSegmentIndex)
+        switch segment {
+        case .login:
+            displayNameTextField.isHidden = true
+            submitButton.setTitle("LOGIN", for: .normal)
+            submitButton.backgroundColor = .systemIndigo
+        case .register:
+            displayNameTextField.isHidden = false
+            submitButton.setTitle("REGISTER", for: .normal)
+            submitButton.backgroundColor = .systemTeal
+        default:
+            fatalError("Invalid segment")
+        }
+    }
+
+    @IBAction private func onFormActionChanged(_ sender: UISegmentedControl) {
+        updateFormViews()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        errorMessageLabel.text = ""
-        usernameTextField.text = DefaultValues.username
-        passwordTextField.text = DefaultValues.password
-        roomNameTextField.text = DefaultValues.roomName
         DTAuth.delegate = self
+        errorMessageLabel.text = ""
+        updateFormViews()
+        submitButton.layer.cornerRadius = 20
+        submitButton.clipsToBounds = true
     }
 
-    @IBAction private func onLoginTapped(_ sender: UIButton) {
+    @IBAction private func onSubmitButtonTapped(_ sender: UIButton) {
         attemptLogin()
     }
 
     private func attemptLogin() {
-        DTAuth.signUp(email: usernameTextField.text!, password: passwordTextField.text!, displayName: usernameTextField.text!)
+        DTAuth.signUp(email: emailTextField.text!, password: passwordTextField.text!, displayName: emailTextField.text!)
 //        let params = ["username": usernameTextField.text,
 //                      "password": passwordTextField.text,
 //                      "roomName": roomNameTextField.text]

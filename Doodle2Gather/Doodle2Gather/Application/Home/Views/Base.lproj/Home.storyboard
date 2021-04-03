@@ -34,6 +34,9 @@
                                             <segment title="Login"/>
                                             <segment title="Register"/>
                                         </segments>
+                                        <connections>
+                                            <action selector="onFormActionChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="xel-Ei-hbh"/>
+                                        </connections>
                                     </segmentedControl>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="San-it-z9u">
                                         <rect key="frame" x="0.0" y="171" width="448" height="36"/>
@@ -60,15 +63,16 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qY8-ug-Nlu">
-                                        <rect key="frame" x="60" y="379" width="328" height="37"/>
+                                        <rect key="frame" x="120" y="379" width="208" height="37"/>
                                         <color key="backgroundColor" systemColor="systemIndigoColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="37" id="d4R-XE-TAe"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="Login"/>
+                                        <state key="normal" title="LOGIN"/>
                                         <connections>
-                                            <action selector="onLoginTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nyb-5S-BPQ"/>
+                                            <action selector="onSubmitButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nyb-5S-BPQ"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -80,9 +84,9 @@
                                     <constraint firstItem="Ruv-9Z-GeO" firstAttribute="top" secondItem="JDu-zr-f28" secondAttribute="top" id="NBW-eC-K0A"/>
                                     <constraint firstItem="Xa2-nd-Uii" firstAttribute="top" secondItem="San-it-z9u" secondAttribute="bottom" constant="30" id="PAs-V6-2SS"/>
                                     <constraint firstAttribute="height" constant="420" id="PXD-UY-cUO"/>
-                                    <constraint firstItem="qY8-ug-Nlu" firstAttribute="leading" secondItem="JDu-zr-f28" secondAttribute="leading" constant="60" id="Vgw-jV-p3P"/>
+                                    <constraint firstItem="qY8-ug-Nlu" firstAttribute="leading" secondItem="JDu-zr-f28" secondAttribute="leading" constant="120" id="Vgw-jV-p3P"/>
                                     <constraint firstAttribute="trailing" secondItem="San-it-z9u" secondAttribute="trailing" id="doT-XM-NTU"/>
-                                    <constraint firstAttribute="trailing" secondItem="qY8-ug-Nlu" secondAttribute="trailing" constant="60" id="f93-Ry-6SF"/>
+                                    <constraint firstAttribute="trailing" secondItem="qY8-ug-Nlu" secondAttribute="trailing" constant="120" id="f93-Ry-6SF"/>
                                     <constraint firstItem="San-it-z9u" firstAttribute="leading" secondItem="JDu-zr-f28" secondAttribute="leading" id="h4V-FH-1Mo"/>
                                     <constraint firstItem="Ruv-9Z-GeO" firstAttribute="leading" secondItem="JDu-zr-f28" secondAttribute="leading" id="mbn-WH-pbg"/>
                                     <constraint firstItem="qY8-ug-Nlu" firstAttribute="top" secondItem="Y8X-21-xQM" secondAttribute="bottom" constant="40" id="qac-oP-Y3D"/>
@@ -118,10 +122,12 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="displayNameTextField" destination="Y8X-21-xQM" id="NUB-ED-cyw"/>
+                        <outlet property="emailTextField" destination="San-it-z9u" id="HgE-yd-yYx"/>
                         <outlet property="errorMessageLabel" destination="bAy-R5-JrA" id="34g-Rq-7Db"/>
+                        <outlet property="formActionSegmentedControl" destination="KHd-4r-Hgc" id="14X-Nb-t9A"/>
                         <outlet property="passwordTextField" destination="Xa2-nd-Uii" id="A1T-CL-wfr"/>
-                        <outlet property="roomNameTextField" destination="Y8X-21-xQM" id="NUB-ED-cyw"/>
-                        <outlet property="usernameTextField" destination="San-it-z9u" id="HgE-yd-yYx"/>
+                        <outlet property="submitButton" destination="qY8-ug-Nlu" id="CuO-P5-bIb"/>
                         <segue destination="xpk-89-NAa" kind="presentation" identifier="goToDoodle" modalPresentationStyle="fullScreen" id="HKX-Ye-jLh"/>
                     </connections>
                 </viewController>

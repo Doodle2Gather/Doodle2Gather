@@ -25,7 +25,6 @@ class FirebaseAuthProvider: DTAbstractAuthProvider {
     func signUp(email: String, password: String, displayName: String) {
       Auth.auth().createUser(withEmail: email, password: password) { _, error in
         guard error == nil else {
-            print(error)
             self.delegate?.displayError(error!)
             return
         }
