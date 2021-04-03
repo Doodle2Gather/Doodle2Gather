@@ -239,6 +239,7 @@
 				2ED629852618FFE6009F92D0 /* Agora */,
 				2ED6297E2618FEEB009F92D0 /* Chat */,
 				2ED629822618FFD6009F92D0 /* Doodling */,
+				670136A226063906005E327A /* WebSocket */,
 			);
 			path = Adapters;
 			sourceTree = "<group>";
@@ -493,7 +494,6 @@
 			isa = PBXGroup;
 			children = (
 				832607EC26145D3900B90F25 /* Utils */,
-				670136A226063906005E327A /* WebSocket */,
 				84B17FFA2601C5B5009530A0 /* Constants */,
 				2EF0E51B26096B490008184D /* Views */,
 			);
