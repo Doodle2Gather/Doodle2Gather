@@ -258,7 +258,7 @@
                                                     <constraint firstAttribute="height" constant="40" id="Wqd-nz-xT3"/>
                                                 </constraints>
                                                 <inset key="imageEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
-                                                <state key="normal" image="eraser"/>
+                                                <state key="normal" image="Eraser"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                         <integer key="value" value="20"/>
@@ -602,8 +602,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Eraser" width="24" height="24"/>
         <image name="chevron.backward" catalog="system" width="96" height="128"/>
-        <image name="eraser" width="480.00100708007812" height="480.00100708007812"/>
         <image name="highlighter" catalog="system" width="128" height="119"/>
         <image name="message.fill" catalog="system" width="128" height="113"/>
         <image name="mic.fill" catalog="system" width="108" height="128"/>
