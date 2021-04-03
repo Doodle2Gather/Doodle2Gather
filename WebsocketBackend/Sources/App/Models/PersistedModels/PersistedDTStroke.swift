@@ -18,7 +18,7 @@ final class PersistedDTStroke: Model, Content {
 
     init() { }
 
-    init(roomId: UUID, strokeData: Data, createdBy: UUID, id: UUID? = nil) {
+    init(strokeData: Data, roomId: UUID, createdBy: UUID, id: UUID? = nil) {
         self.roomId = roomId
         self.strokeData = strokeData
         self.createdBy = createdBy

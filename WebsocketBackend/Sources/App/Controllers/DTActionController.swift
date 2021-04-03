@@ -4,7 +4,14 @@ import DoodlingAdaptedLibrary
 
 struct DTActionController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
-//      routes.on(Endpoints.Acroynms.getAll, use: getAllHandler)
+        routes.on(Endpoints.Action.getAll, use: getAllHandler)
+    }
+    
+    func getAllHandler(req: Request) -> EventLoopFuture<[DTAdaptedAction]> {
+        PersistedDTAction.getAll(on: req.db)
+            .flatMapThrowing { actions in
+                actions.map(DTAdaptedAction.init)
+            }
     }
 }
 
