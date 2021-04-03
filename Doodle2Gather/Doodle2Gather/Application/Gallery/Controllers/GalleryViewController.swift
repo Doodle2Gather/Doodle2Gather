@@ -25,6 +25,27 @@ class GalleryViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == SegueConstants.toNewDocument {
+            guard let vc = segue.destination as? NewDocumentViewController else {
+                return
+            }
+            vc.createDocumentCallback = { title in
+                let match = self.rooms.first { room -> Bool in
+                    room.roomName == title
+                }
+                if match != nil {
+                    print("The name is already taken.")
+                    return CreateDocumentStatus.duplicatedName
+                } else {
+                    self.rooms.append(Room(roomId: UUID(), roomName: title))
+                    self.collectionView.reloadData()
+                    return CreateDocumentStatus.success
+                }
+            }
+        }
+    }
+
     @IBAction private func didTapAdd(_ sender: Any) {
         rooms.append(Room(roomId: UUID(), roomName: "Room \(count)"))
         count += 1
