@@ -87,7 +87,7 @@ class WebSocketController {
     }
 
     func onNewAction(_ ws: WebSocket, _ id: UUID, _ message: DTInitiateActionMessage) {
-        let action = message.makeAdaptedAction().makePersistedAction()
+        let action = message.action.makePersistedAction()
         self.db.withConnection {
             action.save(on: $0)
         }.whenComplete { res in
@@ -144,10 +144,8 @@ class WebSocketController {
             success: success,
             message: message,
             id: action.requireID(),
-            roomId: action.roomId,
-            strokesAdded: action.strokesAdded,
-            strokesRemoved: action.strokesRemoved,
-            createdAt: action.createdAt
+            createdAt: action.createdAt,
+            action: DTAdaptedAction(action: action)
         ), to: sendOptions)
     }
 
@@ -158,10 +156,8 @@ class WebSocketController {
             success: success,
             message: message,
             id: action.requireID(),
-            roomId: action.roomId,
-            strokesAdded: action.strokesAdded,
-            strokesRemoved: action.strokesRemoved,
-            createdAt: action.createdAt
+            createdAt: action.createdAt,
+            action: DTAdaptedAction(action: action)
         ), to: [sendOption])
     }
 }
