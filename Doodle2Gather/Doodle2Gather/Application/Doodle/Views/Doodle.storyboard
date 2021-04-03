@@ -501,9 +501,6 @@
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                 <state key="normal" image="message.fill" catalog="system"/>
-                                                <connections>
-                                                    <segue destination="J9c-hq-3ed" kind="presentation" identifier="toChat" id="jjd-H4-1ww"/>
-                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yDB-Q3-4ya" userLabel="Video Button">
                                                 <rect key="frame" x="50" y="0.0" width="40" height="40"/>
@@ -578,6 +575,7 @@
                         <outlet property="chatButton" destination="mmL-ay-rCs" id="eQn-nO-h29"/>
                         <outlet property="collectionView" destination="Bxd-CB-wII" id="oSa-98-sii"/>
                         <outlet property="videoButton" destination="yDB-Q3-4ya" id="uc5-9l-a18"/>
+                        <segue destination="FT6-le-Vhl" kind="presentation" identifier="toChat" id="vCF-Oq-8oU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7qd-xc-JKb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -682,44 +680,13 @@
             </objects>
             <point key="canvasLocation" x="829.49640287769785" y="783.91959798994981"/>
         </scene>
-        <!--Chat-->
-        <scene sceneID="JwE-Yx-emj">
+        <!--ChatNavigation-->
+        <scene sceneID="F9Q-IA-Pim">
             <objects>
-                <viewController providesPresentationContextTransitionStyle="YES" id="Y1u-lB-jaG" customClass="ChatViewController" customModule="Doodle2Gather" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="BFt-T2-OBM">
-                        <rect key="frame" x="0.0" y="0.0" width="704" height="995.5"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="kGZ-tW-Jla"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Chat" largeTitleDisplayMode="never" id="J3r-ox-QDF">
-                        <barButtonItem key="backBarButtonItem" title="Close" id="O7c-us-0kn"/>
-                        <barButtonItem key="leftBarButtonItem" title="Close" id="osI-lR-6MO">
-                            <connections>
-                                <action selector="didTapClose:" destination="Y1u-lB-jaG" id="Bof-KB-apk"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dPj-ZZ-zFx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardName="Chat" referencedIdentifier="ChatNavigation" id="FT6-le-Vhl" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wPO-Im-GmS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="119" y="2079"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="NN2-wU-Mzk">
-            <objects>
-                <navigationController id="J9c-hq-3ed" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="MXT-1c-aqf">
-                        <rect key="frame" x="0.0" y="0.0" width="704" height="56"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="Y1u-lB-jaG" kind="relationship" relationship="rootViewController" id="17i-J9-IqA"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5rK-Ka-Yrs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="119" y="1442"/>
+            <point key="canvasLocation" x="119" y="1248"/>
         </scene>
     </scenes>
     <resources>
