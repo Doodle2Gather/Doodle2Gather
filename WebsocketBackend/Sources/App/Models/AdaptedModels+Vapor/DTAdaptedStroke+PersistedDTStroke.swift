@@ -17,6 +17,12 @@ extension DTAdaptedStroke {
             createdBy: createdBy
         )
     }
+    
+    func isSameStroke(as persisted: PersistedDTStroke) -> Bool {
+        stroke == persisted.strokeData &&
+            roomId == persisted.roomId &&
+            createdBy == persisted.createdBy
+    }
 }
 
 // MARK: - Content

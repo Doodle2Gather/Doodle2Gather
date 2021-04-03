@@ -6,15 +6,22 @@ public struct DTActionFeedbackMessage: Codable, Comparable {
     public let message: String
     public let id: UUID?
     public let createdAt: Date?
-    public let action: DTAdaptedAction
+    public let orginalAction: DTAdaptedAction
+    public let actionToTake: DTAdaptedAction?
     
-    public init(success: Bool, message: String, id: UUID?, createdAt: Date?,
+    public init(success: Bool, message: String,
+                id: UUID?, createdAt: Date?,
                 action: DTAdaptedAction) {
         self.success = success
         self.message = message
         self.id = id
         self.createdAt = createdAt
-        self.action = action
+        self.orginalAction = action
+        if success {
+            actionToTake = nil
+        } else {
+            actionToTake = action.reverse()
+        }
     }
 
     public static func < (lhs: DTActionFeedbackMessage, rhs: DTActionFeedbackMessage) -> Bool {
