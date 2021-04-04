@@ -747,7 +747,7 @@
                                                     <constraint firstAttribute="width" constant="40" id="8mR-ka-RxT"/>
                                                     <constraint firstAttribute="height" constant="60" id="PTZ-bB-ztK"/>
                                                 </constraints>
-                                                <state key="normal" image="SoundOn"/>
+                                                <state key="normal" image="SoundOff_Red"/>
                                                 <state key="selected" image="SoundOff_Red"/>
                                                 <connections>
                                                     <action selector="didToggleAudio:" destination="iqH-RH-LvU" eventType="touchUpInside" id="GOP-mD-z10"/>
@@ -759,7 +759,7 @@
                                                     <constraint firstAttribute="width" constant="40" id="ef9-hn-lfI"/>
                                                     <constraint firstAttribute="height" constant="60" id="yH5-iU-BGb"/>
                                                 </constraints>
-                                                <state key="normal" image="VideoOn"/>
+                                                <state key="normal" image="VideoOff_Red"/>
                                                 <state key="selected" image="VideoOff_Red"/>
                                                 <connections>
                                                     <action selector="didToggleVideo:" destination="iqH-RH-LvU" eventType="touchUpInside" id="cL9-NY-3n5"/>
@@ -850,41 +850,17 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WAR-cP-F2I">
-                                <rect key="frame" x="622" y="1064" width="200" height="40"/>
-                                <color key="backgroundColor" name="Black"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="32Z-dP-Jud"/>
-                                    <constraint firstAttribute="width" constant="200" id="Ohd-C1-NWl"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <real key="value" value="20"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
-                                        <real key="value" value="20"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
-                                        <size key="value" width="0.0" height="0.0"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
-                                        <real key="value" value="0.40000000000000002"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vck-bI-o3u"/>
                         <constraints>
                             <constraint firstItem="Bxd-CB-wII" firstAttribute="bottom" secondItem="vck-bI-o3u" secondAttribute="bottom" constant="-120" id="0hh-7n-4s0"/>
                             <constraint firstItem="Bxd-CB-wII" firstAttribute="trailing" secondItem="vck-bI-o3u" secondAttribute="trailing" constant="-12" id="3e2-bG-Hms"/>
-                            <constraint firstItem="vck-bI-o3u" firstAttribute="trailing" secondItem="WAR-cP-F2I" secondAttribute="trailing" constant="12" id="IP3-FT-75z"/>
                             <constraint firstItem="xWj-qC-1ia" firstAttribute="bottom" secondItem="vck-bI-o3u" secondAttribute="bottom" constant="-12" id="h7c-4g-pJF"/>
                             <constraint firstItem="Bxd-CB-wII" firstAttribute="top" secondItem="vck-bI-o3u" secondAttribute="top" constant="132" id="jhw-us-uLV"/>
                             <constraint firstItem="xWj-qC-1ia" firstAttribute="leading" secondItem="vck-bI-o3u" secondAttribute="leading" constant="12" id="mzw-G9-1oN"/>
                             <constraint firstItem="Bxd-CB-wII" firstAttribute="top" secondItem="hzX-Ab-qkC" secondAttribute="bottom" constant="10" id="p7x-NB-1TW"/>
                             <constraint firstItem="vck-bI-o3u" firstAttribute="trailing" secondItem="hzX-Ab-qkC" secondAttribute="trailing" constant="12" id="q4V-1e-bIQ"/>
                             <constraint firstItem="hzX-Ab-qkC" firstAttribute="top" secondItem="vck-bI-o3u" secondAttribute="top" constant="82" id="sMV-2t-zCe"/>
-                            <constraint firstItem="WAR-cP-F2I" firstAttribute="top" secondItem="Bxd-CB-wII" secondAttribute="bottom" constant="10" id="xkh-5V-saS"/>
                         </constraints>
                     </view>
                     <connections>
@@ -941,7 +917,6 @@
         <image name="Shapes" width="24" height="24"/>
         <image name="Shapes_Yellow" width="24" height="24"/>
         <image name="SoundOff_Red" width="24" height="24"/>
-        <image name="SoundOn" width="24" height="24"/>
         <image name="StopButton_Red" width="24" height="24"/>
         <image name="Text" width="24" height="24"/>
         <image name="Text_Yellow" width="24" height="24"/>
@@ -950,7 +925,6 @@
         <image name="UserAdd" width="24" height="24"/>
         <image name="Users" width="24" height="24"/>
         <image name="VideoOff_Red" width="24" height="24"/>
-        <image name="VideoOn" width="24" height="24"/>
         <namedColor name="Black">
             <color red="0.125" green="0.125" blue="0.11400000005960464" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

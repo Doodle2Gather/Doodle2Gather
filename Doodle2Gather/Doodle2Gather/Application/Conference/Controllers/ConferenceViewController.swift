@@ -12,8 +12,8 @@ class ConferenceViewController: UIViewController {
     var chatBox: ChatBoxDelegate?
     var remoteUserIDs: [UInt] = []
     lazy var chatList = [Message]()
-    var isMuted = false
-    var isVideoOff = false
+    var isMuted = true
+    var isVideoOff = true
     var isChatShown = false
     private var videoOverlays = [UIView]()
 
@@ -25,6 +25,9 @@ class ConferenceViewController: UIViewController {
         videoEngine?.joinChannel(channelName: "testing")
         chatEngine = AgoraChatEngine()
         chatEngine?.initialize()
+        
+        videoEngine?.muteAudio()
+        videoEngine?.hideVideo()
     }
 
     @IBAction private func didToggleAudio(_ sender: Any) {
