@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rZI-TI-AZo">
-    <device id="ipad11_0rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
@@ -15,22 +14,22 @@
             <objects>
                 <viewController storyboardIdentifier="Doodle" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rZI-TI-AZo" customClass="DoodleViewController" customModule="Doodle2Gather" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Rvn-Q8-Irn">
-                        <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CRw-tT-Mu5" userLabel="Canvas Container View">
-                                <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <connections>
                                     <segue destination="rKz-2I-ekB" kind="embed" identifier="ToCanvas" id="h1y-4w-gMZ"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2v7-Hc-qJ9" userLabel="Video Overlay View" customClass="SubviewTouchView" customModule="Doodle2Gather" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="834" height="1174"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <connections>
                                     <segue destination="iqH-RH-LvU" kind="embed" identifier="" id="LHe-b8-q2G"/>
                                 </connections>
                             </containerView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lOM-bA-4te" userLabel="File Name View" customClass="SidebarView" customModule="Doodle2Gather" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lOM-bA-4te" userLabel="File Name View" customClass="BorderedShadowedView" customModule="Doodle2Gather" customModuleProvider="target">
                                 <rect key="frame" x="12" y="12" width="337.5" height="60"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xPu-xR-t4a">
@@ -126,7 +125,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pn5-xG-qj1" userLabel="Undo Redo View" customClass="SidebarView" customModule="Doodle2Gather" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pn5-xG-qj1" userLabel="Undo Redo View" customClass="BorderedShadowedView" customModule="Doodle2Gather" customModuleProvider="target">
                                 <rect key="frame" x="359.5" y="12" width="122" height="60"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="SRL-CW-Mem">
@@ -186,8 +185,8 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Xj-kh-aUN" userLabel="Left Auxiliary Buttons View" customClass="SidebarView" customModule="Doodle2Gather" customModuleProvider="target">
-                                <rect key="frame" x="82" y="449.5" width="60" height="295"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Xj-kh-aUN" userLabel="Left Auxiliary Buttons View" customClass="BorderedShadowedView" customModule="Doodle2Gather" customModuleProvider="target">
+                                <rect key="frame" x="82" y="152.5" width="60" height="295"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="a3W-PN-KVs" userLabel="Button Stack">
                                         <rect key="frame" x="10" y="10" width="40" height="270"/>
@@ -281,7 +280,7 @@
                                                     <constraint firstAttribute="width" constant="40" id="wvl-gz-hCe"/>
                                                 </constraints>
                                             </imageView>
-                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oC8-y8-xh8" userLabel="Color Picker Wrapper" customClass="SidebarView" customModule="Doodle2Gather" customModuleProvider="target">
+                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oC8-y8-xh8" userLabel="Color Picker Wrapper" customClass="BorderedShadowedView" customModule="Doodle2Gather" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="230" width="40" height="40"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lS9-7Y-8ju" userLabel="Color Picker Button">
@@ -349,8 +348,8 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HdL-Pj-pPB" userLabel="Left Buttons View" customClass="SidebarView" customModule="Doodle2Gather" customModuleProvider="target">
-                                <rect key="frame" x="12" y="467" width="60" height="260"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HdL-Pj-pPB" userLabel="Left Buttons View" customClass="BorderedShadowedView" customModule="Doodle2Gather" customModuleProvider="target">
+                                <rect key="frame" x="12" y="170" width="60" height="260"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Pqb-uy-IVC" userLabel="Button Stack">
                                         <rect key="frame" x="0.0" y="10" width="60" height="240"/>
@@ -449,13 +448,13 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gvt-x0-wpX" userLabel="Profile Images View" customClass="SidebarView" customModule="Doodle2Gather" customModuleProvider="target">
-                                <rect key="frame" x="586" y="12" width="236" height="60"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gvt-x0-wpX" userLabel="Profile Images View" customClass="BorderedShadowedView" customModule="Doodle2Gather" customModuleProvider="target">
+                                <rect key="frame" x="352" y="12" width="236" height="60"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="DwN-FB-eIE">
                                         <rect key="frame" x="20" y="10" width="196" height="40"/>
                                         <subviews>
-                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SoV-Ay-oR6" customClass="SidebarView" customModule="Doodle2Gather" customModuleProvider="target">
+                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SoV-Ay-oR6" customClass="BorderedShadowedView" customModule="Doodle2Gather" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DOs-uP-8SE" userLabel="Profile Image">
@@ -496,7 +495,7 @@
                                                     <constraint firstAttribute="height" constant="40" id="Naz-LH-mwp"/>
                                                 </constraints>
                                             </imageView>
-                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JAh-bo-Bro" userLabel="Other Profile Image 1" customClass="SidebarView" customModule="Doodle2Gather" customModuleProvider="target">
+                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JAh-bo-Bro" userLabel="Other Profile Image 1" customClass="BorderedShadowedView" customModule="Doodle2Gather" customModuleProvider="target">
                                                 <rect key="frame" x="62" y="0.0" width="40" height="40"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XbA-gD-b0Z" userLabel="Other Profile Image 1">
@@ -527,7 +526,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f9d-U5-BFs" userLabel="Other Profile Image 2" customClass="SidebarView" customModule="Doodle2Gather" customModuleProvider="target">
+                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f9d-U5-BFs" userLabel="Other Profile Image 2" customClass="BorderedShadowedView" customModule="Doodle2Gather" customModuleProvider="target">
                                                 <rect key="frame" x="109" y="0.0" width="40" height="40"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uLN-OJ-qat" userLabel="Other Profile Image 2">
@@ -558,7 +557,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pXC-0B-LfL" userLabel="+1" customClass="SidebarView" customModule="Doodle2Gather" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pXC-0B-LfL" userLabel="+1" customClass="BorderedShadowedView" customModule="Doodle2Gather" customModuleProvider="target">
                                                 <rect key="frame" x="156" y="0.0" width="40" height="40"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NMb-rO-KfU">
@@ -614,8 +613,8 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Il3-8X-YYt" userLabel="Canvas Info View" customClass="SidebarView" customModule="Doodle2Gather" customModuleProvider="target">
-                                <rect key="frame" x="702" y="1102" width="120" height="60"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Il3-8X-YYt" userLabel="Canvas Info View" customClass="BorderedShadowedView" customModule="Doodle2Gather" customModuleProvider="target">
+                                <rect key="frame" x="468" y="528" width="120" height="60"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="cIR-fM-baY">
                                         <rect key="frame" x="15" y="10" width="95" height="40"/>
@@ -762,7 +761,7 @@
                                     <outlet property="delegate" destination="iqH-RH-LvU" id="hgb-Jl-RkM"/>
                                 </connections>
                             </collectionView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xWj-qC-1ia" userLabel="Bottom Buttons View" customClass="SidebarView" customModule="Doodle2Gather" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xWj-qC-1ia" userLabel="Bottom Buttons View" customClass="BorderedShadowedView" customModule="Doodle2Gather" customModuleProvider="target">
                                 <rect key="frame" x="12" y="1102" width="460" height="60"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="vRG-Cw-GCR" userLabel="Button Stack">

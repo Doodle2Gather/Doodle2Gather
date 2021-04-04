@@ -1,10 +1,9 @@
 import UIKit
 
 @IBDesignable
-class SidebarView: UIView {
+class BorderedShadowedView: UIView {
 
-    @IBInspectable
-    var borderColor: UIColor? {
+    @IBInspectable var borderColor: UIColor? {
         get {
             UIColor(cgColor: layer.borderColor!)
         }
@@ -13,8 +12,7 @@ class SidebarView: UIView {
         }
     }
 
-    @IBInspectable
-    var borderWidth: CGFloat {
+    @IBInspectable var borderWidth: CGFloat {
         get {
             layer.borderWidth
         }
@@ -23,8 +21,7 @@ class SidebarView: UIView {
         }
     }
 
-    @IBInspectable
-    var cornerRadius: CGFloat {
+    @IBInspectable var cornerRadius: CGFloat {
         get {
             layer.cornerRadius
         }
@@ -33,8 +30,7 @@ class SidebarView: UIView {
         }
     }
 
-    @IBInspectable
-    var shadowRadius: CGFloat {
+    @IBInspectable var shadowRadius: CGFloat {
         get {
             layer.shadowRadius
         }
@@ -43,8 +39,7 @@ class SidebarView: UIView {
         }
     }
 
-    @IBInspectable
-    var shadowOffset: CGSize {
+    @IBInspectable var shadowOffset: CGSize {
         get {
             layer.shadowOffset
         }
@@ -53,8 +48,7 @@ class SidebarView: UIView {
         }
     }
 
-    @IBInspectable
-    var shadowColor: UIColor {
+    @IBInspectable var shadowColor: UIColor {
         get {
             UIColor(cgColor: layer.shadowColor!)
         }
@@ -63,8 +57,7 @@ class SidebarView: UIView {
         }
     }
 
-    @IBInspectable
-    var shadowOpacity: Float {
+    @IBInspectable var shadowOpacity: Float {
         get {
             layer.shadowOpacity
         }
