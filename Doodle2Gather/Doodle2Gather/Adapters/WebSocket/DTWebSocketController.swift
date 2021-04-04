@@ -11,17 +11,13 @@ final class DTWebSocketController {
     private let decoder = JSONDecoder()
     private let encoder = JSONEncoder()
 
-    /// Keeps check the number of messages received between the device initiates a new action and
-    /// it receives the feedback message of that action from the server
-    private static var potentialConflictMessageCount = 0
-
     init() {
         self.session = URLSession(configuration: .default)
         self.connect()
     }
 
     func connect() {
-        self.socket = session.webSocketTask(with: URL(string: ApiEndpoints.localRoom)!)
+        self.socket = session.webSocketTask(with: URL(string: ApiEndpoints.Room)!) // change to localRoom for testing
         self.socket.maximumMessageSize = Int.max
         self.listen()
         self.socket.resume()
@@ -64,8 +60,9 @@ final class DTWebSocketController {
             case .actionFeedback:
                 try self.handleActionFeedback(data)
             case .dispatchAction:
-                DTWebSocketController.potentialConflictMessageCount += 1
                 try self.handleDispatchedAction(data)
+            case .clearDrawing:
+                try self.handleClearDrawing(data)
             default:
                 break
             }
@@ -89,8 +86,8 @@ final class DTWebSocketController {
                 )
                 let histories = feedback.actionHistories.map {
                     DTAction(action: $0)
-                }.prefix(DTWebSocketController.potentialConflictMessageCount)
-                self.delegate?.handleConflict(action, histories: Array(histories))
+                }
+                self.delegate?.handleConflict(action, histories: histories)
             }
         }
     }
@@ -109,6 +106,14 @@ final class DTWebSocketController {
             }
         }
     }
+
+    func handleClearDrawing(_ data: Data) throws {
+        // let action = try decoder.decode(DTClearDrawingMessage.self, from: data)
+        DispatchQueue.main.async {
+            // TODO: clearDrawing for roomId
+            self.delegate?.clearDrawing()
+        }
+    }
 }
 
 // MARK: - SocketController
@@ -124,9 +129,25 @@ extension DTWebSocketController: SocketController {
             strokesAdded: action.strokesAdded,
             strokesRemoved: action.strokesRemoved,
             id: id,
-            roomId: UUID())
+            roomId: UUID()) // TODO: change to roomId
         do {
-            DTWebSocketController.potentialConflictMessageCount = 0
+            let data = try encoder.encode(message)
+            self.socket.send(.data(data)) { err in
+                if err != nil {
+                    DTLogger.error(err.debugDescription)
+                }
+            }
+        } catch {
+            DTLogger.error(error.localizedDescription)
+        }
+    }
+
+    func clearDrawing() {
+        DTLogger.info("clear drawing")
+        let message = DTClearDrawingMessage(
+            id: id,
+            roomId: UUID()) // TODO: change to roomId
+        do {
             let data = try encoder.encode(message)
             self.socket.send(.data(data)) { err in
                 if err != nil {
