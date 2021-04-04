@@ -136,8 +136,12 @@ extension DTCanvasViewController: CanvasController {
         canvasView.setTool(.pencil)
     }
 
-    func setMarkerTool() {
-        canvasView.setTool(.marker)
+    func setHighlighterTool() {
+        canvasView.setTool(.highlighter)
+    }
+
+    func setMagicPenTool() {
+        // TODO: Add stroke adjustment functionality
     }
 
     func setColor(_ color: UIColor) {
