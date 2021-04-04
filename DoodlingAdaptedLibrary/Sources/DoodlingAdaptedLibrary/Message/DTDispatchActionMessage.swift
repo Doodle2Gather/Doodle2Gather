@@ -7,7 +7,7 @@ public struct DTDispatchActionMessage: Codable, Comparable {
     public let id: UUID?
     public let createdAt: Date?
     public let action: DTAdaptedAction
-    
+
     public init(success: Bool, message: String, id: UUID?, createdAt: Date?,
                 action: DTAdaptedAction) {
         self.success = success

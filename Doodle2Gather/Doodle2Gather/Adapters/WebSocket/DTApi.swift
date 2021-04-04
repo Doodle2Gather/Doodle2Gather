@@ -47,7 +47,7 @@ extension DTApi {
     // Overload when no `InputModel` is required.
     static func perform<OutputModel>(
         _ routeDefinition: Endpoints.RouteDefinition,
-        pathParameters: [Endpoints.RouteDefinition.PathParameter: String] = [:],
+        pathParameters: [Endpoints.PathParameter: String] = [:],
         completion: ((DTApiResult<OutputModel>) -> Void)? = nil
     ) where OutputModel: Codable {
         perform(
@@ -60,7 +60,7 @@ extension DTApi {
 
     static func perform<InputModel, OutputModel>(
         _ routeDefinition: Endpoints.RouteDefinition,
-        pathParameters: [Endpoints.RouteDefinition.PathParameter: String] = [:],
+        pathParameters: [Endpoints.PathParameter: String] = [:],
         send: InputModel? = nil,
         completion: ((DTApiResult<OutputModel>) -> Void)? = nil
     ) where InputModel: Codable, OutputModel: Codable {

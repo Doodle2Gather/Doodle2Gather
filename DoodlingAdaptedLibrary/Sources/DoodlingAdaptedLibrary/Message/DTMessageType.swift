@@ -5,7 +5,7 @@ public enum DTMessageType: String, Codable {
     case initiateAction, clearDrawing
     // Server to client types
     case handshake, actionFeedback, dispatchAction
-    
+
     case drawing
 }
 

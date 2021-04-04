@@ -1,9 +1,9 @@
 import XCTest
 
-#if !canImport(ObjectiveC)
-public func allTests() -> [XCTestCaseEntry] {
-    return [
-        testCase(DoodlingAdaptedLibraryTests.allTests),
+ #if !canImport(ObjectiveC)
+ public func allTests() -> [XCTestCaseEntry] {
+    [
+//        testCase(DoodlingAdaptedLibraryTests.allTests)
     ]
-}
-#endif
+ }
+ #endif

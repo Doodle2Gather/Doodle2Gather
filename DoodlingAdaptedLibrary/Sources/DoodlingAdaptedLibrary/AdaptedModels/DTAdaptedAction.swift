@@ -13,7 +13,7 @@ public struct DTAdaptedAction: Codable {
         self.roomId = roomId
         self.createdBy = createdBy
     }
-    
+
     public func makeStrokesAdded() -> Set<DTAdaptedStroke> {
         var strokes = Set<DTAdaptedStroke>()
         for stroke in strokesAdded {
@@ -25,7 +25,7 @@ public struct DTAdaptedAction: Codable {
         }
         return strokes
     }
-    
+
     public func makeStrokesRemoved() -> Set<DTAdaptedStroke> {
         var strokes = Set<DTAdaptedStroke>()
         for stroke in strokesRemoved {
@@ -37,7 +37,7 @@ public struct DTAdaptedAction: Codable {
         }
         return strokes
     }
-    
+
     func reverse() -> DTAdaptedAction {
         DTAdaptedAction(
             strokesAdded: strokesRemoved,
