@@ -1,5 +1,5 @@
 import PencilKit
-import DoodlingLibrary
+import DTFrontendLibrary
 
 extension PKStroke: DTStroke {
 

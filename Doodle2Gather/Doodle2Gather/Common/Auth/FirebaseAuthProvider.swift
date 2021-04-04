@@ -1,5 +1,5 @@
 import Firebase
-import DoodlingLibrary
+import DTFrontendLibrary
 
 class FirebaseAuthProvider: DTAbstractAuthProvider {
 

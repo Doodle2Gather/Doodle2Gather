@@ -1,4 +1,5 @@
 import Foundation
+import DTSharedLibrary
 
 final class DTWebSocketController {
 
@@ -16,7 +17,7 @@ final class DTWebSocketController {
     }
 
     func connect() {
-        self.socket = session.webSocketTask(with: URL(string: ApiEndpoints.Room)!)
+        self.socket = session.webSocketTask(with: URL(string: ApiEndpoints.Room)!) // change to localRoom for testing
         self.socket.maximumMessageSize = Int.max
         self.listen()
         self.socket.resume()
@@ -50,14 +51,18 @@ final class DTWebSocketController {
 
     func handle(_ data: Data) {
         do {
-            let decodedData = try decoder.decode(DoodleActionMessageData.self, from: data)
+            let decodedData = try decoder.decode(DTMessage.self, from: data)
             switch decodedData.type {
             case .handshake:
                 DTLogger.event("Shook the hand")
-                let message = try decoder.decode(DoodleActionHandShake.self, from: data)
+                let message = try decoder.decode(DTHandshake.self, from: data)
                 self.id = message.id
-            case .feedback:
-                try self.handleNewActionFeedback(data)
+            case .actionFeedback:
+                try self.handleActionFeedback(data)
+            case .dispatchAction:
+                try self.handleDispatchedAction(data)
+            case .clearDrawing:
+                try self.handleClearDrawing(data)
             default:
                 break
             }
@@ -66,19 +71,49 @@ final class DTWebSocketController {
         }
     }
 
-    func handleNewActionFeedback(_ data: Data) throws {
-        let feedback = try decoder.decode(NewDoodleActionFeedback.self, from: data)
+    func handleActionFeedback(_ data: Data) throws {
+        // TODO: yet to be tested.
+        let feedback = try decoder.decode(DTActionFeedbackMessage.self, from: data)
         DispatchQueue.main.async {
-            // TODO: refactor unhappy path to be at the top
-            if feedback.success, feedback.id != nil {
-                let action = DTAction(strokesAdded: feedback.strokesAdded, strokesRemoved: feedback.strokesRemoved)
-                self.delegate?.dispatchAction(action)
-            } else {
+            if !feedback.success || feedback.id == nil {
                 DTLogger.error(feedback.message)
+                return
+            }
+
+            if feedback.isActionDenied, let revertAction = feedback.undoAction {
+                let action = DTAction(
+                    action: revertAction
+                )
+                let histories = feedback.actionHistories.map {
+                    DTAction(action: $0)
+                }
+                self.delegate?.handleConflict(action, histories: histories)
             }
         }
     }
 
+    func handleDispatchedAction(_ data: Data) throws {
+        let dispatch = try decoder.decode(DTDispatchActionMessage.self, from: data)
+        DispatchQueue.main.async {
+            // TODO: refactor unhappy path to be at the top
+            if dispatch.success, dispatch.id != nil {
+                let action = DTAction(
+                    action: dispatch.action
+                )
+                self.delegate?.dispatchAction(action)
+            } else {
+                DTLogger.error(dispatch.message)
+            }
+        }
+    }
+
+    func handleClearDrawing(_ data: Data) throws {
+        // let action = try decoder.decode(DTClearDrawingMessage.self, from: data)
+        DispatchQueue.main.async {
+            // TODO: clearDrawing for roomId
+            self.delegate?.clearDrawing()
+        }
+    }
 }
 
 // MARK: - SocketController
@@ -90,8 +125,28 @@ extension DTWebSocketController: SocketController {
             return
         }
         DTLogger.info("adding action")
-        let message = NewDoodleActionMessage(
-            id: id, strokesAdded: action.strokesAdded, strokesRemoved: action.strokesRemoved)
+        let message = DTInitiateActionMessage(
+            strokesAdded: action.strokesAdded,
+            strokesRemoved: action.strokesRemoved,
+            id: id,
+            roomId: UUID()) // TODO: change to roomId
+        do {
+            let data = try encoder.encode(message)
+            self.socket.send(.data(data)) { err in
+                if err != nil {
+                    DTLogger.error(err.debugDescription)
+                }
+            }
+        } catch {
+            DTLogger.error(error.localizedDescription)
+        }
+    }
+
+    func clearDrawing() {
+        DTLogger.info("clear drawing")
+        let message = DTClearDrawingMessage(
+            id: id,
+            roomId: UUID()) // TODO: change to roomId
         do {
             let data = try encoder.encode(message)
             self.socket.send(.data(data)) { err in

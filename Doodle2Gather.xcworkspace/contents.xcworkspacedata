@@ -5,13 +5,13 @@
       location = "group:Doodle2Gather/Doodle2Gather.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:DoodlingLibrary/DoodlingLibrary.xcodeproj">
+      location = "group:DTFrontendLibrary/DTFrontendLibrary.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:DoodleAutomerge/DoodleAutomerge.xcodeproj">
+      location = "group:DTSharedLibrary">
    </FileRef>
    <FileRef
-      location = "group:WebsocketBackend">
+      location = "group:DTBackend">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

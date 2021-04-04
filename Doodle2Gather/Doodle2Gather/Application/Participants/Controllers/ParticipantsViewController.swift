@@ -1,5 +1,5 @@
 import UIKit
-import DoodlingLibrary
+import DTFrontendLibrary
 
 class ParticipantsViewController: UIViewController {
 

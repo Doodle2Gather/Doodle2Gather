@@ -1,5 +1,5 @@
 import UIKit
-import DoodlingLibrary
+import DTFrontendLibrary
 
 struct Room: DTRoom {
     var roomId: UUID

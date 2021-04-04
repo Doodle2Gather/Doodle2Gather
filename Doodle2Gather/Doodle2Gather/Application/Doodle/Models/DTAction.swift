@@ -1,13 +1,18 @@
 import Foundation
-import DoodlingLibrary
+import DTFrontendLibrary
+import DTSharedLibrary
 
 struct DTAction {
 
-    /// Encoded strings containing the strokes added or removed.
-    let strokesAdded: String
-    let strokesRemoved: String
+    let strokesAdded: Set<Data>
+    let strokesRemoved: Set<Data>
 
-    init(strokesAdded: String, strokesRemoved: String) {
+    init(action: DTAdaptedAction) {
+        self.strokesAdded = action.strokesAdded
+        self.strokesRemoved = action.strokesRemoved
+    }
+
+    init(strokesAdded: Set<Data>, strokesRemoved: Set<Data>) {
         self.strokesAdded = strokesAdded
         self.strokesRemoved = strokesRemoved
     }
@@ -15,28 +20,49 @@ struct DTAction {
     init?<S: DTStroke>(added: [S], removed: [S]) {
         let encoder = JSONEncoder()
 
-        guard let addedData = try? encoder.encode(added),
-              let removedData = try? encoder.encode(removed),
-              let addedString = String(data: addedData, encoding: .utf8),
-              let removedString = String(data: removedData, encoding: .utf8) else {
-            return nil
+        var addedData = Set<Data>()
+        var removedData = Set<Data>()
+
+        for stroke in added {
+            guard let addedStroke = try? encoder.encode(stroke) else {
+                return nil
+            }
+            addedData.insert(addedStroke)
         }
 
-        strokesAdded = addedString
-        strokesRemoved = removedString
+        for stroke in removed {
+            guard let removedStroke = try? encoder.encode(stroke) else {
+                return nil
+            }
+            removedData.insert(removedStroke)
+        }
+
+        strokesAdded = addedData
+        strokesRemoved = removedData
     }
 
     func getStrokes<S: DTStroke>() -> (added: [S], removed: [S])? {
         let decoder = JSONDecoder()
-        guard let addedData = strokesAdded.data(using: .utf8),
-              let removedData = strokesRemoved.data(using: .utf8),
-              let added = try? decoder.decode([S].self, from: addedData),
-              let removed = try? decoder.decode([S].self, from: removedData) else {
-            return nil
+
+        var added = [S]()
+        var removed = [S]()
+
+        for stroke in strokesAdded {
+            guard let addedStroke = try? decoder.decode(S.self, from: stroke) else {
+                return nil
+            }
+            added.append(addedStroke)
         }
+
+        for stroke in strokesRemoved {
+            guard let removedStroke = try? decoder.decode(S.self, from: stroke) else {
+                return nil
+            }
+            removed.append(removedStroke)
+        }
+
         return (added, removed)
     }
-
 }
 
 // MARK: - Hashable

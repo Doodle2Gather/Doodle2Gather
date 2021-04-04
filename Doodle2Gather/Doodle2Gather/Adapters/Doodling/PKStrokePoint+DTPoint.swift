@@ -1,5 +1,5 @@
 import PencilKit
-import DoodlingLibrary
+import DTFrontendLibrary
 
 extension PKStrokePoint: DTPoint {
     public init<P>(from point: P) where P: DTPoint {
