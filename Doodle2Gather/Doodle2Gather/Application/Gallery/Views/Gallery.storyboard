@@ -109,6 +109,18 @@
                                             <action selector="didTapEdit:" destination="eAr-dz-W2E" eventType="touchUpInside" id="1UK-Dc-XxE"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Doodle2Gather" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dwf-Lu-Am0">
+                                        <rect key="frame" x="30" y="23.5" width="200" height="33.5"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n2X-e2-zw9">
+                                        <rect key="frame" x="365" y="25.5" width="104" height="29"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -116,6 +128,10 @@
                                     <constraint firstItem="pjC-7q-Uei" firstAttribute="leading" secondItem="6Fy-q2-Q8w" secondAttribute="trailing" constant="20" id="3On-uJ-cVA"/>
                                     <constraint firstAttribute="height" constant="80" id="BiD-M6-iax"/>
                                     <constraint firstAttribute="trailing" secondItem="pjC-7q-Uei" secondAttribute="trailing" constant="20" id="KAF-xX-Wf2"/>
+                                    <constraint firstItem="dwf-Lu-Am0" firstAttribute="centerY" secondItem="URB-fD-Vcz" secondAttribute="centerY" id="UhN-Rc-5fN"/>
+                                    <constraint firstItem="dwf-Lu-Am0" firstAttribute="leading" secondItem="URB-fD-Vcz" secondAttribute="leading" constant="30" id="aNC-sf-hg9"/>
+                                    <constraint firstItem="n2X-e2-zw9" firstAttribute="centerX" secondItem="URB-fD-Vcz" secondAttribute="centerX" constant="20" id="gao-TK-bNk"/>
+                                    <constraint firstItem="n2X-e2-zw9" firstAttribute="centerY" secondItem="URB-fD-Vcz" secondAttribute="centerY" id="hcs-WN-lRB"/>
                                     <constraint firstItem="pjC-7q-Uei" firstAttribute="centerY" secondItem="URB-fD-Vcz" secondAttribute="centerY" id="uPg-gW-Ulx"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -149,6 +165,7 @@
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="l49-Pr-3Xp" id="2Sw-YE-joR"/>
+                        <outlet property="welcomeLabel" destination="n2X-e2-zw9" id="rS1-rf-Sot"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1o5-9Q-yuX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
