@@ -128,7 +128,7 @@
                         <outlet property="formActionSegmentedControl" destination="KHd-4r-Hgc" id="14X-Nb-t9A"/>
                         <outlet property="passwordTextField" destination="Xa2-nd-Uii" id="A1T-CL-wfr"/>
                         <outlet property="submitButton" destination="qY8-ug-Nlu" id="CuO-P5-bIb"/>
-                        <segue destination="xpk-89-NAa" kind="presentation" identifier="goToDoodle" modalPresentationStyle="fullScreen" id="HKX-Ye-jLh"/>
+                        <segue destination="xpk-89-NAa" kind="presentation" identifier="toGallery" modalPresentationStyle="fullScreen" id="HKX-Ye-jLh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

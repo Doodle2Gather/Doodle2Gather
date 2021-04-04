@@ -14,16 +14,19 @@ class HomeViewController: UIViewController {
         case register
     }
 
+    let loginButtonText = "LOGIN"
+    let registerButtonText = "REGISTER"
+
     private func updateFormViews() {
         let segment = Segment(rawValue: formActionSegmentedControl.selectedSegmentIndex)
         switch segment {
         case .login:
             displayNameTextField.isHidden = true
-            submitButton.setTitle("LOGIN", for: .normal)
+            submitButton.setTitle(loginButtonText, for: .normal)
             submitButton.backgroundColor = .systemIndigo
         case .register:
             displayNameTextField.isHidden = false
-            submitButton.setTitle("REGISTER", for: .normal)
+            submitButton.setTitle(registerButtonText, for: .normal)
             submitButton.backgroundColor = .systemTeal
         default:
             fatalError("Invalid segment")
@@ -120,7 +123,7 @@ User Logged in
  - Email: \(DTAuth.user?.email ?? "Not found")
 """)
         DispatchQueue.main.async {
-            self.performSegue(withIdentifier: "goToDoodle", sender: self)
+            self.performSegue(withIdentifier: SegueConstants.toGallery, sender: self)
         }
     }
 
