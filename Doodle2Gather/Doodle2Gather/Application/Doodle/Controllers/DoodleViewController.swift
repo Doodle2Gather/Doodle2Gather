@@ -182,6 +182,7 @@ extension DoodleViewController: UIColorPickerViewControllerDelegate {
     /// Updates the selected color every time a selection is made.
     func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
         colorPickerButton.backgroundColor = viewController.selectedColor
+        canvasController?.setColor(viewController.selectedColor)
     }
 
 }

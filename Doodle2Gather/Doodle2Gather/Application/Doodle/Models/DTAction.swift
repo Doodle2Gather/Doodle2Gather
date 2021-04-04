@@ -42,5 +42,4 @@ struct DTAction {
 // MARK: - Hashable
 
 extension DTAction: Hashable {
-
 }

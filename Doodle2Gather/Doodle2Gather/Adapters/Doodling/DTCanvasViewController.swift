@@ -77,19 +77,19 @@ extension DTCanvasViewController: PKCanvasViewDelegate {
         let newStrokesSet = Set(newStrokes)
         let oldStrokesSet = Set(oldStrokes)
 
-        let addedStrokes = newStrokes.filter { !oldStrokesSet.contains($0) }
-        let removedStrokes = oldStrokes.filter { !newStrokesSet.contains($0) }
-
         // No change has occurred and we want to prevent unnecessary propagation.
-        if addedStrokes.isEmpty && removedStrokes.isEmpty {
+        if newStrokesSet == oldStrokesSet {
             return
         }
 
-        previousStrokes = newStrokes
+        let addedStrokes = newStrokes.filter { !oldStrokesSet.contains($0) }
+        let removedStrokes = oldStrokes.filter { !newStrokesSet.contains($0) }
 
         guard let action = DTAction(added: addedStrokes, removed: removedStrokes) else {
             return
         }
+
+        previousStrokes = newStrokes
         delegate?.actionDidFinish(action: action)
     }
 
