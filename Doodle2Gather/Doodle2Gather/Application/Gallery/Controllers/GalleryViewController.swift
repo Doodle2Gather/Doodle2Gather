@@ -8,6 +8,7 @@ struct Room: DTRoom {
 
 class GalleryViewController: UIViewController {
 
+    @IBOutlet private var welcomeLabel: UILabel!
     @IBOutlet private var collectionView: UICollectionView!
     private var rooms = [Room]()
     private var selectedCellIndex: Int?
@@ -24,6 +25,12 @@ class GalleryViewController: UIViewController {
         super.viewDidLoad()
 
         rooms.append(Room(roomId: UUID(), roomName: DefaultValues.roomName))
+
+        if let user = DTAuth.user {
+            welcomeLabel.text = "Welcome, \(user.displayName)!"
+        } else {
+            welcomeLabel.text = "Welcome"
+        }
         // Do any additional setup after loading the view.
     }
 
