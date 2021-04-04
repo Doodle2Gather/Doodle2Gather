@@ -31,10 +31,12 @@ extension PKStroke: DTStroke {
     }
 
     public init<S>(from stroke: S) where S: DTStroke {
-        self.init(color: stroke.color, tool: stroke.tool, points: stroke.points)
+        self.init(color: stroke.color, tool: stroke.tool, points: stroke.points,
+                  transform: stroke.transform, mask: stroke.mask)
     }
 
-    public init<P>(color: UIColor, tool: DTTool, points: [P]) where P: DTPoint {
+    public init<P>(color: UIColor, tool: DTTool, points: [P], transform: CGAffineTransform,
+                   mask: UIBezierPath?) where P: DTPoint {
         var ink = PKInk.InkType.pen
         switch tool {
         case .pen, .eraser:
@@ -47,7 +49,8 @@ extension PKStroke: DTStroke {
 
         let points = points.map { PKStrokePoint(from: $0) }
 
-        self.init(ink: .init(ink, color: color), path: PKStrokePath(controlPoints: points, creationDate: Date()))
+        self.init(ink: .init(ink, color: color), path: PKStrokePath(controlPoints: points, creationDate: Date()),
+                  transform: transform, mask: mask)
     }
 
     private func convertToolToInk(tool: DTTool) -> PKInk.InkType {
