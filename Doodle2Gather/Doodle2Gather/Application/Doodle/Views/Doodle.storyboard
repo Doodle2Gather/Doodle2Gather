@@ -651,10 +651,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Bxd-CB-wII" customClass="SubviewTouchCollectionView" customModule="Doodle2Gather" customModuleProvider="target">
-                                <rect key="frame" x="582" y="82" width="240" height="972"/>
+                                <rect key="frame" x="622" y="132" width="200" height="922"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="240" id="ZO1-qV-5al"/>
+                                    <constraint firstAttribute="width" constant="200" id="ZO1-qV-5al"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="oZ4-hV-qjb">
                                     <size key="itemSize" width="240" height="135"/>
@@ -664,14 +664,28 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="videoCell" id="OFl-9u-xZa" customClass="VideoCollectionViewCell" customModule="Doodle2Gather" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="240" height="135"/>
+                                        <rect key="frame" x="-20" y="0.0" width="240" height="135"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" semanticContentAttribute="spatial" insetsLayoutMarginsFromSafeArea="NO" id="Ioy-42-Bn6">
                                             <rect key="frame" x="0.0" y="0.0" width="240" height="135"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </collectionViewCellContentView>
-                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" name="Black"/>
                                         <size key="customSize" width="240" height="135"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <real key="value" value="20"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                                <real key="value" value="20"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                                <size key="value" width="0.0" height="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                                <real key="value" value="0.40000000000000002"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="videoView" destination="Ioy-42-Bn6" id="daj-BI-aRn"/>
                                         </connections>
@@ -804,14 +818,73 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hzX-Ab-qkC" userLabel="Top Control View">
+                                <rect key="frame" x="622" y="82" width="200" height="40"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Galley View" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5fP-1P-WgX">
+                                        <rect key="frame" x="50" y="9.5" width="100" height="21.5"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" name="Black"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="0ZW-Y8-nMb"/>
+                                    <constraint firstAttribute="width" constant="200" id="H3a-NM-FiA"/>
+                                    <constraint firstItem="5fP-1P-WgX" firstAttribute="centerX" secondItem="hzX-Ab-qkC" secondAttribute="centerX" id="Ury-E4-Ymz"/>
+                                    <constraint firstItem="5fP-1P-WgX" firstAttribute="centerY" secondItem="hzX-Ab-qkC" secondAttribute="centerY" id="iIi-5M-bzJ"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                        <size key="value" width="0.0" height="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                        <real key="value" value="0.40000000000000002"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WAR-cP-F2I">
+                                <rect key="frame" x="622" y="1064" width="200" height="40"/>
+                                <color key="backgroundColor" name="Black"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="32Z-dP-Jud"/>
+                                    <constraint firstAttribute="width" constant="200" id="Ohd-C1-NWl"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                        <size key="value" width="0.0" height="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                        <real key="value" value="0.40000000000000002"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vck-bI-o3u"/>
                         <constraints>
                             <constraint firstItem="Bxd-CB-wII" firstAttribute="bottom" secondItem="vck-bI-o3u" secondAttribute="bottom" constant="-120" id="0hh-7n-4s0"/>
                             <constraint firstItem="Bxd-CB-wII" firstAttribute="trailing" secondItem="vck-bI-o3u" secondAttribute="trailing" constant="-12" id="3e2-bG-Hms"/>
+                            <constraint firstItem="vck-bI-o3u" firstAttribute="trailing" secondItem="WAR-cP-F2I" secondAttribute="trailing" constant="12" id="IP3-FT-75z"/>
                             <constraint firstItem="xWj-qC-1ia" firstAttribute="bottom" secondItem="vck-bI-o3u" secondAttribute="bottom" constant="-12" id="h7c-4g-pJF"/>
-                            <constraint firstItem="Bxd-CB-wII" firstAttribute="top" secondItem="vck-bI-o3u" secondAttribute="top" constant="82" id="jhw-us-uLV"/>
+                            <constraint firstItem="Bxd-CB-wII" firstAttribute="top" secondItem="vck-bI-o3u" secondAttribute="top" constant="132" id="jhw-us-uLV"/>
                             <constraint firstItem="xWj-qC-1ia" firstAttribute="leading" secondItem="vck-bI-o3u" secondAttribute="leading" constant="12" id="mzw-G9-1oN"/>
+                            <constraint firstItem="Bxd-CB-wII" firstAttribute="top" secondItem="hzX-Ab-qkC" secondAttribute="bottom" constant="10" id="p7x-NB-1TW"/>
+                            <constraint firstItem="vck-bI-o3u" firstAttribute="trailing" secondItem="hzX-Ab-qkC" secondAttribute="trailing" constant="12" id="q4V-1e-bIQ"/>
+                            <constraint firstItem="hzX-Ab-qkC" firstAttribute="top" secondItem="vck-bI-o3u" secondAttribute="top" constant="82" id="sMV-2t-zCe"/>
+                            <constraint firstItem="WAR-cP-F2I" firstAttribute="top" secondItem="Bxd-CB-wII" secondAttribute="bottom" constant="10" id="xkh-5V-saS"/>
                         </constraints>
                     </view>
                     <connections>
@@ -822,7 +895,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7qd-xc-JKb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="119" y="779"/>
+            <point key="canvasLocation" x="118.70503597122303" y="778.89447236180899"/>
         </scene>
         <!--Participants-->
         <scene sceneID="SU8-hw-gCe">
