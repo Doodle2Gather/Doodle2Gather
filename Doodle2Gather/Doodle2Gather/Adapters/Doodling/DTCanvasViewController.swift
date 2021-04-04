@@ -72,8 +72,8 @@ extension DTCanvasViewController: PKCanvasViewDelegate {
 
     // TODO: Fix issues with erasure + build more sustainable solution.
     func canvasViewDrawingDidChange(_ canvas: PKCanvasView) {
-        let newStrokes = canvas.drawing.dtStrokes
-        let oldStrokes = doodle.dtStrokes
+        let newStrokes = canvas.drawing.dtStrokes.map { PKStrokeHashWrapper(from: $0) }
+        let oldStrokes = doodle.dtStrokes.map { PKStrokeHashWrapper(from: $0) }
         let newStrokesSet = Set(newStrokes)
         let oldStrokesSet = Set(oldStrokes)
 
@@ -85,7 +85,7 @@ extension DTCanvasViewController: PKCanvasViewDelegate {
             return
         }
 
-        doodle = PKDrawing(strokes: newStrokes)
+        doodle = PKDrawing(strokes: newStrokes.map { PKStroke(from: $0) })
 
         guard let action = DTAction(added: addedStrokes, removed: removedStrokes) else {
             return
