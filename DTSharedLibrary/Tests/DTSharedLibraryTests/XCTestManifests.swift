@@ -2,8 +2,8 @@ import XCTest
 
 #if !canImport(ObjectiveC)
 public func allTests() -> [XCTestCaseEntry] {
-    return [
-        testCase(DTSharedLibraryTests.allTests),
+    [
+        testCase(DTSharedLibraryTests.allTests)
     ]
 }
 #endif

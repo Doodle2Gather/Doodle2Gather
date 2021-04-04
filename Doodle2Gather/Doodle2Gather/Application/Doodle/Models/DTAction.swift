@@ -1,5 +1,5 @@
 import Foundation
-import DoodlingFrontendLibrary
+import DTFrontendLibrary
 import DTSharedLibrary
 
 struct DTAction {

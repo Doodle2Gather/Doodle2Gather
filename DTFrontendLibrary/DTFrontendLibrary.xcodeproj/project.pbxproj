@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2E8AC7072613F2110033869E /* DoodlingFrontendLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E8AC6FD2613F2110033869E /* DoodlingFrontendLibrary.framework */; };
-		2E8AC70C2613F2110033869E /* DoodlingLibraryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8AC70B2613F2110033869E /* DoodlingLibraryTests.swift */; };
-		2E8AC70E2613F2110033869E /* DoodlingLibrary.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E8AC7002613F2110033869E /* DoodlingLibrary.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2E8AC7072613F2110033869E /* DTFrontendLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E8AC6FD2613F2110033869E /* DTFrontendLibrary.framework */; };
+		2E8AC70C2613F2110033869E /* DTFrontendLibraryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8AC70B2613F2110033869E /* DTFrontendLibraryTests.swift */; };
+		2E8AC70E2613F2110033869E /* DTFrontendLibrary.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E8AC7002613F2110033869E /* DTFrontendLibrary.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2E8AC7352613F4170033869E /* DTTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8AC7302613F4170033869E /* DTTool.swift */; };
 		2E8AC7362613F4170033869E /* DTCodableColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8AC7312613F4170033869E /* DTCodableColor.swift */; };
 		2E8AC7372613F4170033869E /* DTDoodle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8AC7322613F4170033869E /* DTDoodle.swift */; };
@@ -26,16 +26,16 @@
 			containerPortal = 2E8AC6F42613F2110033869E /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 2E8AC6FC2613F2110033869E;
-			remoteInfo = DoodlingLibrary;
+			remoteInfo = DTFrontendLibrary;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2E8AC6FD2613F2110033869E /* DoodlingFrontendLibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DoodlingFrontendLibrary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2E8AC7002613F2110033869E /* DoodlingLibrary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DoodlingLibrary.h; sourceTree = "<group>"; };
+		2E8AC6FD2613F2110033869E /* DTFrontendLibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DTFrontendLibrary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2E8AC7002613F2110033869E /* DTFrontendLibrary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DTFrontendLibrary.h; sourceTree = "<group>"; };
 		2E8AC7012613F2110033869E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2E8AC7062613F2110033869E /* DoodlingFrontendLibraryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DoodlingFrontendLibraryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		2E8AC70B2613F2110033869E /* DoodlingLibraryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodlingLibraryTests.swift; sourceTree = "<group>"; };
+		2E8AC7062613F2110033869E /* DTFrontendLibraryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DTFrontendLibraryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2E8AC70B2613F2110033869E /* DTFrontendLibraryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTFrontendLibraryTests.swift; sourceTree = "<group>"; };
 		2E8AC70D2613F2110033869E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2E8AC7302613F4170033869E /* DTTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTTool.swift; sourceTree = "<group>"; };
 		2E8AC7312613F4170033869E /* DTCodableColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTCodableColor.swift; sourceTree = "<group>"; };
@@ -59,7 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2E8AC7072613F2110033869E /* DoodlingFrontendLibrary.framework in Frameworks */,
+				2E8AC7072613F2110033869E /* DTFrontendLibrary.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,8 +79,8 @@
 		2E8AC6F32613F2110033869E = {
 			isa = PBXGroup;
 			children = (
-				2E8AC6FF2613F2110033869E /* DoodlingLibrary */,
-				2E8AC70A2613F2110033869E /* DoodlingLibraryTests */,
+				2E8AC6FF2613F2110033869E /* DTFrontendLibrary */,
+				2E8AC70A2613F2110033869E /* DTFrontendLibraryTests */,
 				2E8AC6FE2613F2110033869E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -88,30 +88,30 @@
 		2E8AC6FE2613F2110033869E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2E8AC6FD2613F2110033869E /* DoodlingFrontendLibrary.framework */,
-				2E8AC7062613F2110033869E /* DoodlingFrontendLibraryTests.xctest */,
+				2E8AC6FD2613F2110033869E /* DTFrontendLibrary.framework */,
+				2E8AC7062613F2110033869E /* DTFrontendLibraryTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2E8AC6FF2613F2110033869E /* DoodlingLibrary */ = {
+		2E8AC6FF2613F2110033869E /* DTFrontendLibrary */ = {
 			isa = PBXGroup;
 			children = (
 				2E07C4892619C207003A87C9 /* Conference */,
 				2E8AC72D2613F3F00033869E /* Doodle */,
-				2E8AC7002613F2110033869E /* DoodlingLibrary.h */,
+				2E8AC7002613F2110033869E /* DTFrontendLibrary.h */,
 				2E8AC7012613F2110033869E /* Info.plist */,
 			);
-			path = DoodlingLibrary;
+			path = DTFrontendLibrary;
 			sourceTree = "<group>";
 		};
-		2E8AC70A2613F2110033869E /* DoodlingLibraryTests */ = {
+		2E8AC70A2613F2110033869E /* DTFrontendLibraryTests */ = {
 			isa = PBXGroup;
 			children = (
-				2E8AC70B2613F2110033869E /* DoodlingLibraryTests.swift */,
+				2E8AC70B2613F2110033869E /* DTFrontendLibraryTests.swift */,
 				2E8AC70D2613F2110033869E /* Info.plist */,
 			);
-			path = DoodlingLibraryTests;
+			path = DTFrontendLibraryTests;
 			sourceTree = "<group>";
 		};
 		2E8AC72D2613F3F00033869E /* Doodle */ = {
@@ -133,16 +133,16 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2E8AC70E2613F2110033869E /* DoodlingLibrary.h in Headers */,
+				2E8AC70E2613F2110033869E /* DTFrontendLibrary.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		2E8AC6FC2613F2110033869E /* DoodlingFrontendLibrary */ = {
+		2E8AC6FC2613F2110033869E /* DTFrontendLibrary */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2E8AC7112613F2110033869E /* Build configuration list for PBXNativeTarget "DoodlingFrontendLibrary" */;
+			buildConfigurationList = 2E8AC7112613F2110033869E /* Build configuration list for PBXNativeTarget "DTFrontendLibrary" */;
 			buildPhases = (
 				2E8AC6F82613F2110033869E /* Headers */,
 				2E8AC71C2613F2570033869E /* ShellScript */,
@@ -154,14 +154,14 @@
 			);
 			dependencies = (
 			);
-			name = DoodlingFrontendLibrary;
-			productName = DoodlingLibrary;
-			productReference = 2E8AC6FD2613F2110033869E /* DoodlingFrontendLibrary.framework */;
+			name = DTFrontendLibrary;
+			productName = DTFrontendLibrary;
+			productReference = 2E8AC6FD2613F2110033869E /* DTFrontendLibrary.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		2E8AC7052613F2110033869E /* DoodlingFrontendLibraryTests */ = {
+		2E8AC7052613F2110033869E /* DTFrontendLibraryTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2E8AC7142613F2110033869E /* Build configuration list for PBXNativeTarget "DoodlingFrontendLibraryTests" */;
+			buildConfigurationList = 2E8AC7142613F2110033869E /* Build configuration list for PBXNativeTarget "DTFrontendLibraryTests" */;
 			buildPhases = (
 				2E8AC7022613F2110033869E /* Sources */,
 				2E8AC7032613F2110033869E /* Frameworks */,
@@ -172,9 +172,9 @@
 			dependencies = (
 				2E8AC7092613F2110033869E /* PBXTargetDependency */,
 			);
-			name = DoodlingFrontendLibraryTests;
-			productName = DoodlingLibraryTests;
-			productReference = 2E8AC7062613F2110033869E /* DoodlingFrontendLibraryTests.xctest */;
+			name = DTFrontendLibraryTests;
+			productName = DTFrontendLibraryTests;
+			productReference = 2E8AC7062613F2110033869E /* DTFrontendLibraryTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -194,7 +194,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 2E8AC6F72613F2110033869E /* Build configuration list for PBXProject "DoodlingFrontendLibrary" */;
+			buildConfigurationList = 2E8AC6F72613F2110033869E /* Build configuration list for PBXProject "DTFrontendLibrary" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -207,8 +207,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2E8AC6FC2613F2110033869E /* DoodlingFrontendLibrary */,
-				2E8AC7052613F2110033869E /* DoodlingFrontendLibraryTests */,
+				2E8AC6FC2613F2110033869E /* DTFrontendLibrary */,
+				2E8AC7052613F2110033869E /* DTFrontendLibraryTests */,
 			);
 		};
 /* End PBXProject section */
@@ -270,7 +270,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2E8AC70C2613F2110033869E /* DoodlingLibraryTests.swift in Sources */,
+				2E8AC70C2613F2110033869E /* DTFrontendLibraryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,7 +279,7 @@
 /* Begin PBXTargetDependency section */
 		2E8AC7092613F2110033869E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2E8AC6FC2613F2110033869E /* DoodlingFrontendLibrary */;
+			target = 2E8AC6FC2613F2110033869E /* DTFrontendLibrary */;
 			targetProxy = 2E8AC7082613F2110033869E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -418,7 +418,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = DoodlingLibrary/Info.plist;
+				INFOPLIST_FILE = DTFrontendLibrary/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -426,7 +426,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = CS3217.DoodlingLibrary;
+				PRODUCT_BUNDLE_IDENTIFIER = CS3217.DTFrontendLibrary;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
@@ -444,7 +444,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = DoodlingLibrary/Info.plist;
+				INFOPLIST_FILE = DTFrontendLibrary/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -452,7 +452,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = CS3217.DoodlingLibrary;
+				PRODUCT_BUNDLE_IDENTIFIER = CS3217.DTFrontendLibrary;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
@@ -468,13 +468,13 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W76H98A34A;
-				INFOPLIST_FILE = DoodlingLibraryTests/Info.plist;
+				INFOPLIST_FILE = DTFrontendLibraryTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = CS3217.DoodlingLibraryTests;
+				PRODUCT_BUNDLE_IDENTIFIER = CS3217.DTFrontendLibraryTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -488,13 +488,13 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W76H98A34A;
-				INFOPLIST_FILE = DoodlingLibraryTests/Info.plist;
+				INFOPLIST_FILE = DTFrontendLibraryTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = CS3217.DoodlingLibraryTests;
+				PRODUCT_BUNDLE_IDENTIFIER = CS3217.DTFrontendLibraryTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -504,7 +504,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2E8AC6F72613F2110033869E /* Build configuration list for PBXProject "DoodlingFrontendLibrary" */ = {
+		2E8AC6F72613F2110033869E /* Build configuration list for PBXProject "DTFrontendLibrary" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2E8AC70F2613F2110033869E /* Debug */,
@@ -513,7 +513,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2E8AC7112613F2110033869E /* Build configuration list for PBXNativeTarget "DoodlingFrontendLibrary" */ = {
+		2E8AC7112613F2110033869E /* Build configuration list for PBXNativeTarget "DTFrontendLibrary" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2E8AC7122613F2110033869E /* Debug */,
@@ -522,7 +522,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2E8AC7142613F2110033869E /* Build configuration list for PBXNativeTarget "DoodlingFrontendLibraryTests" */ = {
+		2E8AC7142613F2110033869E /* Build configuration list for PBXNativeTarget "DTFrontendLibraryTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2E8AC7152613F2110033869E /* Debug */,

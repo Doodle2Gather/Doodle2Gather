@@ -1,6 +1,6 @@
 import UIKit
 import AgoraRtmKit
-import DoodlingLibrary
+import DTFrontendLibrary
 
 /**
  Engine that interfaces with Agora.

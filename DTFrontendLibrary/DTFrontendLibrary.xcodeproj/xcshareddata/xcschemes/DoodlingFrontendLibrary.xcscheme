@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2E8AC6FC2613F2110033869E"
-               BuildableName = "DoodlingFrontendLibrary.framework"
-               BlueprintName = "DoodlingFrontendLibrary"
-               ReferencedContainer = "container:DoodlingFrontendLibrary.xcodeproj">
+               BuildableName = "DTFrontendLibrary.framework"
+               BlueprintName = "DTFrontendLibrary"
+               ReferencedContainer = "container:DTFrontendLibrary.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -51,9 +51,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2E8AC6FC2613F2110033869E"
-            BuildableName = "DoodlingFrontendLibrary.framework"
-            BlueprintName = "DoodlingFrontendLibrary"
-            ReferencedContainer = "container:DoodlingFrontendLibrary.xcodeproj">
+            BuildableName = "DTFrontendLibrary.framework"
+            BlueprintName = "DTFrontendLibrary"
+            ReferencedContainer = "container:DTFrontendLibrary.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>
