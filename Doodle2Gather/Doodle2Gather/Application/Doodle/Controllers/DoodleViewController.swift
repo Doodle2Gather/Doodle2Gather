@@ -4,6 +4,7 @@ class DoodleViewController: UIViewController {
 
     // Storyboard UI Elements
     @IBOutlet private var fileNameLabel: UILabel!
+    @IBOutlet private var zoomScaleLabel: UILabel!
 
     // Left Main Menu
     @IBOutlet private var drawButton: UIButton!
@@ -47,6 +48,9 @@ class DoodleViewController: UIViewController {
         if let roomName = roomName {
             fileNameLabel.text = roomName
         }
+        let zoomTap = UITapGestureRecognizer(target: self, action: #selector(zoomScaleDidTap(_:)))
+        zoomScaleLabel.addGestureRecognizer(zoomTap)
+
         loadBorderColors()
     }
 
@@ -117,6 +121,10 @@ extension DoodleViewController {
         setDrawingTool(toolSelected)
     }
 
+    @objc private func zoomScaleDidTap(_ gesture: UITapGestureRecognizer) {
+        canvasController?.resetZoomScale()
+    }
+
     private func setDrawingTool(_ drawingTool: DrawingTools, shouldDismiss: Bool = false) {
         switch drawingTool {
         case .pen:
@@ -170,6 +178,12 @@ extension DoodleViewController: CanvasControllerDelegate {
 
     func actionDidFinish(action: DTAction) {
         socketController?.addAction(action)
+    }
+
+    func canvasZoomScaleDidChange(scale: CGFloat) {
+        let scale = min(UIConstants.maxZoom, max(UIConstants.minZoom, scale))
+        let scalePercent = Int(scale * 100)
+        zoomScaleLabel.text = "\(scalePercent)%"
     }
 
 }
