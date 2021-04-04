@@ -30,10 +30,10 @@ class ConferenceViewController: UIViewController {
     @IBAction private func didToggleAudio(_ sender: Any) {
         if isMuted {
             videoEngine?.unmuteAudio()
-            audioButton.setImage(UIImage(systemName: "mic.fill"), for: .normal)
+            audioButton.setImage(#imageLiteral(resourceName: "SoundOn_PNG"), for: .normal)
         } else {
             videoEngine?.muteAudio()
-            audioButton.setImage(UIImage(systemName: "mic.slash.fill"), for: .normal)
+            audioButton.setImage(#imageLiteral(resourceName: "SoundOff_Red_PNG"), for: .normal)
         }
         isMuted.toggle()
     }
@@ -41,19 +41,18 @@ class ConferenceViewController: UIViewController {
     @IBAction private func didToggleVideo(_ sender: Any) {
         if isVideoOff {
             videoEngine?.showVideo()
-            videoButton.setImage(UIImage(systemName: "video.fill"), for: .normal)
+            videoButton.setImage(#imageLiteral(resourceName: "VideoOn_PNG"), for: .normal)
             if !videoOverlays.isEmpty {
                 videoOverlays[0].removeFromSuperview()
             }
         } else {
             videoEngine?.hideVideo()
-            videoButton.setImage(UIImage(systemName: "video.slash.fill"), for: .normal)
+            videoButton.setImage(#imageLiteral(resourceName: "VideoOff_Red_PNG"), for: .normal)
             guard let cellView = collectionView.cellForItem(at: IndexPath(row: 0, section: 0)) else {
                 return
             }
             if videoOverlays.isEmpty {
-                let overlay = UIView(frame: CGRect(x: 0,
-                                                   y: 0,
+                let overlay = UIView(frame: CGRect(x: 0, y: 0,
                                                    width: cellView.frame.size.width,
                                                    height: cellView.frame.size.height))
                 overlay.backgroundColor = UIColor.darkGray

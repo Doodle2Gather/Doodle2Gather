@@ -21,9 +21,9 @@ class ParticipantViewCell: UITableViewCell {
     var isVideoOn = false {
         didSet {
             if isVideoOn {
-                videoButton.setImage(UIImage(systemName: "video.fill"), for: .normal)
+                videoButton.setImage(#imageLiteral(resourceName: "VideoOn_PNG"), for: .normal)
             } else {
-                videoButton.setImage(UIImage(systemName: "video.slash.fill"), for: .normal)
+                videoButton.setImage(#imageLiteral(resourceName: "VideoOff_Red_PNG"), for: .normal)
             }
         }
     }
@@ -31,9 +31,9 @@ class ParticipantViewCell: UITableViewCell {
     var isAudioOn = false {
         didSet {
             if isAudioOn {
-                audioButton.setImage(UIImage(systemName: "mic.fill"), for: .normal)
+                audioButton.setImage(#imageLiteral(resourceName: "SoundOn_PNG"), for: .normal)
             } else {
-                audioButton.setImage(UIImage(systemName: "mic.slash.fill"), for: .normal)
+                audioButton.setImage(#imageLiteral(resourceName: "SoundOff_Red_PNG"), for: .normal)
             }
         }
     }
