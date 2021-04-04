@@ -66,6 +66,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2E07C4892619C207003A87C9 /* Conference */ = {
+			isa = PBXGroup;
+			children = (
+				84D803AA26174DF50096692E /* DTParticipant.swift */,
+				84D803AE26174E5D0096692E /* DTRoom.swift */,
+				830587D426191D98000ACAAF /* DTUser.swift */,
+			);
+			path = Conference;
+			sourceTree = "<group>";
+		};
 		2E8AC6F32613F2110033869E = {
 			isa = PBXGroup;
 			children = (
@@ -87,7 +97,8 @@
 		2E8AC6FF2613F2110033869E /* DoodlingLibrary */ = {
 			isa = PBXGroup;
 			children = (
-				2E8AC72D2613F3F00033869E /* Models */,
+				2E07C4892619C207003A87C9 /* Conference */,
+				2E8AC72D2613F3F00033869E /* Doodle */,
 				2E8AC7002613F2110033869E /* DoodlingLibrary.h */,
 				2E8AC7012613F2110033869E /* Info.plist */,
 			);
@@ -103,7 +114,7 @@
 			path = DoodlingLibraryTests;
 			sourceTree = "<group>";
 		};
-		2E8AC72D2613F3F00033869E /* Models */ = {
+		2E8AC72D2613F3F00033869E /* Doodle */ = {
 			isa = PBXGroup;
 			children = (
 				2E8AC7322613F4170033869E /* DTDoodle.swift */,
@@ -111,11 +122,8 @@
 				2E8AC7342613F4170033869E /* DTPoint.swift */,
 				2E8AC7302613F4170033869E /* DTTool.swift */,
 				2E8AC7312613F4170033869E /* DTCodableColor.swift */,
-				84D803AA26174DF50096692E /* DTParticipant.swift */,
-				84D803AE26174E5D0096692E /* DTRoom.swift */,
-				830587D426191D98000ACAAF /* DTUser.swift */,
 			);
-			path = Models;
+			path = Doodle;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
