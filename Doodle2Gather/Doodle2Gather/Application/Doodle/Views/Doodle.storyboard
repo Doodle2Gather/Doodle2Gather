@@ -21,7 +21,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CRw-tT-Mu5" userLabel="Canvas Container View">
                                 <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
                                 <connections>
-                                    <segue destination="rKz-2I-ekB" kind="embed" identifier="ToCanvas" id="h1y-4w-gMZ"/>
+                                    <segue destination="rKz-2I-ekB" kind="embed" identifier="toCanvas" id="h1y-4w-gMZ"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2v7-Hc-qJ9" userLabel="Video Overlay View" customClass="SubviewTouchView" customModule="Doodle2Gather" customModuleProvider="target">
@@ -286,9 +286,6 @@
                                                         <integer key="value" value="20"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" name="Stack Grey"/>
-                                                    </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                         <real key="value" value="3"/>
                                                     </userDefinedRuntimeAttribute>
@@ -438,9 +435,6 @@
                                                     <constraint firstAttribute="height" constant="40" id="qr4-PT-58w"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" name="White"/>
-                                                    </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                         <real key="value" value="3"/>
                                                     </userDefinedRuntimeAttribute>
@@ -469,9 +463,6 @@
                                                     <constraint firstAttribute="width" constant="40" id="uAf-gG-oXr"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" name="White"/>
-                                                    </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                         <real key="value" value="3"/>
                                                     </userDefinedRuntimeAttribute>
@@ -490,9 +481,6 @@
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="rdl-eT-R58"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" name="White"/>
-                                                    </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                         <real key="value" value="3"/>
                                                     </userDefinedRuntimeAttribute>
@@ -627,10 +615,14 @@
                         <outlet property="fileNameLabel" destination="cdg-gm-cRI" id="HYc-yD-rMc"/>
                         <outlet property="highlighterButton" destination="AMp-iL-zoR" id="lLt-iQ-edp"/>
                         <outlet property="magicPenButton" destination="EE8-GC-4Km" id="atf-KX-JRK"/>
+                        <outlet property="numberOfOtherUsersLabel" destination="NMb-rO-KfU" id="ReU-bU-SX3"/>
+                        <outlet property="otherProfileImageOne" destination="XbA-gD-b0Z" id="2Qf-Uk-eh8"/>
+                        <outlet property="otherProfileImageTwo" destination="uLN-OJ-qat" id="9tc-Cz-flG"/>
                         <outlet property="penButton" destination="rKg-Y4-tax" id="rf0-wj-paC"/>
                         <outlet property="pencilButton" destination="PHr-oW-a4i" id="kEZ-Te-JZn"/>
                         <outlet property="shapesButton" destination="w78-OH-H1V" id="Jet-zX-JVV"/>
                         <outlet property="textButton" destination="Va2-Px-Ku6" id="GYN-tg-pop"/>
+                        <outlet property="userProfileImage" destination="DOs-uP-8SE" id="Tke-aD-WLd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Ek-Ny-NIM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -889,7 +881,7 @@
         <image name="VideoOff_Red" width="24" height="24"/>
         <image name="VideoOn" width="24" height="24"/>
         <namedColor name="Black">
-            <color red="0.125" green="0.125" blue="0.11400000005960464" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.12549019607843137" green="0.12549019607843137" blue="0.11372549019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Stack Grey">
             <color red="0.54500001669999998" green="0.54500001669999998" blue="0.54500001669999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
