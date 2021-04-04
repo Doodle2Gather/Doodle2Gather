@@ -3,7 +3,7 @@ import DoodlingAdaptedLibrary
 
 struct DTApi {
 
-    static let baseURLString = ApiEndpoints.localApi // change to .Api for production
+    static let baseURLString = ApiEndpoints.Api // change to .localApi for local testing
 
     // MARK: Strokes
 
