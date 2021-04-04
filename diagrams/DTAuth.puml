@@ -1,0 +1,63 @@
+@startuml
+' STYLE START
+hide empty members
+skinparam shadowing false
+' STYLE END
+
+class "FirebaseAuthProvider" as FirebaseAuthProvider << (C, DarkSeaGreen) >> { 
+  ~init()
+  -fbUser : User?
+  ~user : DTUser?
+  ~signUp(email:password:displayName:)
+  ~login(email:password:)
+  -setUserDisplayName(_:) 
+}
+
+class "User" as User << (X, Orchid) extension >> { 
+  toDTUser() 
+}
+
+class "DTAuthDelegate" as DTAuthDelegate << (P, GoldenRod) protocol >> { 
+  ~displayError(_:)
+  ~displayMessage(_:)
+  ~loginDidSucceed()
+  ~registerDidSucceed() 
+}
+
+class "DTAbstractAuthProvider" as DTAbstractAuthProvider << (P, GoldenRod) protocol >> { 
+  ~user : DTUser?
+  ~signUp(email:password:displayName:)
+  ~login(email:password:) 
+}
+
+class "DTAuth" as DTAuth << (C, DarkSeaGreen) >> { 
+  ~{static} user : DTUser?
+  ~{static} signUp(email:password:displayName:)
+  ~{static} login(email:password:) 
+}
+
+class "HomeViewController" as HomeViewController0 << (X, Orchid) extension >> { 
+  displayError(_:)
+  displayMessage(_:)
+  loginDidSucceed()
+  registerDidSucceed() 
+}
+
+class "HomeViewController" as HomeViewController << (C, DarkSeaGreen) >> { 
+  -emailTextField : UITextField!
+  -passwordTextField : UITextField!
+  -displayNameTextField : UITextField!
+  -onSubmitButtonTapped(_:)
+  -attemptRegister()
+  -attemptLogin() 
+}
+
+HomeViewController0 ..|> DTAuthDelegate
+HomeViewController --> DTAuth : sends auth events to
+FirebaseAuthProvider *-- DTAuthDelegate : sends events
+FirebaseAuthProvider ..|> DTAbstractAuthProvider
+FirebaseAuthProvider --> User : converts to DTUser using
+DTAuth --> "1" DTAbstractAuthProvider
+HomeViewController -- HomeViewController0
+
+@enduml

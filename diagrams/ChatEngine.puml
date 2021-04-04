@@ -1,0 +1,79 @@
+@startuml
+' STYLE START
+hide empty members
+skinparam shadowing false
+' STYLE END
+
+
+class "ChatViewController" as ChatViewController << (C, DarkSeaGreen) >> {
+  ~messages
+  ~account
+  ~currentUser
+  ~deliverHandler : ((Message) -> Void)?
+  -updateViews()
+  -didTapClose(_:)
+}
+class "ChatViewController" as ChatViewController0 << (X, Orchid) extension >> { 
+  onReceiveMessage(_:) 
+}
+
+class "ChatBoxDelegate" as ChatBoxDelegate << (P, GoldenRod) protocol >> { 
+  ~onReceiveMessage(_:) 
+}
+
+class "ChatEngineDelegate" as ChatEngineDelegate << (P, GoldenRod) protocol >> { 
+  ~deliverMessage(from:message:) 
+}
+
+class "ChatEngine" as ChatEngine << (P, GoldenRod) protocol >> { 
+  ~delegate : ChatEngineDelegate?
+  ~initialize()
+  ~joinChannel(channelName:)
+  ~send(message:) 
+}
+
+class "AgoraChatEngine" as AgoraChatEngine << (C, DarkSeaGreen) >> { 
+  ~agoraRtmKit : AgoraRtmKit?
+  ~rtmChannel : AgoraRtmChannel?
+  -chatID : UInt
+  -currentUser : DTUser?
+  ~initialize()
+  -getAgoraTokenAndJoinChannel(channelName:)
+  ~joinChannel(channelName:)
+  ~leaveChannel()
+  ~send(message:) 
+}
+class "AgoraChatEngine" as AgoraChatEngine2 << (X, Orchid) extension >> { 
+  rtmKit(_:connectionStateChanged:reason:)
+  rtmKit(_:messageReceived:fromPeer:) 
+}
+class "AgoraChatEngine" as AgoraChatEngine3 << (X, Orchid) extension >> { 
+  channel(_:memberJoined:)
+  channel(_:memberLeft:)
+  channel(_:messageReceived:from:) 
+}
+
+class "ConferenceViewController" as ConferenceViewController << (C, DarkSeaGreen) >> { 
+  -chatButton : UIButton!
+  ~chatList
+  ~isChatShown
+}
+
+class "ConferenceViewController" as ConferenceViewController1 << (X, Orchid) extension >> { 
+  deliverMessage(from:message:) 
+}
+
+ChatViewController *-- ChatEngine
+AgoraChatEngine *-> ChatEngineDelegate : passes messages to
+ChatViewController0 ..|> ChatBoxDelegate
+' ConferenceViewController *-- ChatBoxDelegate
+ChatBoxDelegate <-* ConferenceViewController: passes messages to
+ConferenceViewController *-- ChatEngine
+ChatViewController -- ChatViewController0
+AgoraChatEngine ..|> ChatEngine
+AgoraChatEngine2 -- AgoraChatEngine
+AgoraChatEngine3 -- AgoraChatEngine
+
+ConferenceViewController1 ..|> ChatEngineDelegate
+ConferenceViewController -- ConferenceViewController1
+@enduml
