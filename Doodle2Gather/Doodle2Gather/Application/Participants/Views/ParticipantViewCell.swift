@@ -20,21 +20,13 @@ class ParticipantViewCell: UITableViewCell {
 
     var isVideoOn = false {
         didSet {
-            if isVideoOn {
-                videoButton.setImage(#imageLiteral(resourceName: "VideoOn_PNG"), for: .normal)
-            } else {
-                videoButton.setImage(#imageLiteral(resourceName: "VideoOff_Red_PNG"), for: .normal)
-            }
+            videoButton.isSelected = !isVideoOn
         }
     }
 
     var isAudioOn = false {
         didSet {
-            if isAudioOn {
-                audioButton.setImage(#imageLiteral(resourceName: "SoundOn_PNG"), for: .normal)
-            } else {
-                audioButton.setImage(#imageLiteral(resourceName: "SoundOff_Red_PNG"), for: .normal)
-            }
+            audioButton.isSelected = !isAudioOn
         }
     }
 

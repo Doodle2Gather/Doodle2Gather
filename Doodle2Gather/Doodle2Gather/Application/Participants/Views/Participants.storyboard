@@ -30,11 +30,13 @@
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e6b-fL-Ik4" userLabel="Video Button">
                                                     <rect key="frame" x="476" y="7" width="24" height="36"/>
-                                                    <state key="normal" image="video.fill" catalog="system"/>
+                                                    <state key="normal" image="VideoOn"/>
+                                                    <state key="selected" image="VideoOff_Red"/>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9T0-9P-80c" userLabel="Audio Button">
-                                                    <rect key="frame" x="439" y="14" width="17" height="22"/>
-                                                    <state key="normal" image="mic.fill" catalog="system"/>
+                                                    <rect key="frame" x="432" y="13" width="24" height="24"/>
+                                                    <state key="normal" image="SoundOn"/>
+                                                    <state key="selected" image="SoundOff_Red"/>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dhJ-G3-Vlt" userLabel="Username">
                                                     <rect key="frame" x="60" y="14.5" width="42" height="21"/>
@@ -108,8 +110,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="mic.fill" catalog="system" width="108" height="128"/>
-        <image name="video.fill" catalog="system" width="128" height="82"/>
+        <image name="SoundOff_Red" width="24" height="24"/>
+        <image name="SoundOn" width="24" height="24"/>
+        <image name="VideoOff_Red" width="24" height="24"/>
+        <image name="VideoOn" width="24" height="24"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

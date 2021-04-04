@@ -30,10 +30,10 @@ class ConferenceViewController: UIViewController {
     @IBAction private func didToggleAudio(_ sender: Any) {
         if isMuted {
             videoEngine?.unmuteAudio()
-            audioButton.setImage(#imageLiteral(resourceName: "SoundOn_PNG"), for: .normal)
+            audioButton.isSelected = false
         } else {
             videoEngine?.muteAudio()
-            audioButton.setImage(#imageLiteral(resourceName: "SoundOff_Red_PNG"), for: .normal)
+            audioButton.isSelected = true
         }
         isMuted.toggle()
     }
@@ -41,13 +41,13 @@ class ConferenceViewController: UIViewController {
     @IBAction private func didToggleVideo(_ sender: Any) {
         if isVideoOff {
             videoEngine?.showVideo()
-            videoButton.setImage(#imageLiteral(resourceName: "VideoOn_PNG"), for: .normal)
+            videoButton.isSelected = false
             if !videoOverlays.isEmpty {
                 videoOverlays[0].removeFromSuperview()
             }
         } else {
             videoEngine?.hideVideo()
-            videoButton.setImage(#imageLiteral(resourceName: "VideoOff_Red_PNG"), for: .normal)
+            videoButton.isSelected = true
             guard let cellView = collectionView.cellForItem(at: IndexPath(row: 0, section: 0)) else {
                 return
             }
