@@ -95,8 +95,24 @@
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eaG-7o-E87">
                                 <rect key="frame" x="0.0" y="0.0" width="834" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <textAttributes key="titleTextAttributes">
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="textShadowColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </textAttributes>
+                                <textAttributes key="largeTitleTextAttributes">
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="textShadowColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </textAttributes>
                                 <items>
-                                    <navigationItem title="Participants" id="r3E-bh-2xt"/>
+                                    <navigationItem title="Participants" id="r3E-bh-2xt">
+                                        <barButtonItem key="leftBarButtonItem" image="Cross" id="fRu-K3-Jcg">
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <connections>
+                                                <action selector="didTapClose:" destination="WlH-fR-tIP" id="ebc-4F-dWp"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
                                 </items>
                             </navigationBar>
                         </subviews>
@@ -110,6 +126,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Cross" width="24" height="24"/>
         <image name="SoundOff_Red" width="24" height="24"/>
         <image name="SoundOn" width="24" height="24"/>
         <image name="VideoOff_Red" width="24" height="24"/>
