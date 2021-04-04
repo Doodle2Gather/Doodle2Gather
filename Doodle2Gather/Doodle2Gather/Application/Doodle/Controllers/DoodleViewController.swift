@@ -4,27 +4,37 @@ class DoodleViewController: UIViewController {
 
     // Storyboard UI Elements
     @IBOutlet private var fileNameLabel: UILabel!
+
+    // Left Main Menu
     @IBOutlet private var drawButton: UIButton!
     @IBOutlet private var eraserButton: UIButton!
+    @IBOutlet private var textButton: UIButton!
+    @IBOutlet private var shapesButton: UIButton!
+    @IBOutlet private var cursorButton: UIButton!
+
+    // Left Auxiliary Menu
+    @IBOutlet private var auxiliaryButtonsView: UIView!
     @IBOutlet private var penButton: UIButton!
     @IBOutlet private var pencilButton: UIButton!
-    @IBOutlet private var markerButton: UIButton!
-    @IBOutlet private var auxiliaryButtonsView: UIView!
+    @IBOutlet private var highlighterButton: UIButton!
+    @IBOutlet private var magicPenButton: UIButton!
     @IBOutlet private var colorPickerButton: UIButton!
-    @IBOutlet private var brushSizeSlider: UISlider!
+    // @IBOutlet private var brushSizeSlider: UISlider!
+
+    // Profile Images
+    @IBOutlet private var userProfileImage: UIImageView!
+    @IBOutlet private var otherProfileImageOne: UIImageView!
+    @IBOutlet private var otherProfileImageTwo: UIImageView!
+    @IBOutlet private var numberOfOtherUsersLabel: UILabel!
 
     // Controllers
     private var canvasController: CanvasController?
     private var socketController: SocketController?
 
-    // Room State
+    // State
     var username: String?
     var roomName: String?
-
-    // Constants
-    enum Segues {
-        static let toCanvas = "ToCanvas"
-    }
+    private var lastSelectedDrawingTool = DrawingTools.pen
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,13 +47,23 @@ class DoodleViewController: UIViewController {
         if let roomName = roomName {
             fileNameLabel.text = roomName
         }
+        loadBorderColors()
+    }
+
+    private func loadBorderColors() {
+        colorPickerButton.layer.borderColor = UIConstants.stackGrey.cgColor
+        numberOfOtherUsersLabel.layer.borderColor = UIConstants.stackGrey.cgColor
+        // TODO: Replace profile picture borders with assigned colors
+        userProfileImage.layer.borderColor = UIConstants.white.cgColor
+        otherProfileImageOne.layer.borderColor = UIConstants.white.cgColor
+        otherProfileImageTwo.layer.borderColor = UIConstants.white.cgColor
     }
 
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
-        case Segues.toCanvas:
+        case SegueConstants.toCanvas:
             guard let destination = segue.destination as? DTCanvasViewController else {
                 return
             }
@@ -56,7 +76,7 @@ class DoodleViewController: UIViewController {
         }
     }
 
-    @IBAction private func didTapBack(_ sender: Any) {
+    @IBAction private func exitButtonDidTap(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
 }
@@ -65,44 +85,53 @@ class DoodleViewController: UIViewController {
 
 extension DoodleViewController {
 
-    @IBAction private func drawButtonDidTap(_ sender: UIButton) {
-        hideAllBackgrounds()
-        hideAllAuxiliaryBackgrounds()
-        drawButton.backgroundColor = UIColor.systemGray6
-        penButton.backgroundColor = UIColor.systemGray6
-        canvasController?.setPenTool()
-        canvasController?.setColor(colorPickerButton.backgroundColor ?? .black)
-        canvasController?.setSize(brushSizeSlider.value)
-        auxiliaryButtonsView.isHidden = false
-    }
-
-    @IBAction private func penButtonDidTap(_ sender: UIButton) {
-        hideAllAuxiliaryBackgrounds()
-        penButton.backgroundColor = UIColor.systemGray6
-        canvasController?.setPenTool()
-    }
-
-    @IBAction private func pencilButtonDidTap(_ sender: UIButton) {
-        hideAllAuxiliaryBackgrounds()
-        pencilButton.backgroundColor = UIColor.systemGray6
-        canvasController?.setPencilTool()
-    }
-
-    @IBAction private func markerButtonDidTap(_ sender: UIButton) {
-        hideAllAuxiliaryBackgrounds()
-        markerButton.backgroundColor = UIColor.systemGray6
-        canvasController?.setMarkerTool()
-    }
-
-    @IBAction private func eraserButtonDidTap(_ sender: UIButton) {
-        hideAllBackgrounds()
-        eraserButton.backgroundColor = UIColor.systemGray6
-        canvasController?.setEraserTool()
+    @IBAction private func mainToolButtonDidTap(_ sender: UIButton) {
+        guard let toolSelected = MainTools(rawValue: sender.tag) else {
+            return
+        }
+        unselectAllMainTools()
         auxiliaryButtonsView.isHidden = true
+        sender.isSelected = true
+        setDrawingTool(lastSelectedDrawingTool,
+                       shouldDismiss: sender.tag != MainTools.drawingTool.rawValue)
+
+        switch toolSelected {
+        case .drawingTool:
+            auxiliaryButtonsView.isHidden = false
+            canvasController?.setColor(colorPickerButton.backgroundColor ?? .black)
+            // canvasController?.setSize(brushSizeSlider.value)
+        case .eraserTool:
+            canvasController?.setEraserTool()
+        case .textTool, .shapesTool, .cursorTool:
+            return
+        }
     }
 
-    @IBAction private func trashButtonDidTap(_ sender: UIButton) {
-        canvasController?.clearDoodle()
+    @IBAction private func drawingToolButtonDidTap(_ sender: UIButton) {
+        guard let toolSelected = DrawingTools(rawValue: sender.tag) else {
+            return
+        }
+        unselectAllDrawingTools()
+        sender.isSelected = true
+        lastSelectedDrawingTool = toolSelected
+        setDrawingTool(toolSelected)
+    }
+
+    private func setDrawingTool(_ drawingTool: DrawingTools, shouldDismiss: Bool = false) {
+        switch drawingTool {
+        case .pen:
+            shouldDismiss ? drawButton.setImage(#imageLiteral(resourceName: "Brush"), for: .normal) : drawButton.setImage(#imageLiteral(resourceName: "Brush_Yellow"), for: .normal)
+            canvasController?.setPenTool()
+        case .pencil:
+            shouldDismiss ? drawButton.setImage(#imageLiteral(resourceName: "Pencil"), for: .normal) : drawButton.setImage(#imageLiteral(resourceName: "Pencil_Yellow"), for: .normal)
+            canvasController?.setPencilTool()
+        case .highlighter:
+            shouldDismiss ? drawButton.setImage(#imageLiteral(resourceName: "BrushAlt"), for: .normal) : drawButton.setImage(#imageLiteral(resourceName: "BrushAlt_Yellow"), for: .normal)
+            canvasController?.setHighlighterTool()
+        case .magicPen:
+            shouldDismiss ? drawButton.setImage(#imageLiteral(resourceName: "MagicWand"), for: .normal) : drawButton.setImage(#imageLiteral(resourceName: "MagicWand_Yellow"), for: .normal)
+            return
+        }
     }
 
     @IBAction private func colorPickerButtonDidTap(_ sender: UIButton) {
@@ -113,20 +142,24 @@ extension DoodleViewController {
         self.present(picker, animated: true, completion: nil)
     }
 
-    @IBAction private func sizeSliderDidChange(_ sender: UISlider) {
-        let newSize = sender.value
-        canvasController?.setSize(newSize)
+//    @IBAction private func sizeSliderDidChange(_ sender: UISlider) {
+//        let newSize = sender.value
+//        canvasController?.setSize(newSize)
+//    }
+
+    private func unselectAllMainTools() {
+        drawButton.isSelected = false
+        eraserButton.isSelected = false
+        textButton.isSelected = false
+        shapesButton.isSelected = false
+        cursorButton.isSelected = false
     }
 
-    private func hideAllBackgrounds() {
-        drawButton.backgroundColor = UIColor.clear
-        eraserButton.backgroundColor = UIColor.clear
-    }
-
-    private func hideAllAuxiliaryBackgrounds() {
-        penButton.backgroundColor = UIColor.clear
-        pencilButton.backgroundColor = UIColor.clear
-        markerButton.backgroundColor = UIColor.clear
+    private func unselectAllDrawingTools() {
+        penButton.isSelected = false
+        pencilButton.isSelected = false
+        highlighterButton.isSelected = false
+        magicPenButton.isSelected = false
     }
 
 }

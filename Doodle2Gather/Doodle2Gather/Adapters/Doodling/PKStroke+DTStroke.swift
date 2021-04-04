@@ -41,7 +41,7 @@ extension PKStroke: DTStroke {
             ink = .pen
         case .pencil:
             ink = .pencil
-        case .marker:
+        case .highlighter:
             ink = .marker
         }
 
@@ -56,7 +56,7 @@ extension PKStroke: DTStroke {
             return .pen
         case .pencil:
             return .pencil
-        case .marker:
+        case .highlighter:
             return .marker
         }
     }
@@ -68,7 +68,7 @@ extension PKStroke: DTStroke {
         case .pencil:
             return .pencil
         case .marker:
-            return .marker
+            return .highlighter
         @unknown default:
             fatalError("Unrecognised ink being used!")
         }

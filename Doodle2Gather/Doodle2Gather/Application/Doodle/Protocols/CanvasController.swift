@@ -26,8 +26,11 @@ protocol CanvasController {
     /// Sets the current tool to the pencil tool.
     func setPencilTool()
 
-    /// Sets the current tool to the marker tool.
-    func setMarkerTool()
+    /// Sets the current tool to the highlighter tool.
+    func setHighlighterTool()
+
+    /// Sets the current tool to the magic pen tool.
+    func setMagicPenTool()
 
     /// Sets the current color used for doodling.
     func setColor(_ color: UIColor)
