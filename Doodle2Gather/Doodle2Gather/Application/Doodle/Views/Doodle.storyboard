@@ -748,7 +748,7 @@
                                                     <constraint firstAttribute="height" constant="60" id="PTZ-bB-ztK"/>
                                                 </constraints>
                                                 <state key="normal" image="SoundOff_Red"/>
-                                                <state key="selected" image="SoundOff_Red"/>
+                                                <state key="selected" image="SoundOn"/>
                                                 <connections>
                                                     <action selector="didToggleAudio:" destination="iqH-RH-LvU" eventType="touchUpInside" id="GOP-mD-z10"/>
                                                 </connections>
@@ -760,7 +760,7 @@
                                                     <constraint firstAttribute="height" constant="60" id="yH5-iU-BGb"/>
                                                 </constraints>
                                                 <state key="normal" image="VideoOff_Red"/>
-                                                <state key="selected" image="VideoOff_Red"/>
+                                                <state key="selected" image="VideoOn"/>
                                                 <connections>
                                                     <action selector="didToggleVideo:" destination="iqH-RH-LvU" eventType="touchUpInside" id="cL9-NY-3n5"/>
                                                 </connections>
@@ -917,6 +917,7 @@
         <image name="Shapes" width="24" height="24"/>
         <image name="Shapes_Yellow" width="24" height="24"/>
         <image name="SoundOff_Red" width="24" height="24"/>
+        <image name="SoundOn" width="24" height="24"/>
         <image name="StopButton_Red" width="24" height="24"/>
         <image name="Text" width="24" height="24"/>
         <image name="Text_Yellow" width="24" height="24"/>
@@ -925,6 +926,7 @@
         <image name="UserAdd" width="24" height="24"/>
         <image name="Users" width="24" height="24"/>
         <image name="VideoOff_Red" width="24" height="24"/>
+        <image name="VideoOn" width="24" height="24"/>
         <namedColor name="Black">
             <color red="0.125" green="0.125" blue="0.11400000005960464" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
