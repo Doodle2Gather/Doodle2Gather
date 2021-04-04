@@ -17,6 +17,12 @@ class "User" as User << (X, Orchid) extension >> {
   toDTUser() 
 }
 
+class "DTUser" as DTUser << (S, SkyBlue) struct >> { 
+  +uid : String
+  +displayName : String
+  +email : String
+}
+
 class "DTAuthDelegate" as DTAuthDelegate << (P, GoldenRod) protocol >> { 
   ~displayError(_:)
   ~displayMessage(_:)
@@ -58,6 +64,7 @@ FirebaseAuthProvider *-- DTAuthDelegate : sends events
 FirebaseAuthProvider ..|> DTAbstractAuthProvider
 FirebaseAuthProvider --> User : converts to DTUser using
 DTAuth --> "1" DTAbstractAuthProvider
+DTAuth *-- "1" DTUser
 HomeViewController -- HomeViewController0
 
 @enduml
