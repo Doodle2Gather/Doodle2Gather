@@ -473,6 +473,7 @@
 		2EF8E97B25F75EB500C7EE7D /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				83F588FC26199E0500BB9F07 /* Credentials Storage */,
 				2EF8E97E25F75EC700C7EE7D /* Models */,
 				2EF8E97C25F75EB800C7EE7D /* Views */,
 				2EF8E97D25F75EBD00C7EE7D /* Controllers */,
@@ -566,6 +567,13 @@
 				83F588EA2619242A00BB9F07 /* DTAbstractAuthProvider.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		83F588FC26199E0500BB9F07 /* Credentials Storage */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Credentials Storage";
 			sourceTree = "<group>";
 		};
 		8460D73B2605A65800F160B1 /* Controllers */ = {

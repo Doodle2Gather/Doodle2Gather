@@ -99,7 +99,7 @@ class HomeViewController: UIViewController {
     }
 
     private func attemptRegister() {
-        DTAuth.signUp(email: emailTextField.text!, password: passwordTextField.text!, displayName: emailTextField.text!)
+        DTAuth.signUp(email: emailTextField.text!, password: passwordTextField.text!, displayName: displayNameTextField.text!)
     }
 
     private func attemptLogin() {
@@ -111,7 +111,15 @@ extension HomeViewController: DTAuthDelegate {
     func displayError(_ error: Error) {
         DispatchQueue.main.async {
             DTLogger.error(error.localizedDescription)
+            self.errorMessageLabel.textColor = .systemRed
             self.errorMessageLabel.text = error.localizedDescription
+        }
+    }
+
+    func displayMessage(_ message: String) {
+        DispatchQueue.main.async {
+            self.errorMessageLabel.textColor = .green
+            self.errorMessageLabel.text = message
         }
     }
 
