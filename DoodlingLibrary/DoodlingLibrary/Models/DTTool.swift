@@ -3,6 +3,6 @@
 public enum DTTool: String {
     case pen
     case pencil
-    case marker
+    case highlighter
     case eraser
 }

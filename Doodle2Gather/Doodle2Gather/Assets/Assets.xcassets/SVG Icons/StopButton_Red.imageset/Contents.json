@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "StopButton_Red.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
