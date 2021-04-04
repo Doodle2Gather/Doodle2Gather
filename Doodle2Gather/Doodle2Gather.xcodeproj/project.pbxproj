@@ -55,6 +55,8 @@
 		83D2EC3E2609283A004F875D /* ApiEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D2EC3D2609283A004F875D /* ApiEndpoints.swift */; };
 		83F588E72619240200BB9F07 /* DTAuthDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F588E62619240200BB9F07 /* DTAuthDelegate.swift */; };
 		83F588EB2619242A00BB9F07 /* DTAbstractAuthProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F588EA2619242A00BB9F07 /* DTAbstractAuthProvider.swift */; };
+		83F5890A2619B44100BB9F07 /* DTUserCredentialsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F589092619B44100BB9F07 /* DTUserCredentialsProvider.swift */; };
+		83F5890E2619B47C00BB9F07 /* UserDefaultsCredentialsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F5890D2619B47C00BB9F07 /* UserDefaultsCredentialsProvider.swift */; };
 		840D6B2B260236CF001F3D43 /* ConferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D6B2A260236CF001F3D43 /* ConferenceViewController.swift */; };
 		840D6B3326023F90001F3D43 /* VideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D6B3226023F90001F3D43 /* VideoCollectionViewCell.swift */; };
 		848F35472614174000AD46C6 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848F35462614174000AD46C6 /* Message.swift */; };
@@ -167,6 +169,8 @@
 		83D2EC3D2609283A004F875D /* ApiEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiEndpoints.swift; sourceTree = "<group>"; };
 		83F588E62619240200BB9F07 /* DTAuthDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTAuthDelegate.swift; sourceTree = "<group>"; };
 		83F588EA2619242A00BB9F07 /* DTAbstractAuthProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTAbstractAuthProvider.swift; sourceTree = "<group>"; };
+		83F589092619B44100BB9F07 /* DTUserCredentialsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTUserCredentialsProvider.swift; sourceTree = "<group>"; };
+		83F5890D2619B47C00BB9F07 /* UserDefaultsCredentialsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsCredentialsProvider.swift; sourceTree = "<group>"; };
 		840D6B2A260236CF001F3D43 /* ConferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConferenceViewController.swift; sourceTree = "<group>"; };
 		840D6B3226023F90001F3D43 /* VideoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewCell.swift; sourceTree = "<group>"; };
 		848F35462614174000AD46C6 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
@@ -589,6 +593,8 @@
 		83F588FC26199E0500BB9F07 /* Credentials Storage */ = {
 			isa = PBXGroup;
 			children = (
+				83F589092619B44100BB9F07 /* DTUserCredentialsProvider.swift */,
+				83F5890D2619B47C00BB9F07 /* UserDefaultsCredentialsProvider.swift */,
 			);
 			path = "Credentials Storage";
 			sourceTree = "<group>";
@@ -1015,6 +1021,7 @@
 				835D3BFA2606B11A004491D5 /* AgoraVideoEngine.swift in Sources */,
 				840D6B3326023F90001F3D43 /* VideoCollectionViewCell.swift in Sources */,
 				840D6B2B260236CF001F3D43 /* ConferenceViewController.swift in Sources */,
+				83F5890E2619B47C00BB9F07 /* UserDefaultsCredentialsProvider.swift in Sources */,
 				83260807261471EF00B90F25 /* WillowLogger.swift in Sources */,
 				2EF8E92725F754C600C7EE7D /* HomeViewController.swift in Sources */,
 				84D802F32616CB480096692E /* SegueConstants.swift in Sources */,
@@ -1038,6 +1045,7 @@
 				2EF8E92525F754C600C7EE7D /* SceneDelegate.swift in Sources */,
 				2E8AC74A2613F4C90033869E /* DTCanvasViewController.swift in Sources */,
 				2E987E6E2607468000352E7D /* PKStrokePoint+DTPoint.swift in Sources */,
+				83F5890A2619B44100BB9F07 /* DTUserCredentialsProvider.swift in Sources */,
 				848F3581261451D400AD46C6 /* ParticipantViewCell.swift in Sources */,
 				848F354F2614177000AD46C6 /* Sender.swift in Sources */,
 				2E987E7D26075C0200352E7D /* SocketController.swift in Sources */,

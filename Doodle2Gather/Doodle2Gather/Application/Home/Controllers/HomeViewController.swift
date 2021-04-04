@@ -23,6 +23,8 @@ class HomeViewController: UIViewController {
 
     let registerSuccessMessage = "Successfully created an account! Please log in!"
 
+    private let credentialsProvider = UserDefaultsCredentialsProvider()
+
     private func updateFormViews() {
         let segment = Segment(rawValue: formActionSegmentedControl.selectedSegmentIndex)
         switch segment {
@@ -47,6 +49,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         DTAuth.delegate = self
+        loadSavedCredentials()
         actionMessageLabel.text = ""
         updateFormViews()
         submitButton.layer.cornerRadius = 20
@@ -111,6 +114,15 @@ class HomeViewController: UIViewController {
         }
     }
 
+    private func loadSavedCredentials() {
+        guard credentialsProvider.hasSavedCredentials else {
+            return
+        }
+        emailTextField.text = credentialsProvider.savedEmail!
+        passwordTextField.text = credentialsProvider.savedPassword!
+        DTLogger.info("User credentials loaded and filled from credentials storage")
+    }
+
     private func attemptRegister() {
         DTAuth.signUp(email: emailTextField.text!,
                       password: passwordTextField.text!,
@@ -145,6 +157,12 @@ User Logged in
  - UID: \(DTAuth.user?.uid ?? "Not found")
  - Email: \(DTAuth.user?.email ?? "Not found")
 """)
+
+        DispatchQueue.main.async {
+            self.credentialsProvider.savedEmail = self.emailTextField.text
+            self.credentialsProvider.savedPassword = self.passwordTextField.text
+        }
+
         DispatchQueue.main.async {
             self.performSegue(withIdentifier: SegueConstants.toGallery, sender: self)
         }
