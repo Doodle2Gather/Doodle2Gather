@@ -13,6 +13,7 @@ target 'Doodle2Gather' do
   pod 'AgoraRtm_iOS'
   pod 'MessageKit'
   pod 'Willow'
+  pod 'FirebaseUI'
   
   target 'Doodle2GatherTests' do
     inherit! :search_paths
