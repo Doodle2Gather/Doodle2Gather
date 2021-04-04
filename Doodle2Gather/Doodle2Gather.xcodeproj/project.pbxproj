@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -17,8 +17,6 @@
 		2E8AC71F2613F3020033869E /* DoodlingLibrary.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2E8AC71D2613F3020033869E /* DoodlingLibrary.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2E8AC7222613F3060033869E /* Pods_Doodle2Gather.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2E3F8FAD2607380100C58F33 /* Pods_Doodle2Gather.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2E8AC74A2613F4C90033869E /* DTCanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8AC7492613F4C90033869E /* DTCanvasViewController.swift */; };
-		2E8AC7E72613FAE50033869E /* DoodleAutomerge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E8AC7A52613F9460033869E /* DoodleAutomerge.framework */; };
-		2E8AC7E82613FAE50033869E /* DoodleAutomerge.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2E8AC7A52613F9460033869E /* DoodleAutomerge.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2E987E6E2607468000352E7D /* PKStrokePoint+DTPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E987E6D2607468000352E7D /* PKStrokePoint+DTPoint.swift */; };
 		2E987E7D26075C0200352E7D /* SocketController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E987E7C26075C0200352E7D /* SocketController.swift */; };
 		2E987E8226075C5200352E7D /* SocketControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E987E8126075C5200352E7D /* SocketControllerDelegate.swift */; };
@@ -42,6 +40,7 @@
 		2EF8E94525F754C700C7EE7D /* Doodle2GatherUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8E94425F754C700C7EE7D /* Doodle2GatherUITests.swift */; };
 		67B62AB926198F8B0062037E /* DTApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B62AB826198F8B0062037E /* DTApi.swift */; };
 		67B62B4C2619BB980062037E /* DTWebSocketController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B62B4B2619BB980062037E /* DTWebSocketController.swift */; };
+		67B62B562619BE1B0062037E /* DoodlingAdaptedLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 67B62B552619BE1B0062037E /* DoodlingAdaptedLibrary */; };
 		832607EE26145D5200B90F25 /* DTLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832607ED26145D5200B90F25 /* DTLogger.swift */; };
 		83260807261471EF00B90F25 /* WillowLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83260806261471EF00B90F25 /* WillowLogger.swift */; };
 		8326080D26147FC600B90F25 /* DTAbstractLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8326080C26147FC600B90F25 /* DTAbstractLogger.swift */; };
@@ -104,7 +103,6 @@
 			files = (
 				2E8AC71F2613F3020033869E /* DoodlingLibrary.framework in Embed Frameworks */,
 				2E8AC7222613F3060033869E /* Pods_Doodle2Gather.framework in Embed Frameworks */,
-				2E8AC7E82613FAE50033869E /* DoodleAutomerge.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -198,7 +196,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2E8AC71E2613F3020033869E /* DoodlingLibrary.framework in Frameworks */,
-				2E8AC7E72613FAE50033869E /* DoodleAutomerge.framework in Frameworks */,
+				67B62B562619BE1B0062037E /* DoodlingAdaptedLibrary in Frameworks */,
 				E4717322950A9BA3A7954F7E /* Pods_Doodle2Gather.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -714,6 +712,7 @@
 			);
 			name = Doodle2Gather;
 			packageProductDependencies = (
+				67B62B552619BE1B0062037E /* DoodlingAdaptedLibrary */,
 			);
 			productName = Doodle2Gather;
 			productReference = 2EF8E91F25F754C600C7EE7D /* Doodle2Gather.app */;
@@ -1411,6 +1410,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		67B62B552619BE1B0062037E /* DoodlingAdaptedLibrary */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DoodlingAdaptedLibrary;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2EF8E91725F754C600C7EE7D /* Project object */;
 }
