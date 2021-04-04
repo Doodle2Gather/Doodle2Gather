@@ -13,13 +13,11 @@ public struct Endpoints {
     public let method: RouteDefinition.HTTPMethod
     public let path: [String]
 
-    enum PathParameter: String {
-      case acronymID
-      case categoryID
-      case userID
+    public enum PathParameter: String {
+      case roomId
     }
 
-    func fullPath(_ resolvingPathParameters: [PathParameter: String]) -> String {
+    public func fullPath(_ resolvingPathParameters: [PathParameter: String]) -> String {
       var path = (self.root + self.path).joined(separator: "/")
       resolvingPathParameters.forEach { resolvingPathParameter in
         path = path.replacingOccurrences(of: ":" + resolvingPathParameter.key.rawValue, with: resolvingPathParameter.value)
