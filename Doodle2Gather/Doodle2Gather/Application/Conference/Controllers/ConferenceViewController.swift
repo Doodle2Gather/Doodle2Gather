@@ -112,11 +112,23 @@ extension ConferenceViewController: VideoEngineDelegate {
 extension ConferenceViewController: ChatEngineDelegate {
 
     func deliverMessage(from user: String, message: String) {
-        let msg = Message(sender: Sender(senderId: user, displayName: user),
+        let prefix = message.prefix(while: { "0"..."9" ~= $0 })
+        let numericPrefix = String(prefix)
+        let prefixLength = prefix.count + 1
+        guard let nameCount = Int(numericPrefix) else {
+            DTLogger.error("Non numeric characters detected in header.")
+            return
+        }
+        let start = prefixLength + nameCount
+        let startIndex = message.index(message.startIndex, offsetBy: start)
+        let header = message.prefix(start)
+        let content = String(message.suffix(from: startIndex))
+        let name = header.suffix(from: header.index(header.startIndex, offsetBy: prefixLength))
+        let msg = Message(sender: Sender(senderId: user, displayName: String(name)),
                           messageId: UUID().uuidString,
-                          sentDate: Date(), kind: .text(message))
+                          sentDate: Date(), kind: .text(content))
         chatList.append(msg)
-        chatBox?.onReceiveMessage(from: user, message: message)
+        chatBox?.onReceiveMessage(msg)
     }
 
 }

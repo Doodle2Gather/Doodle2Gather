@@ -7,8 +7,8 @@ class ChatViewController: MessagesViewController {
     var chatEngine: ChatEngine?
     var messages = [Message]()
     var account = ConferenceConstants.testUser
-    var currentUser = Sender(senderId: ConferenceConstants.testUser,
-                             displayName: ConferenceConstants.testUser)
+    var currentUser = Sender(senderId: DTAuth.user?.uid ?? UUID().uuidString,
+                             displayName: DTAuth.user?.displayName ?? "Anonymous")
     var deliverHandler: ((Message) -> Void)?
 
     override func viewDidLoad() {
@@ -121,12 +121,8 @@ class ChatViewController: MessagesViewController {
 
 extension ChatViewController: ChatBoxDelegate {
 
-    func onReceiveMessage(from user: String, message: String) {
-        let msg = Message(sender: Sender(senderId: user, displayName: user),
-                          messageId: UUID().uuidString,
-                          sentDate: Date(),
-                          kind: .text(message))
-        messages.append(msg)
+    func onReceiveMessage(_ message: Message) {
+        messages.append(message)
         messagesCollectionView.reloadData()
         DispatchQueue.main.async {
             self.messagesCollectionView.scrollToLastItem(animated: true)
@@ -215,7 +211,7 @@ extension ChatViewController: MessagesDisplayDelegate {
     func messageStyle(for message: MessageType,
                       at indexPath: IndexPath,
                       in messagesCollectionView: MessagesCollectionView) -> MessageStyle {
-        let corner: MessageStyle.TailCorner = isFromCurrentSender(message: message)
+        let corner: MessageStyle.TailCorner = message.sender.senderId == currentUser.senderId
             ? .bottomRight :
             .bottomLeft
         return .bubbleTail(corner, .curved)

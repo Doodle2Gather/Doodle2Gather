@@ -1,5 +1,6 @@
 import UIKit
 import AgoraRtmKit
+import DoodlingLibrary
 
 /**
  Engine that interfaces with Agora.
@@ -10,17 +11,21 @@ class AgoraChatEngine: NSObject, ChatEngine {
     var agoraRtmKit: AgoraRtmKit?
     var rtmChannel: AgoraRtmChannel?
     private var chatID: UInt = 0
-    var account: String = ConferenceConstants.testUser
+    private var currentUser: DTUser? = DTAuth.user
 
     func initialize() {
         agoraRtmKit = AgoraRtmKit(appId: ConferenceConstants.appID, delegate: self)
         agoraRtmKit?.agoraRtmDelegate = self
-        getAgoraTokenAndJoinChannel(channelName: "messaging")
+        getAgoraTokenAndJoinChannel(channelName: "testing")
     }
 
     // TODO: Currently reusing the logic for video, need to change to our own user model
     private func getAgoraTokenAndJoinChannel(channelName: String) {
-        let url = URL(string: "\(ApiEndpoints.AgoraRtmTokenServer)?account=\(account)")!
+        guard let user = currentUser else {
+            DTLogger.error("Error with fetching current user's uid")
+            return
+        }
+        let url = URL(string: "\(ApiEndpoints.AgoraRtmTokenServer)?account=\(user.uid)")!
 
         let task = URLSession.shared.dataTask(with: url, completionHandler: { data, response, error in
             if let error = error {
@@ -39,7 +44,7 @@ class AgoraChatEngine: NSObject, ChatEngine {
                 // TODO: CHange "username" to when authentication is done
                 // Also, the username cannot contain special characters
                 self.agoraRtmKit?.login(byToken: tokenResponse.key,
-                                        user: self.account) { errorCode in
+                                        user: user.uid) { errorCode in
                     guard errorCode == .ok else {
                         DTLogger.error("Error with logging in to Agora server: code \(errorCode.rawValue)")
                         return
@@ -73,13 +78,19 @@ class AgoraChatEngine: NSObject, ChatEngine {
     }
 
     func send(message: String) {
-        let rtmMessage = AgoraRtmMessage(text: message)
+        guard let user = currentUser else {
+            return
+        }
+        let packet = "\(user.displayName.count) \(user.displayName)" + message
+        print(packet)
+        let rtmMessage = AgoraRtmMessage(text: packet)
+
         rtmChannel?.send(rtmMessage) { errorCode in
             if errorCode != .errorOk {
                 DTLogger.error("Error sending the message: code \(errorCode.rawValue)")
             } else {
-                DTLogger.event("Successfully sent message: \(message)")
-                self.delegate?.deliverMessage(from: self.account, message: message)
+                DTLogger.event("Successfully sent message from \(user.displayName): \(message)")
+                self.delegate?.deliverMessage(from: user.uid, message: rtmMessage.text)
             }
         }
     }
