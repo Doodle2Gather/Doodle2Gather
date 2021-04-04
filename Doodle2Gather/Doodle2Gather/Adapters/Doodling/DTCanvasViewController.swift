@@ -11,7 +11,7 @@ class DTCanvasViewController: UIViewController {
     /// Main canvas view that we will work with.
     var canvasView = PKCanvasView()
     /// Doodle that will be injected into this controller.
-    var doodle = PKDrawing()
+    var previousStrokes = [PKStrokeHashWrapper]()
     /// Delegate for action dispatching.
     internal weak var delegate: CanvasControllerDelegate?
 
@@ -29,7 +29,7 @@ class DTCanvasViewController: UIViewController {
 
         addCanvasView()
         canvasView.delegate = self
-        canvasView.drawing = doodle
+        canvasView.drawing = PKDrawing()
         canvasView.contentSize = Constants.canvasSize
     }
 
@@ -73,19 +73,19 @@ extension DTCanvasViewController: PKCanvasViewDelegate {
     // TODO: Fix issues with erasure + build more sustainable solution.
     func canvasViewDrawingDidChange(_ canvas: PKCanvasView) {
         let newStrokes = canvas.drawing.dtStrokes.map { PKStrokeHashWrapper(from: $0) }
-        let oldStrokes = doodle.dtStrokes.map { PKStrokeHashWrapper(from: $0) }
+        let oldStrokes = previousStrokes
         let newStrokesSet = Set(newStrokes)
         let oldStrokesSet = Set(oldStrokes)
 
         let addedStrokes = newStrokes.filter { !oldStrokesSet.contains($0) }
         let removedStrokes = oldStrokes.filter { !newStrokesSet.contains($0) }
 
-        /// No change has occurred and we want to prevent unnecessary propagation.
+        // No change has occurred and we want to prevent unnecessary propagation.
         if addedStrokes.isEmpty && removedStrokes.isEmpty {
             return
         }
 
-        doodle = PKDrawing(strokes: newStrokes.map { PKStroke(from: $0) })
+        previousStrokes = newStrokes
 
         guard let action = DTAction(added: addedStrokes, removed: removedStrokes) else {
             return
@@ -101,23 +101,26 @@ extension DTCanvasViewController: CanvasController {
         guard let (added, removed): ([PKStroke], [PKStroke]) = action.getStrokes() else {
             return
         }
-        var doodleCopy = doodle
-        doodleCopy.addStrokes(added)
-        doodleCopy.removeStrokes(removed)
+
+        let removedSet = Set(removed.map { PKStrokeHashWrapper(from: $0) })
+        var previousStrokesCopy = Array(previousStrokes)
+        previousStrokesCopy.append(contentsOf: added.map { PKStrokeHashWrapper(from: $0) })
+        previousStrokesCopy = previousStrokesCopy.filter { !removedSet.contains($0) }
 
         // No change has occurred and we want to prevent unnecessary propagation.
-        if doodleCopy.dtStrokes == doodle.dtStrokes {
+        if previousStrokesCopy == previousStrokes {
             return
         }
 
-        doodle = doodleCopy // This prevents an action from firing later.
-        canvasView.drawing = doodle
+        previousStrokes = previousStrokesCopy // This prevents an action from firing later.
+        canvasView.drawing = PKDrawing(strokes: previousStrokesCopy.map { PKStroke(from: $0) })
     }
 
     // Note: This method does not fire off an Action.
     func loadDoodle<D: DTDoodle>(_ doodle: D) {
-        self.doodle = PKDrawing(from: doodle)
-        canvasView.drawing = self.doodle
+        let drawingHashWrapper = PKDrawingHashWrapper(from: doodle)
+        previousStrokes = drawingHashWrapper.dtStrokes
+        canvasView.drawing = PKDrawing(from: drawingHashWrapper)
     }
 
     func clearDoodle() {
