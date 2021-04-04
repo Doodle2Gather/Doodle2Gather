@@ -42,20 +42,10 @@ class AutoMergeController {
         }
     }
 
-    var latestDispatchedActions = [DTAdaptedAction]()
-
-    func getLatestDispatchedActions() {
+    func getLatestDispatchedActions() -> EventLoopFuture<[DTAdaptedAction]> {
         PersistedDTAction.getLatest(on: db)
             .flatMapThrowing { actions in
                 actions.map(DTAdaptedAction.init)
-            }
-            .whenComplete { res in
-                switch res {
-                case .failure(let err):
-                    self.logger.report(error: err)
-                case .success(let actions):
-                    self.latestDispatchedActions = actions
-                }
             }
     }
 
@@ -75,11 +65,14 @@ class AutoMergeController {
     }
 
     func updateDatabase() -> Bool {
+        var success = true
+
         addStrokes().forEach {
             $0.whenComplete { res in
                 switch res {
                 case .failure(let err):
                     self.logger.report(error: err)
+                    success = false
                 case .success:
                     print("added")
                 }
@@ -92,6 +85,7 @@ class AutoMergeController {
                 switch res {
                 case .failure(let err):
                     self.logger.report(error: err)
+                    success = false
                 case .success:
                     print("removed")
                 }
@@ -102,25 +96,19 @@ class AutoMergeController {
             switch res {
             case .failure(let err):
                 self.logger.report(error: err)
+                success = false
             case .success:
                 print("added action")
             }
         }
-        return true
+        return success
     }
 
-    func perform() -> EventLoopFuture<(isActionDenied: Bool, message: String)> {
+    func perform() -> EventLoopFuture<(isActionDenied: Bool, success: Bool)> {
         checkMergeConflict()
             .map { isActionDenied in
-                var message: String
-
-                if isActionDenied {
-                    message = "Merge conflict."
-                } else {
-                    message = self.updateDatabase() ? "Action added" : "Something went wrong adding the action."
-                }
-
-                return (isActionDenied, message)
+                let success = self.updateDatabase()
+                return (isActionDenied, success)
             }
     }
 }

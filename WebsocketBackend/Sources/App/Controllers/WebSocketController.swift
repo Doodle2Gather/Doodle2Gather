@@ -91,41 +91,39 @@ class WebSocketController {
         let action = message.action.makePersistedAction()
 
         let autoMerge = AutoMergeController(
-            db: self.db, newAction: message.action,
-            persistedAction: action
+            db: self.db, newAction: message.action, persistedAction: action
         )
 
         autoMerge.perform().whenComplete { res in
             switch res {
             case .failure(let err):
                 self.logger.report(error: err)
-            case .success(let (isActionDenied, message)):
+            case .success(let (isActionDenied, success)):
                 if !isActionDenied {
-
+                    let message = success ? "Action added" : "Something went wrong adding the action."
                     self.dispatchActionToPeers(
                         action, to: self.getAllWebSocketOptionsExcept(id), success: true, message: message
                     )
                     self.sendActionFeedback(
-                        action, to: .id(id), success: true, message: message
+                        action, to: .id(id), success: success, message: message
                     )
                     return
                 }
 
-                self.logger.info("Merge conflict. ")
-                autoMerge.getLatestDispatchedActions()
-                self.sendActionFeedback(
-                    action, to: .id(id), success: true, message: message,
-                    isActionDenied: isActionDenied,
-                    actionHistories: autoMerge.latestDispatchedActions
-                )
+                self.logger.info("There is a merge conflict. ")
+                autoMerge.getLatestDispatchedActions().whenComplete { res in
+                    switch res {
+                    case .failure(let err):
+                        self.logger.report(error: err)
+                    case .success(let actions):
+                        self.sendActionFeedback(
+                            action, to: .id(id), success: success, message: "There is a merge conflict",
+                            isActionDenied: isActionDenied, actionHistories: actions
+                        )
+                    }
+                }
             }
         }
-
-        //            logger.report(error: error)
-        //
-        //            self.sendActionFeedback(
-        //                action, to: .id(id), success: false, message: "Something went wrong adding the action."
-        //            )
     }
 
     func send<T: Codable>(message: T, to sendOption: [WebSocketSendOption]) {
