@@ -11,7 +11,7 @@ class DoodleViewController: UIViewController {
     @IBOutlet private var markerButton: UIButton!
     @IBOutlet private var auxiliaryButtonsView: UIView!
     @IBOutlet private var colorPickerButton: UIButton!
-    @IBOutlet private var brushSizeSlider: UISlider!
+//    @IBOutlet private var brushSizeSlider: UISlider!
 
     // Controllers
     private var canvasController: CanvasController?
@@ -56,7 +56,7 @@ class DoodleViewController: UIViewController {
         }
     }
 
-    @IBAction private func didTapBack(_ sender: Any) {
+    @IBAction private func exitButtonDidTap(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
 }
@@ -72,7 +72,7 @@ extension DoodleViewController {
         penButton.backgroundColor = UIColor.systemGray6
         canvasController?.setPenTool()
         canvasController?.setColor(colorPickerButton.backgroundColor ?? .black)
-        canvasController?.setSize(brushSizeSlider.value)
+//        canvasController?.setSize(brushSizeSlider.value)
         auxiliaryButtonsView.isHidden = false
     }
 
@@ -113,10 +113,10 @@ extension DoodleViewController {
         self.present(picker, animated: true, completion: nil)
     }
 
-    @IBAction private func sizeSliderDidChange(_ sender: UISlider) {
-        let newSize = sender.value
-        canvasController?.setSize(newSize)
-    }
+//    @IBAction private func sizeSliderDidChange(_ sender: UISlider) {
+//        let newSize = sender.value
+//        canvasController?.setSize(newSize)
+//    }
 
     private func hideAllBackgrounds() {
         drawButton.backgroundColor = UIColor.clear
