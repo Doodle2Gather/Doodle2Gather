@@ -23,6 +23,7 @@ class ChatViewController: MessagesViewController {
         messageInputBar.delegate = self
 
         updateViews()
+        isModalInPresentation = true
     }
 
     private func updateViews() {

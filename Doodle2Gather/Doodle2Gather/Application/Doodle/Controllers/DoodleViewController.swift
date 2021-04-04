@@ -19,7 +19,13 @@ class DoodleViewController: UIViewController {
     @IBOutlet private var highlighterButton: UIButton!
     @IBOutlet private var magicPenButton: UIButton!
     @IBOutlet private var colorPickerButton: UIButton!
-//    @IBOutlet private var brushSizeSlider: UISlider!
+    // @IBOutlet private var brushSizeSlider: UISlider!
+
+    // Profile Images
+    @IBOutlet private var userProfileImage: UIImageView!
+    @IBOutlet private var otherProfileImageOne: UIImageView!
+    @IBOutlet private var otherProfileImageTwo: UIImageView!
+    @IBOutlet private var numberOfOtherUsersLabel: UILabel!
 
     // Controllers
     private var canvasController: CanvasController?
@@ -29,11 +35,6 @@ class DoodleViewController: UIViewController {
     var username: String?
     var roomName: String?
     private var lastSelectedDrawingTool = DrawingTools.pen
-
-    // Constants
-    enum Segues {
-        static let toCanvas = "ToCanvas"
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,13 +47,23 @@ class DoodleViewController: UIViewController {
         if let roomName = roomName {
             fileNameLabel.text = roomName
         }
+        loadBorderColors()
+    }
+
+    private func loadBorderColors() {
+        colorPickerButton.layer.borderColor = UIConstants.stackGrey.cgColor
+        numberOfOtherUsersLabel.layer.borderColor = UIConstants.stackGrey.cgColor
+        // TODO: Replace profile picture borders with assigned colors
+        userProfileImage.layer.borderColor = UIConstants.white.cgColor
+        otherProfileImageOne.layer.borderColor = UIConstants.white.cgColor
+        otherProfileImageTwo.layer.borderColor = UIConstants.white.cgColor
     }
 
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
-        case Segues.toCanvas:
+        case SegueConstants.toCanvas:
             guard let destination = segue.destination as? DTCanvasViewController else {
                 return
             }

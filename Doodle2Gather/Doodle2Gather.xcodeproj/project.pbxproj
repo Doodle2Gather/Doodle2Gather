@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2E01245F26195B8400A38B77 /* BorderedShadowedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E01245E26195B8400A38B77 /* BorderedShadowedView.swift */; };
+		2E07C4242619B3EA003A87C9 /* UIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E07C4232619B3EA003A87C9 /* UIConstants.swift */; };
 		2E146CC126190246001F6845 /* Participants.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E146CC026190246001F6845 /* Participants.storyboard */; };
 		2E2B16D926197BFF0014DD4A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EF8E92B25F754C700C7EE7D /* Assets.xcassets */; };
 		2E4A0B422616FDFF003257D4 /* PKDrawing+StrokesFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4A0B412616FDFF003257D4 /* PKDrawing+StrokesFrame.swift */; };
@@ -118,6 +119,7 @@
 		1890AB750E84E15DDAD20FBF /* Pods-Doodle2GatherTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Doodle2GatherTests.debug.xcconfig"; path = "Target Support Files/Pods-Doodle2GatherTests/Pods-Doodle2GatherTests.debug.xcconfig"; sourceTree = "<group>"; };
 		23319EF80EB848F237EA105B /* Pods_Doodle2GatherTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Doodle2GatherTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E01245E26195B8400A38B77 /* BorderedShadowedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderedShadowedView.swift; sourceTree = "<group>"; };
+		2E07C4232619B3EA003A87C9 /* UIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIConstants.swift; sourceTree = "<group>"; };
 		2E146CC026190246001F6845 /* Participants.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Participants.storyboard; sourceTree = "<group>"; };
 		2E3F8FAD2607380100C58F33 /* Pods_Doodle2Gather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Doodle2Gather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E4A0B412616FDFF003257D4 /* PKDrawing+StrokesFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PKDrawing+StrokesFrame.swift"; sourceTree = "<group>"; };
@@ -491,6 +493,7 @@
 		2EF8E97B25F75EB500C7EE7D /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				83F588FC26199E0500BB9F07 /* Credentials Storage */,
 				2EF8E97E25F75EC700C7EE7D /* Models */,
 				2EF8E97C25F75EB800C7EE7D /* Views */,
 				2EF8E97D25F75EBD00C7EE7D /* Controllers */,
@@ -586,6 +589,13 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		83F588FC26199E0500BB9F07 /* Credentials Storage */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Credentials Storage";
+			sourceTree = "<group>";
+		};
 		8460D73B2605A65800F160B1 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -635,6 +645,7 @@
 				83D2EC3D2609283A004F875D /* ApiEndpoints.swift */,
 				84EEC6C226102B5100876F66 /* ConferenceConstants.swift */,
 				84D802F22616CB480096692E /* SegueConstants.swift */,
+				2E07C4232619B3EA003A87C9 /* UIConstants.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -1052,6 +1063,7 @@
 				83AB9C5226171088008E48D0 /* DTAuth.swift in Sources */,
 				832607EE26145D5200B90F25 /* DTLogger.swift in Sources */,
 				8326080D26147FC600B90F25 /* DTAbstractLogger.swift in Sources */,
+				2E07C4242619B3EA003A87C9 /* UIConstants.swift in Sources */,
 				84E9594F260D754100D587CC /* VideoEngine.swift in Sources */,
 				2EA8C3002605E57900BE750C /* DTAction.swift in Sources */,
 			);

@@ -12,13 +12,8 @@ class FirebaseAuthProvider: DTAbstractAuthProvider {
         Auth.auth().currentUser
     }
 
-    private var storedUser: DTUser?
-
     var user: DTUser? {
-        if self.storedUser == nil {
-            self.storedUser = Auth.auth().currentUser?.toDTUser()
-        }
-        return self.storedUser!
+        Auth.auth().currentUser?.toDTUser()
     }
 
     func signUp(email: String, password: String, displayName: String) {
@@ -28,7 +23,7 @@ class FirebaseAuthProvider: DTAbstractAuthProvider {
             return
         }
         self.setUserDisplayName(displayName)
-        self.delegate?.loginDidSucceed()
+        self.delegate?.registerDidSucceed()
       }
     }
 
@@ -38,7 +33,7 @@ class FirebaseAuthProvider: DTAbstractAuthProvider {
                 self.delegate?.displayError(error!)
                 return
             }
-        self.delegate?.loginDidSucceed()
+            self.delegate?.loginDidSucceed()
         }
     }
 
@@ -54,6 +49,7 @@ class FirebaseAuthProvider: DTAbstractAuthProvider {
                 DTLogger.error("Unable set user profile display name")
                 return
             }
+            DTLogger.info("Display name is now set to: \(displayName)")
         }
     }
 }

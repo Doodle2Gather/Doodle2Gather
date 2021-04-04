@@ -21,7 +21,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CRw-tT-Mu5" userLabel="Canvas Container View">
                                 <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
                                 <connections>
-                                    <segue destination="rKz-2I-ekB" kind="embed" identifier="ToCanvas" id="h1y-4w-gMZ"/>
+                                    <segue destination="rKz-2I-ekB" kind="embed" identifier="toCanvas" id="h1y-4w-gMZ"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2v7-Hc-qJ9" userLabel="Video Overlay View" customClass="SubviewTouchView" customModule="Doodle2Gather" customModuleProvider="target">
@@ -30,7 +30,7 @@
                                     <segue destination="iqH-RH-LvU" kind="embed" identifier="" id="LHe-b8-q2G"/>
                                 </connections>
                             </containerView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lOM-bA-4te" userLabel="File Name View" customClass="BorderedShadowedView" customModule="Doodle2Gather" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lOM-bA-4te" userLabel="File Name View">
                                 <rect key="frame" x="12" y="12" width="337.5" height="60"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xPu-xR-t4a">
@@ -50,7 +50,7 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="File Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cdg-gm-cRI">
                                                 <rect key="frame" x="40" y="0.0" width="92.5" height="60"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="200" id="LN5-ri-UgB"/>
+                                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="100" id="LN5-ri-UgB"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                 <color key="textColor" name="White"/>
@@ -109,24 +109,21 @@
                                     <constraint firstItem="xPu-xR-t4a" firstAttribute="trailing" secondItem="lOM-bA-4te" secondAttribute="trailing" id="ztn-Z3-poC"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <real key="value" value="20"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
                                         <real key="value" value="20"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                    <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
                                         <size key="value" width="0.0" height="0.0"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
-                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
                                         <real key="value" value="0.40000000000000002"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pn5-xG-qj1" userLabel="Undo Redo View" customClass="BorderedShadowedView" customModule="Doodle2Gather" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pn5-xG-qj1" userLabel="Undo Redo View">
                                 <rect key="frame" x="359.5" y="12" width="122" height="60"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="SRL-CW-Mem">
@@ -169,30 +166,27 @@
                                     <constraint firstItem="SRL-CW-Mem" firstAttribute="bottom" secondItem="Pn5-xG-qj1" secondAttribute="bottom" constant="-10" id="gmU-6m-lB9"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <real key="value" value="20"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
                                         <real key="value" value="20"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                    <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
                                         <size key="value" width="0.0" height="0.0"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
-                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
                                         <real key="value" value="0.40000000000000002"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Xj-kh-aUN" userLabel="Left Auxiliary Buttons View" customClass="BorderedShadowedView" customModule="Doodle2Gather" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Xj-kh-aUN" userLabel="Left Auxiliary Buttons View">
                                 <rect key="frame" x="82" y="449.5" width="60" height="295"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="a3W-PN-KVs" userLabel="Button Stack">
                                         <rect key="frame" x="10" y="10" width="40" height="270"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rKg-Y4-tax" userLabel="Pen Button">
+                                            <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rKg-Y4-tax" userLabel="Pen Button">
                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="40" id="Hja-wa-jmF"/>
@@ -211,14 +205,13 @@
                                                     <action selector="drawingToolButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="mh8-Ju-KcB"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hSq-Mo-ZTc" userLabel="Pencil Button">
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PHr-oW-a4i" userLabel="Pencil Button">
                                                 <rect key="frame" x="0.0" y="50" width="40" height="40"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="40" id="M0m-HV-lei"/>
-                                                    <constraint firstAttribute="height" constant="40" id="zP6-0E-g5p"/>
+                                                    <constraint firstAttribute="height" constant="40" id="WCC-sx-g8M"/>
+                                                    <constraint firstAttribute="width" constant="40" id="YNB-2Q-nwX"/>
                                                 </constraints>
                                                 <color key="tintColor" systemColor="labelColor"/>
-                                                <inset key="imageEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
                                                 <state key="normal" image="Pencil"/>
                                                 <state key="selected" image="Pencil_Yellow"/>
                                                 <userDefinedRuntimeAttributes>
@@ -228,17 +221,16 @@
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="drawingToolButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="N1t-Q8-RFm"/>
+                                                    <action selector="drawingToolButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="ePe-Wp-PpL"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P4w-Em-YlY" userLabel="Highlighter Button">
+                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AMp-iL-zoR" userLabel="Highlighter Button">
                                                 <rect key="frame" x="0.0" y="100" width="40" height="40"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="Shk-7F-yvk"/>
-                                                    <constraint firstAttribute="width" constant="40" id="cFe-ri-LhJ"/>
+                                                    <constraint firstAttribute="height" constant="40" id="aAz-Xg-Us7"/>
+                                                    <constraint firstAttribute="width" constant="40" id="wX6-4N-bxW"/>
                                                 </constraints>
                                                 <color key="tintColor" systemColor="labelColor"/>
-                                                <inset key="imageEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
                                                 <state key="normal" image="BrushAlt"/>
                                                 <state key="selected" image="BrushAlt_Yellow"/>
                                                 <userDefinedRuntimeAttributes>
@@ -248,17 +240,16 @@
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="drawingToolButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="vgW-nf-uXq"/>
+                                                    <action selector="drawingToolButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="IWs-t2-mFG"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CPc-eM-E3s" userLabel="Magic Pen Button">
+                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EE8-GC-4Km" userLabel="Magic Pen Button">
                                                 <rect key="frame" x="0.0" y="150" width="40" height="40"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="INu-lL-3Zu"/>
-                                                    <constraint firstAttribute="width" constant="40" id="ho9-3P-FUk"/>
+                                                    <constraint firstAttribute="width" constant="40" id="BHW-Ic-vcm"/>
+                                                    <constraint firstAttribute="height" constant="40" id="G0J-T6-dj7"/>
                                                 </constraints>
                                                 <color key="tintColor" systemColor="labelColor"/>
-                                                <inset key="imageEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
                                                 <state key="normal" image="MagicWand"/>
                                                 <state key="selected" image="MagicWand_Yellow"/>
                                                 <userDefinedRuntimeAttributes>
@@ -268,7 +259,7 @@
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="drawingToolButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="LTM-0a-gEC"/>
+                                                    <action selector="drawingToolButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="azI-dV-NXN"/>
                                                 </connections>
                                             </button>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Separator_Horizontal" translatesAutoresizingMaskIntoConstraints="NO" id="iqa-v5-fMZ">
@@ -281,46 +272,31 @@
                                                     <constraint firstAttribute="width" constant="40" id="wvl-gz-hCe"/>
                                                 </constraints>
                                             </imageView>
-                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oC8-y8-xh8" userLabel="Color Picker Wrapper" customClass="BorderedShadowedView" customModule="Doodle2Gather" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lS9-7Y-8ju" userLabel="Color Picker Button">
                                                 <rect key="frame" x="0.0" y="230" width="40" height="40"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lS9-7Y-8ju" userLabel="Color Picker Button">
-                                                        <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
-                                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="40" id="ZLE-9j-S17"/>
-                                                            <constraint firstAttribute="height" constant="40" id="g4g-vx-2yP"/>
-                                                        </constraints>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                <integer key="value" value="20"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                                        </userDefinedRuntimeAttributes>
-                                                        <connections>
-                                                            <action selector="colorPickerButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="j76-2J-Sd1"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="OVc-a0-1HJ"/>
-                                                    <constraint firstItem="lS9-7Y-8ju" firstAttribute="centerY" secondItem="oC8-y8-xh8" secondAttribute="centerY" id="TzD-yD-PMl"/>
-                                                    <constraint firstAttribute="width" constant="40" id="TzY-Fm-LmD"/>
-                                                    <constraint firstItem="lS9-7Y-8ju" firstAttribute="centerX" secondItem="oC8-y8-xh8" secondAttribute="centerX" id="Xrx-dT-HS3"/>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="UHj-mC-ujH"/>
+                                                    <constraint firstAttribute="width" constant="40" id="ZLE-9j-S17"/>
+                                                    <constraint firstAttribute="height" constant="40" id="g4g-vx-2yP"/>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="sfH-YP-vkj"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" name="Stack Grey"/>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="20"/>
                                                     </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
                                                         <real key="value" value="3"/>
                                                     </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                         <real key="value" value="20"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
-                                            </view>
+                                                <connections>
+                                                    <action selector="colorPickerButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="j76-2J-Sd1"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                     </stackView>
                                 </subviews>
@@ -332,33 +308,30 @@
                                     <constraint firstItem="a3W-PN-KVs" firstAttribute="bottom" secondItem="4Xj-kh-aUN" secondAttribute="bottom" constant="-15" id="UCw-2l-6lO"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <real key="value" value="20"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
                                         <real key="value" value="20"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                    <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
                                         <size key="value" width="0.0" height="0.0"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
-                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
                                         <real key="value" value="0.40000000000000002"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HdL-Pj-pPB" userLabel="Left Buttons View" customClass="BorderedShadowedView" customModule="Doodle2Gather" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HdL-Pj-pPB" userLabel="Left Buttons View">
                                 <rect key="frame" x="12" y="467" width="60" height="260"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Pqb-uy-IVC" userLabel="Button Stack">
-                                        <rect key="frame" x="0.0" y="10" width="60" height="240"/>
+                                        <rect key="frame" x="10" y="10" width="40" height="240"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IP2-Vo-DRb" userLabel="Draw Button">
-                                                <rect key="frame" x="0.0" y="0.0" width="60" height="40"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="60" id="g6H-cL-8dT"/>
+                                                    <constraint firstAttribute="width" constant="40" id="g6H-cL-8dT"/>
                                                     <constraint firstAttribute="height" constant="40" id="kyv-a9-dtY"/>
                                                 </constraints>
                                                 <color key="tintColor" systemColor="labelColor"/>
@@ -374,9 +347,9 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kjq-AY-SZg" userLabel="Eraser Button">
-                                                <rect key="frame" x="0.0" y="50" width="60" height="40"/>
+                                                <rect key="frame" x="0.0" y="50" width="40" height="40"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="60" id="U6e-Ro-YbU"/>
+                                                    <constraint firstAttribute="width" constant="40" id="U6e-Ro-YbU"/>
                                                     <constraint firstAttribute="height" constant="40" id="qEF-tM-NMt"/>
                                                 </constraints>
                                                 <state key="normal" image="Eraser"/>
@@ -386,9 +359,9 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Va2-Px-Ku6" userLabel="Text Button">
-                                                <rect key="frame" x="0.0" y="100" width="60" height="40"/>
+                                                <rect key="frame" x="0.0" y="100" width="40" height="40"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="60" id="bXL-Ld-hUy"/>
+                                                    <constraint firstAttribute="width" constant="40" id="bXL-Ld-hUy"/>
                                                     <constraint firstAttribute="height" constant="40" id="tI2-yr-Ywm"/>
                                                 </constraints>
                                                 <state key="normal" image="Text"/>
@@ -398,9 +371,9 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w78-OH-H1V" userLabel="Shapes Button">
-                                                <rect key="frame" x="0.0" y="150" width="60" height="40"/>
+                                                <rect key="frame" x="0.0" y="150" width="40" height="40"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="60" id="0zP-9y-JKU"/>
+                                                    <constraint firstAttribute="width" constant="40" id="0zP-9y-JKU"/>
                                                     <constraint firstAttribute="height" constant="40" id="coA-hG-7Mb"/>
                                                 </constraints>
                                                 <state key="normal" image="Shapes"/>
@@ -410,10 +383,10 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ryu-pR-t2y" userLabel="Cursor Button">
-                                                <rect key="frame" x="0.0" y="200" width="60" height="40"/>
+                                                <rect key="frame" x="0.0" y="200" width="40" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="iyh-9i-UGG"/>
-                                                    <constraint firstAttribute="width" constant="60" id="wNu-rS-KaF"/>
+                                                    <constraint firstAttribute="width" constant="40" id="wNu-rS-KaF"/>
                                                 </constraints>
                                                 <state key="normal" image="Cursor"/>
                                                 <state key="selected" image="Cursor_Yellow"/>
@@ -427,65 +400,49 @@
                                 <color key="backgroundColor" name="Black"/>
                                 <constraints>
                                     <constraint firstItem="Pqb-uy-IVC" firstAttribute="bottom" secondItem="HdL-Pj-pPB" secondAttribute="bottom" constant="-10" id="GNV-Ev-oPK"/>
-                                    <constraint firstItem="Pqb-uy-IVC" firstAttribute="leading" secondItem="HdL-Pj-pPB" secondAttribute="leading" id="QLr-Hb-mC7"/>
-                                    <constraint firstItem="Pqb-uy-IVC" firstAttribute="trailing" secondItem="HdL-Pj-pPB" secondAttribute="trailing" id="alg-M6-ZTb"/>
+                                    <constraint firstItem="Pqb-uy-IVC" firstAttribute="leading" secondItem="HdL-Pj-pPB" secondAttribute="leading" constant="10" id="QLr-Hb-mC7"/>
+                                    <constraint firstItem="Pqb-uy-IVC" firstAttribute="trailing" secondItem="HdL-Pj-pPB" secondAttribute="trailing" constant="-10" id="alg-M6-ZTb"/>
                                     <constraint firstItem="Pqb-uy-IVC" firstAttribute="top" secondItem="HdL-Pj-pPB" secondAttribute="top" constant="10" id="cHO-0b-2SA"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <real key="value" value="20"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
                                         <real key="value" value="20"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                    <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
                                         <size key="value" width="0.0" height="0.0"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
-                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
                                         <real key="value" value="0.40000000000000002"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gvt-x0-wpX" userLabel="Profile Images View" customClass="BorderedShadowedView" customModule="Doodle2Gather" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gvt-x0-wpX" userLabel="Profile Images View">
                                 <rect key="frame" x="586" y="12" width="236" height="60"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="DwN-FB-eIE">
                                         <rect key="frame" x="20" y="10" width="196" height="40"/>
                                         <subviews>
-                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SoV-Ay-oR6" customClass="BorderedShadowedView" customModule="Doodle2Gather" customModuleProvider="target">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DOs-uP-8SE" userLabel="Profile Image">
                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
-                                                <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DOs-uP-8SE" userLabel="Profile Image">
-                                                        <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
-                                                        <color key="backgroundColor" systemColor="systemPurpleColor"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="40" id="cAV-y5-hLl"/>
-                                                            <constraint firstAttribute="height" constant="40" id="qr4-PT-58w"/>
-                                                        </constraints>
-                                                    </imageView>
-                                                </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                                 <constraints>
-                                                    <constraint firstItem="DOs-uP-8SE" firstAttribute="centerX" secondItem="SoV-Ay-oR6" secondAttribute="centerX" id="3QH-6H-JRf"/>
-                                                    <constraint firstAttribute="width" constant="40" id="E9Z-LY-VOD"/>
-                                                    <constraint firstAttribute="height" constant="40" id="W02-sq-yLt"/>
-                                                    <constraint firstItem="DOs-uP-8SE" firstAttribute="centerY" secondItem="SoV-Ay-oR6" secondAttribute="centerY" id="cnT-kO-7Uy"/>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="FXy-BD-PGN"/>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="ajP-TA-HBj"/>
+                                                    <constraint firstAttribute="width" constant="40" id="cAV-y5-hLl"/>
+                                                    <constraint firstAttribute="height" constant="40" id="qr4-PT-58w"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" name="White"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
                                                         <real key="value" value="3"/>
                                                     </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                         <real key="value" value="20"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
-                                            </view>
+                                            </imageView>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Separator" translatesAutoresizingMaskIntoConstraints="NO" id="QiO-xb-nBY">
                                                 <rect key="frame" x="47" y="0.0" width="8" height="40"/>
                                                 <accessibility key="accessibilityConfiguration">
@@ -496,96 +453,60 @@
                                                     <constraint firstAttribute="height" constant="40" id="Naz-LH-mwp"/>
                                                 </constraints>
                                             </imageView>
-                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JAh-bo-Bro" userLabel="Other Profile Image 1" customClass="BorderedShadowedView" customModule="Doodle2Gather" customModuleProvider="target">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XbA-gD-b0Z" userLabel="Other Profile Image 1">
                                                 <rect key="frame" x="62" y="0.0" width="40" height="40"/>
-                                                <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XbA-gD-b0Z" userLabel="Other Profile Image 1">
-                                                        <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
-                                                        <color key="backgroundColor" systemColor="systemGreenColor"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="40" id="A5I-99-Tgd"/>
-                                                            <constraint firstAttribute="width" constant="40" id="uAf-gG-oXr"/>
-                                                        </constraints>
-                                                    </imageView>
-                                                </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="backgroundColor" systemColor="systemGreenColor"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="40" id="4fY-V4-sYc"/>
-                                                    <constraint firstItem="XbA-gD-b0Z" firstAttribute="centerY" secondItem="JAh-bo-Bro" secondAttribute="centerY" id="Aip-IK-ryv"/>
-                                                    <constraint firstAttribute="height" constant="40" id="XCM-zU-cBr"/>
-                                                    <constraint firstItem="XbA-gD-b0Z" firstAttribute="centerX" secondItem="JAh-bo-Bro" secondAttribute="centerX" id="inM-nL-hkK"/>
+                                                    <constraint firstAttribute="height" constant="40" id="A5I-99-Tgd"/>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="OMr-EE-dPd"/>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="PIG-hd-XeO"/>
+                                                    <constraint firstAttribute="width" constant="40" id="uAf-gG-oXr"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" name="White"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
                                                         <real key="value" value="3"/>
                                                     </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                         <real key="value" value="20"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
-                                            </view>
-                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f9d-U5-BFs" userLabel="Other Profile Image 2" customClass="BorderedShadowedView" customModule="Doodle2Gather" customModuleProvider="target">
+                                            </imageView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uLN-OJ-qat" userLabel="Other Profile Image 2">
                                                 <rect key="frame" x="109" y="0.0" width="40" height="40"/>
-                                                <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uLN-OJ-qat" userLabel="Other Profile Image 2">
-                                                        <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
-                                                        <color key="backgroundColor" systemColor="systemPinkColor"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="40" id="T70-Gr-8Qj"/>
-                                                            <constraint firstAttribute="height" constant="40" id="V3J-o3-tnU"/>
-                                                        </constraints>
-                                                    </imageView>
-                                                </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="backgroundColor" systemColor="systemPinkColor"/>
                                                 <constraints>
-                                                    <constraint firstItem="uLN-OJ-qat" firstAttribute="centerY" secondItem="f9d-U5-BFs" secondAttribute="centerY" id="51U-9S-trN"/>
-                                                    <constraint firstAttribute="height" constant="40" id="e24-Q0-t2t"/>
-                                                    <constraint firstAttribute="width" constant="40" id="udE-Pc-AQY"/>
-                                                    <constraint firstItem="uLN-OJ-qat" firstAttribute="centerX" secondItem="f9d-U5-BFs" secondAttribute="centerX" id="yOq-Nj-mWg"/>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="QBv-xH-R9Z"/>
+                                                    <constraint firstAttribute="width" constant="40" id="T70-Gr-8Qj"/>
+                                                    <constraint firstAttribute="height" constant="40" id="V3J-o3-tnU"/>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="rdl-eT-R58"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" name="White"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
                                                         <real key="value" value="3"/>
                                                     </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                         <real key="value" value="20"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
-                                            </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pXC-0B-LfL" userLabel="+1" customClass="BorderedShadowedView" customModule="Doodle2Gather" customModuleProvider="target">
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NMb-rO-KfU">
                                                 <rect key="frame" x="156" y="0.0" width="40" height="40"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NMb-rO-KfU">
-                                                        <rect key="frame" x="12" y="11.5" width="16.5" height="17"/>
-                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                                                        <color key="textColor" name="White"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="NMb-rO-KfU" firstAttribute="centerX" secondItem="pXC-0B-LfL" secondAttribute="centerX" id="EQS-5m-c13"/>
-                                                    <constraint firstAttribute="height" constant="40" id="L7O-1v-sY0"/>
-                                                    <constraint firstAttribute="width" constant="40" id="muj-Ea-bK6"/>
-                                                    <constraint firstItem="NMb-rO-KfU" firstAttribute="centerY" secondItem="pXC-0B-LfL" secondAttribute="centerY" id="y1y-Ts-k6P"/>
+                                                    <constraint firstAttribute="height" constant="40" id="CVe-To-DsT"/>
+                                                    <constraint firstAttribute="width" constant="40" id="ivR-tp-QBu"/>
                                                 </constraints>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                <color key="textColor" name="White"/>
+                                                <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
                                                         <real key="value" value="3"/>
                                                     </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" name="Stack Grey"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                         <real key="value" value="20"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
-                                            </view>
+                                            </label>
                                         </subviews>
                                     </stackView>
                                 </subviews>
@@ -597,24 +518,21 @@
                                     <constraint firstItem="DwN-FB-eIE" firstAttribute="trailing" secondItem="Gvt-x0-wpX" secondAttribute="trailing" constant="-20" id="s2Z-yW-VgH"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <real key="value" value="20"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
                                         <real key="value" value="20"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                    <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
                                         <size key="value" width="0.0" height="0.0"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
-                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
                                         <real key="value" value="0.40000000000000002"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Il3-8X-YYt" userLabel="Canvas Info View" customClass="BorderedShadowedView" customModule="Doodle2Gather" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Il3-8X-YYt" userLabel="Canvas Info View">
                                 <rect key="frame" x="702" y="1102" width="120" height="60"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="cIR-fM-baY">
@@ -645,19 +563,16 @@
                                     <constraint firstItem="cIR-fM-baY" firstAttribute="leading" secondItem="Il3-8X-YYt" secondAttribute="leading" constant="15" id="oHJ-6L-pOz"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <real key="value" value="20"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
                                         <real key="value" value="20"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                    <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
                                         <size key="value" width="0.0" height="0.0"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
-                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
                                         <real key="value" value="0.40000000000000002"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
@@ -695,12 +610,16 @@
                         <outlet property="drawButton" destination="IP2-Vo-DRb" id="pWr-wH-aee"/>
                         <outlet property="eraserButton" destination="kjq-AY-SZg" id="gZs-d9-Zd1"/>
                         <outlet property="fileNameLabel" destination="cdg-gm-cRI" id="HYc-yD-rMc"/>
-                        <outlet property="highlighterButton" destination="P4w-Em-YlY" id="E3r-Hz-9nJ"/>
-                        <outlet property="magicPenButton" destination="CPc-eM-E3s" id="BoR-oC-scJ"/>
+                        <outlet property="highlighterButton" destination="AMp-iL-zoR" id="lLt-iQ-edp"/>
+                        <outlet property="magicPenButton" destination="EE8-GC-4Km" id="atf-KX-JRK"/>
+                        <outlet property="numberOfOtherUsersLabel" destination="NMb-rO-KfU" id="ReU-bU-SX3"/>
+                        <outlet property="otherProfileImageOne" destination="XbA-gD-b0Z" id="2Qf-Uk-eh8"/>
+                        <outlet property="otherProfileImageTwo" destination="uLN-OJ-qat" id="9tc-Cz-flG"/>
                         <outlet property="penButton" destination="rKg-Y4-tax" id="rf0-wj-paC"/>
-                        <outlet property="pencilButton" destination="hSq-Mo-ZTc" id="VUf-oD-Hfh"/>
+                        <outlet property="pencilButton" destination="PHr-oW-a4i" id="kEZ-Te-JZn"/>
                         <outlet property="shapesButton" destination="w78-OH-H1V" id="Jet-zX-JVV"/>
                         <outlet property="textButton" destination="Va2-Px-Ku6" id="GYN-tg-pop"/>
+                        <outlet property="userProfileImage" destination="DOs-uP-8SE" id="Tke-aD-WLd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Ek-Ny-NIM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -762,7 +681,7 @@
                                     <outlet property="delegate" destination="iqH-RH-LvU" id="hgb-Jl-RkM"/>
                                 </connections>
                             </collectionView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xWj-qC-1ia" userLabel="Bottom Buttons View" customClass="BorderedShadowedView" customModule="Doodle2Gather" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xWj-qC-1ia" userLabel="Bottom Buttons View">
                                 <rect key="frame" x="12" y="1102" width="460" height="60"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="vRG-Cw-GCR" userLabel="Button Stack">
@@ -814,6 +733,7 @@
                                                     <constraint firstAttribute="height" constant="60" id="PTZ-bB-ztK"/>
                                                 </constraints>
                                                 <state key="normal" image="SoundOn"/>
+                                                <state key="selected" image="SoundOff_Red"/>
                                                 <connections>
                                                     <action selector="didToggleAudio:" destination="iqH-RH-LvU" eventType="touchUpInside" id="GOP-mD-z10"/>
                                                 </connections>
@@ -825,6 +745,7 @@
                                                     <constraint firstAttribute="height" constant="60" id="yH5-iU-BGb"/>
                                                 </constraints>
                                                 <state key="normal" image="VideoOn"/>
+                                                <state key="selected" image="VideoOff_Red"/>
                                                 <connections>
                                                     <action selector="didToggleVideo:" destination="iqH-RH-LvU" eventType="touchUpInside" id="cL9-NY-3n5"/>
                                                 </connections>
@@ -868,19 +789,16 @@
                                     <constraint firstItem="vRG-Cw-GCR" firstAttribute="leading" secondItem="xWj-qC-1ia" secondAttribute="leading" constant="10" id="tcU-tI-B8d"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <real key="value" value="20"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
                                         <real key="value" value="20"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                    <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
                                         <size key="value" width="0.0" height="0.0"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
-                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
                                         <real key="value" value="0.40000000000000002"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
@@ -948,6 +866,7 @@
         <image name="Separator_Horizontal" width="33" height="3"/>
         <image name="Shapes" width="24" height="24"/>
         <image name="Shapes_Yellow" width="24" height="24"/>
+        <image name="SoundOff_Red" width="24" height="24"/>
         <image name="SoundOn" width="24" height="24"/>
         <image name="StopButton_Red" width="24" height="24"/>
         <image name="Text" width="24" height="24"/>
@@ -956,12 +875,10 @@
         <image name="Undo_Grey" width="24" height="24"/>
         <image name="UserAdd" width="24" height="24"/>
         <image name="Users" width="24" height="24"/>
+        <image name="VideoOff_Red" width="24" height="24"/>
         <image name="VideoOn" width="24" height="24"/>
         <namedColor name="Black">
-            <color red="0.125" green="0.125" blue="0.11400000005960464" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="Stack Grey">
-            <color red="0.54500001668930054" green="0.54500001668930054" blue="0.54500001668930054" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.12549019607843137" green="0.12549019607843137" blue="0.11372549019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="White">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
