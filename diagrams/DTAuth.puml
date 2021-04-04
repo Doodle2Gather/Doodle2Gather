@@ -31,13 +31,17 @@ class "DTAbstractAuthProvider" as DTAbstractAuthProvider << (P, GoldenRod) proto
 }
 
 class "DTAuth" as DTAuth << (C, DarkSeaGreen) >> { 
-  ~{static} delegate : DTAuthDelegate?
   ~{static} user : DTUser?
   ~{static} signUp(email:password:displayName:)
   ~{static} login(email:password:) 
 }
 
-
+class "HomeViewController" as HomeViewController0 << (X, Orchid) extension >> { 
+  displayError(_:)
+  displayMessage(_:)
+  loginDidSucceed()
+  registerDidSucceed() 
+}
 
 class "HomeViewController" as HomeViewController << (C, DarkSeaGreen) >> { 
   -emailTextField : UITextField!
@@ -48,11 +52,12 @@ class "HomeViewController" as HomeViewController << (C, DarkSeaGreen) >> {
   -attemptLogin() 
 }
 
-HomeViewController ..|> DTAuthDelegate
+HomeViewController0 ..|> DTAuthDelegate
 HomeViewController --> DTAuth : sends auth events to
 FirebaseAuthProvider *-- DTAuthDelegate : sends events
-FirebaseAuthProvider ..|> DTAbstractAuthProvider : conforms to
+FirebaseAuthProvider ..|> DTAbstractAuthProvider
 FirebaseAuthProvider --> User : converts to DTUser using
-DTAuth --> DTAbstractAuthProvider : has a
+DTAuth --> "1" DTAbstractAuthProvider
+HomeViewController -- HomeViewController0
 
 @enduml
