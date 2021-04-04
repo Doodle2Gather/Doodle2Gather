@@ -5,13 +5,6 @@ import DoodlingLibrary
 
 extension PKCanvasView {
 
-    /// Constants used in PKCanvasView specifically.
-    enum Constants {
-        static let minZoom: CGFloat = 0.1
-        static let maxZoom: CGFloat = 2
-        static let currentZoom: CGFloat = 1
-    }
-
     /// Initialises this canvas view with the default properties.
     ///
     /// Key things done are:
@@ -21,9 +14,9 @@ extension PKCanvasView {
     /// - Allow any input i.e. finger to be drawing input.
     func initialiseDefaultProperties() {
         translatesAutoresizingMaskIntoConstraints = false
-        minimumZoomScale = Constants.minZoom
-        maximumZoomScale = Constants.maxZoom
-        zoomScale = Constants.currentZoom
+        minimumZoomScale = UIConstants.minZoom
+        maximumZoomScale = UIConstants.maxZoom
+        zoomScale = UIConstants.currentZoom
         showsVerticalScrollIndicator = false
         showsHorizontalScrollIndicator = false
         drawingPolicy = .anyInput
