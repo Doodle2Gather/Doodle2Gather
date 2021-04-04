@@ -54,6 +54,8 @@
 		83D2EC3E2609283A004F875D /* ApiEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D2EC3D2609283A004F875D /* ApiEndpoints.swift */; };
 		83F588E72619240200BB9F07 /* DTAuthDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F588E62619240200BB9F07 /* DTAuthDelegate.swift */; };
 		83F588EB2619242A00BB9F07 /* DTAbstractAuthProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F588EA2619242A00BB9F07 /* DTAbstractAuthProvider.swift */; };
+		83F5890A2619B44100BB9F07 /* DTUserCredentialsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F589092619B44100BB9F07 /* DTUserCredentialsProvider.swift */; };
+		83F5890E2619B47C00BB9F07 /* UserDefaultsCredentialsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F5890D2619B47C00BB9F07 /* UserDefaultsCredentialsProvider.swift */; };
 		840D6B2B260236CF001F3D43 /* ConferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D6B2A260236CF001F3D43 /* ConferenceViewController.swift */; };
 		840D6B3326023F90001F3D43 /* VideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D6B3226023F90001F3D43 /* VideoCollectionViewCell.swift */; };
 		848F35472614174000AD46C6 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848F35462614174000AD46C6 /* Message.swift */; };
@@ -166,6 +168,8 @@
 		83D2EC3D2609283A004F875D /* ApiEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiEndpoints.swift; sourceTree = "<group>"; };
 		83F588E62619240200BB9F07 /* DTAuthDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTAuthDelegate.swift; sourceTree = "<group>"; };
 		83F588EA2619242A00BB9F07 /* DTAbstractAuthProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTAbstractAuthProvider.swift; sourceTree = "<group>"; };
+		83F589092619B44100BB9F07 /* DTUserCredentialsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTUserCredentialsProvider.swift; sourceTree = "<group>"; };
+		83F5890D2619B47C00BB9F07 /* UserDefaultsCredentialsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsCredentialsProvider.swift; sourceTree = "<group>"; };
 		840D6B2A260236CF001F3D43 /* ConferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConferenceViewController.swift; sourceTree = "<group>"; };
 		840D6B3226023F90001F3D43 /* VideoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewCell.swift; sourceTree = "<group>"; };
 		848F35462614174000AD46C6 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
@@ -589,6 +593,8 @@
 		83F588FC26199E0500BB9F07 /* Credentials Storage */ = {
 			isa = PBXGroup;
 			children = (
+				83F589092619B44100BB9F07 /* DTUserCredentialsProvider.swift */,
+				83F5890D2619B47C00BB9F07 /* UserDefaultsCredentialsProvider.swift */,
 			);
 			path = "Credentials Storage";
 			sourceTree = "<group>";
@@ -708,7 +714,6 @@
 				2EF8E91D25F754C600C7EE7D /* Resources */,
 				6387808665C6F5C74A643CDE /* [CP] Embed Pods Frameworks */,
 				2E8AC7202613F3030033869E /* Embed Frameworks */,
-				324C193EB05E9A630ACF1A36 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -750,7 +755,6 @@
 				2EF8E93D25F754C700C7EE7D /* Frameworks */,
 				2EF8E93E25F754C700C7EE7D /* Resources */,
 				7D81E80C0FEFEB14947CFCF8 /* [CP] Embed Pods Frameworks */,
-				FA05D9D1CC8E6D6121B20B79 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -856,23 +860,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint autocorrect && swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-		324C193EB05E9A630ACF1A36 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Doodle2Gather/Pods-Doodle2Gather-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Doodle2Gather/Pods-Doodle2Gather-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Doodle2Gather/Pods-Doodle2Gather-resources.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 		6387808665C6F5C74A643CDE /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -992,23 +979,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FA05D9D1CC8E6D6121B20B79 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Doodle2Gather-Doodle2GatherUITests/Pods-Doodle2Gather-Doodle2GatherUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Doodle2Gather-Doodle2GatherUITests/Pods-Doodle2Gather-Doodle2GatherUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Doodle2Gather-Doodle2GatherUITests/Pods-Doodle2Gather-Doodle2GatherUITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1019,6 +989,7 @@
 				835D3BFA2606B11A004491D5 /* AgoraVideoEngine.swift in Sources */,
 				840D6B3326023F90001F3D43 /* VideoCollectionViewCell.swift in Sources */,
 				840D6B2B260236CF001F3D43 /* ConferenceViewController.swift in Sources */,
+				83F5890E2619B47C00BB9F07 /* UserDefaultsCredentialsProvider.swift in Sources */,
 				83260807261471EF00B90F25 /* WillowLogger.swift in Sources */,
 				2EF8E92725F754C600C7EE7D /* HomeViewController.swift in Sources */,
 				84D802F32616CB480096692E /* SegueConstants.swift in Sources */,
@@ -1041,6 +1012,7 @@
 				2EF8E92525F754C600C7EE7D /* SceneDelegate.swift in Sources */,
 				2E8AC74A2613F4C90033869E /* DTCanvasViewController.swift in Sources */,
 				2E987E6E2607468000352E7D /* PKStrokePoint+DTPoint.swift in Sources */,
+				83F5890A2619B44100BB9F07 /* DTUserCredentialsProvider.swift in Sources */,
 				848F3581261451D400AD46C6 /* ParticipantViewCell.swift in Sources */,
 				848F354F2614177000AD46C6 /* Sender.swift in Sources */,
 				2E987E7D26075C0200352E7D /* SocketController.swift in Sources */,
