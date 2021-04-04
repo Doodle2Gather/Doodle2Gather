@@ -1,10 +1,14 @@
 import UIKit
+import Pikko
 
 class DoodleViewController: UIViewController {
 
     // Storyboard UI Elements
     @IBOutlet private var fileNameLabel: UILabel!
     @IBOutlet private var zoomScaleLabel: UILabel!
+    @IBOutlet private var colorPickerView: UIView!
+    @IBOutlet private var colorPickerButtonContainer: UIView!
+    private var coloredCircle = CAShapeLayer()
 
     // Left Main Menu
     @IBOutlet private var drawButton: UIButton!
@@ -19,8 +23,6 @@ class DoodleViewController: UIViewController {
     @IBOutlet private var pencilButton: UIButton!
     @IBOutlet private var highlighterButton: UIButton!
     @IBOutlet private var magicPenButton: UIButton!
-    @IBOutlet private var colorPickerButton: UIButton!
-    // @IBOutlet private var brushSizeSlider: UISlider!
 
     // Profile Images
     @IBOutlet private var userProfileImage: UIImageView!
@@ -36,6 +38,7 @@ class DoodleViewController: UIViewController {
     var username: String?
     var roomName: String?
     private var lastSelectedDrawingTool = DrawingTools.pen
+    private var lastSelectedColor = UIColor.black
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,19 +51,60 @@ class DoodleViewController: UIViewController {
         if let roomName = roomName {
             fileNameLabel.text = roomName
         }
+
+        registerGestures()
+        loadBorderColors()
+        setUpColorWheel()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        // Set up color picker selector
+        let path = UIBezierPath(arcCenter: colorPickerButtonContainer.center, radius: 5,
+                                startAngle: 0, endAngle: .pi, clockwise: false)
+
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.path = path.cgPath
+        shapeLayer.fillColor = UIColor.white.cgColor
+        coloredCircle = shapeLayer
+
+        colorPickerButtonContainer.layer.addSublayer(shapeLayer)
+    }
+
+    private func registerGestures() {
         let zoomTap = UITapGestureRecognizer(target: self, action: #selector(zoomScaleDidTap(_:)))
         zoomScaleLabel.addGestureRecognizer(zoomTap)
+        let colorTap = UITapGestureRecognizer(target: self, action: #selector(colorPickerButtonDidTap(_:)))
+        colorPickerButtonContainer.addGestureRecognizer(colorTap)
 
-        loadBorderColors()
     }
 
     private func loadBorderColors() {
-        colorPickerButton.layer.borderColor = UIConstants.stackGrey.cgColor
+        colorPickerButtonContainer.layer.borderColor = UIConstants.stackGrey.cgColor
         numberOfOtherUsersLabel.layer.borderColor = UIConstants.stackGrey.cgColor
         // TODO: Replace profile picture borders with assigned colors
         userProfileImage.layer.borderColor = UIConstants.white.cgColor
         otherProfileImageOne.layer.borderColor = UIConstants.white.cgColor
         otherProfileImageTwo.layer.borderColor = UIConstants.white.cgColor
+    }
+
+    private func setUpColorWheel() {
+        let pikko = Pikko(dimension: 200, setToColor: .black)
+
+        // Set the PikkoDelegate to get notified on new color changes.
+        pikko.delegate = self
+        colorPickerView.addSubview(pikko)
+
+        // Get the current color.
+        // _ = pikko.getColor()
+
+        // Set autoconstraints.
+        pikko.translatesAutoresizingMaskIntoConstraints = false
+        pikko.topAnchor.constraint(equalTo: colorPickerView.topAnchor, constant: 10).isActive = true
+        pikko.leadingAnchor.constraint(equalTo: colorPickerView.leadingAnchor, constant: 10).isActive = true
+        pikko.trailingAnchor.constraint(equalTo: colorPickerView.trailingAnchor, constant: -10).isActive = true
+        pikko.heightAnchor.constraint(equalToConstant: 200).isActive = true
     }
 
     // MARK: - Navigation
@@ -75,6 +119,7 @@ class DoodleViewController: UIViewController {
             // TODO: Complete injection of doodle into subcontroller
             // destination.doodle = // Inject doodle
             self.canvasController = destination
+            canvasController?.setSize(5)
         default:
             return
         }
@@ -83,6 +128,7 @@ class DoodleViewController: UIViewController {
     @IBAction private func exitButtonDidTap(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
+
 }
 
 // MARK: - IBActions
@@ -102,11 +148,13 @@ extension DoodleViewController {
         switch toolSelected {
         case .drawingTool:
             auxiliaryButtonsView.isHidden = false
-            canvasController?.setColor(colorPickerButton.backgroundColor ?? .black)
+            canvasController?.setColor(lastSelectedColor)
             // canvasController?.setSize(brushSizeSlider.value)
         case .eraserTool:
+            colorPickerView.isHidden = true
             canvasController?.setEraserTool()
         case .textTool, .shapesTool, .cursorTool:
+            colorPickerView.isHidden = true
             return
         }
     }
@@ -119,11 +167,6 @@ extension DoodleViewController {
         sender.isSelected = true
         lastSelectedDrawingTool = toolSelected
         setDrawingTool(toolSelected)
-    }
-
-    @objc
-    private func zoomScaleDidTap(_ gesture: UITapGestureRecognizer) {
-        canvasController?.resetZoomScale()
     }
 
     private func setDrawingTool(_ drawingTool: DrawingTools, shouldDismiss: Bool = false) {
@@ -143,18 +186,31 @@ extension DoodleViewController {
         }
     }
 
-    @IBAction private func colorPickerButtonDidTap(_ sender: UIButton) {
-        let picker = UIColorPickerViewController()
-        picker.selectedColor = colorPickerButton.backgroundColor ?? UIColor.black
-        picker.delegate = self
+    @IBAction private func thicknessSliderDidChange(_ sender: UISlider) {
+        let newSize = sender.value
+        canvasController?.setSize(newSize)
 
-        self.present(picker, animated: true, completion: nil)
+//        colorPickerButton.frame.size.height = CGFloat(newSize)
+//        colorPickerButton.frame.size.width = CGFloat(newSize)
     }
 
-//    @IBAction private func sizeSliderDidChange(_ sender: UISlider) {
-//        let newSize = sender.value
-//        canvasController?.setSize(newSize)
-//    }
+    @IBAction private func opacitySliderDidChange(_ sender: UISlider) {
+        let newOpacity = sender.value
+        let newColor = UIColor(cgColor: coloredCircle.fillColor ?? UIColor.black.cgColor)
+            .withAlphaComponent(CGFloat(newOpacity))
+        coloredCircle.fillColor = newColor.cgColor
+        canvasController?.setColor(newColor)
+    }
+
+    @objc
+    private func zoomScaleDidTap(_ gesture: UITapGestureRecognizer) {
+        canvasController?.resetZoomScale()
+    }
+
+    @objc
+    private func colorPickerButtonDidTap(_ gesture: UITapGestureRecognizer) {
+        colorPickerView.isHidden.toggle()
+    }
 
     private func unselectAllMainTools() {
         drawButton.isSelected = false
@@ -213,17 +269,12 @@ extension DoodleViewController: SocketControllerDelegate {
     }
 }
 
-extension DoodleViewController: UIColorPickerViewControllerDelegate {
+extension DoodleViewController: PikkoDelegate {
 
-    /// Updates the selected color upon finishing of selection.
-    func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
-        colorPickerButton.backgroundColor = viewController.selectedColor
-        canvasController?.setColor(viewController.selectedColor)
-    }
-
-    /// Updates the selected color every time a selection is made.
-    func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
-        colorPickerButton.backgroundColor = viewController.selectedColor
+    func writeBackColor(color: UIColor) {
+        lastSelectedColor = color
+        coloredCircle.fillColor = color.cgColor
+        canvasController?.setColor(color)
     }
 
 }

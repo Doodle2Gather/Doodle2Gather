@@ -272,14 +272,11 @@
                                                     <constraint firstAttribute="width" constant="40" id="wvl-gz-hCe"/>
                                                 </constraints>
                                             </imageView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lS9-7Y-8ju" userLabel="Color Picker Button">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dae-hy-jiK" userLabel="Color Picker Button Container">
                                                 <rect key="frame" x="0.0" y="230" width="40" height="40"/>
-                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="UHj-mC-ujH"/>
-                                                    <constraint firstAttribute="width" constant="40" id="ZLE-9j-S17"/>
-                                                    <constraint firstAttribute="height" constant="40" id="g4g-vx-2yP"/>
-                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="sfH-YP-vkj"/>
+                                                    <constraint firstAttribute="width" constant="40" id="RB8-K0-ntQ"/>
+                                                    <constraint firstAttribute="height" constant="40" id="hb6-Dy-JFp"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -289,14 +286,8 @@
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
                                                         <real key="value" value="3"/>
                                                     </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                        <real key="value" value="20"/>
-                                                    </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="colorPickerButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="j76-2J-Sd1"/>
-                                                </connections>
-                                            </button>
+                                            </view>
                                         </subviews>
                                     </stackView>
                                 </subviews>
@@ -577,6 +568,66 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Va1-rs-2rO" userLabel="Color Picker View">
+                                <rect key="frame" x="152" y="422.5" width="220" height="349"/>
+                                <subviews>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="tWP-X2-hCX">
+                                        <rect key="frame" x="18" y="299" width="184" height="31"/>
+                                        <color key="tintColor" name="Stack Grey"/>
+                                        <connections>
+                                            <action selector="opacitySliderDidChange:" destination="rZI-TI-AZo" eventType="valueChanged" id="X7a-Li-LSZ"/>
+                                        </connections>
+                                    </slider>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thickness" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7fz-rC-Aa7">
+                                        <rect key="frame" x="20" y="220" width="61.5" height="14.5"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                        <color key="textColor" name="Stack Grey"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Opacity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gTg-m2-8wf">
+                                        <rect key="frame" x="20" y="279.5" width="47" height="14.5"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                        <color key="textColor" name="Stack Grey"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="10" minValue="2" maxValue="40" translatesAutoresizingMaskIntoConstraints="NO" id="Dq8-HS-ghZ">
+                                        <rect key="frame" x="18" y="239.5" width="184" height="31"/>
+                                        <color key="tintColor" name="Stack Grey"/>
+                                        <connections>
+                                            <action selector="thicknessSliderDidChange:" destination="rZI-TI-AZo" eventType="valueChanged" id="Dwd-jK-KbL"/>
+                                        </connections>
+                                    </slider>
+                                </subviews>
+                                <color key="backgroundColor" name="Black"/>
+                                <constraints>
+                                    <constraint firstItem="Dq8-HS-ghZ" firstAttribute="leading" secondItem="Va1-rs-2rO" secondAttribute="leading" constant="20" id="1oJ-gG-re1"/>
+                                    <constraint firstItem="tWP-X2-hCX" firstAttribute="leading" secondItem="Va1-rs-2rO" secondAttribute="leading" constant="20" id="DXa-hx-3d0"/>
+                                    <constraint firstItem="7fz-rC-Aa7" firstAttribute="leading" secondItem="Va1-rs-2rO" secondAttribute="leading" constant="20" id="MG4-zI-P5t"/>
+                                    <constraint firstAttribute="width" constant="220" id="NEM-Rm-6SG"/>
+                                    <constraint firstItem="tWP-X2-hCX" firstAttribute="trailing" secondItem="Va1-rs-2rO" secondAttribute="trailing" constant="-20" id="Smc-Gf-5Lc"/>
+                                    <constraint firstItem="Dq8-HS-ghZ" firstAttribute="top" secondItem="7fz-rC-Aa7" secondAttribute="bottom" constant="5" id="ZPZ-g6-D3T"/>
+                                    <constraint firstItem="tWP-X2-hCX" firstAttribute="bottom" secondItem="Va1-rs-2rO" secondAttribute="bottom" constant="-20" id="gzd-vg-vo1"/>
+                                    <constraint firstAttribute="height" constant="349" id="k2G-Ns-Uta"/>
+                                    <constraint firstItem="gTg-m2-8wf" firstAttribute="top" secondItem="Dq8-HS-ghZ" secondAttribute="bottom" constant="10" id="tdc-TU-aDe"/>
+                                    <constraint firstAttribute="trailing" secondItem="Dq8-HS-ghZ" secondAttribute="trailing" constant="20" id="uIT-Sk-NgU"/>
+                                    <constraint firstItem="gTg-m2-8wf" firstAttribute="leading" secondItem="Va1-rs-2rO" secondAttribute="leading" constant="20" id="yHB-ht-Psb"/>
+                                    <constraint firstItem="tWP-X2-hCX" firstAttribute="top" secondItem="gTg-m2-8wf" secondAttribute="bottom" constant="5" id="yjG-qX-ggQ"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                        <size key="value" width="0.0" height="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                        <real key="value" value="0.40000000000000002"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="1p6-Mf-pnl"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -584,6 +635,7 @@
                             <constraint firstItem="CRw-tT-Mu5" firstAttribute="trailing" secondItem="Rvn-Q8-Irn" secondAttribute="trailing" id="5Wa-E0-WET"/>
                             <constraint firstItem="CRw-tT-Mu5" firstAttribute="leading" secondItem="Rvn-Q8-Irn" secondAttribute="leading" id="8jE-v5-stq"/>
                             <constraint firstItem="Pn5-xG-qj1" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" constant="12" id="AUa-rT-WMa"/>
+                            <constraint firstItem="Va1-rs-2rO" firstAttribute="centerY" secondItem="Rvn-Q8-Irn" secondAttribute="centerY" id="BLL-zQ-4lb"/>
                             <constraint firstItem="4Xj-kh-aUN" firstAttribute="leading" secondItem="HdL-Pj-pPB" secondAttribute="trailing" constant="10" id="BxG-tZ-mLO"/>
                             <constraint firstItem="lOM-bA-4te" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" constant="12" id="EmQ-Qq-9ox"/>
                             <constraint firstItem="1p6-Mf-pnl" firstAttribute="trailing" secondItem="Gvt-x0-wpX" secondAttribute="trailing" constant="12" id="Fb4-Ms-bf1"/>
@@ -595,6 +647,7 @@
                             <constraint firstItem="HdL-Pj-pPB" firstAttribute="centerY" secondItem="Rvn-Q8-Irn" secondAttribute="centerY" id="Qwu-X3-bv3"/>
                             <constraint firstItem="2v7-Hc-qJ9" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" id="T0g-Ac-o8n"/>
                             <constraint firstItem="4Xj-kh-aUN" firstAttribute="centerY" secondItem="Rvn-Q8-Irn" secondAttribute="centerY" id="Vhb-2b-DLJ"/>
+                            <constraint firstItem="Va1-rs-2rO" firstAttribute="leading" secondItem="4Xj-kh-aUN" secondAttribute="trailing" constant="10" id="cui-H9-bIz"/>
                             <constraint firstItem="HdL-Pj-pPB" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" constant="12" id="nVn-9r-nOE"/>
                             <constraint firstItem="lOM-bA-4te" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" constant="12" id="o7i-Qk-N3e"/>
                             <constraint firstItem="Gvt-x0-wpX" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" constant="12" id="xlO-w9-H22"/>
@@ -605,7 +658,8 @@
                     </view>
                     <connections>
                         <outlet property="auxiliaryButtonsView" destination="4Xj-kh-aUN" id="w6p-q7-6pF"/>
-                        <outlet property="colorPickerButton" destination="lS9-7Y-8ju" id="7bR-ze-gOq"/>
+                        <outlet property="colorPickerButtonContainer" destination="Dae-hy-jiK" id="HnN-jF-uPY"/>
+                        <outlet property="colorPickerView" destination="Va1-rs-2rO" id="gqq-zh-qws"/>
                         <outlet property="cursorButton" destination="ryu-pR-t2y" id="Rh3-fR-798"/>
                         <outlet property="drawButton" destination="IP2-Vo-DRb" id="pWr-wH-aee"/>
                         <outlet property="eraserButton" destination="kjq-AY-SZg" id="gZs-d9-Zd1"/>
@@ -880,6 +934,9 @@
         <image name="VideoOn" width="24" height="24"/>
         <namedColor name="Black">
             <color red="0.125" green="0.125" blue="0.11400000005960464" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Stack Grey">
+            <color red="0.54500001668930054" green="0.54500001668930054" blue="0.54500001668930054" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="White">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
