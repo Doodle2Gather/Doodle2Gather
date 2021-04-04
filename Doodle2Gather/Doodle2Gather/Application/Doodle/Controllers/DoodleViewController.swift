@@ -121,7 +121,8 @@ extension DoodleViewController {
         setDrawingTool(toolSelected)
     }
 
-    @objc private func zoomScaleDidTap(_ gesture: UITapGestureRecognizer) {
+    @objc
+    private func zoomScaleDidTap(_ gesture: UITapGestureRecognizer) {
         canvasController?.resetZoomScale()
     }
 
