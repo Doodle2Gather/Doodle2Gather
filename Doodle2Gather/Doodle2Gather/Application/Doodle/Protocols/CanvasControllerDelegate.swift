@@ -1,3 +1,5 @@
+import CoreGraphics
+
 /// Delegate for a `CanvasController`.
 protocol CanvasControllerDelegate: AnyObject {
 
@@ -6,6 +8,9 @@ protocol CanvasControllerDelegate: AnyObject {
 
     /// Dispatches the action to the canvas controller.
     func dispatchAction(_ action: DTAction)
+
+    /// Informs the delegate that the zoom of the canvas has changed.
+    func canvasZoomScaleDidChange(scale: CGFloat)
 
 }
 
@@ -18,6 +23,10 @@ extension CanvasControllerDelegate {
     }
 
     func dispatchAction(_ action: DTAction) {
+        // Do nothing
+    }
+
+    func canvasZoomScaleDidChange(scale: CGFloat) {
         // Do nothing
     }
 
