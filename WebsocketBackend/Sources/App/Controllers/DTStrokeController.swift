@@ -29,6 +29,7 @@ struct DTStrokeController: RouteCollection {
 
 extension PersistedDTStroke {
 
+    // swiftlint:disable first_where
     static func getSingle(_ stroke: Data, on db: Database) -> EventLoopFuture<PersistedDTStroke> {
         PersistedDTStroke.query(on: db)
             .filter(\.$strokeData == stroke)
