@@ -1,0 +1,35 @@
+@startuml
+' STYLE START
+hide empty members
+skinparam shadowing false
+' STYLE END
+
+
+class "WillowLogger" as WillowLogger << (C, DarkSeaGreen) >> { 
+  -logger
+  ~debug(_:)
+  ~info(_:)
+  ~event(_:)
+  ~warn(_:)
+  ~error(_:)
+}
+class "DTLogger" as DTLogger << (C, DarkSeaGreen) >> { 
+  -{static} shared : DTLogger
+  ~{static} debug(_:)
+  ~{static} info(_:)
+  ~{static} event(_:)
+  ~{static} warn(_:)
+  ~{static} error(_:)
+}
+class "DTAbstractLogger" as DTAbstractLogger << (P, GoldenRod) protocol >> { 
+  ~debug(_:)
+  ~info(_:)
+  ~event(_:)
+  ~warn(_:)
+  ~error(_:)
+}
+' WillowLogger -|> DTAbstractLogger : inherits
+DTAbstractLogger <|. WillowLogger
+DTLogger *- "1" DTAbstractLogger
+
+@enduml
