@@ -20,7 +20,8 @@
                     </view>
                     <navigationItem key="navigationItem" title="Chat" largeTitleDisplayMode="never" id="SNL-cm-BQS">
                         <barButtonItem key="backBarButtonItem" title="Close" id="QGB-1d-lOf"/>
-                        <barButtonItem key="leftBarButtonItem" title="Close" id="spw-LL-t9W">
+                        <barButtonItem key="leftBarButtonItem" image="Cross" id="spw-LL-t9W">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="didTapClose:" destination="zVQ-fR-Tp7" id="bn2-wI-E70"/>
                             </connections>
@@ -38,6 +39,10 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="QJg-BF-gbJ">
                         <rect key="frame" x="0.0" y="0.0" width="834" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="zVQ-fR-Tp7" kind="relationship" relationship="rootViewController" id="Lqu-0z-ENe"/>
@@ -49,6 +54,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Cross" width="24" height="24"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

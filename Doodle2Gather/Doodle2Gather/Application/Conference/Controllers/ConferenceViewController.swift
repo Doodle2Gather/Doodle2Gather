@@ -25,7 +25,7 @@ class ConferenceViewController: UIViewController {
         videoEngine?.joinChannel(channelName: "testing")
         chatEngine = AgoraChatEngine()
         chatEngine?.initialize()
-        
+
         videoEngine?.muteAudio()
         videoEngine?.hideVideo()
     }
