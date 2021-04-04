@@ -82,7 +82,6 @@ class AgoraChatEngine: NSObject, ChatEngine {
             return
         }
         let packet = "\(user.displayName.count) \(user.displayName)" + message
-        print(packet)
         let rtmMessage = AgoraRtmMessage(text: packet)
 
         rtmChannel?.send(rtmMessage) { errorCode in
