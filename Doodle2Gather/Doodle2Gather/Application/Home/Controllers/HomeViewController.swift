@@ -5,7 +5,7 @@ class HomeViewController: UIViewController {
     @IBOutlet private var emailTextField: UITextField!
     @IBOutlet private var passwordTextField: UITextField!
     @IBOutlet private var displayNameTextField: UITextField!
-    @IBOutlet private var errorMessageLabel: UILabel!
+    @IBOutlet private var actionMessageLabel: UILabel!
     @IBOutlet private var submitButton: UIButton!
     @IBOutlet private var formActionSegmentedControl: UISegmentedControl!
 
@@ -16,6 +16,12 @@ class HomeViewController: UIViewController {
 
     let loginButtonText = "LOGIN"
     let registerButtonText = "REGISTER"
+    private let darkBlue = #colorLiteral(red: 55.0 / 255.0,
+                                         green: 52 / 255.0,
+                                         blue: 235.0 / 255.0,
+                                         alpha: 1.0)
+
+    let registerSuccessMessage = "Successfully created an account! Please log in!"
 
     private func updateFormViews() {
         let segment = Segment(rawValue: formActionSegmentedControl.selectedSegmentIndex)
@@ -41,7 +47,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         DTAuth.delegate = self
-        errorMessageLabel.text = ""
+        actionMessageLabel.text = ""
         updateFormViews()
         submitButton.layer.cornerRadius = 20
         submitButton.clipsToBounds = true
@@ -86,7 +92,14 @@ class HomeViewController: UIViewController {
         completion: nil)
     }
 
+    @objc
+    func dismissKeyboard() {
+        // Causes the view (or one of its embedded text fields) to resign the first responder status
+        view.endEditing(true)
+    }
+
     @IBAction private func onSubmitButtonTapped(_ sender: UIButton) {
+        dismissKeyboard()
         let segment = Segment(rawValue: formActionSegmentedControl.selectedSegmentIndex)
         switch segment {
         case .login:
@@ -99,7 +112,9 @@ class HomeViewController: UIViewController {
     }
 
     private func attemptRegister() {
-        DTAuth.signUp(email: emailTextField.text!, password: passwordTextField.text!, displayName: displayNameTextField.text!)
+        DTAuth.signUp(email: emailTextField.text!,
+                      password: passwordTextField.text!,
+                      displayName: displayNameTextField.text!)
     }
 
     private func attemptLogin() {
@@ -111,15 +126,15 @@ extension HomeViewController: DTAuthDelegate {
     func displayError(_ error: Error) {
         DispatchQueue.main.async {
             DTLogger.error(error.localizedDescription)
-            self.errorMessageLabel.textColor = .systemRed
-            self.errorMessageLabel.text = error.localizedDescription
+            self.actionMessageLabel.textColor = .systemRed
+            self.actionMessageLabel.text = error.localizedDescription
         }
     }
 
     func displayMessage(_ message: String) {
         DispatchQueue.main.async {
-            self.errorMessageLabel.textColor = .green
-            self.errorMessageLabel.text = message
+            self.actionMessageLabel.textColor = self.darkBlue
+            self.actionMessageLabel.text = message
         }
     }
 
@@ -132,6 +147,15 @@ User Logged in
 """)
         DispatchQueue.main.async {
             self.performSegue(withIdentifier: SegueConstants.toGallery, sender: self)
+        }
+    }
+
+    func registerDidSucceed() {
+        DTLogger.event("Successfully registered")
+        displayMessage(registerSuccessMessage)
+        DispatchQueue.main.async {
+            self.formActionSegmentedControl.selectedSegmentIndex = Segment.login.rawValue
+            self.updateFormViews()
         }
     }
 

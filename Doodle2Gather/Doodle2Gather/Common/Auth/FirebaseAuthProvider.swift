@@ -23,7 +23,7 @@ class FirebaseAuthProvider: DTAbstractAuthProvider {
             return
         }
         self.setUserDisplayName(displayName)
-        self.delegate?.displayMessage("Successfully created an account! Please log in!")
+        self.delegate?.registerDidSucceed()
       }
     }
 

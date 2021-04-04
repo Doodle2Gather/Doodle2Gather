@@ -122,9 +122,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="actionMessageLabel" destination="bAy-R5-JrA" id="34g-Rq-7Db"/>
                         <outlet property="displayNameTextField" destination="Y8X-21-xQM" id="NUB-ED-cyw"/>
                         <outlet property="emailTextField" destination="San-it-z9u" id="HgE-yd-yYx"/>
-                        <outlet property="errorMessageLabel" destination="bAy-R5-JrA" id="34g-Rq-7Db"/>
                         <outlet property="formActionSegmentedControl" destination="KHd-4r-Hgc" id="14X-Nb-t9A"/>
                         <outlet property="passwordTextField" destination="Xa2-nd-Uii" id="A1T-CL-wfr"/>
                         <outlet property="submitButton" destination="qY8-ug-Nlu" id="CuO-P5-bIb"/>
