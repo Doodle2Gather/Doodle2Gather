@@ -159,6 +159,10 @@ extension DoodleViewController: SocketControllerDelegate {
             canvasController?.dispatchAction(action)
         }
     }
+
+    func clearDrawing() {
+        canvasController?.clearDoodle()
+    }
 }
 
 extension DoodleViewController: UIColorPickerViewControllerDelegate {

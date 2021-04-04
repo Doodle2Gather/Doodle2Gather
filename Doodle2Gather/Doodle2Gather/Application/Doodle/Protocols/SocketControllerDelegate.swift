@@ -4,4 +4,6 @@ protocol SocketControllerDelegate: AnyObject {
 
     func handleConflict(_ undoAction: DTAction, histories: [DTAction])
 
+    func clearDrawing()
+
 }

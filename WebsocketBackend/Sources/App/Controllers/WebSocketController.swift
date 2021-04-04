@@ -79,11 +79,28 @@ class WebSocketController {
                 let newActionData = try decoder.decode(
                     DTInitiateActionMessage.self, from: data)
                 self.onNewAction(ws, decodedData.id, newActionData)
+            case .clearDrawing:
+                let actionData = try decoder.decode(
+                    DTClearDrawingMessage.self, from: data)
+                self.onClearDrawing(ws, decodedData.id, actionData)
             default:
                 break
             }
         } catch {
             logger.report(error: error)
+        }
+    }
+
+    func onClearDrawing(_ ws: WebSocket, _ id: UUID, _ message: DTClearDrawingMessage) {
+        PersistedDTAction.query(on: self.db).delete().whenComplete { res in
+            switch res {
+            case .failure(let err):
+                self.logger.report(error: err)
+            case .success:
+                self.dispatchClearActionToPeers(
+                    message, to: self.getAllWebSocketOptionsExcept(id)
+                )
+            }
         }
     }
 
@@ -167,6 +184,11 @@ class WebSocketController {
             createdAt: action.createdAt,
             action: DTAdaptedAction(action: action)
         ), to: sendOptions)
+    }
+
+    func dispatchClearActionToPeers(_ message: DTClearDrawingMessage, to sendOptions: [WebSocketSendOption]) {
+        self.logger.info("Dispatched a clear action to peers!")
+        self.send(message: message, to: sendOptions)
     }
 
     func sendActionFeedback(_ action: PersistedDTAction, to sendOption: WebSocketSendOption,

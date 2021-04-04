@@ -2,7 +2,7 @@ import Foundation
 
 public enum DTMessageType: String, Codable {
     // Client to server types
-    case initiateAction
+    case initiateAction, clearDrawing
     // Server to client types
     case handshake, actionFeedback, dispatchAction
     
@@ -10,5 +10,5 @@ public enum DTMessageType: String, Codable {
 }
 
 public enum DTActionType: String, Codable {
-    case add, remove, undo, redo
+    case stroke, clear, undo, redo
 }
