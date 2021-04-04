@@ -111,17 +111,21 @@ class WebSocketController {
                 }
 
                 self.logger.info("There is a merge conflict. ")
-                autoMerge.getLatestDispatchedActions().whenComplete { res in
-                    switch res {
-                    case .failure(let err):
-                        self.logger.report(error: err)
-                    case .success(let actions):
-                        self.sendActionFeedback(
-                            action, to: .id(id), success: success, message: "There is a merge conflict",
-                            isActionDenied: isActionDenied, actionHistories: actions
-                        )
-                    }
-                }
+                self.sendActionFeedback(
+                    action, to: .id(id), success: success, message: "There is a merge conflict",
+                    isActionDenied: isActionDenied, actionHistories: []
+                )
+                // autoMerge.getLatestDispatchedActions().whenComplete { res in
+                //    switch res {
+                //    case .failure(let err):
+                //        self.logger.report(error: err)
+                //    case .success(let actions):
+                //        self.sendActionFeedback(
+                //            action, to: .id(id), success: success, message: "There is a merge conflict",
+                //            isActionDenied: isActionDenied, actionHistories: actions
+                //        )
+                //    }
+                // }
             }
         }
     }

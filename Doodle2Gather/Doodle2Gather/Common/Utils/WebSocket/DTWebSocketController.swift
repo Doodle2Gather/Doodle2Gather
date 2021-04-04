@@ -11,10 +11,6 @@ final class DTWebSocketController {
     private let decoder = JSONDecoder()
     private let encoder = JSONEncoder()
 
-    /// Keeps check the number of messages received between the device initiates a new action and
-    /// it receives the feedback message of that action from the server
-    private static var potentialConflictMessageCount = 0
-
     init() {
         self.session = URLSession(configuration: .default)
         self.connect()
@@ -64,7 +60,6 @@ final class DTWebSocketController {
             case .actionFeedback:
                 try self.handleActionFeedback(data)
             case .dispatchAction:
-                DTWebSocketController.potentialConflictMessageCount += 1
                 try self.handleDispatchedAction(data)
             default:
                 break
@@ -89,8 +84,8 @@ final class DTWebSocketController {
                 )
                 let histories = feedback.actionHistories.map {
                     DTAction(action: $0)
-                }.prefix(DTWebSocketController.potentialConflictMessageCount)
-                self.delegate?.handleConflict(action, histories: Array(histories))
+                }
+                self.delegate?.handleConflict(action, histories: histories)
             }
         }
     }
@@ -126,7 +121,6 @@ extension DTWebSocketController: SocketController {
             id: id,
             roomId: UUID())
         do {
-            DTWebSocketController.potentialConflictMessageCount = 0
             let data = try encoder.encode(message)
             self.socket.send(.data(data)) { err in
                 if err != nil {
