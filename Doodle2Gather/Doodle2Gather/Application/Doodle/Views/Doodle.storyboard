@@ -538,7 +538,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="cIR-fM-baY">
                                         <rect key="frame" x="15" y="10" width="95" height="40"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="heI-9Y-pSS">
+                                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="heI-9Y-pSS">
                                                 <rect key="frame" x="0.0" y="0.0" width="48" height="40"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                 <color key="textColor" name="White"/>
@@ -609,7 +609,7 @@
                         <outlet property="cursorButton" destination="ryu-pR-t2y" id="Rh3-fR-798"/>
                         <outlet property="drawButton" destination="IP2-Vo-DRb" id="pWr-wH-aee"/>
                         <outlet property="eraserButton" destination="kjq-AY-SZg" id="gZs-d9-Zd1"/>
-                        <outlet property="fileNameLabel" destination="cdg-gm-cRI" id="HYc-yD-rMc"/>
+                        <outlet property="fileNameLabel" destination="cdg-gm-cRI" id="T1z-s8-E2O"/>
                         <outlet property="highlighterButton" destination="AMp-iL-zoR" id="lLt-iQ-edp"/>
                         <outlet property="magicPenButton" destination="EE8-GC-4Km" id="atf-KX-JRK"/>
                         <outlet property="numberOfOtherUsersLabel" destination="NMb-rO-KfU" id="ReU-bU-SX3"/>
@@ -620,6 +620,7 @@
                         <outlet property="shapesButton" destination="w78-OH-H1V" id="Jet-zX-JVV"/>
                         <outlet property="textButton" destination="Va2-Px-Ku6" id="GYN-tg-pop"/>
                         <outlet property="userProfileImage" destination="DOs-uP-8SE" id="Tke-aD-WLd"/>
+                        <outlet property="zoomScaleLabel" destination="heI-9Y-pSS" id="Odg-py-uxd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Ek-Ny-NIM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

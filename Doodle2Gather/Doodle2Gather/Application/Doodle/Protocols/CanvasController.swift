@@ -38,4 +38,7 @@ protocol CanvasController {
     /// Sets the size of the brush.
     func setSize(_ size: Float)
 
+    /// Resets the zoom scale of the canvas to 100%.
+    func resetZoomScale()
+
 }

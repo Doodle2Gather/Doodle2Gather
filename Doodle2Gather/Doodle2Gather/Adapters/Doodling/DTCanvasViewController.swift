@@ -93,6 +93,10 @@ extension DTCanvasViewController: PKCanvasViewDelegate {
         delegate?.actionDidFinish(action: action)
     }
 
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        delegate?.canvasZoomScaleDidChange(scale: scrollView.zoomScale)
+    }
+
 }
 
 extension DTCanvasViewController: CanvasController {
@@ -150,6 +154,10 @@ extension DTCanvasViewController: CanvasController {
 
     func setSize(_ size: Float) {
         canvasView.setWidth(CGFloat(size))
+    }
+
+    func resetZoomScale() {
+        canvasView.zoomScale = 1.0
     }
 
 }
