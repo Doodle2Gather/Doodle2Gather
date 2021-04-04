@@ -15,6 +15,7 @@
 		2E8AC7372613F4170033869E /* DTDoodle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8AC7322613F4170033869E /* DTDoodle.swift */; };
 		2E8AC7382613F4170033869E /* DTStroke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8AC7332613F4170033869E /* DTStroke.swift */; };
 		2E8AC7392613F4170033869E /* DTPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8AC7342613F4170033869E /* DTPoint.swift */; };
+		830587D526191D98000ACAAF /* DTUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830587D426191D98000ACAAF /* DTUser.swift */; };
 		84D803AB26174DF50096692E /* DTParticipant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D803AA26174DF50096692E /* DTParticipant.swift */; };
 		84D803AF26174E5D0096692E /* DTRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D803AE26174E5D0096692E /* DTRoom.swift */; };
 /* End PBXBuildFile section */
@@ -41,6 +42,7 @@
 		2E8AC7322613F4170033869E /* DTDoodle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTDoodle.swift; sourceTree = "<group>"; };
 		2E8AC7332613F4170033869E /* DTStroke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTStroke.swift; sourceTree = "<group>"; };
 		2E8AC7342613F4170033869E /* DTPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTPoint.swift; sourceTree = "<group>"; };
+		830587D426191D98000ACAAF /* DTUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTUser.swift; sourceTree = "<group>"; };
 		84D803AA26174DF50096692E /* DTParticipant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTParticipant.swift; sourceTree = "<group>"; };
 		84D803AE26174E5D0096692E /* DTRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTRoom.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -111,6 +113,7 @@
 				2E8AC7312613F4170033869E /* DTCodableColor.swift */,
 				84D803AA26174DF50096692E /* DTParticipant.swift */,
 				84D803AE26174E5D0096692E /* DTRoom.swift */,
+				830587D426191D98000ACAAF /* DTUser.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 				84D803AF26174E5D0096692E /* DTRoom.swift in Sources */,
 				84D803AB26174DF50096692E /* DTParticipant.swift in Sources */,
 				2E8AC7392613F4170033869E /* DTPoint.swift in Sources */,
+				830587D526191D98000ACAAF /* DTUser.swift in Sources */,
 				2E8AC7352613F4170033869E /* DTTool.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

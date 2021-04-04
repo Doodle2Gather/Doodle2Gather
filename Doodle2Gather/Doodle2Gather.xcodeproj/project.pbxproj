@@ -45,8 +45,15 @@
 		832607EE26145D5200B90F25 /* DTLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832607ED26145D5200B90F25 /* DTLogger.swift */; };
 		83260807261471EF00B90F25 /* WillowLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83260806261471EF00B90F25 /* WillowLogger.swift */; };
 		8326080D26147FC600B90F25 /* DTAbstractLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8326080C26147FC600B90F25 /* DTAbstractLogger.swift */; };
+		83536B6F26189EF400C3B84E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 83536B6E26189EF400C3B84E /* GoogleService-Info.plist */; };
+		83536B7026189EF400C3B84E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 83536B6E26189EF400C3B84E /* GoogleService-Info.plist */; };
+		83536B7126189EF400C3B84E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 83536B6E26189EF400C3B84E /* GoogleService-Info.plist */; };
 		835D3BFA2606B11A004491D5 /* AgoraVideoEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835D3BF92606B11A004491D5 /* AgoraVideoEngine.swift */; };
+		83AB9C5226171088008E48D0 /* DTAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AB9C5126171088008E48D0 /* DTAuth.swift */; };
+		83AB9C56261711B4008E48D0 /* FirebaseAuthProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AB9C55261711B4008E48D0 /* FirebaseAuthProvider.swift */; };
 		83D2EC3E2609283A004F875D /* ApiEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D2EC3D2609283A004F875D /* ApiEndpoints.swift */; };
+		83F588E72619240200BB9F07 /* DTAuthDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F588E62619240200BB9F07 /* DTAuthDelegate.swift */; };
+		83F588EB2619242A00BB9F07 /* DTAbstractAuthProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F588EA2619242A00BB9F07 /* DTAbstractAuthProvider.swift */; };
 		840D6B2B260236CF001F3D43 /* ConferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D6B2A260236CF001F3D43 /* ConferenceViewController.swift */; };
 		840D6B3326023F90001F3D43 /* VideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D6B3226023F90001F3D43 /* VideoCollectionViewCell.swift */; };
 		848F35472614174000AD46C6 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848F35462614174000AD46C6 /* Message.swift */; };
@@ -151,8 +158,13 @@
 		832607ED26145D5200B90F25 /* DTLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTLogger.swift; sourceTree = "<group>"; };
 		83260806261471EF00B90F25 /* WillowLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WillowLogger.swift; sourceTree = "<group>"; };
 		8326080C26147FC600B90F25 /* DTAbstractLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTAbstractLogger.swift; sourceTree = "<group>"; };
+		83536B6E26189EF400C3B84E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		835D3BF92606B11A004491D5 /* AgoraVideoEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgoraVideoEngine.swift; sourceTree = "<group>"; };
+		83AB9C5126171088008E48D0 /* DTAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTAuth.swift; sourceTree = "<group>"; };
+		83AB9C55261711B4008E48D0 /* FirebaseAuthProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthProvider.swift; sourceTree = "<group>"; };
 		83D2EC3D2609283A004F875D /* ApiEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiEndpoints.swift; sourceTree = "<group>"; };
+		83F588E62619240200BB9F07 /* DTAuthDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTAuthDelegate.swift; sourceTree = "<group>"; };
+		83F588EA2619242A00BB9F07 /* DTAbstractAuthProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTAbstractAuthProvider.swift; sourceTree = "<group>"; };
 		840D6B2A260236CF001F3D43 /* ConferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConferenceViewController.swift; sourceTree = "<group>"; };
 		840D6B3226023F90001F3D43 /* VideoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewCell.swift; sourceTree = "<group>"; };
 		848F35462614174000AD46C6 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
@@ -436,6 +448,7 @@
 		2EF8E97025F75E0700C7EE7D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				83536B6E26189EF400C3B84E /* GoogleService-Info.plist */,
 				2EF8E93025F754C700C7EE7D /* Info.plist */,
 			);
 			path = "Supporting Files";
@@ -508,6 +521,7 @@
 		2EF8E97F25F75F5100C7EE7D /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				83AB9C5026171068008E48D0 /* Auth */,
 				832607EC26145D3900B90F25 /* Utils */,
 				84B17FFA2601C5B5009530A0 /* Constants */,
 				2EF0E51B26096B490008184D /* Views */,
@@ -546,6 +560,25 @@
 			isa = PBXGroup;
 			children = (
 				8326080C26147FC600B90F25 /* DTAbstractLogger.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		83AB9C5026171068008E48D0 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				83F588E5261923EF00BB9F07 /* Protocols */,
+				83AB9C5126171088008E48D0 /* DTAuth.swift */,
+				83AB9C55261711B4008E48D0 /* FirebaseAuthProvider.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		83F588E5261923EF00BB9F07 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				83F588E62619240200BB9F07 /* DTAuthDelegate.swift */,
+				83F588EA2619242A00BB9F07 /* DTAbstractAuthProvider.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -663,6 +696,7 @@
 				2EF8E91D25F754C600C7EE7D /* Resources */,
 				6387808665C6F5C74A643CDE /* [CP] Embed Pods Frameworks */,
 				2E8AC7202613F3030033869E /* Embed Frameworks */,
+				324C193EB05E9A630ACF1A36 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -701,6 +735,7 @@
 				2EF8E93D25F754C700C7EE7D /* Frameworks */,
 				2EF8E93E25F754C700C7EE7D /* Resources */,
 				7D81E80C0FEFEB14947CFCF8 /* [CP] Embed Pods Frameworks */,
+				FA05D9D1CC8E6D6121B20B79 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -764,6 +799,7 @@
 				2EF8E92F25F754C700C7EE7D /* LaunchScreen.storyboard in Resources */,
 				84A451EA2614804B00DFCA75 /* Gallery.storyboard in Resources */,
 				2E2B16D926197BFF0014DD4A /* Assets.xcassets in Resources */,
+				83536B6F26189EF400C3B84E /* GoogleService-Info.plist in Resources */,
 				2EF8E92A25F754C600C7EE7D /* Home.storyboard in Resources */,
 				2ED7A3C62601B7740006D873 /* Doodle.storyboard in Resources */,
 			);
@@ -773,6 +809,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83536B7026189EF400C3B84E /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -780,6 +817,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83536B7126189EF400C3B84E /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -803,6 +841,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint autocorrect && swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		324C193EB05E9A630ACF1A36 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Doodle2Gather/Pods-Doodle2Gather-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Doodle2Gather/Pods-Doodle2Gather-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Doodle2Gather/Pods-Doodle2Gather-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		6387808665C6F5C74A643CDE /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -922,6 +977,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		FA05D9D1CC8E6D6121B20B79 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Doodle2Gather-Doodle2GatherUITests/Pods-Doodle2Gather-Doodle2GatherUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Doodle2Gather-Doodle2GatherUITests/Pods-Doodle2Gather-Doodle2GatherUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Doodle2Gather-Doodle2GatherUITests/Pods-Doodle2Gather-Doodle2GatherUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -935,6 +1007,7 @@
 				83260807261471EF00B90F25 /* WillowLogger.swift in Sources */,
 				2EF8E92725F754C600C7EE7D /* HomeViewController.swift in Sources */,
 				84D802F32616CB480096692E /* SegueConstants.swift in Sources */,
+				83F588EB2619242A00BB9F07 /* DTAbstractAuthProvider.swift in Sources */,
 				2EA8C2FA2605E51500BE750C /* CanvasController.swift in Sources */,
 				2EA8C335260677C800BE750C /* PKDrawing+DTDrawing.swift in Sources */,
 				848F35472614174000AD46C6 /* Message.swift in Sources */,
@@ -945,6 +1018,7 @@
 				84E95957260D755A00D587CC /* VideoEngineDelegate.swift in Sources */,
 				2EA8C34226067F0000BE750C /* PKStroke+DTStroke.swift in Sources */,
 				2EF0E51D26096B5C0008184D /* SubviewTouchCollectionView.swift in Sources */,
+				83AB9C56261711B4008E48D0 /* FirebaseAuthProvider.swift in Sources */,
 				6701369B260638C5005E327A /* DTWebSocketTypes.swift in Sources */,
 				670136A426063926005E327A /* DTWebSocketController.swift in Sources */,
 				84EEC6C326102B5100876F66 /* ConferenceConstants.swift in Sources */,
@@ -964,12 +1038,14 @@
 				84A451D52614709400DFCA75 /* GalleryViewController.swift in Sources */,
 				84D803C026186E7C0096692E /* NewDocumentViewController.swift in Sources */,
 				84E95966260D805C00D587CC /* ChatBoxDelegate.swift in Sources */,
+				83F588E72619240200BB9F07 /* DTAuthDelegate.swift in Sources */,
 				83D2EC3E2609283A004F875D /* ApiEndpoints.swift in Sources */,
 				2ED7A3CC2601C0450006D873 /* DoodleViewController.swift in Sources */,
 				2E4A0B422616FDFF003257D4 /* PKDrawing+StrokesFrame.swift in Sources */,
 				2EB929D9260778F600AAB396 /* SubviewTouchView.swift in Sources */,
 				84E95961260D758B00D587CC /* ChatEngineDelegate.swift in Sources */,
 				2EA8C3182606682500BE750C /* PKCanvasView+Doodle.swift in Sources */,
+				83AB9C5226171088008E48D0 /* DTAuth.swift in Sources */,
 				832607EE26145D5200B90F25 /* DTLogger.swift in Sources */,
 				8326080D26147FC600B90F25 /* DTAbstractLogger.swift in Sources */,
 				84E9594F260D754100D587CC /* VideoEngine.swift in Sources */,
