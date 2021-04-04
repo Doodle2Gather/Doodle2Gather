@@ -713,7 +713,6 @@
 				2EF8E91D25F754C600C7EE7D /* Resources */,
 				6387808665C6F5C74A643CDE /* [CP] Embed Pods Frameworks */,
 				2E8AC7202613F3030033869E /* Embed Frameworks */,
-				324C193EB05E9A630ACF1A36 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -752,7 +751,6 @@
 				2EF8E93D25F754C700C7EE7D /* Frameworks */,
 				2EF8E93E25F754C700C7EE7D /* Resources */,
 				7D81E80C0FEFEB14947CFCF8 /* [CP] Embed Pods Frameworks */,
-				FA05D9D1CC8E6D6121B20B79 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -858,23 +856,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint autocorrect && swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-		324C193EB05E9A630ACF1A36 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Doodle2Gather/Pods-Doodle2Gather-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Doodle2Gather/Pods-Doodle2Gather-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Doodle2Gather/Pods-Doodle2Gather-resources.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 		6387808665C6F5C74A643CDE /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -992,23 +973,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		FA05D9D1CC8E6D6121B20B79 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Doodle2Gather-Doodle2GatherUITests/Pods-Doodle2Gather-Doodle2GatherUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Doodle2Gather-Doodle2GatherUITests/Pods-Doodle2Gather-Doodle2GatherUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Doodle2Gather-Doodle2GatherUITests/Pods-Doodle2Gather-Doodle2GatherUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
