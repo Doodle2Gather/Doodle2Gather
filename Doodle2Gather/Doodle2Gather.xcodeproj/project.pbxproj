@@ -13,8 +13,6 @@
 		2E2B16D926197BFF0014DD4A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EF8E92B25F754C700C7EE7D /* Assets.xcassets */; };
 		2E4A0B422616FDFF003257D4 /* PKDrawing+StrokesFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4A0B412616FDFF003257D4 /* PKDrawing+StrokesFrame.swift */; };
 		2E7AA3E9261963AF0028A013 /* DoodleViewController+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7AA3E8261963AF0028A013 /* DoodleViewController+Constants.swift */; };
-		2E8AC71E2613F3020033869E /* DoodlingLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E8AC71D2613F3020033869E /* DoodlingLibrary.framework */; };
-		2E8AC71F2613F3020033869E /* DoodlingLibrary.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2E8AC71D2613F3020033869E /* DoodlingLibrary.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2E8AC7222613F3060033869E /* Pods_Doodle2Gather.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2E3F8FAD2607380100C58F33 /* Pods_Doodle2Gather.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2E8AC74A2613F4C90033869E /* DTCanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8AC7492613F4C90033869E /* DTCanvasViewController.swift */; };
 		2E987E6E2607468000352E7D /* PKStrokePoint+DTPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E987E6D2607468000352E7D /* PKStrokePoint+DTPoint.swift */; };
@@ -40,7 +38,9 @@
 		2EF8E94525F754C700C7EE7D /* Doodle2GatherUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8E94425F754C700C7EE7D /* Doodle2GatherUITests.swift */; };
 		67B62AB926198F8B0062037E /* DTApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B62AB826198F8B0062037E /* DTApi.swift */; };
 		67B62B4C2619BB980062037E /* DTWebSocketController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B62B4B2619BB980062037E /* DTWebSocketController.swift */; };
-		67B62B562619BE1B0062037E /* DoodlingAdaptedLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 67B62B552619BE1B0062037E /* DoodlingAdaptedLibrary */; };
+		67B62B662619CEF10062037E /* DTSharedLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 67B62B652619CEF10062037E /* DTSharedLibrary */; };
+		67B62B722619D1840062037E /* DoodlingFrontendLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B62B712619D1840062037E /* DoodlingFrontendLibrary.framework */; };
+		67B62B732619D1840062037E /* DoodlingFrontendLibrary.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 67B62B712619D1840062037E /* DoodlingFrontendLibrary.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		832607EE26145D5200B90F25 /* DTLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832607ED26145D5200B90F25 /* DTLogger.swift */; };
 		83260807261471EF00B90F25 /* WillowLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83260806261471EF00B90F25 /* WillowLogger.swift */; };
 		8326080D26147FC600B90F25 /* DTAbstractLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8326080C26147FC600B90F25 /* DTAbstractLogger.swift */; };
@@ -101,7 +101,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				2E8AC71F2613F3020033869E /* DoodlingLibrary.framework in Embed Frameworks */,
+				67B62B732619D1840062037E /* DoodlingFrontendLibrary.framework in Embed Frameworks */,
 				2E8AC7222613F3060033869E /* Pods_Doodle2Gather.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -154,6 +154,7 @@
 		5630A42182E9C28155E1A130 /* Pods-Doodle2Gather.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Doodle2Gather.release.xcconfig"; path = "Target Support Files/Pods-Doodle2Gather/Pods-Doodle2Gather.release.xcconfig"; sourceTree = "<group>"; };
 		67B62AB826198F8B0062037E /* DTApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTApi.swift; sourceTree = "<group>"; };
 		67B62B4B2619BB980062037E /* DTWebSocketController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTWebSocketController.swift; sourceTree = "<group>"; };
+		67B62B712619D1840062037E /* DoodlingFrontendLibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DoodlingFrontendLibrary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		832607ED26145D5200B90F25 /* DTLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTLogger.swift; sourceTree = "<group>"; };
 		83260806261471EF00B90F25 /* WillowLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WillowLogger.swift; sourceTree = "<group>"; };
 		8326080C26147FC600B90F25 /* DTAbstractLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTAbstractLogger.swift; sourceTree = "<group>"; };
@@ -195,9 +196,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2E8AC71E2613F3020033869E /* DoodlingLibrary.framework in Frameworks */,
-				67B62B562619BE1B0062037E /* DoodlingAdaptedLibrary in Frameworks */,
 				E4717322950A9BA3A7954F7E /* Pods_Doodle2Gather.framework in Frameworks */,
+				67B62B722619D1840062037E /* DoodlingFrontendLibrary.framework in Frameworks */,
+				67B62B662619CEF10062037E /* DTSharedLibrary in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -680,6 +681,7 @@
 		CD2A37479AA1991CD8015EDE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				67B62B712619D1840062037E /* DoodlingFrontendLibrary.framework */,
 				2E8AC7A52613F9460033869E /* DoodleAutomerge.framework */,
 				2E8AC71D2613F3020033869E /* DoodlingLibrary.framework */,
 				0E53B4F895F761EF4405A8DB /* Pods_Doodle2Gather.framework */,
@@ -712,7 +714,7 @@
 			);
 			name = Doodle2Gather;
 			packageProductDependencies = (
-				67B62B552619BE1B0062037E /* DoodlingAdaptedLibrary */,
+				67B62B652619CEF10062037E /* DTSharedLibrary */,
 			);
 			productName = Doodle2Gather;
 			productReference = 2EF8E91F25F754C600C7EE7D /* Doodle2Gather.app */;
@@ -1412,9 +1414,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		67B62B552619BE1B0062037E /* DoodlingAdaptedLibrary */ = {
+		67B62B652619CEF10062037E /* DTSharedLibrary */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = DoodlingAdaptedLibrary;
+			productName = DTSharedLibrary;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

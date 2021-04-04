@@ -1,5 +1,5 @@
 import Foundation
-import DoodlingAdaptedLibrary
+import DTSharedLibrary
 
 final class DTWebSocketController {
 

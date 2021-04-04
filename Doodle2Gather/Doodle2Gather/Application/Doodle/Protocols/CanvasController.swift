@@ -1,5 +1,5 @@
 import UIKit
-import DoodlingLibrary
+import DoodlingFrontendLibrary
 
 /// An interface for a controller that manages the canvas.
 /// This abstracts away all canvas-level operations.

@@ -1,4 +1,4 @@
-import DoodlingLibrary
+import DoodlingFrontendLibrary
 
 protocol DTAbstractAuthProvider {
     var delegate: DTAuthDelegate? { get set }

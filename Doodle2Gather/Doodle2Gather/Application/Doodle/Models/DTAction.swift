@@ -1,6 +1,6 @@
 import Foundation
-import DoodlingLibrary
-import DoodlingAdaptedLibrary
+import DoodlingFrontendLibrary
+import DTSharedLibrary
 
 struct DTAction {
 

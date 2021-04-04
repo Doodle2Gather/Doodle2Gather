@@ -1,4 +1,4 @@
-import DoodlingLibrary
+import DoodlingFrontendLibrary
 
 class DTAuth {
     static let shared = DTAuth()

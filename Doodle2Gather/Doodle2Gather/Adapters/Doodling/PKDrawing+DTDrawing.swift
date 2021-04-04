@@ -1,5 +1,5 @@
 import PencilKit
-import DoodlingLibrary
+import DoodlingFrontendLibrary
 
 extension PKDrawing: DTDoodle {
 
