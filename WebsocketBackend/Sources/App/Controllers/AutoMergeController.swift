@@ -34,7 +34,7 @@ class AutoMergeController {
             }
 
             for stroke in self.removed {
-                if $0.filter({ stroke.isSameStroke(as: $0) }).isEmpty {
+                if $0.contains(where: { stroke.isSameStroke(as: $0) }) {
                     return true
                 }
             }

@@ -2,17 +2,17 @@ import Foundation
 import DoodlingAdaptedLibrary
 
 struct DTApi {
-    
-    static let baseURLString = ApiEndpoints.localApi
-    
+
+    static let baseURLString = ApiEndpoints.localApi // change to .Api for production
+
     // MARK: Strokes
-    
+
     static func getAllStrokes(
         completion: @escaping (DTApiResult<[DTAdaptedStroke]>) -> Void
     ) {
         perform(Endpoints.Stroke.getAll, completion: completion)
     }
-    
+
     static func getStrokes(
         roomId: UUID,
         completion: @escaping (DTApiResult<[DTAdaptedStroke]>) -> Void
@@ -21,15 +21,15 @@ struct DTApi {
                 pathParameters: [.roomId: roomId.uuidString],
                 completion: completion)
     }
-    
+
     // MARK: Actions
-    
+
     static func getAllActions(
         completion: @escaping (DTApiResult<[DTAdaptedAction]>) -> Void
     ) {
         perform(Endpoints.Action.getAll, completion: completion)
     }
-    
+
     static func getActions(
         roomId: UUID,
         completion: @escaping (DTApiResult<[DTAdaptedAction]>) -> Void
@@ -41,9 +41,9 @@ struct DTApi {
 }
 
 extension DTApi {
-    
+
     typealias EmptyInputModel = String
-    
+
     // Overload when no `InputModel` is required.
     static func perform<OutputModel>(
         _ routeDefinition: Endpoints.RouteDefinition,
@@ -57,7 +57,7 @@ extension DTApi {
             completion: completion
         )
     }
-    
+
     static func perform<InputModel, OutputModel>(
         _ routeDefinition: Endpoints.RouteDefinition,
         pathParameters: [Endpoints.RouteDefinition.PathParameter: String] = [:],
@@ -65,20 +65,20 @@ extension DTApi {
         completion: ((DTApiResult<OutputModel>) -> Void)? = nil
     ) where InputModel: Codable, OutputModel: Codable {
         do {
-            
+
             guard var resourceURL = URL(string: baseURLString) else {
                 fatalError("No resource URL provided.")
             }
             resourceURL = resourceURL.appendingPathComponent(routeDefinition.fullPath(pathParameters))
-            
+
             var urlRequest = URLRequest(url: resourceURL)
             urlRequest.httpMethod = routeDefinition.method.rawValue
-            
+
             if let resourceToSend = send {
                 urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
                 urlRequest.httpBody = try JSONEncoder().encode(resourceToSend)
             }
-            
+
             let dataTask = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
                 guard
                     let httpResponse = response as? HTTPURLResponse,
@@ -102,7 +102,7 @@ extension DTApi {
             handleError(error, completion: completion)
         }
     }
-    
+
     private static func handleError<OutputModel>(
         _ error: Error,
         completion: ((DTApiResult<OutputModel>) -> Void)? = nil
@@ -110,7 +110,7 @@ extension DTApi {
         print("\(Date()): \(error)")
         completion?(.failure(error))
     }
-    
+
     struct APIError: Error {
         let localizedDescription: String?
     }
