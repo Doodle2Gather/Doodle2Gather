@@ -177,14 +177,14 @@ class WebSocketController {
             PersistedDTRoom.getAllDoodles(roomId, on: self.db)
                 .flatMapThrowing { $0.map(DTAdaptedDoodle.init) }
                 .whenComplete { res in
-                switch res {
-                case .failure(let err):
-                    self.logger.report(error: err)
+                    switch res {
+                    case .failure(let err):
+                        self.logger.report(error: err)
 
-                case .success(let doodles):
-                    self.logger.info("Fetching existing doodles.")
-                    self.sendFetchedDoodles(doodles, to: [.socket(ws)])
-                }
+                    case .success(let doodles):
+                        self.logger.info("Fetching existing doodles.")
+                        self.sendFetchedDoodles(doodles, to: [.socket(ws)])
+                    }
                 }
         } else {
             self.sendFetchedDoodles(roomController.doodleArray, to: [.socket(ws)])
