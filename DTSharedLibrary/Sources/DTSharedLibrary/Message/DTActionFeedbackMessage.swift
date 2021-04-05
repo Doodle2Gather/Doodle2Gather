@@ -7,30 +7,21 @@ public struct DTActionFeedbackMessage: Codable, Comparable {
     public let message: String
     public let id: UUID?
     public let createdAt: Date?
-    public let orginalAction: DTAdaptedAction
+    public let action: DTAdaptedAction
 
     public var isActionDenied: Bool
-    public var undoAction: DTAdaptedAction?
-    public let actionHistories: [DTAdaptedAction]
 
     public init(success: Bool, message: String,
                 id: UUID?, createdAt: Date?,
                 action: DTAdaptedAction,
-                isActionDenied: Bool = false,
-                actionHistories: [DTAdaptedAction] = []
+                isActionDenied: Bool = false
     ) {
         self.success = success
         self.message = message
         self.id = id
         self.createdAt = createdAt
-        self.orginalAction = action
-
+        self.action = action
         self.isActionDenied = isActionDenied
-        self.actionHistories = actionHistories
-        if isActionDenied {
-            // TODO: get partial action to be reverted
-            self.undoAction = action.reverse()
-        }
     }
 
     public static func < (lhs: DTActionFeedbackMessage, rhs: DTActionFeedbackMessage) -> Bool {

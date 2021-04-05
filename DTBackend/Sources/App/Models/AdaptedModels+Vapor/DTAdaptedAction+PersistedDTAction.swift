@@ -4,8 +4,8 @@ import DTSharedLibrary
 extension DTAdaptedAction {
     init(action: PersistedDTAction) {
         self.init(
-            strokesAdded: action.strokesAdded,
-            strokesRemoved: action.strokesRemoved,
+            type: DTActionType(rawValue: action.type) ?? .unknown,
+            strokes: action.strokes,
             roomId: action.roomId,
             createdBy: action.createdBy
         )
@@ -13,8 +13,8 @@ extension DTAdaptedAction {
 
     func makePersistedAction() -> PersistedDTAction {
         PersistedDTAction(
-            strokesAdded: strokesAdded,
-            strokesRemoved: strokesRemoved,
+            type: type,
+            strokes: strokes,
             roomId: roomId,
             createdBy: createdBy
         )

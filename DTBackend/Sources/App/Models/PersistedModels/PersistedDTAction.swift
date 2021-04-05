@@ -7,15 +7,15 @@ final class PersistedDTAction: Model, Content {
 
     @ID(key: .id)
     var id: UUID?
+    
+    @Field(key: "action_type")
+    var type: String
 
     @Field(key: "room_id")
     var roomId: UUID
 
-    @Field(key: "strokes_added")
-    var strokesAdded: Set<Data>
-
-    @Field(key: "strokes_removed")
-    var strokesRemoved: Set<Data>
+    @Field(key: "strokes")
+    var strokes: [Data]
 
     @Field(key: "created_by")
     var createdBy: UUID
@@ -25,10 +25,10 @@ final class PersistedDTAction: Model, Content {
 
     init() { }
 
-    init(strokesAdded: Set<Data>, strokesRemoved: Set<Data>, roomId: UUID, createdBy: UUID, id: UUID? = nil) {
+    init(type: DTActionType, strokes: [Data], roomId: UUID, createdBy: UUID, id: UUID? = nil) {
+        self.type = type.rawValue
         self.roomId = roomId
-        self.strokesAdded = strokesAdded
-        self.strokesRemoved = strokesRemoved
+        self.strokes = strokes
         self.createdBy = createdBy
         self.id = id
     }
