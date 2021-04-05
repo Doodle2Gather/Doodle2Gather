@@ -11,6 +11,10 @@ public struct DTAdaptedStroke: Codable {
         self.roomId = roomId
         self.createdBy = createdBy
     }
+    
+    public init(_ strokeIndexPair: DTStrokeIndexPair, roomId: UUID, createdBy: UUID) {
+        self.init(stroke: strokeIndexPair.stroke, roomId: roomId, createdBy: createdBy)
+    }
 }
 
 // MARK: - Hashable
