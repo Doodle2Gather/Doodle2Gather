@@ -2,12 +2,12 @@ import Vapor
 import DTSharedLibrary
 
 extension DTAdaptedStroke {
-    init(action: PersistedDTStroke) {
+    init(stroke: PersistedDTStroke) {
         self.init(
-            stroke: action.strokeData,
-            roomId: action.$room.id,
-            doodleId: action.$doodle.id,
-            createdBy: action.createdBy
+            stroke: stroke.strokeData,
+            roomId: stroke.$room.id,
+            doodleId: stroke.$doodle.id,
+            createdBy: stroke.createdBy
         )
     }
 

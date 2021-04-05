@@ -42,6 +42,17 @@ extension PersistedDTDoodle {
         .first()
         .unwrap(or: DTError.modelNotFound(type: "PersistedDTDoodle", id: id.uuidString))
     }
+    
+    static func getAllActions(_ id: PersistedDTRoom.IDValue?, on db: Database) -> EventLoopFuture<[PersistedDTAction]> {
+        getSingleByID(id, on: db)
+            .map { $0.actions }
+    }
+    
+    static func getAllStrokes(_ id: PersistedDTRoom.IDValue?, on db: Database) -> EventLoopFuture<[PersistedDTStroke]> {
+        getSingleByID(id, on: db)
+            .map { $0.strokes }
+    }
+
 
     static func getAll(on db: Database) -> EventLoopFuture<[PersistedDTDoodle]> {
         PersistedDTDoodle.query(on: db)

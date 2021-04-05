@@ -19,7 +19,7 @@ class WebSocketController {
         self.sockets = [:]
         self.db = db
         self.logger = Logger(label: "WebSocketController")
-        self.roomController = ActiveRoomController()
+        self.roomController = ActiveRoomController(db: db)
     }
 
     var getAllWebSocketOptions: [WebSocketSendOption] {
@@ -59,18 +59,18 @@ class WebSocketController {
         self.send(message: DTHandshake(id: uuid), to: [.socket(ws)])
 
         // TODO: replace with RESTful route
-        PersistedDTAction.query(on: self.db).all().whenComplete { res in
-            switch res {
-            case .failure(let err):
-                self.logger.report(error: err)
-
-            case .success(let actions):
-                self.logger.info("Load existing action. Action count: \(actions.count)")
-                actions.forEach {
-                    self.dispatchActionToPeers($0, to: [.socket(ws)])
-                }
-            }
-        }
+//        PersistedDTAction.query(on: self.db).all().whenComplete { res in
+//            switch res {
+//            case .failure(let err):
+//                self.logger.report(error: err)
+//
+//            case .success(let actions):
+//                self.logger.info("Load existing action. Action count: \(actions.count)")
+//                actions.forEach {
+//                    self.dispatchActionToPeers($0, to: [.socket(ws)])
+//                }
+//            }
+//        }
     }
 
     func onData(_ ws: WebSocket, _ data: Data) {
@@ -109,8 +109,27 @@ class WebSocketController {
 
     func onNewAction(_ ws: WebSocket, _ id: UUID, _ message: DTInitiateActionMessage) {
         let action = message.action
-        roomController.process(action)
         
+        // action successful
+        if let dispatchAction = roomController.process(action) {
+            self.dispatchActionToPeers(
+                dispatchAction, to: self.getAllWebSocketOptionsExcept(id), success: true, message: "New Action"
+            )
+            self.sendActionFeedback(
+                orginalAction: action,
+                dispatchAction: dispatchAction,
+                to: .id(id), success: true, message: "Action sucessful."
+            )
+            return
+        }
+        
+        // action denied
+        
+        self.sendActionFeedback(
+            orginalAction: action,
+            dispatchAction: nil,
+            to: .id(id), success: false, message: "Action failed. Please refetch"
+        )
         
 //
 //        let newActionController = NewActionController(
@@ -180,15 +199,13 @@ class WebSocketController {
         }
     }
 
-    func dispatchActionToPeers(_ action: PersistedDTAction, to sendOptions: [WebSocketSendOption],
+    func dispatchActionToPeers(_ action: DTAdaptedAction, to sendOptions: [WebSocketSendOption],
                                success: Bool = true, message: String = "") {
         self.logger.info("Dispatched an action to peers!")
-        try? self.send(message: DTDispatchActionMessage(
+        self.send(message: DTDispatchActionMessage(
             success: success,
             message: message,
-            id: action.requireID(),
-            createdAt: action.createdAt,
-            action: DTAdaptedAction(action: action)
+            action: action
         ), to: sendOptions)
     }
 
@@ -197,16 +214,15 @@ class WebSocketController {
         self.send(message: message, to: sendOptions)
     }
 
-    func sendActionFeedback(_ action: PersistedDTAction, to sendOption: WebSocketSendOption,
+    func sendActionFeedback(orginalAction: DTAdaptedAction, dispatchAction: DTAdaptedAction?,
+                            to sendOption: WebSocketSendOption,
                             success: Bool = true, message: String = "",
                             isActionDenied: Bool = false) {
-        try? self.send(message: DTActionFeedbackMessage(
+        self.send(message: DTActionFeedbackMessage(
             success: success,
             message: message,
-            id: action.requireID(),
-            createdAt: action.createdAt,
-            action: DTAdaptedAction(action: action),
-            isActionDenied: isActionDenied
+            orginalAction: orginalAction,
+            dispatchedAction: dispatchAction
         ), to: [sendOption])
     }
 }

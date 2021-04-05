@@ -18,7 +18,7 @@ struct DTActionController: RouteCollection {
     func getRoomAllHandler(req: Request) throws -> EventLoopFuture<[DTAdaptedAction]> {
         let roomId = try req.requireUUID(parameterName: "roomId")
 
-        return PersistedDTAction.getRoomAll(roomId, on: req.db)
+        return PersistedDTRoom.getAllActions(roomId, on: req.db)
             .flatMapThrowing { actions in
                 actions.map(DTAdaptedAction.init)
             }
@@ -29,11 +29,6 @@ struct DTActionController: RouteCollection {
 
 extension PersistedDTAction {
     
-    static func getRoomAll(_ roomId: UUID, on db: Database) -> EventLoopFuture<[PersistedDTAction]> {
-        PersistedDTRoom.find(roomId, on: db)
-            .map { $0?.actions ?? [] }
-    }
-
     static func getAll(on db: Database) -> EventLoopFuture<[PersistedDTAction]> {
         PersistedDTAction.query(on: db).all()
     }

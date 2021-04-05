@@ -3,11 +3,13 @@ import Foundation
 public struct DTAdaptedDoodle: Codable {
 
     public let roomId: UUID
+    public let doodleId: UUID?
     public var strokes: [DTAdaptedStroke]
 
-    public init(roomId: UUID, strokes: [DTAdaptedStroke] = []) {
+    public init(roomId: UUID, doodleId: UUID? = nil, strokes: [DTAdaptedStroke] = []) {
         self.strokes = strokes
         self.roomId = roomId
+        self.doodleId = doodleId
     }
 
     public var strokeCount: Int {
@@ -16,6 +18,18 @@ public struct DTAdaptedDoodle: Codable {
 
     public func getStroke(at index: Int) -> DTAdaptedStroke {
         strokes[index]
+    }
+    
+    public mutating func addStroke(_ stroke: DTAdaptedStroke) {
+        strokes.append(stroke)
+    }
+    
+    public mutating func removeStroke(at index: Int) {
+        strokes.remove(at: index)
+    }
+    
+    public mutating func modifyStroke(at index: Int, to newStroke: DTAdaptedStroke) {
+        strokes[index] = newStroke
     }
 
 }

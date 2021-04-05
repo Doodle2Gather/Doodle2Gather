@@ -18,7 +18,7 @@ struct DTStrokeController: RouteCollection {
     func getRoomAllHandler(req: Request) throws -> EventLoopFuture<[DTAdaptedStroke]> {
         let roomId = try req.requireUUID(parameterName: "roomId")
 
-        return PersistedDTStroke.getRoomAll(roomId, on: req.db)
+        return PersistedDTRoom.getAllStrokes(roomId, on: req.db)
             .flatMapThrowing { strokes in
                 strokes.map(DTAdaptedStroke.init)
             }
@@ -36,12 +36,7 @@ extension PersistedDTStroke {
             .first()
             .unwrap(or: DTError.modelNotFound(type: "PersistedDTStroke"))
     }
-
-    static func getRoomAll(_ roomId: UUID, on db: Database) -> EventLoopFuture<[PersistedDTStroke]> {
-        PersistedDTRoom.find(roomId, on: db)
-            .map { $0?.strokes ?? [] }
-    }
-
+    
     static func getAll(on db: Database) -> EventLoopFuture<[PersistedDTStroke]> {
         PersistedDTStroke.query(on: db).all()
     }

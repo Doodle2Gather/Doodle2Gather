@@ -46,6 +46,21 @@ extension PersistedDTRoom {
         .first()
         .unwrap(or: DTError.modelNotFound(type: "PersistedDTRoom", id: id.uuidString))
     }
+    
+    static func getAllDoodles(_ id: PersistedDTRoom.IDValue?, on db: Database) -> EventLoopFuture<[PersistedDTDoodle]> {
+        getSingleByID(id, on: db)
+            .map { $0.doodles }
+    }
+    
+    static func getAllActions(_ id: PersistedDTRoom.IDValue?, on db: Database) -> EventLoopFuture<[PersistedDTAction]> {
+        getSingleByID(id, on: db)
+            .map { $0.actions }
+    }
+    
+    static func getAllStrokes(_ id: PersistedDTRoom.IDValue?, on db: Database) -> EventLoopFuture<[PersistedDTStroke]> {
+        getSingleByID(id, on: db)
+            .map { $0.strokes }
+    }
 
     static func getAll(on db: Database) -> EventLoopFuture<[PersistedDTRoom]> {
         PersistedDTRoom.query(on: db)

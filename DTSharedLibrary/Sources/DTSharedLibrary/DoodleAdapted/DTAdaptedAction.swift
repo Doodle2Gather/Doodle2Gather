@@ -27,6 +27,10 @@ public struct DTAdaptedAction: Codable {
         }
         return dtStrokes
     }
+    
+    public func getNewAction(with paris: [DTStrokeIndexPair]) -> DTAdaptedAction {
+        DTAdaptedAction(type: type, strokes: paris, roomId: roomId, doodleId: doodleId, createdBy: createdBy)
+    }
 }
 
 // MARK: - Hashable
