@@ -44,12 +44,12 @@ public struct Endpoints {
         public static let getSingle = RouteDefinition(root: root, method: .GET, path: [":strokeId"])
         public static let create = RouteDefinition(root: root, method: .POST, path: [])
     }
-    
+
     public struct User {
         public static let root = ["user"]
         public static let createUserInfo = RouteDefinition(root: root, method: .POST, path: [])
-        public static let readUserInfo = RouteDefinition(root: root, method: .POST, path: [])
-        public static let updateUserInfo = RouteDefinition(root: root, method: .PUT, path: [])
-        public static let deleteUserInfo = RouteDefinition(root: root, method: .DELETE, path: [])
+        public static let readUserInfo = RouteDefinition(root: root, method: .GET, path: [":id"])
+        public static let updateUserInfo = RouteDefinition(root: root, method: .PUT, path: [":id"])
+        public static let deleteUserInfo = RouteDefinition(root: root, method: .DELETE, path: [":id"])
     }
 }

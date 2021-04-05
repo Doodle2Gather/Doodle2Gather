@@ -6,16 +6,16 @@ final class PersistedDTUser: Model, Content {
 
     @ID(custom: .id)
     var id: String?
-    
+
     @Field(key: "display_name")
     var displayName: String
-    
+
     @Field(key: "email")
     var email: String
 
     @Timestamp(key: "created_at", on: .create)
     var createdAt: Date?
-    
+
     @Timestamp(key: "updated_at", on: .update)
     var updatedAt: Date?
 
@@ -26,4 +26,9 @@ final class PersistedDTUser: Model, Content {
         self.displayName = displayName
         self.email = email
     }
+
+    func update(copy: PersistedDTUser) {
+        self.displayName = copy.displayName
+        self.email = copy.email
+     }
 }
