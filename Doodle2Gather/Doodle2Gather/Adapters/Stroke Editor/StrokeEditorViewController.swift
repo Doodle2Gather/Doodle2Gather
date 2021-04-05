@@ -34,6 +34,7 @@ class StrokeEditorViewController: UIViewController {
 
     @IBAction private func widthSliderDidChange(_ sender: UISlider) {
         let newWidth = sender.value
+        widthCache[toolSelected] = newWidth
         delegate?.widthDidChange(CGFloat(newWidth))
     }
 
