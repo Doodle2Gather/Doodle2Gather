@@ -8,7 +8,7 @@ struct BestFitShapeDetector: ShapeDetector {
         static let circleErrorThreshold: CGFloat = 100
     }
 
-    mutating func processStroke<S>(_ stroke: S) -> S? where S: DTStroke {
+    func processStroke<S>(_ stroke: S) -> S? where S: DTStroke {
         var pointLocations = stroke.points.map { $0.location }
         guard let minX = pointLocations.map({ $0.x }).min(),
               let minY = pointLocations.map({ $0.y }).min() else {

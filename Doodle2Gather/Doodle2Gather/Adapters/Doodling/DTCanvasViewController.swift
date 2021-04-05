@@ -14,6 +14,7 @@ class DTCanvasViewController: UIViewController {
     var doodle = PKDrawing()
     /// Delegate for action dispatching.
     internal weak var delegate: CanvasControllerDelegate?
+    private let shapeDetector: ShapeDetector = BestFitShapeDetector()
 
     /// Tracks whether a initial scroll to offset has already been done.
     private var hasScrolledToInitialOffset = false
@@ -88,7 +89,6 @@ extension DTCanvasViewController: PKCanvasViewDelegate {
 
         if currentMainTool == .drawing && currentDrawingTool == .magicPen,
            let latestStroke = canvas.drawing.strokes.last {
-            var shapeDetector = BestFitShapeDetector()
             let fixedStroke = shapeDetector.processStroke(latestStroke)
 
             if let fixedStroke = fixedStroke {

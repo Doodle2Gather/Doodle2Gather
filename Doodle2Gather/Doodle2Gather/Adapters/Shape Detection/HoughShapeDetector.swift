@@ -3,9 +3,6 @@ import DTFrontendLibrary
 
 struct HoughShapeDetector: ShapeDetector {
 
-    var minX: CGFloat = 0
-    var minY: CGFloat = 0
-
     typealias Vector = [Double]
     typealias Matrix = [Vector]
 
@@ -15,9 +12,14 @@ struct HoughShapeDetector: ShapeDetector {
         var occurrence: Int
     }
 
-    mutating func processStroke<S>(_ stroke: S) -> S? where S: DTStroke {
+    func processStroke<S>(_ stroke: S) -> S? where S: DTStroke {
         guard !stroke.points.isEmpty, let firstPoint = stroke.points.first,
               let lastPoint = stroke.points.last else {
+            return nil
+        }
+        let locations = stroke.points.map { $0.location }
+
+        guard let minX = locations.map({ $0.x }).min(), let minY = locations.map({ $0.y }).min() else {
             return nil
         }
 
@@ -71,7 +73,7 @@ struct HoughShapeDetector: ShapeDetector {
 
     // MARK: - DTStroke
 
-    private mutating func getHoughSpaceDimensions<S>(of stroke: S) -> (height: Int, width: Int) where S: DTStroke {
+    private func getHoughSpaceDimensions<S>(of stroke: S) -> (height: Int, width: Int) where S: DTStroke {
         let points = stroke.points
         let locations = points.map { $0.location }
         guard let minX = locations.map({ $0.x }).min(), let minY = locations.map({ $0.y }).min(),
@@ -79,18 +81,21 @@ struct HoughShapeDetector: ShapeDetector {
             return (height: 0, width: 0)
         }
 
-        self.minX = minX
-        self.minY = minY
         let longestDistance = sqrt(pow(maxX - minX, 2) + pow(maxY - minY, 2))
         return (height: 180, width: Int(ceil(longestDistance)))
     }
 
     // MARK: - Hough Transform
 
-    private mutating func createHoughSpace<S>(from stroke: S) -> Matrix where S: DTStroke {
+    private func createHoughSpace<S>(from stroke: S) -> Matrix where S: DTStroke {
         let (height, width) = getHoughSpaceDimensions(of: stroke)
         let points = stroke.points
+        let locations = points.map { $0.location }
         var space = createEmptyMatrix(height: height, width: width)
+
+        guard let minX = locations.map({ $0.x }).min(), let minY = locations.map({ $0.y }).min() else {
+            return space
+        }
 
         for point in points {
             let location = point.location
