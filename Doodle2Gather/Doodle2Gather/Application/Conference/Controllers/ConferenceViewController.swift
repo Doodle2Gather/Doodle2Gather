@@ -27,6 +27,11 @@ class ConferenceViewController: UIViewController {
     private var videoOverlays = [UIView]()
     private var appearance = BadgeAppearance(animate: true)
     private var unreadMessageCount = 0
+    
+    enum VideoLabels {
+        static let collapsed = "Collapsed"
+        static let gallery = "Gallery View"
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,8 +43,8 @@ class ConferenceViewController: UIViewController {
         chatEngine?.initialize()
         chatEngine?.joinChannel(channelName: "testing")
         chatEngine?.delegate = self
-        appearance.distanceFromCenterX = 12
-        appearance.distanceFromCenterY = -12
+        appearance.distanceFromCenterX = UIConstants.largeOffset
+        appearance.distanceFromCenterY = -UIConstants.largeOffset
 
         videoEngine?.muteAudio()
         videoEngine?.hideVideo()
@@ -70,7 +75,7 @@ class ConferenceViewController: UIViewController {
                 let overlay = UIView(frame: CGRect(x: 0, y: 0,
                                                    width: cellView.frame.size.width,
                                                    height: cellView.frame.size.height))
-                overlay.backgroundColor = UIColor(named: "Black")
+                overlay.backgroundColor = UIConstants.black
                 videoOverlays.append(overlay)
                 cellView.addSubview(overlay)
             } else {
@@ -96,9 +101,9 @@ class ConferenceViewController: UIViewController {
     @IBAction private func didTapResizeButton(_ sender: UIButton) {
         collectionView.isHidden.toggle()
         if collectionView.isHidden {
-            topControlView.text = "Collapsed"
+            topControlView.text = VideoLabels.collapsed
         } else {
-            topControlView.text = "Gallery View"
+            topControlView.text = VideoLabels.gallery
         }
     }
 
