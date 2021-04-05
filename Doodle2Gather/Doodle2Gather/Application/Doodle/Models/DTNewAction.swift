@@ -1,4 +1,3 @@
-import Foundation
 import DTFrontendLibrary
 import DTSharedLibrary
 
@@ -8,6 +7,13 @@ struct DTNewAction {
     let strokes: [DTStrokeIndexPair]
     let roomId: UUID
     let doodleId: UUID
+
+    init(action: DTAdaptedAction) {
+        self.type = action.type
+        self.strokes = action.strokes
+        self.roomId = action.roomId
+        self.doodleId = action.doodleId
+    }
 
     init(type: DTActionType, roomId: UUID, doodleId: UUID, strokes: [DTStrokeIndexPair]) {
         self.type = type

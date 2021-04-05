@@ -1,5 +1,6 @@
 import UIKit
-import Pikko
+import DTSharedLibrary
+import DTFrontendLibrary
 
 class DoodleViewController: UIViewController {
 
@@ -229,7 +230,7 @@ extension DoodleViewController {
 
 extension DoodleViewController: CanvasControllerDelegate {
 
-    func actionDidFinish(action: DTAction) {
+    func actionDidFinish(action: DTNewAction) {
         socketController?.addAction(action)
     }
 
@@ -243,21 +244,16 @@ extension DoodleViewController: CanvasControllerDelegate {
 
 extension DoodleViewController: SocketControllerDelegate {
 
-    func dispatchAction(_ action: DTAction) {
-        canvasController?.dispatchAction(action)
+    func dispatchChanges<S>(type: DTActionType, strokes: [(S, Int)]) where S: DTStroke {
+        // TODO: Replace with actual roomId and doodleId
+        guard let action = DTNewAction(type: type, roomId: UUID(), doodleId: UUID(), strokes: strokes) else {
+            return
+        }
+        socketController?.addAction(action)
     }
 
-    func handleConflict(_ undoAction: DTAction, histories: [DTAction]) {
-
-        for action in histories {
-            canvasController?.dispatchAction(action)
-        }
-
-        canvasController?.dispatchAction(undoAction)
-
-        for action in histories.reversed() {
-            canvasController?.dispatchAction(action)
-        }
+    func dispatchAction(_ action: DTNewAction) {
+        canvasController?.dispatchAction(action)
     }
 
     func clearDrawing() {

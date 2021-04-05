@@ -87,7 +87,7 @@ final class DTWebSocketController {
         DispatchQueue.main.async {
             // TODO: refactor unhappy path to be at the top
             if dispatch.success {
-                let action = DTAction(
+                let action = DTNewAction(
                     action: dispatch.action
                 )
                 self.delegate?.dispatchAction(action)
@@ -110,15 +110,15 @@ final class DTWebSocketController {
 
 extension DTWebSocketController: SocketController {
 
-    func addAction(_ action: DTAction) {
+    func addAction(_ action: DTNewAction) {
         guard let id = self.id else {
             return
         }
-        DTLogger.info("adding action")
-        // TODO: change parameters to actual data
+        DTLogger.info("Adding action")
+
         let message = DTInitiateActionMessage(
-            actionType: .add, strokes: [DTStrokeIndexPair](),
-            id: id, roomId: UUID(), doodleId: UUID()
+            actionType: action.type, strokes: action.strokes,
+            id: id, roomId: action.roomId, doodleId: action.doodleId
         )
         do {
             let data = try encoder.encode(message)
