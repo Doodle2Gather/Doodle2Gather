@@ -27,7 +27,7 @@ class ConferenceViewController: UIViewController {
     private var videoOverlays = [UIView]()
     private var appearance = BadgeAppearance(animate: true)
     private var unreadMessageCount = 0
-    
+
     enum VideoLabels {
         static let collapsed = "Collapsed"
         static let gallery = "Gallery View"
