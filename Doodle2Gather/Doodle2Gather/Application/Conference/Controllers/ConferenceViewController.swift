@@ -1,4 +1,5 @@
 import UIKit
+import EasyNotificationBadge
 
 class ConferenceViewController: UIViewController {
 
@@ -12,6 +13,8 @@ class ConferenceViewController: UIViewController {
     @IBOutlet private var videoButton: UIButton!
     @IBOutlet private var audioButton: UIButton!
     @IBOutlet private var chatButton: UIButton!
+    @IBOutlet private var resizeButton: UIButton!
+    @IBOutlet private var topControlView: UILabel!
 
     var videoEngine: VideoEngine?
     var chatEngine: ChatEngine?
@@ -22,6 +25,13 @@ class ConferenceViewController: UIViewController {
     var isVideoOff = true
     var isChatShown = false
     private var videoOverlays = [UIView]()
+    private var appearance = BadgeAppearance(animate: true)
+    private var unreadMessageCount = 0
+
+    enum VideoLabels {
+        static let collapsed = "Collapsed"
+        static let gallery = "Gallery View"
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +41,10 @@ class ConferenceViewController: UIViewController {
         videoEngine?.joinChannel(channelName: "testing")
         chatEngine = AgoraChatEngine()
         chatEngine?.initialize()
+        chatEngine?.joinChannel(channelName: "testing")
+        chatEngine?.delegate = self
+        appearance.distanceFromCenterX = UIConstants.largeOffset
+        appearance.distanceFromCenterY = -UIConstants.largeOffset
 
         videoEngine?.muteAudio()
         videoEngine?.hideVideo()
@@ -61,7 +75,7 @@ class ConferenceViewController: UIViewController {
                 let overlay = UIView(frame: CGRect(x: 0, y: 0,
                                                    width: cellView.frame.size.width,
                                                    height: cellView.frame.size.height))
-                overlay.backgroundColor = UIColor.darkGray
+                overlay.backgroundColor = UIConstants.black
                 videoOverlays.append(overlay)
                 cellView.addSubview(overlay)
             } else {
@@ -84,6 +98,15 @@ class ConferenceViewController: UIViewController {
         sender.isSelected.toggle()
     }
 
+    @IBAction private func didTapResizeButton(_ sender: UIButton) {
+        collectionView.isHidden.toggle()
+        if collectionView.isHidden {
+            topControlView.text = VideoLabels.collapsed
+        } else {
+            topControlView.text = VideoLabels.gallery
+        }
+    }
+
     // Passes data to the ChatViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == SegueConstants.toChat {
@@ -95,13 +118,21 @@ class ConferenceViewController: UIViewController {
             }
             chatEngine?.delegate = self
             vc.chatEngine = chatEngine
-            self.chatBox = vc
+            isChatShown = true
+            chatBox = vc
             vc.deliverHandler = { message in
                 self.chatList.append(message)
+            }
+            vc.chatCallback = {
+                self.unreadMessageCount = 0
+                self.chatButton.badge(text: nil, appearance: self.appearance)
+                self.isChatShown = false
             }
             for msg in chatList {
                 vc.messages.append(msg)
             }
+            unreadMessageCount = 0
+            chatButton.badge(text: nil, appearance: appearance)
         }
     }
 
@@ -147,6 +178,10 @@ extension ConferenceViewController: ChatEngineDelegate {
                           messageId: UUID().uuidString,
                           sentDate: Date(), kind: .text(content))
         chatList.append(msg)
+        if !isChatShown {
+            unreadMessageCount += 1
+            chatButton.badge(text: "\(unreadMessageCount)", appearance: appearance)
+        }
         chatBox?.onReceiveMessage(msg)
     }
 

@@ -10,6 +10,7 @@ class ChatViewController: MessagesViewController {
     var currentUser = Sender(senderId: DTAuth.user?.uid ?? UUID().uuidString,
                              displayName: DTAuth.user?.displayName ?? "Anonymous")
     var deliverHandler: ((Message) -> Void)?
+    var chatCallback: (() -> Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +48,12 @@ class ChatViewController: MessagesViewController {
     }
 
     @IBAction private func didTapClose(_ sender: UIBarButtonItem) {
+        if let callback = chatCallback {
+            callback()
+            dismiss(animated: true, completion: nil)
+            return
+        }
+        DTLogger.error("No callback function provided to chat view controller.")
         dismiss(animated: true, completion: nil)
     }
 
