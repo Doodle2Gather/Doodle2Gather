@@ -50,12 +50,14 @@ extension PersistedDTRoom {
             .map { $0.doodles }
     }
 
-//    static func getAllActions(_ id: PersistedDTRoom.IDValue?, on db: Database) -> EventLoopFuture<[PersistedDTAction]> {
+//    static func getAllActions(_ id: PersistedDTRoom.IDValue?,
+//                              on db: Database) -> EventLoopFuture<[PersistedDTAction]> {
 //        getSingleByID(id, on: db)
 //            .map { $0.actions }
 //    }
 //
-//    static func getAllStrokes(_ id: PersistedDTRoom.IDValue?, on db: Database) -> EventLoopFuture<[PersistedDTStroke]> {
+//    static func getAllStrokes(_ id: PersistedDTRoom.IDValue?,
+//                              on db: Database) -> EventLoopFuture<[PersistedDTStroke]> {
 //        getSingleByID(id, on: db)
 //            .map { $0.strokes }
 //    }
