@@ -132,6 +132,7 @@ extension DoodleViewController {
         }
         unselectAllMainTools()
         auxiliaryButtonsView.isHidden = true
+        coloredCircle.isHidden = true
         sender.isSelected = true
         setDrawingTool(previousDrawingTool,
                        shouldDismiss: sender.tag != MainTools.drawing.rawValue)
@@ -139,6 +140,7 @@ extension DoodleViewController {
         switch toolSelected {
         case .drawing:
             auxiliaryButtonsView.isHidden = false
+            coloredCircle.isHidden = false
         case .eraser:
             colorPickerView.isHidden = true
             canvasController?.setEraserTool()
