@@ -5,7 +5,7 @@ import DTSharedLibrary
 struct DTActionController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         routes.on(Endpoints.Action.getAll, use: getAllHandler)
-        routes.on(Endpoints.Action.getRoomAll, use: getRoomAllHandler)
+        routes.on(Endpoints.Action.getRoomAll, use: getDoodleAllHandler)
     }
 
     func getAllHandler(req: Request) -> EventLoopFuture<[DTAdaptedAction]> {
@@ -15,10 +15,10 @@ struct DTActionController: RouteCollection {
             }
     }
 
-    func getRoomAllHandler(req: Request) throws -> EventLoopFuture<[DTAdaptedAction]> {
-        let roomId = try req.requireUUID(parameterName: "roomId")
+    func getDoodleAllHandler(req: Request) throws -> EventLoopFuture<[DTAdaptedAction]> {
+        let doodleId = try req.requireUUID(parameterName: "roomId")
 
-        return PersistedDTRoom.getAllActions(roomId, on: req.db)
+        return PersistedDTDoodle.getAllActions(doodleId, on: req.db)
             .flatMapThrowing { actions in
                 actions.map(DTAdaptedAction.init)
             }

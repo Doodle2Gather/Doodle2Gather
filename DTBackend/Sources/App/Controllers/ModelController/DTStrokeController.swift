@@ -5,7 +5,7 @@ import DTSharedLibrary
 struct DTStrokeController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         routes.on(Endpoints.Stroke.getAll, use: getAllHandler)
-        routes.on(Endpoints.Stroke.getRoomAll, use: getRoomAllHandler)
+        routes.on(Endpoints.Stroke.getRoomAll, use: getDoodleAllHandler)
     }
 
     func getAllHandler(req: Request) -> EventLoopFuture<[DTAdaptedStroke]> {
@@ -15,10 +15,10 @@ struct DTStrokeController: RouteCollection {
             }
     }
 
-    func getRoomAllHandler(req: Request) throws -> EventLoopFuture<[DTAdaptedStroke]> {
-        let roomId = try req.requireUUID(parameterName: "roomId")
+    func getDoodleAllHandler(req: Request) throws -> EventLoopFuture<[DTAdaptedStroke]> {
+        let doodleId = try req.requireUUID(parameterName: "roomId")
 
-        return PersistedDTRoom.getAllStrokes(roomId, on: req.db)
+        return PersistedDTDoodle.getAllStrokes(doodleId, on: req.db)
             .flatMapThrowing { strokes in
                 strokes.map(DTAdaptedStroke.init)
             }

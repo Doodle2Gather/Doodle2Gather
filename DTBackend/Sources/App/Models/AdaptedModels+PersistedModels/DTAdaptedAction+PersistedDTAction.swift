@@ -6,7 +6,7 @@ extension DTAdaptedAction {
         self.init(
             type: DTActionType(rawValue: action.type) ?? .unknown,
             strokes: action.strokes.map { DTStrokeIndexPair($0) },
-            roomId: action.$room.id,
+            roomId: action.roomId,
             doodleId: action.$doodle.id,
             createdBy: action.createdBy
         )

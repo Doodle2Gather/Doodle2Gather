@@ -11,8 +11,8 @@ final class PersistedDTAction: Model, Content {
     @Field(key: "action_type")
     var type: String
 
-    @Parent(key: "room_id")
-    var room: PersistedDTRoom
+    @Field(key: "room_id")
+    var roomId: UUID // stores roomId here so that we dont need to query db when converting it to adapted model
 
     @Parent(key: "doodle_id")
     var doodle: PersistedDTDoodle
@@ -28,10 +28,10 @@ final class PersistedDTAction: Model, Content {
 
     init() { }
 
-    init(type: DTActionType, strokes: [PersistedDTStrokeIndexPair], roomId: PersistedDTRoom.IDValue,
+    init(type: DTActionType, strokes: [PersistedDTStrokeIndexPair], roomId: UUID,
          doodleId: PersistedDTDoodle.IDValue, createdBy: UUID, id: UUID? = nil) {
         self.type = type.rawValue
-        self.$room.id = roomId
+        self.roomId = roomId
         self.$doodle.id = doodleId
         self.strokes = strokes
         self.createdBy = createdBy

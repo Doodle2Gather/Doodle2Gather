@@ -13,12 +13,6 @@ final class PersistedDTRoom: Model, Content {
     @Children(for: \.$room)
     var doodles: [PersistedDTDoodle]
 
-    @Children(for: \.$room)
-    var strokes: [PersistedDTStroke]
-
-    @Children(for: \.$room)
-    var actions: [PersistedDTAction]
-
     init() { }
 
     init(name: String, id: UUID? = nil) {

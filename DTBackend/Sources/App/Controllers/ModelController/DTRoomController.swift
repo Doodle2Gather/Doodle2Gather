@@ -41,8 +41,6 @@ extension PersistedDTRoom {
       return PersistedDTRoom.query(on: db)
         .filter(\.$id == id)
         .with(\.$doodles)
-        .with(\.$actions)
-        .with(\.$strokes)
         .first()
         .unwrap(or: DTError.modelNotFound(type: "PersistedDTRoom", id: id.uuidString))
     }
@@ -52,21 +50,19 @@ extension PersistedDTRoom {
             .map { $0.doodles }
     }
 
-    static func getAllActions(_ id: PersistedDTRoom.IDValue?, on db: Database) -> EventLoopFuture<[PersistedDTAction]> {
-        getSingleByID(id, on: db)
-            .map { $0.actions }
-    }
-
-    static func getAllStrokes(_ id: PersistedDTRoom.IDValue?, on db: Database) -> EventLoopFuture<[PersistedDTStroke]> {
-        getSingleByID(id, on: db)
-            .map { $0.strokes }
-    }
+//    static func getAllActions(_ id: PersistedDTRoom.IDValue?, on db: Database) -> EventLoopFuture<[PersistedDTAction]> {
+//        getSingleByID(id, on: db)
+//            .map { $0.actions }
+//    }
+//
+//    static func getAllStrokes(_ id: PersistedDTRoom.IDValue?, on db: Database) -> EventLoopFuture<[PersistedDTStroke]> {
+//        getSingleByID(id, on: db)
+//            .map { $0.strokes }
+//    }
 
     static func getAll(on db: Database) -> EventLoopFuture<[PersistedDTRoom]> {
         PersistedDTRoom.query(on: db)
             .with(\.$doodles)
-            .with(\.$actions)
-            .with(\.$strokes)
             .all()
     }
 }

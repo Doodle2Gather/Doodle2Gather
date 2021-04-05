@@ -5,7 +5,7 @@ extension DTAdaptedStroke {
     init(stroke: PersistedDTStroke) {
         self.init(
             stroke: stroke.strokeData,
-            roomId: stroke.$room.id,
+            roomId: stroke.roomId,
             doodleId: stroke.$doodle.id,
             createdBy: stroke.createdBy
         )
@@ -22,7 +22,7 @@ extension DTAdaptedStroke {
 
     func isSameStroke(as persisted: PersistedDTStroke) -> Bool {
         stroke == persisted.strokeData &&
-            roomId == persisted.$room.id &&
+            roomId == persisted.roomId &&
             createdBy == persisted.createdBy
     }
 }

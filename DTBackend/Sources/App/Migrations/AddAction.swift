@@ -5,7 +5,7 @@ struct AddAction: Migration {
         database.schema(PersistedDTAction.schema)
             .id()
             .field("action_type", .string, .required)
-            .field("room_id", .uuid, .required, .references(PersistedDTRoom.schema, .id, onDelete: .cascade))
+            .field("room_id", .uuid, .required)
             .field("doodle_id", .uuid, .required, .references(PersistedDTDoodle.schema, .id, onDelete: .cascade))
             .field("strokes", .array(of: .custom(PersistedDTStrokeIndexPair.self)), .required)
             .field("created_by", .uuid, .required)
