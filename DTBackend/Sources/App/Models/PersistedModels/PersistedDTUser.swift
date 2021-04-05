@@ -13,6 +13,9 @@ final class PersistedDTUser: Model, Content {
     @Field(key: "email")
     var email: String
 
+    @Children(for: \.$createdBy)
+    var createdRooms: [PersistedDTRoom]
+
     @Timestamp(key: "created_at", on: .create)
     var createdAt: Date?
 

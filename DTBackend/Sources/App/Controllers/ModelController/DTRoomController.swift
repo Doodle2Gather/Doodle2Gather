@@ -2,9 +2,21 @@ import Fluent
 import Vapor
 import DTSharedLibrary
 
+private struct DTRoomCreationRequest: Codable {
+    var name: String
+    var createdBy: String
+}
+
 struct DTRoomController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
-
+        routes.on(Endpoints.Room.createRoom, use: createRoomHandler)
+    }
+    
+    func createRoomHandler(req: Request) throws -> EventLoopFuture<PersistedDTRoom> {
+        let newDTRoomRequest = try req.content.decode(DTRoomCreationRequest.self)
+        let newDTRoom = PersistedDTRoom(name: newDTRoomRequest.name,
+                      createdBy: newDTRoomRequest.createdBy)
+        return newDTRoom.save(on: req.db).map { newDTRoom }
     }
 
     // TODO: - Change return types to Adapted Models instead

@@ -4,7 +4,7 @@ import DTSharedLibrary
 
 struct DTApi {
 
-    static let baseURLString = ApiEndpoints.localApi // change to .localApi for local testing
+    static let baseURLString = ApiEndpoints.Api // change to .localApi for local testing
 
     // MARK: User
 

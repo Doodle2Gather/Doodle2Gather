@@ -5,6 +5,9 @@ struct AddRoom: Migration {
         database.schema(PersistedDTRoom.schema)
             .id()
             .field("name", .string, .required)
+            .field("createdBy", .string, .required,
+                   .references(PersistedDTUser.schema, .id, onDelete: .cascade)
+            )
             .create()
     }
 
