@@ -196,7 +196,7 @@ extension DTCanvasViewController: PKCanvasViewDelegate {
         for (index, stroke) in newStrokesWrappers.enumerated() {
             let oldStroke = oldStrokesWrappers[index]
             if stroke != oldStroke {
-                delegate?.dispatchChanges(type: .modify, strokes: [(stroke, index)])
+                delegate?.dispatchChanges(type: .modify, strokes: [(oldStroke, index), (stroke, index)])
             }
         }
     }
