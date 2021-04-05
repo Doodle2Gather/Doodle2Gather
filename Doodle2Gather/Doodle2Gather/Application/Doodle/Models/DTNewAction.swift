@@ -48,7 +48,3 @@ struct DTNewAction {
 extension DTNewAction: Hashable {
 
 }
-
-enum DTActionType {
-    case add, remove, modify
-}

@@ -8,7 +8,3 @@ public enum DTMessageType: String, Codable {
 
     case drawing
 }
-
-public enum DTActionType: String, Codable {
-    case stroke, clear, undo, redo
-}
