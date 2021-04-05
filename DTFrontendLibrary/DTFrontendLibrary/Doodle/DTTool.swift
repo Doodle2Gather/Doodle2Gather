@@ -5,4 +5,5 @@ public enum DTTool: String {
     case pencil
     case highlighter
     case eraser
+    case lasso
 }
