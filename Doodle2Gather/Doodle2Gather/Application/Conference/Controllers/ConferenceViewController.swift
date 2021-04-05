@@ -1,4 +1,5 @@
 import UIKit
+import EasyNotificationBadge
 
 class ConferenceViewController: UIViewController {
 
@@ -12,7 +13,6 @@ class ConferenceViewController: UIViewController {
     @IBOutlet private var videoButton: UIButton!
     @IBOutlet private var audioButton: UIButton!
     @IBOutlet private var chatButton: UIButton!
-    @IBOutlet private var pageIndicator: UIView!
     @IBOutlet private var resizeButton: UIButton!
     @IBOutlet private var topControlView: UIView!
 
@@ -25,6 +25,8 @@ class ConferenceViewController: UIViewController {
     var isVideoOff = true
     var isChatShown = false
     private var videoOverlays = [UIView]()
+    private var appearance = BadgeAppearance(animate: true)
+    private var unreadMessageCount = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +37,9 @@ class ConferenceViewController: UIViewController {
         chatEngine = AgoraChatEngine()
         chatEngine?.initialize()
         chatEngine?.joinChannel(channelName: "testing")
-        pageIndicator.isHidden = false
+        chatEngine?.delegate = self
+        appearance.distanceFromCenterX = 12
+        appearance.distanceFromCenterY = -12
 
         videoEngine?.muteAudio()
         videoEngine?.hideVideo()
@@ -91,15 +95,6 @@ class ConferenceViewController: UIViewController {
 
     @IBAction private func didTapResizeButton(_ sender: UIButton) {
         collectionView.isHidden.toggle()
-        if collectionView.isHidden {
-            pageIndicator.frame = topControlView.frame.offsetBy(dx: 0, dy: 50)
-        } else {
-            if remoteUserIDs.count <= 2 {
-                pageIndicator.frame = topControlView.frame.offsetBy(dx: 0, dy: 50 + CGFloat(remoteUserIDs.count + 1) * 122.5)
-            } else {
-                pageIndicator.frame = topControlView.frame.offsetBy(dx: 0, dy: 50 + 3 * 122.5)
-            }
-        }
     }
 
     // Passes data to the ChatViewController
@@ -113,13 +108,21 @@ class ConferenceViewController: UIViewController {
             }
             chatEngine?.delegate = self
             vc.chatEngine = chatEngine
-            self.chatBox = vc
+            isChatShown = true
+            chatBox = vc
             vc.deliverHandler = { message in
                 self.chatList.append(message)
+            }
+            vc.chatCallback = {
+                self.unreadMessageCount = 0
+                self.chatButton.badge(text: nil, appearance: self.appearance)
+                self.isChatShown = false
             }
             for msg in chatList {
                 vc.messages.append(msg)
             }
+            unreadMessageCount = 0
+            chatButton.badge(text: nil, appearance: appearance)
         }
     }
 
@@ -131,14 +134,6 @@ extension ConferenceViewController: VideoEngineDelegate {
 
     func didJoinCall(id: UInt) {
         remoteUserIDs.append(id)
-        pageIndicator.isHidden = false
-
-        if remoteUserIDs.count <= 2 {
-            pageIndicator.frame = topControlView.frame.offsetBy(dx: 0,
-                                                                dy: 50 + CGFloat(remoteUserIDs.count + 1) * 122.5)
-        } else {
-            pageIndicator.frame = topControlView.frame.offsetBy(dx: 0, dy: 50 + 3 * 122.5)
-        }
         collectionView.reloadData()
     }
 
@@ -173,6 +168,10 @@ extension ConferenceViewController: ChatEngineDelegate {
                           messageId: UUID().uuidString,
                           sentDate: Date(), kind: .text(content))
         chatList.append(msg)
+        if !isChatShown {
+            unreadMessageCount += 1
+            chatButton.badge(text: "\(unreadMessageCount)", appearance: appearance)
+        }
         chatBox?.onReceiveMessage(msg)
     }
 
