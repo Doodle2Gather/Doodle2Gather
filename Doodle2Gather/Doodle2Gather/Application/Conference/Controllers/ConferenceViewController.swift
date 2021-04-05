@@ -14,7 +14,7 @@ class ConferenceViewController: UIViewController {
     @IBOutlet private var audioButton: UIButton!
     @IBOutlet private var chatButton: UIButton!
     @IBOutlet private var resizeButton: UIButton!
-    @IBOutlet private var topControlView: UIView!
+    @IBOutlet private var topControlView: UILabel!
 
     var videoEngine: VideoEngine?
     var chatEngine: ChatEngine?
@@ -95,6 +95,11 @@ class ConferenceViewController: UIViewController {
 
     @IBAction private func didTapResizeButton(_ sender: UIButton) {
         collectionView.isHidden.toggle()
+        if collectionView.isHidden {
+            topControlView.text = "Collapsed"
+        } else {
+            topControlView.text = "Gallery View"
+        }
     }
 
     // Passes data to the ChatViewController

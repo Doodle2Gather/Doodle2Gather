@@ -905,7 +905,7 @@
                         <outlet property="resizeButton" destination="KSI-yV-Rw5" id="xrB-O3-quL"/>
                         <outlet property="startStopButton" destination="0Hf-3m-fGi" id="10T-H2-Fcc"/>
                         <outlet property="timerButton" destination="mmL-ay-rCs" id="4g7-Kc-95a"/>
-                        <outlet property="topControlView" destination="hzX-Ab-qkC" id="xex-uk-ORj"/>
+                        <outlet property="topControlView" destination="5fP-1P-WgX" id="TA7-Ck-nkd"/>
                         <outlet property="videoButton" destination="yDB-Q3-4ya" id="uc5-9l-a18"/>
                         <outlet property="voteButton" destination="5QZ-pg-woK" id="cYO-LK-Aqz"/>
                     </connections>
