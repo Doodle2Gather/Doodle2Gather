@@ -12,13 +12,65 @@ class ActiveRoomController {
        Set(activeRooms.keys)
     }
 
-    func isRoomActive(roomId: UUID) -> Bool {
+    func isRoomActive(_ roomId: UUID) -> Bool {
         activeRoomIds.contains(roomId)
     }
 
-    func addActiveRoom(roomId: UUID) {
-        // activeRooms[roomId] = DTAdaptedDoodle(roomId: roomId)
+    func process(_ action: DTAdaptedAction) {
+        
+        joinRoom(action.roomId) // create live copy of room
+        
+        let strokes = action.makeStrokes()
+        
+        switch action.type {
+        case .add:
+            if strokes.count != 1 {
+                return
+            }
+            guard let strokeToAdd = strokes.first else {
+                return
+            }
+            addStroke(strokeToAdd)
+            
+        case .remove:
+            if strokes.isEmpty {
+                return
+            }
+            removeStrokes(strokes)
+            
+        case .modify:
+            if strokes.count != 2 {
+                return
+            }
+            guard let originalStroke = strokes.first, let modifiedStroke = strokes.last else {
+                return
+            }
+            modifyStroke(original: originalStroke, modified: modifiedStroke)
+            
+        default:
+            return
+        }
     }
+    
+    func joinRoom(_ roomId: UUID) {
+        if !isRoomActive(roomId) {
+            // activeRooms[roomId] = DTAdaptedDoodle(roomId: roomId)
+        }
+        
+    }
+    
+    func addStroke(_ stroke: DTAdaptedStroke) {
+        
+    }
+    
+    func removeStrokes(_ strokes: [DTAdaptedStroke]) {
+        
+    }
+    
+    func modifyStroke(original: DTAdaptedStroke, modified: DTAdaptedStroke) {
+        
+    }
+    
 
 }
 

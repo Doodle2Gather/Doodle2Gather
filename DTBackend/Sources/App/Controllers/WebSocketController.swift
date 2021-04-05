@@ -108,7 +108,10 @@ class WebSocketController {
     }
 
     func onNewAction(_ ws: WebSocket, _ id: UUID, _ message: DTInitiateActionMessage) {
-//        let action = message.action.makePersistedAction()
+        let action = message.action
+        roomController.process(action)
+        
+        
 //
 //        let newActionController = NewActionController(
 //            db: self.db, newAction: message.action, persistedAction: action
