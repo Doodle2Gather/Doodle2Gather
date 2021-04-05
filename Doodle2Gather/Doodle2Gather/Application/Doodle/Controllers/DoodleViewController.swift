@@ -7,8 +7,10 @@ class DoodleViewController: UIViewController {
     @IBOutlet private var fileNameLabel: UILabel!
     @IBOutlet private var zoomScaleLabel: UILabel!
     @IBOutlet private var colorPickerView: UIView!
-    @IBOutlet private var colorPickerButtonContainer: UIView!
+    @IBOutlet private var colorPickerButton: UIView!
+    @IBOutlet private var widthSlider: UISlider!
     private var coloredCircle = CAShapeLayer()
+    private var circleCenter = CGPoint()
 
     // Left Main Menu
     @IBOutlet private var drawButton: UIButton!
@@ -39,6 +41,12 @@ class DoodleViewController: UIViewController {
     var roomName: String?
     private var lastSelectedDrawingTool = DrawingTools.pen
     private var lastSelectedColor = UIColor.black
+    private var lastSelectedWidths: [DrawingTools: Float] = [
+        .pen: Constants.defaultPenWidth,
+        .pencil: Constants.defaultPencilWidth,
+        .highlighter: Constants.defaultHighlighterWidth,
+        .magicPen: Constants.defaultPenWidth
+    ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,28 +68,33 @@ class DoodleViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
+        circleCenter = colorPickerButton.convert(CGPoint(x: colorPickerButton.bounds.midX,
+                                                         y: colorPickerButton.bounds.midY),
+                                                 to: view)
+
         // Set up color picker selector
-        let path = UIBezierPath(arcCenter: colorPickerButtonContainer.center, radius: 5,
-                                startAngle: 0, endAngle: .pi, clockwise: false)
+        let path = UIBezierPath(arcCenter: circleCenter, radius: CGFloat(Constants.defaultPenWidth),
+                                startAngle: 0, endAngle: .pi * 2, clockwise: true)
 
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = path.cgPath
-        shapeLayer.fillColor = UIColor.white.cgColor
+        shapeLayer.fillColor = UIColor.black.cgColor
         coloredCircle = shapeLayer
 
-        colorPickerButtonContainer.layer.addSublayer(shapeLayer)
+        self.view.layer.addSublayer(shapeLayer)
+        setWidth(Constants.defaultPenWidth)
     }
 
     private func registerGestures() {
         let zoomTap = UITapGestureRecognizer(target: self, action: #selector(zoomScaleDidTap(_:)))
         zoomScaleLabel.addGestureRecognizer(zoomTap)
         let colorTap = UITapGestureRecognizer(target: self, action: #selector(colorPickerButtonDidTap(_:)))
-        colorPickerButtonContainer.addGestureRecognizer(colorTap)
+        colorPickerButton.addGestureRecognizer(colorTap)
 
     }
 
     private func loadBorderColors() {
-        colorPickerButtonContainer.layer.borderColor = UIConstants.stackGrey.cgColor
+        colorPickerButton.layer.borderColor = UIConstants.stackGrey.cgColor
         numberOfOtherUsersLabel.layer.borderColor = UIConstants.stackGrey.cgColor
         // TODO: Replace profile picture borders with assigned colors
         userProfileImage.layer.borderColor = UIConstants.white.cgColor
@@ -95,9 +108,6 @@ class DoodleViewController: UIViewController {
         // Set the PikkoDelegate to get notified on new color changes.
         pikko.delegate = self
         colorPickerView.addSubview(pikko)
-
-        // Get the current color.
-        // _ = pikko.getColor()
 
         // Set autoconstraints.
         pikko.translatesAutoresizingMaskIntoConstraints = false
@@ -165,33 +175,59 @@ extension DoodleViewController {
         }
         unselectAllDrawingTools()
         sender.isSelected = true
-        lastSelectedDrawingTool = toolSelected
         setDrawingTool(toolSelected)
     }
 
     private func setDrawingTool(_ drawingTool: DrawingTools, shouldDismiss: Bool = false) {
+        lastSelectedDrawingTool = drawingTool
         switch drawingTool {
         case .pen:
             shouldDismiss ? drawButton.setImage(#imageLiteral(resourceName: "Brush"), for: .normal) : drawButton.setImage(#imageLiteral(resourceName: "Brush_Yellow"), for: .normal)
             canvasController?.setPenTool()
+            setWidth(lastSelectedWidths[.pen])
         case .pencil:
             shouldDismiss ? drawButton.setImage(#imageLiteral(resourceName: "Pencil"), for: .normal) : drawButton.setImage(#imageLiteral(resourceName: "Pencil_Yellow"), for: .normal)
             canvasController?.setPencilTool()
+            setWidth(lastSelectedWidths[.pencil])
         case .highlighter:
             shouldDismiss ? drawButton.setImage(#imageLiteral(resourceName: "BrushAlt"), for: .normal) : drawButton.setImage(#imageLiteral(resourceName: "BrushAlt_Yellow"), for: .normal)
             canvasController?.setHighlighterTool()
+            setWidth(lastSelectedWidths[.highlighter])
         case .magicPen:
             shouldDismiss ? drawButton.setImage(#imageLiteral(resourceName: "MagicWand"), for: .normal) : drawButton.setImage(#imageLiteral(resourceName: "MagicWand_Yellow"), for: .normal)
+            setWidth(lastSelectedWidths[.pen])
             return
         }
     }
 
-    @IBAction private func thicknessSliderDidChange(_ sender: UISlider) {
-        let newSize = sender.value
-        canvasController?.setSize(newSize)
+    private func setWidth(_ width: Float?) {
+        var defaultWidth = Constants.defaultPenWidth
+        switch lastSelectedDrawingTool {
+        case .pen, .magicPen:
+            widthSlider.minimumValue = Constants.minPenWidth
+            widthSlider.maximumValue = Constants.maxPenWidth
+        case .pencil:
+            widthSlider.minimumValue = Constants.minPencilWidth
+            widthSlider.maximumValue = Constants.maxPencilWidth
+            defaultWidth = Constants.defaultPencilWidth
+        case .highlighter:
+            widthSlider.minimumValue = Constants.minHighlighterWidth
+            widthSlider.maximumValue = Constants.maxHighlighterWidth
+            defaultWidth = Constants.defaultHighlighterWidth
+        }
+        let width = max(min(width ?? defaultWidth, widthSlider.maximumValue), widthSlider.minimumValue)
+        lastSelectedWidths[lastSelectedDrawingTool] = width
+        canvasController?.setSize(width)
+        widthSlider.value = width
 
-//        colorPickerButton.frame.size.height = CGFloat(newSize)
-//        colorPickerButton.frame.size.width = CGFloat(newSize)
+        let path = UIBezierPath(arcCenter: circleCenter, radius: CGFloat(width / 2),
+                                startAngle: 0, endAngle: .pi * 2, clockwise: true)
+        coloredCircle.path = path.cgPath
+    }
+
+    @IBAction private func widthSliderDidChange(_ sender: UISlider) {
+        let newWidth = sender.value
+        setWidth(newWidth)
     }
 
     @IBAction private func opacitySliderDidChange(_ sender: UISlider) {

@@ -594,7 +594,7 @@
                                         <rect key="frame" x="18" y="239.5" width="184" height="31"/>
                                         <color key="tintColor" name="Stack Grey"/>
                                         <connections>
-                                            <action selector="thicknessSliderDidChange:" destination="rZI-TI-AZo" eventType="valueChanged" id="Dwd-jK-KbL"/>
+                                            <action selector="widthSliderDidChange:" destination="rZI-TI-AZo" eventType="valueChanged" id="Dwd-jK-KbL"/>
                                         </connections>
                                     </slider>
                                 </subviews>
@@ -658,7 +658,7 @@
                     </view>
                     <connections>
                         <outlet property="auxiliaryButtonsView" destination="4Xj-kh-aUN" id="w6p-q7-6pF"/>
-                        <outlet property="colorPickerButtonContainer" destination="Dae-hy-jiK" id="HnN-jF-uPY"/>
+                        <outlet property="colorPickerButton" destination="Dae-hy-jiK" id="HnN-jF-uPY"/>
                         <outlet property="colorPickerView" destination="Va1-rs-2rO" id="gqq-zh-qws"/>
                         <outlet property="cursorButton" destination="ryu-pR-t2y" id="Rh3-fR-798"/>
                         <outlet property="drawButton" destination="IP2-Vo-DRb" id="pWr-wH-aee"/>
@@ -674,6 +674,7 @@
                         <outlet property="shapesButton" destination="w78-OH-H1V" id="Jet-zX-JVV"/>
                         <outlet property="textButton" destination="Va2-Px-Ku6" id="GYN-tg-pop"/>
                         <outlet property="userProfileImage" destination="DOs-uP-8SE" id="Tke-aD-WLd"/>
+                        <outlet property="widthSlider" destination="Dq8-HS-ghZ" id="qBN-dc-Qgp"/>
                         <outlet property="zoomScaleLabel" destination="heI-9Y-pSS" id="Odg-py-uxd"/>
                     </connections>
                 </viewController>
@@ -875,8 +876,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hzX-Ab-qkC" userLabel="Top Control View">
                                 <rect key="frame" x="622" y="82" width="200" height="40"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Galley View" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5fP-1P-WgX">
-                                        <rect key="frame" x="50" y="9.5" width="100" height="21.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gallery View" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5fP-1P-WgX">
+                                        <rect key="frame" x="46.5" y="9.5" width="107.5" height="21.5"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
