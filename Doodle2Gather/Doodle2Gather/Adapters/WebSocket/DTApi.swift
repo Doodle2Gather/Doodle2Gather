@@ -4,7 +4,7 @@ import DTSharedLibrary
 
 struct DTApi {
 
-    static let baseURLString = ApiEndpoints.localApi // change to .localApi for local testing
+    static let baseURLString = ApiEndpoints.Api // change to .localApi for local testing
 
     // MARK: User
 
@@ -126,7 +126,7 @@ extension DTApi {
         _ error: Error,
         completion: ((DTApiResult<OutputModel>) -> Void)? = nil
     ) where OutputModel: Codable {
-        print("\(Date()): \(error)")
+        DTLogger.error("\(Date()): \(error)")
         completion?(.failure(error))
     }
 

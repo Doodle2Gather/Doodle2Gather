@@ -6,25 +6,24 @@ struct PKStrokeHashWrapper: DTStroke {
     var color: UIColor
     var tool: DTTool
     var points: [PKStrokePointHashWrapper]
-    // var mask: UIBezierPath?
-    // var transform: CGAffineTransform
+     var mask: UIBezierPath?
+     var transform: CGAffineTransform
 
     init<S>(from stroke: S) where S: DTStroke {
         self.color = stroke.color
         self.tool = stroke.tool
         self.points = stroke.points.map { PKStrokePointHashWrapper(from: $0) }
-        // self.mask = stroke.mask
-        // self.transform = stroke.transform
+        self.mask = stroke.mask
+        self.transform = stroke.transform
     }
 
-    init<P>(color: UIColor, tool: DTTool, points: [P]
-            // transform: CGAffineTransform, mask: UIBezierPath?
-    ) where P: DTPoint {
+    init<P>(color: UIColor, tool: DTTool, points: [P], transform: CGAffineTransform,
+            mask: UIBezierPath?) where P: DTPoint {
         self.color = color
         self.tool = tool
         self.points = points.map { PKStrokePointHashWrapper(from: $0) }
-        // self.transform = transform
-        // self.mask = mask
+        self.transform = transform
+        self.mask = mask
     }
 
 }

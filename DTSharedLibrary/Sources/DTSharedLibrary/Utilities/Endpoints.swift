@@ -52,4 +52,9 @@ public struct Endpoints {
         public static let updateUserInfo = RouteDefinition(root: root, method: .PUT, path: [":id"])
         public static let deleteUserInfo = RouteDefinition(root: root, method: .DELETE, path: [":id"])
     }
+
+    public struct Room {
+        public static let root = ["room"]
+        public static let createRoom = RouteDefinition(root: root, method: .POST, path: [])
+    }
 }

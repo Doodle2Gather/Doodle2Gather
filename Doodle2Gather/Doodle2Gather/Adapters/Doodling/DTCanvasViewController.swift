@@ -121,6 +121,10 @@ extension DTCanvasViewController: PKCanvasViewDelegate {
         let newStrokes = canvas.drawing.dtStrokes
         let oldStrokes = currentDoodle.dtStrokes
 
+        if currentActionType != .modify && newStrokes == oldStrokes {
+            return
+        }
+
         switch currentActionType {
         case .add:
             createAndDispatchAddAction(newStrokes: newStrokes, oldStrokes: oldStrokes, canvas: canvas)

@@ -42,7 +42,7 @@ struct BestFitShapeDetector: ShapeDetector {
                                   altitude: originalPoint.altitude))
         }
 
-        return S(color: stroke.color, tool: stroke.tool, points: points)
+        return S(color: stroke.color, tool: stroke.tool, points: points, transform: stroke.transform, mask: stroke.mask)
     }
 
     /// Helps to check if a float is sufficiently close to zero.
