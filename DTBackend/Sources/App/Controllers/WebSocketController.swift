@@ -12,11 +12,14 @@ class WebSocketController {
     let db: Database
     let logger: Logger
 
+    let roomController: ActiveRoomController
+
     init(db: Database) {
         self.lock = Lock()
         self.sockets = [:]
         self.db = db
         self.logger = Logger(label: "WebSocketController")
+        self.roomController = ActiveRoomController()
     }
 
     var getAllWebSocketOptions: [WebSocketSendOption] {

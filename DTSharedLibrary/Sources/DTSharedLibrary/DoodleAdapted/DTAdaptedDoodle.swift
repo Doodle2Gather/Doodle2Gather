@@ -1,15 +1,15 @@
 import Foundation
 
 public struct DTAdaptedDoodle: Codable {
-    public typealias Stroke = DTAdaptedStroke
-    
-    public let roomId: UUID
-    public var strokes: [Stroke]
 
-    public init(roomId: UUID, strokes: [Stroke]) {
+    public let roomId: UUID
+    public var strokes: [DTAdaptedStroke]
+
+    public init(roomId: UUID, strokes: [DTAdaptedStroke] = []) {
         self.strokes = strokes
         self.roomId = roomId
     }
+
 }
 
 // MARK: - Hashable
