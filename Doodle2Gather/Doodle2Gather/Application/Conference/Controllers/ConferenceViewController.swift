@@ -12,7 +12,9 @@ class ConferenceViewController: UIViewController {
     @IBOutlet private var videoButton: UIButton!
     @IBOutlet private var audioButton: UIButton!
     @IBOutlet private var chatButton: UIButton!
-    @IBOutlet var pageIndicator: UIView!
+    @IBOutlet private var pageIndicator: UIView!
+    @IBOutlet private var resizeButton: UIButton!
+    @IBOutlet private var topControlView: UIView!
 
     var videoEngine: VideoEngine?
     var chatEngine: ChatEngine?
@@ -32,7 +34,8 @@ class ConferenceViewController: UIViewController {
         videoEngine?.joinChannel(channelName: "testing")
         chatEngine = AgoraChatEngine()
         chatEngine?.initialize()
-        pageIndicator.isHidden = true
+        chatEngine?.joinChannel(channelName: "testing")
+        pageIndicator.isHidden = false
 
         videoEngine?.muteAudio()
         videoEngine?.hideVideo()
@@ -63,7 +66,7 @@ class ConferenceViewController: UIViewController {
                 let overlay = UIView(frame: CGRect(x: 0, y: 0,
                                                    width: cellView.frame.size.width,
                                                    height: cellView.frame.size.height))
-                overlay.backgroundColor = UIColor.darkGray
+                overlay.backgroundColor = UIColor(named: "Black")
                 videoOverlays.append(overlay)
                 cellView.addSubview(overlay)
             } else {
@@ -84,6 +87,19 @@ class ConferenceViewController: UIViewController {
         presentButton.isHidden.toggle()
         participantsButton.isHidden.toggle()
         sender.isSelected.toggle()
+    }
+
+    @IBAction private func didTapResizeButton(_ sender: UIButton) {
+        collectionView.isHidden.toggle()
+        if collectionView.isHidden {
+            pageIndicator.frame = topControlView.frame.offsetBy(dx: 0, dy: 50)
+        } else {
+            if remoteUserIDs.count <= 2 {
+                pageIndicator.frame = topControlView.frame.offsetBy(dx: 0, dy: 50 + CGFloat(remoteUserIDs.count + 1) * 122.5)
+            } else {
+                pageIndicator.frame = topControlView.frame.offsetBy(dx: 0, dy: 50 + 3 * 122.5)
+            }
+        }
     }
 
     // Passes data to the ChatViewController
@@ -115,10 +131,13 @@ extension ConferenceViewController: VideoEngineDelegate {
 
     func didJoinCall(id: UInt) {
         remoteUserIDs.append(id)
-        if remoteUserIDs.count >= 2 {
-            pageIndicator.isHidden = false
+        pageIndicator.isHidden = false
+
+        if remoteUserIDs.count <= 2 {
+            pageIndicator.frame = topControlView.frame.offsetBy(dx: 0,
+                                                                dy: 50 + CGFloat(remoteUserIDs.count + 1) * 122.5)
         } else {
-            pageIndicator.isHidden = true
+            pageIndicator.frame = topControlView.frame.offsetBy(dx: 0, dy: 50 + 3 * 122.5)
         }
         collectionView.reloadData()
     }
@@ -126,9 +145,6 @@ extension ConferenceViewController: VideoEngineDelegate {
     func didLeaveCall(id: UInt) {
         if let index = remoteUserIDs.firstIndex(where: { $0 == id }) {
             remoteUserIDs.remove(at: index)
-            if remoteUserIDs.count < 2 {
-                pageIndicator.isHidden = true
-            }
             collectionView.reloadData()
         }
     }
