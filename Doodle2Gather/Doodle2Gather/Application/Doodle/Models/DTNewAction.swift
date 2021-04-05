@@ -5,26 +5,23 @@ import DTSharedLibrary
 struct DTNewAction {
 
     let type: DTActionType
-    let strokes: [Data]
-    let strokeIndex: Int
+    let strokes: [DTStrokeIndexPair]
 
-    init(type: DTActionType, strokes: [Data], strokeIndex: Int) {
+    init(type: DTActionType, strokes: [DTStrokeIndexPair]) {
         self.type = type
         self.strokes = strokes
-        self.strokeIndex = strokeIndex
     }
 
-    init?<S: DTStroke>(type: DTActionType, strokes: [S], strokeIndex: Int) {
+    init?<S: DTStroke>(type: DTActionType, strokes: [(S, Int)]) {
         self.type = type
-        self.strokeIndex = strokeIndex
 
         let encoder = JSONEncoder()
         var strokesData = [Data]()
-        for stroke in strokes {
+        for (stroke, index) in strokes {
             guard let data = try? encoder.encode(stroke) else {
                 return nil
             }
-            strokesData.append(data)
+            strokesData.append(DTStrokeIndexPair(data, index))
         }
         self.strokes = strokesData
     }
@@ -33,8 +30,8 @@ struct DTNewAction {
         let decoder = JSONDecoder()
 
         var strokeArr = [S]()
-        for data in strokes {
-            guard let stroke = try? decoder.decode(S.self, from: data) else {
+        for pair in strokes {
+            guard let stroke = try? decoder.decode(S.self, from: pair.stroke) else {
                 return nil
             }
             strokeArr.append(stroke)
