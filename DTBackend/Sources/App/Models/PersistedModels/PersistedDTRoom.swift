@@ -10,6 +10,9 @@ final class PersistedDTRoom: Model, Content {
     @Field(key: "name")
     var name: String
 
+    @Parent(key: "id")
+    var createdBy: PersistedDTUser
+
     @Children(for: \.$room)
     var doodles: [PersistedDTDoodle]
 
