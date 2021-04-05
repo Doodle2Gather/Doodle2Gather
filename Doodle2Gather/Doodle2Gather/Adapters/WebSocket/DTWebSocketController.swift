@@ -151,6 +151,7 @@ extension DTWebSocketController: SocketController {
 
     func refetchDoodles() {
         // TODO: XinYue please help!!
+        // But this should call delegate?.loadDoodles(doodles)
     }
 
 }
