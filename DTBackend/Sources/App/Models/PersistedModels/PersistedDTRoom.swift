@@ -11,6 +11,9 @@ final class PersistedDTRoom: Model, Content {
     var name: String
     
     @Children(for: \.$room)
+    var doodles: [PersistedDTDoodle]
+    
+    @Children(for: \.$room)
     var strokes: [PersistedDTStroke]
     
     @Children(for: \.$room)
