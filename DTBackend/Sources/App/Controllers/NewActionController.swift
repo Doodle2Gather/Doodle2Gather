@@ -1,8 +1,8 @@
-//import Foundation
-//import Fluent
-//import DTSharedLibrary
+// import Foundation
+// import Fluent
+// import DTSharedLibrary
 //
-//class NewActionController {
+// class NewActionController {
 //    let db: Database
 //    let newAction: DTAdaptedAction
 //    let persistedAction: PersistedDTAction
@@ -111,4 +111,4 @@
 //                return (isActionDenied, success)
 //            }
 //    }
-//}
+// }

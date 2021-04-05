@@ -9,10 +9,10 @@ final class PersistedDTStroke: Model, Content {
 
     @Parent(key: "room_id")
     var room: PersistedDTRoom
-    
+
     @Parent(key: "doodle_id")
     var doodle: PersistedDTDoodle
-    
+
     @Field(key: "stroke_data")
     var strokeData: Data
 

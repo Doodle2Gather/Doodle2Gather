@@ -7,10 +7,10 @@ final class PersistedDTAction: Model, Content {
 
     @ID(key: .id)
     var id: UUID?
-    
+
     @Field(key: "action_type")
     var type: String
-    
+
     @Parent(key: "room_id")
     var room: PersistedDTRoom
 

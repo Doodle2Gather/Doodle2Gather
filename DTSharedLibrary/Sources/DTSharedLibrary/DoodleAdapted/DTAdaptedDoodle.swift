@@ -19,15 +19,15 @@ public struct DTAdaptedDoodle: Codable {
     public func getStroke(at index: Int) -> DTAdaptedStroke {
         strokes[index]
     }
-    
+
     public mutating func addStroke(_ stroke: DTAdaptedStroke) {
         strokes.append(stroke)
     }
-    
+
     public mutating func removeStroke(at index: Int) {
         strokes.remove(at: index)
     }
-    
+
     public mutating func modifyStroke(at index: Int, to newStroke: DTAdaptedStroke) {
         strokes[index] = newStroke
     }

@@ -91,10 +91,11 @@ extension DTCanvasViewController: PKCanvasViewDelegate {
 
         doodle = PKDrawing(strokes: newStrokes)
 
-        guard let action = DTAction(added: addedStrokes, removed: removedStrokes) else {
-            return
-        }
-        delegate?.actionDidFinish(action: action)
+        // TODO: - to be refactored
+        //        guard let action = DTAction(added: addedStrokes, removed: removedStrokes) else {
+        //            return
+        //        }
+        //        delegate?.actionDidFinish(action: action)
     }
 
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
@@ -106,20 +107,21 @@ extension DTCanvasViewController: PKCanvasViewDelegate {
 extension DTCanvasViewController: CanvasController {
 
     func dispatchAction(_ action: DTAction) {
-        guard let (added, removed): ([PKStroke], [PKStroke]) = action.getStrokes() else {
-            return
-        }
-        var doodleCopy = doodle
-        doodleCopy.addStrokes(added)
-        doodleCopy.removeStrokes(removed)
-
-        // No change has occurred and we want to prevent unnecessary propagation.
-        if doodleCopy.dtStrokes == doodle.dtStrokes {
-            return
-        }
-
-        doodle = doodleCopy // This prevents an action from firing later.
-        canvasView.drawing = doodle
+        // TODO: - to be refactored
+        //        guard let (added, removed): ([PKStroke], [PKStroke]) = action.getStrokes() else {
+        //            return
+        //        }
+        //        var doodleCopy = doodle
+        //        doodleCopy.addStrokes(added)
+        //        doodleCopy.removeStrokes(removed)
+        //
+        //        // No change has occurred and we want to prevent unnecessary propagation.
+        //        if doodleCopy.dtStrokes == doodle.dtStrokes {
+        //            return
+        //        }
+        //
+        //        doodle = doodleCopy // This prevents an action from firing later.
+        //        canvasView.drawing = doodle
     }
 
     // Note: This method does not fire off an Action.

@@ -7,8 +7,8 @@ struct DTDoodleController: RouteCollection {
 
     }
 
-    //TODO: - Change return types to Adapted Models instead
-    
+    // TODO: - Change return types to Adapted Models instead
+
 //    func getSingleHandler(req: Request) throws -> EventLoopFuture<PersistedDTDoodle> {
 //
 //    }
@@ -30,7 +30,7 @@ struct DTDoodleController: RouteCollection {
 // MARK: - Queries
 
 extension PersistedDTDoodle {
-    
+
     static func getSingleByID(_ id: PersistedDTDoodle.IDValue?, on db: Database) -> EventLoopFuture<PersistedDTDoodle> {
       guard let id = id else {
         return db.eventLoop.makeFailedFuture(DTError.unableToRetreiveID(type: "PersistedDTDoodle"))
@@ -42,17 +42,16 @@ extension PersistedDTDoodle {
         .first()
         .unwrap(or: DTError.modelNotFound(type: "PersistedDTDoodle", id: id.uuidString))
     }
-    
+
     static func getAllActions(_ id: PersistedDTRoom.IDValue?, on db: Database) -> EventLoopFuture<[PersistedDTAction]> {
         getSingleByID(id, on: db)
             .map { $0.actions }
     }
-    
+
     static func getAllStrokes(_ id: PersistedDTRoom.IDValue?, on db: Database) -> EventLoopFuture<[PersistedDTStroke]> {
         getSingleByID(id, on: db)
             .map { $0.strokes }
     }
-
 
     static func getAll(on db: Database) -> EventLoopFuture<[PersistedDTDoodle]> {
         PersistedDTDoodle.query(on: db)

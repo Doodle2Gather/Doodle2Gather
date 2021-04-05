@@ -3,27 +3,27 @@ import Vapor
 
 final class PersistedDTRoom: Model, Content {
     static let schema = "rooms"
-    
+
     @ID(key: .id)
     var id: UUID?
-    
+
     @Field(key: "name")
     var name: String
-    
+
     @Children(for: \.$room)
     var doodles: [PersistedDTDoodle]
-    
+
     @Children(for: \.$room)
     var strokes: [PersistedDTStroke]
-    
+
     @Children(for: \.$room)
     var actions: [PersistedDTAction]
-    
+
     init() { }
-    
-    init(id: UUID? = nil, name: String) {
+
+    init(name: String, id: UUID? = nil) {
         self.id = id
         self.name = name
     }
-    
+
 }

@@ -75,19 +75,9 @@ final class DTWebSocketController {
         // TODO: yet to be tested.
         let feedback = try decoder.decode(DTActionFeedbackMessage.self, from: data)
         DispatchQueue.main.async {
-            if !feedback.success || feedback.id == nil {
+            if !feedback.success {
                 DTLogger.error(feedback.message)
                 return
-            }
-
-            if feedback.isActionDenied, let revertAction = feedback.undoAction {
-                let action = DTAction(
-                    action: revertAction
-                )
-                let histories = feedback.actionHistories.map {
-                    DTAction(action: $0)
-                }
-                self.delegate?.handleConflict(action, histories: histories)
             }
         }
     }
@@ -96,7 +86,7 @@ final class DTWebSocketController {
         let dispatch = try decoder.decode(DTDispatchActionMessage.self, from: data)
         DispatchQueue.main.async {
             // TODO: refactor unhappy path to be at the top
-            if dispatch.success, dispatch.id != nil {
+            if dispatch.success {
                 let action = DTAction(
                     action: dispatch.action
                 )
@@ -125,11 +115,11 @@ extension DTWebSocketController: SocketController {
             return
         }
         DTLogger.info("adding action")
+        // TODO: change parameters to actual data
         let message = DTInitiateActionMessage(
-            strokesAdded: action.strokesAdded,
-            strokesRemoved: action.strokesRemoved,
-            id: id,
-            roomId: UUID()) // TODO: change to roomId
+            actionType: .add, strokes: [DTStrokeIndexPair](),
+            id: id, roomId: UUID(), doodleId: UUID()
+        )
         do {
             let data = try encoder.encode(message)
             self.socket.send(.data(data)) { err in

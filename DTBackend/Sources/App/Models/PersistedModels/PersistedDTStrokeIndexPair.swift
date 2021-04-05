@@ -7,10 +7,10 @@ final class PersistedDTStrokeIndexPair: Model, Content {
 
     @ID(key: .id)
     var id: UUID?
-    
+
     @Field(key: "stroke_data")
     var stroke: Data
-    
+
     @Field(key: "index")
     var index: Int
 

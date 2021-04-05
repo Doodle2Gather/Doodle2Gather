@@ -6,17 +6,23 @@ struct DTNewAction {
 
     let type: DTActionType
     let strokes: [DTStrokeIndexPair]
+    let roomId: UUID
+    let doodleId: UUID
 
-    init(type: DTActionType, strokes: [DTStrokeIndexPair]) {
+    init(type: DTActionType, roomId: UUID, doodleId: UUID, strokes: [DTStrokeIndexPair]) {
         self.type = type
+        self.roomId = roomId
+        self.doodleId = doodleId
         self.strokes = strokes
     }
 
-    init?<S: DTStroke>(type: DTActionType, strokes: [(S, Int)]) {
+    init?<S: DTStroke>(type: DTActionType, roomId: UUID, doodleId: UUID, strokes: [(S, Int)]) {
         self.type = type
+        self.roomId = roomId
+        self.doodleId = doodleId
 
         let encoder = JSONEncoder()
-        var strokesData = [Data]()
+        var strokesData = [DTStrokeIndexPair]()
         for (stroke, index) in strokes {
             guard let data = try? encoder.encode(stroke) else {
                 return nil

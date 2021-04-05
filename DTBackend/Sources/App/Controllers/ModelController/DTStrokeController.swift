@@ -36,7 +36,7 @@ extension PersistedDTStroke {
             .first()
             .unwrap(or: DTError.modelNotFound(type: "PersistedDTStroke"))
     }
-    
+
     static func getAll(on db: Database) -> EventLoopFuture<[PersistedDTStroke]> {
         PersistedDTStroke.query(on: db).all()
     }

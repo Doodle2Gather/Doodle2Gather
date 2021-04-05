@@ -109,7 +109,7 @@ class WebSocketController {
 
     func onNewAction(_ ws: WebSocket, _ id: UUID, _ message: DTInitiateActionMessage) {
         let action = message.action
-        
+
         // action successful
         if let dispatchAction = roomController.process(action) {
             self.dispatchActionToPeers(
@@ -122,54 +122,27 @@ class WebSocketController {
             )
             return
         }
-        
+
         // action denied
-        
+
         self.sendActionFeedback(
             orginalAction: action,
             dispatchAction: nil,
             to: .id(id), success: false, message: "Action failed. Please refetch"
         )
-        
-//
-//        let newActionController = NewActionController(
-//            db: self.db, newAction: message.action, persistedAction: action
-//        )
-//
-//        newActionController.perform().whenComplete { res in
-//            switch res {
-//            case .failure(let err):
-//                self.logger.report(error: err)
-//            case .success(let (isActionDenied, success)):
-//                if !isActionDenied {
-//                    let message = success ? "Action added" : "Something went wrong adding the action."
-//                    self.dispatchActionToPeers(
-//                        action, to: self.getAllWebSocketOptionsExcept(id), success: true, message: message
-//                    )
-//                    self.sendActionFeedback(
-//                        action, to: .id(id), success: success, message: message
-//                    )
-//                    return
-//                }
-//
-//                self.logger.info("There is a merge conflict. ")
-//                self.sendActionFeedback(
-//                    action, to: .id(id), success: success, message: "There is a merge conflict",
-//                    isActionDenied: isActionDenied, actionHistories: []
-//                )
-//                // autoMerge.getLatestDispatchedActions().whenComplete { res in
-//                //    switch res {
-//                //    case .failure(let err):
-//                //        self.logger.report(error: err)
-//                //    case .success(let actions):
-//                //        self.sendActionFeedback(
-//                //            action, to: .id(id), success: success, message: "There is a merge conflict",
-//                //            isActionDenied: isActionDenied, actionHistories: actions
-//                //        )
-//                //    }
-//                // }
-//            }
-//        }
+    }
+
+    func syncData() {
+        let activeRooms = roomController.activeRooms
+        for room in activeRooms {
+            PersistedDTRoom.getSingleByID(room.key, on: self.db).map { $0.delete(on: self.db) }
+
+            // TODO: - Sync all active room data to db
+
+            for doodle in room.value {
+
+            }
+        }
     }
 
     func send<T: Codable>(message: T, to sendOption: [WebSocketSendOption]) {

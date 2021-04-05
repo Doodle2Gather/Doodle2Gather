@@ -13,7 +13,7 @@ public struct DTAdaptedStroke: Codable {
         self.doodleId = doodleId
         self.createdBy = createdBy
     }
-    
+
     public init(_ strokeIndexPair: DTStrokeIndexPair, roomId: UUID, doodleId: UUID, createdBy: UUID) {
         self.init(stroke: strokeIndexPair.stroke, roomId: roomId, doodleId: doodleId, createdBy: createdBy)
     }

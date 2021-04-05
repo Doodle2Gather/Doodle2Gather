@@ -2,66 +2,49 @@ import Foundation
 import DTFrontendLibrary
 import DTSharedLibrary
 
+// TODO: - some temp fixes are added to make it compile without warnings
+// This struct should no longer be in use. All occurence shld be refactored to DTNewAction instead.
+
 struct DTAction {
 
-    let strokesAdded: Set<Data>
-    let strokesRemoved: Set<Data>
+    let strokes: [Data]
 
     init(action: DTAdaptedAction) {
-        self.strokesAdded = action.strokesAdded
-        self.strokesRemoved = action.strokesRemoved
+        self.strokes = action.strokes.map { $0.stroke }
     }
 
-    init(strokesAdded: Set<Data>, strokesRemoved: Set<Data>) {
-        self.strokesAdded = strokesAdded
-        self.strokesRemoved = strokesRemoved
+    init(strokes: [Data]) {
+        self.strokes = strokes
     }
 
-    init?<S: DTStroke>(added: [S], removed: [S]) {
+    init?<S: DTStroke>(strokes: [S]) {
         let encoder = JSONEncoder()
 
-        var addedData = Set<Data>()
-        var removedData = Set<Data>()
+        var data = [Data]()
 
-        for stroke in added {
+        for stroke in strokes {
             guard let addedStroke = try? encoder.encode(stroke) else {
                 return nil
             }
-            addedData.insert(addedStroke)
+            data.append(addedStroke)
         }
 
-        for stroke in removed {
-            guard let removedStroke = try? encoder.encode(stroke) else {
-                return nil
-            }
-            removedData.insert(removedStroke)
-        }
-
-        strokesAdded = addedData
-        strokesRemoved = removedData
+        self.strokes = data
     }
 
-    func getStrokes<S: DTStroke>() -> (added: [S], removed: [S])? {
+    func getStrokes<S: DTStroke>() -> [S]? {
         let decoder = JSONDecoder()
 
         var added = [S]()
-        var removed = [S]()
 
-        for stroke in strokesAdded {
+        for stroke in strokes {
             guard let addedStroke = try? decoder.decode(S.self, from: stroke) else {
                 return nil
             }
             added.append(addedStroke)
         }
 
-        for stroke in strokesRemoved {
-            guard let removedStroke = try? decoder.decode(S.self, from: stroke) else {
-                return nil
-            }
-            removed.append(removedStroke)
-        }
-
-        return (added, removed)
+        return added
     }
 }
 
