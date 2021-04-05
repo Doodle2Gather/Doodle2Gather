@@ -4,12 +4,19 @@ import Pikko
 class DoodleViewController: UIViewController {
 
     // Storyboard UI Elements
-    @IBOutlet private var fileNameLabel: UILabel!
     @IBOutlet private var zoomScaleLabel: UILabel!
     @IBOutlet private var colorPickerView: UIView!
     @IBOutlet private var colorPickerButton: UIView!
     private var coloredCircle = CAShapeLayer()
     private var circleCenter = CGPoint()
+
+    // Top Left Options
+    @IBOutlet private var exitButton: UIButton!
+    @IBOutlet private var fileNameLabel: UILabel!
+    @IBOutlet private var fileInfoButton: UIButton!
+    @IBOutlet private var separatorView: UIImageView!
+    @IBOutlet private var inviteButton: UIButton!
+    @IBOutlet private var exportButton: UIButton!
 
     // Left Main Menu
     @IBOutlet private var drawButton: UIButton!
@@ -137,13 +144,14 @@ extension DoodleViewController {
         setDrawingTool(previousDrawingTool,
                        shouldDismiss: sender.tag != MainTools.drawing.rawValue)
 
+        canvasController?.setMainTool(toolSelected)
+
         switch toolSelected {
         case .drawing:
             auxiliaryButtonsView.isHidden = false
             coloredCircle.isHidden = false
         case .eraser:
             colorPickerView.isHidden = true
-            canvasController?.setEraserTool()
         case .text, .shapes, .cursor:
             colorPickerView.isHidden = true
             return
@@ -159,18 +167,27 @@ extension DoodleViewController {
         setDrawingTool(toolSelected)
     }
 
+    @IBAction private func topMinimizeButtonDidTap(_ sender: UIButton) {
+        exitButton.isHidden.toggle()
+        fileNameLabel.isHidden.toggle()
+        fileInfoButton.isHidden.toggle()
+        separatorView.isHidden.toggle()
+        inviteButton.isHidden.toggle()
+        exportButton.isHidden.toggle()
+        sender.isSelected.toggle()
+    }
+
     private func setDrawingTool(_ drawingTool: DrawingTools, shouldDismiss: Bool = false) {
         previousDrawingTool = drawingTool
+        canvasController?.setDrawingTool(drawingTool)
+
         switch drawingTool {
         case .pen:
             shouldDismiss ? drawButton.setImage(#imageLiteral(resourceName: "Brush"), for: .normal) : drawButton.setImage(#imageLiteral(resourceName: "Brush_Yellow"), for: .normal)
-            canvasController?.setPenTool()
         case .pencil:
             shouldDismiss ? drawButton.setImage(#imageLiteral(resourceName: "Pencil"), for: .normal) : drawButton.setImage(#imageLiteral(resourceName: "Pencil_Yellow"), for: .normal)
-            canvasController?.setPencilTool()
         case .highlighter:
             shouldDismiss ? drawButton.setImage(#imageLiteral(resourceName: "BrushAlt"), for: .normal) : drawButton.setImage(#imageLiteral(resourceName: "BrushAlt_Yellow"), for: .normal)
-            canvasController?.setHighlighterTool()
         case .magicPen:
             shouldDismiss ? drawButton.setImage(#imageLiteral(resourceName: "MagicWand"), for: .normal) : drawButton.setImage(#imageLiteral(resourceName: "MagicWand_Yellow"), for: .normal)
         }
@@ -256,7 +273,7 @@ extension DoodleViewController: StrokeEditorDelegate {
     }
 
     func widthDidChange(_ width: CGFloat) {
-        canvasController?.setSize(width)
+        canvasController?.setWidth(width)
         let path = UIBezierPath(arcCenter: circleCenter, radius: width / 2,
                                 startAngle: 0, endAngle: .pi * 2, clockwise: true)
         coloredCircle.path = path.cgPath

@@ -2,7 +2,13 @@ import UIKit
 
 class ConferenceViewController: UIViewController {
 
+    // UI Elements
     @IBOutlet private var collectionView: UICollectionView!
+    @IBOutlet private var timerButton: UIButton!
+    @IBOutlet private var voteButton: UIButton!
+    @IBOutlet private var startStopButton: UIButton!
+    @IBOutlet private var presentButton: UIButton!
+    @IBOutlet private var participantsButton: UIButton!
     @IBOutlet private var videoButton: UIButton!
     @IBOutlet private var audioButton: UIButton!
     @IBOutlet private var chatButton: UIButton!
@@ -30,7 +36,7 @@ class ConferenceViewController: UIViewController {
         videoEngine?.hideVideo()
     }
 
-    @IBAction private func didToggleAudio(_ sender: Any) {
+    @IBAction private func audioButtonDidTap(_ sender: Any) {
         if isMuted {
             videoEngine?.unmuteAudio()
         } else {
@@ -40,7 +46,7 @@ class ConferenceViewController: UIViewController {
         isMuted.toggle()
     }
 
-    @IBAction private func didToggleVideo(_ sender: Any) {
+    @IBAction private func videoButtonDidTap(_ sender: Any) {
         if isVideoOff {
             videoEngine?.showVideo()
             if !videoOverlays.isEmpty {
@@ -64,6 +70,18 @@ class ConferenceViewController: UIViewController {
         }
         videoButton.isSelected = isVideoOff
         isVideoOff.toggle()
+    }
+
+    @IBAction private func bottomMinimizeButtonDidTap(_ sender: UIButton) {
+        timerButton.isHidden.toggle()
+        voteButton.isHidden.toggle()
+        chatButton.isHidden.toggle()
+        startStopButton.isHidden.toggle()
+        audioButton.isHidden.toggle()
+        videoButton.isHidden.toggle()
+        presentButton.isHidden.toggle()
+        participantsButton.isHidden.toggle()
+        sender.isSelected.toggle()
     }
 
     // Passes data to the ChatViewController
