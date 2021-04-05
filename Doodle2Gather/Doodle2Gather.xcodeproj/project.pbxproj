@@ -27,6 +27,11 @@
 		2EB128F9261B6B3F00131FE6 /* ShapeDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB128F8261B6B3F00131FE6 /* ShapeDetector.swift */; };
 		2EB128FF261B6E9E00131FE6 /* HoughShapeDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB128FE261B6E9E00131FE6 /* HoughShapeDetector.swift */; };
 		2EB12903261B8BED00131FE6 /* BestFitShapeDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12902261B8BED00131FE6 /* BestFitShapeDetector.swift */; };
+		2EB129A8261BB29F00131FE6 /* DTActionQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB129A7261BB29F00131FE6 /* DTActionQueue.swift */; };
+		2EB129AF261BB32F00131FE6 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB129AE261BB32F00131FE6 /* Queue.swift */; };
+		2EB129B5261BB4B500131FE6 /* DTActionQueueDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB129B4261BB4B500131FE6 /* DTActionQueueDelegate.swift */; };
+		2EB129B9261BB6E000131FE6 /* DTCanvasError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB129B8261BB6E000131FE6 /* DTCanvasError.swift */; };
+		2EB129C1261BC8BD00131FE6 /* PKStrokeHashWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB129C0261BC8BD00131FE6 /* PKStrokeHashWrapper.swift */; };
 		2EB929D9260778F600AAB396 /* SubviewTouchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB929D8260778F600AAB396 /* SubviewTouchView.swift */; };
 		2EBD90D0261B01F4009859FE /* ThickSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBD90CF261B01F4009859FE /* ThickSliderView.swift */; };
 		2ED6297A2618FD37009F92D0 /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2ED629792618FD37009F92D0 /* Chat.storyboard */; };
@@ -145,6 +150,11 @@
 		2EB128F8261B6B3F00131FE6 /* ShapeDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeDetector.swift; sourceTree = "<group>"; };
 		2EB128FE261B6E9E00131FE6 /* HoughShapeDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoughShapeDetector.swift; sourceTree = "<group>"; };
 		2EB12902261B8BED00131FE6 /* BestFitShapeDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BestFitShapeDetector.swift; sourceTree = "<group>"; };
+		2EB129A7261BB29F00131FE6 /* DTActionQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTActionQueue.swift; sourceTree = "<group>"; };
+		2EB129AE261BB32F00131FE6 /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
+		2EB129B4261BB4B500131FE6 /* DTActionQueueDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTActionQueueDelegate.swift; sourceTree = "<group>"; };
+		2EB129B8261BB6E000131FE6 /* DTCanvasError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTCanvasError.swift; sourceTree = "<group>"; };
+		2EB129C0261BC8BD00131FE6 /* PKStrokeHashWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKStrokeHashWrapper.swift; sourceTree = "<group>"; };
 		2EB929D8260778F600AAB396 /* SubviewTouchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubviewTouchView.swift; sourceTree = "<group>"; };
 		2EBD90CF261B01F4009859FE /* ThickSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThickSliderView.swift; sourceTree = "<group>"; };
 		2ED629792618FD37009F92D0 /* Chat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
@@ -301,6 +311,25 @@
 			path = "Shape Detection";
 			sourceTree = "<group>";
 		};
+		2EB129A6261BB29500131FE6 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				2EB129A7261BB29F00131FE6 /* DTActionQueue.swift */,
+				2EB129B4261BB4B500131FE6 /* DTActionQueueDelegate.swift */,
+				2EB129B8261BB6E000131FE6 /* DTCanvasError.swift */,
+				2EB129C0261BC8BD00131FE6 /* PKStrokeHashWrapper.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		2EB129AD261BB31300131FE6 /* Data Structures */ = {
+			isa = PBXGroup;
+			children = (
+				2EB129AE261BB32F00131FE6 /* Queue.swift */,
+			);
+			path = "Data Structures";
+			sourceTree = "<group>";
+		};
 		2ED629742618FCC9009F92D0 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
@@ -358,6 +387,7 @@
 		2ED629822618FFD6009F92D0 /* Doodling */ = {
 			isa = PBXGroup;
 			children = (
+				2EB129A6261BB29500131FE6 /* Helpers */,
 				2E8AC7492613F4C90033869E /* DTCanvasViewController.swift */,
 				2EA8C3172606682500BE750C /* PKCanvasView+Doodle.swift */,
 				2EA8C334260677C800BE750C /* PKDrawing+DTDrawing.swift */,
@@ -559,6 +589,7 @@
 				83AB9C5026171068008E48D0 /* Auth */,
 				832607EC26145D3900B90F25 /* Utils */,
 				84B17FFA2601C5B5009530A0 /* Constants */,
+				2EB129AD261BB31300131FE6 /* Data Structures */,
 				2EF0E51B26096B490008184D /* Views */,
 			);
 			path = Common;
@@ -1028,6 +1059,7 @@
 			files = (
 				835D3BFA2606B11A004491D5 /* AgoraVideoEngine.swift in Sources */,
 				840D6B3326023F90001F3D43 /* VideoCollectionViewCell.swift in Sources */,
+				2EB129A8261BB29F00131FE6 /* DTActionQueue.swift in Sources */,
 				840D6B2B260236CF001F3D43 /* ConferenceViewController.swift in Sources */,
 				83F5890E2619B47C00BB9F07 /* UserDefaultsCredentialsProvider.swift in Sources */,
 				83260807261471EF00B90F25 /* WillowLogger.swift in Sources */,
@@ -1046,6 +1078,7 @@
 				84E95957260D755A00D587CC /* VideoEngineDelegate.swift in Sources */,
 				2EA8C34226067F0000BE750C /* PKStroke+DTStroke.swift in Sources */,
 				2EF0E51D26096B5C0008184D /* SubviewTouchCollectionView.swift in Sources */,
+				2EB129B9261BB6E000131FE6 /* DTCanvasError.swift in Sources */,
 				83AB9C56261711B4008E48D0 /* FirebaseAuthProvider.swift in Sources */,
 				84EEC6C326102B5100876F66 /* ConferenceConstants.swift in Sources */,
 				84E847A8260AD4EB00E39C1F /* ChatViewController.swift in Sources */,
@@ -1054,6 +1087,7 @@
 				2E8AC74A2613F4C90033869E /* DTCanvasViewController.swift in Sources */,
 				2E987E6E2607468000352E7D /* PKStrokePoint+DTPoint.swift in Sources */,
 				83F5890A2619B44100BB9F07 /* DTUserCredentialsProvider.swift in Sources */,
+				2EB129B5261BB4B500131FE6 /* DTActionQueueDelegate.swift in Sources */,
 				848F3581261451D400AD46C6 /* ParticipantViewCell.swift in Sources */,
 				848F354F2614177000AD46C6 /* Sender.swift in Sources */,
 				2E987E7D26075C0200352E7D /* SocketController.swift in Sources */,
@@ -1074,8 +1108,10 @@
 				83D2EC3E2609283A004F875D /* ApiEndpoints.swift in Sources */,
 				2EB12903261B8BED00131FE6 /* BestFitShapeDetector.swift in Sources */,
 				2ED7A3CC2601C0450006D873 /* DoodleViewController.swift in Sources */,
+				2EB129C1261BC8BD00131FE6 /* PKStrokeHashWrapper.swift in Sources */,
 				2E4A0B422616FDFF003257D4 /* PKDrawing+StrokesFrame.swift in Sources */,
 				2EB929D9260778F600AAB396 /* SubviewTouchView.swift in Sources */,
+				2EB129AF261BB32F00131FE6 /* Queue.swift in Sources */,
 				84E95961260D758B00D587CC /* ChatEngineDelegate.swift in Sources */,
 				2EA8C3182606682500BE750C /* PKCanvasView+Doodle.swift in Sources */,
 				83AB9C5226171088008E48D0 /* DTAuth.swift in Sources */,
