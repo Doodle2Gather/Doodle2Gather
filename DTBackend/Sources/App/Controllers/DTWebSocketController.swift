@@ -4,7 +4,7 @@ import Fluent
 struct DTWebSocketController: RouteCollection {
     let db: Database
     private let webSocketsManager: DTWebSocketsManager
-    
+
     init(db: Database) {
         self.db = db
         webSocketsManager = DTWebSocketsManager(db: db)
@@ -28,12 +28,12 @@ struct DTWebSocketController: RouteCollection {
 
 private class DTWebSocketsManager {
     let db: Database
-    var wsControllers = [String : WebSocketController]()
-    
+    var wsControllers = [String: WebSocketController]()
+
     init(db: Database) {
         self.db = db
     }
-    
+
     func directToWebSocketController(socket: WebSocket, roomId: String) {
         let wsController = wsControllers[roomId, default: WebSocketController(db: db)]
         wsControllers[roomId] = wsController
