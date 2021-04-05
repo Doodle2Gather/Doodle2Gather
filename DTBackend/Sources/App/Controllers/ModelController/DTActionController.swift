@@ -28,11 +28,10 @@ struct DTActionController: RouteCollection {
 // MARK: - Queries
 
 extension PersistedDTAction {
-
+    
     static func getRoomAll(_ roomId: UUID, on db: Database) -> EventLoopFuture<[PersistedDTAction]> {
-        PersistedDTAction.query(on: db)
-            .filter(\.$roomId == roomId)
-            .all()
+        PersistedDTRoom.find(roomId, on: db)
+            .map { $0?.actions ?? [] }
     }
 
     static func getAll(on db: Database) -> EventLoopFuture<[PersistedDTAction]> {

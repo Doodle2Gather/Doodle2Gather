@@ -10,9 +10,12 @@ final class PersistedDTAction: Model, Content {
     
     @Field(key: "action_type")
     var type: String
+    
+    @Parent(key: "room_id")
+    var room: PersistedDTRoom
 
-    @Field(key: "room_id")
-    var roomId: UUID
+    @Parent(key: "doodle_id")
+    var doodle: PersistedDTDoodle
 
     @Field(key: "strokes")
     var strokes: [Data]
@@ -25,9 +28,11 @@ final class PersistedDTAction: Model, Content {
 
     init() { }
 
-    init(type: DTActionType, strokes: [Data], roomId: UUID, createdBy: UUID, id: UUID? = nil) {
+    init(type: DTActionType, strokes: [Data], roomId: PersistedDTRoom.IDValue,
+         doodleId: PersistedDTDoodle.IDValue, createdBy: UUID, id: UUID? = nil) {
         self.type = type.rawValue
-        self.roomId = roomId
+        self.$room.id = roomId
+        self.$doodle.id = doodleId
         self.strokes = strokes
         self.createdBy = createdBy
         self.id = id

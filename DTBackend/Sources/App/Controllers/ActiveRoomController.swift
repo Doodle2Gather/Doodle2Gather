@@ -2,10 +2,10 @@ import Foundation
 import DTSharedLibrary
 
 class ActiveRoomController {
-    var activeRooms: [UUID: DTAdaptedDoodle]
+    var activeRooms: [UUID: [UUID: DTAdaptedDoodle]]
 
     init() {
-        activeRooms = [UUID: DTAdaptedDoodle]()
+        activeRooms = [UUID: [UUID: DTAdaptedDoodle]]()
     }
 
     var activeRoomIds: Set<UUID> {
@@ -17,7 +17,7 @@ class ActiveRoomController {
     }
 
     func addActiveRoom(roomId: UUID) {
-        activeRooms[roomId] = DTAdaptedDoodle(roomId: roomId)
+        // activeRooms[roomId] = DTAdaptedDoodle(roomId: roomId)
     }
 
 }

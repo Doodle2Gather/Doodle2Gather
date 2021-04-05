@@ -38,9 +38,8 @@ extension PersistedDTStroke {
     }
 
     static func getRoomAll(_ roomId: UUID, on db: Database) -> EventLoopFuture<[PersistedDTStroke]> {
-        PersistedDTStroke.query(on: db)
-            .filter(\.$roomId == roomId)
-            .all()
+        PersistedDTRoom.find(roomId, on: db)
+            .map { $0?.strokes ?? [] }
     }
 
     static func getAll(on db: Database) -> EventLoopFuture<[PersistedDTStroke]> {

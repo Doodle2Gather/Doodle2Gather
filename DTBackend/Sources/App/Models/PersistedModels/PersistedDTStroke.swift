@@ -7,9 +7,12 @@ final class PersistedDTStroke: Model, Content {
     @ID(key: .id)
     var id: UUID?
 
-    @Field(key: "room_id")
-    var roomId: UUID
-
+    @Parent(key: "room_id")
+    var room: PersistedDTRoom
+    
+    @Parent(key: "doodle_id")
+    var doodle: PersistedDTDoodle
+    
     @Field(key: "stroke_data")
     var strokeData: Data
 
@@ -18,8 +21,10 @@ final class PersistedDTStroke: Model, Content {
 
     init() { }
 
-    init(strokeData: Data, roomId: UUID, createdBy: UUID, id: UUID? = nil) {
-        self.roomId = roomId
+    init(strokeData: Data, roomId: PersistedDTRoom.IDValue,
+         doodleId: PersistedDTDoodle.IDValue, createdBy: UUID, id: UUID? = nil) {
+        self.$room.id = roomId
+        self.$doodle.id = doodleId
         self.strokeData = strokeData
         self.createdBy = createdBy
         self.id = id
