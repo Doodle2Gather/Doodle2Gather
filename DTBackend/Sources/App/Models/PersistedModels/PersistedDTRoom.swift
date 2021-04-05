@@ -10,7 +10,7 @@ final class PersistedDTRoom: Model, Content {
     @Field(key: "name")
     var name: String
 
-    @Parent(key: "id")
+    @Parent(key: "createdBy")
     var createdBy: PersistedDTUser
 
     @Children(for: \.$room)
@@ -18,9 +18,9 @@ final class PersistedDTRoom: Model, Content {
 
     init() { }
 
-    init(name: String, id: UUID? = nil) {
-        self.id = id
+    init(name: String, createdBy: PersistedDTUser.IDValue) {
+        self.id = UUID()
         self.name = name
+        self.$createdBy.id = createdBy
     }
-
 }
