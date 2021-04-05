@@ -12,10 +12,10 @@ class WebSocketController {
     let db: Database
     let logger: Logger
 
-    let roomId: UUID
+    let roomId: String
     let roomController: ActiveRoomController
 
-    init(roomId: UUID, db: Database) {
+    init(roomId: String , db: Database) {
         self.lock = Lock()
         self.sockets = [:]
         self.db = db

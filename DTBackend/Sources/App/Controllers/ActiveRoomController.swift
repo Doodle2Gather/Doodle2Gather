@@ -4,14 +4,14 @@ import DTSharedLibrary
 
 class ActiveRoomController {
     
-    let roomId: UUID
+    let roomId: String
     
     var doodles: [UUID: DTAdaptedDoodle]
 
     let db: Database
     let logger: Logger
 
-    init(roomId: UUID, db: Database) {
+    init(roomId: String, db: Database) {
         doodles = [UUID: DTAdaptedDoodle]()
         self.roomId = roomId
         self.db = db
@@ -21,10 +21,6 @@ class ActiveRoomController {
     var doodleIds: Set<UUID> {
         Set(doodles.keys)
     }
-
-//    func isRoomActive(_ roomId: UUID) -> Bool {
-//        activeRoomIds.contains(roomId)
-//    }
 
     func process(_ action: DTAdaptedAction) -> DTAdaptedAction? {
 
