@@ -921,13 +921,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Opacity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PLY-yL-d2I">
-                                <rect key="frame" x="20" y="284.5" width="47" height="14.5"/>
+                                <rect key="frame" x="20" y="279.5" width="47" height="14.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                 <color key="textColor" name="Stack Grey"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="10" minValue="0.90000000000000002" maxValue="25" translatesAutoresizingMaskIntoConstraints="NO" id="4us-Kh-IeZ" customClass="ThickSliderView" customModule="Doodle2Gather" customModuleProvider="target">
-                                <rect key="frame" x="18" y="239.5" width="184" height="31"/>
+                                <rect key="frame" x="18" y="234.5" width="184" height="31"/>
                                 <color key="tintColor" name="Stack Grey"/>
                                 <connections>
                                     <action selector="widthSliderDidChange:" destination="rZI-TI-AZo" eventType="valueChanged" id="5aF-7P-PzR"/>
@@ -935,13 +935,13 @@
                                 </connections>
                             </slider>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thickness" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ofg-dp-oic">
-                                <rect key="frame" x="20" y="225" width="61.5" height="14.5"/>
+                                <rect key="frame" x="20" y="220" width="61.5" height="14.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                 <color key="textColor" name="Stack Grey"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="4nb-lR-em6" customClass="ThickSliderView" customModule="Doodle2Gather" customModuleProvider="target">
-                                <rect key="frame" x="18" y="299" width="184" height="31"/>
+                                <rect key="frame" x="18" y="294" width="184" height="31"/>
                                 <color key="tintColor" name="Stack Grey"/>
                                 <connections>
                                     <action selector="opacitySliderDidChange:" destination="f3u-GT-n82" eventType="valueChanged" id="Wtn-pm-FNa"/>
@@ -959,7 +959,7 @@
                             <constraint firstItem="4us-Kh-IeZ" firstAttribute="leading" secondItem="EdR-su-kl5" secondAttribute="leading" constant="20" id="mUA-7k-46u"/>
                             <constraint firstItem="4nb-lR-em6" firstAttribute="leading" secondItem="EdR-su-kl5" secondAttribute="leading" constant="20" id="pUW-ih-OYh"/>
                             <constraint firstItem="4us-Kh-IeZ" firstAttribute="top" secondItem="ofg-dp-oic" secondAttribute="bottom" id="rXZ-uQ-FLo"/>
-                            <constraint firstItem="4nb-lR-em6" firstAttribute="bottom" secondItem="EdR-su-kl5" secondAttribute="bottom" constant="-20" id="wPu-Be-KgY"/>
+                            <constraint firstItem="4nb-lR-em6" firstAttribute="bottom" secondItem="EdR-su-kl5" secondAttribute="bottom" constant="-25" id="wPu-Be-KgY"/>
                             <constraint firstItem="PLY-yL-d2I" firstAttribute="top" secondItem="4us-Kh-IeZ" secondAttribute="bottom" constant="15" id="xPH-vn-yao"/>
                             <constraint firstItem="PLY-yL-d2I" firstAttribute="leading" secondItem="EdR-su-kl5" secondAttribute="leading" constant="20" id="xbP-uh-VTy"/>
                         </constraints>
