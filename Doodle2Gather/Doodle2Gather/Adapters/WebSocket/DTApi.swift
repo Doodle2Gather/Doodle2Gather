@@ -1,9 +1,28 @@
 import Foundation
+import Alamofire
 import DTSharedLibrary
 
 struct DTApi {
 
-    static let baseURLString = ApiEndpoints.Api // change to .localApi for local testing
+    static let baseURLString = ApiEndpoints.localApi // change to .localApi for local testing
+
+    // MARK: User
+
+    static func sendUserData(id: String, displayName: String, email: String, callback: @escaping () -> Void) {
+        let parameters: [String: String] = [
+            "id": id,
+            "displayName": displayName,
+            "email": email
+        ]
+
+        AF.request("\(baseURLString)/user",
+                   method: .post,
+                   parameters: parameters,
+                   encoder: JSONParameterEncoder.default)
+            .responseJSON { _ in
+                callback()
+            }
+    }
 
     // MARK: Strokes
 

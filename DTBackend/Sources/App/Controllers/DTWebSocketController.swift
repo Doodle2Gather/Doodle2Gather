@@ -4,7 +4,7 @@ import Fluent
 struct DTWebSocketController: RouteCollection {
     let db: Database
     private let webSocketsManager: DTWebSocketsManager
-    
+
     init(db: Database) {
         self.db = db
         webSocketsManager = DTWebSocketsManager(db: db)
