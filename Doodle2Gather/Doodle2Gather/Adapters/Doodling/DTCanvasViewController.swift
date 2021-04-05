@@ -17,6 +17,9 @@ class DTCanvasViewController: UIViewController {
 
     /// Tracks whether a initial scroll to offset has already been done.
     private var hasScrolledToInitialOffset = false
+    /// Tracks the tools being used
+    private var currentMainTool = MainTools.drawing
+    private var currentDrawingTool = DrawingTools.pen
 
     /// Constants used in DTCanvasViewController specifically.
     enum Constants {
@@ -129,32 +132,40 @@ extension DTCanvasViewController: CanvasController {
         canvasView.drawing = PKDrawing()
     }
 
-    func setPenTool() {
-        canvasView.setTool(.pen)
+    func setDrawingTool(_ drawingTool: DrawingTools) {
+        switch drawingTool {
+        case .pen:
+            canvasView.setTool(.pen)
+        case .pencil:
+            canvasView.setTool(.pencil)
+        case .highlighter:
+            canvasView.setTool(.highlighter)
+        case .magicPen:
+            canvasView.setTool(.pen)
+        }
     }
 
-    func setEraserTool() {
-        canvasView.setTool(.eraser)
-    }
-
-    func setPencilTool() {
-        canvasView.setTool(.pencil)
-    }
-
-    func setHighlighterTool() {
-        canvasView.setTool(.highlighter)
-    }
-
-    func setMagicPenTool() {
-        // TODO: Add stroke adjustment functionality
+    func setMainTool(_ mainTool: MainTools) {
+        currentMainTool = mainTool
+        switch mainTool {
+        case .drawing:
+            setDrawingTool(currentDrawingTool)
+        case .eraser:
+            canvasView.setTool(.eraser)
+        case .cursor:
+            canvasView.setTool(.lasso)
+        case .shapes, .text:
+            // TODO: Add handling for these two
+            break
+        }
     }
 
     func setColor(_ color: UIColor) {
         canvasView.setColor(color)
     }
 
-    func setSize(_ size: CGFloat) {
-        canvasView.setWidth(size)
+    func setWidth(_ width: CGFloat) {
+        canvasView.setWidth(width)
     }
 
     func resetZoomScale() {

@@ -17,26 +17,17 @@ protocol CanvasController {
     /// Clears the canvas.
     func clearDoodle()
 
-    /// Sets the current tool to the eraser tool.
-    func setEraserTool()
+    /// Sets the current tool to the drawing tool.
+    func setDrawingTool(_ drawingTool: DrawingTools)
 
-    /// Sets the current tool to the pen tool.
-    func setPenTool()
-
-    /// Sets the current tool to the pencil tool.
-    func setPencilTool()
-
-    /// Sets the current tool to the highlighter tool.
-    func setHighlighterTool()
-
-    /// Sets the current tool to the magic pen tool.
-    func setMagicPenTool()
+    /// Sets the current tool to the main tool.
+    func setMainTool(_ mainTool: MainTools)
 
     /// Sets the current color used for doodling.
     func setColor(_ color: UIColor)
 
-    /// Sets the size of the brush.
-    func setSize(_ size: CGFloat)
+    /// Sets the width of the brush.
+    func setWidth(_ width: CGFloat)
 
     /// Resets the zoom scale of the canvas to 100%.
     func resetZoomScale()

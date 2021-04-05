@@ -31,15 +31,15 @@
                                 </connections>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lOM-bA-4te" userLabel="File Name View">
-                                <rect key="frame" x="12" y="12" width="337.5" height="60"/>
+                                <rect key="frame" x="12" y="12" width="342.5" height="60"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xPu-xR-t4a">
-                                        <rect key="frame" x="5" y="0.0" width="332.5" height="60"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="342.5" height="60"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jRm-uM-qyl" userLabel="Exit Button">
-                                                <rect key="frame" x="0.0" y="0.0" width="40" height="60"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="60"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="40" id="6bA-hw-ase"/>
+                                                    <constraint firstAttribute="width" constant="50" id="6bA-hw-ase"/>
                                                     <constraint firstAttribute="height" constant="60" id="Ygn-4H-6xk"/>
                                                 </constraints>
                                                 <state key="normal" image="Cross"/>
@@ -48,7 +48,7 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="File Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cdg-gm-cRI">
-                                                <rect key="frame" x="40" y="0.0" width="92.5" height="60"/>
+                                                <rect key="frame" x="50" y="0.0" width="92.5" height="60"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="100" id="LN5-ri-UgB"/>
                                                 </constraints>
@@ -57,7 +57,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mzX-F3-7fu" userLabel="Info Button">
-                                                <rect key="frame" x="132.5" y="0.0" width="40" height="60"/>
+                                                <rect key="frame" x="142.5" y="0.0" width="40" height="60"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="ssY-zz-1oL"/>
                                                     <constraint firstAttribute="width" constant="40" id="uIt-4Y-4hS"/>
@@ -65,7 +65,7 @@
                                                 <state key="normal" image="Info_Grey"/>
                                             </button>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Separator" translatesAutoresizingMaskIntoConstraints="NO" id="cIQ-SF-6Au">
-                                                <rect key="frame" x="172.5" y="0.0" width="20" height="60"/>
+                                                <rect key="frame" x="182.5" y="0.0" width="20" height="60"/>
                                                 <accessibility key="accessibilityConfiguration">
                                                     <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
                                                 </accessibility>
@@ -75,7 +75,7 @@
                                                 </constraints>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ho7-dv-XBP" userLabel="Invite Button">
-                                                <rect key="frame" x="192.5" y="0.0" width="40" height="60"/>
+                                                <rect key="frame" x="202.5" y="0.0" width="40" height="60"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="8AA-bj-bbb"/>
                                                     <constraint firstAttribute="width" constant="40" id="pif-vh-XQa"/>
@@ -83,7 +83,7 @@
                                                 <state key="normal" image="UserAdd"/>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ruK-Zq-Zye" userLabel="Export Button">
-                                                <rect key="frame" x="232.5" y="0.0" width="40" height="60"/>
+                                                <rect key="frame" x="242.5" y="0.0" width="40" height="60"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="40" id="b4M-ac-loi"/>
                                                     <constraint firstAttribute="height" constant="60" id="sQd-lK-V72"/>
@@ -91,12 +91,16 @@
                                                 <state key="normal" image="Export"/>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QIS-ja-FEr" userLabel="Minimise Button">
-                                                <rect key="frame" x="272.5" y="0.0" width="60" height="60"/>
+                                                <rect key="frame" x="282.5" y="0.0" width="60" height="60"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="B7c-Cu-QdG"/>
                                                     <constraint firstAttribute="width" constant="60" id="Pbj-zj-b8s"/>
                                                 </constraints>
                                                 <state key="normal" image="DoubleArrowLeft_Grey"/>
+                                                <state key="selected" image="DoubleArrowRight_Grey"/>
+                                                <connections>
+                                                    <action selector="topMinimizeButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="jHX-Ij-Iac"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -105,7 +109,7 @@
                                 <constraints>
                                     <constraint firstItem="xPu-xR-t4a" firstAttribute="bottom" secondItem="lOM-bA-4te" secondAttribute="bottom" id="MT2-n2-SZn"/>
                                     <constraint firstItem="xPu-xR-t4a" firstAttribute="top" secondItem="lOM-bA-4te" secondAttribute="top" id="sYP-lX-iZd"/>
-                                    <constraint firstItem="xPu-xR-t4a" firstAttribute="leading" secondItem="lOM-bA-4te" secondAttribute="leading" constant="5" id="tT6-pL-Lff"/>
+                                    <constraint firstItem="xPu-xR-t4a" firstAttribute="leading" secondItem="lOM-bA-4te" secondAttribute="leading" id="tT6-pL-Lff"/>
                                     <constraint firstItem="xPu-xR-t4a" firstAttribute="trailing" secondItem="lOM-bA-4te" secondAttribute="trailing" id="ztn-Z3-poC"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -124,7 +128,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pn5-xG-qj1" userLabel="Undo Redo View">
-                                <rect key="frame" x="359.5" y="12" width="122" height="60"/>
+                                <rect key="frame" x="364.5" y="12" width="122" height="60"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="SRL-CW-Mem">
                                         <rect key="frame" x="10" y="10" width="102" height="40"/>
@@ -613,14 +617,19 @@
                         <outlet property="cursorButton" destination="ryu-pR-t2y" id="Rh3-fR-798"/>
                         <outlet property="drawButton" destination="IP2-Vo-DRb" id="pWr-wH-aee"/>
                         <outlet property="eraserButton" destination="kjq-AY-SZg" id="gZs-d9-Zd1"/>
+                        <outlet property="exitButton" destination="jRm-uM-qyl" id="loO-8c-NSN"/>
+                        <outlet property="exportButton" destination="ruK-Zq-Zye" id="Hv0-Qf-XJX"/>
+                        <outlet property="fileInfoButton" destination="mzX-F3-7fu" id="zMQ-8A-iW5"/>
                         <outlet property="fileNameLabel" destination="cdg-gm-cRI" id="T1z-s8-E2O"/>
                         <outlet property="highlighterButton" destination="AMp-iL-zoR" id="lLt-iQ-edp"/>
+                        <outlet property="inviteButton" destination="Ho7-dv-XBP" id="grj-Pw-ad8"/>
                         <outlet property="magicPenButton" destination="EE8-GC-4Km" id="atf-KX-JRK"/>
                         <outlet property="numberOfOtherUsersLabel" destination="NMb-rO-KfU" id="ReU-bU-SX3"/>
                         <outlet property="otherProfileImageOne" destination="XbA-gD-b0Z" id="2Qf-Uk-eh8"/>
                         <outlet property="otherProfileImageTwo" destination="uLN-OJ-qat" id="9tc-Cz-flG"/>
                         <outlet property="penButton" destination="rKg-Y4-tax" id="rf0-wj-paC"/>
                         <outlet property="pencilButton" destination="PHr-oW-a4i" id="kEZ-Te-JZn"/>
+                        <outlet property="separatorView" destination="cIQ-SF-6Au" id="2iL-i3-acE"/>
                         <outlet property="shapesButton" destination="w78-OH-H1V" id="Jet-zX-JVV"/>
                         <outlet property="textButton" destination="Va2-Px-Ku6" id="GYN-tg-pop"/>
                         <outlet property="userProfileImage" destination="DOs-uP-8SE" id="Tke-aD-WLd"/>
@@ -754,7 +763,7 @@
                                                 <state key="normal" image="SoundOff_Red"/>
                                                 <state key="selected" image="SoundOn"/>
                                                 <connections>
-                                                    <action selector="didToggleAudio:" destination="iqH-RH-LvU" eventType="touchUpInside" id="GOP-mD-z10"/>
+                                                    <action selector="audioButtonDidTap:" destination="iqH-RH-LvU" eventType="touchUpInside" id="GOP-mD-z10"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yDB-Q3-4ya" userLabel="Video Button">
@@ -766,7 +775,7 @@
                                                 <state key="normal" image="VideoOff_Red"/>
                                                 <state key="selected" image="VideoOn"/>
                                                 <connections>
-                                                    <action selector="didToggleVideo:" destination="iqH-RH-LvU" eventType="touchUpInside" id="cL9-NY-3n5"/>
+                                                    <action selector="videoButtonDidTap:" destination="iqH-RH-LvU" eventType="touchUpInside" id="cL9-NY-3n5"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0YY-FW-Ew0" userLabel="Present Button">
@@ -796,6 +805,10 @@
                                                     <constraint firstAttribute="width" constant="40" id="rsh-Pz-YGK"/>
                                                 </constraints>
                                                 <state key="normal" image="DoubleArrowLeft_Grey"/>
+                                                <state key="selected" image="DoubleArrowRight_Grey"/>
+                                                <connections>
+                                                    <action selector="bottomMinimizeButtonDidTap:" destination="iqH-RH-LvU" eventType="touchUpInside" id="pBh-Gk-CMy"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -869,8 +882,14 @@
                     </view>
                     <connections>
                         <outlet property="audioButton" destination="AkO-hK-cSB" id="a3j-SW-FOS"/>
+                        <outlet property="chatButton" destination="MeP-8O-gla" id="xrb-4P-ih0"/>
                         <outlet property="collectionView" destination="Bxd-CB-wII" id="oSa-98-sii"/>
+                        <outlet property="participantsButton" destination="9u2-un-NL2" id="PYG-uu-63Y"/>
+                        <outlet property="presentButton" destination="0YY-FW-Ew0" id="JhO-VV-nQB"/>
+                        <outlet property="startStopButton" destination="0Hf-3m-fGi" id="10T-H2-Fcc"/>
+                        <outlet property="timerButton" destination="mmL-ay-rCs" id="4g7-Kc-95a"/>
                         <outlet property="videoButton" destination="yDB-Q3-4ya" id="uc5-9l-a18"/>
+                        <outlet property="voteButton" destination="5QZ-pg-woK" id="cYO-LK-Aqz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7qd-xc-JKb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -907,8 +926,8 @@
                                 <color key="textColor" name="Stack Grey"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="10" minValue="0.90000000000000002" maxValue="25" translatesAutoresizingMaskIntoConstraints="NO" id="4us-Kh-IeZ">
-                                <rect key="frame" x="18" y="239.5" width="184" height="31"/>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="10" minValue="0.90000000000000002" maxValue="25" translatesAutoresizingMaskIntoConstraints="NO" id="4us-Kh-IeZ" customClass="ThickSliderView" customModule="Doodle2Gather" customModuleProvider="target">
+                                <rect key="frame" x="18" y="234.5" width="184" height="31"/>
                                 <color key="tintColor" name="Stack Grey"/>
                                 <connections>
                                     <action selector="widthSliderDidChange:" destination="rZI-TI-AZo" eventType="valueChanged" id="5aF-7P-PzR"/>
@@ -921,8 +940,8 @@
                                 <color key="textColor" name="Stack Grey"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="4nb-lR-em6">
-                                <rect key="frame" x="18" y="299" width="184" height="31"/>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="4nb-lR-em6" customClass="ThickSliderView" customModule="Doodle2Gather" customModuleProvider="target">
+                                <rect key="frame" x="18" y="294" width="184" height="31"/>
                                 <color key="tintColor" name="Stack Grey"/>
                                 <connections>
                                     <action selector="opacitySliderDidChange:" destination="f3u-GT-n82" eventType="valueChanged" id="Wtn-pm-FNa"/>
@@ -933,15 +952,15 @@
                         <viewLayoutGuide key="safeArea" id="Fbs-ge-CUi"/>
                         <color key="backgroundColor" name="Black"/>
                         <constraints>
-                            <constraint firstItem="4nb-lR-em6" firstAttribute="top" secondItem="PLY-yL-d2I" secondAttribute="bottom" constant="5" id="Fs3-9N-DcX"/>
+                            <constraint firstItem="4nb-lR-em6" firstAttribute="top" secondItem="PLY-yL-d2I" secondAttribute="bottom" id="Fs3-9N-DcX"/>
                             <constraint firstItem="ofg-dp-oic" firstAttribute="leading" secondItem="EdR-su-kl5" secondAttribute="leading" constant="20" id="Tfz-OW-kf0"/>
                             <constraint firstAttribute="trailing" secondItem="4us-Kh-IeZ" secondAttribute="trailing" constant="20" id="Vpp-jc-o0C"/>
                             <constraint firstItem="4nb-lR-em6" firstAttribute="trailing" secondItem="EdR-su-kl5" secondAttribute="trailing" constant="-20" id="dRT-bH-Dxn"/>
                             <constraint firstItem="4us-Kh-IeZ" firstAttribute="leading" secondItem="EdR-su-kl5" secondAttribute="leading" constant="20" id="mUA-7k-46u"/>
                             <constraint firstItem="4nb-lR-em6" firstAttribute="leading" secondItem="EdR-su-kl5" secondAttribute="leading" constant="20" id="pUW-ih-OYh"/>
-                            <constraint firstItem="4us-Kh-IeZ" firstAttribute="top" secondItem="ofg-dp-oic" secondAttribute="bottom" constant="5" id="rXZ-uQ-FLo"/>
-                            <constraint firstItem="4nb-lR-em6" firstAttribute="bottom" secondItem="EdR-su-kl5" secondAttribute="bottom" constant="-20" id="wPu-Be-KgY"/>
-                            <constraint firstItem="PLY-yL-d2I" firstAttribute="top" secondItem="4us-Kh-IeZ" secondAttribute="bottom" constant="10" id="xPH-vn-yao"/>
+                            <constraint firstItem="4us-Kh-IeZ" firstAttribute="top" secondItem="ofg-dp-oic" secondAttribute="bottom" id="rXZ-uQ-FLo"/>
+                            <constraint firstItem="4nb-lR-em6" firstAttribute="bottom" secondItem="EdR-su-kl5" secondAttribute="bottom" constant="-25" id="wPu-Be-KgY"/>
+                            <constraint firstItem="PLY-yL-d2I" firstAttribute="top" secondItem="4us-Kh-IeZ" secondAttribute="bottom" constant="15" id="xPH-vn-yao"/>
                             <constraint firstItem="PLY-yL-d2I" firstAttribute="leading" secondItem="EdR-su-kl5" secondAttribute="leading" constant="20" id="xbP-uh-VTy"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
@@ -960,6 +979,7 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                     <connections>
+                        <outlet property="opacitySlider" destination="4nb-lR-em6" id="UFU-BS-FcT"/>
                         <outlet property="widthSlider" destination="4us-Kh-IeZ" id="F8c-4Z-rhL"/>
                     </connections>
                 </viewController>
@@ -979,6 +999,7 @@
         <image name="Cursor" width="24" height="24"/>
         <image name="Cursor_Yellow" width="24" height="24"/>
         <image name="DoubleArrowLeft_Grey" width="24" height="24"/>
+        <image name="DoubleArrowRight_Grey" width="24" height="24"/>
         <image name="Eraser" width="24" height="24"/>
         <image name="Eraser_Yellow" width="24" height="24"/>
         <image name="Export" width="24" height="24"/>
