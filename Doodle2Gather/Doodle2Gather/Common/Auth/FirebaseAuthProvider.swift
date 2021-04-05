@@ -1,5 +1,5 @@
 import Firebase
-import DTFrontendLibrary
+import DTSharedLibrary
 
 class FirebaseAuthProvider: DTAbstractAuthProvider {
 

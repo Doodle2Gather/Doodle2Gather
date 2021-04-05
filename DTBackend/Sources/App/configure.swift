@@ -17,6 +17,7 @@ public func configure(_ app: Application) throws {
     app.migrations.add(AddPair())
     app.migrations.add(AddStroke())
     app.migrations.add(AddAction())
+    app.migrations.add(AddUser())
 
     // Run migrations at app startup.
     try app.autoMigrate().wait()

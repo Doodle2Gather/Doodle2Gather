@@ -1,4 +1,4 @@
-import DTFrontendLibrary
+import DTSharedLibrary
 
 class DTAuth {
     static let shared = DTAuth()

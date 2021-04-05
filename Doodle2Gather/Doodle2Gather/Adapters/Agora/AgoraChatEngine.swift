@@ -1,6 +1,7 @@
 import UIKit
 import AgoraRtmKit
 import DTFrontendLibrary
+import DTSharedLibrary
 
 /**
  Engine that interfaces with Agora.
