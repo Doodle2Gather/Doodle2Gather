@@ -568,74 +568,24 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Va1-rs-2rO" userLabel="Color Picker View">
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DHu-9F-THM">
                                 <rect key="frame" x="152" y="422.5" width="220" height="349"/>
-                                <subviews>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="tWP-X2-hCX">
-                                        <rect key="frame" x="18" y="299" width="184" height="31"/>
-                                        <color key="tintColor" name="Stack Grey"/>
-                                        <connections>
-                                            <action selector="opacitySliderDidChange:" destination="rZI-TI-AZo" eventType="valueChanged" id="X7a-Li-LSZ"/>
-                                        </connections>
-                                    </slider>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thickness" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7fz-rC-Aa7">
-                                        <rect key="frame" x="20" y="220" width="61.5" height="14.5"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                        <color key="textColor" name="Stack Grey"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Opacity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gTg-m2-8wf">
-                                        <rect key="frame" x="20" y="279.5" width="47" height="14.5"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                        <color key="textColor" name="Stack Grey"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="10" minValue="2" maxValue="40" translatesAutoresizingMaskIntoConstraints="NO" id="Dq8-HS-ghZ">
-                                        <rect key="frame" x="18" y="239.5" width="184" height="31"/>
-                                        <color key="tintColor" name="Stack Grey"/>
-                                        <connections>
-                                            <action selector="widthSliderDidChange:" destination="rZI-TI-AZo" eventType="valueChanged" id="Dwd-jK-KbL"/>
-                                        </connections>
-                                    </slider>
-                                </subviews>
-                                <color key="backgroundColor" name="Black"/>
                                 <constraints>
-                                    <constraint firstItem="Dq8-HS-ghZ" firstAttribute="leading" secondItem="Va1-rs-2rO" secondAttribute="leading" constant="20" id="1oJ-gG-re1"/>
-                                    <constraint firstItem="tWP-X2-hCX" firstAttribute="leading" secondItem="Va1-rs-2rO" secondAttribute="leading" constant="20" id="DXa-hx-3d0"/>
-                                    <constraint firstItem="7fz-rC-Aa7" firstAttribute="leading" secondItem="Va1-rs-2rO" secondAttribute="leading" constant="20" id="MG4-zI-P5t"/>
-                                    <constraint firstAttribute="width" constant="220" id="NEM-Rm-6SG"/>
-                                    <constraint firstItem="tWP-X2-hCX" firstAttribute="trailing" secondItem="Va1-rs-2rO" secondAttribute="trailing" constant="-20" id="Smc-Gf-5Lc"/>
-                                    <constraint firstItem="Dq8-HS-ghZ" firstAttribute="top" secondItem="7fz-rC-Aa7" secondAttribute="bottom" constant="5" id="ZPZ-g6-D3T"/>
-                                    <constraint firstItem="tWP-X2-hCX" firstAttribute="bottom" secondItem="Va1-rs-2rO" secondAttribute="bottom" constant="-20" id="gzd-vg-vo1"/>
-                                    <constraint firstAttribute="height" constant="349" id="k2G-Ns-Uta"/>
-                                    <constraint firstItem="gTg-m2-8wf" firstAttribute="top" secondItem="Dq8-HS-ghZ" secondAttribute="bottom" constant="10" id="tdc-TU-aDe"/>
-                                    <constraint firstAttribute="trailing" secondItem="Dq8-HS-ghZ" secondAttribute="trailing" constant="20" id="uIT-Sk-NgU"/>
-                                    <constraint firstItem="gTg-m2-8wf" firstAttribute="leading" secondItem="Va1-rs-2rO" secondAttribute="leading" constant="20" id="yHB-ht-Psb"/>
-                                    <constraint firstItem="tWP-X2-hCX" firstAttribute="top" secondItem="gTg-m2-8wf" secondAttribute="bottom" constant="5" id="yjG-qX-ggQ"/>
+                                    <constraint firstAttribute="height" constant="349" id="cVL-QR-mEA"/>
+                                    <constraint firstAttribute="width" constant="220" id="lpz-NM-W4V"/>
                                 </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <real key="value" value="20"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
-                                        <real key="value" value="20"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
-                                        <size key="value" width="0.0" height="0.0"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
-                                        <real key="value" value="0.40000000000000002"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
+                                <connections>
+                                    <segue destination="f3u-GT-n82" kind="embed" identifier="toStrokeEditor" id="omX-tt-d4U"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="1p6-Mf-pnl"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="DHu-9F-THM" firstAttribute="leading" secondItem="4Xj-kh-aUN" secondAttribute="trailing" constant="10" id="4Sk-s4-h0i"/>
                             <constraint firstItem="CRw-tT-Mu5" firstAttribute="trailing" secondItem="Rvn-Q8-Irn" secondAttribute="trailing" id="5Wa-E0-WET"/>
                             <constraint firstItem="CRw-tT-Mu5" firstAttribute="leading" secondItem="Rvn-Q8-Irn" secondAttribute="leading" id="8jE-v5-stq"/>
                             <constraint firstItem="Pn5-xG-qj1" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" constant="12" id="AUa-rT-WMa"/>
-                            <constraint firstItem="Va1-rs-2rO" firstAttribute="centerY" secondItem="Rvn-Q8-Irn" secondAttribute="centerY" id="BLL-zQ-4lb"/>
                             <constraint firstItem="4Xj-kh-aUN" firstAttribute="leading" secondItem="HdL-Pj-pPB" secondAttribute="trailing" constant="10" id="BxG-tZ-mLO"/>
                             <constraint firstItem="lOM-bA-4te" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" constant="12" id="EmQ-Qq-9ox"/>
                             <constraint firstItem="1p6-Mf-pnl" firstAttribute="trailing" secondItem="Gvt-x0-wpX" secondAttribute="trailing" constant="12" id="Fb4-Ms-bf1"/>
@@ -647,9 +597,9 @@
                             <constraint firstItem="HdL-Pj-pPB" firstAttribute="centerY" secondItem="Rvn-Q8-Irn" secondAttribute="centerY" id="Qwu-X3-bv3"/>
                             <constraint firstItem="2v7-Hc-qJ9" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" id="T0g-Ac-o8n"/>
                             <constraint firstItem="4Xj-kh-aUN" firstAttribute="centerY" secondItem="Rvn-Q8-Irn" secondAttribute="centerY" id="Vhb-2b-DLJ"/>
-                            <constraint firstItem="Va1-rs-2rO" firstAttribute="leading" secondItem="4Xj-kh-aUN" secondAttribute="trailing" constant="10" id="cui-H9-bIz"/>
                             <constraint firstItem="HdL-Pj-pPB" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" constant="12" id="nVn-9r-nOE"/>
                             <constraint firstItem="lOM-bA-4te" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" constant="12" id="o7i-Qk-N3e"/>
+                            <constraint firstItem="DHu-9F-THM" firstAttribute="centerY" secondItem="Rvn-Q8-Irn" secondAttribute="centerY" id="tNa-Fr-mIz"/>
                             <constraint firstItem="Gvt-x0-wpX" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" constant="12" id="xlO-w9-H22"/>
                             <constraint firstItem="CRw-tT-Mu5" firstAttribute="top" secondItem="Rvn-Q8-Irn" secondAttribute="top" id="yf0-Dt-Yxp"/>
                             <constraint firstItem="2v7-Hc-qJ9" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" id="yyv-Qd-LDk"/>
@@ -659,7 +609,7 @@
                     <connections>
                         <outlet property="auxiliaryButtonsView" destination="4Xj-kh-aUN" id="w6p-q7-6pF"/>
                         <outlet property="colorPickerButton" destination="Dae-hy-jiK" id="HnN-jF-uPY"/>
-                        <outlet property="colorPickerView" destination="Va1-rs-2rO" id="gqq-zh-qws"/>
+                        <outlet property="colorPickerView" destination="DHu-9F-THM" id="daN-at-Zo2"/>
                         <outlet property="cursorButton" destination="ryu-pR-t2y" id="Rh3-fR-798"/>
                         <outlet property="drawButton" destination="IP2-Vo-DRb" id="pWr-wH-aee"/>
                         <outlet property="eraserButton" destination="kjq-AY-SZg" id="gZs-d9-Zd1"/>
@@ -674,7 +624,6 @@
                         <outlet property="shapesButton" destination="w78-OH-H1V" id="Jet-zX-JVV"/>
                         <outlet property="textButton" destination="Va2-Px-Ku6" id="GYN-tg-pop"/>
                         <outlet property="userProfileImage" destination="DOs-uP-8SE" id="Tke-aD-WLd"/>
-                        <outlet property="widthSlider" destination="Dq8-HS-ghZ" id="qBN-dc-Qgp"/>
                         <outlet property="zoomScaleLabel" destination="heI-9Y-pSS" id="Odg-py-uxd"/>
                     </connections>
                 </viewController>
@@ -943,6 +892,79 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wPO-Im-GmS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="119" y="1248"/>
+        </scene>
+        <!--Stroke Editor View Controller-->
+        <scene sceneID="8do-Og-esA">
+            <objects>
+                <viewController id="f3u-GT-n82" customClass="StrokeEditorViewController" customModule="Doodle2Gather" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="EdR-su-kl5">
+                        <rect key="frame" x="0.0" y="0.0" width="220" height="349"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Opacity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PLY-yL-d2I">
+                                <rect key="frame" x="20" y="279.5" width="47" height="14.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                <color key="textColor" name="Stack Grey"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="10" minValue="0.90000000000000002" maxValue="25" translatesAutoresizingMaskIntoConstraints="NO" id="4us-Kh-IeZ">
+                                <rect key="frame" x="18" y="239.5" width="184" height="31"/>
+                                <color key="tintColor" name="Stack Grey"/>
+                                <connections>
+                                    <action selector="widthSliderDidChange:" destination="rZI-TI-AZo" eventType="valueChanged" id="5aF-7P-PzR"/>
+                                    <action selector="widthSliderDidChange:" destination="f3u-GT-n82" eventType="valueChanged" id="QVF-XK-tN3"/>
+                                </connections>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thickness" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ofg-dp-oic">
+                                <rect key="frame" x="20" y="220" width="61.5" height="14.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                <color key="textColor" name="Stack Grey"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="4nb-lR-em6">
+                                <rect key="frame" x="18" y="299" width="184" height="31"/>
+                                <color key="tintColor" name="Stack Grey"/>
+                                <connections>
+                                    <action selector="opacitySliderDidChange:" destination="f3u-GT-n82" eventType="valueChanged" id="Wtn-pm-FNa"/>
+                                    <action selector="opacitySliderDidChange:" destination="rZI-TI-AZo" eventType="valueChanged" id="oPE-PU-yHk"/>
+                                </connections>
+                            </slider>
+                        </subviews>
+                        <color key="backgroundColor" name="Black"/>
+                        <constraints>
+                            <constraint firstItem="4nb-lR-em6" firstAttribute="top" secondItem="PLY-yL-d2I" secondAttribute="bottom" constant="5" id="Fs3-9N-DcX"/>
+                            <constraint firstItem="ofg-dp-oic" firstAttribute="leading" secondItem="EdR-su-kl5" secondAttribute="leading" constant="20" id="Tfz-OW-kf0"/>
+                            <constraint firstAttribute="trailing" secondItem="4us-Kh-IeZ" secondAttribute="trailing" constant="20" id="Vpp-jc-o0C"/>
+                            <constraint firstItem="4nb-lR-em6" firstAttribute="trailing" secondItem="EdR-su-kl5" secondAttribute="trailing" constant="-20" id="dRT-bH-Dxn"/>
+                            <constraint firstItem="4us-Kh-IeZ" firstAttribute="leading" secondItem="EdR-su-kl5" secondAttribute="leading" constant="20" id="mUA-7k-46u"/>
+                            <constraint firstItem="4nb-lR-em6" firstAttribute="leading" secondItem="EdR-su-kl5" secondAttribute="leading" constant="20" id="pUW-ih-OYh"/>
+                            <constraint firstItem="4us-Kh-IeZ" firstAttribute="top" secondItem="ofg-dp-oic" secondAttribute="bottom" constant="5" id="rXZ-uQ-FLo"/>
+                            <constraint firstItem="4nb-lR-em6" firstAttribute="bottom" secondItem="EdR-su-kl5" secondAttribute="bottom" constant="-20" id="wPu-Be-KgY"/>
+                            <constraint firstItem="PLY-yL-d2I" firstAttribute="top" secondItem="4us-Kh-IeZ" secondAttribute="bottom" constant="10" id="xPH-vn-yao"/>
+                            <constraint firstItem="PLY-yL-d2I" firstAttribute="leading" secondItem="EdR-su-kl5" secondAttribute="leading" constant="20" id="xbP-uh-VTy"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <real key="value" value="20"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                <real key="value" value="20"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                <size key="value" width="0.0" height="0.0"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                <real key="value" value="0.40000000000000002"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <connections>
+                        <outlet property="widthSlider" destination="4us-Kh-IeZ" id="F8c-4Z-rhL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8Rm-lo-CxR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-437" y="76"/>
         </scene>
     </scenes>
     <resources>

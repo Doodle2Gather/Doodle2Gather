@@ -8,7 +8,6 @@ class DoodleViewController: UIViewController {
     @IBOutlet private var zoomScaleLabel: UILabel!
     @IBOutlet private var colorPickerView: UIView!
     @IBOutlet private var colorPickerButton: UIView!
-    @IBOutlet private var widthSlider: UISlider!
     private var coloredCircle = CAShapeLayer()
     private var circleCenter = CGPoint()
 
@@ -35,18 +34,12 @@ class DoodleViewController: UIViewController {
     // Controllers
     private var canvasController: CanvasController?
     private var socketController: SocketController?
+    private var strokeEditor: StrokeEditor?
 
     // State
     var username: String?
     var roomName: String?
-    private var lastSelectedDrawingTool = DrawingTools.pen
-    private var lastSelectedColor = UIColor.black
-    private var lastSelectedWidths: [DrawingTools: Float] = [
-        .pen: Constants.defaultPenWidth,
-        .pencil: Constants.defaultPencilWidth,
-        .highlighter: Constants.defaultHighlighterWidth,
-        .magicPen: Constants.defaultPenWidth
-    ]
+    private var previousDrawingTool = DrawingTools.pen
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,7 +55,6 @@ class DoodleViewController: UIViewController {
 
         registerGestures()
         loadBorderColors()
-        setUpColorWheel()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -73,7 +65,7 @@ class DoodleViewController: UIViewController {
                                                  to: view)
 
         // Set up color picker selector
-        let path = UIBezierPath(arcCenter: circleCenter, radius: CGFloat(Constants.defaultPenWidth),
+        let path = UIBezierPath(arcCenter: circleCenter, radius: CGFloat(UIConstants.defaultPenWidth / 2),
                                 startAngle: 0, endAngle: .pi * 2, clockwise: true)
 
         let shapeLayer = CAShapeLayer()
@@ -82,7 +74,6 @@ class DoodleViewController: UIViewController {
         coloredCircle = shapeLayer
 
         self.view.layer.addSublayer(shapeLayer)
-        setWidth(Constants.defaultPenWidth)
     }
 
     private func registerGestures() {
@@ -102,21 +93,6 @@ class DoodleViewController: UIViewController {
         otherProfileImageTwo.layer.borderColor = UIConstants.white.cgColor
     }
 
-    private func setUpColorWheel() {
-        let pikko = Pikko(dimension: 200, setToColor: .black)
-
-        // Set the PikkoDelegate to get notified on new color changes.
-        pikko.delegate = self
-        colorPickerView.addSubview(pikko)
-
-        // Set autoconstraints.
-        pikko.translatesAutoresizingMaskIntoConstraints = false
-        pikko.topAnchor.constraint(equalTo: colorPickerView.topAnchor, constant: 10).isActive = true
-        pikko.leadingAnchor.constraint(equalTo: colorPickerView.leadingAnchor, constant: 10).isActive = true
-        pikko.trailingAnchor.constraint(equalTo: colorPickerView.trailingAnchor, constant: -10).isActive = true
-        pikko.heightAnchor.constraint(equalToConstant: 200).isActive = true
-    }
-
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -129,7 +105,12 @@ class DoodleViewController: UIViewController {
             // TODO: Complete injection of doodle into subcontroller
             // destination.doodle = // Inject doodle
             self.canvasController = destination
-            canvasController?.setSize(5)
+        case SegueConstants.toStrokeEditor:
+            guard let destination = segue.destination as? StrokeEditorViewController else {
+                return
+            }
+            destination.delegate = self
+            self.strokeEditor = destination
         default:
             return
         }
@@ -152,18 +133,16 @@ extension DoodleViewController {
         unselectAllMainTools()
         auxiliaryButtonsView.isHidden = true
         sender.isSelected = true
-        setDrawingTool(lastSelectedDrawingTool,
-                       shouldDismiss: sender.tag != MainTools.drawingTool.rawValue)
+        setDrawingTool(previousDrawingTool,
+                       shouldDismiss: sender.tag != MainTools.drawing.rawValue)
 
         switch toolSelected {
-        case .drawingTool:
+        case .drawing:
             auxiliaryButtonsView.isHidden = false
-            canvasController?.setColor(lastSelectedColor)
-            // canvasController?.setSize(brushSizeSlider.value)
-        case .eraserTool:
+        case .eraser:
             colorPickerView.isHidden = true
             canvasController?.setEraserTool()
-        case .textTool, .shapesTool, .cursorTool:
+        case .text, .shapes, .cursor:
             colorPickerView.isHidden = true
             return
         }
@@ -179,63 +158,25 @@ extension DoodleViewController {
     }
 
     private func setDrawingTool(_ drawingTool: DrawingTools, shouldDismiss: Bool = false) {
-        lastSelectedDrawingTool = drawingTool
+        previousDrawingTool = drawingTool
         switch drawingTool {
         case .pen:
             shouldDismiss ? drawButton.setImage(#imageLiteral(resourceName: "Brush"), for: .normal) : drawButton.setImage(#imageLiteral(resourceName: "Brush_Yellow"), for: .normal)
             canvasController?.setPenTool()
-            setWidth(lastSelectedWidths[.pen])
         case .pencil:
             shouldDismiss ? drawButton.setImage(#imageLiteral(resourceName: "Pencil"), for: .normal) : drawButton.setImage(#imageLiteral(resourceName: "Pencil_Yellow"), for: .normal)
             canvasController?.setPencilTool()
-            setWidth(lastSelectedWidths[.pencil])
         case .highlighter:
             shouldDismiss ? drawButton.setImage(#imageLiteral(resourceName: "BrushAlt"), for: .normal) : drawButton.setImage(#imageLiteral(resourceName: "BrushAlt_Yellow"), for: .normal)
             canvasController?.setHighlighterTool()
-            setWidth(lastSelectedWidths[.highlighter])
         case .magicPen:
             shouldDismiss ? drawButton.setImage(#imageLiteral(resourceName: "MagicWand"), for: .normal) : drawButton.setImage(#imageLiteral(resourceName: "MagicWand_Yellow"), for: .normal)
-            setWidth(lastSelectedWidths[.pen])
-            return
         }
-    }
 
-    private func setWidth(_ width: Float?) {
-        var defaultWidth = Constants.defaultPenWidth
-        switch lastSelectedDrawingTool {
-        case .pen, .magicPen:
-            widthSlider.minimumValue = Constants.minPenWidth
-            widthSlider.maximumValue = Constants.maxPenWidth
-        case .pencil:
-            widthSlider.minimumValue = Constants.minPencilWidth
-            widthSlider.maximumValue = Constants.maxPencilWidth
-            defaultWidth = Constants.defaultPencilWidth
-        case .highlighter:
-            widthSlider.minimumValue = Constants.minHighlighterWidth
-            widthSlider.maximumValue = Constants.maxHighlighterWidth
-            defaultWidth = Constants.defaultHighlighterWidth
+        if let (width, color) = strokeEditor?.setToolAndGetProperties(drawingTool) {
+            widthDidChange(width)
+            colorDidChange(color)
         }
-        let width = max(min(width ?? defaultWidth, widthSlider.maximumValue), widthSlider.minimumValue)
-        lastSelectedWidths[lastSelectedDrawingTool] = width
-        canvasController?.setSize(width)
-        widthSlider.value = width
-
-        let path = UIBezierPath(arcCenter: circleCenter, radius: CGFloat(width / 2),
-                                startAngle: 0, endAngle: .pi * 2, clockwise: true)
-        coloredCircle.path = path.cgPath
-    }
-
-    @IBAction private func widthSliderDidChange(_ sender: UISlider) {
-        let newWidth = sender.value
-        setWidth(newWidth)
-    }
-
-    @IBAction private func opacitySliderDidChange(_ sender: UISlider) {
-        let newOpacity = sender.value
-        let newColor = UIColor(cgColor: coloredCircle.fillColor ?? UIColor.black.cgColor)
-            .withAlphaComponent(CGFloat(newOpacity))
-        coloredCircle.fillColor = newColor.cgColor
-        canvasController?.setColor(newColor)
     }
 
     @objc
@@ -305,12 +246,28 @@ extension DoodleViewController: SocketControllerDelegate {
     }
 }
 
-extension DoodleViewController: PikkoDelegate {
+extension DoodleViewController: StrokeEditorDelegate {
 
-    func writeBackColor(color: UIColor) {
-        lastSelectedColor = color
+    func colorDidChange(_ color: UIColor) {
         coloredCircle.fillColor = color.cgColor
         canvasController?.setColor(color)
+    }
+
+    func widthDidChange(_ width: CGFloat) {
+        canvasController?.setSize(width)
+        let path = UIBezierPath(arcCenter: circleCenter, radius: width / 2,
+                                startAngle: 0, endAngle: .pi * 2, clockwise: true)
+        coloredCircle.path = path.cgPath
+    }
+
+    func opacityDidChange(_ opacity: CGFloat) {
+        guard let currentColor = coloredCircle.fillColor else {
+            fatalError("Missing fill for colored circle!")
+        }
+        let newColor = UIColor(cgColor: currentColor)
+            .withAlphaComponent(opacity)
+        coloredCircle.fillColor = newColor.cgColor
+        canvasController?.setColor(newColor)
     }
 
 }
