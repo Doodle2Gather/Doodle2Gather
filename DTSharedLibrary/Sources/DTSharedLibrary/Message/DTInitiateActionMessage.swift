@@ -3,16 +3,15 @@ import Foundation
 public struct DTInitiateActionMessage: Codable {
     var type = DTMessageType.initiateAction
     public let id: UUID
-    public let action: DTAdaptedAction
+    public let roomId: UUID
+    public let actionType: DTActionType
+    public let strokes: [DTStrokeIndexPair]
 
-    public init(type: DTActionType, strokes: [Data],
+    public init(actionType: DTActionType, strokes: [DTStrokeIndexPair],
                 id: UUID, roomId: UUID) {
-        self.action = DTAdaptedAction(
-            type: type,
-            strokes: strokes,
-            roomId: roomId,
-            createdBy: id
-        )
         self.id = id
+        self.roomId = roomId
+        self.actionType = actionType
+        self.strokes = strokes
     }
 }
