@@ -9,3 +9,5 @@ public struct DTStrokeIndexPair: Codable {
         self.index = index
     }
 }
+
+extension DTStrokeIndexPair: Hashable {}

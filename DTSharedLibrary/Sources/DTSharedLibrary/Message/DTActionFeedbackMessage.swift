@@ -12,8 +12,7 @@ public struct DTActionFeedbackMessage: Codable, Comparable {
     public var isActionDenied: Bool
 
     public init(success: Bool, message: String,
-                id: UUID?, createdAt: Date?,
-                action: DTAdaptedAction,
+                id: UUID?, createdAt: Date?, action: DTAdaptedAction,
                 isActionDenied: Bool = false
     ) {
         self.success = success

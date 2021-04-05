@@ -18,7 +18,7 @@ final class PersistedDTAction: Model, Content {
     var doodle: PersistedDTDoodle
 
     @Field(key: "strokes")
-    var strokes: [Data]
+    var strokes: [PersistedDTStrokeIndexPair]
 
     @Field(key: "created_by")
     var createdBy: UUID
@@ -28,7 +28,7 @@ final class PersistedDTAction: Model, Content {
 
     init() { }
 
-    init(type: DTActionType, strokes: [Data], roomId: PersistedDTRoom.IDValue,
+    init(type: DTActionType, strokes: [PersistedDTStrokeIndexPair], roomId: PersistedDTRoom.IDValue,
          doodleId: PersistedDTDoodle.IDValue, createdBy: UUID, id: UUID? = nil) {
         self.type = type.rawValue
         self.$room.id = roomId
