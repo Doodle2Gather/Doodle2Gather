@@ -2,7 +2,7 @@ import Foundation
 import Fluent
 import DTSharedLibrary
 
-class AutoMergeController {
+class NewActionController {
     let db: Database
     let newAction: DTAdaptedAction
     let persistedAction: PersistedDTAction

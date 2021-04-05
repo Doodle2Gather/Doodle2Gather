@@ -107,11 +107,11 @@ class WebSocketController {
     func onNewAction(_ ws: WebSocket, _ id: UUID, _ message: DTInitiateActionMessage) {
         let action = message.action.makePersistedAction()
 
-        let autoMerge = AutoMergeController(
+        let newActionController = NewActionController(
             db: self.db, newAction: message.action, persistedAction: action
         )
 
-        autoMerge.perform().whenComplete { res in
+        newActionController.perform().whenComplete { res in
             switch res {
             case .failure(let err):
                 self.logger.report(error: err)
