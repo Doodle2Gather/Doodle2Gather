@@ -4,6 +4,7 @@ import Pikko
 class StrokeEditorViewController: UIViewController {
 
     @IBOutlet private var widthSlider: UISlider!
+    @IBOutlet private var opacitySlider: UISlider!
 
     weak var delegate: StrokeEditorDelegate?
     private var toolSelected: DrawingTools = .pen
@@ -30,6 +31,9 @@ class StrokeEditorViewController: UIViewController {
         pikko.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
         pikko.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
         pikko.heightAnchor.constraint(equalToConstant: 200).isActive = true
+
+        widthSlider.setThumbImage(#imageLiteral(resourceName: "SliderThumb"), for: .normal)
+        opacitySlider.setThumbImage(#imageLiteral(resourceName: "SliderThumb"), for: .normal)
     }
 
     @IBAction private func widthSliderDidChange(_ sender: UISlider) {
