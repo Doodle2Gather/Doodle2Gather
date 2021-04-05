@@ -3,24 +3,28 @@ import Fluent
 import DTSharedLibrary
 
 class ActiveRoomController {
-    var activeRooms: [UUID: [UUID: DTAdaptedDoodle]]
+    
+    let roomId: UUID
+    
+    var doodles: [UUID: DTAdaptedDoodle]
 
     let db: Database
     let logger: Logger
 
-    init(db: Database) {
-        activeRooms = [UUID: [UUID: DTAdaptedDoodle]]()
+    init(roomId: UUID, db: Database) {
+        doodles = [UUID: DTAdaptedDoodle]()
+        self.roomId = roomId
         self.db = db
         self.logger = Logger(label: "ActiveRoomController")
     }
 
-    var activeRoomIds: Set<UUID> {
-        Set(activeRooms.keys)
+    var doodleIds: Set<UUID> {
+        Set(doodles.keys)
     }
 
-    func isRoomActive(_ roomId: UUID) -> Bool {
-        activeRoomIds.contains(roomId)
-    }
+//    func isRoomActive(_ roomId: UUID) -> Bool {
+//        activeRoomIds.contains(roomId)
+//    }
 
     func process(_ action: DTAdaptedAction) -> DTAdaptedAction? {
 
@@ -73,20 +77,15 @@ class ActiveRoomController {
     }
 
     func joinRoom(_ roomId: UUID) {
-        if !isRoomActive(roomId) {
-            activeRooms[roomId] = [UUID: DTAdaptedDoodle]()
-
-            PersistedDTRoom.getAllDoodles(roomId, on: self.db).whenComplete { res in
-                switch res {
-                case .failure(let err):
-                    self.logger.report(error: err)
-                case .success(let doodles):
-                    for doodle in doodles {
-                        if let doodleId = try? doodle.requireID() {
-                            self.activeRooms[roomId]?[doodleId] =
-                                DTAdaptedDoodle(doodle: doodle)
-                        }
-
+        PersistedDTRoom.getAllDoodles(roomId, on: self.db).whenComplete { res in
+            switch res {
+            case .failure(let err):
+                self.logger.report(error: err)
+            case .success(let doodles):
+                for doodle in doodles {
+                    if let doodleId = try? doodle.requireID() {
+                        self.doodles[doodleId] =
+                            DTAdaptedDoodle(doodle: doodle)
                     }
                 }
             }
@@ -94,10 +93,10 @@ class ActiveRoomController {
     }
 
     func addStroke(_ stroke: DTAdaptedStroke) -> [DTStrokeIndexPair]? {
-        guard let index = activeRooms[stroke.roomId]?[stroke.doodleId]?.strokeCount else {
+        guard let index = doodles[stroke.doodleId]?.strokeCount else {
             return nil
         }
-        activeRooms[stroke.roomId]?[stroke.doodleId]?.addStroke(stroke)
+        doodles[stroke.doodleId]?.addStroke(stroke)
         return [DTStrokeIndexPair(stroke.stroke, index)]
     }
 
@@ -106,14 +105,14 @@ class ActiveRoomController {
         for index in 0 ..< strokes.count {
             let stroke = strokes[index]
             let startingIndex = pairs[index].index
-            guard let doodle = activeRooms[stroke.roomId]?[stroke.doodleId] else {
+            guard let doodle = doodles[stroke.doodleId] else {
                 return nil
             }
             let index = doodle.findFirstMatchIndex(for: stroke, startingFrom: startingIndex)
             guard let indexFound = index else {
                 return nil
             }
-            activeRooms[stroke.roomId]?[stroke.doodleId]?.removeStroke(at: indexFound)
+            doodles[stroke.doodleId]?.removeStroke(at: indexFound)
             returnPairs.append(DTStrokeIndexPair(stroke.stroke, indexFound))
         }
         return returnPairs
@@ -122,14 +121,14 @@ class ActiveRoomController {
     func modifyStroke(original: DTAdaptedStroke, modified: DTAdaptedStroke,
                       pair: DTStrokeIndexPair) -> [DTStrokeIndexPair]? {
         let startingIndex = pair.index
-        guard let doodle = activeRooms[original.roomId]?[original.doodleId] else {
+        guard let doodle = doodles[original.doodleId] else {
             return nil
         }
         let index = doodle.findFirstMatchIndex(for: original, startingFrom: startingIndex)
         guard let indexFound = index else {
             return nil
         }
-        activeRooms[original.roomId]?[original.doodleId]?.modifyStroke(at: indexFound, to: modified)
+        doodles[original.doodleId]?.modifyStroke(at: indexFound, to: modified)
         return [DTStrokeIndexPair(original.stroke, indexFound),
                 DTStrokeIndexPair(modified.stroke, indexFound)]
     }

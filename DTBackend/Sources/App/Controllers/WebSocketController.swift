@@ -12,14 +12,16 @@ class WebSocketController {
     let db: Database
     let logger: Logger
 
+    let roomId: UUID
     let roomController: ActiveRoomController
 
-    init(db: Database) {
+    init(roomId: UUID, db: Database) {
         self.lock = Lock()
         self.sockets = [:]
         self.db = db
         self.logger = Logger(label: "WebSocketController")
-        self.roomController = ActiveRoomController(db: db)
+        self.roomId = roomId
+        self.roomController = ActiveRoomController(roomId: roomId, db: db)
     }
 
     var getAllWebSocketOptions: [WebSocketSendOption] {
@@ -133,15 +135,24 @@ class WebSocketController {
     }
 
     func syncData() {
-        let activeRooms = roomController.activeRooms
-        for room in activeRooms {
-            PersistedDTRoom.getSingleByID(room.key, on: self.db).map { $0.delete(on: self.db) }
-
-            // TODO: - Sync all active room data to db
-
-            for doodle in room.value {
-
-            }
+        let doodles = roomController.doodles
+        doodles.forEach { doodle in
+            PersistedDTDoodle.getSingleByID(doodle.key, on: self.db)
+                .flatMapThrowing { res in
+                    _ = res.strokes.forEach { $0.delete(on: self.db) }
+                }
+                .flatMapThrowing {
+                    for stroke in doodle.value.strokes {
+                        _ = stroke.makePersistedStroke().save(on: self.db)
+                    }
+                }.whenComplete { res in
+                    switch res {
+                    case .failure(let err):
+                        self.logger.report(error: err)
+                    case .success:
+                        self.logger.info("Synced doodle \(doodle.key.uuidString)")
+                    }
+                }
         }
     }
 

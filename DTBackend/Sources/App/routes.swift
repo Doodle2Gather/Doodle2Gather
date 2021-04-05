@@ -2,7 +2,7 @@ import Vapor
 import DTSharedLibrary
 
 func routes(_ app: Application) throws {
-    let webSocketController = WebSocketController(db: app.db)
+    let webSocketController = WebSocketController(roomId: UUID(), db: app.db)
     try app.register(collection: DTWebSocketController(wsController: webSocketController))
 
     let api = app.grouped("api")
