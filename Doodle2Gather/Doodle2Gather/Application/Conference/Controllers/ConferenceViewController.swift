@@ -12,6 +12,7 @@ class ConferenceViewController: UIViewController {
     @IBOutlet private var videoButton: UIButton!
     @IBOutlet private var audioButton: UIButton!
     @IBOutlet private var chatButton: UIButton!
+    @IBOutlet var pageIndicator: UIView!
 
     var videoEngine: VideoEngine?
     var chatEngine: ChatEngine?
@@ -31,6 +32,7 @@ class ConferenceViewController: UIViewController {
         videoEngine?.joinChannel(channelName: "testing")
         chatEngine = AgoraChatEngine()
         chatEngine?.initialize()
+        pageIndicator.isHidden = true
 
         videoEngine?.muteAudio()
         videoEngine?.hideVideo()
@@ -113,12 +115,20 @@ extension ConferenceViewController: VideoEngineDelegate {
 
     func didJoinCall(id: UInt) {
         remoteUserIDs.append(id)
+        if remoteUserIDs.count >= 2 {
+            pageIndicator.isHidden = false
+        } else {
+            pageIndicator.isHidden = true
+        }
         collectionView.reloadData()
     }
 
     func didLeaveCall(id: UInt) {
         if let index = remoteUserIDs.firstIndex(where: { $0 == id }) {
             remoteUserIDs.remove(at: index)
+            if remoteUserIDs.count < 2 {
+                pageIndicator.isHidden = true
+            }
             collectionView.reloadData()
         }
     }

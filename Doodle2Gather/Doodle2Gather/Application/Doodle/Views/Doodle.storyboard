@@ -664,10 +664,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Bxd-CB-wII" customClass="SubviewTouchCollectionView" customModule="Doodle2Gather" customModuleProvider="target">
-                                <rect key="frame" x="622" y="132" width="200" height="922"/>
+                                <rect key="frame" x="622" y="132" width="200" height="357.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="ZO1-qV-5al"/>
+                                    <constraint firstAttribute="height" constant="357.5" id="wMj-nw-Ari"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="oZ4-hV-qjb">
                                     <size key="itemSize" width="240" height="135"/>
@@ -867,13 +868,35 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nch-VX-wNT" userLabel="Page Indicator">
+                                <rect key="frame" x="622" y="499.5" width="200" height="40"/>
+                                <color key="backgroundColor" name="Black"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="T9w-z1-N6I"/>
+                                    <constraint firstAttribute="height" constant="40" id="jGy-we-gk5"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                        <size key="value" width="0.0" height="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                        <real key="value" value="0.40000000000000002"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vck-bI-o3u"/>
                         <constraints>
-                            <constraint firstItem="Bxd-CB-wII" firstAttribute="bottom" secondItem="vck-bI-o3u" secondAttribute="bottom" constant="-120" id="0hh-7n-4s0"/>
                             <constraint firstItem="Bxd-CB-wII" firstAttribute="trailing" secondItem="vck-bI-o3u" secondAttribute="trailing" constant="-12" id="3e2-bG-Hms"/>
+                            <constraint firstItem="Nch-VX-wNT" firstAttribute="trailing" secondItem="vck-bI-o3u" secondAttribute="trailing" constant="-12" id="BTc-gW-b1N"/>
+                            <constraint firstItem="Nch-VX-wNT" firstAttribute="top" secondItem="Bxd-CB-wII" secondAttribute="bottom" constant="10" id="O6W-QL-fN6"/>
                             <constraint firstItem="xWj-qC-1ia" firstAttribute="bottom" secondItem="vck-bI-o3u" secondAttribute="bottom" constant="-12" id="h7c-4g-pJF"/>
-                            <constraint firstItem="Bxd-CB-wII" firstAttribute="top" secondItem="vck-bI-o3u" secondAttribute="top" constant="132" id="jhw-us-uLV"/>
                             <constraint firstItem="xWj-qC-1ia" firstAttribute="leading" secondItem="vck-bI-o3u" secondAttribute="leading" constant="12" id="mzw-G9-1oN"/>
                             <constraint firstItem="Bxd-CB-wII" firstAttribute="top" secondItem="hzX-Ab-qkC" secondAttribute="bottom" constant="10" id="p7x-NB-1TW"/>
                             <constraint firstItem="vck-bI-o3u" firstAttribute="trailing" secondItem="hzX-Ab-qkC" secondAttribute="trailing" constant="12" id="q4V-1e-bIQ"/>
@@ -884,6 +907,7 @@
                         <outlet property="audioButton" destination="AkO-hK-cSB" id="a3j-SW-FOS"/>
                         <outlet property="chatButton" destination="MeP-8O-gla" id="xrb-4P-ih0"/>
                         <outlet property="collectionView" destination="Bxd-CB-wII" id="oSa-98-sii"/>
+                        <outlet property="pageIndicator" destination="Nch-VX-wNT" id="BgQ-vW-2tb"/>
                         <outlet property="participantsButton" destination="9u2-un-NL2" id="PYG-uu-63Y"/>
                         <outlet property="presentButton" destination="0YY-FW-Ew0" id="JhO-VV-nQB"/>
                         <outlet property="startStopButton" destination="0Hf-3m-fGi" id="10T-H2-Fcc"/>
