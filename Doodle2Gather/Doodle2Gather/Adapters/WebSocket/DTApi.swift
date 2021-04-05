@@ -126,7 +126,7 @@ extension DTApi {
         _ error: Error,
         completion: ((DTApiResult<OutputModel>) -> Void)? = nil
     ) where OutputModel: Codable {
-        print("\(Date()): \(error)")
+        DTLogger.error("\(Date()): \(error)")
         completion?(.failure(error))
     }
 

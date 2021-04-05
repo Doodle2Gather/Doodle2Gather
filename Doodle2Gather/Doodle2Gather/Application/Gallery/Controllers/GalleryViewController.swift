@@ -44,7 +44,7 @@ class GalleryViewController: UIViewController {
                     room.roomName == title
                 }
                 if match != nil {
-                    print("The name is already taken.")
+                    DTLogger.error("The name is already taken.")
                     return CreateDocumentStatus.duplicatedName
                 } else {
                     self.rooms.append(Room(roomId: UUID(), roomName: title))
