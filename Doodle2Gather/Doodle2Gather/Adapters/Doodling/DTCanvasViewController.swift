@@ -14,12 +14,14 @@ class DTCanvasViewController: UIViewController {
     var doodle = PKDrawing()
     /// Delegate for action dispatching.
     internal weak var delegate: CanvasControllerDelegate?
+    private let shapeDetector: ShapeDetector = BestFitShapeDetector()
 
     /// Tracks whether a initial scroll to offset has already been done.
     private var hasScrolledToInitialOffset = false
     /// Tracks the tools being used
     private var currentMainTool = MainTools.drawing
     private var currentDrawingTool = DrawingTools.pen
+    private var isSelfUpdate = false
 
     /// Constants used in DTCanvasViewController specifically.
     enum Constants {
@@ -76,10 +78,26 @@ extension DTCanvasViewController: PKCanvasViewDelegate {
 
     // TODO: Fix issues with erasure + build more sustainable solution.
     func canvasViewDrawingDidChange(_ canvas: PKCanvasView) {
+        if isSelfUpdate {
+            return
+        }
+
         let newStrokes = canvas.drawing.dtStrokes
         let oldStrokes = doodle.dtStrokes
         let newStrokesSet = Set(newStrokes)
         let oldStrokesSet = Set(oldStrokes)
+
+        if currentMainTool == .drawing && currentDrawingTool == .magicPen,
+           let latestStroke = canvas.drawing.strokes.last {
+            let fixedStroke = shapeDetector.processStroke(latestStroke)
+
+            if let fixedStroke = fixedStroke {
+                isSelfUpdate = true
+                let strokeIndex = canvas.drawing.strokes.count - 1
+                canvas.drawing.strokes[strokeIndex] = fixedStroke
+                isSelfUpdate = false
+            }
+        }
 
         let addedStrokes = newStrokes.filter { !oldStrokesSet.contains($0) }
         let removedStrokes = oldStrokes.filter { !newStrokesSet.contains($0) }
@@ -133,6 +151,7 @@ extension DTCanvasViewController: CanvasController {
     }
 
     func setDrawingTool(_ drawingTool: DrawingTools) {
+        currentDrawingTool = drawingTool
         switch drawingTool {
         case .pen:
             canvasView.setTool(.pen)
