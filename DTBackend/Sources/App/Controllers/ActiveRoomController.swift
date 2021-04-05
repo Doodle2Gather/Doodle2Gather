@@ -7,15 +7,15 @@ class ActiveRoomController {
     init() {
         activeRooms = [UUID: DTAdaptedDoodle]()
     }
-    
+
     var activeRoomIds: Set<UUID> {
        Set(activeRooms.keys)
     }
-    
+
     func isRoomActive(roomId: UUID) -> Bool {
         activeRoomIds.contains(roomId)
     }
-    
+
     func addActiveRoom(roomId: UUID) {
         activeRooms[roomId] = DTAdaptedDoodle(roomId: roomId)
     }
@@ -23,5 +23,5 @@ class ActiveRoomController {
 }
 
 extension DTAdaptedDoodle {
-    
+
 }
