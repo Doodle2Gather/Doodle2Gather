@@ -32,12 +32,12 @@ struct DTWebSocketController: RouteCollection {
 
 private class DTWebSocketsManager {
     let db: Database
-    var wsControllers = [UUID : WebSocketController]()
-    
+    var wsControllers = [UUID: WebSocketController]()
+
     init(db: Database) {
         self.db = db
     }
-    
+
     func directToWebSocketController(socket: WebSocket, roomId: UUID) {
         let wsController = wsControllers[roomId, default: WebSocketController(roomId: roomId, db: db)]
         wsControllers[roomId] = wsController

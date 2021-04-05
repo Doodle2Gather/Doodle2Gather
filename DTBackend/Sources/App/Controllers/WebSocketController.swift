@@ -15,7 +15,7 @@ class WebSocketController {
     let roomId: UUID
     let roomController: ActiveRoomController
 
-    init(roomId: UUID , db: Database) {
+    init(roomId: UUID, db: Database) {
         self.lock = Lock()
         self.sockets = [:]
         self.db = db
@@ -171,11 +171,11 @@ class WebSocketController {
             logger.report(error: error)
         }
     }
-    
+
     func initiateDoodleFetching(_ ws: WebSocket) {
         if !roomController.hasFetchedDoodles {
             PersistedDTRoom.getAllDoodles(roomId, on: self.db)
-                .flatMapThrowing{ $0.map(DTAdaptedDoodle.init) }
+                .flatMapThrowing { $0.map(DTAdaptedDoodle.init) }
                 .whenComplete { res in
                 switch res {
                 case .failure(let err):
@@ -185,14 +185,14 @@ class WebSocketController {
                     self.logger.info("Fetching existing doodles.")
                     self.sendFetchedDoodles(doodles, to: [.socket(ws)])
                 }
-            }
+                }
         } else {
             self.sendFetchedDoodles(roomController.doodleArray, to: [.socket(ws)])
         }
     }
-    
+
     func sendFetchedDoodles(_ doodles: [DTAdaptedDoodle], to sendOptions: [WebSocketSendOption],
-                               success: Bool = true, message: String = "") {
+                            success: Bool = true, message: String = "") {
         self.logger.info("Fetched doodles!")
         self.send(message: DTFetchDoodleMessage(
             success: success,
@@ -200,7 +200,6 @@ class WebSocketController {
             doodles: doodles
         ), to: sendOptions)
     }
-
 
     func dispatchActionToPeers(_ action: DTAdaptedAction, to sendOptions: [WebSocketSendOption],
                                success: Bool = true, message: String = "") {

@@ -3,30 +3,30 @@ import Fluent
 import DTSharedLibrary
 
 class ActiveRoomController {
-    
+
     let roomId: UUID
-    
+
     var doodles: [UUID: DTAdaptedDoodle]
 
     let db: Database
     let logger: Logger
-    
-    var hasFetchedDoodles: Bool = false
+
+    var hasFetchedDoodles = false
 
     init(roomId: UUID, db: Database) {
         doodles = [UUID: DTAdaptedDoodle]()
         self.roomId = roomId
         self.db = db
         self.logger = Logger(label: "ActiveRoomController")
-        
+
         joinRoom(roomId)
-        
+
     }
 
     var doodleArray: [DTAdaptedDoodle] {
         Array(doodles.values)
     }
-    
+
     func joinRoom(_ roomId: UUID) {
         PersistedDTRoom.getAllDoodles(roomId, on: self.db).whenComplete { res in
             switch res {
