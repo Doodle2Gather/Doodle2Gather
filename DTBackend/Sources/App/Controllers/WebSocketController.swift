@@ -60,7 +60,7 @@ class WebSocketController {
         }
         self.send(message: DTHandshake(id: uuid), to: [.socket(ws)])
 
-        self.fetchDoodles()
+        self.initiateDoodleFetching(ws)
     }
 
     func onData(_ ws: WebSocket, _ data: Data) {
@@ -115,11 +115,12 @@ class WebSocketController {
 
         // action denied
 
-        self.sendActionFeedback(
-            orginalAction: action,
-            dispatchAction: nil,
-            to: .id(id), success: false, message: "Action failed. Please refetch"
-        )
+        self.initiateDoodleFetching(ws)
+        //        self.sendActionFeedback(
+        //            orginalAction: action,
+        //            dispatchAction: nil,
+        //            to: .id(id), success: false, message: "Action failed. Please refetch"
+        //        )
     }
 
     func syncData() {
@@ -171,7 +172,7 @@ class WebSocketController {
         }
     }
     
-    func fetchDoodles(_ ws: WebSocket) {
+    func initiateDoodleFetching(_ ws: WebSocket) {
         if !roomController.hasFetchedDoodles {
             PersistedDTRoom.getAllDoodles(roomId, on: self.db)
                 .flatMapThrowing{ $0.map(DTAdaptedDoodle.init) }
