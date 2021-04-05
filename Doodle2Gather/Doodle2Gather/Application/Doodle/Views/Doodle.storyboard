@@ -930,6 +930,7 @@
                                 </connections>
                             </slider>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="Fbs-ge-CUi"/>
                         <color key="backgroundColor" name="Black"/>
                         <constraints>
                             <constraint firstItem="4nb-lR-em6" firstAttribute="top" secondItem="PLY-yL-d2I" secondAttribute="bottom" constant="5" id="Fs3-9N-DcX"/>
