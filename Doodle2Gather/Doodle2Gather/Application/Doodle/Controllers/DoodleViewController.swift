@@ -1,10 +1,15 @@
 import UIKit
+import Pikko
 
 class DoodleViewController: UIViewController {
 
     // Storyboard UI Elements
     @IBOutlet private var fileNameLabel: UILabel!
     @IBOutlet private var zoomScaleLabel: UILabel!
+    @IBOutlet private var colorPickerView: UIView!
+    @IBOutlet private var colorPickerButton: UIView!
+    private var coloredCircle = CAShapeLayer()
+    private var circleCenter = CGPoint()
 
     // Left Main Menu
     @IBOutlet private var drawButton: UIButton!
@@ -19,8 +24,6 @@ class DoodleViewController: UIViewController {
     @IBOutlet private var pencilButton: UIButton!
     @IBOutlet private var highlighterButton: UIButton!
     @IBOutlet private var magicPenButton: UIButton!
-    @IBOutlet private var colorPickerButton: UIButton!
-    // @IBOutlet private var brushSizeSlider: UISlider!
 
     // Profile Images
     @IBOutlet private var userProfileImage: UIImageView!
@@ -31,11 +34,12 @@ class DoodleViewController: UIViewController {
     // Controllers
     private var canvasController: CanvasController?
     private var socketController: SocketController?
+    private var strokeEditor: StrokeEditor?
 
     // State
     var username: String?
     var roomName: String?
-    private var lastSelectedDrawingTool = DrawingTools.pen
+    private var previousDrawingTool = DrawingTools.pen
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,10 +52,36 @@ class DoodleViewController: UIViewController {
         if let roomName = roomName {
             fileNameLabel.text = roomName
         }
+
+        registerGestures()
+        loadBorderColors()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        circleCenter = colorPickerButton.convert(CGPoint(x: colorPickerButton.bounds.midX,
+                                                         y: colorPickerButton.bounds.midY),
+                                                 to: view)
+
+        // Set up color picker selector
+        let path = UIBezierPath(arcCenter: circleCenter, radius: CGFloat(UIConstants.defaultPenWidth / 2),
+                                startAngle: 0, endAngle: .pi * 2, clockwise: true)
+
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.path = path.cgPath
+        shapeLayer.fillColor = UIColor.black.cgColor
+        coloredCircle = shapeLayer
+
+        self.view.layer.addSublayer(shapeLayer)
+    }
+
+    private func registerGestures() {
         let zoomTap = UITapGestureRecognizer(target: self, action: #selector(zoomScaleDidTap(_:)))
         zoomScaleLabel.addGestureRecognizer(zoomTap)
+        let colorTap = UITapGestureRecognizer(target: self, action: #selector(colorPickerButtonDidTap(_:)))
+        colorPickerButton.addGestureRecognizer(colorTap)
 
-        loadBorderColors()
     }
 
     private func loadBorderColors() {
@@ -75,6 +105,12 @@ class DoodleViewController: UIViewController {
             // TODO: Complete injection of doodle into subcontroller
             // destination.doodle = // Inject doodle
             self.canvasController = destination
+        case SegueConstants.toStrokeEditor:
+            guard let destination = segue.destination as? StrokeEditorViewController else {
+                return
+            }
+            destination.delegate = self
+            self.strokeEditor = destination
         default:
             return
         }
@@ -83,6 +119,7 @@ class DoodleViewController: UIViewController {
     @IBAction private func exitButtonDidTap(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
+
 }
 
 // MARK: - IBActions
@@ -95,18 +132,20 @@ extension DoodleViewController {
         }
         unselectAllMainTools()
         auxiliaryButtonsView.isHidden = true
+        coloredCircle.isHidden = true
         sender.isSelected = true
-        setDrawingTool(lastSelectedDrawingTool,
-                       shouldDismiss: sender.tag != MainTools.drawingTool.rawValue)
+        setDrawingTool(previousDrawingTool,
+                       shouldDismiss: sender.tag != MainTools.drawing.rawValue)
 
         switch toolSelected {
-        case .drawingTool:
+        case .drawing:
             auxiliaryButtonsView.isHidden = false
-            canvasController?.setColor(colorPickerButton.backgroundColor ?? .black)
-            // canvasController?.setSize(brushSizeSlider.value)
-        case .eraserTool:
+            coloredCircle.isHidden = false
+        case .eraser:
+            colorPickerView.isHidden = true
             canvasController?.setEraserTool()
-        case .textTool, .shapesTool, .cursorTool:
+        case .text, .shapes, .cursor:
+            colorPickerView.isHidden = true
             return
         }
     }
@@ -117,16 +156,11 @@ extension DoodleViewController {
         }
         unselectAllDrawingTools()
         sender.isSelected = true
-        lastSelectedDrawingTool = toolSelected
         setDrawingTool(toolSelected)
     }
 
-    @objc
-    private func zoomScaleDidTap(_ gesture: UITapGestureRecognizer) {
-        canvasController?.resetZoomScale()
-    }
-
     private func setDrawingTool(_ drawingTool: DrawingTools, shouldDismiss: Bool = false) {
+        previousDrawingTool = drawingTool
         switch drawingTool {
         case .pen:
             shouldDismiss ? drawButton.setImage(#imageLiteral(resourceName: "Brush"), for: .normal) : drawButton.setImage(#imageLiteral(resourceName: "Brush_Yellow"), for: .normal)
@@ -139,22 +173,23 @@ extension DoodleViewController {
             canvasController?.setHighlighterTool()
         case .magicPen:
             shouldDismiss ? drawButton.setImage(#imageLiteral(resourceName: "MagicWand"), for: .normal) : drawButton.setImage(#imageLiteral(resourceName: "MagicWand_Yellow"), for: .normal)
-            return
+        }
+
+        if let (width, color) = strokeEditor?.setToolAndGetProperties(drawingTool) {
+            widthDidChange(width)
+            colorDidChange(color)
         }
     }
 
-    @IBAction private func colorPickerButtonDidTap(_ sender: UIButton) {
-        let picker = UIColorPickerViewController()
-        picker.selectedColor = colorPickerButton.backgroundColor ?? UIColor.black
-        picker.delegate = self
-
-        self.present(picker, animated: true, completion: nil)
+    @objc
+    private func zoomScaleDidTap(_ gesture: UITapGestureRecognizer) {
+        canvasController?.resetZoomScale()
     }
 
-//    @IBAction private func sizeSliderDidChange(_ sender: UISlider) {
-//        let newSize = sender.value
-//        canvasController?.setSize(newSize)
-//    }
+    @objc
+    private func colorPickerButtonDidTap(_ gesture: UITapGestureRecognizer) {
+        colorPickerView.isHidden.toggle()
+    }
 
     private func unselectAllMainTools() {
         drawButton.isSelected = false
@@ -213,17 +248,28 @@ extension DoodleViewController: SocketControllerDelegate {
     }
 }
 
-extension DoodleViewController: UIColorPickerViewControllerDelegate {
+extension DoodleViewController: StrokeEditorDelegate {
 
-    /// Updates the selected color upon finishing of selection.
-    func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
-        colorPickerButton.backgroundColor = viewController.selectedColor
-        canvasController?.setColor(viewController.selectedColor)
+    func colorDidChange(_ color: UIColor) {
+        coloredCircle.fillColor = color.cgColor
+        canvasController?.setColor(color)
     }
 
-    /// Updates the selected color every time a selection is made.
-    func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
-        colorPickerButton.backgroundColor = viewController.selectedColor
+    func widthDidChange(_ width: CGFloat) {
+        canvasController?.setSize(width)
+        let path = UIBezierPath(arcCenter: circleCenter, radius: width / 2,
+                                startAngle: 0, endAngle: .pi * 2, clockwise: true)
+        coloredCircle.path = path.cgPath
+    }
+
+    func opacityDidChange(_ opacity: CGFloat) {
+        guard let currentColor = coloredCircle.fillColor else {
+            fatalError("Missing fill for colored circle!")
+        }
+        let newColor = UIColor(cgColor: currentColor)
+            .withAlphaComponent(opacity)
+        coloredCircle.fillColor = newColor.cgColor
+        canvasController?.setColor(newColor)
     }
 
 }

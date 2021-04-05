@@ -50,6 +50,7 @@ PODS:
     - nanopb/encode (= 2.30907.0)
   - nanopb/decode (2.30907.0)
   - nanopb/encode (2.30907.0)
+  - Pikko (1.0.4)
   - PromisesObjC (1.2.12)
   - Willow (6.0.0)
 
@@ -58,6 +59,7 @@ DEPENDENCIES:
   - AgoraRtm_iOS
   - Firebase/Auth
   - MessageKit
+  - Pikko
   - Willow
 
 SPEC REPOS:
@@ -74,6 +76,7 @@ SPEC REPOS:
     - InputBarAccessoryView
     - MessageKit
     - nanopb
+    - Pikko
     - PromisesObjC
     - Willow
 
@@ -90,9 +93,10 @@ SPEC CHECKSUMS:
   InputBarAccessoryView: 1638fc3336698eaead9cd83ff2da6c6218fcb6bc
   MessageKit: 6a15a240a9a4767279de542a8fae861e83d8aedc
   nanopb: 59221d7f958fb711001e6a449489542d92ae113e
+  Pikko: b2883c3b39752c04a1953f8995f8edafcbc3ee90
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   Willow: 8efe9bd7bb99b06fe017566848492748b763a0ac
 
-PODFILE CHECKSUM: 69b339f63e658d9966471669fb2b2eb06bb21b5c
+PODFILE CHECKSUM: 314350e243cf12420dfd49daf6097a3209d025f7
 
 COCOAPODS: 1.10.1

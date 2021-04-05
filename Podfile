@@ -14,6 +14,7 @@ target 'Doodle2Gather' do
   pod 'MessageKit'
   pod 'Willow'
   pod 'Firebase/Auth'
+  pod 'Pikko'
   
   target 'Doodle2GatherTests' do
     inherit! :search_paths

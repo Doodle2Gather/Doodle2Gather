@@ -13,7 +13,6 @@
 		2E146CC126190246001F6845 /* Participants.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E146CC026190246001F6845 /* Participants.storyboard */; };
 		2E2B16D926197BFF0014DD4A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EF8E92B25F754C700C7EE7D /* Assets.xcassets */; };
 		2E4A0B422616FDFF003257D4 /* PKDrawing+StrokesFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4A0B412616FDFF003257D4 /* PKDrawing+StrokesFrame.swift */; };
-		2E7AA3E9261963AF0028A013 /* DoodleViewController+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7AA3E8261963AF0028A013 /* DoodleViewController+Constants.swift */; };
 		2E8AC7222613F3060033869E /* Pods_Doodle2Gather.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2E3F8FAD2607380100C58F33 /* Pods_Doodle2Gather.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2E8AC74A2613F4C90033869E /* DTCanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8AC7492613F4C90033869E /* DTCanvasViewController.swift */; };
 		2E987E6E2607468000352E7D /* PKStrokePoint+DTPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E987E6D2607468000352E7D /* PKStrokePoint+DTPoint.swift */; };
@@ -37,6 +36,10 @@
 		2EF8E92F25F754C700C7EE7D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EF8E92D25F754C700C7EE7D /* LaunchScreen.storyboard */; };
 		2EF8E93A25F754C700C7EE7D /* Doodle2GatherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8E93925F754C700C7EE7D /* Doodle2GatherTests.swift */; };
 		2EF8E94525F754C700C7EE7D /* Doodle2GatherUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8E94425F754C700C7EE7D /* Doodle2GatherUITests.swift */; };
+		2EFF38DC261AAEF400488289 /* StrokeEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFF38DB261AAEF400488289 /* StrokeEditorViewController.swift */; };
+		2EFF38E0261AAF2000488289 /* StrokeEditorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFF38DF261AAF2000488289 /* StrokeEditorDelegate.swift */; };
+		2EFF38EA261AAF9A00488289 /* DoodleConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFF38E9261AAF9A00488289 /* DoodleConstants.swift */; };
+		2EFF38F0261AB2F300488289 /* StrokeEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFF38EF261AB2F300488289 /* StrokeEditor.swift */; };
 		67B62AB926198F8B0062037E /* DTApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B62AB826198F8B0062037E /* DTApi.swift */; };
 		67B62B4C2619BB980062037E /* DTWebSocketController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B62B4B2619BB980062037E /* DTWebSocketController.swift */; };
 		67B62B662619CEF10062037E /* DTSharedLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 67B62B652619CEF10062037E /* DTSharedLibrary */; };
@@ -122,7 +125,6 @@
 		2E146CC026190246001F6845 /* Participants.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Participants.storyboard; sourceTree = "<group>"; };
 		2E3F8FAD2607380100C58F33 /* Pods_Doodle2Gather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Doodle2Gather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E4A0B412616FDFF003257D4 /* PKDrawing+StrokesFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PKDrawing+StrokesFrame.swift"; sourceTree = "<group>"; };
-		2E7AA3E8261963AF0028A013 /* DoodleViewController+Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DoodleViewController+Constants.swift"; sourceTree = "<group>"; };
 		2E8AC71D2613F3020033869E /* DTFrontendLibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DTFrontendLibrary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E8AC7492613F4C90033869E /* DTCanvasViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTCanvasViewController.swift; sourceTree = "<group>"; };
 		2E8AC7A52613F9460033869E /* DoodleAutomerge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DoodleAutomerge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -154,6 +156,10 @@
 		2EF8E94025F754C700C7EE7D /* Doodle2GatherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Doodle2GatherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EF8E94425F754C700C7EE7D /* Doodle2GatherUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doodle2GatherUITests.swift; sourceTree = "<group>"; };
 		2EF8E94625F754C700C7EE7D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2EFF38DB261AAEF400488289 /* StrokeEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeEditorViewController.swift; sourceTree = "<group>"; };
+		2EFF38DF261AAF2000488289 /* StrokeEditorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeEditorDelegate.swift; sourceTree = "<group>"; };
+		2EFF38E9261AAF9A00488289 /* DoodleConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodleConstants.swift; sourceTree = "<group>"; };
+		2EFF38EF261AB2F300488289 /* StrokeEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeEditor.swift; sourceTree = "<group>"; };
 		5630A42182E9C28155E1A130 /* Pods-Doodle2Gather.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Doodle2Gather.release.xcconfig"; path = "Target Support Files/Pods-Doodle2Gather/Pods-Doodle2Gather.release.xcconfig"; sourceTree = "<group>"; };
 		67B62AB826198F8B0062037E /* DTApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTApi.swift; sourceTree = "<group>"; };
 		67B62B4B2619BB980062037E /* DTWebSocketController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTWebSocketController.swift; sourceTree = "<group>"; };
@@ -269,6 +275,7 @@
 				2ED629852618FFE6009F92D0 /* Agora */,
 				2ED6297E2618FEEB009F92D0 /* Chat */,
 				2ED629822618FFD6009F92D0 /* Doodling */,
+				2EFF38DA261AAED300488289 /* Stroke Editor */,
 			);
 			path = Adapters;
 			sourceTree = "<group>";
@@ -381,7 +388,6 @@
 			isa = PBXGroup;
 			children = (
 				2ED7A3CB2601C0450006D873 /* DoodleViewController.swift */,
-				2E7AA3E8261963AF0028A013 /* DoodleViewController+Constants.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -535,6 +541,16 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		2EFF38DA261AAED300488289 /* Stroke Editor */ = {
+			isa = PBXGroup;
+			children = (
+				2EFF38DB261AAEF400488289 /* StrokeEditorViewController.swift */,
+				2EFF38DF261AAF2000488289 /* StrokeEditorDelegate.swift */,
+				2EFF38EF261AB2F300488289 /* StrokeEditor.swift */,
+			);
+			path = "Stroke Editor";
+			sourceTree = "<group>";
+		};
 		67B62B4A2619BB980062037E /* WebSocket */ = {
 			isa = PBXGroup;
 			children = (
@@ -649,6 +665,7 @@
 				84EEC6C226102B5100876F66 /* ConferenceConstants.swift */,
 				84D802F22616CB480096692E /* SegueConstants.swift */,
 				2E07C4232619B3EA003A87C9 /* UIConstants.swift */,
+				2EFF38E9261AAF9A00488289 /* DoodleConstants.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -995,6 +1012,7 @@
 				84D802F32616CB480096692E /* SegueConstants.swift in Sources */,
 				83F588EB2619242A00BB9F07 /* DTAbstractAuthProvider.swift in Sources */,
 				2EA8C2FA2605E51500BE750C /* CanvasController.swift in Sources */,
+				2EFF38EA261AAF9A00488289 /* DoodleConstants.swift in Sources */,
 				2EA8C335260677C800BE750C /* PKDrawing+DTDrawing.swift in Sources */,
 				848F35472614174000AD46C6 /* Message.swift in Sources */,
 				84D803B326174EDC0096692E /* DocumentPreviewCell.swift in Sources */,
@@ -1018,10 +1036,11 @@
 				2E987E7D26075C0200352E7D /* SocketController.swift in Sources */,
 				84E9595C260D757700D587CC /* ChatEngine.swift in Sources */,
 				67B62B4C2619BB980062037E /* DTWebSocketController.swift in Sources */,
+				2EFF38F0261AB2F300488289 /* StrokeEditor.swift in Sources */,
 				2EA8C3052605E5B700BE750C /* CanvasControllerDelegate.swift in Sources */,
 				2E01245F26195B8400A38B77 /* BorderedShadowedView.swift in Sources */,
 				2E987E8226075C5200352E7D /* SocketControllerDelegate.swift in Sources */,
-				2E7AA3E9261963AF0028A013 /* DoodleViewController+Constants.swift in Sources */,
+				2EFF38E0261AAF2000488289 /* StrokeEditorDelegate.swift in Sources */,
 				84A451D52614709400DFCA75 /* GalleryViewController.swift in Sources */,
 				84D803C026186E7C0096692E /* NewDocumentViewController.swift in Sources */,
 				84E95966260D805C00D587CC /* ChatBoxDelegate.swift in Sources */,
@@ -1037,6 +1056,7 @@
 				8326080D26147FC600B90F25 /* DTAbstractLogger.swift in Sources */,
 				2E07C4242619B3EA003A87C9 /* UIConstants.swift in Sources */,
 				84E9594F260D754100D587CC /* VideoEngine.swift in Sources */,
+				2EFF38DC261AAEF400488289 /* StrokeEditorViewController.swift in Sources */,
 				2EA8C3002605E57900BE750C /* DTAction.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

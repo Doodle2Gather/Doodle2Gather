@@ -272,14 +272,11 @@
                                                     <constraint firstAttribute="width" constant="40" id="wvl-gz-hCe"/>
                                                 </constraints>
                                             </imageView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lS9-7Y-8ju" userLabel="Color Picker Button">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dae-hy-jiK" userLabel="Color Picker Button Container">
                                                 <rect key="frame" x="0.0" y="230" width="40" height="40"/>
-                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="UHj-mC-ujH"/>
-                                                    <constraint firstAttribute="width" constant="40" id="ZLE-9j-S17"/>
-                                                    <constraint firstAttribute="height" constant="40" id="g4g-vx-2yP"/>
-                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="sfH-YP-vkj"/>
+                                                    <constraint firstAttribute="width" constant="40" id="RB8-K0-ntQ"/>
+                                                    <constraint firstAttribute="height" constant="40" id="hb6-Dy-JFp"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -289,14 +286,8 @@
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
                                                         <real key="value" value="3"/>
                                                     </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                        <real key="value" value="20"/>
-                                                    </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="colorPickerButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="j76-2J-Sd1"/>
-                                                </connections>
-                                            </button>
+                                            </view>
                                         </subviews>
                                     </stackView>
                                 </subviews>
@@ -577,10 +568,21 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <containerView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DHu-9F-THM">
+                                <rect key="frame" x="152" y="422.5" width="220" height="349"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="349" id="cVL-QR-mEA"/>
+                                    <constraint firstAttribute="width" constant="220" id="lpz-NM-W4V"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="f3u-GT-n82" kind="embed" identifier="toStrokeEditor" id="omX-tt-d4U"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="1p6-Mf-pnl"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="DHu-9F-THM" firstAttribute="leading" secondItem="4Xj-kh-aUN" secondAttribute="trailing" constant="10" id="4Sk-s4-h0i"/>
                             <constraint firstItem="CRw-tT-Mu5" firstAttribute="trailing" secondItem="Rvn-Q8-Irn" secondAttribute="trailing" id="5Wa-E0-WET"/>
                             <constraint firstItem="CRw-tT-Mu5" firstAttribute="leading" secondItem="Rvn-Q8-Irn" secondAttribute="leading" id="8jE-v5-stq"/>
                             <constraint firstItem="Pn5-xG-qj1" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" constant="12" id="AUa-rT-WMa"/>
@@ -597,6 +599,7 @@
                             <constraint firstItem="4Xj-kh-aUN" firstAttribute="centerY" secondItem="Rvn-Q8-Irn" secondAttribute="centerY" id="Vhb-2b-DLJ"/>
                             <constraint firstItem="HdL-Pj-pPB" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" constant="12" id="nVn-9r-nOE"/>
                             <constraint firstItem="lOM-bA-4te" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" constant="12" id="o7i-Qk-N3e"/>
+                            <constraint firstItem="DHu-9F-THM" firstAttribute="centerY" secondItem="Rvn-Q8-Irn" secondAttribute="centerY" id="tNa-Fr-mIz"/>
                             <constraint firstItem="Gvt-x0-wpX" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" constant="12" id="xlO-w9-H22"/>
                             <constraint firstItem="CRw-tT-Mu5" firstAttribute="top" secondItem="Rvn-Q8-Irn" secondAttribute="top" id="yf0-Dt-Yxp"/>
                             <constraint firstItem="2v7-Hc-qJ9" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" id="yyv-Qd-LDk"/>
@@ -605,7 +608,8 @@
                     </view>
                     <connections>
                         <outlet property="auxiliaryButtonsView" destination="4Xj-kh-aUN" id="w6p-q7-6pF"/>
-                        <outlet property="colorPickerButton" destination="lS9-7Y-8ju" id="7bR-ze-gOq"/>
+                        <outlet property="colorPickerButton" destination="Dae-hy-jiK" id="HnN-jF-uPY"/>
+                        <outlet property="colorPickerView" destination="DHu-9F-THM" id="daN-at-Zo2"/>
                         <outlet property="cursorButton" destination="ryu-pR-t2y" id="Rh3-fR-798"/>
                         <outlet property="drawButton" destination="IP2-Vo-DRb" id="pWr-wH-aee"/>
                         <outlet property="eraserButton" destination="kjq-AY-SZg" id="gZs-d9-Zd1"/>
@@ -821,8 +825,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hzX-Ab-qkC" userLabel="Top Control View">
                                 <rect key="frame" x="622" y="82" width="200" height="40"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Galley View" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5fP-1P-WgX">
-                                        <rect key="frame" x="50" y="9.5" width="100" height="21.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gallery View" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5fP-1P-WgX">
+                                        <rect key="frame" x="46.5" y="9.5" width="107.5" height="21.5"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -889,6 +893,80 @@
             </objects>
             <point key="canvasLocation" x="119" y="1248"/>
         </scene>
+        <!--Stroke Editor View Controller-->
+        <scene sceneID="8do-Og-esA">
+            <objects>
+                <viewController id="f3u-GT-n82" customClass="StrokeEditorViewController" customModule="Doodle2Gather" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="EdR-su-kl5">
+                        <rect key="frame" x="0.0" y="0.0" width="220" height="349"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Opacity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PLY-yL-d2I">
+                                <rect key="frame" x="20" y="279.5" width="47" height="14.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                <color key="textColor" name="Stack Grey"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="10" minValue="0.90000000000000002" maxValue="25" translatesAutoresizingMaskIntoConstraints="NO" id="4us-Kh-IeZ">
+                                <rect key="frame" x="18" y="239.5" width="184" height="31"/>
+                                <color key="tintColor" name="Stack Grey"/>
+                                <connections>
+                                    <action selector="widthSliderDidChange:" destination="rZI-TI-AZo" eventType="valueChanged" id="5aF-7P-PzR"/>
+                                    <action selector="widthSliderDidChange:" destination="f3u-GT-n82" eventType="valueChanged" id="QVF-XK-tN3"/>
+                                </connections>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thickness" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ofg-dp-oic">
+                                <rect key="frame" x="20" y="220" width="61.5" height="14.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                <color key="textColor" name="Stack Grey"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="4nb-lR-em6">
+                                <rect key="frame" x="18" y="299" width="184" height="31"/>
+                                <color key="tintColor" name="Stack Grey"/>
+                                <connections>
+                                    <action selector="opacitySliderDidChange:" destination="f3u-GT-n82" eventType="valueChanged" id="Wtn-pm-FNa"/>
+                                    <action selector="opacitySliderDidChange:" destination="rZI-TI-AZo" eventType="valueChanged" id="oPE-PU-yHk"/>
+                                </connections>
+                            </slider>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Fbs-ge-CUi"/>
+                        <color key="backgroundColor" name="Black"/>
+                        <constraints>
+                            <constraint firstItem="4nb-lR-em6" firstAttribute="top" secondItem="PLY-yL-d2I" secondAttribute="bottom" constant="5" id="Fs3-9N-DcX"/>
+                            <constraint firstItem="ofg-dp-oic" firstAttribute="leading" secondItem="EdR-su-kl5" secondAttribute="leading" constant="20" id="Tfz-OW-kf0"/>
+                            <constraint firstAttribute="trailing" secondItem="4us-Kh-IeZ" secondAttribute="trailing" constant="20" id="Vpp-jc-o0C"/>
+                            <constraint firstItem="4nb-lR-em6" firstAttribute="trailing" secondItem="EdR-su-kl5" secondAttribute="trailing" constant="-20" id="dRT-bH-Dxn"/>
+                            <constraint firstItem="4us-Kh-IeZ" firstAttribute="leading" secondItem="EdR-su-kl5" secondAttribute="leading" constant="20" id="mUA-7k-46u"/>
+                            <constraint firstItem="4nb-lR-em6" firstAttribute="leading" secondItem="EdR-su-kl5" secondAttribute="leading" constant="20" id="pUW-ih-OYh"/>
+                            <constraint firstItem="4us-Kh-IeZ" firstAttribute="top" secondItem="ofg-dp-oic" secondAttribute="bottom" constant="5" id="rXZ-uQ-FLo"/>
+                            <constraint firstItem="4nb-lR-em6" firstAttribute="bottom" secondItem="EdR-su-kl5" secondAttribute="bottom" constant="-20" id="wPu-Be-KgY"/>
+                            <constraint firstItem="PLY-yL-d2I" firstAttribute="top" secondItem="4us-Kh-IeZ" secondAttribute="bottom" constant="10" id="xPH-vn-yao"/>
+                            <constraint firstItem="PLY-yL-d2I" firstAttribute="leading" secondItem="EdR-su-kl5" secondAttribute="leading" constant="20" id="xbP-uh-VTy"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <real key="value" value="20"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                <real key="value" value="20"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                <size key="value" width="0.0" height="0.0"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                <real key="value" value="0.40000000000000002"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <connections>
+                        <outlet property="widthSlider" destination="4us-Kh-IeZ" id="F8c-4Z-rhL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8Rm-lo-CxR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-437" y="76"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Alarm" width="24" height="24"/>
@@ -929,6 +1007,9 @@
         <image name="VideoOn" width="24" height="24"/>
         <namedColor name="Black">
             <color red="0.125" green="0.125" blue="0.11400000005960464" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Stack Grey">
+            <color red="0.54500001668930054" green="0.54500001668930054" blue="0.54500001668930054" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="White">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
