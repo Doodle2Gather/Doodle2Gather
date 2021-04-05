@@ -23,5 +23,7 @@ class ActiveRoomController {
 }
 
 extension DTAdaptedDoodle {
-
+    func ifStrokeAtIndex(_ stroke: DTAdaptedStroke, _ index: Int) -> Bool {
+        getStroke(at: index) == stroke
+    }
 }

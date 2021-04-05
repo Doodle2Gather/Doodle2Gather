@@ -10,6 +10,14 @@ public struct DTAdaptedDoodle: Codable {
         self.roomId = roomId
     }
 
+    public var strokeCount: Int {
+        strokes.count
+    }
+
+    public func getStroke(at index: Int) -> DTAdaptedStroke {
+        strokes[index]
+    }
+
 }
 
 // MARK: - Hashable
