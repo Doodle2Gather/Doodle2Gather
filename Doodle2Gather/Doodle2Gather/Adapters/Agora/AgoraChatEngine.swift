@@ -16,7 +16,6 @@ class AgoraChatEngine: NSObject, ChatEngine {
     func initialize() {
         agoraRtmKit = AgoraRtmKit(appId: ConferenceConstants.appID, delegate: self)
         agoraRtmKit?.agoraRtmDelegate = self
-        getAgoraTokenAndJoinChannel(channelName: "testing")
     }
 
     // TODO: Currently reusing the logic for video, need to change to our own user model
@@ -49,7 +48,7 @@ class AgoraChatEngine: NSObject, ChatEngine {
                         DTLogger.error("Error with logging in to Agora server: code \(errorCode.rawValue)")
                         return
                     }
-                    self.joinChannel(channelName: channelName)
+                    self.createOrJoinChannel(channelName: channelName)
                 }
             }
 
@@ -58,6 +57,10 @@ class AgoraChatEngine: NSObject, ChatEngine {
     }
 
     func joinChannel(channelName: String) {
+        getAgoraTokenAndJoinChannel(channelName: channelName)
+    }
+
+    private func createOrJoinChannel(channelName: String) {
         guard let rtmChannel = agoraRtmKit?.createChannel(withId: channelName, delegate: self) else {
             DTLogger.error("Unable to create or attach to channel: \(channelName)")
             return

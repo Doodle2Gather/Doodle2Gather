@@ -22,4 +22,7 @@ enum UIConstants {
     static let defaultHighlighterWidth: Float = 12
     static let minHighlighterWidth: Float = 8
     static let maxHighlighterWidth: Float = 34
+
+    static let smallOffset: CGFloat = 10
+    static let largeOffset: CGFloat = 12
 }
