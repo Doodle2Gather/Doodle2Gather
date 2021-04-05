@@ -1,6 +1,7 @@
 PODS:
   - AgoraRtcEngine_iOS (3.3.1)
   - AgoraRtm_iOS (1.4.3)
+  - Alamofire (5.4.2)
   - EasyNotificationBadge (1.2.5)
   - Firebase/Auth (7.9.0):
     - Firebase/CoreOnly
@@ -58,6 +59,7 @@ PODS:
 DEPENDENCIES:
   - AgoraRtcEngine_iOS
   - AgoraRtm_iOS
+  - Alamofire
   - EasyNotificationBadge
   - Firebase/Auth
   - MessageKit
@@ -68,6 +70,7 @@ SPEC REPOS:
   trunk:
     - AgoraRtcEngine_iOS
     - AgoraRtm_iOS
+    - Alamofire
     - EasyNotificationBadge
     - Firebase
     - FirebaseAuth
@@ -86,6 +89,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   AgoraRtcEngine_iOS: 17e55feec1bde14adc30fd9d743332d1e7821b62
   AgoraRtm_iOS: 178257883dd6773d3d26ca51045456c35221b715
+  Alamofire: bfbc4c2fe5909b1d94fb4ef2277c6b3727ef5dae
   EasyNotificationBadge: a3ebbcb1de0c0558e102e954380c75801f352702
   Firebase: d8bd6bd34b4c7ed57bfdd056c66ff5adcdde53ab
   FirebaseAuth: 20625f04fdd213995249a82375b3dab39b1c136c
@@ -101,6 +105,6 @@ SPEC CHECKSUMS:
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   Willow: 8efe9bd7bb99b06fe017566848492748b763a0ac
 
-PODFILE CHECKSUM: 5a24a47dd973544f6562182de41a1f0b77454d1b
+PODFILE CHECKSUM: 8066b97f5f630311521b577a4c138da018c7ea95
 
 COCOAPODS: 1.10.1
