@@ -13,7 +13,7 @@ protocol CanvasControllerDelegate: AnyObject {
 
     /// Informs the delegate that the zoom of the canvas has changed.
     func canvasZoomScaleDidChange(scale: CGFloat)
-    
+
     /// Informs the delegate to refetch the doodles.
     func refetchDoodles()
 
