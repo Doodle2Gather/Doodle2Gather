@@ -23,7 +23,20 @@ class ActiveRoomController {
 }
 
 extension DTAdaptedDoodle {
-    func ifStrokeAtIndex(_ stroke: DTAdaptedStroke, _ index: Int) -> Bool {
+
+    /// Searching forward in the strokes array, to find the first matched stroke index
+    /// `nil` is returned if no match is found
+    func findFirstMatchIndex(for stroke: DTAdaptedStroke, startingFrom index: Int) -> Int? {
+        for currIndex in (0...index).reversed() {
+            if checkIfStrokeIsAtIndex(stroke, at: currIndex) {
+                return currIndex
+            }
+        }
+        return nil
+    }
+    
+    func checkIfStrokeIsAtIndex(_ stroke: DTAdaptedStroke, at index: Int) -> Bool {
         getStroke(at: index) == stroke
     }
 }
+
