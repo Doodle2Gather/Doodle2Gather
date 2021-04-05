@@ -31,6 +31,7 @@ class DTCanvasViewController: UIViewController {
         canvasView.delegate = self
         canvasView.drawing = doodle
         canvasView.contentSize = Constants.canvasSize
+        canvasView.setWidth(CGFloat(UIConstants.defaultPenWidth))
     }
 
     override func viewDidLayoutSubviews() {
@@ -152,8 +153,8 @@ extension DTCanvasViewController: CanvasController {
         canvasView.setColor(color)
     }
 
-    func setSize(_ size: Float) {
-        canvasView.setWidth(CGFloat(size))
+    func setSize(_ size: CGFloat) {
+        canvasView.setWidth(size)
     }
 
     func resetZoomScale() {
