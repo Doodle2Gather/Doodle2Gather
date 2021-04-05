@@ -46,7 +46,7 @@ extension PKCanvasView {
         case .highlighter:
             self.tool = PKInkingTool(.marker, color: color, width: width)
         case .eraser:
-            self.tool = PKEraserTool(.bitmap)
+            self.tool = PKEraserTool(.vector)
         case .lasso:
             self.tool = PKLassoTool()
         }
