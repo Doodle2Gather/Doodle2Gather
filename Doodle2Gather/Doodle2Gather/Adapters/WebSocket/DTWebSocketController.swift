@@ -61,6 +61,8 @@ final class DTWebSocketController {
                 try self.handleActionFeedback(data)
             case .dispatchAction:
                 try self.handleDispatchedAction(data)
+            case .fetchDoodle:
+                try self.handleFetchDoodle(data)
             case .clearDrawing:
                 try self.handleClearDrawing(data)
             default:
@@ -94,6 +96,15 @@ final class DTWebSocketController {
             } else {
                 DTLogger.error(dispatch.message)
             }
+        }
+    }
+
+    func handleFetchDoodle(_ data: Data) throws {
+         let fetch = try decoder.decode(DTFetchDoodleMessage.self, from: data)
+        DispatchQueue.main.async {
+            let doodles = fetch.doodles
+            // convert doodles from DTAdaptedDoodle to DTDoodle
+            // self.delegate?.loadDoodles(fetch.doodles)
         }
     }
 
@@ -152,6 +163,9 @@ extension DTWebSocketController: SocketController {
     func refetchDoodles() {
         // TODO: XinYue please help!!
         // But this should call delegate?.loadDoodles(doodles)
+
+        // FE does not call backend to refetch. Instead, backend will send
+        // DTFetchDoodleMessage containing the newly fetched doodles whenever there is a conflict.
     }
 
 }
