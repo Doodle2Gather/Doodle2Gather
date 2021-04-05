@@ -149,4 +149,8 @@ extension DTWebSocketController: SocketController {
         }
     }
 
+    func refetchDoodles() {
+        // TODO: XinYue please help!!
+    }
+
 }

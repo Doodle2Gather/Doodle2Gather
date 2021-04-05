@@ -340,7 +340,8 @@ extension DTCanvasViewController: DTActionQueueDelegate {
     }
 
     private func refetchDoodles() {
-        print("Refetching...")
+        DTLogger.event("Refetching doodles...")
+        delegate?.refetchDoodles()
     }
 
 }

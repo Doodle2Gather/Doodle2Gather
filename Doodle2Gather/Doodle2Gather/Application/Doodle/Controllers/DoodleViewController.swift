@@ -239,6 +239,10 @@ extension DoodleViewController: CanvasControllerDelegate {
         let scalePercent = Int(scale * 100)
         zoomScaleLabel.text = "\(scalePercent)%"
     }
+    
+    func refetchDoodles() {
+        socketController?.refetchDoodles()
+    }
 
 }
 

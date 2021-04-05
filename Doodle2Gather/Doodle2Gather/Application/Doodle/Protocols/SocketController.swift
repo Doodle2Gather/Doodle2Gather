@@ -3,4 +3,6 @@ protocol SocketController {
     func addAction(_ action: DTNewAction)
 
     func clearDrawing()
+
+    func refetchDoodles()
 }
