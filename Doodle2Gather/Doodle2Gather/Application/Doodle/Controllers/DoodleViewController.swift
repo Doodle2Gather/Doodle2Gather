@@ -263,6 +263,11 @@ extension DoodleViewController: SocketControllerDelegate {
     func clearDrawing() {
         canvasController?.clearDoodle()
     }
+
+    func loadDoodles<D>(_ doodles: [D]) where D: DTDoodle {
+        canvasController?.loadDoodles(doodles)
+    }
+
 }
 
 extension DoodleViewController: StrokeEditorDelegate {

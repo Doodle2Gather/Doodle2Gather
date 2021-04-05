@@ -9,10 +9,19 @@ import DTSharedLibrary
 /// easily swapped out without breaking any existing functionality.
 class DTCanvasViewController: UIViewController {
 
+    /// Paginated doodles
+    var doodles = [PKDrawing]()
     /// Main canvas view that we will work with.
     var canvasView = PKCanvasView()
     /// Doodle that will be injected into this controller.
-    var doodle = PKDrawing()
+    var currentDoodle = PKDrawing()
+    var currentDoodleIndex = 0 {
+        didSet {
+            doodles[oldValue] = currentDoodle
+            currentDoodle = doodles[currentDoodleIndex]
+            canvasView.drawing = currentDoodle
+        }
+    }
     /// Delegate for action dispatching.
     internal weak var delegate: CanvasControllerDelegate?
     private let shapeDetector: ShapeDetector = BestFitShapeDetector()
@@ -48,9 +57,15 @@ class DTCanvasViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        if doodles.isEmpty {
+            doodles.append(PKDrawing())
+        }
+        currentDoodleIndex = min(currentDoodleIndex, doodles.count - 1)
+        currentDoodle = doodles[currentDoodleIndex]
+
         addCanvasView()
         canvasView.delegate = self
-        canvasView.drawing = doodle
+        canvasView.drawing = currentDoodle
         canvasView.contentSize = Constants.canvasSize
         canvasView.setWidth(CGFloat(UIConstants.defaultPenWidth))
 
@@ -104,7 +119,7 @@ extension DTCanvasViewController: PKCanvasViewDelegate {
         }
 
         let newStrokes = canvas.drawing.dtStrokes
-        let oldStrokes = doodle.dtStrokes
+        let oldStrokes = currentDoodle.dtStrokes
 
         switch currentActionType {
         case .add:
@@ -117,7 +132,7 @@ extension DTCanvasViewController: PKCanvasViewDelegate {
             break
         }
 
-        doodle = PKDrawing(strokes: newStrokes)
+        currentDoodle = PKDrawing(strokes: newStrokes)
         isDoodling = false
     }
 
@@ -129,7 +144,7 @@ extension DTCanvasViewController: PKCanvasViewDelegate {
         // Unload cached actions
         isSelfUpdate = true
         let cachedDrawing = canvasView.drawing
-        canvasView.drawing = doodle
+        canvasView.drawing = currentDoodle
 
         while let action = actionQueue.dequeueAction() {
             dispatchActionQuietly(action)
@@ -214,9 +229,11 @@ extension DTCanvasViewController: CanvasController {
     }
 
     // Note: This method does not fire off an Action.
-    func loadDoodle<D: DTDoodle>(_ doodle: D) {
-        self.doodle = PKDrawing(from: doodle)
-        canvasView.drawing = self.doodle
+    func loadDoodles<D: DTDoodle>(_ doodles: [D]) {
+        self.doodles = doodles.compactMap { PKDrawing(from: $0) }
+        currentDoodleIndex = min(currentDoodleIndex, self.doodles.count - 1)
+        currentDoodle = PKDrawing(from: doodles[currentDoodleIndex])
+        canvasView.drawing = currentDoodle
     }
 
     func clearDoodle() {
@@ -298,19 +315,19 @@ extension DTCanvasViewController: DTActionQueueDelegate {
     }
 
     private func addPairQuietly(index: Int, stroke: PKStroke) throws {
-        var doodleCopy = doodle
+        var doodleCopy = currentDoodle
         if doodleCopy.strokes.count != index {
             DTLogger.error("Failed to add pairs quietly")
             throw DTCanvasError.indexMismatch
         }
         doodleCopy.addStrokes([stroke])
-        doodle = doodleCopy
+        currentDoodle = doodleCopy
         canvasView.drawing = doodleCopy
     }
 
     /// Removes the given pairs quietly.
     private func removePairsQuietly(indices: [Int], strokes: [PKStroke]) throws {
-        var doodleCopy = doodle
+        var doodleCopy = currentDoodle
         for (i, index) in indices.enumerated() {
             if index >= doodleCopy.strokes.count {
                 DTLogger.error("Failed to remove pairs quietly")
@@ -324,18 +341,18 @@ extension DTCanvasViewController: DTActionQueueDelegate {
             }
             doodleCopy.removeStrokes([stroke])
         }
-        doodle = doodleCopy
+        currentDoodle = doodleCopy
         canvasView.drawing = doodleCopy
     }
 
     private func modifyPairQuietly(index: Int, stroke: PKStroke) throws {
-        var doodleCopy = doodle
+        var doodleCopy = currentDoodle
         if index >= doodleCopy.strokes.count || doodleCopy.strokes[index] != stroke {
             DTLogger.error("Failed to modify pairs quietly")
             throw DTCanvasError.indexMismatch
         }
         doodleCopy.strokes[index] = stroke
-        doodle = doodleCopy
+        currentDoodle = doodleCopy
         canvasView.drawing = doodleCopy
     }
 

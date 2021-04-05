@@ -11,8 +11,8 @@ protocol CanvasController {
     /// Dispatches an action that will update the canvas accordingly.
     func dispatchAction(_ action: DTNewAction)
 
-    /// Loads a given `DTDoodle`.
-    func loadDoodle<D: DTDoodle>(_ doodle: D)
+    /// Loads a given array of `DTDoodle`s.
+    func loadDoodles<D: DTDoodle>(_ doodles: [D])
 
     /// Clears the canvas.
     func clearDoodle()
