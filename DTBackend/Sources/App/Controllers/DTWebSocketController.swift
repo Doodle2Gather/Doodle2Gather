@@ -21,20 +21,24 @@ struct DTWebSocketController: RouteCollection {
             req.logger.error("Missing roomId")
             return
         }
-        webSocketsManager.directToWebSocketController(socket: socket, roomId: roomId)
-        req.logger.info("User joined room \(roomId)")
+        guard let id = UUID(uuidString: roomId) else {
+            req.logger.error("Invalid roomId")
+            return
+        }
+        webSocketsManager.directToWebSocketController(socket: socket, roomId: id)
+        req.logger.info("User joined room \(id.uuidString)")
     }
 }
 
 private class DTWebSocketsManager {
     let db: Database
-    var wsControllers = [String : WebSocketController]()
+    var wsControllers = [UUID : WebSocketController]()
     
     init(db: Database) {
         self.db = db
     }
     
-    func directToWebSocketController(socket: WebSocket, roomId: String) {
+    func directToWebSocketController(socket: WebSocket, roomId: UUID) {
         let wsController = wsControllers[roomId, default: WebSocketController(roomId: roomId, db: db)]
         wsControllers[roomId] = wsController
         wsController.connect(socket)

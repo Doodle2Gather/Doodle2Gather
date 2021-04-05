@@ -12,10 +12,10 @@ class WebSocketController {
     let db: Database
     let logger: Logger
 
-    let roomId: String
+    let roomId: UUID
     let roomController: ActiveRoomController
 
-    init(roomId: String , db: Database) {
+    init(roomId: UUID , db: Database) {
         self.lock = Lock()
         self.sockets = [:]
         self.db = db
@@ -60,19 +60,7 @@ class WebSocketController {
         }
         self.send(message: DTHandshake(id: uuid), to: [.socket(ws)])
 
-        // TODO: replace with RESTful route
-//        PersistedDTAction.query(on: self.db).all().whenComplete { res in
-//            switch res {
-//            case .failure(let err):
-//                self.logger.report(error: err)
-//
-//            case .success(let actions):
-//                self.logger.info("Load existing action. Action count: \(actions.count)")
-//                actions.forEach {
-//                    self.dispatchActionToPeers($0, to: [.socket(ws)])
-//                }
-//            }
-//        }
+        self.fetchDoodles()
     }
 
     func onData(_ ws: WebSocket, _ data: Data) {
@@ -182,6 +170,36 @@ class WebSocketController {
             logger.report(error: error)
         }
     }
+    
+    func fetchDoodles(_ ws: WebSocket) {
+        if !roomController.hasFetchedDoodles {
+            PersistedDTRoom.getAllDoodles(roomId, on: self.db)
+                .flatMapThrowing{ $0.map(DTAdaptedDoodle.init) }
+                .whenComplete { res in
+                switch res {
+                case .failure(let err):
+                    self.logger.report(error: err)
+
+                case .success(let doodles):
+                    self.logger.info("Fetching existing doodles.")
+                    self.sendFetchedDoodles(doodles, to: [.socket(ws)])
+                }
+            }
+        } else {
+            self.sendFetchedDoodles(roomController.doodleArray, to: [.socket(ws)])
+        }
+    }
+    
+    func sendFetchedDoodles(_ doodles: [DTAdaptedDoodle], to sendOptions: [WebSocketSendOption],
+                               success: Bool = true, message: String = "") {
+        self.logger.info("Fetched doodles!")
+        self.send(message: DTFetchDoodleMessage(
+            success: success,
+            message: message,
+            doodles: doodles
+        ), to: sendOptions)
+    }
+
 
     func dispatchActionToPeers(_ action: DTAdaptedAction, to sendOptions: [WebSocketSendOption],
                                success: Bool = true, message: String = "") {

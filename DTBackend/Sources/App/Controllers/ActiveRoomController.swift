@@ -4,22 +4,44 @@ import DTSharedLibrary
 
 class ActiveRoomController {
     
-    let roomId: String
+    let roomId: UUID
     
     var doodles: [UUID: DTAdaptedDoodle]
 
     let db: Database
     let logger: Logger
+    
+    var hasFetchedDoodles: Bool = false
 
-    init(roomId: String, db: Database) {
+    init(roomId: UUID, db: Database) {
         doodles = [UUID: DTAdaptedDoodle]()
         self.roomId = roomId
         self.db = db
         self.logger = Logger(label: "ActiveRoomController")
+        
+        joinRoom(roomId)
+        
     }
 
-    var doodleIds: Set<UUID> {
-        Set(doodles.keys)
+    var doodleArray: [DTAdaptedDoodle] {
+        Array(doodles.values)
+    }
+    
+    func joinRoom(_ roomId: UUID) {
+        PersistedDTRoom.getAllDoodles(roomId, on: self.db).whenComplete { res in
+            switch res {
+            case .failure(let err):
+                self.logger.report(error: err)
+            case .success(let doodles):
+                for doodle in doodles {
+                    if let doodleId = try? doodle.requireID() {
+                        self.doodles[doodleId] =
+                            DTAdaptedDoodle(doodle: doodle)
+                    }
+                }
+                self.hasFetchedDoodles = true
+            }
+        }
     }
 
     func process(_ action: DTAdaptedAction) -> DTAdaptedAction? {
@@ -70,22 +92,6 @@ class ActiveRoomController {
         }
 
         return action.getNewAction(with: pairs)
-    }
-
-    func joinRoom(_ roomId: UUID) {
-        PersistedDTRoom.getAllDoodles(roomId, on: self.db).whenComplete { res in
-            switch res {
-            case .failure(let err):
-                self.logger.report(error: err)
-            case .success(let doodles):
-                for doodle in doodles {
-                    if let doodleId = try? doodle.requireID() {
-                        self.doodles[doodleId] =
-                            DTAdaptedDoodle(doodle: doodle)
-                    }
-                }
-            }
-        }
     }
 
     func addStroke(_ stroke: DTAdaptedStroke) -> [DTStrokeIndexPair]? {
