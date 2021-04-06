@@ -160,11 +160,23 @@ extension DTWebSocketController: SocketController {
     }
 
     func refetchDoodles() {
-        // TODO: XinYue please help!!
-        // But this should call delegate?.loadDoodles(doodles)
+        // Send a request to backend to send back a DTFetchDoodleMessage
+        guard let id = self.id else {
+            return
+        }
+        DTLogger.info("Request fetching doodles.")
 
-        // FE does not call backend to refetch. Instead, backend will send
-        // DTFetchDoodleMessage containing the newly fetched doodles whenever there is a conflict.
+        let message = DTRequestFetchMessage(id: id)
+        do {
+            let data = try encoder.encode(message)
+            self.socket.send(.data(data)) { err in
+                if err != nil {
+                    DTLogger.error(err.debugDescription)
+                }
+            }
+        } catch {
+            DTLogger.error(error.localizedDescription)
+        }
     }
 
 }

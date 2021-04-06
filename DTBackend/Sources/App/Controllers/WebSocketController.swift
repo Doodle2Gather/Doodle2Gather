@@ -72,6 +72,8 @@ class WebSocketController {
                 let newActionData = try decoder.decode(
                     DTInitiateActionMessage.self, from: data)
                 self.onNewAction(ws, decodedData.id, newActionData)
+            case .requestFetch:
+                self.initiateDoodleFetching(ws)
             case .clearDrawing:
                 let actionData = try decoder.decode(
                     DTClearDrawingMessage.self, from: data)
