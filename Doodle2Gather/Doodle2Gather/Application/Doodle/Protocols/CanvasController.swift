@@ -1,5 +1,6 @@
 import UIKit
 import DTFrontendLibrary
+import DTSharedLibrary
 
 /// An interface for a controller that manages the canvas.
 /// This abstracts away all canvas-level operations.
@@ -12,7 +13,7 @@ protocol CanvasController {
     func dispatchAction(_ action: DTNewAction)
 
     /// Loads a given array of `DTDoodle`s.
-    func loadDoodles<D: DTDoodle>(_ doodles: [D])
+    func loadDoodles(_ doodles: [DTAdaptedDoodle])
 
     /// Clears the canvas.
     func clearDoodle()

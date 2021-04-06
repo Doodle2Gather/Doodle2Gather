@@ -1,5 +1,6 @@
 import Foundation
 import DTSharedLibrary
+import DTFrontendLibrary
 
 final class DTWebSocketController {
 
@@ -100,11 +101,9 @@ final class DTWebSocketController {
     }
 
     func handleFetchDoodle(_ data: Data) throws {
-         let fetch = try decoder.decode(DTFetchDoodleMessage.self, from: data)
+        let fetch = try decoder.decode(DTFetchDoodleMessage.self, from: data)
         DispatchQueue.main.async {
-            let doodles = fetch.doodles
-            // convert doodles from DTAdaptedDoodle to DTDoodle
-            // self.delegate?.loadDoodles(fetch.doodles)
+            self.delegate?.loadDoodles(fetch.doodles)
         }
     }
 

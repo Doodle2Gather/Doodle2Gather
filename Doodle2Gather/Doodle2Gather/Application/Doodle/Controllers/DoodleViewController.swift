@@ -264,7 +264,7 @@ extension DoodleViewController: SocketControllerDelegate {
         canvasController?.clearDoodle()
     }
 
-    func loadDoodles<D>(_ doodles: [D]) where D: DTDoodle {
+    func loadDoodles(_ doodles: [DTAdaptedDoodle]) {
         canvasController?.loadDoodles(doodles)
     }
 

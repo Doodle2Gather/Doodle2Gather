@@ -234,7 +234,7 @@ extension DTCanvasViewController: CanvasController {
     }
 
     // Note: This method does not fire off an Action.
-    func loadDoodles<D: DTDoodle>(_ doodles: [D]) {
+    func loadDoodles(_ doodles: [DTAdaptedDoodle]) {
         self.doodles = doodles.compactMap { PKDrawing(from: $0) }
         currentDoodleIndex = min(currentDoodleIndex, self.doodles.count - 1)
         currentDoodle = PKDrawing(from: doodles[currentDoodleIndex])

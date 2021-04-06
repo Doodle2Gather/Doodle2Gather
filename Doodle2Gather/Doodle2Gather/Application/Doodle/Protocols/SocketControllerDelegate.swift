@@ -1,4 +1,5 @@
 import DTFrontendLibrary
+import DTSharedLibrary
 
 protocol SocketControllerDelegate: AnyObject {
 
@@ -6,6 +7,6 @@ protocol SocketControllerDelegate: AnyObject {
 
     func clearDrawing()
 
-    func loadDoodles<D: DTDoodle>(_ doodles: [D])
+    func loadDoodles(_ doodles: [DTAdaptedDoodle])
 
 }
