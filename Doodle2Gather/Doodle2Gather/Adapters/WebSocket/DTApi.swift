@@ -23,6 +23,35 @@ struct DTApi {
                 callback()
             }
     }
+    
+    // MARK: Room
+
+    static func createRoom(name: String, user: String, callback: @escaping () -> Void) {
+        let parameters: [String: String] = [
+            "name": name,
+            "createdBy": user
+        ]
+
+        AF.request("\(baseURLString)/room",
+                   method: .post,
+                   parameters: parameters,
+                   encoder: JSONParameterEncoder.default)
+            .responseJSON { _ in
+                callback()
+            }
+    }
+
+    static func getAllRooms(user: String) {
+        AF.request("\(baseURLString)/user/rooms/\(user)",
+                   method: .get)
+            .responseJSON { response in
+
+                guard let data = response.data else {
+                    return
+                }
+                // let decodedData = try? JSONDecoder().decode(RoomsResponse.self, from: data)
+            }
+    }
 
     // MARK: Strokes
 

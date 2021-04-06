@@ -48,6 +48,7 @@ class DoodleViewController: UIViewController {
     // State
     var username: String?
     var roomName: String?
+    var roomId: UUID?
     private var previousDrawingTool = DrawingTools.pen
 
     override func viewDidLoad() {

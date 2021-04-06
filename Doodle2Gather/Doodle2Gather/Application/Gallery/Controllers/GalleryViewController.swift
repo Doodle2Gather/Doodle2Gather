@@ -76,6 +76,7 @@ extension GalleryViewController: UICollectionViewDelegate {
         }
         vc.username = DefaultValues.username
         vc.roomName = rooms[index].roomName
+        vc.roomId = rooms[index].roomId
         vc.modalPresentationStyle = .fullScreen
         vc.modalTransitionStyle = .flipHorizontal
         self.present(vc, animated: true, completion: nil)
