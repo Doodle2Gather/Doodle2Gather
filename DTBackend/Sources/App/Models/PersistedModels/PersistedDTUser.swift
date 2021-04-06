@@ -15,6 +15,9 @@ final class PersistedDTUser: Model, Content {
 
     @Children(for: \.$createdBy)
     var createdRooms: [PersistedDTRoom]
+    
+    @Siblings(through: PersistedDTUserAccesses.self, from: \.$user, to: \.$room)
+    var accessibleRooms: [PersistedDTRoom]
 
     @Timestamp(key: "created_at", on: .create)
     var createdAt: Date?

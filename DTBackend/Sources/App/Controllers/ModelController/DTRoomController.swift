@@ -7,18 +7,39 @@ private struct DTRoomCreationRequest: Codable {
     var createdBy: String
 }
 
+private struct DTRoomJoinRequest: Codable {
+    var userId: String
+    // Join with either the invite code or room uuid
+    var inviteCode: String?
+    var roomId: String?
+}
+
 struct DTRoomController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         routes.on(Endpoints.Room.createRoom, use: createRoomHandler)
         routes.on(Endpoints.Room.getRoomFromRoomId, use: getRoomFromRoomIdHandler)
         routes.on(Endpoints.Room.getRoomFromInvite, use: getRoomFromInviteHandler)
+        routes.on(Endpoints.Room.joinRoomFromInvite, use: joinRoomFromInviteHandler)
     }
 
     func createRoomHandler(req: Request) throws -> EventLoopFuture<PersistedDTRoom> {
         let newDTRoomRequest = try req.content.decode(DTRoomCreationRequest.self)
         let newDTRoom = PersistedDTRoom(name: newDTRoomRequest.name,
                                         createdBy: newDTRoomRequest.createdBy)
-        return newDTRoom.save(on: req.db).map { newDTRoom }
+        let user = PersistedDTUser.query(on: req.db)
+            .filter(\.$id == newDTRoomRequest.createdBy)
+            .first()
+            .unwrap(or: Abort(.notFound))
+        
+        let save = newDTRoom.save(on: req.db).map {
+            newDTRoom
+        }
+        return save.and(user).flatMap { room, user in
+            user
+                .$accessibleRooms
+                .attach(room, on: req.db)
+                .transform(to: room)
+        }
     }
     
     func getRoomFromInviteHandler(req: Request) throws -> EventLoopFuture<PersistedDTRoom> {
@@ -39,6 +60,48 @@ struct DTRoomController: RouteCollection {
             .filter(\.$id == roomId)
             .first()
             .unwrap(or: Abort(.notFound))
+    }
+    
+    func joinRoomFromInviteHandler(req: Request) throws -> EventLoopFuture<HTTPStatus> {
+        let joinRequest = try req.content.decode(DTRoomJoinRequest.self)
+        
+        if let inviteCode = joinRequest.inviteCode {
+            let room = PersistedDTRoom.query(on: req.db)
+                .filter(\.$inviteCode == inviteCode)
+                .first()
+                .unwrap(or: Abort(.notFound))
+            let user = PersistedDTUser.query(on: req.db)
+                .filter(\.$id == joinRequest.userId)
+                .first()
+                .unwrap(or: Abort(.notFound))
+            return user.and(room).flatMap { user, room in
+                user
+                    .$accessibleRooms
+                    .attach(room, on: req.db)
+                    .transform(to: .created)
+            }
+        }
+        
+        if let roomId = joinRequest.roomId {
+            guard let roomUuid = UUID(uuidString: roomId) else {
+                throw Abort(.badRequest)
+            }
+            let room = PersistedDTRoom.query(on: req.db)
+                .filter(\.$id == roomUuid)
+                .first()
+                .unwrap(or: Abort(.notFound))
+            let user = PersistedDTUser.query(on: req.db)
+                .filter(\.$id == joinRequest.userId)
+                .first()
+                .unwrap(or: Abort(.notFound))
+            return user.and(room).flatMap { user, room in
+                user
+                    .$accessibleRooms
+                    .attach(room, on: req.db)
+                    .transform(to: .created)
+            }
+        }
+        throw Abort(.badRequest)
     }
 
     // TODO: - Change return types to Adapted Models instead

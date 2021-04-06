@@ -15,6 +15,9 @@ final class PersistedDTRoom: Model, Content {
     
     @Parent(key: "created_by")
     var createdBy: PersistedDTUser
+    
+    @Siblings(through: PersistedDTUserAccesses.self, from: \.$room, to: \.$user)
+    var accessibleBy: [PersistedDTUser]
 
     @Children(for: \.$room)
     var doodles: [PersistedDTDoodle]
