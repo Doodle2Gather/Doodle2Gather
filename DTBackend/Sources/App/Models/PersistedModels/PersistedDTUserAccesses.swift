@@ -1,7 +1,8 @@
+import Vapor
 import Fluent
 import Foundation
 
-final class PersistedDTUserAccesses: Model {
+final class PersistedDTUserAccesses: Model, Content {
     static let schema = "users+rooms"
 
     @ID(key: .id)

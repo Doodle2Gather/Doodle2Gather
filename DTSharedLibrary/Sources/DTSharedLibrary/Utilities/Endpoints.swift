@@ -49,6 +49,7 @@ public struct Endpoints {
         public static let root = ["user"]
         public static let createUserInfo = RouteDefinition(root: root, method: .POST, path: [])
         public static let readUserInfo = RouteDefinition(root: root, method: .GET, path: [":id"])
+        public static let readUserRoomsInfo = RouteDefinition(root: root, method: .GET, path: ["rooms", ":id"])
         public static let updateUserInfo = RouteDefinition(root: root, method: .PUT, path: [":id"])
         public static let deleteUserInfo = RouteDefinition(root: root, method: .DELETE, path: [":id"])
     }
