@@ -1,5 +1,4 @@
 import PencilKit
-import DTFrontendLibrary
 
 // MARK: - Adapters for Doodling Models
 

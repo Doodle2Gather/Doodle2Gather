@@ -1,6 +1,5 @@
 import UIKit
 import DTSharedLibrary
-import DTFrontendLibrary
 
 class DoodleViewController: UIViewController {
 
@@ -230,7 +229,7 @@ extension DoodleViewController {
 
 extension DoodleViewController: CanvasControllerDelegate {
 
-    func actionDidFinish(action: DTNewAction) {
+    func actionDidFinish(action: DTAction) {
         socketController?.addAction(action)
     }
 
@@ -250,13 +249,13 @@ extension DoodleViewController: SocketControllerDelegate {
 
     func dispatchChanges<S>(type: DTActionType, strokes: [(S, Int)], doodleId: UUID) where S: DTStroke {
         // TODO: Replace with actual roomId
-        guard let action = DTNewAction(type: type, roomId: UUID(), doodleId: doodleId, strokes: strokes) else {
+        guard let action = DTAction(type: type, roomId: UUID(), doodleId: doodleId, strokes: strokes) else {
             return
         }
         socketController?.addAction(action)
     }
 
-    func dispatchAction(_ action: DTNewAction) {
+    func dispatchAction(_ action: DTAction) {
         canvasController?.dispatchAction(action)
     }
 

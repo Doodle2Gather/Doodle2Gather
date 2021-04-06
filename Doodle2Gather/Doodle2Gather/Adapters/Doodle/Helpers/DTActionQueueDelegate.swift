@@ -5,6 +5,6 @@ protocol DTActionQueueDelegate: AnyObject {
     func canDispatchAction() -> Bool
 
     /// Dispatches the action without triggering a reload of the canvas.
-    func dispatchActionQuietly(_ action: DTNewAction)
+    func dispatchActionQuietly(_ action: DTAction)
 
 }

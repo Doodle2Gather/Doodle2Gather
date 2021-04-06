@@ -1,9 +1,8 @@
-import DTFrontendLibrary
 import DTSharedLibrary
 
 protocol SocketControllerDelegate: AnyObject {
 
-    func dispatchAction(_ action: DTNewAction)
+    func dispatchAction(_ action: DTAction)
 
     func clearDrawing()
 

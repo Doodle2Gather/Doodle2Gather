@@ -1,5 +1,4 @@
 import CoreGraphics
-import DTFrontendLibrary
 
 struct HoughShapeDetector: ShapeDetector {
 

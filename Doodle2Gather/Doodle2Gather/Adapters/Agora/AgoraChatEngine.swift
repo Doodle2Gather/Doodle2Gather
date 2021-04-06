@@ -1,6 +1,5 @@
 import UIKit
 import AgoraRtmKit
-import DTFrontendLibrary
 import DTSharedLibrary
 
 /**

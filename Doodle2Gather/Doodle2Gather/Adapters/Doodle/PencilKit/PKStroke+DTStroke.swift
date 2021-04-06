@@ -1,5 +1,4 @@
 import PencilKit
-import DTFrontendLibrary
 import DTSharedLibrary
 
 extension PKStroke: DTStroke {

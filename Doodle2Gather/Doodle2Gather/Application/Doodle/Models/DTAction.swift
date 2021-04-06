@@ -1,50 +1,54 @@
 import Foundation
-import DTFrontendLibrary
 import DTSharedLibrary
-
-// TODO: - some temp fixes are added to make it compile without warnings
-// This struct should no longer be in use. All occurence shld be refactored to DTNewAction instead.
 
 struct DTAction {
 
-    let strokes: [Data]
+    let type: DTActionType
+    let strokes: [DTStrokeIndexPair]
+    let roomId: UUID
+    let doodleId: UUID
 
     init(action: DTAdaptedAction) {
-        self.strokes = action.strokes.map { $0.stroke }
+        self.type = action.type
+        self.strokes = action.strokes
+        self.roomId = action.roomId
+        self.doodleId = action.doodleId
     }
 
-    init(strokes: [Data]) {
+    init(type: DTActionType, roomId: UUID, doodleId: UUID, strokes: [DTStrokeIndexPair]) {
+        self.type = type
+        self.roomId = roomId
+        self.doodleId = doodleId
         self.strokes = strokes
     }
 
-    init?<S: DTStroke>(strokes: [S]) {
+    init?<S: DTStroke>(type: DTActionType, roomId: UUID, doodleId: UUID, strokes: [(S, Int)]) {
+        self.type = type
+        self.roomId = roomId
+        self.doodleId = doodleId
+
         let encoder = JSONEncoder()
-
-        var data = [Data]()
-
-        for stroke in strokes {
-            guard let addedStroke = try? encoder.encode(stroke) else {
+        var strokesData = [DTStrokeIndexPair]()
+        for (stroke, index) in strokes {
+            guard let data = try? encoder.encode(stroke) else {
                 return nil
             }
-            data.append(addedStroke)
+            strokesData.append(DTStrokeIndexPair(data, index))
         }
-
-        self.strokes = data
+        self.strokes = strokesData
     }
 
     func getStrokes<S: DTStroke>() -> [S]? {
         let decoder = JSONDecoder()
 
-        var added = [S]()
-
-        for stroke in strokes {
-            guard let addedStroke = try? decoder.decode(S.self, from: stroke) else {
+        var strokeArr = [S]()
+        for pair in strokes {
+            guard let stroke = try? decoder.decode(S.self, from: pair.stroke) else {
                 return nil
             }
-            added.append(addedStroke)
+            strokeArr.append(stroke)
         }
-
-        return added
+        return strokeArr
     }
 }
 

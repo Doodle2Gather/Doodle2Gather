@@ -1,12 +1,12 @@
+import Foundation
 import CoreGraphics
-import DTFrontendLibrary
 import DTSharedLibrary
 
 /// Delegate for a `CanvasController`.
 protocol CanvasControllerDelegate: AnyObject {
 
     /// Notifies the delegate that an action has been completed.
-    func actionDidFinish(action: DTNewAction)
+    func actionDidFinish(action: DTAction)
 
     /// Dispatches the action to the canvas controller.
     func dispatchChanges<S: DTStroke>(type: DTActionType, strokes: [(S, Int)], doodleId: UUID)
@@ -23,7 +23,7 @@ protocol CanvasControllerDelegate: AnyObject {
 
 extension CanvasControllerDelegate {
 
-    func actionDidFinish(action: DTNewAction) {
+    func actionDidFinish(action: DTAction) {
         // Do nothing
     }
 

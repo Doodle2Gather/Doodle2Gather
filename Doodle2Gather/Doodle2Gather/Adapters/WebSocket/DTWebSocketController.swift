@@ -1,6 +1,5 @@
 import Foundation
 import DTSharedLibrary
-import DTFrontendLibrary
 
 final class DTWebSocketController {
 
@@ -90,7 +89,7 @@ final class DTWebSocketController {
         DispatchQueue.main.async {
             // TODO: refactor unhappy path to be at the top
             if dispatch.success {
-                let action = DTNewAction(
+                let action = DTAction(
                     action: dispatch.action
                 )
                 self.delegate?.dispatchAction(action)
@@ -120,7 +119,7 @@ final class DTWebSocketController {
 
 extension DTWebSocketController: SocketController {
 
-    func addAction(_ action: DTNewAction) {
+    func addAction(_ action: DTAction) {
         guard let id = self.id else {
             return
         }

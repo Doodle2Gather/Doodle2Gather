@@ -19,7 +19,6 @@
 		2E987E7D26075C0200352E7D /* SocketController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E987E7C26075C0200352E7D /* SocketController.swift */; };
 		2E987E8226075C5200352E7D /* SocketControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E987E8126075C5200352E7D /* SocketControllerDelegate.swift */; };
 		2EA8C2FA2605E51500BE750C /* CanvasController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8C2F92605E51500BE750C /* CanvasController.swift */; };
-		2EA8C3002605E57900BE750C /* DTAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8C2FF2605E57900BE750C /* DTAction.swift */; };
 		2EA8C3052605E5B700BE750C /* CanvasControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8C3042605E5B700BE750C /* CanvasControllerDelegate.swift */; };
 		2EA8C3182606682500BE750C /* PKCanvasView+Doodle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8C3172606682500BE750C /* PKCanvasView+Doodle.swift */; };
 		2EA8C335260677C800BE750C /* PKDrawing+DTDrawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8C334260677C800BE750C /* PKDrawing+DTDrawing.swift */; };
@@ -32,6 +31,11 @@
 		2EB129B5261BB4B500131FE6 /* DTActionQueueDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB129B4261BB4B500131FE6 /* DTActionQueueDelegate.swift */; };
 		2EB129B9261BB6E000131FE6 /* DTCanvasError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB129B8261BB6E000131FE6 /* DTCanvasError.swift */; };
 		2EB129C1261BC8BD00131FE6 /* PKStrokeHashWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB129C0261BC8BD00131FE6 /* PKStrokeHashWrapper.swift */; };
+		2EB12A3F261BE3F400131FE6 /* DTTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12A3A261BE3F400131FE6 /* DTTool.swift */; };
+		2EB12A40261BE3F400131FE6 /* DTStroke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12A3B261BE3F400131FE6 /* DTStroke.swift */; };
+		2EB12A41261BE3F400131FE6 /* DTCodableColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12A3C261BE3F400131FE6 /* DTCodableColor.swift */; };
+		2EB12A42261BE3F400131FE6 /* DTDoodle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12A3D261BE3F400131FE6 /* DTDoodle.swift */; };
+		2EB12A43261BE3F400131FE6 /* DTPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12A3E261BE3F400131FE6 /* DTPoint.swift */; };
 		2EB929D9260778F600AAB396 /* SubviewTouchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB929D8260778F600AAB396 /* SubviewTouchView.swift */; };
 		2EBD90D0261B01F4009859FE /* ThickSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBD90CF261B01F4009859FE /* ThickSliderView.swift */; };
 		2ED6297A2618FD37009F92D0 /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2ED629792618FD37009F92D0 /* Chat.storyboard */; };
@@ -49,12 +53,10 @@
 		2EFF38E0261AAF2000488289 /* StrokeEditorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFF38DF261AAF2000488289 /* StrokeEditorDelegate.swift */; };
 		2EFF38EA261AAF9A00488289 /* DoodleConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFF38E9261AAF9A00488289 /* DoodleConstants.swift */; };
 		2EFF38F0261AB2F300488289 /* StrokeEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFF38EF261AB2F300488289 /* StrokeEditor.swift */; };
-		678F8923261B554A005530A0 /* DTNewAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678F8922261B554A005530A0 /* DTNewAction.swift */; };
+		678F8923261B554A005530A0 /* DTAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678F8922261B554A005530A0 /* DTAction.swift */; };
 		67B62AB926198F8B0062037E /* DTApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B62AB826198F8B0062037E /* DTApi.swift */; };
 		67B62B4C2619BB980062037E /* DTWebSocketController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B62B4B2619BB980062037E /* DTWebSocketController.swift */; };
 		67B62B662619CEF10062037E /* DTSharedLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 67B62B652619CEF10062037E /* DTSharedLibrary */; };
-		67B62B722619D1840062037E /* DTFrontendLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67B62B712619D1840062037E /* DTFrontendLibrary.framework */; };
-		67B62B732619D1840062037E /* DTFrontendLibrary.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 67B62B712619D1840062037E /* DTFrontendLibrary.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		832607EE26145D5200B90F25 /* DTLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832607ED26145D5200B90F25 /* DTLogger.swift */; };
 		83260807261471EF00B90F25 /* WillowLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83260806261471EF00B90F25 /* WillowLogger.swift */; };
 		8326080D26147FC600B90F25 /* DTAbstractLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8326080C26147FC600B90F25 /* DTAbstractLogger.swift */; };
@@ -117,7 +119,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				67B62B732619D1840062037E /* DTFrontendLibrary.framework in Embed Frameworks */,
 				2E8AC7222613F3060033869E /* Pods_Doodle2Gather.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -135,14 +136,11 @@
 		2E146CC026190246001F6845 /* Participants.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Participants.storyboard; sourceTree = "<group>"; };
 		2E3F8FAD2607380100C58F33 /* Pods_Doodle2Gather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Doodle2Gather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E4A0B412616FDFF003257D4 /* PKDrawing+StrokesFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PKDrawing+StrokesFrame.swift"; sourceTree = "<group>"; };
-		2E8AC71D2613F3020033869E /* DTFrontendLibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DTFrontendLibrary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E8AC7492613F4C90033869E /* DTCanvasViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTCanvasViewController.swift; sourceTree = "<group>"; };
-		2E8AC7A52613F9460033869E /* DoodleAutomerge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DoodleAutomerge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E987E6D2607468000352E7D /* PKStrokePoint+DTPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PKStrokePoint+DTPoint.swift"; sourceTree = "<group>"; };
 		2E987E7C26075C0200352E7D /* SocketController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketController.swift; sourceTree = "<group>"; };
 		2E987E8126075C5200352E7D /* SocketControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketControllerDelegate.swift; sourceTree = "<group>"; };
 		2EA8C2F92605E51500BE750C /* CanvasController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasController.swift; sourceTree = "<group>"; };
-		2EA8C2FF2605E57900BE750C /* DTAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTAction.swift; sourceTree = "<group>"; };
 		2EA8C3042605E5B700BE750C /* CanvasControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasControllerDelegate.swift; sourceTree = "<group>"; };
 		2EA8C3172606682500BE750C /* PKCanvasView+Doodle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PKCanvasView+Doodle.swift"; sourceTree = "<group>"; };
 		2EA8C334260677C800BE750C /* PKDrawing+DTDrawing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PKDrawing+DTDrawing.swift"; sourceTree = "<group>"; };
@@ -155,6 +153,11 @@
 		2EB129B4261BB4B500131FE6 /* DTActionQueueDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTActionQueueDelegate.swift; sourceTree = "<group>"; };
 		2EB129B8261BB6E000131FE6 /* DTCanvasError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTCanvasError.swift; sourceTree = "<group>"; };
 		2EB129C0261BC8BD00131FE6 /* PKStrokeHashWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKStrokeHashWrapper.swift; sourceTree = "<group>"; };
+		2EB12A3A261BE3F400131FE6 /* DTTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTTool.swift; sourceTree = "<group>"; };
+		2EB12A3B261BE3F400131FE6 /* DTStroke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTStroke.swift; sourceTree = "<group>"; };
+		2EB12A3C261BE3F400131FE6 /* DTCodableColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTCodableColor.swift; sourceTree = "<group>"; };
+		2EB12A3D261BE3F400131FE6 /* DTDoodle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTDoodle.swift; sourceTree = "<group>"; };
+		2EB12A3E261BE3F400131FE6 /* DTPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTPoint.swift; sourceTree = "<group>"; };
 		2EB929D8260778F600AAB396 /* SubviewTouchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubviewTouchView.swift; sourceTree = "<group>"; };
 		2EBD90CF261B01F4009859FE /* ThickSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThickSliderView.swift; sourceTree = "<group>"; };
 		2ED629792618FD37009F92D0 /* Chat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
@@ -180,10 +183,9 @@
 		2EFF38E9261AAF9A00488289 /* DoodleConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodleConstants.swift; sourceTree = "<group>"; };
 		2EFF38EF261AB2F300488289 /* StrokeEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeEditor.swift; sourceTree = "<group>"; };
 		5630A42182E9C28155E1A130 /* Pods-Doodle2Gather.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Doodle2Gather.release.xcconfig"; path = "Target Support Files/Pods-Doodle2Gather/Pods-Doodle2Gather.release.xcconfig"; sourceTree = "<group>"; };
-		678F8922261B554A005530A0 /* DTNewAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTNewAction.swift; sourceTree = "<group>"; };
+		678F8922261B554A005530A0 /* DTAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTAction.swift; sourceTree = "<group>"; };
 		67B62AB826198F8B0062037E /* DTApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTApi.swift; sourceTree = "<group>"; };
 		67B62B4B2619BB980062037E /* DTWebSocketController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTWebSocketController.swift; sourceTree = "<group>"; };
-		67B62B712619D1840062037E /* DTFrontendLibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DTFrontendLibrary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		832607ED26145D5200B90F25 /* DTLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTLogger.swift; sourceTree = "<group>"; };
 		83260806261471EF00B90F25 /* WillowLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WillowLogger.swift; sourceTree = "<group>"; };
 		8326080C26147FC600B90F25 /* DTAbstractLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTAbstractLogger.swift; sourceTree = "<group>"; };
@@ -228,7 +230,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4717322950A9BA3A7954F7E /* Pods_Doodle2Gather.framework in Frameworks */,
-				67B62B722619D1840062037E /* DTFrontendLibrary.framework in Frameworks */,
 				67B62B662619CEF10062037E /* DTSharedLibrary in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -294,7 +295,7 @@
 				67B62B4A2619BB980062037E /* WebSocket */,
 				2ED629852618FFE6009F92D0 /* Agora */,
 				2ED6297E2618FEEB009F92D0 /* Chat */,
-				2ED629822618FFD6009F92D0 /* Doodling */,
+				2ED629822618FFD6009F92D0 /* Doodle */,
 				2EFF38DA261AAED300488289 /* Stroke Editor */,
 				2EB128F7261B6B2500131FE6 /* Shape Detection */,
 			);
@@ -328,6 +329,31 @@
 				2EB129AE261BB32F00131FE6 /* Queue.swift */,
 			);
 			path = "Data Structures";
+			sourceTree = "<group>";
+		};
+		2EB12A39261BE3E200131FE6 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				2EB12A3D261BE3F400131FE6 /* DTDoodle.swift */,
+				2EB12A3B261BE3F400131FE6 /* DTStroke.swift */,
+				2EB12A3E261BE3F400131FE6 /* DTPoint.swift */,
+				2EB12A3A261BE3F400131FE6 /* DTTool.swift */,
+				2EB12A3C261BE3F400131FE6 /* DTCodableColor.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		2EB12A46261BE3F900131FE6 /* PencilKit */ = {
+			isa = PBXGroup;
+			children = (
+				2E8AC7492613F4C90033869E /* DTCanvasViewController.swift */,
+				2EA8C3172606682500BE750C /* PKCanvasView+Doodle.swift */,
+				2EA8C334260677C800BE750C /* PKDrawing+DTDrawing.swift */,
+				2EA8C34126067F0000BE750C /* PKStroke+DTStroke.swift */,
+				2E987E6D2607468000352E7D /* PKStrokePoint+DTPoint.swift */,
+				2E4A0B412616FDFF003257D4 /* PKDrawing+StrokesFrame.swift */,
+			);
+			path = PencilKit;
 			sourceTree = "<group>";
 		};
 		2ED629742618FCC9009F92D0 /* Chat */ = {
@@ -384,18 +410,14 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
-		2ED629822618FFD6009F92D0 /* Doodling */ = {
+		2ED629822618FFD6009F92D0 /* Doodle */ = {
 			isa = PBXGroup;
 			children = (
+				2EB12A39261BE3E200131FE6 /* Protocols */,
+				2EB12A46261BE3F900131FE6 /* PencilKit */,
 				2EB129A6261BB29500131FE6 /* Helpers */,
-				2E8AC7492613F4C90033869E /* DTCanvasViewController.swift */,
-				2EA8C3172606682500BE750C /* PKCanvasView+Doodle.swift */,
-				2EA8C334260677C800BE750C /* PKDrawing+DTDrawing.swift */,
-				2EA8C34126067F0000BE750C /* PKStroke+DTStroke.swift */,
-				2E987E6D2607468000352E7D /* PKStrokePoint+DTPoint.swift */,
-				2E4A0B412616FDFF003257D4 /* PKDrawing+StrokesFrame.swift */,
 			);
-			path = Doodling;
+			path = Doodle;
 			sourceTree = "<group>";
 		};
 		2ED629852618FFE6009F92D0 /* Agora */ = {
@@ -411,8 +433,7 @@
 		2ED6298826190047009F92D0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				2EA8C2FF2605E57900BE750C /* DTAction.swift */,
-				678F8922261B554A005530A0 /* DTNewAction.swift */,
+				678F8922261B554A005530A0 /* DTAction.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -760,9 +781,6 @@
 		CD2A37479AA1991CD8015EDE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				67B62B712619D1840062037E /* DTFrontendLibrary.framework */,
-				2E8AC7A52613F9460033869E /* DoodleAutomerge.framework */,
-				2E8AC71D2613F3020033869E /* DTFrontendLibrary.framework */,
 				0E53B4F895F761EF4405A8DB /* Pods_Doodle2Gather.framework */,
 				15B33FD6204D18E2374A79D9 /* Pods_Doodle2Gather_Doodle2GatherUITests.framework */,
 				23319EF80EB848F237EA105B /* Pods_Doodle2GatherTests.framework */,
@@ -1088,13 +1106,16 @@
 				2E987E6E2607468000352E7D /* PKStrokePoint+DTPoint.swift in Sources */,
 				83F5890A2619B44100BB9F07 /* DTUserCredentialsProvider.swift in Sources */,
 				2EB129B5261BB4B500131FE6 /* DTActionQueueDelegate.swift in Sources */,
+				2EB12A3F261BE3F400131FE6 /* DTTool.swift in Sources */,
 				848F3581261451D400AD46C6 /* ParticipantViewCell.swift in Sources */,
 				848F354F2614177000AD46C6 /* Sender.swift in Sources */,
 				2E987E7D26075C0200352E7D /* SocketController.swift in Sources */,
-				678F8923261B554A005530A0 /* DTNewAction.swift in Sources */,
+				678F8923261B554A005530A0 /* DTAction.swift in Sources */,
+				2EB12A42261BE3F400131FE6 /* DTDoodle.swift in Sources */,
 				84E9595C260D757700D587CC /* ChatEngine.swift in Sources */,
 				67B62B4C2619BB980062037E /* DTWebSocketController.swift in Sources */,
 				2EBD90D0261B01F4009859FE /* ThickSliderView.swift in Sources */,
+				2EB12A40261BE3F400131FE6 /* DTStroke.swift in Sources */,
 				2EFF38F0261AB2F300488289 /* StrokeEditor.swift in Sources */,
 				2EB128FF261B6E9E00131FE6 /* HoughShapeDetector.swift in Sources */,
 				2EA8C3052605E5B700BE750C /* CanvasControllerDelegate.swift in Sources */,
@@ -1111,6 +1132,7 @@
 				2EB129C1261BC8BD00131FE6 /* PKStrokeHashWrapper.swift in Sources */,
 				2E4A0B422616FDFF003257D4 /* PKDrawing+StrokesFrame.swift in Sources */,
 				2EB929D9260778F600AAB396 /* SubviewTouchView.swift in Sources */,
+				2EB12A41261BE3F400131FE6 /* DTCodableColor.swift in Sources */,
 				2EB129AF261BB32F00131FE6 /* Queue.swift in Sources */,
 				84E95961260D758B00D587CC /* ChatEngineDelegate.swift in Sources */,
 				2EA8C3182606682500BE750C /* PKCanvasView+Doodle.swift in Sources */,
@@ -1121,7 +1143,7 @@
 				84E9594F260D754100D587CC /* VideoEngine.swift in Sources */,
 				2EFF38DC261AAEF400488289 /* StrokeEditorViewController.swift in Sources */,
 				2EB128F9261B6B3F00131FE6 /* ShapeDetector.swift in Sources */,
-				2EA8C3002605E57900BE750C /* DTAction.swift in Sources */,
+				2EB12A43261BE3F400131FE6 /* DTPoint.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,5 +1,4 @@
 import UIKit
-import DTFrontendLibrary
 import DTSharedLibrary
 
 /// An interface for a controller that manages the canvas.
@@ -10,7 +9,7 @@ protocol CanvasController {
     var delegate: CanvasControllerDelegate? { get set }
 
     /// Dispatches an action that will update the canvas accordingly.
-    func dispatchAction(_ action: DTNewAction)
+    func dispatchAction(_ action: DTAction)
 
     /// Loads a given array of `DTDoodle`s.
     func loadDoodles(_ doodles: [DTAdaptedDoodle])

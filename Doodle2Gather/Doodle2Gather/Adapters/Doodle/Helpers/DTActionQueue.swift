@@ -1,13 +1,13 @@
 struct DTActionQueue {
 
-    var queue = Queue<DTNewAction>()
+    var queue = Queue<DTAction>()
     weak var delegate: DTActionQueueDelegate?
 
     var isEmpty: Bool {
         queue.isEmpty
     }
 
-    mutating func enqueueAction(_ action: DTNewAction) {
+    mutating func enqueueAction(_ action: DTAction) {
         queue.enqueue(action)
         guard let delegate = delegate else {
             return
@@ -17,7 +17,7 @@ struct DTActionQueue {
         }
     }
 
-    mutating func dequeueAction() -> DTNewAction? {
+    mutating func dequeueAction() -> DTAction? {
         queue.dequeue()
     }
 

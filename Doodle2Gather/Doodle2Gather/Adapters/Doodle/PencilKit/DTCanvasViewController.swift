@@ -1,5 +1,4 @@
 import PencilKit
-import DTFrontendLibrary
 import DTSharedLibrary
 
 /// A `UIViewController` that manages a canvas and works with the
@@ -242,7 +241,7 @@ extension DTCanvasViewController: PKCanvasViewDelegate {
 
 extension DTCanvasViewController: CanvasController {
 
-    func dispatchAction(_ action: DTNewAction) {
+    func dispatchAction(_ action: DTAction) {
         actionQueue.enqueueAction(action)
     }
 
@@ -310,7 +309,7 @@ extension DTCanvasViewController: DTActionQueueDelegate {
         !isDoodling
     }
 
-    func dispatchActionQuietly(_ action: DTNewAction) {
+    func dispatchActionQuietly(_ action: DTAction) {
         do {
             let pair = action.strokes[0]
             guard let firstStroke: PKStroke = action.getStrokes()?[0] else {

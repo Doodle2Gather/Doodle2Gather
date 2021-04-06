@@ -1,5 +1,4 @@
 import UIKit
-import DTFrontendLibrary
 import DTSharedLibrary
 
 struct PKStrokeHashWrapper: DTStroke {
