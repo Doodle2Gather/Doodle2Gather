@@ -605,6 +605,13 @@
                                         <color key="textColor" name="White"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vxS-B2-1Ea">
+                                        <rect key="frame" x="276" y="20" width="24" height="24"/>
+                                        <state key="normal" image="Plus"/>
+                                        <connections>
+                                            <action selector="addLayerButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="4dw-lx-9dG"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" name="Black"/>
                                 <constraints>
@@ -613,7 +620,9 @@
                                     <constraint firstAttribute="width" constant="320" id="8jW-6j-pes"/>
                                     <constraint firstAttribute="bottom" secondItem="kRy-tJ-6Zr" secondAttribute="bottom" id="ETn-qA-4Aa"/>
                                     <constraint firstItem="xyz-Q3-KJa" firstAttribute="top" secondItem="MWm-9W-hoQ" secondAttribute="top" constant="20" id="Keb-9e-835"/>
+                                    <constraint firstAttribute="trailing" secondItem="vxS-B2-1Ea" secondAttribute="trailing" constant="20" id="U89-rL-2AK"/>
                                     <constraint firstAttribute="height" constant="280" id="Wag-Nb-iP0"/>
+                                    <constraint firstItem="vxS-B2-1Ea" firstAttribute="top" secondItem="MWm-9W-hoQ" secondAttribute="top" constant="20" id="ZQ6-Vf-MF7"/>
                                     <constraint firstItem="xyz-Q3-KJa" firstAttribute="leading" secondItem="MWm-9W-hoQ" secondAttribute="leading" constant="20" id="f7i-Ov-c5n"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -1187,6 +1196,7 @@
         <image name="MagicWand_Yellow" width="24" height="24"/>
         <image name="Pencil" width="24" height="24"/>
         <image name="Pencil_Yellow" width="24" height="24"/>
+        <image name="Plus" width="24" height="24"/>
         <image name="Presentation" width="24" height="24"/>
         <image name="Redo_Grey" width="24" height="24"/>
         <image name="Resize" width="24" height="24"/>
