@@ -24,10 +24,13 @@ class GalleryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        rooms.append(Room(roomId: UUID(), roomName: DefaultValues.roomName))
-
         if let user = DTAuth.user {
             welcomeLabel.text = "Welcome, \(user.displayName)!"
+            DTApi.getAllRooms(user: user.uid) { roomsData in
+                for room in roomsData {
+                    self.rooms.append(room)
+                }
+            }
         } else {
             welcomeLabel.text = "Welcome"
         }

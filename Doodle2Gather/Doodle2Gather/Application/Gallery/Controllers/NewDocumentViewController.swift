@@ -18,6 +18,9 @@ class NewDocumentViewController: UIViewController {
     }
 
     @IBAction private func didTapCreate(_ sender: Any) {
+        guard let user = DTAuth.user else {
+            return
+        }
         guard let callback = createDocumentCallback else {
             return
         }
@@ -30,6 +33,8 @@ class NewDocumentViewController: UIViewController {
         if callback(title) == .duplicatedName {
             return
         }
-        dismiss(animated: true, completion: nil)
+        DTApi.createRoom(name: title, user: user.uid) {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 }

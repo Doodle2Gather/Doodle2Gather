@@ -23,7 +23,7 @@ struct DTApi {
                 callback()
             }
     }
-    
+
     // MARK: Room
 
     static func createRoom(name: String, user: String, callback: @escaping () -> Void) {
@@ -41,7 +41,10 @@ struct DTApi {
             }
     }
 
-    static func getAllRooms(user: String) {
+    // TODO: Change room name to the actual one after backend is done
+    static var roomCount = 0
+
+    static func getAllRooms(user: String, callback: @escaping ([Room]) -> Void) {
         AF.request("\(baseURLString)/user/rooms/\(user)",
                    method: .get)
             .responseJSON { response in
@@ -49,7 +52,13 @@ struct DTApi {
                 guard let data = response.data else {
                     return
                 }
-                // let decodedData = try? JSONDecoder().decode(RoomsResponse.self, from: data)
+                let decodedData = try? JSONDecoder().decode([RoomsResponseEntry].self, from: data)
+                let decodedRooms = decodedData?.map({ entry -> Room in
+                    roomCount += 1
+                    return Room(roomId: UUID(uuidString: entry.id) ?? UUID(), roomName: "Room \(roomCount)")
+                })
+                callback(decodedRooms ?? [])
+                // return decodedData as? [DTRoom] ?? []
             }
     }
 
@@ -169,3 +178,15 @@ enum DTApiResult<ResourceType> {
     case failure(Error)
 }
 struct EmptyResponse: Codable {}
+
+struct RoomsResponseEntry: Codable {
+    let id: String
+    let user: RoomsResponseUserEntry
+    let room: RoomsResponseRoomEntry
+}
+struct RoomsResponseUserEntry: Codable {
+    let id: String
+}
+struct RoomsResponseRoomEntry: Codable {
+    let id: String
+}
