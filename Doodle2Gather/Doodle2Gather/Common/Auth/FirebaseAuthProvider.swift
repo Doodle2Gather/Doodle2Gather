@@ -10,7 +10,7 @@ class FirebaseAuthProvider: DTAbstractAuthProvider {
 
     private var fbUser: User? {
         Auth.auth().currentUser
-    }.and
+    }
 
     var user: DTUser? {
         Auth.auth().currentUser?.toDTUser()
