@@ -10,14 +10,16 @@ final class DTWebSocketController {
     var socket: URLSessionWebSocketTask!
     private let decoder = JSONDecoder()
     private let encoder = JSONEncoder()
+    private var roomId: UUID
 
-    init() {
+    init(roomId: UUID) {
         self.session = URLSession(configuration: .default)
+        self.roomId = roomId
         self.connect()
     }
 
     func connect() {
-        self.socket = session.webSocketTask(with: URL(string: ApiEndpoints.Room)!) // change to localRoom for testing
+        self.socket = session.webSocketTask(with: URL(string: ApiEndpoints.Room(roomId.uuidString))!) // change to localRoom for testing
         self.socket.maximumMessageSize = Int.max
         self.listen()
         self.socket.resume()

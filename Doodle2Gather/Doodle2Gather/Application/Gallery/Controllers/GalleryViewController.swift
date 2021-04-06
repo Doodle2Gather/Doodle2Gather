@@ -24,10 +24,14 @@ class GalleryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        rooms.append(Room(roomId: UUID(), roomName: DefaultValues.roomName))
-
         if let user = DTAuth.user {
             welcomeLabel.text = "Welcome, \(user.displayName)!"
+            DTApi.getAllRooms(user: user.uid) { roomsData in
+                for room in roomsData {
+                    self.rooms.append(room)
+                }
+                self.collectionView.reloadData()
+            }
         } else {
             welcomeLabel.text = "Welcome"
         }
@@ -74,11 +78,18 @@ extension GalleryViewController: UICollectionViewDelegate {
                 as? DoodleViewController else {
             return
         }
-        vc.username = DefaultValues.username
-        vc.roomName = rooms[index].roomName
-        vc.modalPresentationStyle = .fullScreen
-        vc.modalTransitionStyle = .flipHorizontal
-        self.present(vc, animated: true, completion: nil)
+        DTApi.getRoomsDoodles(roomId: rooms[index].roomId) { doodles in
+            print(doodles)
+            DispatchQueue.main.async {
+                vc.loadDoodles(doodles)
+                vc.username = DTAuth.user?.displayName ?? "Someone"
+                vc.roomName = self.rooms[index].roomName
+                vc.roomId = self.rooms[index].roomId
+                vc.modalPresentationStyle = .fullScreen
+                vc.modalTransitionStyle = .flipHorizontal
+                self.present(vc, animated: true, completion: nil)
+            }
+        }
     }
 }
 

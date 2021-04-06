@@ -48,13 +48,14 @@ class DoodleViewController: UIViewController {
     // State
     var username: String?
     var roomName: String?
+    var roomId: UUID?
     private var previousDrawingTool = DrawingTools.pen
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // TODO: Replace this with dependency injection from AppDelegate / HomeController
-        let socketController = DTWebSocketController()
+        let socketController = DTWebSocketController(roomId: roomId!)
         socketController.delegate = self
         self.socketController = socketController
 
@@ -211,6 +212,10 @@ extension DoodleViewController {
         sender.isSelected.toggle()
     }
 
+    @IBAction private func addLayerButtonDidTap(_ sender: UIButton) {
+        // TODO: Create new layer
+    }
+
     @objc
     private func zoomScaleDidTap(_ gesture: UITapGestureRecognizer) {
         canvasController?.resetZoomScale()
@@ -262,7 +267,8 @@ extension DoodleViewController: SocketControllerDelegate {
 
     func dispatchChanges<S>(type: DTActionType, strokes: [(S, Int)], doodleId: UUID) where S: DTStroke {
         // TODO: Replace with actual roomId
-        guard let action = DTAction(type: type, roomId: UUID(), doodleId: doodleId, strokes: strokes) else {
+        guard let roomId = self.roomId,
+              let action = DTAction(type: type, roomId: roomId, doodleId: doodleId, strokes: strokes) else {
             return
         }
         socketController?.addAction(action)

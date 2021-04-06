@@ -24,6 +24,63 @@ struct DTApi {
             }
     }
 
+    // MARK: Room
+
+    static func createRoom(name: String, user: String, callback: @escaping () -> Void) {
+        let parameters: [String: String] = [
+            "name": name,
+            "createdBy": user
+        ]
+
+        AF.request("\(baseURLString)/room",
+                   method: .post,
+                   parameters: parameters,
+                   encoder: JSONParameterEncoder.default)
+            .responseJSON { _ in
+                callback()
+            }
+    }
+
+    // TODO: Change room name to the actual one after backend is done
+    static var roomCount = 0
+
+    static func getAllRooms(user: String, callback: @escaping ([Room]) -> Void) {
+        AF.request("\(baseURLString)/user/rooms/\(user)",
+                   method: .get)
+            .responseJSON { response in
+
+                guard let data = response.data else {
+                    return
+                }
+                let decodedData = try? JSONDecoder().decode([RoomsResponseEntry].self, from: data)
+                let decodedRooms = decodedData?.map({ entry -> Room in
+                    roomCount += 1
+                    print(entry.id)
+                    return Room(roomId: UUID(uuidString: entry.room.id)!, roomName: "Room \(roomCount)")
+                })
+                callback(decodedRooms ?? [])
+                // return decodedData as? [DTRoom] ?? []
+            }
+    }
+
+    static func getRoomsDoodles(
+        roomId: UUID, callback: @escaping ([DTAdaptedDoodle]) -> Void
+    ) {
+        AF.request("\(baseURLString)/room/doodles/\(roomId.uuidString)",
+                   method: .get)
+            .responseJSON { response in
+
+                guard let data = response.data else {
+                    return
+                }
+                let decodedData = try? JSONDecoder().decode([DoodleResponseEntry].self, from: data)
+                let decodedDoodles = decodedData?.map({ entry -> DTAdaptedDoodle in
+                    DTAdaptedDoodle(roomId: roomId, doodleId: UUID(uuidString: entry.id)!, strokes: [])
+                })
+                callback(decodedDoodles ?? [])
+            }
+    }
+
     // MARK: Strokes
 
     static func getAllStrokes(
@@ -140,3 +197,19 @@ enum DTApiResult<ResourceType> {
     case failure(Error)
 }
 struct EmptyResponse: Codable {}
+
+struct RoomsResponseEntry: Codable {
+    let id: String
+    let user: RoomsResponseUserEntry
+    let room: RoomsResponseRoomEntry
+}
+struct RoomsResponseUserEntry: Codable {
+    let id: String
+}
+struct RoomsResponseRoomEntry: Codable {
+    let id: String
+}
+struct DoodleResponseEntry: Codable {
+    let id: String
+    let room: RoomsResponseRoomEntry
+}
