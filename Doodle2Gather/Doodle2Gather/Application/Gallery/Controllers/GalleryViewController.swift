@@ -30,6 +30,7 @@ class GalleryViewController: UIViewController {
                 for room in roomsData {
                     self.rooms.append(room)
                 }
+                self.collectionView.reloadData()
             }
         } else {
             welcomeLabel.text = "Welcome"

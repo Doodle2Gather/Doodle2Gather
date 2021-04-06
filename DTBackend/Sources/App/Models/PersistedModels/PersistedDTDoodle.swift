@@ -22,7 +22,7 @@ final class PersistedDTDoodle: Model, Content {
         self.id = id
         self.$room.id = roomId
     }
-    
+
     init(room: PersistedDTRoom, id: UUID? = nil) {
         self.id = id
         self.$room.id = room.id!

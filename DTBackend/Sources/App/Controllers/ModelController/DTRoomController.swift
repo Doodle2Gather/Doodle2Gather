@@ -37,14 +37,14 @@ struct DTRoomController: RouteCollection {
             newDTRoom
         }
         return save.and(user).flatMap { room, user in
-            
+
             let attachRoomToUser = user
                 .$accessibleRooms
                 .attach(room, on: req.db)
-            
+
             let defaultDoodle = PersistedDTDoodle(room: room).save(on: req.db)
             return attachRoomToUser.and(defaultDoodle).transform(to: newDTRoom)
-            
+
         }
     }
 
@@ -57,7 +57,7 @@ struct DTRoomController: RouteCollection {
             .first()
             .unwrap(or: Abort(.notFound))
     }
-    
+
     func getRoomDoodlesFromRoomHandler(req: Request) throws -> EventLoopFuture<[PersistedDTDoodle]> {
         guard let roomId = req.parameters.get("roomId") else {
             throw Abort(.badRequest)
@@ -66,7 +66,7 @@ struct DTRoomController: RouteCollection {
             .getSingleByID(UUID(uuidString: roomId)!, on: req.db)
             .map { $0.doodles }
     }
-    
+
     func getRoomFromRoomIdHandler(req: Request) throws -> EventLoopFuture<PersistedDTRoom> {
         guard let roomId = req.parameters.get("roomId", as: UUID.self) else {
             throw Abort(.badRequest)
