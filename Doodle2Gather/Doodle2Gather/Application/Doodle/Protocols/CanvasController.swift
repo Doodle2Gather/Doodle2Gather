@@ -32,4 +32,7 @@ protocol CanvasController {
     /// Resets the zoom scale of the canvas to 100%.
     func resetZoomScale()
 
+    /// Sets the current doodle to the one at this index.
+    func setSelectedDoodle(index: Int)
+
 }
