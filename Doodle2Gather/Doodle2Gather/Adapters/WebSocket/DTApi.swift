@@ -23,7 +23,7 @@ struct DTApi {
                 callback()
             }
     }
-    
+
     // MARK: Room
 
     static func createRoom(name: String, user: String, callback: @escaping () -> Void) {
