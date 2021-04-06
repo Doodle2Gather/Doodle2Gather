@@ -1,4 +1,5 @@
 import UIKit
+import DTSharedLibrary
 
 /// Represents a single stroke, consisting of multiple points.
 public protocol DTStroke: Hashable, Codable {
@@ -12,6 +13,9 @@ public protocol DTStroke: Hashable, Codable {
 
     /// Instantiates self using a generalised `DTStroke`.
     init<S: DTStroke>(from stroke: S)
+
+    /// Instantiates self using data.
+    init?(from stroke: DTAdaptedStroke)
 
     init<P: DTPoint>(color: UIColor, tool: DTTool, points: [P], transform: CGAffineTransform,
                      mask: UIBezierPath?)

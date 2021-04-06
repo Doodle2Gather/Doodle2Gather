@@ -1,5 +1,6 @@
 import PencilKit
 import DTFrontendLibrary
+import DTSharedLibrary
 
 extension PKDrawing: DTDoodle {
 
@@ -14,6 +15,10 @@ extension PKDrawing: DTDoodle {
 
     public init<D>(from doodle: D) where D: DTDoodle {
         self.init(strokes: doodle.dtStrokes.map { PKStroke(from: $0) })
+    }
+
+    public init(from doodle: DTAdaptedDoodle) {
+        self.init(strokes: doodle.strokes.compactMap { PKStroke(from: $0) })
     }
 
     public mutating func removeStrokes<S>(_ removedStrokes: [S]) where S: DTStroke {

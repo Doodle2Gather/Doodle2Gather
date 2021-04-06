@@ -1,5 +1,6 @@
 import UIKit
 import DTFrontendLibrary
+import DTSharedLibrary
 
 struct PKStrokeHashWrapper: DTStroke {
 
@@ -15,6 +16,16 @@ struct PKStrokeHashWrapper: DTStroke {
         self.points = stroke.points.map { PKStrokePointHashWrapper(from: $0) }
         self.mask = stroke.mask
         self.transform = stroke.transform
+    }
+
+    init?(from stroke: DTAdaptedStroke) {
+        let decoder = JSONDecoder()
+
+        guard let stroke = try? decoder.decode(PKStrokeHashWrapper.self, from: stroke.stroke) else {
+            return nil
+        }
+
+        self.init(from: stroke)
     }
 
     init<P>(color: UIColor, tool: DTTool, points: [P], transform: CGAffineTransform,

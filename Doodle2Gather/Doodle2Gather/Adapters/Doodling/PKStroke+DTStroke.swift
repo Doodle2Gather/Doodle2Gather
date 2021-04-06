@@ -1,5 +1,6 @@
 import PencilKit
 import DTFrontendLibrary
+import DTSharedLibrary
 
 extension PKStroke: DTStroke {
 
@@ -33,6 +34,16 @@ extension PKStroke: DTStroke {
     public init<S>(from stroke: S) where S: DTStroke {
         self.init(color: stroke.color, tool: stroke.tool, points: stroke.points,
                   transform: stroke.transform, mask: stroke.mask)
+    }
+
+    public init?(from stroke: DTAdaptedStroke) {
+        let decoder = JSONDecoder()
+
+        guard let stroke = try? decoder.decode(PKStroke.self, from: stroke.stroke) else {
+            return nil
+        }
+
+        self.init(from: stroke)
     }
 
     public init<P>(color: UIColor, tool: DTTool, points: [P], transform: CGAffineTransform,
