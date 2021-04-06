@@ -36,6 +36,11 @@
 		2EB12A41261BE3F400131FE6 /* DTCodableColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12A3C261BE3F400131FE6 /* DTCodableColor.swift */; };
 		2EB12A42261BE3F400131FE6 /* DTDoodle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12A3D261BE3F400131FE6 /* DTDoodle.swift */; };
 		2EB12A43261BE3F400131FE6 /* DTPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12A3E261BE3F400131FE6 /* DTPoint.swift */; };
+		2EB12AB2261BEDDC00131FE6 /* DoodleLayerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12AB1261BEDDC00131FE6 /* DoodleLayerTableViewController.swift */; };
+		2EB12AB6261BEF6700131FE6 /* DoodleLayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12AB5261BEF6700131FE6 /* DoodleLayerTableViewCell.swift */; };
+		2EB12ABA261BF41900131FE6 /* DoodleLayerCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12AB9261BF41900131FE6 /* DoodleLayerCellDelegate.swift */; };
+		2EB12ABE261BFBB600131FE6 /* DoodleLayerTableDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12ABD261BFBB600131FE6 /* DoodleLayerTableDelegate.swift */; };
+		2EB12AC2261BFCD100131FE6 /* DoodleLayerTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12AC1261BFCD100131FE6 /* DoodleLayerTable.swift */; };
 		2EB929D9260778F600AAB396 /* SubviewTouchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB929D8260778F600AAB396 /* SubviewTouchView.swift */; };
 		2EBD90D0261B01F4009859FE /* ThickSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBD90CF261B01F4009859FE /* ThickSliderView.swift */; };
 		2ED6297A2618FD37009F92D0 /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2ED629792618FD37009F92D0 /* Chat.storyboard */; };
@@ -158,6 +163,11 @@
 		2EB12A3C261BE3F400131FE6 /* DTCodableColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTCodableColor.swift; sourceTree = "<group>"; };
 		2EB12A3D261BE3F400131FE6 /* DTDoodle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTDoodle.swift; sourceTree = "<group>"; };
 		2EB12A3E261BE3F400131FE6 /* DTPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTPoint.swift; sourceTree = "<group>"; };
+		2EB12AB1261BEDDC00131FE6 /* DoodleLayerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodleLayerTableViewController.swift; sourceTree = "<group>"; };
+		2EB12AB5261BEF6700131FE6 /* DoodleLayerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodleLayerTableViewCell.swift; sourceTree = "<group>"; };
+		2EB12AB9261BF41900131FE6 /* DoodleLayerCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodleLayerCellDelegate.swift; sourceTree = "<group>"; };
+		2EB12ABD261BFBB600131FE6 /* DoodleLayerTableDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodleLayerTableDelegate.swift; sourceTree = "<group>"; };
+		2EB12AC1261BFCD100131FE6 /* DoodleLayerTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodleLayerTable.swift; sourceTree = "<group>"; };
 		2EB929D8260778F600AAB396 /* SubviewTouchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubviewTouchView.swift; sourceTree = "<group>"; };
 		2EBD90CF261B01F4009859FE /* ThickSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThickSliderView.swift; sourceTree = "<group>"; };
 		2ED629792618FD37009F92D0 /* Chat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
@@ -285,6 +295,9 @@
 				2EA8C3042605E5B700BE750C /* CanvasControllerDelegate.swift */,
 				2E987E7C26075C0200352E7D /* SocketController.swift */,
 				2E987E8126075C5200352E7D /* SocketControllerDelegate.swift */,
+				2EB12AB9261BF41900131FE6 /* DoodleLayerCellDelegate.swift */,
+				2EB12ABD261BFBB600131FE6 /* DoodleLayerTableDelegate.swift */,
+				2EB12AC1261BFCD100131FE6 /* DoodleLayerTable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -453,6 +466,7 @@
 			isa = PBXGroup;
 			children = (
 				2ED7A3C52601B7740006D873 /* Doodle.storyboard */,
+				2EB12AB5261BEF6700131FE6 /* DoodleLayerTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -461,6 +475,7 @@
 			isa = PBXGroup;
 			children = (
 				2ED7A3CB2601C0450006D873 /* DoodleViewController.swift */,
+				2EB12AB1261BEDDC00131FE6 /* DoodleLayerTableViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1100,11 +1115,13 @@
 				83AB9C56261711B4008E48D0 /* FirebaseAuthProvider.swift in Sources */,
 				84EEC6C326102B5100876F66 /* ConferenceConstants.swift in Sources */,
 				84E847A8260AD4EB00E39C1F /* ChatViewController.swift in Sources */,
+				2EB12AB2261BEDDC00131FE6 /* DoodleLayerTableViewController.swift in Sources */,
 				84E847CA260B21AA00E39C1F /* AgoraTokenAPIResponse.swift in Sources */,
 				2EF8E92525F754C600C7EE7D /* SceneDelegate.swift in Sources */,
 				2E8AC74A2613F4C90033869E /* DTCanvasViewController.swift in Sources */,
 				2E987E6E2607468000352E7D /* PKStrokePoint+DTPoint.swift in Sources */,
 				83F5890A2619B44100BB9F07 /* DTUserCredentialsProvider.swift in Sources */,
+				2EB12ABE261BFBB600131FE6 /* DoodleLayerTableDelegate.swift in Sources */,
 				2EB129B5261BB4B500131FE6 /* DTActionQueueDelegate.swift in Sources */,
 				2EB12A3F261BE3F400131FE6 /* DTTool.swift in Sources */,
 				848F3581261451D400AD46C6 /* ParticipantViewCell.swift in Sources */,
@@ -1112,6 +1129,7 @@
 				2E987E7D26075C0200352E7D /* SocketController.swift in Sources */,
 				678F8923261B554A005530A0 /* DTAction.swift in Sources */,
 				2EB12A42261BE3F400131FE6 /* DTDoodle.swift in Sources */,
+				2EB12ABA261BF41900131FE6 /* DoodleLayerCellDelegate.swift in Sources */,
 				84E9595C260D757700D587CC /* ChatEngine.swift in Sources */,
 				67B62B4C2619BB980062037E /* DTWebSocketController.swift in Sources */,
 				2EBD90D0261B01F4009859FE /* ThickSliderView.swift in Sources */,
@@ -1126,6 +1144,7 @@
 				84D803C026186E7C0096692E /* NewDocumentViewController.swift in Sources */,
 				84E95966260D805C00D587CC /* ChatBoxDelegate.swift in Sources */,
 				83F588E72619240200BB9F07 /* DTAuthDelegate.swift in Sources */,
+				2EB12AC2261BFCD100131FE6 /* DoodleLayerTable.swift in Sources */,
 				83D2EC3E2609283A004F875D /* ApiEndpoints.swift in Sources */,
 				2EB12903261B8BED00131FE6 /* BestFitShapeDetector.swift in Sources */,
 				2ED7A3CC2601C0450006D873 /* DoodleViewController.swift in Sources */,
@@ -1137,6 +1156,7 @@
 				84E95961260D758B00D587CC /* ChatEngineDelegate.swift in Sources */,
 				2EA8C3182606682500BE750C /* PKCanvasView+Doodle.swift in Sources */,
 				83AB9C5226171088008E48D0 /* DTAuth.swift in Sources */,
+				2EB12AB6261BEF6700131FE6 /* DoodleLayerTableViewCell.swift in Sources */,
 				832607EE26145D5200B90F25 /* DTLogger.swift in Sources */,
 				8326080D26147FC600B90F25 /* DTAbstractLogger.swift in Sources */,
 				2E07C4242619B3EA003A87C9 /* UIConstants.swift in Sources */,
