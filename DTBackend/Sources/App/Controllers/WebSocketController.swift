@@ -175,22 +175,22 @@ class WebSocketController {
     }
 
     func initiateDoodleFetching(_ ws: WebSocket) {
-        if !roomController.hasFetchedDoodles {
-            PersistedDTRoom.getAllDoodles(roomId, on: self.db)
-                .flatMapThrowing { $0.map(DTAdaptedDoodle.init) }
-                .whenComplete { res in
-                    switch res {
-                    case .failure(let err):
-                        self.logger.report(error: err)
-
-                    case .success(let doodles):
-                        self.logger.info("Fetching existing doodles.")
-                        self.sendFetchedDoodles(doodles, to: [.socket(ws)])
-                    }
-                }
-        } else {
+//        if !roomController.hasFetchedDoodles {
+//            PersistedDTRoom.getAllDoodles(roomId, on: self.db)
+//                .flatMapThrowing { $0.map(DTAdaptedDoodle.init) }
+//                .whenComplete { res in
+//                    switch res {
+//                    case .failure(let err):
+//                        self.logger.report(error: err)
+//
+//                    case .success(let doodles):
+//                        self.logger.info("Fetching existing doodles.")
+//                        self.sendFetchedDoodles(doodles, to: [.socket(ws)])
+//                    }
+//                }
+//        } else {
             self.sendFetchedDoodles(roomController.doodleArray, to: [.socket(ws)])
-        }
+//        }
     }
 
     func sendFetchedDoodles(_ doodles: [DTAdaptedDoodle], to sendOptions: [WebSocketSendOption],
