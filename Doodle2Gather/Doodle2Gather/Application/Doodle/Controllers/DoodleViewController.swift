@@ -5,6 +5,7 @@ class DoodleViewController: UIViewController {
 
     // Storyboard UI Elements
     @IBOutlet private var zoomScaleLabel: UILabel!
+    @IBOutlet private var layerTableView: UIView!
     @IBOutlet private var colorPickerView: UIView!
     @IBOutlet private var colorPickerButton: UIView!
     private var coloredCircle = CAShapeLayer()
@@ -38,10 +39,11 @@ class DoodleViewController: UIViewController {
     @IBOutlet private var otherProfileImageTwo: UIImageView!
     @IBOutlet private var numberOfOtherUsersLabel: UILabel!
 
-    // Controllers
+    // Subview Controllers
     private var canvasController: CanvasController?
     private var socketController: SocketController?
     private var strokeEditor: StrokeEditor?
+    private var layerTable: DoodleLayerTable?
 
     // State
     var username: String?
@@ -118,6 +120,12 @@ class DoodleViewController: UIViewController {
             }
             destination.delegate = self
             self.strokeEditor = destination
+        case SegueConstants.toLayerTable:
+            guard let destination = segue.destination as? DoodleLayerTableViewController else {
+                return
+            }
+            destination.delegate = self
+            self.layerTable = destination
         default:
             return
         }
@@ -196,6 +204,11 @@ extension DoodleViewController {
             widthDidChange(width)
             colorDidChange(color)
         }
+    }
+
+    @IBAction private func layerButtonDidTap(_ sender: UIButton) {
+        layerTableView.isHidden.toggle()
+        sender.isSelected.toggle()
     }
 
     @objc
@@ -291,6 +304,14 @@ extension DoodleViewController: StrokeEditorDelegate {
             .withAlphaComponent(opacity)
         coloredCircle.fillColor = newColor.cgColor
         canvasController?.setColor(newColor)
+    }
+
+}
+
+extension DoodleViewController: DoodleLayerTableDelegate {
+
+    func selectedDoodleDidChange(index: Int) {
+        canvasController?.setSelectedDoodle(index: index)
     }
 
 }
