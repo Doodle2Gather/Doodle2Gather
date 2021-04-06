@@ -1,3 +1,4 @@
+// swiftlint:disable first_where
 import Fluent
 import Vapor
 import DTSharedLibrary
@@ -30,7 +31,7 @@ struct DTRoomController: RouteCollection {
             .filter(\.$id == newDTRoomRequest.createdBy)
             .first()
             .unwrap(or: Abort(.notFound))
-        
+
         let save = newDTRoom.save(on: req.db).map {
             newDTRoom
         }
@@ -41,7 +42,7 @@ struct DTRoomController: RouteCollection {
                 .transform(to: room)
         }
     }
-    
+
     func getRoomFromInviteHandler(req: Request) throws -> EventLoopFuture<PersistedDTRoom> {
         guard let code = req.parameters.get("code") else {
             throw Abort(.badRequest)
@@ -51,7 +52,7 @@ struct DTRoomController: RouteCollection {
             .first()
             .unwrap(or: Abort(.notFound))
     }
-    
+
     func getRoomFromRoomIdHandler(req: Request) throws -> EventLoopFuture<PersistedDTRoom> {
         guard let roomId = req.parameters.get("roomId", as: UUID.self) else {
             throw Abort(.badRequest)
@@ -61,10 +62,10 @@ struct DTRoomController: RouteCollection {
             .first()
             .unwrap(or: Abort(.notFound))
     }
-    
+
     func joinRoomFromInviteHandler(req: Request) throws -> EventLoopFuture<HTTPStatus> {
         let joinRequest = try req.content.decode(DTRoomJoinRequest.self)
-        
+
         if let inviteCode = joinRequest.inviteCode {
             let room = PersistedDTRoom.query(on: req.db)
                 .filter(\.$inviteCode == inviteCode)
@@ -81,7 +82,7 @@ struct DTRoomController: RouteCollection {
                     .transform(to: .created)
             }
         }
-        
+
         if let roomId = joinRequest.roomId {
             guard let roomUuid = UUID(uuidString: roomId) else {
                 throw Abort(.badRequest)

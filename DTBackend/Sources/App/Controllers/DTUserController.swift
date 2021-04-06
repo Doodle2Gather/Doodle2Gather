@@ -24,7 +24,7 @@ struct DTUserController: RouteCollection {
         return PersistedDTUser.find(id, on: req.db)
             .unwrap(or: Abort(.notFound))
     }
-    
+
     func readUserRoomsInfoHandler(req: Request) throws -> EventLoopFuture<[PersistedDTUserAccesses]> {
         guard let id = req.parameters.get("id") else {
             throw Abort(.badRequest)

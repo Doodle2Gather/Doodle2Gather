@@ -15,7 +15,7 @@ final class PersistedDTUser: Model, Content {
 
     @Children(for: \.$createdBy)
     var createdRooms: [PersistedDTRoom]
-    
+
     @Siblings(through: PersistedDTUserAccesses.self, from: \.$user, to: \.$room)
     var accessibleRooms: [PersistedDTRoom]
 
