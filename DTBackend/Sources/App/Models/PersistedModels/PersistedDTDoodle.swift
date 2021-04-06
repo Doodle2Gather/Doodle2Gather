@@ -1,7 +1,7 @@
 import Fluent
 import Vapor
 
-final class PersistedDTDoodle: Model {
+final class PersistedDTDoodle: Model, Content {
     static let schema = "doodles"
 
     @ID(key: .id)
