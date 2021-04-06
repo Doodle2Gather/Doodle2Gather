@@ -10,6 +10,8 @@ private struct DTRoomCreationRequest: Codable {
 struct DTRoomController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         routes.on(Endpoints.Room.createRoom, use: createRoomHandler)
+        routes.on(Endpoints.Room.getRoomFromRoomId, use: getRoomFromRoomIdHandler)
+        routes.on(Endpoints.Room.getRoomFromInvite, use: getRoomFromInviteHandler)
     }
 
     func createRoomHandler(req: Request) throws -> EventLoopFuture<PersistedDTRoom> {
@@ -17,6 +19,26 @@ struct DTRoomController: RouteCollection {
         let newDTRoom = PersistedDTRoom(name: newDTRoomRequest.name,
                                         createdBy: newDTRoomRequest.createdBy)
         return newDTRoom.save(on: req.db).map { newDTRoom }
+    }
+    
+    func getRoomFromInviteHandler(req: Request) throws -> EventLoopFuture<PersistedDTRoom> {
+        guard let code = req.parameters.get("code") else {
+            throw Abort(.badRequest)
+        }
+        return PersistedDTRoom.query(on: req.db)
+            .filter(\.$inviteCode == code)
+            .first()
+            .unwrap(or: Abort(.notFound))
+    }
+    
+    func getRoomFromRoomIdHandler(req: Request) throws -> EventLoopFuture<PersistedDTRoom> {
+        guard let roomId = req.parameters.get("roomId", as: UUID.self) else {
+            throw Abort(.badRequest)
+        }
+        return PersistedDTRoom.query(on: req.db)
+            .filter(\.$id == roomId)
+            .first()
+            .unwrap(or: Abort(.notFound))
     }
 
     // TODO: - Change return types to Adapted Models instead

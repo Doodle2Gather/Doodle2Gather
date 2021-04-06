@@ -56,5 +56,7 @@ public struct Endpoints {
     public struct Room {
         public static let root = ["room"]
         public static let createRoom = RouteDefinition(root: root, method: .POST, path: [])
+        public static let getRoomFromRoomId = RouteDefinition(root: root, method: .GET, path: [":roomId"])
+        public static let getRoomFromInvite = RouteDefinition(root: root, method: .GET, path: ["invite", ":code"])
     }
 }
