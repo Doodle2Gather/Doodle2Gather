@@ -263,7 +263,8 @@ extension DoodleViewController: SocketControllerDelegate {
 
     func dispatchChanges<S>(type: DTActionType, strokes: [(S, Int)], doodleId: UUID) where S: DTStroke {
         // TODO: Replace with actual roomId
-        guard let action = DTAction(type: type, roomId: UUID(), doodleId: doodleId, strokes: strokes) else {
+        guard let roomId = self.roomId,
+              let action = DTAction(type: type, roomId: roomId, doodleId: doodleId, strokes: strokes) else {
             return
         }
         socketController?.addAction(action)

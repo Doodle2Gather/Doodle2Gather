@@ -22,6 +22,9 @@ class DTCanvasViewController: UIViewController {
         }
     }
     var doodleIdMap = [Int: UUID]()
+    var undoActions = [Int: [(type: DTActionType, strokes: [(PKStroke, Int)])]]()
+    var redoActions = [Int: [(type: DTActionType, strokes: [(PKStroke, Int)])]]()
+    
     /// Delegate for action dispatching.
     internal weak var delegate: CanvasControllerDelegate?
     private let shapeDetector: ShapeDetector = BestFitShapeDetector()
