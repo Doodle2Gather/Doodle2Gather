@@ -12,10 +12,10 @@ final class PersistedDTRoom: Model, Content {
 
     @Field(key: "invite_code")
     var inviteCode: String
-    
+
     @Parent(key: "created_by")
     var createdBy: PersistedDTUser
-    
+
     @Siblings(through: PersistedDTUserAccesses.self, from: \.$room, to: \.$user)
     var accessibleBy: [PersistedDTUser]
 
@@ -30,9 +30,9 @@ final class PersistedDTRoom: Model, Content {
         self.inviteCode = generateInviteCode()
         self.$createdBy.id = createdBy
     }
-    
+
     private func generateInviteCode() -> String {
-        let code = Int.random(in: 0..<1000000)
+        let code = Int.random(in: 0..<1_000_000)
         return String(format: "%06d", code)
     }
 }

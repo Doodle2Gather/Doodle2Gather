@@ -27,10 +27,9 @@ struct DTRoomController: RouteCollection {
         let newDTRoom = PersistedDTRoom(name: newDTRoomRequest.name,
                                         createdBy: newDTRoomRequest.createdBy)
         let user = PersistedDTUser.query(on: req.db)
-            .filter(\.$id == newDTRoomRequest.createdBy)
-            .first()
+            .first(where: \.$id == newDTRoomRequest.createdBy)
             .unwrap(or: Abort(.notFound))
-        
+
         let save = newDTRoom.save(on: req.db).map {
             newDTRoom
         }
@@ -41,38 +40,34 @@ struct DTRoomController: RouteCollection {
                 .transform(to: room)
         }
     }
-    
+
     func getRoomFromInviteHandler(req: Request) throws -> EventLoopFuture<PersistedDTRoom> {
         guard let code = req.parameters.get("code") else {
             throw Abort(.badRequest)
         }
         return PersistedDTRoom.query(on: req.db)
-            .filter(\.$inviteCode == code)
-            .first()
+            .first(where: \.$inviteCode == code)
             .unwrap(or: Abort(.notFound))
     }
-    
+
     func getRoomFromRoomIdHandler(req: Request) throws -> EventLoopFuture<PersistedDTRoom> {
         guard let roomId = req.parameters.get("roomId", as: UUID.self) else {
             throw Abort(.badRequest)
         }
         return PersistedDTRoom.query(on: req.db)
-            .filter(\.$id == roomId)
-            .first()
+            .first(where: \.$id == roomId)
             .unwrap(or: Abort(.notFound))
     }
-    
+
     func joinRoomFromInviteHandler(req: Request) throws -> EventLoopFuture<HTTPStatus> {
         let joinRequest = try req.content.decode(DTRoomJoinRequest.self)
-        
+
         if let inviteCode = joinRequest.inviteCode {
             let room = PersistedDTRoom.query(on: req.db)
-                .filter(\.$inviteCode == inviteCode)
-                .first()
+                .first(where: \.$inviteCode == inviteCode)
                 .unwrap(or: Abort(.notFound))
             let user = PersistedDTUser.query(on: req.db)
-                .filter(\.$id == joinRequest.userId)
-                .first()
+                .first(where: \.$id == joinRequest.userId)
                 .unwrap(or: Abort(.notFound))
             return user.and(room).flatMap { user, room in
                 user
@@ -81,18 +76,16 @@ struct DTRoomController: RouteCollection {
                     .transform(to: .created)
             }
         }
-        
+
         if let roomId = joinRequest.roomId {
             guard let roomUuid = UUID(uuidString: roomId) else {
                 throw Abort(.badRequest)
             }
             let room = PersistedDTRoom.query(on: req.db)
-                .filter(\.$id == roomUuid)
-                .first()
+                .first(where: \.$id == roomUuid)
                 .unwrap(or: Abort(.notFound))
             let user = PersistedDTUser.query(on: req.db)
-                .filter(\.$id == joinRequest.userId)
-                .first()
+                .first(where: \.$id == joinRequest.userId)
                 .unwrap(or: Abort(.notFound))
             return user.and(room).flatMap { user, room in
                 user
