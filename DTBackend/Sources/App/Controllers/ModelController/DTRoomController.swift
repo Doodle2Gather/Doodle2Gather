@@ -36,10 +36,14 @@ struct DTRoomController: RouteCollection {
             newDTRoom
         }
         return save.and(user).flatMap { room, user in
-            user
+            
+            let attachRoomToUser = user
                 .$accessibleRooms
                 .attach(room, on: req.db)
-                .transform(to: room)
+            
+            let defaultDoodle = PersistedDTDoodle(room: room).save(on: req.db)
+            return attachRoomToUser.and(defaultDoodle).transform(to: newDTRoom)
+            
         }
     }
 
