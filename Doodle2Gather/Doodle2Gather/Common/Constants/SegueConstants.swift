@@ -5,4 +5,5 @@ enum SegueConstants {
     static let toParticipants = "toParticipants"
     static let toNewDocument = "toNewDocument"
     static let toStrokeEditor = "toStrokeEditor"
+    static let toLayerTable = "toLayerTable"
 }
