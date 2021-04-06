@@ -21,6 +21,7 @@ struct DTRoomController: RouteCollection {
         routes.on(Endpoints.Room.getRoomFromRoomId, use: getRoomFromRoomIdHandler)
         routes.on(Endpoints.Room.getRoomFromInvite, use: getRoomFromInviteHandler)
         routes.on(Endpoints.Room.joinRoomFromInvite, use: joinRoomFromInviteHandler)
+        routes.on(Endpoints.Room.getRoomDoodlesFromRoom, use: getRoomDoodlesFromRoomHandler)
     }
 
     func createRoomHandler(req: Request) throws -> EventLoopFuture<PersistedDTRoom> {
@@ -36,10 +37,14 @@ struct DTRoomController: RouteCollection {
             newDTRoom
         }
         return save.and(user).flatMap { room, user in
-            user
+            
+            let attachRoomToUser = user
                 .$accessibleRooms
                 .attach(room, on: req.db)
-                .transform(to: room)
+            
+            let defaultDoodle = PersistedDTDoodle(room: room).save(on: req.db)
+            return attachRoomToUser.and(defaultDoodle).transform(to: newDTRoom)
+            
         }
     }
 
@@ -52,7 +57,16 @@ struct DTRoomController: RouteCollection {
             .first()
             .unwrap(or: Abort(.notFound))
     }
-
+    
+    func getRoomDoodlesFromRoomHandler(req: Request) throws -> EventLoopFuture<[PersistedDTDoodle]> {
+        guard let roomId = req.parameters.get("roomId") else {
+            throw Abort(.badRequest)
+        }
+        return PersistedDTRoom
+            .getSingleByID(UUID(uuidString: roomId)!, on: req.db)
+            .map { $0.doodles }
+    }
+    
     func getRoomFromRoomIdHandler(req: Request) throws -> EventLoopFuture<PersistedDTRoom> {
         guard let roomId = req.parameters.get("roomId", as: UUID.self) else {
             throw Abort(.badRequest)

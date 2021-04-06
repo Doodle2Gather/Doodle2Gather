@@ -212,6 +212,10 @@ extension DoodleViewController {
         sender.isSelected.toggle()
     }
 
+    @IBAction private func addLayerButtonDidTap(_ sender: UIButton) {
+        // TODO: Create new layer
+    }
+
     @objc
     private func zoomScaleDidTap(_ gesture: UITapGestureRecognizer) {
         canvasController?.resetZoomScale()

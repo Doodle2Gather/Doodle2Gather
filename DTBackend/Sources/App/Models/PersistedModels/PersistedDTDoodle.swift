@@ -1,7 +1,7 @@
 import Fluent
 import Vapor
 
-final class PersistedDTDoodle: Model {
+final class PersistedDTDoodle: Model, Content {
     static let schema = "doodles"
 
     @ID(key: .id)
@@ -21,6 +21,11 @@ final class PersistedDTDoodle: Model {
     init(roomId: PersistedDTRoom.IDValue, id: UUID? = nil) {
         self.id = id
         self.$room.id = roomId
+    }
+    
+    init(room: PersistedDTRoom, id: UUID? = nil) {
+        self.id = id
+        self.$room.id = room.id!
     }
 
 }
