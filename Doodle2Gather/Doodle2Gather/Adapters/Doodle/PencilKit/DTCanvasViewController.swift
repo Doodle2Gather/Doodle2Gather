@@ -247,6 +247,7 @@ extension DTCanvasViewController: CanvasController {
 
     // Note: This method does not fire off an Action.
     func loadDoodles(_ doodles: [DTAdaptedDoodle]) {
+        doodleIdMap = [:]
         for (index, adaptedDoodle) in doodles.enumerated() {
             doodleIdMap[index] = adaptedDoodle.doodleId
         }
@@ -299,6 +300,15 @@ extension DTCanvasViewController: CanvasController {
 
     func resetZoomScale() {
         canvasView.zoomScale = 1.0
+    }
+
+    func setSelectedDoodle(index: Int) {
+        if index >= self.doodles.count {
+            return
+        }
+        doodles[currentDoodleIndex] = canvasView.drawing
+        currentDoodle = PKDrawing(from: doodles[currentDoodleIndex])
+        canvasView.drawing = currentDoodle
     }
 
 }
