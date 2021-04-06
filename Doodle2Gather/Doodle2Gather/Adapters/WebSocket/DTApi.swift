@@ -61,6 +61,15 @@ struct DTApi {
                 // return decodedData as? [DTRoom] ?? []
             }
     }
+    
+    static func getRoomsDoodles(
+        roomId: UUID,
+        completion: @escaping (DTApiResult<[DTAdaptedDoodle]>) -> Void
+    ) {
+        perform(Endpoints.Room.getRoomDoodlesFromRoom,
+                pathParameters: [.roomId: roomId.uuidString],
+                completion: completion)
+    }
 
     // MARK: Strokes
 
