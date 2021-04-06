@@ -78,18 +78,27 @@ extension GalleryViewController: UICollectionViewDelegate {
                 as? DoodleViewController else {
             return
         }
-        DTApi.getRoomsDoodles(roomId: rooms[index].roomId) { doodles in
-            print(doodles)
-            DispatchQueue.main.async {
-                vc.loadDoodles(doodles)
-                vc.username = DTAuth.user?.displayName ?? "Someone"
-                vc.roomName = self.rooms[index].roomName
-                vc.roomId = self.rooms[index].roomId
-                vc.modalPresentationStyle = .fullScreen
-                vc.modalTransitionStyle = .flipHorizontal
-                self.present(vc, animated: true, completion: nil)
-            }
-        }
+
+        vc.loadDoodles([DTAdaptedDoodle(roomId: self.rooms[index].roomId, doodleId: UUID(), strokes: [])])
+        vc.username = DTAuth.user?.displayName ?? "Someone"
+        vc.roomName = self.rooms[index].roomName
+        vc.roomId = self.rooms[index].roomId
+        vc.modalPresentationStyle = .fullScreen
+        vc.modalTransitionStyle = .flipHorizontal
+        self.present(vc, animated: true, completion: nil)
+
+//        DTApi.getRoomsDoodles(roomId: rooms[index].roomId) { doodles in
+//            print(doodles)
+//            DispatchQueue.main.async {
+//                vc.loadDoodles(doodles)
+//                vc.username = DTAuth.user?.displayName ?? "Someone"
+//                vc.roomName = self.rooms[index].roomName
+//                vc.roomId = self.rooms[index].roomId
+//                vc.modalPresentationStyle = .fullScreen
+//                vc.modalTransitionStyle = .flipHorizontal
+//                self.present(vc, animated: true, completion: nil)
+//            }
+//        }
     }
 }
 

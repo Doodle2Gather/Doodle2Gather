@@ -212,7 +212,7 @@ extension DTCanvasViewController: PKCanvasViewDelegate {
 //            fatalError("Invalid doodle ids!")
 //        }
         let doodleId = UUID()
-        
+
         delegate?.dispatchChanges(type: .remove, strokes: removedStrokes, doodleId: doodleId)
     }
 
