@@ -55,20 +55,30 @@ struct DTApi {
                 let decodedData = try? JSONDecoder().decode([RoomsResponseEntry].self, from: data)
                 let decodedRooms = decodedData?.map({ entry -> Room in
                     roomCount += 1
-                    return Room(roomId: UUID(uuidString: entry.id) ?? UUID(), roomName: "Room \(roomCount)")
+                    print(entry.id)
+                    return Room(roomId: UUID(uuidString: entry.room.id)!, roomName: "Room \(roomCount)")
                 })
                 callback(decodedRooms ?? [])
                 // return decodedData as? [DTRoom] ?? []
             }
     }
-    
+
     static func getRoomsDoodles(
-        roomId: UUID,
-        completion: @escaping (DTApiResult<[DTAdaptedDoodle]>) -> Void
+        roomId: UUID, callback: @escaping ([DTAdaptedDoodle]) -> Void
     ) {
-        perform(Endpoints.Room.getRoomDoodlesFromRoom,
-                pathParameters: [.roomId: roomId.uuidString],
-                completion: completion)
+        AF.request("\(baseURLString)/room/doodles/\(roomId.uuidString)",
+                   method: .get)
+            .responseJSON { response in
+
+                guard let data = response.data else {
+                    return
+                }
+                let decodedData = try? JSONDecoder().decode([DoodleResponseEntry].self, from: data)
+                let decodedDoodles = decodedData?.map({ entry -> DTAdaptedDoodle in
+                    DTAdaptedDoodle(roomId: roomId, doodleId: UUID(uuidString: entry.id)!, strokes: [])
+                })
+                callback(decodedDoodles ?? [])
+            }
     }
 
     // MARK: Strokes
@@ -198,4 +208,8 @@ struct RoomsResponseUserEntry: Codable {
 }
 struct RoomsResponseRoomEntry: Codable {
     let id: String
+}
+struct DoodleResponseEntry: Codable {
+    let id: String
+    let room: RoomsResponseRoomEntry
 }
