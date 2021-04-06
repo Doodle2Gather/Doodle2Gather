@@ -248,9 +248,9 @@ extension DoodleViewController: CanvasControllerDelegate {
 
 extension DoodleViewController: SocketControllerDelegate {
 
-    func dispatchChanges<S>(type: DTActionType, strokes: [(S, Int)]) where S: DTStroke {
-        // TODO: Replace with actual roomId and doodleId
-        guard let action = DTNewAction(type: type, roomId: UUID(), doodleId: UUID(), strokes: strokes) else {
+    func dispatchChanges<S>(type: DTActionType, strokes: [(S, Int)], doodleId: UUID) where S: DTStroke {
+        // TODO: Replace with actual roomId
+        guard let action = DTNewAction(type: type, roomId: UUID(), doodleId: doodleId, strokes: strokes) else {
             return
         }
         socketController?.addAction(action)

@@ -22,6 +22,7 @@ class DTCanvasViewController: UIViewController {
             canvasView.drawing = currentDoodle
         }
     }
+    var doodleIdMap = [Int: UUID]()
     /// Delegate for action dispatching.
     internal weak var delegate: CanvasControllerDelegate?
     private let shapeDetector: ShapeDetector = BestFitShapeDetector()
@@ -179,8 +180,11 @@ extension DTCanvasViewController: PKCanvasViewDelegate {
         guard let stroke = canvas.drawing.strokes.last else {
             fatalError("Invalid canvas state!")
         }
+        guard let doodleId = doodleIdMap[currentDoodleIndex] else {
+            fatalError("Invalid doodle ids!")
+        }
 
-        delegate?.dispatchChanges(type: .add, strokes: [(stroke, canvas.drawing.strokes.count - 1)])
+        delegate?.dispatchChanges(type: .add, strokes: [(stroke, canvas.drawing.strokes.count - 1)], doodleId: doodleId)
     }
 
     func createAndDispatchRemoveAction(newStrokes: [PKStroke], oldStrokes: [PKStroke]) {
@@ -201,7 +205,11 @@ extension DTCanvasViewController: PKCanvasViewDelegate {
             return
         }
 
-        delegate?.dispatchChanges(type: .remove, strokes: removedStrokes)
+        guard let doodleId = doodleIdMap[currentDoodleIndex] else {
+            fatalError("Invalid doodle ids!")
+        }
+
+        delegate?.dispatchChanges(type: .remove, strokes: removedStrokes, doodleId: doodleId)
     }
 
     func createAndDispatchModifyAction(newStrokes: [PKStroke], oldStrokes: [PKStroke]) {
@@ -212,10 +220,15 @@ extension DTCanvasViewController: PKCanvasViewDelegate {
         let newStrokesWrappers = newStrokes.map { PKStrokeHashWrapper(from: $0) }
         let oldStrokesWrappers = oldStrokes.map { PKStrokeHashWrapper(from: $0) }
 
+        guard let doodleId = doodleIdMap[currentDoodleIndex] else {
+            fatalError("Invalid doodle ids!")
+        }
+
         for (index, stroke) in newStrokesWrappers.enumerated() {
             let oldStroke = oldStrokesWrappers[index]
             if stroke != oldStroke {
-                delegate?.dispatchChanges(type: .modify, strokes: [(oldStroke, index), (stroke, index)])
+                delegate?.dispatchChanges(type: .modify, strokes: [(oldStroke, index), (stroke, index)],
+                                          doodleId: doodleId)
                 return
             }
         }
@@ -235,6 +248,9 @@ extension DTCanvasViewController: CanvasController {
 
     // Note: This method does not fire off an Action.
     func loadDoodles(_ doodles: [DTAdaptedDoodle]) {
+        for (index, adaptedDoodle) in doodles.enumerated() {
+            doodleIdMap[index] = adaptedDoodle.doodleId
+        }
         self.doodles = doodles.compactMap { PKDrawing(from: $0) }
         currentDoodleIndex = min(currentDoodleIndex, self.doodles.count - 1)
         currentDoodle = PKDrawing(from: doodles[currentDoodleIndex])

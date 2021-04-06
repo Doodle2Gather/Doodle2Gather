@@ -9,7 +9,7 @@ protocol CanvasControllerDelegate: AnyObject {
     func actionDidFinish(action: DTNewAction)
 
     /// Dispatches the action to the canvas controller.
-    func dispatchChanges<S: DTStroke>(type: DTActionType, strokes: [(S, Int)])
+    func dispatchChanges<S: DTStroke>(type: DTActionType, strokes: [(S, Int)], doodleId: UUID)
 
     /// Informs the delegate that the zoom of the canvas has changed.
     func canvasZoomScaleDidChange(scale: CGFloat)
@@ -27,7 +27,7 @@ extension CanvasControllerDelegate {
         // Do nothing
     }
 
-    func dispatchChanges<S: DTStroke>(type: DTActionType, strokes: [(S, Int)]) {
+    func dispatchChanges<S: DTStroke>(type: DTActionType, strokes: [(S, Int)], doodleId: UUID) {
         // Do nothing
     }
 
