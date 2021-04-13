@@ -38,6 +38,9 @@ extension PKStroke: DTStroke {
     public init?(from stroke: DTAdaptedStroke) {
         let decoder = JSONDecoder()
 
+        print("Decoding")
+        print(String(data: stroke.stroke, encoding: .utf8))
+
         guard let stroke = try? decoder.decode(PKStroke.self, from: stroke.stroke) else {
             return nil
         }
