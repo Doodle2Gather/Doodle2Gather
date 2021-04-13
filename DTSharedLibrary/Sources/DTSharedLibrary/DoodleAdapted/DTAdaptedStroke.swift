@@ -21,4 +21,11 @@ public struct DTAdaptedStroke: Codable {
 
 // MARK: - Hashable
 
-extension DTAdaptedStroke: Hashable {}
+extension DTAdaptedStroke: Hashable {
+    public static func == (lhs: DTAdaptedStroke, rhs: DTAdaptedStroke) -> Bool {
+        return
+            lhs.stroke == rhs.stroke &&
+            lhs.roomId == rhs.roomId &&
+            lhs.doodleId == rhs.doodleId
+    }
+}
