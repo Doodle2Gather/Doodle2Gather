@@ -11,6 +11,14 @@ extension DTAdaptedDoodle {
     }
 }
 
+extension DTAdaptedDoodle.CreateRequest {
+    func makePersistedDoodle() -> PersistedDTDoodle {
+        PersistedDTDoodle(
+            roomId: roomId
+        )
+    }
+}
+
 // MARK: - Content
 
 extension DTAdaptedDoodle: Content {}
