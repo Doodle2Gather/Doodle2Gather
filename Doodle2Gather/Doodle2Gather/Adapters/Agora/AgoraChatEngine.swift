@@ -45,7 +45,7 @@ class AgoraChatEngine: NSObject, ChatEngine {
                 self.agoraRtmKit?.login(byToken: tokenResponse.key,
                                         user: user.uid) { errorCode in
                     guard errorCode == .ok else {
-                        DTLogger.error("Error with logging in to Agora server: code \(errorCode.rawValue)")
+                        DTLogger.error("Chat engine: error with logging in to Agora server: code \(errorCode.rawValue)")
                         return
                     }
                     self.createOrJoinChannel(channelName: channelName)
@@ -62,12 +62,12 @@ class AgoraChatEngine: NSObject, ChatEngine {
 
     private func createOrJoinChannel(channelName: String) {
         guard let rtmChannel = agoraRtmKit?.createChannel(withId: channelName, delegate: self) else {
-            DTLogger.error("Unable to create or attach to channel: \(channelName)")
+            DTLogger.error("Chat engine: unable to create or attach to channel: \(channelName)")
             return
         }
         rtmChannel.join { error in
             if error != .channelErrorOk {
-                DTLogger.error("Unable to join channel")
+                DTLogger.error("Chat engine: unable to join channel: \(channelName)")
                 return
             }
         }
@@ -76,7 +76,7 @@ class AgoraChatEngine: NSObject, ChatEngine {
 
     func leaveChannel() {
         rtmChannel?.leave { error in
-            DTLogger.error("Leave channel error: \(error.rawValue)")
+            DTLogger.error("Chat engine: leave channel error: \(error.rawValue)")
         }
     }
 
@@ -89,9 +89,9 @@ class AgoraChatEngine: NSObject, ChatEngine {
 
         rtmChannel?.send(rtmMessage) { errorCode in
             if errorCode != .errorOk {
-                DTLogger.error("Error sending the message: code \(errorCode.rawValue)")
+                DTLogger.error("Chat engine: error sending the message: code \(errorCode.rawValue)")
             } else {
-                DTLogger.event("Successfully sent message from \(user.displayName): \(message)")
+                DTLogger.event("Chat engine: successfully sent message from \(user.displayName): \(message)")
                 self.delegate?.deliverMessage(from: user.uid, message: rtmMessage.text)
             }
         }
@@ -106,7 +106,7 @@ extension AgoraChatEngine: AgoraRtmDelegate {
     func rtmKit(_ kit: AgoraRtmKit,
                 connectionStateChanged state: AgoraRtmConnectionState,
                 reason: AgoraRtmConnectionChangeReason) {
-        DTLogger.info("Connection state changed: \(state)")
+        DTLogger.info("Connection state changed: code \(state.rawValue)")
     }
 
     func rtmKit(_ kit: AgoraRtmKit, messageReceived message: AgoraRtmMessage, fromPeer peerId: String) {
@@ -120,17 +120,17 @@ extension AgoraChatEngine: AgoraRtmDelegate {
 extension AgoraChatEngine: AgoraRtmChannelDelegate {
 
     func channel(_ channel: AgoraRtmChannel, memberJoined member: AgoraRtmMember) {
-        DTLogger.event("\(member.userId) join")
+        DTLogger.event("Chat engine: \(member.userId) join")
     }
 
     func channel(_ channel: AgoraRtmChannel, memberLeft member: AgoraRtmMember) {
-        DTLogger.event("\(member.userId) left")
+        DTLogger.event("Chat engine: \(member.userId) left")
     }
 
     func channel(_ channel: AgoraRtmChannel,
                  messageReceived message: AgoraRtmMessage,
                  from member: AgoraRtmMember) {
-        DTLogger.event("Received from userId \(member.userId): \(message.text)")
+        DTLogger.event("Chat engine: received message from userId \(member.userId): \(message.text)")
         delegate?.deliverMessage(from: member.userId, message: message.text)
     }
 

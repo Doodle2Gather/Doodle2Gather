@@ -70,6 +70,8 @@ class GalleryViewController: UIViewController {
     }
 }
 
+// MARK: - UICollectionViewDelegate
+
 extension GalleryViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let index = indexPath.row
@@ -102,6 +104,8 @@ extension GalleryViewController: UICollectionViewDelegate {
     }
 }
 
+// MARK: - UICollectionViewDataSource
+
 extension GalleryViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         rooms.count
@@ -115,6 +119,8 @@ extension GalleryViewController: UICollectionViewDataSource {
         return cell!
     }
 }
+
+// MARK: - UICollectionViewDelegateFlowLayout
 
 extension GalleryViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
