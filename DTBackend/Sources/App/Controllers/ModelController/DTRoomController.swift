@@ -23,8 +23,14 @@ struct DTRoomController: RouteCollection {
         return room.and(user)
             .flatMap { (room: PersistedDTRoom, user: PersistedDTUser) in
                 let attachRoom = user.$accessibleRooms.attach(room, on: req.db)
-                let defaultDoodle = PersistedDTDoodle(room: room).save(on: req.db)
-                return attachRoom.and(defaultDoodle).transform(to: DTAdaptedRoom(room: room))
+                let newDoodle = PersistedDTDoodle(room: room)
+                let defaultDoodle = newDoodle.save(on: req.db)
+//                    .flatMap {
+//                    room.$doodles.create([newDoodle], on: req.db)
+//                }
+                return attachRoom.and(defaultDoodle)
+                    .flatMap { _ in PersistedDTRoom.getSingleById(room.id, on: req.db) }
+                    .map { r in DTAdaptedRoom(room: r) }
             }
     }
 
@@ -115,7 +121,7 @@ extension PersistedDTRoom {
 
     static func getAllDoodles(_ id: PersistedDTRoom.IDValue?, on db: Database) -> EventLoopFuture<[PersistedDTDoodle]> {
         getSingleById(id, on: db)
-            .flatMapThrowing { $0.doodles }
+            .flatMapThrowing { $0.getChildren() }
     }
 
     static func getAll(on db: Database) -> EventLoopFuture<[PersistedDTRoom]> {

@@ -8,7 +8,7 @@ extension DTAdaptedRoom {
             roomId: try? room.requireID(),
             name: room.name,
             inviteCode: room.inviteCode,
-            doodles: room.doodles.map { DTAdaptedDoodle(doodle: $0) }
+            doodles: room.getChildren().map { DTAdaptedDoodle(doodle: $0) }
         )
     }
 }

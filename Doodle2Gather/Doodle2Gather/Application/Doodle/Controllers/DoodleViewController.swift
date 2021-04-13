@@ -50,6 +50,7 @@ class DoodleViewController: UIViewController {
     var roomName: String?
     var roomId: UUID?
     private var previousDrawingTool = DrawingTools.pen
+    var doodles: [DTAdaptedDoodle]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -112,8 +113,9 @@ class DoodleViewController: UIViewController {
                 return
             }
             destination.delegate = self
-            // TODO: Complete injection of doodle into subcontroller
-            // destination.doodle = // Inject doodle
+            if let doodles = self.doodles {
+                destination.loadDoodles(doodles)
+            }
             self.canvasController = destination
         case SegueConstants.toStrokeEditor:
             guard let destination = segue.destination as? StrokeEditorViewController else {
