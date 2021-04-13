@@ -2,13 +2,13 @@ import Foundation
 
 public struct DTAdaptedRoom: Codable {
 
-    public let ownerId: UUID
+    public let ownerId: String
     public let roomId: UUID?
     public let name: String
     public let inviteCode: String
     public var doodles: [DTAdaptedDoodle]
 
-    public init(ownerId: UUID, roomId: UUID? = nil,
+    public init(ownerId: String, roomId: UUID? = nil,
                 name: String, inviteCode: String,
                 doodles: [DTAdaptedDoodle] = []) {
         self.ownerId = ownerId
