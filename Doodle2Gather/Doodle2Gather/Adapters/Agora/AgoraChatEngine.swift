@@ -18,6 +18,10 @@ class AgoraChatEngine: NSObject, ChatEngine {
         agoraRtmKit?.agoraRtmDelegate = self
     }
 
+    func tearDown() {
+        agoraRtmKit?.logout(completion: nil)
+    }
+
     // TODO: Currently reusing the logic for video, need to change to our own user model
     private func getAgoraTokenAndJoinChannel(channelName: String) {
         guard let user = currentUser else {

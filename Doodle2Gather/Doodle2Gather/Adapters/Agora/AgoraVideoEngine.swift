@@ -19,6 +19,10 @@ class AgoraVideoEngine: NSObject, VideoEngine {
         getAgoraEngine().setVideoEncoderConfiguration(configuration)
     }
 
+    func tearDown() {
+        getAgoraEngine().leaveChannel(nil)
+    }
+
     private func getAgoraTokenAndJoinChannel(channelName: String) {
         let url = URL(string: "\(ApiEndpoints.AgoraRtcTokenServer)?uid=\(callID)&channelName=\(channelName)")!
 

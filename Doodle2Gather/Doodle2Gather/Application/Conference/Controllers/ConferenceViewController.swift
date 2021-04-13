@@ -137,6 +137,11 @@ class ConferenceViewController: UIViewController {
         }
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        videoEngine?.tearDown()
+        chatEngine?.tearDown()
+    }
+
 }
 
 // MARK: - VideoEngineDelegate

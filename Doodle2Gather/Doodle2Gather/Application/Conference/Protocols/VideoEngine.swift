@@ -1,6 +1,7 @@
 protocol VideoEngine {
     var delegate: VideoEngineDelegate? { get set }
     func initialize()
+    func tearDown()
     func joinChannel(channelName: String)
     func muteAudio()
     func unmuteAudio()
