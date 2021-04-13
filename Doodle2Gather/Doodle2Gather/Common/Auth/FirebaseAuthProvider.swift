@@ -36,7 +36,7 @@ class FirebaseAuthProvider: DTAbstractAuthProvider {
             DTLogger.info("Logged in")
             DTApi.sendUserData(id: self.user!.uid,
                                displayName: self.user!.displayName,
-                               email: self.user!.email) {
+                               email: self.user!.email) { _ in
                 self.delegate!.loginDidSucceed()
             }
         }
