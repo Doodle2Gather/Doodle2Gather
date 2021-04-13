@@ -129,6 +129,9 @@ class DoodleViewController: UIViewController {
                 return
             }
             destination.delegate = self
+            if let doodles = self.doodles {
+                destination.loadDoodles(doodles)
+            }
             self.layerTable = destination
         case SegueConstants.toInvitation:
             guard let destination = segue.destination as? InvitationViewController else {

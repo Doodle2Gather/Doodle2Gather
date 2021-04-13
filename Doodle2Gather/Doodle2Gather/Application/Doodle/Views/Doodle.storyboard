@@ -1007,6 +1007,7 @@
                                             <rect key="frame" x="20" y="5" width="100" height="65"/>
                                             <color key="backgroundColor" name="White"/>
                                             <constraints>
+                                                <constraint firstAttribute="height" constant="56" id="Fck-pK-1fF"/>
                                                 <constraint firstAttribute="width" constant="100" id="JOX-l2-Jvv"/>
                                             </constraints>
                                             <userDefinedRuntimeAttributes>
@@ -1026,12 +1027,13 @@
                                                         <constraint firstAttribute="height" constant="30" id="zxc-OI-cQU"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <inset key="titleEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                                                     <state key="normal" title="Edit this layer">
                                                         <color key="titleColor" name="White"/>
                                                     </state>
                                                     <state key="selected" title="Editing this layer">
-                                                        <color key="titleColor" name="Stack Grey"/>
+                                                        <color key="titleColor" name="Black"/>
                                                     </state>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -1068,13 +1070,16 @@
                                         <constraint firstItem="0Zj-4C-R9i" firstAttribute="centerY" secondItem="gyL-hK-5ld" secondAttribute="centerY" id="BaQ-kM-xue"/>
                                         <constraint firstItem="0Zj-4C-R9i" firstAttribute="leading" secondItem="WIy-8r-XYL" secondAttribute="trailing" constant="15" id="HkL-Nx-Ebs"/>
                                         <constraint firstItem="WIy-8r-XYL" firstAttribute="top" secondItem="gyL-hK-5ld" secondAttribute="top" constant="5" id="bHH-NC-XfM"/>
+                                        <constraint firstItem="WIy-8r-XYL" firstAttribute="centerY" secondItem="gyL-hK-5ld" secondAttribute="centerY" id="e9f-XH-R6L"/>
                                         <constraint firstItem="WIy-8r-XYL" firstAttribute="bottom" secondItem="gyL-hK-5ld" secondAttribute="bottom" constant="-5" id="htU-hp-4qT"/>
                                         <constraint firstItem="WIy-8r-XYL" firstAttribute="leading" secondItem="gyL-hK-5ld" secondAttribute="leading" constant="20" id="kRa-9n-NbP"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="editButton" destination="gO9-GL-Kqo" id="Eqk-6G-EVk"/>
                                     <outlet property="layerNameLabel" destination="2vH-B0-gmE" id="xKN-X7-rCX"/>
                                     <outlet property="previewImage" destination="WIy-8r-XYL" id="F5P-Wp-7z0"/>
+                                    <outlet property="widthConstraint" destination="JVb-ma-NAi" id="ej7-Vt-6Mg"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
