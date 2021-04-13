@@ -15,24 +15,13 @@ struct DTUserController: RouteCollection {
         try PersistedDTUser.createUserInfo(req: req).flatMapThrowing(DTAdaptedUser.init)
     }
 
-    func readUserInfoHandler(req: Request) throws -> EventLoopFuture<PersistedDTUser> {
-        guard let id = req.parameters.get("id") else {
-            throw Abort(.badRequest)
-        }
-        // TODO: Info leak. Remove email fields from response. API doesn't need to send user's email
-        return PersistedDTUser.find(id, on: req.db)
-            .unwrap(or: Abort(.notFound))
+    func readUserInfoHandler(req: Request) throws -> EventLoopFuture<DTAdaptedUser> {
+        try PersistedDTUser.readUserInfo(req: req).flatMapThrowing(DTAdaptedUser.init)
     }
 
-    func readUserRoomsInfoHandler(req: Request) throws -> EventLoopFuture<[PersistedDTUserAccesses]> {
-        guard let id = req.parameters.get("id") else {
-            throw Abort(.badRequest)
+    func readUserRoomsInfoHandler(req: Request) throws -> EventLoopFuture<[DTAdaptedUserAccesses]> {
+        try PersistedDTUser.readUserRoomsInfo(req: req).flatMapThrowing{ $0.map { DTAdaptedUserAccesses(userAccesses: $0) }
         }
-        return PersistedDTUserAccesses
-            .query(on: req.db)
-            .with(\.$room)
-            .filter(\.$user.$id == id)
-            .all()
     }
 
     func updateUserInfoHandler(req: Request) throws -> EventLoopFuture<PersistedDTUser> {
@@ -90,5 +79,23 @@ extension PersistedDTUser {
         let newUser = create.makePersistedUser()
         return newUser.save(on: req.db)
             .flatMap { PersistedDTUser.getSingleById(create.id, on: req.db) }
+    }
+
+    static func readUserInfo(req: Request) throws -> EventLoopFuture<PersistedDTUser> {
+        guard let id = req.parameters.get("id") else {
+            throw Abort(.badRequest)
+        }
+        return PersistedDTUser.find(id, on: req.db)
+            .unwrap(or: Abort(.notFound))
+    }
+    
+    static func readUserRoomsInfo(req: Request) throws -> EventLoopFuture<[PersistedDTUserAccesses]> {
+        guard let id = req.parameters.get("id") else {
+            throw Abort(.badRequest)
+        }
+        return PersistedDTUserAccesses
+            .query(on: req.db)
+            .filter(\.$user.$id == id)
+            .all()
     }
 }
