@@ -58,6 +58,10 @@ class GalleryViewController: UIViewController {
                 self.rooms.append(room)
                 self.collectionView.reloadData()
             }
+            vc.joinDocumentCallback = { room in
+                self.rooms.append(room)
+                self.collectionView.reloadData()
+            }
         }
     }
 

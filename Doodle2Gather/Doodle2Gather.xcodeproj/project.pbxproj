@@ -78,6 +78,8 @@
 		83F5890E2619B47C00BB9F07 /* UserDefaultsCredentialsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F5890D2619B47C00BB9F07 /* UserDefaultsCredentialsProvider.swift */; };
 		840D6B2B260236CF001F3D43 /* ConferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D6B2A260236CF001F3D43 /* ConferenceViewController.swift */; };
 		840D6B3326023F90001F3D43 /* VideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D6B3226023F90001F3D43 /* VideoCollectionViewCell.swift */; };
+		8464E77D262586B4002B5BEE /* InvitationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8464E77C262586B4002B5BEE /* InvitationViewController.swift */; };
+		8464E7892625878C002B5BEE /* Invitation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8464E7882625878C002B5BEE /* Invitation.storyboard */; };
 		848F35472614174000AD46C6 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848F35462614174000AD46C6 /* Message.swift */; };
 		848F354F2614177000AD46C6 /* Sender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848F354E2614177000AD46C6 /* Sender.swift */; };
 		848F356926142D8800AD46C6 /* ParticipantsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848F356826142D8800AD46C6 /* ParticipantsViewController.swift */; };
@@ -210,6 +212,8 @@
 		83F5890D2619B47C00BB9F07 /* UserDefaultsCredentialsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsCredentialsProvider.swift; sourceTree = "<group>"; };
 		840D6B2A260236CF001F3D43 /* ConferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConferenceViewController.swift; sourceTree = "<group>"; };
 		840D6B3226023F90001F3D43 /* VideoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewCell.swift; sourceTree = "<group>"; };
+		8464E77C262586B4002B5BEE /* InvitationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitationViewController.swift; sourceTree = "<group>"; };
+		8464E7882625878C002B5BEE /* Invitation.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Invitation.storyboard; sourceTree = "<group>"; };
 		848F35462614174000AD46C6 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		848F354E2614177000AD46C6 /* Sender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sender.swift; sourceTree = "<group>"; };
 		848F356826142D8800AD46C6 /* ParticipantsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantsViewController.swift; sourceTree = "<group>"; };
@@ -575,6 +579,7 @@
 		2EF8E97A25F75EAE00C7EE7D /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				8464E77926258680002B5BEE /* Invitation */,
 				2EF8E97B25F75EB500C7EE7D /* Home */,
 				84A451CD2614706000DFCA75 /* Gallery */,
 				2ED7A3C32601B7570006D873 /* Doodle */,
@@ -719,6 +724,31 @@
 				840D6B3226023F90001F3D43 /* VideoCollectionViewCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		8464E77926258680002B5BEE /* Invitation */ = {
+			isa = PBXGroup;
+			children = (
+				8464E77B26258691002B5BEE /* Controllers */,
+				8464E77A2625868A002B5BEE /* Views */,
+			);
+			path = Invitation;
+			sourceTree = "<group>";
+		};
+		8464E77A2625868A002B5BEE /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8464E77C262586B4002B5BEE /* InvitationViewController.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		8464E77B26258691002B5BEE /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				8464E7882625878C002B5BEE /* Invitation.storyboard */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		84A451CD2614706000DFCA75 /* Gallery */ = {
@@ -919,6 +949,7 @@
 			files = (
 				2E146CC126190246001F6845 /* Participants.storyboard in Resources */,
 				2ED6297A2618FD37009F92D0 /* Chat.storyboard in Resources */,
+				8464E7892625878C002B5BEE /* Invitation.storyboard in Resources */,
 				2EF8E92F25F754C700C7EE7D /* LaunchScreen.storyboard in Resources */,
 				84A451EA2614804B00DFCA75 /* Gallery.storyboard in Resources */,
 				2E2B16D926197BFF0014DD4A /* Assets.xcassets in Resources */,
@@ -1156,6 +1187,7 @@
 				84E95961260D758B00D587CC /* ChatEngineDelegate.swift in Sources */,
 				2EA8C3182606682500BE750C /* PKCanvasView+Doodle.swift in Sources */,
 				83AB9C5226171088008E48D0 /* DTAuth.swift in Sources */,
+				8464E77D262586B4002B5BEE /* InvitationViewController.swift in Sources */,
 				2EB12AB6261BEF6700131FE6 /* DoodleLayerTableViewCell.swift in Sources */,
 				832607EE26145D5200B90F25 /* DTLogger.swift in Sources */,
 				8326080D26147FC600B90F25 /* DTAbstractLogger.swift in Sources */,
