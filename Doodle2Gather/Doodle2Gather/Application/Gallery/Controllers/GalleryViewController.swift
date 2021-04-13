@@ -21,12 +21,22 @@ class GalleryViewController: UIViewController {
 
         if let user = DTAuth.user {
             welcomeLabel.text = "Welcome, \(user.displayName)!"
-            DTApi.getAllRooms(user: user.uid) { roomsData in
-                for room in roomsData {
-                    self.rooms.append(room)
+            DTApi.getUserAccessibleRooms(userId: user.uid) { result in
+                switch result {
+                case .failure(let error):
+                    DTLogger.error(error.localizedDescription)
+                case .success(.some(let rooms)):
+                    self.rooms = rooms.map { guard let room = Room(room: $0) else {
+                        fatalError("Cannot parse room")
+                    }
+                    return room
+                    }
+                case .success(.none):
+                    break
                 }
-                self.collectionView.reloadData()
             }
+
+            self.collectionView.reloadData()
         } else {
             welcomeLabel.text = "Welcome"
         }
