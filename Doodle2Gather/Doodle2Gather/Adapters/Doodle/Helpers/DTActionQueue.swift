@@ -1,3 +1,5 @@
+import Foundation
+
 struct DTActionQueue {
 
     var queue = Queue<DTAction>()

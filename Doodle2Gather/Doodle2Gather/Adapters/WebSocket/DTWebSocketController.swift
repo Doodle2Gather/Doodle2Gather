@@ -183,4 +183,19 @@ extension DTWebSocketController: SocketController {
         }
     }
 
+    func disconnect() {
+        DTLogger.info("Leaving room. Disconnecting ...")
+        let message = DTDisconnect(id: id)
+        do {
+            let data = try encoder.encode(message)
+            self.socket.send(.data(data)) { err in
+                if err != nil {
+                    DTLogger.error(err.debugDescription)
+                }
+            }
+        } catch {
+            DTLogger.error(error.localizedDescription)
+        }
+        self.socket.cancel(with: .goingAway, reason: nil)
+    }
 }

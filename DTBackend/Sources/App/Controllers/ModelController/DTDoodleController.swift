@@ -4,26 +4,46 @@ import DTSharedLibrary
 
 struct DTDoodleController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
-
+        routes.on(Endpoints.Doodle.create, use: createHandler)
+        routes.on(Endpoints.Doodle.getDoodleFromDooleId, use: getSingleHandler)
+        routes.on(Endpoints.Doodle.getAllStrokes, use: getAllStrokesHandler)
+        routes.on(Endpoints.Doodle.delete, use: deleteHandler)
     }
 
-    // TODO: - Change return types to Adapted Models instead
+    func createHandler(req: Request) throws -> EventLoopFuture<DTAdaptedDoodle> {
+        let create = try req.content.decode(DTAdaptedDoodle.CreateRequest.self)
+        let newDoodle = create.makePersistedDoodle()
 
-//    func getSingleHandler(req: Request) throws -> EventLoopFuture<PersistedDTDoodle> {
-//
-//    }
-//    
-//    func getAllHandler(req: Request) throws -> EventLoopFuture<[PersistedDTDoodle]> {
-//
-//    }
-//    
-//    func createHandler(req: Request) throws -> EventLoopFuture<PersistedDTDoodle> {
-//
-//    }
-//    
-//    func deleteHandler(req: Request) throws -> EventLoopFuture<HTTPResponseStatus> {
-//
-//    }
+        return newDoodle.save(on: req.db)
+            .flatMap { PersistedDTDoodle.getSingleById(newDoodle.id, on: req.db) }
+            .flatMapThrowing(DTAdaptedDoodle.init)
+    }
+
+    func getSingleHandler(req: Request) throws -> EventLoopFuture<DTAdaptedDoodle> {
+        let doodleId = try req.requireUUID(parameterName: "doodleId")
+
+        return PersistedDTDoodle.getSingleById(doodleId, on: req.db)
+            .flatMapThrowing(DTAdaptedDoodle.init)
+    }
+
+    func getAllStrokesHandler(req: Request) throws -> EventLoopFuture<[DTAdaptedStroke]> {
+        let doodleId = try req.requireUUID(parameterName: "doodleId")
+
+        return PersistedDTDoodle.getAllStrokes(doodleId, on: req.db)
+            .flatMapThrowing { strokes in
+                strokes.map(DTAdaptedStroke.init)
+            }
+    }
+
+    func deleteHandler(req: Request) throws -> EventLoopFuture<HTTPResponseStatus> {
+        let doodleId = try req.requireUUID(parameterName: "doodleId")
+
+        return PersistedDTDoodle.getSingleById(doodleId, on: req.db)
+            .flatMap { doodle in
+                doodle.delete(on: req.db)
+            }
+            .transform(to: .noContent)
+    }
 
 }
 

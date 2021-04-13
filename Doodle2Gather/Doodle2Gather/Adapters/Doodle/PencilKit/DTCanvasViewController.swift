@@ -24,11 +24,11 @@ class DTCanvasViewController: UIViewController {
     var doodleIdMap = [Int: UUID]()
     var undoActions = [Int: [(type: DTActionType, strokes: [(PKStroke, Int)])]]()
     var redoActions = [Int: [(type: DTActionType, strokes: [(PKStroke, Int)])]]()
+    var semaphore = DispatchSemaphore(value: 1)
 
     /// Delegate for action dispatching.
     internal weak var delegate: CanvasControllerDelegate?
     private let shapeDetector: ShapeDetector = BestFitShapeDetector()
-    private var actionQueue = DTActionQueue()
 
     /// Tracks whether a initial scroll to offset has already been done.
     private var hasScrolledToInitialOffset = false
@@ -71,8 +71,6 @@ class DTCanvasViewController: UIViewController {
         canvasView.drawing = currentDoodle
         canvasView.contentSize = Constants.canvasSize
         canvasView.setWidth(CGFloat(UIConstants.defaultPenWidth))
-
-        actionQueue.delegate = self
     }
 
     override func viewDidLayoutSubviews() {
@@ -117,10 +115,6 @@ extension DTCanvasViewController: PKCanvasViewDelegate {
             return
         }
 
-        if !actionQueue.isEmpty {
-            dispatchCachedActions()
-        }
-
         let newStrokes = canvas.drawing.dtStrokes
         let oldStrokes = currentDoodle.dtStrokes
 
@@ -145,22 +139,6 @@ extension DTCanvasViewController: PKCanvasViewDelegate {
 
     func canvasViewDidBeginUsingTool(_ canvasView: PKCanvasView) {
         isDoodling = true
-    }
-
-    func dispatchCachedActions() {
-        // Unload cached actions
-        isSelfUpdate = true
-        let cachedDrawing = canvasView.drawing
-        canvasView.drawing = currentDoodle
-
-        while let action = actionQueue.dequeueAction() {
-            dispatchActionQuietly(action)
-        }
-
-        if currentActionType == .add, let stroke = cachedDrawing.strokes.last {
-            canvasView.drawing.strokes.append(stroke)
-        }
-        isSelfUpdate = false
     }
 
     func createAndDispatchAddAction(newStrokes: [PKStroke], oldStrokes: [PKStroke], canvas: PKCanvasView) {
@@ -245,7 +223,27 @@ extension DTCanvasViewController: PKCanvasViewDelegate {
 extension DTCanvasViewController: CanvasController {
 
     func dispatchAction(_ action: DTAction) {
-        actionQueue.enqueueAction(action)
+        do {
+            let pair = action.strokes[0]
+            guard let firstStroke: PKStroke = action.getStrokes()?[0] else {
+                throw DTCanvasError.cannotParseStroke
+            }
+
+            switch action.type {
+            case .add:
+                try addPairQuietly(index: pair.index, stroke: firstStroke)
+            case .remove:
+                try removePairsQuietly(indices: action.strokes.map { $0.index },
+                                       strokes: action.getStrokes() ?? [])
+            case .modify:
+                try modifyPairQuietly(index: pair.index, stroke: firstStroke)
+            case .unknown:
+                return
+            }
+        } catch {
+            DTLogger.error(error.localizedDescription)
+            refetchDoodles()
+        }
     }
 
     // Note: This method does not fire off an Action.
@@ -316,36 +314,7 @@ extension DTCanvasViewController: CanvasController {
 
 }
 
-extension DTCanvasViewController: DTActionQueueDelegate {
-
-    func canDispatchAction() -> Bool {
-        !isDoodling
-    }
-
-    func dispatchActionQuietly(_ action: DTAction) {
-        do {
-            let pair = action.strokes[0]
-            guard let firstStroke: PKStroke = action.getStrokes()?[0] else {
-                throw DTCanvasError.cannotParseStroke
-            }
-
-            switch action.type {
-            case .add:
-                try addPairQuietly(index: pair.index, stroke: firstStroke)
-            case .remove:
-                try removePairsQuietly(indices: action.strokes.map { $0.index },
-                                       strokes: action.getStrokes() ?? [])
-            case .modify:
-                try modifyPairQuietly(index: pair.index, stroke: firstStroke)
-            case .unknown:
-                return
-            }
-        } catch {
-            DTLogger.error(error.localizedDescription)
-            actionQueue.clear()
-            refetchDoodles()
-        }
-    }
+extension DTCanvasViewController {
 
     private func addPairQuietly(index: Int, stroke: PKStroke) throws {
         var doodleCopy = currentDoodle
