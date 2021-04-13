@@ -43,6 +43,7 @@
 		2EB12AC2261BFCD100131FE6 /* DoodleLayerTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12AC1261BFCD100131FE6 /* DoodleLayerTable.swift */; };
 		2EB929D9260778F600AAB396 /* SubviewTouchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB929D8260778F600AAB396 /* SubviewTouchView.swift */; };
 		2EBD90D0261B01F4009859FE /* ThickSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBD90CF261B01F4009859FE /* ThickSliderView.swift */; };
+		2ED385252625B7CA00ACB703 /* UnderlinedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED385242625B7CA00ACB703 /* UnderlinedTextField.swift */; };
 		2ED6297A2618FD37009F92D0 /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2ED629792618FD37009F92D0 /* Chat.storyboard */; };
 		2ED7A3C62601B7740006D873 /* Doodle.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2ED7A3C52601B7740006D873 /* Doodle.storyboard */; };
 		2ED7A3CC2601C0450006D873 /* DoodleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED7A3CB2601C0450006D873 /* DoodleViewController.swift */; };
@@ -173,6 +174,7 @@
 		2EB12AC1261BFCD100131FE6 /* DoodleLayerTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodleLayerTable.swift; sourceTree = "<group>"; };
 		2EB929D8260778F600AAB396 /* SubviewTouchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubviewTouchView.swift; sourceTree = "<group>"; };
 		2EBD90CF261B01F4009859FE /* ThickSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThickSliderView.swift; sourceTree = "<group>"; };
+		2ED385242625B7CA00ACB703 /* UnderlinedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderlinedTextField.swift; sourceTree = "<group>"; };
 		2ED629792618FD37009F92D0 /* Chat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
 		2ED7A3C52601B7740006D873 /* Doodle.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Doodle.storyboard; sourceTree = "<group>"; };
 		2ED7A3CB2601C0450006D873 /* DoodleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodleViewController.swift; sourceTree = "<group>"; };
@@ -493,6 +495,7 @@
 				2EF0E51C26096B5C0008184D /* SubviewTouchCollectionView.swift */,
 				2E01245E26195B8400A38B77 /* BorderedShadowedView.swift */,
 				2EBD90CF261B01F4009859FE /* ThickSliderView.swift */,
+				2ED385242625B7CA00ACB703 /* UnderlinedTextField.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1142,6 +1145,7 @@
 				2EF8E92725F754C600C7EE7D /* HomeViewController.swift in Sources */,
 				84D802F32616CB480096692E /* SegueConstants.swift in Sources */,
 				83F588EB2619242A00BB9F07 /* DTAbstractAuthProvider.swift in Sources */,
+				2ED385252625B7CA00ACB703 /* UnderlinedTextField.swift in Sources */,
 				2EA8C2FA2605E51500BE750C /* CanvasController.swift in Sources */,
 				2EFF38EA261AAF9A00488289 /* DoodleConstants.swift in Sources */,
 				2EA8C335260677C800BE750C /* PKDrawing+DTDrawing.swift in Sources */,
