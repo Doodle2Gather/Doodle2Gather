@@ -91,7 +91,7 @@ extension GalleryViewController: UICollectionViewDelegate {
                 print(doodles)
               DispatchQueue.main.async {
                 vc.loadDoodles(doodles)
-                vc.username = DTAuth.user?.displayName ?? "Someone"
+                vc.username = DTAuth.user?.displayName ?? "Unknown"
                 vc.roomName = self.rooms[index].roomName
                 vc.roomId = self.rooms[index].roomId
                 vc.modalPresentationStyle = .fullScreen
