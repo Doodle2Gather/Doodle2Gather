@@ -395,7 +395,7 @@ extension DTCanvasViewController: DTActionQueueDelegate {
     }
 
     private func refetchDoodles() {
-        actionQueue.semaphore.wait()
+        semaphore.wait()
         actionQueue.clear()
         semaphore.signal()
         DTLogger.event("Refetching doodles...")
