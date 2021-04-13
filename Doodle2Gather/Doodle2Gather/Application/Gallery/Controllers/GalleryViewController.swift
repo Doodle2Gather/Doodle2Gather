@@ -43,7 +43,7 @@ class GalleryViewController: UIViewController {
             guard let vc = segue.destination as? NewDocumentViewController else {
                 return
             }
-            vc.createDocumentCallback = { title in
+            vc.checkDocumentNameCallback = { title in
                 let match = self.rooms.first { room -> Bool in
                     room.roomName == title
                 }
@@ -51,10 +51,12 @@ class GalleryViewController: UIViewController {
                     DTLogger.error("The name is already taken.")
                     return CreateDocumentStatus.duplicatedName
                 } else {
-                    self.rooms.append(Room(roomId: UUID(), roomName: title))
-                    self.collectionView.reloadData()
                     return CreateDocumentStatus.success
                 }
+            }
+            vc.didCreateDocumentCallback = { room in
+                self.rooms.append(room)
+                self.collectionView.reloadData()
             }
         }
     }

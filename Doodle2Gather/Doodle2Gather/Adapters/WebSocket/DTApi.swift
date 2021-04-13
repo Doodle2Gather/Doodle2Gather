@@ -4,7 +4,7 @@ import DTSharedLibrary
 
 struct DTApi {
 
-    static let baseURLString = ApiEndpoints.Api // change to .localApi for local testing
+    static let baseURLString = ApiEndpoints.localApi // change to .localApi for local testing
 
     // MARK: User
 
@@ -15,7 +15,7 @@ struct DTApi {
             "email": email
         ]
 
-        AF.request("\(baseURLString)/user",
+        AF.request("\(baseURLString)user",
                    method: .post,
                    parameters: parameters,
                    encoder: JSONParameterEncoder.default)
@@ -26,18 +26,31 @@ struct DTApi {
 
     // MARK: Room
 
-    static func createRoom(name: String, user: String, callback: @escaping () -> Void) {
+    static func createRoom(name: String, user: String, callback: @escaping (Room) -> Void) {
         let parameters: [String: String] = [
             "name": name,
             "createdBy": user
         ]
 
-        AF.request("\(baseURLString)/room",
+        AF.request("\(baseURLString)room",
                    method: .post,
                    parameters: parameters,
                    encoder: JSONParameterEncoder.default)
-            .responseJSON { _ in
-                callback()
+            .responseJSON { response in
+                guard let data = response.data else {
+                    return
+                }
+                let decodedData = try? JSONDecoder().decode(CreateRoomResponse.self, from: data)
+
+                guard let roomData = decodedData else {
+                    return
+                }
+
+                guard let roomId = UUID(uuidString: roomData.id) else {
+                    return
+                }
+                let newRoom = Room(roomId: roomId, roomName: roomData.name)
+                callback(newRoom)
             }
     }
 
@@ -45,7 +58,7 @@ struct DTApi {
     static var roomCount = 0
 
     static func getAllRooms(user: String, callback: @escaping ([Room]) -> Void) {
-        AF.request("\(baseURLString)/user/rooms/\(user)",
+        AF.request("\(baseURLString)user/rooms/\(user)",
                    method: .get)
             .responseJSON { response in
 
@@ -63,10 +76,14 @@ struct DTApi {
             }
     }
 
+    static func getParticipants(roomId: UUID, callback: @escaping ([DTParticipant]) -> Void) {
+
+    }
+
     static func getRoomsDoodles(
         roomId: UUID, callback: @escaping ([DTAdaptedDoodle]) -> Void
     ) {
-        AF.request("\(baseURLString)/room/doodles/\(roomId.uuidString)",
+        AF.request("\(baseURLString)room/doodles/\(roomId.uuidString)",
                    method: .get)
             .responseJSON { response in
 
@@ -203,13 +220,27 @@ struct RoomsResponseEntry: Codable {
     let user: RoomsResponseUserEntry
     let room: RoomsResponseRoomEntry
 }
+
 struct RoomsResponseUserEntry: Codable {
     let id: String
 }
+
 struct RoomsResponseRoomEntry: Codable {
     let id: String
 }
+
 struct DoodleResponseEntry: Codable {
     let id: String
     let room: RoomsResponseRoomEntry
+}
+
+struct CreateRoomResponse: Codable {
+    let id: String
+    let inviteCode: String
+    let name: String
+    let createdBy: userEntry
+}
+
+struct userEntry: Codable {
+    let id: String
 }

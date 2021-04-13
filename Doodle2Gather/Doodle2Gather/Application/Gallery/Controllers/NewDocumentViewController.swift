@@ -9,7 +9,8 @@ class NewDocumentViewController: UIViewController {
 
     @IBOutlet private var titleTextField: UITextField!
 
-    var createDocumentCallback: ((String) -> CreateDocumentStatus)?
+    var didCreateDocumentCallback: ((Room) -> Void)?
+    var checkDocumentNameCallback: ((String) -> CreateDocumentStatus)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +22,10 @@ class NewDocumentViewController: UIViewController {
         guard let user = DTAuth.user else {
             return
         }
-        guard let callback = createDocumentCallback else {
+        guard let nameCallback = checkDocumentNameCallback else {
+            return
+        }
+        guard let creationCallback = didCreateDocumentCallback else {
             return
         }
         guard let title = titleTextField.text else {
@@ -30,10 +34,11 @@ class NewDocumentViewController: UIViewController {
         guard !title.isEmpty else {
             return
         }
-        if callback(title) == .duplicatedName {
+        if nameCallback(title) == .duplicatedName {
             return
         }
-        DTApi.createRoom(name: title, user: user.uid) {
+        DTApi.createRoom(name: title, user: user.uid) { room in
+            creationCallback(room)
             self.dismiss(animated: true, completion: nil)
         }
     }
