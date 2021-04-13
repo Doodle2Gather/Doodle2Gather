@@ -45,7 +45,7 @@ struct DTApi {
                 completion: completion)
     }
 
-    static func getUserAccessibleRooms(userId: String, completion: @escaping (DTApiResult<DTAdaptedRoom>) -> Void) {
+    static func getUserAccessibleRooms(userId: String, completion: @escaping (DTApiResult<[DTAdaptedRoom]>) -> Void) {
         perform(Endpoints.User.getAllRooms,
                 pathParameters: [.id: userId],
                 completion: completion)
@@ -53,53 +53,6 @@ struct DTApi {
 
     static func joinRoom(code: String, user: String, callback: @escaping (Room) -> Void) {
 
-    }
-
-    //    static func createRoom(name: String, user: String, callback: @escaping (Room) -> Void) {
-    //        let parameters: [String: String] = [
-    //            "name": name,
-    //            "createdBy": user
-    //        ]
-    //
-    //        AF.request("\(baseURLString)room",
-    //                   method: .post,
-    //                   parameters: parameters,
-    //                   encoder: JSONParameterEncoder.default)
-    //            .responseJSON { response in
-    //                guard let data = response.data else {
-    //                    return
-    //                }
-    //                let decodedData = try? JSONDecoder().decode(CreateRoomResponse.self, from: data)
-    //
-    //                guard let roomData = decodedData else {
-    //                    return
-    //                }
-    //
-    //                guard let roomId = UUID(uuidString: roomData.id) else {
-    //                    return
-    //                }
-    //                let newRoom = Room(roomId: roomId, roomName: roomData.name)
-    //                callback(newRoom)
-    //            }
-    //    }
-
-    static func getAllRooms(user: String, callback: @escaping ([Room]) -> Void) {
-        AF.request("\(baseURLString)/user/rooms/\(user)",
-                   method: .get)
-            .responseJSON { response in
-
-                guard let data = response.data else {
-                    return
-                }
-                let decodedData = try? JSONDecoder().decode([RoomsResponseEntry].self, from: data)
-                let decodedRooms = decodedData?.map({ entry -> Room in
-                    Room(roomId: UUID(uuidString: entry.room.id) ?? UUID(),
-                         roomName: entry.room.name,
-                         inviteCode: entry.room.inviteCode)
-                })
-                callback(decodedRooms ?? [])
-                // return decodedData as? [DTRoom] ?? []
-            }
     }
 
     static func getParticipants(roomId: UUID, callback: @escaping ([DTParticipant]) -> Void) {
