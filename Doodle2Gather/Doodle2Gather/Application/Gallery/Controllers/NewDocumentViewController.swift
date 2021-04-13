@@ -76,9 +76,6 @@ class NewDocumentViewController: UIViewController {
 
             if isShowing {
                 var offsetY: CGFloat = 0
-                print("")
-                print("")
-                print(strongSelf.isEditingTitle)
                 if strongSelf.isEditingTitle {
                     offsetY = strongSelf.titleTextField.frame.maxY - endKeyboardFrame.minY
                 } else {
