@@ -306,7 +306,6 @@ extension DoodleViewController: CanvasControllerDelegate {
 extension DoodleViewController: SocketControllerDelegate {
 
     func dispatchChanges<S>(type: DTActionType, strokes: [(S, Int)], doodleId: UUID) where S: DTStroke {
-        // TODO: Replace with actual roomId
         guard let roomId = self.roomId,
               let action = DTAction(type: type, roomId: roomId, doodleId: doodleId, strokes: strokes) else {
             return
