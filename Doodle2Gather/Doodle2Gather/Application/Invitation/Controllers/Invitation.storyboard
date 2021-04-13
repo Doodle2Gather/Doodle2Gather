@@ -29,7 +29,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K7T-7A-egD" userLabel="Middle Segment">
                                         <rect key="frame" x="30" y="79" width="440" height="36"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KBh-U9-HZF" customClass="UnderlinedTextField" customModule="Doodle2Gather" customModuleProvider="target">
+                                            <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KBh-U9-HZF">
                                                 <rect key="frame" x="0.0" y="0.0" width="330" height="36"/>
                                                 <color key="backgroundColor" name="Merlin Grey"/>
                                                 <color key="textColor" name="White"/>
