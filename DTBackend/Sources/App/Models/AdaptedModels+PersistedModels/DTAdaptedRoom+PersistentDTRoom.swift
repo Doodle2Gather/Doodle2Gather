@@ -13,6 +13,16 @@ extension DTAdaptedRoom {
     }
 }
 
+extension DTAdaptedRoom.CreateRequest {
+    func makePersistedRoom() -> PersistedDTRoom {
+        PersistedDTRoom(
+            name: name,
+            createdBy: ownerId
+        )
+    }
+}
+
+
 // MARK: - Content
 
 extension DTAdaptedRoom: Content {}

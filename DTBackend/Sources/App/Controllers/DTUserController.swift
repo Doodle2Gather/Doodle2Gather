@@ -60,3 +60,28 @@ struct DTUserController: RouteCollection {
                .transform(to: .ok)
        }
 }
+
+extension PersistedDTUser {
+
+    static func getSingleById(_ id: PersistedDTUser.IDValue?, on db: Database) -> EventLoopFuture<PersistedDTUser> {
+      guard let id = id else {
+        return db.eventLoop.makeFailedFuture(DTError.unableToRetreiveID(type: "PersistedDTUser"))
+      }
+      return PersistedDTUser.query(on: db)
+        .filter(\.$id == id)
+        .with(\.$accessibleRooms)
+        .first()
+        .unwrap(or: DTError.modelNotFound(type: "PersistedDTUser", id: id))
+    }
+
+    static func getAllRooms(_ id: PersistedDTUser.IDValue?, on db: Database) -> EventLoopFuture<[PersistedDTRoom]> {
+        getSingleById(id, on: db)
+            .flatMapThrowing { $0.accessibleRooms }
+    }
+
+    static func getAll(on db: Database) -> EventLoopFuture<[PersistedDTUser]> {
+        PersistedDTUser.query(on: db)
+            .with(\.$accessibleRooms)
+            .all()
+    }
+}

@@ -24,6 +24,24 @@ struct DTRoomController: RouteCollection {
         routes.on(Endpoints.Room.getRoomDoodlesFromRoom, use: getRoomDoodlesFromRoomHandler)
     }
 
+//
+//    func createHandler(req: Request) throws -> EventLoopFuture<DTAdaptedRoom> {
+//        let create = try req.content.decode(DTAdaptedRoom.CreateRequest.self)
+//        let newRoom = create.makePersistedRoom()
+//
+//        let user = PersistedDTUser.getSingleById(create.ownerId, on: req.db)
+//        let adaptedRoom = newRoom.save(on: req.db)
+//            .flatMap { PersistedDTRoom.getSingleById(newRoom.id, on: req.db) }
+////            .flatMapThrowing(DTAdaptedRoom.init)
+//
+//        return newRoom.save(on: req.db).and(user).flatMap { room, user in
+//            let attachRoomToUser = user.$accessibleRooms.attach(room, on: req.db)
+//            let defaultDoodle = PersistedDTDoodle(room: room).save(on: req.db)
+//            return PersistedDTRoom.getSingleById(newRoom.id, on: req.db)
+//        }.flatMapThrowing { DTAdaptedRoom(room: $0) }
+//
+//    }
+    
     func createRoomHandler(req: Request) throws -> EventLoopFuture<PersistedDTRoom> {
         let newDTRoomRequest = try req.content.decode(DTRoomCreationRequest.self)
         let newDTRoom = PersistedDTRoom(name: newDTRoomRequest.name,
@@ -64,7 +82,7 @@ struct DTRoomController: RouteCollection {
             throw Abort(.badRequest)
         }
         return PersistedDTRoom
-            .getSingleByID(UUID(uuidString: roomId)!, on: req.db)
+            .getSingleById(UUID(uuidString: roomId)!, on: req.db)
             .map { $0.doodles }
     }
 
@@ -120,19 +138,16 @@ struct DTRoomController: RouteCollection {
         throw Abort(.badRequest)
     }
 
-    // TODO: - Change return types to Adapted Models instead
 
-//    func getSingleHandler(req: Request) throws -> EventLoopFuture<PersistedDTRoom> {
+//    func getSingleHandler(req: Request) throws -> EventLoopFuture<DTAdaptedRoom> {
 //
 //    }
 //    
-//    func getAllHandler(req: Request) throws -> EventLoopFuture<[PersistedDTRoom]> {
+//    func getAllHandler(req: Request) throws -> EventLoopFuture<[DTAdaptedRoom]> {
 //
 //    }
 //    
-//    func createHandler(req: Request) throws -> EventLoopFuture<PersistedDTRoom> {
-//
-//    }
+
 //    
 //    func deleteHandler(req: Request) throws -> EventLoopFuture<HTTPResponseStatus> {
 //
@@ -147,7 +162,7 @@ struct DTRoomController: RouteCollection {
 
 extension PersistedDTRoom {
 
-    static func getSingleByID(_ id: PersistedDTRoom.IDValue?, on db: Database) -> EventLoopFuture<PersistedDTRoom> {
+    static func getSingleById(_ id: PersistedDTRoom.IDValue?, on db: Database) -> EventLoopFuture<PersistedDTRoom> {
       guard let id = id else {
         return db.eventLoop.makeFailedFuture(DTError.unableToRetreiveID(type: "PersistedDTRoom"))
       }
@@ -159,7 +174,7 @@ extension PersistedDTRoom {
     }
 
     static func getAllDoodles(_ id: PersistedDTRoom.IDValue?, on db: Database) -> EventLoopFuture<[PersistedDTDoodle]> {
-        getSingleByID(id, on: db)
+        getSingleById(id, on: db)
             .flatMapThrowing { $0.doodles }
     }
 
