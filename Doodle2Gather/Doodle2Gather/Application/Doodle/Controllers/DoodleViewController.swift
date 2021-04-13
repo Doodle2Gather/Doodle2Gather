@@ -169,28 +169,11 @@ class DoodleViewController: UIViewController {
     }
 
     @IBAction private func exitButtonDidTap(_ sender: Any) {
-        let alert = UIAlertController(title: "",
-                                      message: "",
-                                      preferredStyle: .alert)
-
-        alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { _ in
-            self.dismiss(animated: true, completion: nil)
-        }))
-
-        alert.setValue(NSAttributedString(string: "Exit",
-                                          attributes: [.foregroundColor: UIColor.white]),
-                                          forKey: "attributedTitle")
-        alert.setValue(NSAttributedString(string: "Are you sure you wish to exit and return to the main menu?",
-                                          attributes: [.foregroundColor: UIColor.white]),
-                                          forKey: "attributedMessage")
-
-        alert.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = UIColor.black
-        alert.view.tintColor = .white
-        alert.view.window?.tintColor = .white
-
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-
-        self.present(alert, animated: true)
+        alert(title: "Exit", message: "Are you sure you wish to exit and return to the main menu?",
+              buttonStyle: .default, handler: { _ in
+                    self.dismiss(animated: true, completion: nil)
+              }
+        )
     }
 
 }
