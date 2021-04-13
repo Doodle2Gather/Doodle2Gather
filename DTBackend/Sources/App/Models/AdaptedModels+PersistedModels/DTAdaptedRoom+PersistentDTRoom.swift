@@ -5,9 +5,9 @@ extension DTAdaptedRoom {
     init(room: PersistedDTRoom) {
         self.init(
             ownerId: room.$createdBy.id,
-            roomId: try? room.requireID(),
             name: room.name,
             inviteCode: room.inviteCode,
+            roomId: try? room.requireID(),
             doodles: room.getChildren().map { DTAdaptedDoodle(doodle: $0) }
         )
     }
