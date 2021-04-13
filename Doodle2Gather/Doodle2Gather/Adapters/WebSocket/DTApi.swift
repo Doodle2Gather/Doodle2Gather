@@ -45,6 +45,10 @@ struct DTApi {
                 completion: completion)
     }
 
+    static func joinRoom(code: String, user: String, callback: @escaping (Room) -> Void) {
+
+    }
+
     //    static func createRoom(name: String, user: String, callback: @escaping (Room) -> Void) {
     //        let parameters: [String: String] = [
     //            "name": name,
@@ -73,9 +77,6 @@ struct DTApi {
     //            }
     //    }
 
-    // TODO: Change room name to the actual one after backend is done
-    static var roomCount = 0
-
     static func getAllRooms(user: String, callback: @escaping ([Room]) -> Void) {
         AF.request("\(baseURLString)user/rooms/\(user)",
                    method: .get)
@@ -86,9 +87,9 @@ struct DTApi {
                 }
                 let decodedData = try? JSONDecoder().decode([RoomsResponseEntry].self, from: data)
                 let decodedRooms = decodedData?.map({ entry -> Room in
-                    roomCount += 1
-                    print(entry.id)
-                    return Room(roomId: UUID(uuidString: entry.room.id)!, roomName: "Room \(roomCount)")
+                    Room(roomId: UUID(uuidString: entry.room.id) ?? UUID(),
+                         roomName: entry.room.name,
+                         inviteCode: entry.room.inviteCode)
                 })
                 callback(decodedRooms ?? [])
                 // return decodedData as? [DTRoom] ?? []
@@ -277,6 +278,9 @@ struct RoomsResponseUserEntry: Codable {
 
 struct RoomsResponseRoomEntry: Codable {
     let id: String
+    let inviteCode: String
+    let name: String
+    let createdBy: userEntry
 }
 
 struct DoodleResponseEntry: Codable {

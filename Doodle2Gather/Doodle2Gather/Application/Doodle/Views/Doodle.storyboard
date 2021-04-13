@@ -10,6 +10,14 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Invitation-->
+        <scene sceneID="E4h-Mh-dXG">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Invitation" id="znw-a9-oC4" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="q5N-tR-f72" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="138" y="-341"/>
+        </scene>
         <!--Doodle View Controller-->
         <scene sceneID="Dg9-I5-y3w">
             <objects>
@@ -31,10 +39,10 @@
                                 </connections>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lOM-bA-4te" userLabel="File Name View">
-                                <rect key="frame" x="12" y="12" width="342.5" height="60"/>
+                                <rect key="frame" x="12" y="12" width="302.5" height="60"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xPu-xR-t4a">
-                                        <rect key="frame" x="0.0" y="0.0" width="342.5" height="60"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="302.5" height="60"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jRm-uM-qyl" userLabel="Exit Button">
                                                 <rect key="frame" x="0.0" y="0.0" width="50" height="60"/>
@@ -81,8 +89,11 @@
                                                     <constraint firstAttribute="width" constant="40" id="pif-vh-XQa"/>
                                                 </constraints>
                                                 <state key="normal" image="UserAdd"/>
+                                                <connections>
+                                                    <segue destination="znw-a9-oC4" kind="presentation" identifier="toInvitation" modalPresentationStyle="formSheet" modalTransitionStyle="coverVertical" id="t1a-yP-tTO"/>
+                                                </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ruK-Zq-Zye" userLabel="Export Button">
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ruK-Zq-Zye" userLabel="Export Button">
                                                 <rect key="frame" x="242.5" y="0.0" width="40" height="60"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="40" id="b4M-ac-loi"/>
@@ -91,7 +102,7 @@
                                                 <state key="normal" image="Export"/>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QIS-ja-FEr" userLabel="Minimise Button">
-                                                <rect key="frame" x="282.5" y="0.0" width="60" height="60"/>
+                                                <rect key="frame" x="242.5" y="0.0" width="60" height="60"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="B7c-Cu-QdG"/>
                                                     <constraint firstAttribute="width" constant="60" id="Pbj-zj-b8s"/>
@@ -128,7 +139,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pn5-xG-qj1" userLabel="Undo Redo View">
-                                <rect key="frame" x="364.5" y="12" width="122" height="60"/>
+                                <rect key="frame" x="324.5" y="12" width="122" height="60"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="SRL-CW-Mem">
                                         <rect key="frame" x="10" y="10" width="102" height="40"/>
@@ -773,10 +784,10 @@
                                 </connections>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xWj-qC-1ia" userLabel="Bottom Buttons View">
-                                <rect key="frame" x="12" y="1102" width="460" height="60"/>
+                                <rect key="frame" x="12" y="1102" width="410" height="60"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="vRG-Cw-GCR" userLabel="Button Stack">
-                                        <rect key="frame" x="10" y="0.0" width="440" height="60"/>
+                                        <rect key="frame" x="10" y="0.0" width="390" height="60"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mmL-ay-rCs" userLabel="Timer Button">
                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="60"/>
@@ -850,8 +861,8 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                 <state key="normal" image="Presentation"/>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9u2-un-NL2" userLabel="Participants Button">
-                                                <rect key="frame" x="350" y="0.0" width="40" height="60"/>
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9u2-un-NL2" userLabel="Participants Button">
+                                                <rect key="frame" x="345" y="0.0" width="40" height="60"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="40" id="L6V-ow-sIY"/>
                                                     <constraint firstAttribute="height" constant="60" id="nGN-he-yhQ"/>
@@ -862,7 +873,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y9T-9K-ShW" userLabel="Minimise Button">
-                                                <rect key="frame" x="400" y="0.0" width="40" height="60"/>
+                                                <rect key="frame" x="350" y="0.0" width="40" height="60"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="nZ8-jd-PKk"/>
                                                     <constraint firstAttribute="width" constant="40" id="rsh-Pz-YGK"/>

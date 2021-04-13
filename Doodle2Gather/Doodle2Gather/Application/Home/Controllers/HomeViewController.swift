@@ -5,17 +5,23 @@ class HomeViewController: UIViewController {
     @IBOutlet private var emailTextField: UITextField!
     @IBOutlet private var passwordTextField: UITextField!
     @IBOutlet private var displayNameTextField: UITextField!
+
     @IBOutlet private var actionMessageLabel: UILabel!
     @IBOutlet private var submitButton: UIButton!
     @IBOutlet private var formActionSegmentedControl: UISegmentedControl!
+    @IBOutlet private var heightConstraint: NSLayoutConstraint!
+
+    @IBOutlet private var emailContainer: UIView!
+    @IBOutlet private var passwordContainer: UIView!
+    @IBOutlet private var displayNameContainer: UIView!
 
     private enum Segment: Int {
         case login
         case register
     }
 
-    let loginButtonText = "LOGIN"
-    let registerButtonText = "REGISTER"
+    let loginButtonText = "Login"
+    let registerButtonText = "Register"
     private let darkBlue = #colorLiteral(red: 55.0 / 255.0,
                                          green: 52 / 255.0,
                                          blue: 235.0 / 255.0,
@@ -29,13 +35,13 @@ class HomeViewController: UIViewController {
         let segment = Segment(rawValue: formActionSegmentedControl.selectedSegmentIndex)
         switch segment {
         case .login:
-            displayNameTextField.isHidden = true
+            displayNameContainer.isHidden = true
             submitButton.setTitle(loginButtonText, for: .normal)
-            submitButton.backgroundColor = .systemIndigo
+            heightConstraint.constant = 420
         case .register:
-            displayNameTextField.isHidden = false
+            displayNameContainer.isHidden = false
             submitButton.setTitle(registerButtonText, for: .normal)
-            submitButton.backgroundColor = .systemTeal
+            heightConstraint.constant = 500
         default:
             fatalError("Invalid segment")
         }
@@ -47,13 +53,14 @@ class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
         DTAuth.delegate = self
         loadSavedCredentials()
         actionMessageLabel.text = ""
         updateFormViews()
-        submitButton.layer.cornerRadius = 20
-        submitButton.clipsToBounds = true
+        emailContainer.addBottomBorderWithColor(color: UIConstants.stackGrey, width: 3)
+        passwordContainer.addBottomBorderWithColor(color: UIConstants.stackGrey, width: 3)
+        displayNameContainer.addBottomBorderWithColor(color: UIConstants.stackGrey, width: 3)
 
         // For TextField keyboard avoidance
         NotificationCenter.default.addObserver(self,
@@ -135,6 +142,7 @@ class HomeViewController: UIViewController {
 }
 
 extension HomeViewController: DTAuthDelegate {
+
     func displayError(_ error: Error) {
         DispatchQueue.main.async {
             DTLogger.error(error.localizedDescription)
