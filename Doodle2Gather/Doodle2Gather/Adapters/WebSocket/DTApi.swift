@@ -8,20 +8,14 @@ struct DTApi {
 
     // MARK: - User
 
-    static func sendUserData(id: String, displayName: String, email: String, callback: @escaping () -> Void) {
-        let parameters: [String: String] = [
-            "id": id,
-            "displayName": displayName,
-            "email": email
-        ]
-
-        AF.request("\(baseURLString)user",
-                   method: .post,
-                   parameters: parameters,
-                   encoder: JSONParameterEncoder.default)
-            .responseJSON { _ in
-                callback()
-            }
+    static func sendUserData(
+        id: String, displayName: String, email: String,
+        completion: @escaping (DTApiResult<[DTAdaptedUser]>) -> Void
+    ) {
+        let newUserData = DTAdaptedUser.CreateRequest(id: id, displayName: displayName, email: email)
+        perform(Endpoints.User.createUserInfo,
+                send: newUserData,
+                completion: completion)
     }
 
     // MARK: - Room
