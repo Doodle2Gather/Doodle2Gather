@@ -4,26 +4,42 @@ import DTSharedLibrary
 
 struct DTDoodleController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
+        routes.on(Endpoints.Doodle.create, use: createHandler)
+        routes.on(Endpoints.Doodle.getDoodleFromDooleId, use: getSingleHandler)
+        routes.on(Endpoints.Doodle.getAllStrokes, use: getAllStrokesHandler)
+        routes.on(Endpoints.Doodle.delete, use: deleteHandler)
+    }
+
+    func createHandler(req: Request) throws -> EventLoopFuture<DTAdaptedDoodle> {
+        let create = try req.content.decode(DTAdaptedDoodle.CreateRequest.self)
+        let newRoom = create.makePersistedRoom()
+
+        let user = PersistedDTUser.getSingleById(create.ownerId, on: req.db)
+        let room = newRoom.save(on: req.db)
+            .flatMap { PersistedDTRoom.getSingleById(newRoom.id, on: req.db) }
+
+        return room.and(user)
+            .flatMap { (room: PersistedDTRoom, user: PersistedDTUser) in
+                let attachRoom = user.$accessibleRooms.attach(room, on: req.db)
+                let newDoodle = PersistedDTDoodle(room: room)
+                let defaultDoodle = newDoodle.save(on: req.db)
+                return attachRoom.and(defaultDoodle)
+                    .flatMap { _ in PersistedDTRoom.getSingleById(room.id, on: req.db) }
+                    .map { r in DTAdaptedRoom(room: r) }
+            }
+    }
+
+    func getSingleHandler(req: Request) throws -> EventLoopFuture<DTAdaptedDoodle> {
 
     }
 
-    // TODO: - Change return types to Adapted Models instead
+    func getAllStrokesHandler(req: Request) throws -> EventLoopFuture<[DTAdaptedStroke]> {
 
-//    func getSingleHandler(req: Request) throws -> EventLoopFuture<PersistedDTDoodle> {
-//
-//    }
-//    
-//    func getAllHandler(req: Request) throws -> EventLoopFuture<[PersistedDTDoodle]> {
-//
-//    }
-//    
-//    func createHandler(req: Request) throws -> EventLoopFuture<PersistedDTDoodle> {
-//
-//    }
-//    
-//    func deleteHandler(req: Request) throws -> EventLoopFuture<HTTPResponseStatus> {
-//
-//    }
+    }
+
+    func deleteHandler(req: Request) throws -> EventLoopFuture<HTTPResponseStatus> {
+
+    }
 
 }
 
