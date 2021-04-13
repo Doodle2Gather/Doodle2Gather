@@ -46,6 +46,7 @@
 		2EC4194B2625CB5900BE0518 /* UIView+Borders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC4194A2625CB5900BE0518 /* UIView+Borders.swift */; };
 		2EC419562625ED5700BE0518 /* UIAlertController+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC419552625ED5700BE0518 /* UIAlertController+Style.swift */; };
 		2EC4195A2625ED9E00BE0518 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC419592625ED9E00BE0518 /* UIViewController+Alert.swift */; };
+		2EC419622626218C00BE0518 /* CGFloat+Truncate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC419612626218B00BE0518 /* CGFloat+Truncate.swift */; };
 		2ED6297A2618FD37009F92D0 /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2ED629792618FD37009F92D0 /* Chat.storyboard */; };
 		2ED7A3C62601B7740006D873 /* Doodle.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2ED7A3C52601B7740006D873 /* Doodle.storyboard */; };
 		2ED7A3CC2601C0450006D873 /* DoodleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED7A3CB2601C0450006D873 /* DoodleViewController.swift */; };
@@ -180,6 +181,7 @@
 		2EC4194A2625CB5900BE0518 /* UIView+Borders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Borders.swift"; sourceTree = "<group>"; };
 		2EC419552625ED5700BE0518 /* UIAlertController+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Style.swift"; sourceTree = "<group>"; };
 		2EC419592625ED9E00BE0518 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
+		2EC419612626218B00BE0518 /* CGFloat+Truncate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Truncate.swift"; sourceTree = "<group>"; };
 		2ED629792618FD37009F92D0 /* Chat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
 		2ED7A3C52601B7740006D873 /* Doodle.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Doodle.storyboard; sourceTree = "<group>"; };
 		2ED7A3CB2601C0450006D873 /* DoodleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodleViewController.swift; sourceTree = "<group>"; };
@@ -389,6 +391,7 @@
 				2EC4194A2625CB5900BE0518 /* UIView+Borders.swift */,
 				2EC419552625ED5700BE0518 /* UIAlertController+Style.swift */,
 				2EC419592625ED9E00BE0518 /* UIViewController+Alert.swift */,
+				2EC419612626218B00BE0518 /* CGFloat+Truncate.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1223,6 +1226,7 @@
 				2EB12903261B8BED00131FE6 /* BestFitShapeDetector.swift in Sources */,
 				2ED7A3CC2601C0450006D873 /* DoodleViewController.swift in Sources */,
 				2EB129C1261BC8BD00131FE6 /* PKStrokeHashWrapper.swift in Sources */,
+				2EC419622626218C00BE0518 /* CGFloat+Truncate.swift in Sources */,
 				2E4A0B422616FDFF003257D4 /* PKDrawing+StrokesFrame.swift in Sources */,
 				2EB929D9260778F600AAB396 /* SubviewTouchView.swift in Sources */,
 				2EB12A41261BE3F400131FE6 /* DTCodableColor.swift in Sources */,

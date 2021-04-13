@@ -69,7 +69,7 @@ extension DTPoint {
         var container = encoder.container(keyedBy: DTPointCodingKeys.self)
         try container.encode(location, forKey: .location)
         try container.encode(timeOffset, forKey: .timeOffset)
-        try container.encode(altitude, forKey: .altitude)
+        try container.encode(altitude.truncate(places: 2), forKey: .altitude)
         try container.encode(azimuth, forKey: .azimuth)
         try container.encode(force, forKey: .force)
         try container.encode(size, forKey: .size)

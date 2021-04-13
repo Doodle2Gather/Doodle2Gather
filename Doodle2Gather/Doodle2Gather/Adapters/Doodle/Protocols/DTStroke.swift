@@ -61,10 +61,10 @@ extension DTStroke {
         try container.encode(tool.rawValue, forKey: .tool)
         try container.encode(points, forKey: .points)
         try container.encode(transform, forKey: .transform)
-//        if let mask = mask {
-//            let maskData = try NSKeyedArchiver.archivedData(withRootObject: mask, requiringSecureCoding: false)
-//            try container.encode(maskData, forKey: .mask)
-//        }
+        if let mask = mask {
+            let maskData = try NSKeyedArchiver.archivedData(withRootObject: mask, requiringSecureCoding: false)
+            try container.encode(maskData, forKey: .mask)
+        }
     }
 
     public init(from decoder: Decoder) throws {
@@ -75,10 +75,10 @@ extension DTStroke {
         let transform = try container.decode(CGAffineTransform.self, forKey: .transform)
 
         var mask: UIBezierPath?
-//        if container.contains(.mask) {
-//            let maskData = try container.decode(Data.self, forKey: .mask)
-//            mask = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(maskData) as? UIBezierPath
-//        }
+        if container.contains(.mask) {
+            let maskData = try container.decode(Data.self, forKey: .mask)
+            mask = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(maskData) as? UIBezierPath
+        }
 
         self.init(color: color, tool: tool, points: points, transform: transform, mask: mask)
     }
@@ -91,5 +91,5 @@ enum DTStrokeCodingKeys: CodingKey {
     case tool
     case points
     case transform
-//    case mask
+    case mask
 }
