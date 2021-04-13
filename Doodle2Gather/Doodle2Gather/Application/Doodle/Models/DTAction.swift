@@ -13,8 +13,6 @@ struct DTAction {
         self.strokes = action.strokes
         self.roomId = action.roomId
         self.doodleId = action.doodleId
-        print("Decoding")
-        print(String(data: strokes[0].stroke, encoding: .utf8))
     }
 
     init(type: DTActionType, roomId: UUID, doodleId: UUID, strokes: [DTStrokeIndexPair]) {
@@ -31,12 +29,11 @@ struct DTAction {
 
         let encoder = JSONEncoder()
         var strokesData = [DTStrokeIndexPair]()
-        print("init strokes")
+
         for (stroke, index) in strokes {
             guard let data = try? encoder.encode(stroke) else {
                 return nil
             }
-            print(String(data: data, encoding: .utf8))
             strokesData.append(DTStrokeIndexPair(data, index))
         }
         self.strokes = strokesData
@@ -46,12 +43,12 @@ struct DTAction {
         let decoder = JSONDecoder()
 
         var strokeArr = [S]()
-        print("getting strokes")
+
         for pair in strokes {
             guard let stroke = try? decoder.decode(S.self, from: pair.stroke) else {
                 return nil
             }
-            print(String(data: pair.stroke, encoding: .utf8))
+
             strokeArr.append(stroke)
         }
         return strokeArr
