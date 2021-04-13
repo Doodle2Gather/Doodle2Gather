@@ -14,7 +14,6 @@ class NewDocumentViewController: UIViewController {
     @IBOutlet private var separator: UIView!
     @IBOutlet private var joinDocumentLabel: UILabel!
     @IBOutlet private var newDocumentLabel: UILabel!
-    @IBOutlet private var navbar: UINavigationBar!
 
     var didCreateDocumentCallback: ((Room) -> Void)?
     var checkDocumentNameCallback: ((String) -> CreateDocumentStatus)?
@@ -24,6 +23,7 @@ class NewDocumentViewController: UIViewController {
         super.viewDidLoad()
 
         addKeyboardObserver()
+        isModalInPresentation = true
     }
 
     // Handle change of orientation for chat box
@@ -32,7 +32,6 @@ class NewDocumentViewController: UIViewController {
         super.viewWillTransition(to: size, with: coordinator)
         if UIDevice.current.orientation.isPortrait {
             self.view.frame.origin.y = 0
-            self.navbar.frame.origin.y = 0
         }
     }
 
@@ -67,12 +66,10 @@ class NewDocumentViewController: UIViewController {
                 if offsetY < 0 {
                     return
                 } else {
-                    strongSelf.view.frame.origin.y = -offsetY - 40
-                    strongSelf.navbar.frame.origin.y = offsetY + 40
+                    strongSelf.view.frame.origin.y = -offsetY - 10
                 }
             } else {
                 strongSelf.view.frame.origin.y = 0
-                strongSelf.navbar.frame.origin.y = 0
             }
             strongSelf.view.layoutIfNeeded()
         }
@@ -85,12 +82,14 @@ class NewDocumentViewController: UIViewController {
         guard let nameCallback = checkDocumentNameCallback else {
             return
         }
+        print("World")
         guard let creationCallback = didCreateDocumentCallback else {
             return
         }
         guard let title = titleTextField.text else {
             return
         }
+        print("Jesus")
         guard !title.isEmpty else {
             return
         }

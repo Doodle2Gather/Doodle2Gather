@@ -46,7 +46,10 @@ class GalleryViewController: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == SegueConstants.toNewDocument {
-            guard let vc = segue.destination as? NewDocumentViewController else {
+            guard let nav = segue.destination as? UINavigationController else {
+                return
+            }
+            guard let vc = nav.topViewController as? NewDocumentViewController else {
                 return
             }
             vc.checkDocumentNameCallback = { title in
