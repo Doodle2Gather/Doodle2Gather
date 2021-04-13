@@ -12,6 +12,7 @@ class InvitationViewController: UIViewController {
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
         inviteCodeField.leftView = paddingView
         inviteCodeField.leftViewMode = .always
+        inviteCodeField.addBottomBorderWithColor(color: UIConstants.stackGrey, width: 3)
 
         inviteCodeField.text = inviteCode
     }
