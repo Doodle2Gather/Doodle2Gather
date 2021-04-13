@@ -60,7 +60,8 @@ extension DTStroke {
         try container.encode(DTCodableColor(uiColor: color), forKey: .color)
         try container.encode(tool.rawValue, forKey: .tool)
         try container.encode(points, forKey: .points)
-//        try container.encode(transform, forKey: .transform)
+        try container.encode(transform, forKey: .transform)
+        print("Encoding: \(transform)")
 //        if let mask = mask {
 //            let maskData = try NSKeyedArchiver.archivedData(withRootObject: mask, requiringSecureCoding: false)
 //            try container.encode(maskData, forKey: .mask)
@@ -72,7 +73,8 @@ extension DTStroke {
         let color = try container.decode(DTCodableColor.self, forKey: .color).uiColor
         let tool = DTTool(rawValue: try container.decode(String.self, forKey: .tool)) ?? .pen
         let points = try container.decode(Array<Point>.self, forKey: .points)
-//        let transform = try container.decode(CGAffineTransform.self, forKey: .transform)
+        let transform = try container.decode(CGAffineTransform.self, forKey: .transform)
+        print("Decoding: \(transform)")
 
         var mask: UIBezierPath?
 //        if container.contains(.mask) {
