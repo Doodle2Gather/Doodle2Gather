@@ -6,6 +6,6 @@ enum ApiEndpoints {
     static let Api = "https://d2g.christopher.sg/api"
 
     // for testing only
-    static let localRoom = "ws://localhost:8080/rooms/devRoom"
+    static let localRoom = { (roomId: String) in "ws://localhost:8080/rooms/\(roomId)" }
     static let localApi = "http://localhost:8080/api/"
 }
