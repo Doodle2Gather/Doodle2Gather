@@ -34,6 +34,16 @@ public struct DTAdaptedDoodle: Codable {
 
 }
 
+extension DTAdaptedDoodle {
+    public struct CreateRequest: Codable {
+        public let roomId: UUID
+
+        public init(roomId: UUID) {
+            self.roomId = roomId
+        }
+    }
+}
+
 // MARK: - Hashable
 
 extension DTAdaptedDoodle: Hashable {}

@@ -64,4 +64,13 @@ public struct Endpoints {
         public static let joinRoomFromInvite = RouteDefinition(root: root, method: .POST, path: ["invite"])
         public static let delete = RouteDefinition(root: root, method: .DELETE, path: [":roomId"])
     }
+
+    public struct Doodle {
+        public static let root = ["doodle"]
+        public static let create = RouteDefinition(root: root, method: .POST, path: [])
+        public static let getDoodleFromDooleId = RouteDefinition(root: root, method: .GET, path: [":doodleId"])
+        public static let getAllStrokes = RouteDefinition(root: root, method: .GET,
+                                                                  path: ["strokes", ":doodleId"])
+        public static let delete = RouteDefinition(root: root, method: .DELETE, path: [":doodleId"])
+    }
 }
