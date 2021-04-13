@@ -2,7 +2,7 @@ import UIKit
 
 class DocumentPreviewCell: UICollectionViewCell {
     @IBOutlet private var roomNameLabel: UILabel!
-    @IBOutlet var preview: UIImageView!
+    @IBOutlet private var preview: UIImageView!
 
     private var name: String = "" {
         didSet {
