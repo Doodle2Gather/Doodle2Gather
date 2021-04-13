@@ -24,6 +24,7 @@ class DTCanvasViewController: UIViewController {
     var doodleIdMap = [Int: UUID]()
     var undoActions = [Int: [(type: DTActionType, strokes: [(PKStroke, Int)])]]()
     var redoActions = [Int: [(type: DTActionType, strokes: [(PKStroke, Int)])]]()
+    var semaphore = DispatchSemaphore(value: 1)
 
     /// Delegate for action dispatching.
     internal weak var delegate: CanvasControllerDelegate?
@@ -117,9 +118,11 @@ extension DTCanvasViewController: PKCanvasViewDelegate {
             return
         }
 
+        semaphore.wait()
         if !actionQueue.isEmpty {
             dispatchCachedActions()
         }
+        semaphore.signal()
 
         let newStrokes = canvas.drawing.dtStrokes
         let oldStrokes = currentDoodle.dtStrokes
@@ -245,7 +248,9 @@ extension DTCanvasViewController: PKCanvasViewDelegate {
 extension DTCanvasViewController: CanvasController {
 
     func dispatchAction(_ action: DTAction) {
+        semaphore.wait()
         actionQueue.enqueueAction(action)
+        semaphore.signal()
     }
 
     // Note: This method does not fire off an Action.
@@ -390,6 +395,9 @@ extension DTCanvasViewController: DTActionQueueDelegate {
     }
 
     private func refetchDoodles() {
+        semaphore.wait()
+        actionQueue.clear()
+        semaphore.signal()
         DTLogger.event("Refetching doodles...")
         delegate?.refetchDoodles()
     }
