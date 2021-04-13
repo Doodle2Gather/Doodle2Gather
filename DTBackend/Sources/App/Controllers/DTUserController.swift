@@ -30,6 +30,7 @@ struct DTUserController: RouteCollection {
         }
         return PersistedDTUserAccesses
             .query(on: req.db)
+            .with(\.$room)
             .filter(\.$user.$id == id)
             .all()
     }
