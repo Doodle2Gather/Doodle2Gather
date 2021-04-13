@@ -35,13 +35,17 @@ class NewDocumentViewController: UIViewController {
                                      with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         if UIDevice.current.orientation.isPortrait {
-            self.view.frame.origin.y = 0
+            UIView.animate(withDuration: 0.25) {
+                self.view.frame.origin.y = 0
+            }
         }
     }
 
     @objc func didTapTitleTextField(textField: UITextField) {
         isEditingTitle = true
-        self.view.frame.origin.y = 0
+        UIView.animate(withDuration: 0.25) {
+            self.view.frame.origin.y = 0
+        }
     }
 
     @objc func didTapInvitationCodeField(textField: UITextField) {
@@ -69,16 +73,13 @@ class NewDocumentViewController: UIViewController {
 
         let isShowing: Bool = endKeyboardFrame.maxY
             > UIScreen.main.bounds.height ? false : true
-        UIView.animate(withDuration: duration) { [weak self] in
+        UIView.animate(withDuration: duration == 0 ? 0.25 : duration) { [weak self] in
             guard let strongSelf = self else {
                 return
             }
 
             if isShowing {
                 var offsetY: CGFloat = 0
-                print("")
-                print("")
-                print(strongSelf.isEditingTitle)
                 if strongSelf.isEditingTitle {
                     offsetY = strongSelf.titleTextField.frame.maxY - endKeyboardFrame.minY
                 } else {
@@ -92,7 +93,6 @@ class NewDocumentViewController: UIViewController {
             } else {
                 strongSelf.view.frame.origin.y = 0
             }
-            strongSelf.view.layoutIfNeeded()
         }
     }
 
