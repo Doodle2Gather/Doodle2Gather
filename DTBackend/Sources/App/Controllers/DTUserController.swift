@@ -12,7 +12,7 @@ struct DTUserController: RouteCollection {
     }
 
     func createUserInfoHandler(req: Request) throws -> EventLoopFuture<DTAdaptedUser> {
-        return try PersistedDTUser.createUserInfo(req: req).flatMapThrowing(DTAdaptedUser.init)
+        try PersistedDTUser.createUserInfo(req: req).flatMapThrowing(DTAdaptedUser.init)
     }
 
     func readUserInfoHandler(req: Request) throws -> EventLoopFuture<PersistedDTUser> {
@@ -83,7 +83,7 @@ extension PersistedDTUser {
             .with(\.$accessibleRooms)
             .all()
     }
-    
+
     static func createUserInfo(req: Request) throws -> EventLoopFuture<PersistedDTUser> {
         let create = try req.content.decode(DTAdaptedUser.CreateRequest.self)
         let newUser = create.makePersistedUser()
