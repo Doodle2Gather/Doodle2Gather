@@ -35,4 +35,8 @@ final class PersistedDTRoom: Model, Content {
         let code = Int.random(in: 0..<1_000_000)
         return String(format: "%06d", code)
     }
+
+    func getChildren() -> [PersistedDTDoodle] {
+        self.doodles
+    }
 }
