@@ -69,6 +69,8 @@ class WebSocketController {
         do {
             let decodedData = try decoder.decode(DTMessage.self, from: data)
             switch decodedData.type {
+            case .disconnect:
+                self.onDisconnect(decodedData.id)
             case .initiateAction:
                 let newActionData = try decoder.decode(
                     DTInitiateActionMessage.self, from: data)
@@ -84,6 +86,12 @@ class WebSocketController {
             }
         } catch {
             logger.report(error: error)
+        }
+    }
+
+    func onDisconnect(_ id: UUID) {
+        self.lock.withLockVoid {
+            self.sockets[id] = nil
         }
     }
 
