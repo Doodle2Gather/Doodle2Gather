@@ -128,6 +128,9 @@ class DoodleViewController: UIViewController {
                 return
             }
             destination.delegate = self
+            if let doodles = self.doodles {
+                destination.loadDoodles(doodles)
+            }
             self.layerTable = destination
         default:
             return
