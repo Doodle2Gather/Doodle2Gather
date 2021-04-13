@@ -1,4 +1,5 @@
 import UIKit
+import DTSharedLibrary
 
 enum CreateDocumentStatus {
     case success
@@ -38,9 +39,24 @@ class NewDocumentViewController: UIViewController {
         if nameCallback(title) == .duplicatedName {
             return
         }
-        DTApi.createRoom(name: title, user: user.uid) { room in
-            creationCallback(room)
-            self.dismiss(animated: true, completion: nil)
+        let newRoom = DTAdaptedRoom.CreateRequest(
+            ownerId: user.uid, name: title
+        )
+        DTApi.createRoom(newRoom) { result in
+            switch result {
+            case .failure(let error):
+                DTLogger.error(error.localizedDescription)
+            case .success(.some(let room)):
+                guard let createdRoom = Room(room: room) else {
+                    return
+                }
+              DispatchQueue.main.async {
+                creationCallback(createdRoom)
+                self.dismiss(animated: true, completion: nil)
+              }
+            case .success(.none):
+                break
+            }
         }
     }
 

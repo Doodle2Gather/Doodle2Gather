@@ -1,16 +1,15 @@
-// swiftlint:disable first_where
 import Fluent
 import Vapor
 import DTSharedLibrary
 
 struct DTRoomController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
-        routes.on(Endpoints.Room.createRoom, use: createHandler)
+        routes.on(Endpoints.Room.create, use: createHandler)
         routes.on(Endpoints.Room.getRoomFromRoomId, use: getSingleHandler)
         routes.on(Endpoints.Room.getRoomFromInvite, use: getSingleFromInviteHandler)
         routes.on(Endpoints.Room.joinRoomFromInvite, use: joinRoomFromInviteHandler)
-        routes.on(Endpoints.Room.getRoomDoodlesFromRoom, use: getAllDoodlesHandler)
-        routes.on(Endpoints.Room.deleteRoom, use: deleteHandler)
+        routes.on(Endpoints.Room.getAllDoodlesFromRoom, use: getAllDoodlesHandler)
+        routes.on(Endpoints.Room.delete, use: deleteHandler)
     }
 
     func createHandler(req: Request) throws -> EventLoopFuture<DTAdaptedRoom> {
@@ -101,7 +100,7 @@ extension PersistedDTRoom {
       }
       return PersistedDTRoom.query(on: db)
         .filter(\.$id == id)
-        .with(\.$doodles)
+        .with(\.$doodles, { $0.with(\.$strokes) })
         .first()
         .unwrap(or: DTError.modelNotFound(type: "PersistedDTRoom", id: id.uuidString))
     }
@@ -109,7 +108,7 @@ extension PersistedDTRoom {
     static func getSingleByCode(_ code: String, on db: Database) -> EventLoopFuture<PersistedDTRoom> {
       PersistedDTRoom.query(on: db)
         .filter(\.$inviteCode == code)
-        .with(\.$doodles)
+        .with(\.$doodles, { $0.with(\.$strokes) })
         .first()
         .unwrap(or: DTError.modelNotFound(type: "PersistedDTRoom", code: code))
     }
