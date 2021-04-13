@@ -12,17 +12,3 @@ public struct DTAdaptedUserAccesses: Codable {
         self.room = room
     }
 }
-
-//extension DTAdaptedUserAccesses {
-//    public struct CreateRequest: Codable {
-//        public let id: String
-//        public let displayName: String
-//        public let email: String
-//
-//        public init(id: String, displayName: String, email: String) {
-//            self.id = id
-//            self.displayName = displayName
-//            self.email = email
-//        }
-//    }
-//}

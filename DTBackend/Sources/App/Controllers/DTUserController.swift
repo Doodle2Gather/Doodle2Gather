@@ -6,7 +6,7 @@ struct DTUserController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         routes.on(Endpoints.User.createUserInfo, use: createUserInfoHandler)
         routes.on(Endpoints.User.readUserInfo, use: readUserInfoHandler)
-        routes.on(Endpoints.User.readUserRoomsInfo, use: readUserRoomsInfoHandler)
+        routes.on(Endpoints.User.getAllRooms, use: getAllRoomsHandler)
         routes.on(Endpoints.User.updateUserInfo, use: updateUserInfoHandler)
         routes.on(Endpoints.User.deleteUserInfo, use: deleteUserInfoHandler)
     }
@@ -19,9 +19,10 @@ struct DTUserController: RouteCollection {
         try PersistedDTUser.readUserInfo(req: req).flatMapThrowing(DTAdaptedUser.init)
     }
 
-    func readUserRoomsInfoHandler(req: Request) throws -> EventLoopFuture<[DTAdaptedUserAccesses]> {
-        try PersistedDTUser.readUserRoomsInfo(req: req).flatMapThrowing{ $0.map { DTAdaptedUserAccesses(userAccesses: $0) }
-        }
+    func getAllRoomsHandler(req: Request) throws -> EventLoopFuture<[DTAdaptedRoom]> {
+        try PersistedDTUser.getAllRooms(req: req)
+            .flatMapThrowing { $0.map { DTAdaptedRoom(room: $0 ) }
+            }
     }
 
     func updateUserInfoHandler(req: Request) throws -> EventLoopFuture<PersistedDTUser> {
@@ -58,14 +59,9 @@ extension PersistedDTUser {
       }
       return PersistedDTUser.query(on: db)
         .filter(\.$id == id)
-        .with(\.$accessibleRooms)
+        .with(\.$accessibleRooms, { $0.with(\.$doodles, { $0.with(\.$strokes) }) })
         .first()
         .unwrap(or: DTError.modelNotFound(type: "PersistedDTUser", id: id))
-    }
-
-    static func getAllRooms(_ id: PersistedDTUser.IDValue?, on db: Database) -> EventLoopFuture<[PersistedDTRoom]> {
-        getSingleById(id, on: db)
-            .flatMapThrowing { $0.accessibleRooms }
     }
 
     static func getAll(on db: Database) -> EventLoopFuture<[PersistedDTUser]> {
@@ -88,14 +84,12 @@ extension PersistedDTUser {
         return PersistedDTUser.find(id, on: req.db)
             .unwrap(or: Abort(.notFound))
     }
-    
-    static func readUserRoomsInfo(req: Request) throws -> EventLoopFuture<[PersistedDTUserAccesses]> {
+
+    static func getAllRooms(req: Request) throws -> EventLoopFuture<[PersistedDTRoom]> {
         guard let id = req.parameters.get("id") else {
             throw Abort(.badRequest)
         }
-        return PersistedDTUserAccesses
-            .query(on: req.db)
-            .filter(\.$user.$id == id)
-            .all()
+        return getSingleById(id, on: req.db)
+            .flatMapThrowing { $0.getAccessibleRooms() }
     }
 }

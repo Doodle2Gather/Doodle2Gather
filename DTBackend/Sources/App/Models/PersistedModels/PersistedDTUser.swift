@@ -37,4 +37,8 @@ final class PersistedDTUser: Model, Content {
         self.displayName = copy.displayName
         self.email = copy.email
      }
+
+    func getAccessibleRooms() -> [PersistedDTRoom] {
+        self.accessibleRooms
+    }
 }
