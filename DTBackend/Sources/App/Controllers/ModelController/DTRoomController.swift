@@ -46,6 +46,7 @@ struct DTRoomController: RouteCollection {
             return attachRoomToUser.and(defaultDoodle).transform(to: newDTRoom)
 
         }
+    
     }
 
     func getRoomFromInviteHandler(req: Request) throws -> EventLoopFuture<PersistedDTRoom> {
