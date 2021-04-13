@@ -109,6 +109,17 @@ class DoodleViewController: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
+        case SegueConstants.toCanvas, SegueConstants.toStrokeEditor, SegueConstants.toConference:
+            prepareForSubviews(for: segue, sender: sender)
+        case SegueConstants.toLayerTable, SegueConstants.toInvitation:
+            prepareForPopUps(for: segue, sender: sender)
+        default:
+            return
+        }
+    }
+
+    func prepareForSubviews(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
         case SegueConstants.toCanvas:
             guard let destination = segue.destination as? DTCanvasViewController else {
                 return
@@ -124,6 +135,18 @@ class DoodleViewController: UIViewController {
             }
             destination.delegate = self
             self.strokeEditor = destination
+        case SegueConstants.toConference:
+            guard let destination = segue.destination as? ConferenceViewController else {
+                return
+            }
+            destination.roomId = roomId?.uuidString
+        default:
+            return
+        }
+    }
+
+    func prepareForPopUps(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
         case SegueConstants.toLayerTable:
             guard let destination = segue.destination as? DoodleLayerTableViewController else {
                 return
@@ -137,23 +160,20 @@ class DoodleViewController: UIViewController {
             guard let destination = segue.destination as? InvitationViewController else {
                 return
             }
+            destination.modalPresentationStyle = .formSheet
             destination.inviteCode = inviteCode
         default:
             return
         }
+
     }
 
     @IBAction private func exitButtonDidTap(_ sender: Any) {
-        let alert = UIAlertController(title: "Exit",
-                                      message: "Are you sure you wish to exit and return to the main menu?",
-                                      preferredStyle: .alert)
-
-        alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { _ in
-            self.dismiss(animated: true, completion: nil)
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-
-        self.present(alert, animated: true)
+        alert(title: "Exit", message: "Are you sure you wish to exit and return to the main menu?",
+              buttonStyle: .default, handler: { _ in
+                    self.dismiss(animated: true, completion: nil)
+              }
+        )
     }
 
 }

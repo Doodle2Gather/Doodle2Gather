@@ -24,6 +24,7 @@ class ConferenceViewController: UIViewController {
     var isMuted = true
     var isVideoOff = true
     var isChatShown = false
+    var roomId: String?
     private var videoOverlays = [UIView]()
     private var appearance = BadgeAppearance(animate: true)
     private var unreadMessageCount = 0
@@ -38,10 +39,10 @@ class ConferenceViewController: UIViewController {
         videoEngine = AgoraVideoEngine()
         videoEngine?.delegate = self
         videoEngine?.initialize()
-        videoEngine?.joinChannel(channelName: "testing")
+        videoEngine?.joinChannel(channelName: roomId ?? "testing")
         chatEngine = AgoraChatEngine()
         chatEngine?.initialize()
-        chatEngine?.joinChannel(channelName: "testing")
+        chatEngine?.joinChannel(channelName: roomId ?? "testing")
         chatEngine?.delegate = self
         appearance.distanceFromCenterX = UIConstants.largeOffset
         appearance.distanceFromCenterY = -UIConstants.largeOffset

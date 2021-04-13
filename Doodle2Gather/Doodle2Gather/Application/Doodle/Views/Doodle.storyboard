@@ -35,7 +35,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2v7-Hc-qJ9" userLabel="Video Overlay View" customClass="SubviewTouchView" customModule="Doodle2Gather" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="834" height="1174"/>
                                 <connections>
-                                    <segue destination="iqH-RH-LvU" kind="embed" identifier="" id="LHe-b8-q2G"/>
+                                    <segue destination="iqH-RH-LvU" kind="embed" identifier="toConference" id="LHe-b8-q2G"/>
                                 </connections>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lOM-bA-4te" userLabel="File Name View">
