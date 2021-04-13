@@ -43,6 +43,7 @@
 		2EB12AC2261BFCD100131FE6 /* DoodleLayerTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12AC1261BFCD100131FE6 /* DoodleLayerTable.swift */; };
 		2EB929D9260778F600AAB396 /* SubviewTouchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB929D8260778F600AAB396 /* SubviewTouchView.swift */; };
 		2EBD90D0261B01F4009859FE /* ThickSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBD90CF261B01F4009859FE /* ThickSliderView.swift */; };
+		2EC4194B2625CB5900BE0518 /* UIView+Borders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC4194A2625CB5900BE0518 /* UIView+Borders.swift */; };
 		2ED6297A2618FD37009F92D0 /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2ED629792618FD37009F92D0 /* Chat.storyboard */; };
 		2ED7A3C62601B7740006D873 /* Doodle.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2ED7A3C52601B7740006D873 /* Doodle.storyboard */; };
 		2ED7A3CC2601C0450006D873 /* DoodleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED7A3CB2601C0450006D873 /* DoodleViewController.swift */; };
@@ -81,6 +82,7 @@
 		8464E77D262586B4002B5BEE /* InvitationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8464E77C262586B4002B5BEE /* InvitationViewController.swift */; };
 		8464E7892625878C002B5BEE /* Invitation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8464E7882625878C002B5BEE /* Invitation.storyboard */; };
 		8464E7982625B08C002B5BEE /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8464E7972625B08C002B5BEE /* Room.swift */; };
+		8464E7B52625C51D002B5BEE /* ParticipantsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8464E7B42625C51D002B5BEE /* ParticipantsDelegate.swift */; };
 		848F35472614174000AD46C6 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848F35462614174000AD46C6 /* Message.swift */; };
 		848F354F2614177000AD46C6 /* Sender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848F354E2614177000AD46C6 /* Sender.swift */; };
 		848F356926142D8800AD46C6 /* ParticipantsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848F356826142D8800AD46C6 /* ParticipantsViewController.swift */; };
@@ -173,6 +175,7 @@
 		2EB12AC1261BFCD100131FE6 /* DoodleLayerTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodleLayerTable.swift; sourceTree = "<group>"; };
 		2EB929D8260778F600AAB396 /* SubviewTouchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubviewTouchView.swift; sourceTree = "<group>"; };
 		2EBD90CF261B01F4009859FE /* ThickSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThickSliderView.swift; sourceTree = "<group>"; };
+		2EC4194A2625CB5900BE0518 /* UIView+Borders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Borders.swift"; sourceTree = "<group>"; };
 		2ED629792618FD37009F92D0 /* Chat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
 		2ED7A3C52601B7740006D873 /* Doodle.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Doodle.storyboard; sourceTree = "<group>"; };
 		2ED7A3CB2601C0450006D873 /* DoodleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodleViewController.swift; sourceTree = "<group>"; };
@@ -216,6 +219,7 @@
 		8464E77C262586B4002B5BEE /* InvitationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitationViewController.swift; sourceTree = "<group>"; };
 		8464E7882625878C002B5BEE /* Invitation.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Invitation.storyboard; sourceTree = "<group>"; };
 		8464E7972625B08C002B5BEE /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
+		8464E7B42625C51D002B5BEE /* ParticipantsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantsDelegate.swift; sourceTree = "<group>"; };
 		848F35462614174000AD46C6 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		848F354E2614177000AD46C6 /* Sender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sender.swift; sourceTree = "<group>"; };
 		848F356826142D8800AD46C6 /* ParticipantsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantsViewController.swift; sourceTree = "<group>"; };
@@ -388,6 +392,7 @@
 		2ED629752618FCD5009F92D0 /* Participants */ = {
 			isa = PBXGroup;
 			children = (
+				8464E7B32625C4F4002B5BEE /* Protocols */,
 				2E146CBF2619023A001F6845 /* Views */,
 				2E146CC4261902DD001F6845 /* Controllers */,
 			);
@@ -493,6 +498,7 @@
 				2EF0E51C26096B5C0008184D /* SubviewTouchCollectionView.swift */,
 				2E01245E26195B8400A38B77 /* BorderedShadowedView.swift */,
 				2EBD90CF261B01F4009859FE /* ThickSliderView.swift */,
+				2EC4194A2625CB5900BE0518 /* UIView+Borders.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -581,6 +587,7 @@
 		2EF8E97A25F75EAE00C7EE7D /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				8464E77926258680002B5BEE /* Invitation */,
 				2EF8E97B25F75EB500C7EE7D /* Home */,
 				84A451CD2614706000DFCA75 /* Gallery */,
 				2ED7A3C32601B7570006D873 /* Doodle */,
@@ -758,6 +765,14 @@
 				8464E7972625B08C002B5BEE /* Room.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		8464E7B32625C4F4002B5BEE /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				8464E7B42625C51D002B5BEE /* ParticipantsDelegate.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		84A451CD2614706000DFCA75 /* Gallery */ = {
@@ -959,6 +974,7 @@
 			files = (
 				2E146CC126190246001F6845 /* Participants.storyboard in Resources */,
 				2ED6297A2618FD37009F92D0 /* Chat.storyboard in Resources */,
+				8464E7892625878C002B5BEE /* Invitation.storyboard in Resources */,
 				2EF8E92F25F754C700C7EE7D /* LaunchScreen.storyboard in Resources */,
 				84A451EA2614804B00DFCA75 /* Gallery.storyboard in Resources */,
 				2E2B16D926197BFF0014DD4A /* Assets.xcassets in Resources */,
@@ -1147,6 +1163,7 @@
 				84D803B326174EDC0096692E /* DocumentPreviewCell.swift in Sources */,
 				67B62AB926198F8B0062037E /* DTApi.swift in Sources */,
 				84E847A0260AD4C800E39C1F /* AgoraChatEngine.swift in Sources */,
+				2EC4194B2625CB5900BE0518 /* UIView+Borders.swift in Sources */,
 				848F356926142D8800AD46C6 /* ParticipantsViewController.swift in Sources */,
 				2EF8E92325F754C600C7EE7D /* AppDelegate.swift in Sources */,
 				84E95957260D755A00D587CC /* VideoEngineDelegate.swift in Sources */,
@@ -1197,7 +1214,9 @@
 				84E95961260D758B00D587CC /* ChatEngineDelegate.swift in Sources */,
 				2EA8C3182606682500BE750C /* PKCanvasView+Doodle.swift in Sources */,
 				83AB9C5226171088008E48D0 /* DTAuth.swift in Sources */,
+				8464E77D262586B4002B5BEE /* InvitationViewController.swift in Sources */,
 				2EB12AB6261BEF6700131FE6 /* DoodleLayerTableViewCell.swift in Sources */,
+				8464E7B52625C51D002B5BEE /* ParticipantsDelegate.swift in Sources */,
 				832607EE26145D5200B90F25 /* DTLogger.swift in Sources */,
 				8326080D26147FC600B90F25 /* DTAbstractLogger.swift in Sources */,
 				2E07C4242619B3EA003A87C9 /* UIConstants.swift in Sources */,

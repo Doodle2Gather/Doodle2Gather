@@ -53,11 +53,15 @@ class GalleryViewController: UIViewController {
                 self.rooms.append(room)
                 self.collectionView.reloadData()
             }
+            vc.joinDocumentCallback = { room in
+                self.rooms.append(room)
+                self.collectionView.reloadData()
+            }
         }
     }
 
     @IBAction private func didTapAdd(_ sender: Any) {
-        rooms.append(Room(roomId: UUID(), roomName: "Room \(count)"))
+        rooms.append(Room(roomId: UUID(), roomName: "Room \(count)", inviteCode: ""))
         count += 1
         collectionView.reloadData()
     }
@@ -65,6 +69,7 @@ class GalleryViewController: UIViewController {
     @IBAction private func didTapEdit(_ sender: Any) {
 
     }
+
 }
 
 // MARK: - UICollectionViewDelegate
@@ -84,10 +89,11 @@ extension GalleryViewController: UICollectionViewDelegate {
                 DTLogger.error(error.localizedDescription)
             case .success(.some(let doodles)):
               DispatchQueue.main.async {
-                vc.doodles = doodles
-                vc.username = DTAuth.user?.displayName ?? "Someone"
+                vc.loadDoodles(doodles)
+                vc.username = DTAuth.user?.displayName ?? "Unknown"
                 vc.roomName = self.rooms[index].roomName
                 vc.roomId = self.rooms[index].roomId
+                vc.inviteCode = self.rooms[index].inviteCode
                 vc.modalPresentationStyle = .fullScreen
                 vc.modalTransitionStyle = .flipHorizontal
                 self.present(vc, animated: true, completion: nil)

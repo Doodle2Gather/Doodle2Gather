@@ -40,6 +40,7 @@ extension DoodleLayerTableViewController: DoodleLayerCellDelegate {
 
     func buttonDidTap(index: Int) {
         delegate?.selectedDoodleDidChange(index: index)
+        selectedDoodleIndex = index
         tableView.reloadData()
     }
 

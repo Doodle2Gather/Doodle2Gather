@@ -9,14 +9,15 @@ enum CreateDocumentStatus {
 class NewDocumentViewController: UIViewController {
 
     @IBOutlet private var titleTextField: UITextField!
+    @IBOutlet private var invitationCodeField: UITextField!
+    @IBOutlet private var separator: UIView!
 
     var didCreateDocumentCallback: ((Room) -> Void)?
     var checkDocumentNameCallback: ((String) -> CreateDocumentStatus)?
+    var joinDocumentCallback: ((Room) -> Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 
     @IBAction private func didTapCreate(_ sender: Any) {
@@ -57,5 +58,27 @@ class NewDocumentViewController: UIViewController {
                 break
             }
         }
+    }
+
+    @IBAction private func didTapJoin(_ sender: UIButton) {
+        guard let user = DTAuth.user else {
+            return
+        }
+        guard let joinCallback = joinDocumentCallback else {
+            return
+        }
+        guard let code = invitationCodeField.text else {
+            return
+        }
+        guard !code.isEmpty else {
+            return
+        }
+        DTApi.joinRoom(code: code, user: user.uid) { room in
+            joinCallback(room)
+        }
+    }
+
+    @IBAction private func didTapClose(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
 }
