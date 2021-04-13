@@ -25,9 +25,6 @@ struct DTRoomController: RouteCollection {
                 let attachRoom = user.$accessibleRooms.attach(room, on: req.db)
                 let newDoodle = PersistedDTDoodle(room: room)
                 let defaultDoodle = newDoodle.save(on: req.db)
-//                    .flatMap {
-//                    room.$doodles.create([newDoodle], on: req.db)
-//                }
                 return attachRoom.and(defaultDoodle)
                     .flatMap { _ in PersistedDTRoom.getSingleById(room.id, on: req.db) }
                     .map { r in DTAdaptedRoom(room: r) }
@@ -58,7 +55,7 @@ struct DTRoomController: RouteCollection {
         }
     }
 
-    func joinRoomFromInviteHandler(req: Request) throws -> EventLoopFuture<HTTPResponseStatus> {
+    func joinRoomFromInviteHandler(req: Request) throws -> EventLoopFuture<DTAdaptedRoom> {
         let joinRequest = try req.content.decode(DTJoinRoomMessage.self)
 
         /* join room via invitation code */
@@ -67,7 +64,8 @@ struct DTRoomController: RouteCollection {
             let room = PersistedDTRoom.getSingleByCode(inviteCode, on: req.db)
             let user = PersistedDTUser.getSingleById(joinRequest.userId, on: req.db)
             return user.and(room).flatMap { user, room in
-                user.$accessibleRooms.attach(room, on: req.db).transform(to: .created)
+                user.$accessibleRooms.attach(room, on: req.db)
+                    .flatMap { PersistedDTRoom.getSingleByCode(inviteCode, on: req.db) }
             }
         }
 
