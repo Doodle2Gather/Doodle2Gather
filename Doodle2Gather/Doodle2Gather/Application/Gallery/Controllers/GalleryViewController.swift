@@ -31,7 +31,9 @@ class GalleryViewController: UIViewController {
                     }
                     return room
                     }
-                    self.collectionView.reloadData()
+                    DispatchQueue.main.async {
+                        self.collectionView.reloadData()
+                    }
                 case .success(.none):
                     break
                 }
