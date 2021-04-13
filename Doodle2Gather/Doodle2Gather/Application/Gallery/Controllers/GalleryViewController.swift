@@ -117,6 +117,7 @@ extension GalleryViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "documentCell",
                                                       for: indexPath) as? DocumentPreviewCell
         cell?.setName(rooms[indexPath.row].roomName)
+        cell?.setImage(#imageLiteral(resourceName: "Brush_PNG"))
         return cell!
     }
 }

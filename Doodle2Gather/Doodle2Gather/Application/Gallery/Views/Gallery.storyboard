@@ -76,6 +76,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
+                                            <outlet property="preview" destination="O93-aF-sDh" id="3ts-4X-AaB"/>
                                             <outlet property="roomNameLabel" destination="1dX-Ku-w58" id="3w2-6D-5ee"/>
                                         </connections>
                                     </collectionViewCell>
