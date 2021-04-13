@@ -310,6 +310,11 @@
                             <constraint firstItem="e0I-mQ-9fC" firstAttribute="leading" secondItem="Hu3-ao-hCJ" secondAttribute="leading" constant="20" id="wAe-Qf-pl0"/>
                             <constraint firstItem="dxW-zB-IV8" firstAttribute="centerX" secondItem="5xZ-LV-uBI" secondAttribute="centerX" id="x5z-ji-NG4"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </view>
                     <value key="contentSizeForViewInPopover" type="size" width="540" height="430"/>
                     <connections>

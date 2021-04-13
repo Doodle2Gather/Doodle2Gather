@@ -26,6 +26,16 @@ class NewDocumentViewController: UIViewController {
         addKeyboardObserver()
     }
 
+    // Handle change of orientation for chat box
+    override func viewWillTransition(to size: CGSize,
+                                     with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        if UIDevice.current.orientation.isPortrait {
+            self.view.frame.origin.y = 0
+            self.navbar.frame.origin.y = 0
+        }
+    }
+
     func addKeyboardObserver() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardFrameWillChange(notification:)),
