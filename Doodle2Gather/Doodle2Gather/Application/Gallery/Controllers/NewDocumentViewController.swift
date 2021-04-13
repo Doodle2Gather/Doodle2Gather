@@ -18,12 +18,16 @@ class NewDocumentViewController: UIViewController {
     var didCreateDocumentCallback: ((Room) -> Void)?
     var checkDocumentNameCallback: ((String) -> CreateDocumentStatus)?
     var joinDocumentCallback: ((Room) -> Void)?
+    private var isEditingTitle = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         addKeyboardObserver()
         isModalInPresentation = true
+
+        titleTextField.addTarget(self, action: #selector(didTapTitleTextField), for: .touchDown)
+        invitationCodeField.addTarget(self, action: #selector(didTapInvitationCodeField), for: .touchDown)
     }
 
     // Handle change of orientation for chat box
@@ -33,6 +37,15 @@ class NewDocumentViewController: UIViewController {
         if UIDevice.current.orientation.isPortrait {
             self.view.frame.origin.y = 0
         }
+    }
+
+    @objc func didTapTitleTextField(textField: UITextField) {
+        isEditingTitle = true
+        self.view.frame.origin.y = 0
+    }
+
+    @objc func didTapInvitationCodeField(textField: UITextField) {
+        isEditingTitle = false
     }
 
     func addKeyboardObserver() {
@@ -62,7 +75,15 @@ class NewDocumentViewController: UIViewController {
             }
 
             if isShowing {
-                let offsetY = strongSelf.view.frame.maxY - endKeyboardFrame.minY
+                var offsetY: CGFloat = 0
+                print("")
+                print("")
+                print(strongSelf.isEditingTitle)
+                if strongSelf.isEditingTitle {
+                    offsetY = strongSelf.titleTextField.frame.maxY - endKeyboardFrame.minY
+                } else {
+                    offsetY = strongSelf.view.frame.maxY - endKeyboardFrame.minY
+                }
                 if offsetY < 0 {
                     return
                 } else {
@@ -82,14 +103,12 @@ class NewDocumentViewController: UIViewController {
         guard let nameCallback = checkDocumentNameCallback else {
             return
         }
-        print("World")
         guard let creationCallback = didCreateDocumentCallback else {
             return
         }
         guard let title = titleTextField.text else {
             return
         }
-        print("Jesus")
         guard !title.isEmpty else {
             return
         }
