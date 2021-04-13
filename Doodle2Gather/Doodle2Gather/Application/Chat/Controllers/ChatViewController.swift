@@ -121,6 +121,10 @@ class ChatViewController: MessagesViewController {
         return formatter
     }()
 
+    deinit {
+      NotificationCenter.default.removeObserver(self)
+    }
+
 }
 
 // MARK: - ChatBoxDelegate

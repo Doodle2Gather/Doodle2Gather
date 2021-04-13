@@ -10,7 +10,11 @@ class NewDocumentViewController: UIViewController {
 
     @IBOutlet private var titleTextField: UITextField!
     @IBOutlet private var invitationCodeField: UITextField!
+    @IBOutlet private var orLabel: UILabel!
     @IBOutlet private var separator: UIView!
+    @IBOutlet private var joinDocumentLabel: UILabel!
+    @IBOutlet private var newDocumentLabel: UILabel!
+    @IBOutlet private var navbar: UINavigationBar!
 
     var didCreateDocumentCallback: ((Room) -> Void)?
     var checkDocumentNameCallback: ((String) -> CreateDocumentStatus)?
@@ -18,6 +22,50 @@ class NewDocumentViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        addKeyboardObserver()
+    }
+
+    func addKeyboardObserver() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardFrameWillChange(notification:)),
+                                               name: UIResponder.keyboardWillChangeFrameNotification,
+                                               object: nil)
+    }
+
+    // Handle keyboard blocking input area
+    @objc
+    func keyboardFrameWillChange(notification: NSNotification) {
+        guard let userInfo = notification.userInfo,
+              let endKeyboardFrameValue = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
+              let durationValue = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber else {
+            return
+        }
+
+        let endKeyboardFrame = endKeyboardFrameValue.cgRectValue
+        let duration = durationValue.doubleValue
+
+        let isShowing: Bool = endKeyboardFrame.maxY
+            > UIScreen.main.bounds.height ? false : true
+        UIView.animate(withDuration: duration) { [weak self] in
+            guard let strongSelf = self else {
+                return
+            }
+
+            if isShowing {
+                let offsetY = strongSelf.view.frame.maxY - endKeyboardFrame.minY
+                if offsetY < 0 {
+                    return
+                } else {
+                    strongSelf.view.frame.origin.y = -offsetY - 40
+                    strongSelf.navbar.frame.origin.y = offsetY + 40
+                }
+            } else {
+                strongSelf.view.frame.origin.y = 0
+                strongSelf.navbar.frame.origin.y = 0
+            }
+            strongSelf.view.layoutIfNeeded()
+        }
     }
 
     @IBAction private func didTapCreate(_ sender: Any) {
