@@ -21,16 +21,16 @@
                                 <rect key="frame" x="262" y="433" width="500" height="500"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JDu-zr-f28" userLabel="Auth Controls">
-                                        <rect key="frame" x="20" y="20" width="460" height="460"/>
+                                        <rect key="frame" x="30" y="30" width="440" height="440"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Doodle2Gather" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ruv-9Z-GeO">
-                                                <rect key="frame" x="0.0" y="10" width="460" height="60"/>
+                                                <rect key="frame" x="0.0" y="10" width="440" height="60"/>
                                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="50"/>
                                                 <color key="textColor" name="White"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="KHd-4r-Hgc">
-                                                <rect key="frame" x="0.0" y="90" width="460" height="41"/>
+                                                <rect key="frame" x="0.0" y="90" width="440" height="41"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="ZNN-dd-vq2"/>
                                                 </constraints>
@@ -43,12 +43,12 @@
                                                 </connections>
                                             </segmentedControl>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j1M-To-i7Q" userLabel="Email Container">
-                                                <rect key="frame" x="0.0" y="150" width="460" height="60"/>
+                                                <rect key="frame" x="0.0" y="150" width="440" height="60"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="San-it-z9u">
-                                                        <rect key="frame" x="10" y="10" width="440" height="40"/>
+                                                        <rect key="frame" x="10" y="10" width="420" height="40"/>
                                                         <color key="textColor" name="White"/>
-                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="email"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
@@ -67,12 +67,12 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Hx-Tg-5we" userLabel="Password Container">
-                                                <rect key="frame" x="0.0" y="230" width="460" height="60"/>
+                                                <rect key="frame" x="0.0" y="230" width="440" height="60"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Xa2-nd-Uii">
-                                                        <rect key="frame" x="10" y="10" width="440" height="40"/>
+                                                        <rect key="frame" x="10" y="10" width="420" height="40"/>
                                                         <color key="textColor" name="White"/>
-                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                         <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
@@ -91,11 +91,11 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fZh-iI-OKH" userLabel="Display Name Container">
-                                                <rect key="frame" x="0.0" y="310" width="460" height="60"/>
+                                                <rect key="frame" x="0.0" y="310" width="440" height="60"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Display Name" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Y8X-21-xQM">
-                                                        <rect key="frame" x="10" y="10" width="440" height="40"/>
-                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                                        <rect key="frame" x="10" y="10" width="420" height="40"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
@@ -114,7 +114,7 @@
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qY8-ug-Nlu">
-                                                <rect key="frame" x="186" y="404" width="88" height="46"/>
+                                                <rect key="frame" x="176" y="384" width="88" height="46"/>
                                                 <color key="backgroundColor" name="Stack Grey"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -160,11 +160,11 @@
                                 <color key="backgroundColor" name="Black"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="500" id="13H-MT-dya"/>
-                                    <constraint firstItem="JDu-zr-f28" firstAttribute="leading" secondItem="3fL-gc-f7d" secondAttribute="leading" constant="20" id="4mz-JD-Fsm"/>
-                                    <constraint firstItem="JDu-zr-f28" firstAttribute="trailing" secondItem="3fL-gc-f7d" secondAttribute="trailing" constant="-20" id="WfS-xh-ifk"/>
-                                    <constraint firstItem="JDu-zr-f28" firstAttribute="top" secondItem="3fL-gc-f7d" secondAttribute="top" constant="20" id="ddI-YB-m2u"/>
+                                    <constraint firstItem="JDu-zr-f28" firstAttribute="leading" secondItem="3fL-gc-f7d" secondAttribute="leading" constant="30" id="4mz-JD-Fsm"/>
+                                    <constraint firstItem="JDu-zr-f28" firstAttribute="trailing" secondItem="3fL-gc-f7d" secondAttribute="trailing" constant="-30" id="WfS-xh-ifk"/>
+                                    <constraint firstItem="JDu-zr-f28" firstAttribute="top" secondItem="3fL-gc-f7d" secondAttribute="top" constant="30" id="ddI-YB-m2u"/>
                                     <constraint firstItem="JDu-zr-f28" firstAttribute="centerX" secondItem="3fL-gc-f7d" secondAttribute="centerX" id="fpp-fp-NkZ"/>
-                                    <constraint firstItem="JDu-zr-f28" firstAttribute="bottom" secondItem="3fL-gc-f7d" secondAttribute="bottom" constant="-20" id="h3L-Lu-zYO"/>
+                                    <constraint firstItem="JDu-zr-f28" firstAttribute="bottom" secondItem="3fL-gc-f7d" secondAttribute="bottom" constant="-30" id="h3L-Lu-zYO"/>
                                     <constraint firstItem="JDu-zr-f28" firstAttribute="centerY" secondItem="3fL-gc-f7d" secondAttribute="centerY" id="u05-uz-STn"/>
                                     <constraint firstAttribute="width" constant="500" id="xc2-mW-rfY"/>
                                 </constraints>
