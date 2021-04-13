@@ -181,26 +181,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="540" height="430"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pIK-cs-AYL">
-                                <rect key="frame" x="0.0" y="0.0" width="540" height="56"/>
-                                <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <textAttributes key="titleTextAttributes">
-                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </textAttributes>
-                                <textAttributes key="largeTitleTextAttributes">
-                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </textAttributes>
-                                <items>
-                                    <navigationItem title="New / Join" id="nyq-kI-JZL">
-                                        <barButtonItem key="leftBarButtonItem" image="Cross" id="T1e-6q-99j">
-                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <connections>
-                                                <action selector="didTapClose:" destination="BGz-zg-7E6" id="S1z-U3-FEp"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C1W-4k-uKA" userLabel="Create Button">
                                 <rect key="frame" x="240" y="171" width="60" height="30"/>
                                 <color key="backgroundColor" systemColor="systemPurpleColor"/>
@@ -281,6 +261,26 @@
                                 <color key="textColor" name="Black"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pIK-cs-AYL">
+                                <rect key="frame" x="0.0" y="0.0" width="540" height="56"/>
+                                <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <textAttributes key="titleTextAttributes">
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </textAttributes>
+                                <textAttributes key="largeTitleTextAttributes">
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </textAttributes>
+                                <items>
+                                    <navigationItem title="New / Join" id="nyq-kI-JZL">
+                                        <barButtonItem key="leftBarButtonItem" image="Cross" id="T1e-6q-99j">
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <connections>
+                                                <action selector="didTapClose:" destination="BGz-zg-7E6" id="S1z-U3-FEp"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Hu3-ao-hCJ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -314,6 +314,10 @@
                     <value key="contentSizeForViewInPopover" type="size" width="540" height="430"/>
                     <connections>
                         <outlet property="invitationCodeField" destination="e0I-mQ-9fC" id="BVT-M1-nIz"/>
+                        <outlet property="joinDocumentLabel" destination="Qpn-fw-vYU" id="6Cp-qj-jJh"/>
+                        <outlet property="navbar" destination="pIK-cs-AYL" id="O4H-st-VpD"/>
+                        <outlet property="newDocumentLabel" destination="ecW-0R-ncr" id="3Do-oJ-eM5"/>
+                        <outlet property="orLabel" destination="BDc-RT-cqI" id="n7t-8f-4pz"/>
                         <outlet property="separator" destination="Ju6-mg-XCd" id="Phr-Hf-OuT"/>
                         <outlet property="titleTextField" destination="8i1-vR-dGk" id="uN7-lR-m10"/>
                     </connections>

@@ -111,7 +111,8 @@ class ActiveRoomController {
             }
             let index = doodle.findFirstMatchIndex(for: stroke, startingFrom: startingIndex)
             guard let indexFound = index else {
-                self.logger.info("cannot remove stroke with starting index \(startingIndex) expected: \(doodle.getStroke(at: startingIndex)) sent: \(stroke)")
+                self.logger.info("cannot remove stroke with starting index "
+                                 + "\(startingIndex) expected: \(doodle.getStroke(at: startingIndex)) sent: \(stroke)")
                 self.logger.info("all strokes \(doodles[stroke.doodleId])")
                 return nil
             }
@@ -131,7 +132,8 @@ class ActiveRoomController {
         }
         let index = doodle.findFirstMatchIndex(for: original, startingFrom: startingIndex)
         guard let indexFound = index else {
-            self.logger.info("cannot modify stroke with starting index \(startingIndex) expected: \(doodle.getStroke(at: startingIndex)) sent: \(original)")
+            self.logger.info("cannot modify stroke with starting index "
+                                + "\(startingIndex) expected: \(doodle.getStroke(at: startingIndex)) sent: \(original)")
             self.logger.info("all strokes \(doodles[original.doodleId])")
             return nil
         }
