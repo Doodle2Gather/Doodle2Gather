@@ -6,7 +6,7 @@ struct DTUserController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         routes.on(Endpoints.User.createUserInfo, use: createUserInfoHandler)
         routes.on(Endpoints.User.readUserInfo, use: readUserInfoHandler)
-        routes.on(Endpoints.User.readUserRoomsInfo, use: readUserRoomsInfoHandler)
+        routes.on(Endpoints.User.getAllRooms, use: getAllRoomsHandler)
         routes.on(Endpoints.User.updateUserInfo, use: updateUserInfoHandler)
         routes.on(Endpoints.User.deleteUserInfo, use: deleteUserInfoHandler)
     }
@@ -15,24 +15,14 @@ struct DTUserController: RouteCollection {
         try PersistedDTUser.createUserInfo(req: req).flatMapThrowing(DTAdaptedUser.init)
     }
 
-    func readUserInfoHandler(req: Request) throws -> EventLoopFuture<PersistedDTUser> {
-        guard let id = req.parameters.get("id") else {
-            throw Abort(.badRequest)
-        }
-        // TODO: Info leak. Remove email fields from response. API doesn't need to send user's email
-        return PersistedDTUser.find(id, on: req.db)
-            .unwrap(or: Abort(.notFound))
+    func readUserInfoHandler(req: Request) throws -> EventLoopFuture<DTAdaptedUser> {
+        try PersistedDTUser.readUserInfo(req: req).flatMapThrowing(DTAdaptedUser.init)
     }
 
-    func readUserRoomsInfoHandler(req: Request) throws -> EventLoopFuture<[PersistedDTUserAccesses]> {
-        guard let id = req.parameters.get("id") else {
-            throw Abort(.badRequest)
-        }
-        return PersistedDTUserAccesses
-            .query(on: req.db)
-            .with(\.$room)
-            .filter(\.$user.$id == id)
-            .all()
+    func getAllRoomsHandler(req: Request) throws -> EventLoopFuture<[DTAdaptedRoom]> {
+        try PersistedDTUser.getAllRooms(req: req)
+            .flatMapThrowing { $0.map { DTAdaptedRoom(room: $0 ) }
+            }
     }
 
     func updateUserInfoHandler(req: Request) throws -> EventLoopFuture<PersistedDTUser> {
@@ -69,14 +59,9 @@ extension PersistedDTUser {
       }
       return PersistedDTUser.query(on: db)
         .filter(\.$id == id)
-        .with(\.$accessibleRooms)
+        .with(\.$accessibleRooms, { $0.with(\.$doodles, { $0.with(\.$strokes) }) })
         .first()
         .unwrap(or: DTError.modelNotFound(type: "PersistedDTUser", id: id))
-    }
-
-    static func getAllRooms(_ id: PersistedDTUser.IDValue?, on db: Database) -> EventLoopFuture<[PersistedDTRoom]> {
-        getSingleById(id, on: db)
-            .flatMapThrowing { $0.accessibleRooms }
     }
 
     static func getAll(on db: Database) -> EventLoopFuture<[PersistedDTUser]> {
@@ -90,5 +75,21 @@ extension PersistedDTUser {
         let newUser = create.makePersistedUser()
         return newUser.save(on: req.db)
             .flatMap { PersistedDTUser.getSingleById(create.id, on: req.db) }
+    }
+
+    static func readUserInfo(req: Request) throws -> EventLoopFuture<PersistedDTUser> {
+        guard let id = req.parameters.get("id") else {
+            throw Abort(.badRequest)
+        }
+        return PersistedDTUser.find(id, on: req.db)
+            .unwrap(or: Abort(.notFound))
+    }
+
+    static func getAllRooms(req: Request) throws -> EventLoopFuture<[PersistedDTRoom]> {
+        guard let id = req.parameters.get("id") else {
+            throw Abort(.badRequest)
+        }
+        return getSingleById(id, on: req.db)
+            .flatMapThrowing { $0.getAccessibleRooms() }
     }
 }
