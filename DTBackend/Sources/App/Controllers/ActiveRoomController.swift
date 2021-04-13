@@ -97,6 +97,7 @@ class ActiveRoomController {
             return nil
         }
         doodles[stroke.doodleId]?.addStroke(stroke)
+        self.logger.info("successfully modified")
         return [DTStrokeIndexPair(stroke.stroke, index)]
     }
 
@@ -110,9 +111,13 @@ class ActiveRoomController {
             }
             let index = doodle.findFirstMatchIndex(for: stroke, startingFrom: startingIndex)
             guard let indexFound = index else {
+                self.logger.info("cannot remove stroke with starting index \(startingIndex) expected: \(doodle.getStroke(at: startingIndex)) sent: \(stroke)")
+                self.logger.info("all strokes \(doodles[stroke.doodleId])")
                 return nil
             }
             doodles[stroke.doodleId]?.removeStroke(at: indexFound)
+            self.logger.info("successfully removed \(startingIndex)")
+            self.logger.info("all strokes \(doodles[stroke.doodleId])")
             returnPairs.append(DTStrokeIndexPair(stroke.stroke, indexFound))
         }
         return returnPairs
@@ -126,9 +131,13 @@ class ActiveRoomController {
         }
         let index = doodle.findFirstMatchIndex(for: original, startingFrom: startingIndex)
         guard let indexFound = index else {
+            self.logger.info("cannot modify stroke with starting index \(startingIndex) expected: \(doodle.getStroke(at: startingIndex)) sent: \(original)")
+            self.logger.info("all strokes \(doodles[original.doodleId])")
             return nil
         }
         doodles[original.doodleId]?.modifyStroke(at: indexFound, to: modified)
+        self.logger.info("successfully modified \(startingIndex)")
+        self.logger.info("all strokes \(doodles[original.doodleId])")
         return [DTStrokeIndexPair(original.stroke, indexFound),
                 DTStrokeIndexPair(modified.stroke, indexFound)]
     }
@@ -148,6 +157,9 @@ extension DTAdaptedDoodle {
     }
 
     func checkIfStrokeIsAtIndex(_ stroke: DTAdaptedStroke, at index: Int) -> Bool {
-        getStroke(at: index) == stroke
+        if index >= strokeCount {
+            return false
+        }
+        return getStroke(at: index) == stroke
     }
 }
