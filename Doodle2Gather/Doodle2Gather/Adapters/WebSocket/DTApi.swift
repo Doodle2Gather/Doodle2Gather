@@ -45,10 +45,6 @@ struct DTApi {
                 completion: completion)
     }
 
-    static func joinRoom(code: String, user: String, callback: @escaping (Room) -> Void) {
-
-    }
-
     //    static func createRoom(name: String, user: String, callback: @escaping (Room) -> Void) {
     //        let parameters: [String: String] = [
     //            "name": name,
@@ -102,7 +98,7 @@ struct DTApi {
 
     static func joinRoomFromInvite(
         joinRoomRequest: DTJoinRoomMessage,
-        completion: @escaping (DTApiResult<DTAdaptedDoodle>) -> Void
+        completion: @escaping (DTApiResult<DTAdaptedRoom>) -> Void
     ) {
         perform(Endpoints.Room.joinRoomFromInvite,
                 send: joinRoomRequest,
