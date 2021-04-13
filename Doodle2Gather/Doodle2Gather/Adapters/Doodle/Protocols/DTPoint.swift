@@ -67,13 +67,13 @@ extension DTPoint {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DTPointCodingKeys.self)
-        try container.encode(location, forKey: .location)
-        try container.encode(timeOffset, forKey: .timeOffset)
-        try container.encode(altitude, forKey: .altitude)
+        try container.encode(location.truncate(places: 2), forKey: .location)
+        try container.encode(timeOffset.truncate(places: 2), forKey: .timeOffset)
+        try container.encode(altitude.truncate(places: 2), forKey: .altitude)
         try container.encode(azimuth.truncate(places: 2), forKey: .azimuth)
-        try container.encode(force, forKey: .force)
-        try container.encode(size, forKey: .size)
-        try container.encode(opacity, forKey: .opacity)
+        try container.encode(force.truncate(places: 2), forKey: .force)
+        try container.encode(size.truncate(places: 2), forKey: .size)
+        try container.encode(opacity.truncate(places: 2), forKey: .opacity)
     }
 
     public init(from decoder: Decoder) throws {
