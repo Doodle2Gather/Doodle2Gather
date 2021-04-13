@@ -28,4 +28,12 @@ final class PersistedDTDoodle: Model, Content {
         self.$room.id = room.id!
     }
 
+    func getStrokes() -> [PersistedDTStroke] {
+        self.strokes
+    }
+
+    func getActions() -> [PersistedDTAction] {
+        self.actions
+    }
+
 }
