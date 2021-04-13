@@ -2,7 +2,7 @@ import Foundation
 
 public struct DTJoinRoomMessage: Codable {
     public var type = DTMessageType.joinRoom
-    
+
     public let userId: String
     public let roomId: UUID?
     public let inviteCode: String?

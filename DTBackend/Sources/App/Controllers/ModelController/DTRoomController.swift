@@ -19,7 +19,7 @@ struct DTRoomController: RouteCollection {
 
         let user = PersistedDTUser.getSingleById(create.ownerId, on: req.db)
         let room = newRoom.save(on: req.db)
-            .flatMap { PersistedDTRoom.getSingleById(newRoom.id, on: req.db)}
+            .flatMap { PersistedDTRoom.getSingleById(newRoom.id, on: req.db) }
 
         return room.and(user)
             .flatMap { (room: PersistedDTRoom, user: PersistedDTUser) in
@@ -28,10 +28,10 @@ struct DTRoomController: RouteCollection {
                 return attachRoom.and(defaultDoodle).transform(to: DTAdaptedRoom(room: room))
             }
     }
-    
+
     func getSingleHandler(req: Request) throws -> EventLoopFuture<DTAdaptedRoom> {
       let roomId = try req.requireUUID(parameterName: "roomId")
-      
+
       return PersistedDTRoom.getSingleById(roomId, on: req.db)
         .flatMapThrowing(DTAdaptedRoom.init)
     }
@@ -43,10 +43,10 @@ struct DTRoomController: RouteCollection {
         return PersistedDTRoom.getSingleByCode(code, on: req.db)
             .flatMapThrowing(DTAdaptedRoom.init)
     }
-    
+
     func getAllDoodlesHandler(req: Request) throws -> EventLoopFuture<[DTAdaptedDoodle]> {
       let roomId = try req.requireUUID(parameterName: "roomId")
-      
+
       return PersistedDTRoom.getAllDoodles(roomId, on: req.db)
         .flatMapThrowing { doodles in
             doodles.map(DTAdaptedDoodle.init)
@@ -57,7 +57,7 @@ struct DTRoomController: RouteCollection {
         let joinRequest = try req.content.decode(DTJoinRoomMessage.self)
 
         /* join room via invitation code */
-        
+
         if let inviteCode = joinRequest.inviteCode {
             let room = PersistedDTRoom.getSingleByCode(inviteCode, on: req.db)
             let user = PersistedDTUser.getSingleById(joinRequest.userId, on: req.db)
@@ -67,7 +67,7 @@ struct DTRoomController: RouteCollection {
         }
 
         /* join room via room id */
-        
+
         if let roomId = joinRequest.roomId {
             let room = PersistedDTRoom.getSingleById(roomId, on: req.db)
             let user = PersistedDTUser.getSingleById(joinRequest.userId, on: req.db)
@@ -75,13 +75,13 @@ struct DTRoomController: RouteCollection {
                 user.$accessibleRooms.attach(room, on: req.db).transform(to: .created)
             }
         }
-        
+
         throw Abort(.badRequest)
     }
 
     func deleteHandler(req: Request) throws -> EventLoopFuture<HTTPResponseStatus> {
         let roomId = try req.requireUUID(parameterName: "roomId")
-        
+
         return PersistedDTRoom.getSingleById(roomId, on: req.db)
             .flatMap { room in
               room.delete(on: req.db)
@@ -105,9 +105,9 @@ extension PersistedDTRoom {
         .first()
         .unwrap(or: DTError.modelNotFound(type: "PersistedDTRoom", id: id.uuidString))
     }
-    
+
     static func getSingleByCode(_ code: String, on db: Database) -> EventLoopFuture<PersistedDTRoom> {
-      return PersistedDTRoom.query(on: db)
+      PersistedDTRoom.query(on: db)
         .filter(\.$inviteCode == code)
         .with(\.$doodles)
         .first()

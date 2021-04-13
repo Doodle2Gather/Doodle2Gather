@@ -39,7 +39,7 @@ public struct DTError: Error {
             reason: "Model of type `\(type)` with ID `\(id)` not found"
         )
     }
-    
+
     public static func modelNotFound(type: String, code: String) -> DTError {
         DTError(
             errorIdentifier: .modelNotFound,
