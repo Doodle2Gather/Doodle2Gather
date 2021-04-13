@@ -88,7 +88,6 @@ extension GalleryViewController: UICollectionViewDelegate {
             case .failure(let error):
                 DTLogger.error(error.localizedDescription)
             case .success(.some(let doodles)):
-                print(doodles)
               DispatchQueue.main.async {
                 vc.loadDoodles(doodles)
                 vc.username = DTAuth.user?.displayName ?? "Unknown"

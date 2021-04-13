@@ -119,17 +119,17 @@ class WebSocketController {
         // action denied
 
         self.initiateDoodleFetching(ws)
-        //        self.sendActionFeedback(
-        //            orginalAction: action,
-        //            dispatchAction: nil,
-        //            to: .id(id), success: false, message: "Action failed. Please refetch"
-        //        )
+        self.sendActionFeedback(
+            orginalAction: action,
+            dispatchAction: nil,
+            to: .id(id), success: false, message: "Action failed. Please refetch"
+        )
     }
 
     func syncData() {
         let doodles = roomController.doodles
         doodles.forEach { doodle in
-            PersistedDTDoodle.getSingleByID(doodle.key, on: self.db)
+            PersistedDTDoodle.getSingleById(doodle.key, on: self.db)
                 .flatMapThrowing { res in
                     _ = res.strokes.forEach { $0.delete(on: self.db) }
                 }
@@ -176,22 +176,22 @@ class WebSocketController {
     }
 
     func initiateDoodleFetching(_ ws: WebSocket) {
-//        if !roomController.hasFetchedDoodles {
-//            PersistedDTRoom.getAllDoodles(roomId, on: self.db)
-//                .flatMapThrowing { $0.map(DTAdaptedDoodle.init) }
-//                .whenComplete { res in
-//                    switch res {
-//                    case .failure(let err):
-//                        self.logger.report(error: err)
-//
-//                    case .success(let doodles):
-//                        self.logger.info("Fetching existing doodles.")
-//                        self.sendFetchedDoodles(doodles, to: [.socket(ws)])
-//                    }
-//                }
-//        } else {
+        if !roomController.hasFetchedDoodles {
+            PersistedDTRoom.getAllDoodles(roomId, on: self.db)
+                .flatMapThrowing { $0.map(DTAdaptedDoodle.init) }
+                .whenComplete { res in
+                    switch res {
+                    case .failure(let err):
+                        self.logger.report(error: err)
+
+                    case .success(let doodles):
+                        self.logger.info("Fetching existing doodles.")
+                        self.sendFetchedDoodles(doodles, to: [.socket(ws)])
+                    }
+                }
+        } else {
             self.sendFetchedDoodles(roomController.doodleArray, to: [.socket(ws)])
-//        }
+        }
     }
 
     func sendFetchedDoodles(_ doodles: [DTAdaptedDoodle], to sendOptions: [WebSocketSendOption],

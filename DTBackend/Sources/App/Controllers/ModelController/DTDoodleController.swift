@@ -31,7 +31,7 @@ struct DTDoodleController: RouteCollection {
 
 extension PersistedDTDoodle {
 
-    static func getSingleByID(_ id: PersistedDTDoodle.IDValue?, on db: Database) -> EventLoopFuture<PersistedDTDoodle> {
+    static func getSingleById(_ id: PersistedDTDoodle.IDValue?, on db: Database) -> EventLoopFuture<PersistedDTDoodle> {
       guard let id = id else {
         return db.eventLoop.makeFailedFuture(DTError.unableToRetreiveID(type: "PersistedDTDoodle"))
       }
@@ -44,12 +44,12 @@ extension PersistedDTDoodle {
     }
 
     static func getAllActions(_ id: PersistedDTRoom.IDValue?, on db: Database) -> EventLoopFuture<[PersistedDTAction]> {
-        getSingleByID(id, on: db)
+        getSingleById(id, on: db)
             .map { $0.actions }
     }
 
     static func getAllStrokes(_ id: PersistedDTRoom.IDValue?, on db: Database) -> EventLoopFuture<[PersistedDTStroke]> {
-        getSingleByID(id, on: db)
+        getSingleById(id, on: db)
             .map { $0.strokes }
     }
 
