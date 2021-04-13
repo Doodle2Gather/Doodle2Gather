@@ -44,6 +44,8 @@
 		2EB929D9260778F600AAB396 /* SubviewTouchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB929D8260778F600AAB396 /* SubviewTouchView.swift */; };
 		2EBD90D0261B01F4009859FE /* ThickSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBD90CF261B01F4009859FE /* ThickSliderView.swift */; };
 		2EC4194B2625CB5900BE0518 /* UIView+Borders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC4194A2625CB5900BE0518 /* UIView+Borders.swift */; };
+		2EC419562625ED5700BE0518 /* UIAlertController+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC419552625ED5700BE0518 /* UIAlertController+Style.swift */; };
+		2EC4195A2625ED9E00BE0518 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC419592625ED9E00BE0518 /* UIViewController+Alert.swift */; };
 		2ED6297A2618FD37009F92D0 /* Chat.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2ED629792618FD37009F92D0 /* Chat.storyboard */; };
 		2ED7A3C62601B7740006D873 /* Doodle.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2ED7A3C52601B7740006D873 /* Doodle.storyboard */; };
 		2ED7A3CC2601C0450006D873 /* DoodleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED7A3CB2601C0450006D873 /* DoodleViewController.swift */; };
@@ -176,6 +178,8 @@
 		2EB929D8260778F600AAB396 /* SubviewTouchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubviewTouchView.swift; sourceTree = "<group>"; };
 		2EBD90CF261B01F4009859FE /* ThickSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThickSliderView.swift; sourceTree = "<group>"; };
 		2EC4194A2625CB5900BE0518 /* UIView+Borders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Borders.swift"; sourceTree = "<group>"; };
+		2EC419552625ED5700BE0518 /* UIAlertController+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Style.swift"; sourceTree = "<group>"; };
+		2EC419592625ED9E00BE0518 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		2ED629792618FD37009F92D0 /* Chat.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Chat.storyboard; sourceTree = "<group>"; };
 		2ED7A3C52601B7740006D873 /* Doodle.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Doodle.storyboard; sourceTree = "<group>"; };
 		2ED7A3CB2601C0450006D873 /* DoodleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodleViewController.swift; sourceTree = "<group>"; };
@@ -379,6 +383,16 @@
 			path = PencilKit;
 			sourceTree = "<group>";
 		};
+		2EC419542625ECCB00BE0518 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				2EC4194A2625CB5900BE0518 /* UIView+Borders.swift */,
+				2EC419552625ED5700BE0518 /* UIAlertController+Style.swift */,
+				2EC419592625ED9E00BE0518 /* UIViewController+Alert.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		2ED629742618FCC9009F92D0 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
@@ -498,7 +512,6 @@
 				2EF0E51C26096B5C0008184D /* SubviewTouchCollectionView.swift */,
 				2E01245E26195B8400A38B77 /* BorderedShadowedView.swift */,
 				2EBD90CF261B01F4009859FE /* ThickSliderView.swift */,
-				2EC4194A2625CB5900BE0518 /* UIView+Borders.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -639,6 +652,7 @@
 				832607EC26145D3900B90F25 /* Utils */,
 				84B17FFA2601C5B5009530A0 /* Constants */,
 				2EB129AD261BB31300131FE6 /* Data Structures */,
+				2EC419542625ECCB00BE0518 /* Extensions */,
 				2EF0E51B26096B490008184D /* Views */,
 			);
 			path = Common;
@@ -1148,6 +1162,7 @@
 			files = (
 				835D3BFA2606B11A004491D5 /* AgoraVideoEngine.swift in Sources */,
 				840D6B3326023F90001F3D43 /* VideoCollectionViewCell.swift in Sources */,
+				2EC419562625ED5700BE0518 /* UIAlertController+Style.swift in Sources */,
 				8464E7982625B08C002B5BEE /* Room.swift in Sources */,
 				2EB129A8261BB29F00131FE6 /* DTActionQueue.swift in Sources */,
 				840D6B2B260236CF001F3D43 /* ConferenceViewController.swift in Sources */,
@@ -1200,6 +1215,7 @@
 				2EFF38E0261AAF2000488289 /* StrokeEditorDelegate.swift in Sources */,
 				84A451D52614709400DFCA75 /* GalleryViewController.swift in Sources */,
 				84D803C026186E7C0096692E /* NewDocumentViewController.swift in Sources */,
+				2EC4195A2625ED9E00BE0518 /* UIViewController+Alert.swift in Sources */,
 				84E95966260D805C00D587CC /* ChatBoxDelegate.swift in Sources */,
 				83F588E72619240200BB9F07 /* DTAuthDelegate.swift in Sources */,
 				2EB12AC2261BFCD100131FE6 /* DoodleLayerTable.swift in Sources */,

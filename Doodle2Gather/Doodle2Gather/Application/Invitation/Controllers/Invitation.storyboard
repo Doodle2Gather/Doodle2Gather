@@ -5,25 +5,25 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Invitation View Controller-->
         <scene sceneID="3EU-uE-sVR">
             <objects>
-                <viewController id="MPT-WI-2Ke" customClass="InvitationViewController" customModule="Doodle2Gather" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController interfaceStyle="light" id="MPT-WI-2Ke" customClass="InvitationViewController" customModule="Doodle2Gather" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GbK-A7-pgj">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+                        <rect key="frame" x="0.0" y="0.0" width="500" height="400"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zg0-M9-Xky">
-                                <rect key="frame" x="262" y="483" width="500" height="400"/>
+                                <rect key="frame" x="0.0" y="0.0" width="500" height="400"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invite people using an invite code!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cC0-oX-s05">
                                         <rect key="frame" x="30" y="30" width="378" height="29"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
-                                        <nil key="textColor"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K7T-7A-egD" userLabel="Middle Segment">
@@ -58,7 +58,7 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" name="Black"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="hTc-eA-jkh" secondAttribute="trailing" id="90x-pn-KSB"/>
                                             <constraint firstItem="hTc-eA-jkh" firstAttribute="leading" secondItem="KBh-U9-HZF" secondAttribute="trailing" constant="10" id="ZFZ-S2-R2m"/>
@@ -71,12 +71,13 @@
                                     </view>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="beC-5g-LLP">
                                         <rect key="frame" x="30" y="135" width="440" height="235"/>
+                                        <color key="backgroundColor" name="Black"/>
                                         <connections>
                                             <segue destination="knX-dv-zc5" kind="embed" id="T2d-OB-MwD"/>
                                         </connections>
                                     </containerView>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" name="Black"/>
                                 <constraints>
                                     <constraint firstItem="beC-5g-LLP" firstAttribute="top" secondItem="K7T-7A-egD" secondAttribute="bottom" constant="20" id="2Uh-ZK-T8M"/>
                                     <constraint firstAttribute="height" constant="400" id="BVu-7L-lmg"/>
@@ -90,6 +91,11 @@
                                     <constraint firstItem="K7T-7A-egD" firstAttribute="top" secondItem="cC0-oX-s05" secondAttribute="bottom" constant="20" id="xjL-Zg-yFV"/>
                                     <constraint firstAttribute="trailing" secondItem="beC-5g-LLP" secondAttribute="trailing" constant="30" id="yLt-8W-lTf"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="M49-ez-jre"/>
@@ -98,6 +104,8 @@
                             <constraint firstItem="zg0-M9-Xky" firstAttribute="centerX" secondItem="GbK-A7-pgj" secondAttribute="centerX" id="Upy-Lu-yhp"/>
                         </constraints>
                     </view>
+                    <value key="contentSizeForViewInPopover" type="size" width="500" height="400"/>
+                    <modalFormSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="inviteCodeField" destination="KBh-U9-HZF" id="oNC-pU-7SD"/>
                     </connections>
@@ -110,16 +118,16 @@
         <scene sceneID="DYw-xJ-0iF">
             <objects>
                 <tableViewController id="knX-dv-zc5" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="i51-Zh-Vfv">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="i51-Zh-Vfv">
                         <rect key="frame" x="0.0" y="0.0" width="440" height="235"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="Black"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="userCell" id="OBK-Cu-iUf">
-                                <rect key="frame" x="0.0" y="28" width="440" height="43.5"/>
+                                <rect key="frame" x="0.0" y="28" width="440" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OBK-Cu-iUf" id="JCq-f6-5bA">
-                                    <rect key="frame" x="0.0" y="0.0" width="440" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="440" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -136,6 +144,9 @@
         </scene>
     </scenes>
     <resources>
+        <namedColor name="Black">
+            <color red="0.125" green="0.125" blue="0.11400000005960464" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="Merlin Grey">
             <color red="0.30199998617172241" green="0.30199998617172241" blue="0.27500000596046448" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
@@ -145,8 +156,5 @@
         <namedColor name="White">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>
