@@ -46,7 +46,7 @@ struct DTApi {
     }
 
     static func getAllRooms(user: String, callback: @escaping ([Room]) -> Void) {
-        AF.request("\(baseURLString)user/rooms/\(user)",
+        AF.request("\(baseURLString)/user/rooms/\(user)",
                    method: .get)
             .responseJSON { response in
 
