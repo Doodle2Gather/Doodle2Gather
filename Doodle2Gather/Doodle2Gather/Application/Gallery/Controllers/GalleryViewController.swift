@@ -1,11 +1,6 @@
 import UIKit
 import DTSharedLibrary
 
-struct Room: DTRoom {
-    var roomId: UUID
-    var roomName: String
-}
-
 class GalleryViewController: UIViewController {
 
     @IBOutlet private var welcomeLabel: UILabel!
