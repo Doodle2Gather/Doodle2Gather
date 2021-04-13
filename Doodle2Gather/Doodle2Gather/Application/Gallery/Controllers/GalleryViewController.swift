@@ -61,7 +61,7 @@ class GalleryViewController: UIViewController {
     }
 
     @IBAction private func didTapAdd(_ sender: Any) {
-        rooms.append(Room(roomId: UUID(), roomName: "Room \(count)"))
+        rooms.append(Room(roomId: UUID(), roomName: "Room \(count)", inviteCode: ""))
         count += 1
         collectionView.reloadData()
     }
@@ -93,6 +93,7 @@ extension GalleryViewController: UICollectionViewDelegate {
                 vc.username = DTAuth.user?.displayName ?? "Unknown"
                 vc.roomName = self.rooms[index].roomName
                 vc.roomId = self.rooms[index].roomId
+                vc.inviteCode = self.rooms[index].inviteCode
                 vc.modalPresentationStyle = .fullScreen
                 vc.modalTransitionStyle = .flipHorizontal
                 self.present(vc, animated: true, completion: nil)
@@ -116,7 +117,6 @@ extension GalleryViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "documentCell",
                                                       for: indexPath) as? DocumentPreviewCell
         cell?.setName(rooms[indexPath.row].roomName)
-        cell?.setImage(#imageLiteral(resourceName: "Brush_PNG"))
         return cell!
     }
 }

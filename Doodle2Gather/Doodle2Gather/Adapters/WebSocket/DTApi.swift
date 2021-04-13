@@ -87,7 +87,9 @@ struct DTApi {
                 }
                 let decodedData = try? JSONDecoder().decode([RoomsResponseEntry].self, from: data)
                 let decodedRooms = decodedData?.map({ entry -> Room in
-                    Room(roomId: UUID(uuidString: entry.room.id) ?? UUID(), roomName: entry.room.name)
+                    Room(roomId: UUID(uuidString: entry.room.id) ?? UUID(),
+                         roomName: entry.room.name,
+                         inviteCode: entry.room.inviteCode)
                 })
                 callback(decodedRooms ?? [])
                 // return decodedData as? [DTRoom] ?? []
@@ -276,7 +278,9 @@ struct RoomsResponseUserEntry: Codable {
 
 struct RoomsResponseRoomEntry: Codable {
     let id: String
+    let inviteCode: String
     let name: String
+    let createdBy: userEntry
 }
 
 struct DoodleResponseEntry: Codable {

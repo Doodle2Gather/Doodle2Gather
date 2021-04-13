@@ -49,6 +49,7 @@ class DoodleViewController: UIViewController {
     var username: String?
     var roomName: String?
     var roomId: UUID?
+    var inviteCode: String?
     private var previousDrawingTool = DrawingTools.pen
     var doodles: [DTAdaptedDoodle]?
 
@@ -129,6 +130,11 @@ class DoodleViewController: UIViewController {
             }
             destination.delegate = self
             self.layerTable = destination
+        case SegueConstants.toInvitation:
+            guard let destination = segue.destination as? InvitationViewController else {
+                return
+            }
+            destination.inviteCode = inviteCode
         default:
             return
         }

@@ -29,7 +29,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K7T-7A-egD" userLabel="Middle Segment">
                                         <rect key="frame" x="30" y="79" width="440" height="36"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KBh-U9-HZF">
+                                            <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Code" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KBh-U9-HZF">
                                                 <rect key="frame" x="0.0" y="0.0" width="330" height="36"/>
                                                 <color key="backgroundColor" name="Merlin Grey"/>
                                                 <color key="textColor" name="White"/>
@@ -53,6 +53,9 @@
                                                         <integer key="value" value="10"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="didTapCopy:" destination="MPT-WI-2Ke" eventType="touchUpInside" id="thc-Am-Tnf"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -95,6 +98,9 @@
                             <constraint firstItem="zg0-M9-Xky" firstAttribute="centerX" secondItem="GbK-A7-pgj" secondAttribute="centerX" id="Upy-Lu-yhp"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="inviteCodeField" destination="KBh-U9-HZF" id="oNC-pU-7SD"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fkt-Lr-BgL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
