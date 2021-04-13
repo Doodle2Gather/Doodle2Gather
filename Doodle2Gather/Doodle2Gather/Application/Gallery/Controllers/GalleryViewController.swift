@@ -31,12 +31,11 @@ class GalleryViewController: UIViewController {
                     }
                     return room
                     }
+                    self.collectionView.reloadData()
                 case .success(.none):
                     break
                 }
             }
-
-            self.collectionView.reloadData()
         } else {
             welcomeLabel.text = "Welcome"
         }
