@@ -8,9 +8,8 @@ public struct DTAdaptedRoom: Codable {
     public let inviteCode: String
     public var doodles: [DTAdaptedDoodle]
 
-    public init(ownerId: String, roomId: UUID? = nil,
-                name: String, inviteCode: String,
-                doodles: [DTAdaptedDoodle] = []) {
+    public init(ownerId: String, name: String, inviteCode: String,
+                roomId: UUID? = nil, doodles: [DTAdaptedDoodle] = []) {
         self.ownerId = ownerId
         self.roomId = roomId
         self.name = name
