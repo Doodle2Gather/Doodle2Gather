@@ -117,9 +117,11 @@ extension DTCanvasViewController: PKCanvasViewDelegate {
             return
         }
 
+        actionQueue.semaphore.wait()
         if !actionQueue.isEmpty {
             dispatchCachedActions()
         }
+        actionQueue.semaphore.signal()
 
         let newStrokes = canvas.drawing.dtStrokes
         let oldStrokes = currentDoodle.dtStrokes
@@ -245,7 +247,9 @@ extension DTCanvasViewController: PKCanvasViewDelegate {
 extension DTCanvasViewController: CanvasController {
 
     func dispatchAction(_ action: DTAction) {
+        actionQueue.semaphore.wait()
         actionQueue.enqueueAction(action)
+        actionQueue.semaphore.signal()
     }
 
     // Note: This method does not fire off an Action.
@@ -390,6 +394,9 @@ extension DTCanvasViewController: DTActionQueueDelegate {
     }
 
     private func refetchDoodles() {
+        actionQueue.semaphore.wait()
+        actionQueue.clear()
+        actionQueue.semaphore.signal()
         DTLogger.event("Refetching doodles...")
         delegate?.refetchDoodles()
     }

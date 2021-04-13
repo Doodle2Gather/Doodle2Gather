@@ -1,7 +1,10 @@
+import Foundation
+
 struct DTActionQueue {
 
     var queue = Queue<DTAction>()
     weak var delegate: DTActionQueueDelegate?
+    var semaphore = DispatchSemaphore(value: 1)
 
     var isEmpty: Bool {
         queue.isEmpty
