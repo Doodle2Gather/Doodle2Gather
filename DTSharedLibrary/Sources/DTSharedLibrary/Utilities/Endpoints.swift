@@ -60,7 +60,7 @@ public struct Endpoints {
         public static let getRoomFromRoomId = RouteDefinition(root: root, method: .GET, path: [":roomId"])
         public static let getRoomFromInvite = RouteDefinition(root: root, method: .GET, path: ["invite", ":code"])
         public static let getAllDoodlesFromRoom = RouteDefinition(root: root, method: .GET,
-                                                                   path: ["doodles", ":roomId"])
+                                                                  path: ["doodles", ":roomId"])
         public static let joinRoomFromInvite = RouteDefinition(root: root, method: .POST, path: ["invite"])
         public static let delete = RouteDefinition(root: root, method: .DELETE, path: [":roomId"])
     }

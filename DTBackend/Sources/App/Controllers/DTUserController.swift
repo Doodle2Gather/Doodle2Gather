@@ -11,9 +11,8 @@ struct DTUserController: RouteCollection {
         routes.on(Endpoints.User.deleteUserInfo, use: deleteUserInfoHandler)
     }
 
-    func createUserInfoHandler(req: Request) throws -> EventLoopFuture<PersistedDTUser> {
-        let newDTUser = try req.content.decode(PersistedDTUser.self)
-        return newDTUser.save(on: req.db).map { newDTUser }
+    func createUserInfoHandler(req: Request) throws -> EventLoopFuture<DTAdaptedUser> {
+        try PersistedDTUser.createUserInfo(req: req).flatMapThrowing(DTAdaptedUser.init)
     }
 
     func readUserInfoHandler(req: Request) throws -> EventLoopFuture<PersistedDTUser> {
@@ -83,5 +82,12 @@ extension PersistedDTUser {
         PersistedDTUser.query(on: db)
             .with(\.$accessibleRooms)
             .all()
+    }
+
+    static func createUserInfo(req: Request) throws -> EventLoopFuture<PersistedDTUser> {
+        let create = try req.content.decode(DTAdaptedUser.CreateRequest.self)
+        let newUser = create.makePersistedUser()
+        return newUser.save(on: req.db)
+            .flatMap { PersistedDTUser.getSingleById(create.id, on: req.db) }
     }
 }
