@@ -60,11 +60,11 @@ extension DTStroke {
         try container.encode(DTCodableColor(uiColor: color), forKey: .color)
         try container.encode(tool.rawValue, forKey: .tool)
         try container.encode(points, forKey: .points)
-        try container.encode(transform, forKey: .transform)
-        if let mask = mask {
-            let maskData = try NSKeyedArchiver.archivedData(withRootObject: mask, requiringSecureCoding: false)
-            try container.encode(maskData, forKey: .mask)
-        }
+//        try container.encode(transform, forKey: .transform)
+//        if let mask = mask {
+//            let maskData = try NSKeyedArchiver.archivedData(withRootObject: mask, requiringSecureCoding: false)
+//            try container.encode(maskData, forKey: .mask)
+//        }
     }
 
     public init(from decoder: Decoder) throws {
@@ -72,15 +72,15 @@ extension DTStroke {
         let color = try container.decode(DTCodableColor.self, forKey: .color).uiColor
         let tool = DTTool(rawValue: try container.decode(String.self, forKey: .tool)) ?? .pen
         let points = try container.decode(Array<Point>.self, forKey: .points)
-        let transform = try container.decode(CGAffineTransform.self, forKey: .transform)
+//        let transform = try container.decode(CGAffineTransform.self, forKey: .transform)
 
         var mask: UIBezierPath?
-        if container.contains(.mask) {
-            let maskData = try container.decode(Data.self, forKey: .mask)
-            mask = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(maskData) as? UIBezierPath
-        }
+//        if container.contains(.mask) {
+//            let maskData = try container.decode(Data.self, forKey: .mask)
+//            mask = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(maskData) as? UIBezierPath
+//        }
 
-        self.init(color: color, tool: tool, points: points, transform: transform, mask: mask)
+        self.init(color: color, tool: tool, points: points, transform: CGAffineTransform(), mask: mask)
     }
 
 }
