@@ -60,12 +60,6 @@ class GalleryViewController: UIViewController {
         }
     }
 
-    @IBAction private func didTapAdd(_ sender: Any) {
-        rooms.append(Room(roomId: UUID(), roomName: "Room \(count)", inviteCode: ""))
-        count += 1
-        collectionView.reloadData()
-    }
-
     @IBAction private func didTapEdit(_ sender: Any) {
 
     }

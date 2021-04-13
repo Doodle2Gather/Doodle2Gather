@@ -73,8 +73,23 @@ class NewDocumentViewController: UIViewController {
         guard !code.isEmpty else {
             return
         }
-        DTApi.joinRoom(code: code, user: user.uid) { room in
-            joinCallback(room)
+        DTApi.joinRoomFromInvite(joinRoomRequest: DTJoinRoomMessage(userId: user.uid,
+                                                                    roomId: nil,
+                                                                    inviteCode: code)) { result in
+            switch result {
+            case .failure(let error):
+                DTLogger.error(error.localizedDescription)
+            case .success(.some(let room)):
+                guard let createdRoom = Room(room: room) else {
+                    return
+                }
+              DispatchQueue.main.async {
+                joinCallback(createdRoom)
+                self.dismiss(animated: true, completion: nil)
+              }
+            case .success(.none):
+                break
+            }
         }
     }
 
