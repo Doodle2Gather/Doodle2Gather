@@ -44,7 +44,7 @@ class ActiveRoomController {
 
     func process(_ action: DTAdaptedAction) -> DTAdaptedAction? {
 
-        joinRoom(action.roomId) // create live copy of room
+//        joinRoom(action.roomId) // create live copy of room
 
         let strokes = action.makeStrokes()
         let strokeIndexPairs = action.strokes

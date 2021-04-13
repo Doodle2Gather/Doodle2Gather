@@ -61,7 +61,7 @@ class WebSocketController {
         }
         self.send(message: DTHandshake(id: uuid), to: [.socket(ws)])
 
-        self.initiateDoodleFetching(ws)
+        self.initiateDoodleFetching(ws, uuid)
     }
 
     func onData(_ ws: WebSocket, _ data: Data) {
@@ -74,7 +74,7 @@ class WebSocketController {
                     DTInitiateActionMessage.self, from: data)
                 self.onNewAction(ws, decodedData.id, newActionData)
             case .requestFetch:
-                self.initiateDoodleFetching(ws)
+                self.initiateDoodleFetching(ws, decodedData.id)
             case .clearDrawing:
                 let actionData = try decoder.decode(
                     DTClearDrawingMessage.self, from: data)
@@ -106,11 +106,11 @@ class WebSocketController {
         // action successful
         if let dispatchAction = roomController.process(action) {
             self.dispatchActionToPeers(
-                dispatchAction, to: self.getAllWebSocketOptionsExcept(id), success: true, message: "New Action"
+                dispatchAction, id: id, to: self.getAllWebSocketOptionsExcept(id), success: true, message: "New Action"
             )
             self.sendActionFeedback(
                 orginalAction: action,
-                dispatchAction: dispatchAction,
+                dispatchAction: dispatchAction, id: id,
                 to: .id(id), success: true, message: "Action sucessful."
             )
             return
@@ -118,10 +118,10 @@ class WebSocketController {
 
         // action denied
 
-        self.initiateDoodleFetching(ws)
+        self.initiateDoodleFetching(ws, id)
         self.sendActionFeedback(
             orginalAction: action,
-            dispatchAction: nil,
+            dispatchAction: nil, id: id,
             to: .id(id), success: false, message: "Action failed. Please refetch"
         )
     }
@@ -175,7 +175,7 @@ class WebSocketController {
         }
     }
 
-    func initiateDoodleFetching(_ ws: WebSocket) {
+    func initiateDoodleFetching(_ ws: WebSocket, _ id: UUID) {
         if !roomController.hasFetchedDoodles {
             PersistedDTRoom.getAllDoodles(roomId, on: self.db)
                 .flatMapThrowing { $0.map(DTAdaptedDoodle.init) }
@@ -186,28 +186,30 @@ class WebSocketController {
 
                     case .success(let doodles):
                         self.logger.info("Fetching existing doodles.")
-                        self.sendFetchedDoodles(doodles, to: [.socket(ws)])
+                        self.sendFetchedDoodles(doodles, id, to: [.socket(ws)])
                     }
                 }
         } else {
-            self.sendFetchedDoodles(roomController.doodleArray, to: [.socket(ws)])
+            self.sendFetchedDoodles(roomController.doodleArray, id, to: [.socket(ws)])
         }
     }
 
-    func sendFetchedDoodles(_ doodles: [DTAdaptedDoodle], to sendOptions: [WebSocketSendOption],
+    func sendFetchedDoodles(_ doodles: [DTAdaptedDoodle], _ id: UUID, to sendOptions: [WebSocketSendOption],
                             success: Bool = true, message: String = "") {
         self.logger.info("Fetched doodles!")
         self.send(message: DTFetchDoodleMessage(
+            id: id,
             success: success,
             message: message,
             doodles: doodles
         ), to: sendOptions)
     }
 
-    func dispatchActionToPeers(_ action: DTAdaptedAction, to sendOptions: [WebSocketSendOption],
+    func dispatchActionToPeers(_ action: DTAdaptedAction, id: UUID, to sendOptions: [WebSocketSendOption],
                                success: Bool = true, message: String = "") {
         self.logger.info("Dispatched an action to peers!")
         self.send(message: DTDispatchActionMessage(
+            id: id,
             success: success,
             message: message,
             action: action
@@ -220,10 +222,11 @@ class WebSocketController {
     }
 
     func sendActionFeedback(orginalAction: DTAdaptedAction, dispatchAction: DTAdaptedAction?,
-                            to sendOption: WebSocketSendOption,
+                            id: UUID, to sendOption: WebSocketSendOption,
                             success: Bool = true, message: String = "",
                             isActionDenied: Bool = false) {
         self.send(message: DTActionFeedbackMessage(
+            id: id,
             success: success,
             message: message,
             orginalAction: orginalAction,

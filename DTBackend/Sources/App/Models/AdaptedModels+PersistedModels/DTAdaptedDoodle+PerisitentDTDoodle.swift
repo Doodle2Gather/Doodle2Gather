@@ -6,7 +6,7 @@ extension DTAdaptedDoodle {
         self.init(
             roomId: doodle.$room.id,
             doodleId: try? doodle.requireID(),
-            strokes: doodle.strokes.map { DTAdaptedStroke(stroke: $0) }
+            strokes: doodle.getStrokes().map { DTAdaptedStroke(stroke: $0) }
         )
     }
 }
