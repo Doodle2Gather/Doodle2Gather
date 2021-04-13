@@ -21,14 +21,14 @@ struct DTDoodleController: RouteCollection {
 
     func getSingleHandler(req: Request) throws -> EventLoopFuture<DTAdaptedDoodle> {
         let doodleId = try req.requireUUID(parameterName: "doodleId")
-        
+
         return PersistedDTDoodle.getSingleById(doodleId, on: req.db)
             .flatMapThrowing(DTAdaptedDoodle.init)
     }
 
     func getAllStrokesHandler(req: Request) throws -> EventLoopFuture<[DTAdaptedStroke]> {
         let doodleId = try req.requireUUID(parameterName: "doodleId")
-        
+
         return PersistedDTDoodle.getAllStrokes(doodleId, on: req.db)
             .flatMapThrowing { strokes in
                 strokes.map(DTAdaptedStroke.init)
@@ -37,7 +37,7 @@ struct DTDoodleController: RouteCollection {
 
     func deleteHandler(req: Request) throws -> EventLoopFuture<HTTPResponseStatus> {
         let doodleId = try req.requireUUID(parameterName: "doodleId")
-        
+
         return PersistedDTDoodle.getSingleById(doodleId, on: req.db)
             .flatMap { doodle in
                 doodle.delete(on: req.db)
