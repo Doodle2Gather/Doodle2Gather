@@ -193,6 +193,9 @@
                                     <navigationItem title="New / Join" id="nyq-kI-JZL">
                                         <barButtonItem key="leftBarButtonItem" image="Cross" id="T1e-6q-99j">
                                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <connections>
+                                                <action selector="didTapClose:" destination="BGz-zg-7E6" id="S1z-U3-FEp"/>
+                                            </connections>
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>

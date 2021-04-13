@@ -74,6 +74,7 @@ class GalleryViewController: UIViewController {
     @IBAction private func didTapEdit(_ sender: Any) {
 
     }
+
 }
 
 // MARK: - UICollectionViewDelegate

@@ -22,7 +22,6 @@ extension DTAdaptedRoom.CreateRequest {
     }
 }
 
-
 // MARK: - Content
 
 extension DTAdaptedRoom: Content {}

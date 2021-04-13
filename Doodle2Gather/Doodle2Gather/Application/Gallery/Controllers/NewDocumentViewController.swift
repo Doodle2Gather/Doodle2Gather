@@ -61,4 +61,8 @@ class NewDocumentViewController: UIViewController {
             joinCallback(room)
         }
     }
+
+    @IBAction private func didTapClose(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
 }

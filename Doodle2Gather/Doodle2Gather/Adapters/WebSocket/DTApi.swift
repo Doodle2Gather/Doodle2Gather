@@ -53,9 +53,9 @@ struct DTApi {
                 callback(newRoom)
             }
     }
-    
+
     static func joinRoom(code: String, user: String, callback: @escaping (Room) -> Void) {
-        
+
     }
 
     // TODO: Change room name to the actual one after backend is done
