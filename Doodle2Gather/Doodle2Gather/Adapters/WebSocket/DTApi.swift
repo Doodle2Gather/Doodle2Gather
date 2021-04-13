@@ -6,7 +6,7 @@ struct DTApi {
 
     static let baseURLString = ApiEndpoints.localApi // change to .localApi for local testing
 
-    // MARK: User
+    // MARK: - User
 
     static func sendUserData(id: String, displayName: String, email: String, callback: @escaping () -> Void) {
         let parameters: [String: String] = [
@@ -24,35 +24,60 @@ struct DTApi {
             }
     }
 
-    // MARK: Room
+    // MARK: - Room
 
-    static func createRoom(name: String, user: String, callback: @escaping (Room) -> Void) {
-        let parameters: [String: String] = [
-            "name": name,
-            "createdBy": user
-        ]
-
-        AF.request("\(baseURLString)room",
-                   method: .post,
-                   parameters: parameters,
-                   encoder: JSONParameterEncoder.default)
-            .responseJSON { response in
-                guard let data = response.data else {
-                    return
-                }
-                let decodedData = try? JSONDecoder().decode(CreateRoomResponse.self, from: data)
-
-                guard let roomData = decodedData else {
-                    return
-                }
-
-                guard let roomId = UUID(uuidString: roomData.id) else {
-                    return
-                }
-                let newRoom = Room(roomId: roomId, roomName: roomData.name)
-                callback(newRoom)
-            }
+    static func createRoom(
+        _ room: DTAdaptedRoom.CreateRequest,
+        completion: ((DTApiResult<DTAdaptedRoom>) -> Void)? = nil
+    ) {
+        perform(Endpoints.Room.create, send: room, completion: completion)
     }
+
+    static func getRoomFromId(
+        id: UUID,
+        completion: @escaping (DTApiResult<DTAdaptedRoom>) -> Void
+    ) {
+        perform(Endpoints.Room.getRoomFromRoomId,
+                pathParameters: [.roomId: id.uuidString],
+                completion: completion)
+    }
+
+    static func getRoomFromInvite(
+        id: UUID,
+        completion: @escaping (DTApiResult<DTAdaptedRoom>) -> Void
+    ) {
+        perform(Endpoints.Room.getRoomFromInvite,
+                pathParameters: [.roomId: id.uuidString],
+                completion: completion)
+    }
+
+    //    static func createRoom(name: String, user: String, callback: @escaping (Room) -> Void) {
+    //        let parameters: [String: String] = [
+    //            "name": name,
+    //            "createdBy": user
+    //        ]
+    //
+    //        AF.request("\(baseURLString)room",
+    //                   method: .post,
+    //                   parameters: parameters,
+    //                   encoder: JSONParameterEncoder.default)
+    //            .responseJSON { response in
+    //                guard let data = response.data else {
+    //                    return
+    //                }
+    //                let decodedData = try? JSONDecoder().decode(CreateRoomResponse.self, from: data)
+    //
+    //                guard let roomData = decodedData else {
+    //                    return
+    //                }
+    //
+    //                guard let roomId = UUID(uuidString: roomData.id) else {
+    //                    return
+    //                }
+    //                let newRoom = Room(roomId: roomId, roomName: roomData.name)
+    //                callback(newRoom)
+    //            }
+    //    }
 
     // TODO: Change room name to the actual one after backend is done
     static var roomCount = 0
@@ -80,25 +105,52 @@ struct DTApi {
 
     }
 
-    static func getRoomsDoodles(
-        roomId: UUID, callback: @escaping ([DTAdaptedDoodle]) -> Void
+    static func joinRoomFromInvite(
+        joinRoomRequest: DTJoinRoomMessage,
+        completion: @escaping (DTApiResult<DTAdaptedDoodle>) -> Void
     ) {
-        AF.request("\(baseURLString)room/doodles/\(roomId.uuidString)",
-                   method: .get)
-            .responseJSON { response in
-
-                guard let data = response.data else {
-                    return
-                }
-                let decodedData = try? JSONDecoder().decode([DoodleResponseEntry].self, from: data)
-                let decodedDoodles = decodedData?.map({ entry -> DTAdaptedDoodle in
-                    DTAdaptedDoodle(roomId: roomId, doodleId: UUID(uuidString: entry.id)!, strokes: [])
-                })
-                callback(decodedDoodles ?? [])
-            }
+        perform(Endpoints.Room.joinRoomFromInvite,
+                send: joinRoomRequest,
+                completion: completion)
     }
 
-    // MARK: Strokes
+    static func getRoomsDoodles(
+        roomId: UUID,
+        completion: @escaping (DTApiResult<[DTAdaptedDoodle]>) -> Void
+    ) {
+        perform(Endpoints.Room.getAllDoodlesFromRoom,
+                pathParameters: [.roomId: roomId.uuidString],
+                completion: completion)
+    }
+
+    //    static func getRoomsDoodles(
+    //        roomId: UUID, callback: @escaping ([DTAdaptedDoodle]) -> Void
+    //    ) {
+    //        AF.request("\(baseURLString)room/doodles/\(roomId.uuidString)",
+    //                   method: .get)
+    //            .responseJSON { response in
+    //
+    //                guard let data = response.data else {
+    //                    return
+    //                }
+    //                let decodedData = try? JSONDecoder().decode([DoodleResponseEntry].self, from: data)
+    //                let decodedDoodles = decodedData?.map({ entry -> DTAdaptedDoodle in
+    //                    DTAdaptedDoodle(roomId: roomId, doodleId: UUID(uuidString: entry.id)!, strokes: [])
+    //                })
+    //                callback(decodedDoodles ?? [])
+    //            }
+    //    }
+
+    static func deleteRoom(
+        roomId: UUID,
+        completion: ((DTApiResult<EmptyResponse>) -> Void)? = nil
+    ) {
+        perform(Endpoints.Room.delete,
+                pathParameters: [.roomId: roomId.uuidString],
+                completion: completion)
+    }
+
+    // MARK: - Strokes
 
     static func getAllStrokes(
         completion: @escaping (DTApiResult<[DTAdaptedStroke]>) -> Void
@@ -115,7 +167,7 @@ struct DTApi {
                 completion: completion)
     }
 
-    // MARK: Actions
+    // MARK: - Actions
 
     static func getAllActions(
         completion: @escaping (DTApiResult<[DTAdaptedAction]>) -> Void
@@ -132,6 +184,8 @@ struct DTApi {
                 completion: completion)
     }
 }
+
+// MARK: - API helper methods
 
 extension DTApi {
 
@@ -214,6 +268,8 @@ enum DTApiResult<ResourceType> {
     case failure(Error)
 }
 struct EmptyResponse: Codable {}
+
+// MARK: - API Request helper struct (to be removed)
 
 struct RoomsResponseEntry: Codable {
     let id: String

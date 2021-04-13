@@ -22,6 +22,7 @@ class WebSocketController {
         self.logger = Logger(label: "WebSocketController")
         self.roomId = roomId
         self.roomController = ActiveRoomController(roomId: roomId, db: db)
+
     }
 
     var getAllWebSocketOptions: [WebSocketSendOption] {

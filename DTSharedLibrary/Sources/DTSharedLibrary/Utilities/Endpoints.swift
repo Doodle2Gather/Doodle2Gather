@@ -56,12 +56,12 @@ public struct Endpoints {
 
     public struct Room {
         public static let root = ["room"]
-        public static let createRoom = RouteDefinition(root: root, method: .POST, path: [])
+        public static let create = RouteDefinition(root: root, method: .POST, path: [])
         public static let getRoomFromRoomId = RouteDefinition(root: root, method: .GET, path: [":roomId"])
         public static let getRoomFromInvite = RouteDefinition(root: root, method: .GET, path: ["invite", ":code"])
-        public static let getRoomDoodlesFromRoom = RouteDefinition(root: root, method: .GET,
+        public static let getAllDoodlesFromRoom = RouteDefinition(root: root, method: .GET,
                                                                    path: ["doodles", ":roomId"])
         public static let joinRoomFromInvite = RouteDefinition(root: root, method: .POST, path: ["invite"])
-        public static let deleteRoom = RouteDefinition(root: root, method: .DELETE, path: [":roomId"])
+        public static let delete = RouteDefinition(root: root, method: .DELETE, path: [":roomId"])
     }
 }

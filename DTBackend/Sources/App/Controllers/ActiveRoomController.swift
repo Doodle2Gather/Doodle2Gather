@@ -18,9 +18,7 @@ class ActiveRoomController {
         self.roomId = roomId
         self.db = db
         self.logger = Logger(label: "ActiveRoomController")
-
         joinRoom(roomId)
-
     }
 
     var doodleArray: [DTAdaptedDoodle] {
@@ -28,22 +26,20 @@ class ActiveRoomController {
     }
 
     func joinRoom(_ roomId: UUID) {
-        //        PersistedDTRoom.getAllDoodles(roomId, on: self.db).whenComplete { res in
-        //            switch res {
-        //            case .failure(let err):
-        //                self.logger.report(error: err)
-        //            case .success(let doodles):
-        //                for doodle in doodles {
-        //                    if let doodleId = try? doodle.requireID() {
-        //                        self.doodles[doodleId] =
-        //                            DTAdaptedDoodle(doodle: doodle)
-        //                    }
-        //                }
-        //                self.hasFetchedDoodles = true
-        //            }
-        //        }
-        doodles[UUID()] = DTAdaptedDoodle(doodle: PersistedDTDoodle())
-        self.hasFetchedDoodles = true
+        PersistedDTRoom.getAllDoodles(roomId, on: self.db).whenComplete { res in
+            switch res {
+            case .failure(let err):
+                self.logger.report(error: err)
+            case .success(let doodles):
+                for doodle in doodles {
+                    if let doodleId = try? doodle.requireID() {
+                        self.doodles[doodleId] =
+                            DTAdaptedDoodle(doodle: doodle)
+                    }
+                }
+                self.hasFetchedDoodles = true
+            }
+        }
     }
 
     func process(_ action: DTAdaptedAction) -> DTAdaptedAction? {
