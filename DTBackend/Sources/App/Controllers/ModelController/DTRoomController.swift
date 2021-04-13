@@ -3,159 +3,92 @@ import Fluent
 import Vapor
 import DTSharedLibrary
 
-private struct DTRoomCreationRequest: Codable {
-    var name: String
-    var createdBy: String
-}
-
-private struct DTRoomJoinRequest: Codable {
-    var userId: String
-    // Join with either the invite code or room uuid
-    var inviteCode: String?
-    var roomId: String?
-}
-
 struct DTRoomController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
-        routes.on(Endpoints.Room.createRoom, use: createRoomHandler)
-        routes.on(Endpoints.Room.getRoomFromRoomId, use: getRoomFromRoomIdHandler)
-        routes.on(Endpoints.Room.getRoomFromInvite, use: getRoomFromInviteHandler)
+        routes.on(Endpoints.Room.createRoom, use: createHandler)
+        routes.on(Endpoints.Room.getRoomFromRoomId, use: getSingleHandler)
+        routes.on(Endpoints.Room.getRoomFromInvite, use: getSingleFromInviteHandler)
         routes.on(Endpoints.Room.joinRoomFromInvite, use: joinRoomFromInviteHandler)
-        routes.on(Endpoints.Room.getRoomDoodlesFromRoom, use: getRoomDoodlesFromRoomHandler)
+        routes.on(Endpoints.Room.getRoomDoodlesFromRoom, use: getAllDoodlesHandler)
+        routes.on(Endpoints.Room.deleteRoom, use: deleteHandler)
     }
 
-//
-//    func createHandler(req: Request) throws -> EventLoopFuture<DTAdaptedRoom> {
-//        let create = try req.content.decode(DTAdaptedRoom.CreateRequest.self)
-//        let newRoom = create.makePersistedRoom()
-//
-//        let user = PersistedDTUser.getSingleById(create.ownerId, on: req.db)
-//        let adaptedRoom = newRoom.save(on: req.db)
-//            .flatMap { PersistedDTRoom.getSingleById(newRoom.id, on: req.db) }
-////            .flatMapThrowing(DTAdaptedRoom.init)
-//
-//        return newRoom.save(on: req.db).and(user).flatMap { room, user in
-//            let attachRoomToUser = user.$accessibleRooms.attach(room, on: req.db)
-//            let defaultDoodle = PersistedDTDoodle(room: room).save(on: req.db)
-//            return PersistedDTRoom.getSingleById(newRoom.id, on: req.db)
-//        }.flatMapThrowing { DTAdaptedRoom(room: $0) }
-//
-//    }
+    func createHandler(req: Request) throws -> EventLoopFuture<DTAdaptedRoom> {
+        let create = try req.content.decode(DTAdaptedRoom.CreateRequest.self)
+        let newRoom = create.makePersistedRoom()
+
+        let user = PersistedDTUser.getSingleById(create.ownerId, on: req.db)
+        let room = newRoom.save(on: req.db)
+            .flatMap { PersistedDTRoom.getSingleById(newRoom.id, on: req.db)}
+
+        return room.and(user)
+            .flatMap { (room: PersistedDTRoom, user: PersistedDTUser) in
+                let attachRoom = user.$accessibleRooms.attach(room, on: req.db)
+                let defaultDoodle = PersistedDTDoodle(room: room).save(on: req.db)
+                return attachRoom.and(defaultDoodle).transform(to: DTAdaptedRoom(room: room))
+            }
+    }
     
-    func createRoomHandler(req: Request) throws -> EventLoopFuture<PersistedDTRoom> {
-        let newDTRoomRequest = try req.content.decode(DTRoomCreationRequest.self)
-        let newDTRoom = PersistedDTRoom(name: newDTRoomRequest.name,
-                                        createdBy: newDTRoomRequest.createdBy)
-        let user = PersistedDTUser.query(on: req.db)
-            .filter(\.$id == newDTRoomRequest.createdBy)
-            .first()
-            .unwrap(or: Abort(.notFound))
-
-        let save = newDTRoom.save(on: req.db).map {
-            newDTRoom
-        }
-        return save.and(user).flatMap { room, user in
-
-            let attachRoomToUser = user
-                .$accessibleRooms
-                .attach(room, on: req.db)
-
-            let defaultDoodle = PersistedDTDoodle(room: room).save(on: req.db)
-            return attachRoomToUser.and(defaultDoodle).transform(to: newDTRoom)
-
-        }
-    
+    func getSingleHandler(req: Request) throws -> EventLoopFuture<DTAdaptedRoom> {
+      let roomId = try req.requireUUID(parameterName: "roomId")
+      
+      return PersistedDTRoom.getSingleById(roomId, on: req.db)
+        .flatMapThrowing(DTAdaptedRoom.init)
     }
 
-    func getRoomFromInviteHandler(req: Request) throws -> EventLoopFuture<PersistedDTRoom> {
+    func getSingleFromInviteHandler(req: Request) throws -> EventLoopFuture<DTAdaptedRoom> {
         guard let code = req.parameters.get("code") else {
             throw Abort(.badRequest)
         }
-        return PersistedDTRoom.query(on: req.db)
-            .filter(\.$inviteCode == code)
-            .first()
-            .unwrap(or: Abort(.notFound))
+        return PersistedDTRoom.getSingleByCode(code, on: req.db)
+            .flatMapThrowing(DTAdaptedRoom.init)
     }
-
-    func getRoomDoodlesFromRoomHandler(req: Request) throws -> EventLoopFuture<[PersistedDTDoodle]> {
-        guard let roomId = req.parameters.get("roomId") else {
-            throw Abort(.badRequest)
+    
+    func getAllDoodlesHandler(req: Request) throws -> EventLoopFuture<[DTAdaptedDoodle]> {
+      let roomId = try req.requireUUID(parameterName: "roomId")
+      
+      return PersistedDTRoom.getAllDoodles(roomId, on: req.db)
+        .flatMapThrowing { doodles in
+            doodles.map(DTAdaptedDoodle.init)
         }
-        return PersistedDTRoom
-            .getSingleById(UUID(uuidString: roomId)!, on: req.db)
-            .map { $0.doodles }
     }
 
-    func getRoomFromRoomIdHandler(req: Request) throws -> EventLoopFuture<PersistedDTRoom> {
-        guard let roomId = req.parameters.get("roomId", as: UUID.self) else {
-            throw Abort(.badRequest)
-        }
-        return PersistedDTRoom.query(on: req.db)
-            .filter(\.$id == roomId)
-            .first()
-            .unwrap(or: Abort(.notFound))
-    }
+    func joinRoomFromInviteHandler(req: Request) throws -> EventLoopFuture<HTTPResponseStatus> {
+        let joinRequest = try req.content.decode(DTJoinRoomMessage.self)
 
-    func joinRoomFromInviteHandler(req: Request) throws -> EventLoopFuture<HTTPStatus> {
-        let joinRequest = try req.content.decode(DTRoomJoinRequest.self)
-
+        /* join room via invitation code */
+        
         if let inviteCode = joinRequest.inviteCode {
-            let room = PersistedDTRoom.query(on: req.db)
-                .filter(\.$inviteCode == inviteCode)
-                .first()
-                .unwrap(or: Abort(.notFound))
-            let user = PersistedDTUser.query(on: req.db)
-                .filter(\.$id == joinRequest.userId)
-                .first()
-                .unwrap(or: Abort(.notFound))
+            let room = PersistedDTRoom.getSingleByCode(inviteCode, on: req.db)
+            let user = PersistedDTUser.getSingleById(joinRequest.userId, on: req.db)
             return user.and(room).flatMap { user, room in
-                user
-                    .$accessibleRooms
-                    .attach(room, on: req.db)
-                    .transform(to: .created)
+                user.$accessibleRooms.attach(room, on: req.db).transform(to: .created)
             }
         }
 
+        /* join room via room id */
+        
         if let roomId = joinRequest.roomId {
-            guard let roomUuid = UUID(uuidString: roomId) else {
-                throw Abort(.badRequest)
-            }
-            let room = PersistedDTRoom.query(on: req.db)
-                .filter(\.$id == roomUuid)
-                .first()
-                .unwrap(or: Abort(.notFound))
-            let user = PersistedDTUser.query(on: req.db)
-                .filter(\.$id == joinRequest.userId)
-                .first()
-                .unwrap(or: Abort(.notFound))
+            let room = PersistedDTRoom.getSingleById(roomId, on: req.db)
+            let user = PersistedDTUser.getSingleById(joinRequest.userId, on: req.db)
             return user.and(room).flatMap { user, room in
-                user
-                    .$accessibleRooms
-                    .attach(room, on: req.db)
-                    .transform(to: .created)
+                user.$accessibleRooms.attach(room, on: req.db).transform(to: .created)
             }
         }
+        
         throw Abort(.badRequest)
     }
 
+    func deleteHandler(req: Request) throws -> EventLoopFuture<HTTPResponseStatus> {
+        let roomId = try req.requireUUID(parameterName: "roomId")
+        
+        return PersistedDTRoom.getSingleById(roomId, on: req.db)
+            .flatMap { room in
+              room.delete(on: req.db)
+            }
+            .transform(to: .noContent)
+    }
 
-//    func getSingleHandler(req: Request) throws -> EventLoopFuture<DTAdaptedRoom> {
-//
-//    }
-//    
-//    func getAllHandler(req: Request) throws -> EventLoopFuture<[DTAdaptedRoom]> {
-//
-//    }
-//    
-
-//    
-//    func deleteHandler(req: Request) throws -> EventLoopFuture<HTTPResponseStatus> {
-//
-//    }
-//    
-//    func addDoodleHandler(req: Request) throws -> EventLoopFuture<HTTPResponseStatus> {
-//
-//    }
 }
 
 // MARK: - Queries
@@ -171,6 +104,14 @@ extension PersistedDTRoom {
         .with(\.$doodles)
         .first()
         .unwrap(or: DTError.modelNotFound(type: "PersistedDTRoom", id: id.uuidString))
+    }
+    
+    static func getSingleByCode(_ code: String, on db: Database) -> EventLoopFuture<PersistedDTRoom> {
+      return PersistedDTRoom.query(on: db)
+        .filter(\.$inviteCode == code)
+        .with(\.$doodles)
+        .first()
+        .unwrap(or: DTError.modelNotFound(type: "PersistedDTRoom", code: code))
     }
 
     static func getAllDoodles(_ id: PersistedDTRoom.IDValue?, on db: Database) -> EventLoopFuture<[PersistedDTDoodle]> {
