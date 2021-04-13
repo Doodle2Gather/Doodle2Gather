@@ -182,10 +182,9 @@ extension DTCanvasViewController: PKCanvasViewDelegate {
         guard let stroke = canvas.drawing.strokes.last else {
             fatalError("Invalid canvas state!")
         }
-//        guard let doodleId = doodleIdMap[currentDoodleIndex] else {
-//            fatalError("Invalid doodle ids!")
-//        }
-        let doodleId = UUID()
+        guard let doodleId = doodleIdMap[currentDoodleIndex] else {
+            fatalError("Invalid doodle ids!")
+        }
 
         delegate?.dispatchChanges(type: .add, strokes: [(stroke, canvas.drawing.strokes.count - 1)], doodleId: doodleId)
     }
@@ -208,10 +207,9 @@ extension DTCanvasViewController: PKCanvasViewDelegate {
             return
         }
 
-//        guard let doodleId = doodleIdMap[currentDoodleIndex] else {
-//            fatalError("Invalid doodle ids!")
-//        }
-        let doodleId = UUID()
+        guard let doodleId = doodleIdMap[currentDoodleIndex] else {
+            fatalError("Invalid doodle ids!")
+        }
 
         delegate?.dispatchChanges(type: .remove, strokes: removedStrokes, doodleId: doodleId)
     }
@@ -224,10 +222,9 @@ extension DTCanvasViewController: PKCanvasViewDelegate {
         let newStrokesWrappers = newStrokes.map { PKStrokeHashWrapper(from: $0) }
         let oldStrokesWrappers = oldStrokes.map { PKStrokeHashWrapper(from: $0) }
 
-//        guard let doodleId = doodleIdMap[currentDoodleIndex] else {
-//            fatalError("Invalid doodle ids!")
-//        }
-        let doodleId = UUID()
+        guard let doodleId = doodleIdMap[currentDoodleIndex] else {
+            fatalError("Invalid doodle ids!")
+        }
 
         for (index, stroke) in newStrokesWrappers.enumerated() {
             let oldStroke = oldStrokesWrappers[index]
