@@ -45,34 +45,6 @@ struct DTApi {
                 completion: completion)
     }
 
-    //    static func createRoom(name: String, user: String, callback: @escaping (Room) -> Void) {
-    //        let parameters: [String: String] = [
-    //            "name": name,
-    //            "createdBy": user
-    //        ]
-    //
-    //        AF.request("\(baseURLString)room",
-    //                   method: .post,
-    //                   parameters: parameters,
-    //                   encoder: JSONParameterEncoder.default)
-    //            .responseJSON { response in
-    //                guard let data = response.data else {
-    //                    return
-    //                }
-    //                let decodedData = try? JSONDecoder().decode(CreateRoomResponse.self, from: data)
-    //
-    //                guard let roomData = decodedData else {
-    //                    return
-    //                }
-    //
-    //                guard let roomId = UUID(uuidString: roomData.id) else {
-    //                    return
-    //                }
-    //                let newRoom = Room(roomId: roomId, roomName: roomData.name)
-    //                callback(newRoom)
-    //            }
-    //    }
-
     static func getAllRooms(user: String, callback: @escaping ([Room]) -> Void) {
         AF.request("\(baseURLString)user/rooms/\(user)",
                    method: .get)
@@ -114,30 +86,48 @@ struct DTApi {
                 completion: completion)
     }
 
-    //    static func getRoomsDoodles(
-    //        roomId: UUID, callback: @escaping ([DTAdaptedDoodle]) -> Void
-    //    ) {
-    //        AF.request("\(baseURLString)room/doodles/\(roomId.uuidString)",
-    //                   method: .get)
-    //            .responseJSON { response in
-    //
-    //                guard let data = response.data else {
-    //                    return
-    //                }
-    //                let decodedData = try? JSONDecoder().decode([DoodleResponseEntry].self, from: data)
-    //                let decodedDoodles = decodedData?.map({ entry -> DTAdaptedDoodle in
-    //                    DTAdaptedDoodle(roomId: roomId, doodleId: UUID(uuidString: entry.id)!, strokes: [])
-    //                })
-    //                callback(decodedDoodles ?? [])
-    //            }
-    //    }
-
     static func deleteRoom(
         roomId: UUID,
         completion: ((DTApiResult<EmptyResponse>) -> Void)? = nil
     ) {
         perform(Endpoints.Room.delete,
                 pathParameters: [.roomId: roomId.uuidString],
+                completion: completion)
+    }
+
+    // MARK: - Doodles
+
+    static func createDoodle(
+        _ doodle: DTAdaptedDoodle.CreateRequest,
+        completion: ((DTApiResult<DTAdaptedDoodle>) -> Void)? = nil
+    ) {
+        perform(Endpoints.Doodle.create, send: doodle, completion: completion)
+    }
+
+    static func getDoodleFromId(
+        id: UUID,
+        completion: @escaping (DTApiResult<DTAdaptedDoodle>) -> Void
+    ) {
+        perform(Endpoints.Doodle.getDoodleFromDooleId,
+                pathParameters: [.doodleId: id.uuidString],
+                completion: completion)
+    }
+
+    static func getDoodleStrokes(
+        doodleId: UUID,
+        completion: @escaping (DTApiResult<[DTAdaptedStroke]>) -> Void
+    ) {
+        perform(Endpoints.Doodle.getAllStrokes,
+                pathParameters: [.doodleId: doodleId.uuidString],
+                completion: completion)
+    }
+
+    static func deleteDoodle(
+        doodleId: UUID,
+        completion: ((DTApiResult<EmptyResponse>) -> Void)? = nil
+    ) {
+        perform(Endpoints.Doodle.delete,
+                pathParameters: [.doodleId: doodleId.uuidString],
                 completion: completion)
     }
 

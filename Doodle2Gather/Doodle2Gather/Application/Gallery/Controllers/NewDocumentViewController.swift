@@ -78,7 +78,6 @@ class NewDocumentViewController: UIViewController {
                                                                     inviteCode: code)) { result in
             switch result {
             case .failure(let error):
-                print(error)
                 DTLogger.error(error.localizedDescription)
             case .success(.some(let room)):
                 guard let createdRoom = Room(room: room) else {
