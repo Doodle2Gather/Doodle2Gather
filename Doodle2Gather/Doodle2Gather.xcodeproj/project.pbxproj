@@ -82,6 +82,7 @@
 		8464E77D262586B4002B5BEE /* InvitationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8464E77C262586B4002B5BEE /* InvitationViewController.swift */; };
 		8464E7892625878C002B5BEE /* Invitation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8464E7882625878C002B5BEE /* Invitation.storyboard */; };
 		8464E7982625B08C002B5BEE /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8464E7972625B08C002B5BEE /* Room.swift */; };
+		8464E7B52625C51D002B5BEE /* ParticipantsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8464E7B42625C51D002B5BEE /* ParticipantsDelegate.swift */; };
 		848F35472614174000AD46C6 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848F35462614174000AD46C6 /* Message.swift */; };
 		848F354F2614177000AD46C6 /* Sender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848F354E2614177000AD46C6 /* Sender.swift */; };
 		848F356926142D8800AD46C6 /* ParticipantsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848F356826142D8800AD46C6 /* ParticipantsViewController.swift */; };
@@ -218,6 +219,7 @@
 		8464E77C262586B4002B5BEE /* InvitationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitationViewController.swift; sourceTree = "<group>"; };
 		8464E7882625878C002B5BEE /* Invitation.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Invitation.storyboard; sourceTree = "<group>"; };
 		8464E7972625B08C002B5BEE /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
+		8464E7B42625C51D002B5BEE /* ParticipantsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantsDelegate.swift; sourceTree = "<group>"; };
 		848F35462614174000AD46C6 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		848F354E2614177000AD46C6 /* Sender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sender.swift; sourceTree = "<group>"; };
 		848F356826142D8800AD46C6 /* ParticipantsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantsViewController.swift; sourceTree = "<group>"; };
@@ -390,6 +392,7 @@
 		2ED629752618FCD5009F92D0 /* Participants */ = {
 			isa = PBXGroup;
 			children = (
+				8464E7B32625C4F4002B5BEE /* Protocols */,
 				2E146CBF2619023A001F6845 /* Views */,
 				2E146CC4261902DD001F6845 /* Controllers */,
 			);
@@ -762,6 +765,14 @@
 				8464E7972625B08C002B5BEE /* Room.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		8464E7B32625C4F4002B5BEE /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				8464E7B42625C51D002B5BEE /* ParticipantsDelegate.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		84A451CD2614706000DFCA75 /* Gallery */ = {
@@ -1205,6 +1216,7 @@
 				83AB9C5226171088008E48D0 /* DTAuth.swift in Sources */,
 				8464E77D262586B4002B5BEE /* InvitationViewController.swift in Sources */,
 				2EB12AB6261BEF6700131FE6 /* DoodleLayerTableViewCell.swift in Sources */,
+				8464E7B52625C51D002B5BEE /* ParticipantsDelegate.swift in Sources */,
 				832607EE26145D5200B90F25 /* DTLogger.swift in Sources */,
 				8326080D26147FC600B90F25 /* DTAbstractLogger.swift in Sources */,
 				2E07C4242619B3EA003A87C9 /* UIConstants.swift in Sources */,
