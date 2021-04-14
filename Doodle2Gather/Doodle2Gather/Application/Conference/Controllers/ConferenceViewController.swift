@@ -14,6 +14,7 @@ class ConferenceViewController: UIViewController {
     @IBOutlet private var audioButton: UIButton!
     @IBOutlet private var chatButton: UIButton!
     @IBOutlet private var resizeButton: UIButton!
+    @IBOutlet var topControlViewContainer: UIView!
     @IBOutlet private var topControlView: UILabel!
     @IBOutlet private var toggleCallButton: UIButton!
 
@@ -53,7 +54,7 @@ class ConferenceViewController: UIViewController {
         videoEngine?.hideVideo()
 
         collectionView.isHidden = true
-        topControlView.isHidden = true
+        topControlViewContainer.isHidden = true
     }
 
     @IBAction private func audioButtonDidTap(_ sender: Any) {
@@ -155,7 +156,7 @@ class ConferenceViewController: UIViewController {
             DispatchQueue.main.async {
                 self.toggleCallButton.isSelected.toggle()
                 self.collectionView.isHidden = true
-                self.topControlView.isHidden = true
+                self.topControlViewContainer.isHidden = true
                 self.isInCall.toggle()
             }
         } else {
@@ -163,7 +164,7 @@ class ConferenceViewController: UIViewController {
             DispatchQueue.main.async {
                 self.toggleCallButton.isSelected.toggle()
                 self.collectionView.isHidden = false
-                self.topControlView.isHidden = false
+                self.topControlViewContainer.isHidden = false
                 self.isInCall.toggle()
             }
         }

@@ -983,6 +983,7 @@
                         <outlet property="timerButton" destination="mmL-ay-rCs" id="4g7-Kc-95a"/>
                         <outlet property="toggleCallButton" destination="0Hf-3m-fGi" id="UaM-4T-Tq0"/>
                         <outlet property="topControlView" destination="5fP-1P-WgX" id="TA7-Ck-nkd"/>
+                        <outlet property="topControlViewContainer" destination="hzX-Ab-qkC" id="kd1-mJ-dko"/>
                         <outlet property="videoButton" destination="yDB-Q3-4ya" id="uc5-9l-a18"/>
                         <outlet property="voteButton" destination="5QZ-pg-woK" id="cYO-LK-Aqz"/>
                     </connections>
