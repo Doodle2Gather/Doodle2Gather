@@ -826,7 +826,11 @@
                                                     <constraint firstAttribute="height" constant="60" id="d8w-cV-yil"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                                <state key="normal" image="StopButton_Red"/>
+                                                <state key="normal" image="PlayButton"/>
+                                                <state key="selected" image="StopButton_Red"/>
+                                                <connections>
+                                                    <action selector="didTapCall:" destination="iqH-RH-LvU" eventType="touchUpInside" id="fWe-Be-7ga"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AkO-hK-cSB" userLabel="Audio Button">
                                                 <rect key="frame" x="200" y="0.0" width="40" height="60"/>
@@ -977,6 +981,7 @@
                         <outlet property="resizeButton" destination="KSI-yV-Rw5" id="xrB-O3-quL"/>
                         <outlet property="startStopButton" destination="0Hf-3m-fGi" id="10T-H2-Fcc"/>
                         <outlet property="timerButton" destination="mmL-ay-rCs" id="4g7-Kc-95a"/>
+                        <outlet property="toggleCallButton" destination="0Hf-3m-fGi" id="UaM-4T-Tq0"/>
                         <outlet property="topControlView" destination="5fP-1P-WgX" id="TA7-Ck-nkd"/>
                         <outlet property="videoButton" destination="yDB-Q3-4ya" id="uc5-9l-a18"/>
                         <outlet property="voteButton" destination="5QZ-pg-woK" id="cYO-LK-Aqz"/>
@@ -1212,6 +1217,7 @@
         <image name="MagicWand_Yellow" width="24" height="24"/>
         <image name="Pencil" width="24" height="24"/>
         <image name="Pencil_Yellow" width="24" height="24"/>
+        <image name="PlayButton" width="24" height="24"/>
         <image name="Plus" width="24" height="24"/>
         <image name="Presentation" width="24" height="24"/>
         <image name="Redo_Grey" width="24" height="24"/>

@@ -15,6 +15,7 @@ class ConferenceViewController: UIViewController {
     @IBOutlet private var chatButton: UIButton!
     @IBOutlet private var resizeButton: UIButton!
     @IBOutlet private var topControlView: UILabel!
+    @IBOutlet private var toggleCallButton: UIButton!
 
     var videoEngine: VideoEngine?
     var chatEngine: ChatEngine?
@@ -23,6 +24,7 @@ class ConferenceViewController: UIViewController {
     lazy var chatList = [Message]()
     var isMuted = true
     var isVideoOff = true
+    var isInCall = false
     var isChatShown = false
     var roomId: String?
     private var videoOverlays = [UIView]()
@@ -39,7 +41,7 @@ class ConferenceViewController: UIViewController {
         videoEngine = AgoraVideoEngine()
         videoEngine?.delegate = self
         videoEngine?.initialize()
-        videoEngine?.joinChannel(channelName: roomId ?? "testing")
+
         chatEngine = AgoraChatEngine()
         chatEngine?.initialize()
         chatEngine?.joinChannel(channelName: roomId ?? "testing")
@@ -49,6 +51,8 @@ class ConferenceViewController: UIViewController {
 
         videoEngine?.muteAudio()
         videoEngine?.hideVideo()
+
+        collectionView.isHidden = true
     }
 
     @IBAction private func audioButtonDidTap(_ sender: Any) {
@@ -143,6 +147,25 @@ class ConferenceViewController: UIViewController {
         chatEngine?.tearDown()
     }
 
+    @IBAction private func didTapCall(_ sender: UIButton) {
+
+        if self.isInCall {
+            self.videoEngine?.tearDown()
+            DispatchQueue.main.async {
+                self.toggleCallButton.isSelected.toggle()
+                self.collectionView.isHidden = true
+                self.isInCall.toggle()
+            }
+        } else {
+            self.videoEngine?.joinChannel(channelName: self.roomId ?? "testing")
+            DispatchQueue.main.async {
+                self.toggleCallButton.isSelected.toggle()
+                self.collectionView.isHidden = false
+                self.isInCall.toggle()
+            }
+        }
+
+    }
 }
 
 // MARK: - VideoEngineDelegate
