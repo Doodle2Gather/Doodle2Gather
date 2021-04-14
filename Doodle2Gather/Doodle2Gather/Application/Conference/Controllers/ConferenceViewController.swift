@@ -178,13 +178,17 @@ extension ConferenceViewController: VideoEngineDelegate {
 
     func didJoinCall(id: UInt) {
         remoteUserIDs.append(id)
-        collectionView.reloadData()
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
     }
 
     func didLeaveCall(id: UInt) {
         if let index = remoteUserIDs.firstIndex(where: { $0 == id }) {
             remoteUserIDs.remove(at: index)
-            collectionView.reloadData()
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
         }
     }
 
@@ -252,8 +256,9 @@ extension ConferenceViewController: UICollectionViewDataSource {
             videoEngine?.setupLocalUserView(view: videoCell.getVideoView())
         } else {
             let remoteID = remoteUserIDs[indexPath.row - 1]
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+            DispatchQueue.main.async {
                 self.videoEngine?.setupRemoteUserView(view: videoCell.getVideoView(), id: remoteID)
+                self.collectionView.reloadData()
             })
         }
         return cell
