@@ -26,6 +26,26 @@ class NewDocumentViewController: UIViewController {
         addKeyboardObserver()
         isModalInPresentation = true
 
+        titleTextField.attributedPlaceholder =
+            NSAttributedString(string: "Title",
+                               attributes: [NSAttributedString.Key.foregroundColor:
+                                                UIColor.white.withAlphaComponent(0.5)])
+
+        invitationCodeField.attributedPlaceholder =
+            NSAttributedString(string: "Invitation code",
+                               attributes: [NSAttributedString.Key.foregroundColor:
+                                                UIColor.white.withAlphaComponent(0.5)])
+
+        let invitationPaddingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
+        invitationCodeField.leftView = invitationPaddingView
+        invitationCodeField.leftViewMode = .always
+        invitationCodeField.addBottomBorderWithColor(color: UIConstants.stackGrey, width: 3)
+
+        let titlePaddingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
+        titleTextField.leftView = titlePaddingView
+        titleTextField.leftViewMode = .always
+        titleTextField.addBottomBorderWithColor(color: UIConstants.stackGrey, width: 3)
+
         titleTextField.addTarget(self, action: #selector(didTapTitleTextField), for: .touchDown)
         invitationCodeField.addTarget(self, action: #selector(didTapInvitationCodeField), for: .touchDown)
     }
