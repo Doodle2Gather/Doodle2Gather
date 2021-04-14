@@ -53,6 +53,7 @@ class ConferenceViewController: UIViewController {
         videoEngine?.hideVideo()
 
         collectionView.isHidden = true
+        topControlView.isHidden = true
     }
 
     @IBAction private func audioButtonDidTap(_ sender: Any) {
