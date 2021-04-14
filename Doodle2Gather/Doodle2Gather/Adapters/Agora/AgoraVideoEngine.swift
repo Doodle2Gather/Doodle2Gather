@@ -40,12 +40,15 @@ class AgoraVideoEngine: NSObject, VideoEngine {
 
             if let data = data,
                let tokenResponse = try? JSONDecoder().decode(AgoraTokenAPIResponse.self, from: data) {
-                self.getAgoraEngine().joinChannel(byToken: tokenResponse.key,
-                                                  channelId: channelName,
-                                                  info: nil,
-                                                  uid: self.callID) { [weak self] _, uid, _ in
-                    self?.callID = uid
+                DispatchQueue.main.async {
+                    self.getAgoraEngine().joinChannel(byToken: tokenResponse.key,
+                                                      channelId: channelName,
+                                                      info: nil,
+                                                      uid: self.callID) { [weak self] _, uid, _ in
+                        self?.callID = uid
+                    }
                 }
+
             }
         })
         task.resume()
