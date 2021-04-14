@@ -154,6 +154,7 @@ class ConferenceViewController: UIViewController {
             DispatchQueue.main.async {
                 self.toggleCallButton.isSelected.toggle()
                 self.collectionView.isHidden = true
+                self.topControlView.isHidden = true
                 self.isInCall.toggle()
             }
         } else {
@@ -161,6 +162,7 @@ class ConferenceViewController: UIViewController {
             DispatchQueue.main.async {
                 self.toggleCallButton.isSelected.toggle()
                 self.collectionView.isHidden = false
+                self.topControlView.isHidden = false
                 self.isInCall.toggle()
             }
         }
