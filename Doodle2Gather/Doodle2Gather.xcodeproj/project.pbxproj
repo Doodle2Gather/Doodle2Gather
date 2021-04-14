@@ -86,6 +86,10 @@
 		8464E7892625878C002B5BEE /* Invitation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8464E7882625878C002B5BEE /* Invitation.storyboard */; };
 		8464E7982625B08C002B5BEE /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8464E7972625B08C002B5BEE /* Room.swift */; };
 		8464E7B52625C51D002B5BEE /* ParticipantsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8464E7B42625C51D002B5BEE /* ParticipantsDelegate.swift */; };
+		8464E7D22626B939002B5BEE /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8464E7D12626B939002B5BEE /* AudioPlayer.swift */; };
+		8464E7DD2626BB1E002B5BEE /* receive.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8464E7DB2626BB1D002B5BEE /* receive.mp3 */; };
+		8464E7DE2626BB1E002B5BEE /* send.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8464E7DC2626BB1E002B5BEE /* send.mp3 */; };
+		8464E7E22626BB30002B5BEE /* AudioConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8464E7E12626BB30002B5BEE /* AudioConstants.swift */; };
 		848F35472614174000AD46C6 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848F35462614174000AD46C6 /* Message.swift */; };
 		848F354F2614177000AD46C6 /* Sender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848F354E2614177000AD46C6 /* Sender.swift */; };
 		848F356926142D8800AD46C6 /* ParticipantsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848F356826142D8800AD46C6 /* ParticipantsViewController.swift */; };
@@ -226,6 +230,10 @@
 		8464E7882625878C002B5BEE /* Invitation.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Invitation.storyboard; sourceTree = "<group>"; };
 		8464E7972625B08C002B5BEE /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
 		8464E7B42625C51D002B5BEE /* ParticipantsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantsDelegate.swift; sourceTree = "<group>"; };
+		8464E7D12626B939002B5BEE /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
+		8464E7DB2626BB1D002B5BEE /* receive.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = receive.mp3; sourceTree = "<group>"; };
+		8464E7DC2626BB1E002B5BEE /* send.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = send.mp3; sourceTree = "<group>"; };
+		8464E7E12626BB30002B5BEE /* AudioConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioConstants.swift; sourceTree = "<group>"; };
 		848F35462614174000AD46C6 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		848F354E2614177000AD46C6 /* Sender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sender.swift; sourceTree = "<group>"; };
 		848F356826142D8800AD46C6 /* ParticipantsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantsViewController.swift; sourceTree = "<group>"; };
@@ -595,6 +603,8 @@
 		2EF8E97225F75E2900C7EE7D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				8464E7DB2626BB1D002B5BEE /* receive.mp3 */,
+				8464E7DC2626BB1E002B5BEE /* send.mp3 */,
 				2EF8E92B25F754C700C7EE7D /* Assets.xcassets */,
 			);
 			path = Assets;
@@ -651,6 +661,7 @@
 		2EF8E97F25F75F5100C7EE7D /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				8464E7D02626B8D6002B5BEE /* Sound */,
 				83AB9C5026171068008E48D0 /* Auth */,
 				832607EC26145D3900B90F25 /* Utils */,
 				84B17FFA2601C5B5009530A0 /* Constants */,
@@ -792,6 +803,14 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		8464E7D02626B8D6002B5BEE /* Sound */ = {
+			isa = PBXGroup;
+			children = (
+				8464E7D12626B939002B5BEE /* AudioPlayer.swift */,
+			);
+			path = Sound;
+			sourceTree = "<group>";
+		};
 		84A451CD2614706000DFCA75 /* Gallery */ = {
 			isa = PBXGroup;
 			children = (
@@ -828,6 +847,7 @@
 				84D802F22616CB480096692E /* SegueConstants.swift */,
 				2E07C4232619B3EA003A87C9 /* UIConstants.swift */,
 				2EFF38E9261AAF9A00488289 /* DoodleConstants.swift */,
+				8464E7E12626BB30002B5BEE /* AudioConstants.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -993,10 +1013,12 @@
 				2ED6297A2618FD37009F92D0 /* Chat.storyboard in Resources */,
 				8464E7892625878C002B5BEE /* Invitation.storyboard in Resources */,
 				2EF8E92F25F754C700C7EE7D /* LaunchScreen.storyboard in Resources */,
+				8464E7DD2626BB1E002B5BEE /* receive.mp3 in Resources */,
 				84A451EA2614804B00DFCA75 /* Gallery.storyboard in Resources */,
 				2E2B16D926197BFF0014DD4A /* Assets.xcassets in Resources */,
 				83536B6F26189EF400C3B84E /* GoogleService-Info.plist in Resources */,
 				2EF8E92A25F754C600C7EE7D /* Home.storyboard in Resources */,
+				8464E7DE2626BB1E002B5BEE /* send.mp3 in Resources */,
 				2ED7A3C62601B7740006D873 /* Doodle.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1186,6 +1208,7 @@
 				2EF8E92325F754C600C7EE7D /* AppDelegate.swift in Sources */,
 				84E95957260D755A00D587CC /* VideoEngineDelegate.swift in Sources */,
 				2EA8C34226067F0000BE750C /* PKStroke+DTStroke.swift in Sources */,
+				8464E7D22626B939002B5BEE /* AudioPlayer.swift in Sources */,
 				2EF0E51D26096B5C0008184D /* SubviewTouchCollectionView.swift in Sources */,
 				2EB129B9261BB6E000131FE6 /* DTCanvasError.swift in Sources */,
 				83AB9C56261711B4008E48D0 /* FirebaseAuthProvider.swift in Sources */,
@@ -1237,6 +1260,7 @@
 				8464E77D262586B4002B5BEE /* InvitationViewController.swift in Sources */,
 				2EB12AB6261BEF6700131FE6 /* DoodleLayerTableViewCell.swift in Sources */,
 				8464E7B52625C51D002B5BEE /* ParticipantsDelegate.swift in Sources */,
+				8464E7E22626BB30002B5BEE /* AudioConstants.swift in Sources */,
 				832607EE26145D5200B90F25 /* DTLogger.swift in Sources */,
 				8326080D26147FC600B90F25 /* DTAbstractLogger.swift in Sources */,
 				2E07C4242619B3EA003A87C9 /* UIConstants.swift in Sources */,

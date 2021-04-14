@@ -192,6 +192,14 @@ extension ConferenceViewController: VideoEngineDelegate {
 extension ConferenceViewController: ChatEngineDelegate {
 
     func deliverMessage(from user: String, message: String) {
+        guard let currentUser = DTAuth.user else {
+            return
+        }
+        if currentUser.uid == user {
+            AudioPlayer.shared.playSound(fileName: AudioConstants.send)
+        } else {
+            AudioPlayer.shared.playSound(fileName: AudioConstants.receive)
+        }
         let prefix = message.prefix(while: { "0"..."9" ~= $0 })
         let numericPrefix = String(prefix)
         let prefixLength = prefix.count + 1
