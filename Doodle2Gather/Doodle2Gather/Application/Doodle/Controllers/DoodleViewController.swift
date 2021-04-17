@@ -33,7 +33,7 @@ class DoodleViewController: UIViewController {
     @IBOutlet private var highlighterButton: UIButton!
     @IBOutlet private var magicPenButton: UIButton!
 
-    // Profile Images
+    // Profile Labels
     @IBOutlet private var userProfileLabel: UILabel!
     @IBOutlet private var separator: UIImageView!
     @IBOutlet private var otherProfileLabelOne: UILabel!
@@ -45,12 +45,6 @@ class DoodleViewController: UIViewController {
     var socketController: SocketController?
     var strokeEditor: StrokeEditor?
     var layerTable: DoodleLayerTable?
-
-    // Top righ user icons
-    @IBOutlet private var currentUserIcon: UIImageView!
-    @IBOutlet private var secondaryUserIcon: UIImageView!
-    @IBOutlet private var tertiaryUserIcon: UIImageView!
-    @IBOutlet private var additionalUserCount: UILabel!
 
     // State
     var username: String?
