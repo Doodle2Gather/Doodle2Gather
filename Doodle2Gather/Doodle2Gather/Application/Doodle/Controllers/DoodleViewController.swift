@@ -118,10 +118,12 @@ class DoodleViewController: UIViewController {
         userProfileLabel.layer.masksToBounds = true
         otherProfileLabelOne.layer.masksToBounds = true
         otherProfileLabelTwo.layer.masksToBounds = true
+        
         guard let user = DTAuth.user else {
             DTLogger.error("Attempted to join room without a user.")
             return
         }
+        
         if let firstChar = user.displayName.first(where: {
             !$0.isWhitespace
         }) {
@@ -137,17 +139,37 @@ class DoodleViewController: UIViewController {
             numberOfOtherUsersLabel.isHidden = true
         } else if participants.count <= 2 {
             separator.isHidden = false
+            setProfileLabel(otherProfileLabelOne, text: participants[1].displayName, index: 1)
+            otherProfileLabelOne.isHidden = false
             otherProfileLabelTwo.isHidden = true
             numberOfOtherUsersLabel.isHidden = true
         } else if participants.count <= 3 {
             separator.isHidden = false
+            setProfileLabel(otherProfileLabelOne, text: participants[1].displayName, index: 1)
+            setProfileLabel(otherProfileLabelOne, text: participants[2].displayName, index: 2)
+            otherProfileLabelOne.isHidden = false
+            otherProfileLabelTwo.isHidden = false
             numberOfOtherUsersLabel.isHidden = true
         } else {
             separator.isHidden = false
+            setProfileLabel(otherProfileLabelOne, text: participants[1].displayName, index: 1)
+            setProfileLabel(otherProfileLabelOne, text: participants[2].displayName, index: 2)
+            otherProfileLabelOne.isHidden = false
+            otherProfileLabelTwo.isHidden = false
             numberOfOtherUsersLabel.isHidden = false
             numberOfOtherUsersLabel.text = "+\(participants.count - 3)"
         }
 
+    }
+
+    private func setProfileLabel(_ label: UILabel, text: String, index: Int) {
+        if let firstChar = participants[index].displayName.first(where: {
+            !$0.isWhitespace
+        }) {
+            label.text = String(firstChar)
+        } else {
+            label.text = "-"
+        }
     }
 
     // MARK: - Navigation
