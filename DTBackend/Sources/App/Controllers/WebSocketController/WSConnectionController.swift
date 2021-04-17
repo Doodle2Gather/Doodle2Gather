@@ -3,49 +3,42 @@ import Fluent
 import DTSharedLibrary
 
 struct WSConnectionController: RouteCollection {
-    let db: Database
-    private let webSocketsManager: DTWebSocketsManager
+    private let webSocketController: WebSocketController
 
     init(db: Database) {
-        self.db = db
-        webSocketsManager = DTWebSocketsManager(db: db)
+        self.webSocketController = WebSocketController(db: db)
     }
 
     func boot(routes: RoutesBuilder) throws {
-        routes.webSocket("rooms", ":roomId", ":userId",
-                         maxFrameSize: WebSocketMaxFrameSize(integerLiteral: 1 << 24),
-                         onUpgrade: self.webSocket)
+        routes.webSocket(maxFrameSize: WebSocketMaxFrameSize(integerLiteral: 1 << 24),
+                         onUpgrade: self.upgradedWebSocket)
     }
 
-    func webSocket(req: Request, socket: WebSocket) {
-        guard let roomId = req.parameters.get("roomId") else {
-            req.logger.error("Missing roomId")
-            return
+    func upgradedWebSocket(req: Request, ws: WebSocket) {
+        ws.onBinary { ws, buffer in
+            guard let data = buffer.getData(
+                    at: buffer.readerIndex, length: buffer.readableBytes) else {
+                return
+            }
+            self.decodeReceivedData(ws, data)
         }
-        guard let userId = req.parameters.get("userId") else {
-            req.logger.error("Missing userId")
-            return
+        ws.onText { ws, text in
+            guard let data = text.data(using: .utf8) else {
+                return
+            }
+            self.decodeReceivedData(ws, data)
         }
-        guard let id = UUID(uuidString: roomId) else {
-            req.logger.error("Invalid roomId")
-            return
-        }
-        webSocketsManager.directToWebSocketController(socket: socket, roomId: id, userId: userId)
-        req.logger.info("User \(userId) joined room \(id.uuidString)")
+        webSocketController.onConnect(ws)
     }
-}
-
-private class DTWebSocketsManager {
-    let db: Database
-    var wsControllers = [UUID: WebSocketController]()
-
-    init(db: Database) {
-        self.db = db
+    
+    private func runReceiveDataMiddlewares(_ data: Data) -> Data {
+        // Dummy method for server receive middlewares
+        data
     }
-
-    func directToWebSocketController(socket: WebSocket, roomId: UUID, userId: String) {
-        let wsController = wsControllers[roomId, default: WebSocketController(roomId: roomId, db: db)]
-        wsControllers[roomId] = wsController
-        wsController.connect(socket, userId: userId)
+    
+    private func decodeReceivedData(_ ws: WebSocket, _ data: Data) {
+        let decodedData = runReceiveDataMiddlewares(data)
+        webSocketController.onData(ws, decodedData)
     }
+    
 }
