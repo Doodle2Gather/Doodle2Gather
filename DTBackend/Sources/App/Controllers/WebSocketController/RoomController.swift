@@ -76,6 +76,15 @@ class RoomController {
                     self.lock.withLockVoid {
                         self.sockets[wsId] = ws
                     }
+                    let message = DTParticipantInfoMessage(
+                        id: wsId, roomId: self.roomId,
+                        users: oldUsers.map { DTAdaptedUser(user: $0) }
+                    )
+                    
+                    self.getWebSockets([.socket(ws)]).forEach {
+                        $0.send(message: message)
+                    }
+                    
                 case .failure(let error):
                     // Unable to find user in DB
                     self.logger.error("\(error.localizedDescription)")

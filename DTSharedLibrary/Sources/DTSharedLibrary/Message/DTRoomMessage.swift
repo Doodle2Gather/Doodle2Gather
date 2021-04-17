@@ -20,6 +20,21 @@ public struct DTJoinRoomMessage: Codable {
     }
 }
 
+public struct DTParticipantInfoMessage: Codable {
+    public var type = DTMessageType.room
+    public var subtype = DTRoomMessageType.participantInfo
+    public let id: UUID
+    public let roomId: UUID
+    
+    public let users: [DTAdaptedUser]
+
+    public init(id: UUID, roomId: UUID, users: [DTAdaptedUser]) {
+        self.id = id
+        self.roomId = roomId
+        self.users = users
+    }
+}
+
 public struct DTInitiateActionMessage: Codable {
     public var type = DTMessageType.room
     public var subtype = DTRoomMessageType.initiateAction
@@ -80,7 +95,6 @@ public struct DTDispatchActionMessage: Codable {
         self.action = action
     }
 }
-
 
 public struct DTRequestFetchMessage: Codable {
     public var type = DTMessageType.room
