@@ -259,7 +259,7 @@ extension ConferenceViewController: UICollectionViewDataSource {
             DispatchQueue.main.async {
                 self.videoEngine?.setupRemoteUserView(view: videoCell.getVideoView(), id: remoteID)
                 self.collectionView.reloadData()
-            })
+            }
         }
         return cell
     }

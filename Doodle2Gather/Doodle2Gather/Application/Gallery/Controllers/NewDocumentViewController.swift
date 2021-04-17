@@ -133,6 +133,10 @@ class NewDocumentViewController: UIViewController {
             return
         }
         if nameCallback(title) == .duplicatedName {
+            alert(title: "Notice",
+                  message: "The title is already taken, please choose another title for your document.",
+                  buttonStyle: .default
+            )
             return
         }
         let newRoom = DTAdaptedRoom.CreateRequest(
@@ -169,12 +173,32 @@ class NewDocumentViewController: UIViewController {
         guard !code.isEmpty else {
             return
         }
+        let codeCharactersSet = CharacterSet(charactersIn: code)
+        let numbersSet = CharacterSet(charactersIn: "0123456789")
+        guard codeCharactersSet.isSubset(of: numbersSet) else {
+            alert(
+                title: "Notice",
+                message: "The invitation code should contain numbers only. Please check and try again.",
+                buttonStyle: .default
+            )
+            return
+        }
         DTApi.joinRoomFromInvite(joinRoomRequest: DTJoinRoomMessage(userId: user.uid,
                                                                     roomId: nil,
                                                                     inviteCode: code)) { result in
             switch result {
             case .failure(let error):
                 DTLogger.error(error.localizedDescription)
+                let msg = "We are unable to find the invitation code you have entered. "
+                    + "Please check and try again."
+                DispatchQueue.main.async {
+                    self.alert(
+                        title: "Notice",
+                        message: msg,
+                        buttonStyle: .default
+                    )
+                }
+                return
             case .success(.some(let room)):
                 guard let createdRoom = Room(room: room) else {
                     return
