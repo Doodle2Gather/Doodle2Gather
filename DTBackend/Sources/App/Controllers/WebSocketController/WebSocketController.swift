@@ -55,7 +55,7 @@ class WebSocketController {
             let roomMessage = try decoder.decode(DTRoomMessage.self, from: data)
             if roomMessage.subtype == .joinRoom {
                 if roomControllers[roomMessage.roomId] == nil {
-                    roomControllers[roomMessage.roomId] = WSRoomController(roomId: UUID(), db: db)
+                    roomControllers[roomMessage.roomId] = WSRoomController(roomId: roomMessage.roomId, db: db)
                 }
                 guard let roomController = roomControllers[roomMessage.roomId] else {
                     // actually, we can force unwrap here rather safely, but we will play safe

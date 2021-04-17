@@ -25,7 +25,7 @@ public struct DTParticipantInfoMessage: Codable {
     public var subtype = DTRoomMessageType.participantInfo
     public let id: UUID
     public let roomId: UUID
-    
+
     public let users: [DTAdaptedUser]
 
     public init(id: UUID, roomId: UUID, users: [DTAdaptedUser]) {

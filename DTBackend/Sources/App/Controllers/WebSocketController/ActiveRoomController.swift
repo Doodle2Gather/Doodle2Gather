@@ -41,14 +41,14 @@ class ActiveRoomController {
             }
         }
     }
-    
+
     func addDoodle(_ doodle: DTAdaptedDoodle) {
         guard let doodleId = doodle.doodleId else {
             return
         }
         self.doodles[doodleId] = doodle
     }
-    
+
     func removeDoodle(_ doodleId: UUID) {
         self.doodles[doodleId] = nil
     }
@@ -60,6 +60,7 @@ class ActiveRoomController {
 
         let returnPairs: [DTStrokeIndexPair]?
 
+//        self.logger.info("\(strokes)")
         switch action.type {
         case .add:
             if strokes.count != 1 {
@@ -69,7 +70,7 @@ class ActiveRoomController {
                 return nil
             }
             returnPairs = addStroke(strokeToAdd)
-
+//            self.logger.info("\(returnPairs)")
         case .remove:
             if strokes.isEmpty {
                 return nil

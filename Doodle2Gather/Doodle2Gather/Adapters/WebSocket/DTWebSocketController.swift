@@ -84,6 +84,8 @@ final class DTWebSocketController {
                 try self.handleDispatchedAction(data)
             case .fetchDoodle:
                 try self.handleFetchDoodle(data)
+            case .participantInfo:
+                try self.handleParticipantInfo(data)
             case .clearDrawing:
                 try self.handleClearDrawing(data)
             default:
@@ -125,6 +127,11 @@ final class DTWebSocketController {
         DispatchQueue.main.async {
             self.delegate?.loadDoodles(fetch.doodles)
         }
+    }
+
+    func handleParticipantInfo(_ data: Data) throws {
+        let fetch = try decoder.decode(DTParticipantInfoMessage.self, from: data)
+        // TODO
     }
 
     func handleClearDrawing(_ data: Data) throws {
@@ -169,6 +176,7 @@ extension DTWebSocketController: SocketController {
             actionType: action.type, strokes: action.strokes,
             id: id, roomId: action.roomId, doodleId: action.doodleId
         )
+        print(action.roomId)
         do {
             let data = try encoder.encode(message)
             self.socket.send(.data(data)) { err in

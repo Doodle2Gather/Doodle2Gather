@@ -11,7 +11,7 @@ public func configure(_ app: Application) throws {
     app.http.server.configuration.port = 8_080
 
     // Configure database
-    app.databases.use(.sqlite(), as: .sqlite)
+    app.databases.use(.sqlite(.file("d2g.sqlite")), as: .sqlite)
     app.migrations.add(AddRoom())
     app.migrations.add(AddDoodle())
     app.migrations.add(AddPair())
