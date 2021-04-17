@@ -145,12 +145,22 @@ extension AgoraVideoEngine: AgoraRtcEngineDelegate {
 
     func rtcEngine(_ engine: AgoraRtcEngineKit, didJoinedOfUid uid: UInt, elapsed: Int) {
         DTLogger.event("Joined call of uid: \(uid)")
-        delegate?.didJoinCall(id: uid)
+        if let userInfo = getAgoraEngine().getUserInfo(byUid: uid, withError: nil),
+            let username = userInfo.userAccount {
+            delegate?.didJoinCall(id: uid, username: username)
+        } else {
+            delegate?.didJoinCall(id: uid, username: "Unknown")
+        }
     }
 
     func rtcEngine(_ engine: AgoraRtcEngineKit, didOfflineOfUid uid: UInt, reason: AgoraUserOfflineReason) {
         DTLogger.event("Left call of uid: \(uid)")
-        delegate?.didLeaveCall(id: uid)
+        if let userInfo = getAgoraEngine().getUserInfo(byUid: uid, withError: nil),
+            let username = userInfo.userAccount {
+            delegate?.didLeaveCall(id: uid, username: username)
+        } else {
+            delegate?.didLeaveCall(id: uid, username: "Unknown")
+        }
     }
 
 }

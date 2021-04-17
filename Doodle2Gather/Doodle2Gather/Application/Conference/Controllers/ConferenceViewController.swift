@@ -22,7 +22,7 @@ class ConferenceViewController: UIViewController {
     var videoEngine: VideoEngine?
     var chatEngine: ChatEngine?
     var chatBox: ChatBoxDelegate?
-    var remoteUserIDs: [UInt] = []
+    var videoCallUserList: [VideoCallUser] = []
     lazy var chatList = [Message]()
     var isMuted = true
     var isVideoOff = true
@@ -87,6 +87,7 @@ class ConferenceViewController: UIViewController {
                 let overlay = UIView(frame: CGRect(x: 0, y: 0,
                                                    width: cellView.frame.size.width,
                                                    height: cellView.frame.size.height))
+                print(cellView.frame)
                 overlay.backgroundColor = UIConstants.black
                 videoOverlays.append(overlay)
                 cellView.addSubview(overlay)
@@ -175,7 +176,7 @@ class ConferenceViewController: UIViewController {
             collectionView.isHidden = true
             topControlViewContainer.isHidden = true
             isInCall.toggle()
-            remoteUserIDs.removeAll()
+            videoCallUserList.removeAll()
             collectionView.reloadData()
         } else {
             videoEngine?.joinChannel(channelName: self.roomId ?? "testing")
@@ -192,16 +193,27 @@ class ConferenceViewController: UIViewController {
 
 extension ConferenceViewController: VideoEngineDelegate {
 
-    func didJoinCall(id: UInt) {
-        remoteUserIDs.append(id)
+    func didJoinCall(id: UInt, username: String) {
+        let overlay = UIView(frame: CGRect(x: 0, y: 0,
+                                           width: 200,
+                                           height: 112.5))
+        let nameplate = UILabel(frame: CGRect(x: 0,
+                                              y: 112.5 / 2 + 19.5,
+                                              width: 180,
+                                              height: 40))
+        let userObject = VideoCallUser(uid: id,
+                                       username: username,
+                                       overlay: overlay,
+                                       nameplate: nameplate)
+        videoCallUserList.append(userObject)
         DispatchQueue.main.async {
             self.collectionView.reloadData()
         }
     }
 
-    func didLeaveCall(id: UInt) {
-        if let index = remoteUserIDs.firstIndex(where: { $0 == id }) {
-            remoteUserIDs.remove(at: index)
+    func didLeaveCall(id: UInt, username: String) {
+        if let index = videoCallUserList.firstIndex(where: { $0.uid == id }) {
+            videoCallUserList.remove(at: index)
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
             }
@@ -259,7 +271,7 @@ extension ConferenceViewController: UICollectionViewDelegate {
 extension ConferenceViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        remoteUserIDs.count + 1
+        videoCallUserList.count + 1
     }
 
     func collectionView(_ collectionView: UICollectionView,
@@ -272,9 +284,9 @@ extension ConferenceViewController: UICollectionViewDataSource {
             videoEngine?.setupLocalUserView(view: videoCell.getVideoView())
             videoCell.setName(DTAuth.user?.displayName ?? "Unknown")
         } else {
-            let remoteID = remoteUserIDs[indexPath.row - 1]
-            let username = videoEngine?.getUserInfo(uid: remoteID)
-            videoCell.setName(username ?? "Unknown")
+            let remoteID = videoCallUserList[indexPath.row - 1].uid
+            let username = videoCallUserList[indexPath.row - 1].username
+            videoCell.setName(username)
             DispatchQueue.main.async {
                 self.videoEngine?.setupRemoteUserView(view: videoCell.getVideoView(), id: remoteID)
                 self.collectionView.reloadData()
@@ -300,4 +312,11 @@ extension ConferenceViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: totalWidth, height: totalWidth * ConferenceConstants.aspectRatio)
     }
 
+}
+
+struct VideoCallUser {
+    let uid: UInt
+    let username: String
+    let overlay: UIView
+    let nameplate: UILabel
 }
