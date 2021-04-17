@@ -8,6 +8,8 @@ class AgoraVideoEngine: NSObject, VideoEngine {
     weak var delegate: VideoEngineDelegate?
     private var agoraKit: AgoraRtcEngineKit?
     private var callID: UInt = 0
+    private var savedChannelName: String?
+    private var savedToken: String?
 
     func initialize() {
         getAgoraEngine().setChannelProfile(.communication)
@@ -27,7 +29,7 @@ class AgoraVideoEngine: NSObject, VideoEngine {
         guard let user = DTAuth.user else {
             return
         }
-        
+
         let url = URL(string: "\(ApiEndpoints.AgoraRtcTokenServer)?uid=\(callID)&channelName=\(channelName)")!
 
         let task = URLSession.shared.dataTask(with: url, completionHandler: { data, response, error in
@@ -49,8 +51,10 @@ class AgoraVideoEngine: NSObject, VideoEngine {
                         .joinChannel(byUserAccount: user.uid,
                                      token: tokenResponse.key,
                                      channelId: channelName) { [weak self] _, uid, _ in
-                        self?.callID = uid
-                    }
+                            self?.callID = uid
+                            self?.savedChannelName = channelName
+                            self?.savedToken = tokenResponse.key
+                        }
                 }
 
             }
@@ -59,8 +63,22 @@ class AgoraVideoEngine: NSObject, VideoEngine {
     }
 
     func joinChannel(channelName: String) {
-        DispatchQueue.main.async {
-            self.getAgoraTokenAndJoinChannel(channelName: channelName)
+        guard let user = DTAuth.user else {
+            return
+        }
+
+        if channelName == savedChannelName {
+            if let token = savedToken {
+                self.getAgoraEngine().joinChannel(byUserAccount: user.uid, token: token, channelId: channelName)
+            } else {
+                DispatchQueue.main.async {
+                    self.getAgoraTokenAndJoinChannel(channelName: channelName)
+                }
+            }
+        } else {
+            DispatchQueue.main.async {
+                self.getAgoraTokenAndJoinChannel(channelName: channelName)
+            }
         }
     }
 
@@ -94,6 +112,15 @@ class AgoraVideoEngine: NSObject, VideoEngine {
         videoCanvas.view = view
         videoCanvas.renderMode = .fit
         getAgoraEngine().setupRemoteVideo(videoCanvas)
+    }
+
+    func getUserInfo(uid: UInt) -> String {
+        if let userInfo = getAgoraEngine().getUserInfo(byUid: uid, withError: nil),
+            let username = userInfo.userAccount {
+            return username
+        } else {
+            return "Unknown"
+        }
     }
 
     /**

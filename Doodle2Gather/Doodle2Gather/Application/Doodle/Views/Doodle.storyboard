@@ -755,7 +755,27 @@
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" semanticContentAttribute="spatial" insetsLayoutMarginsFromSafeArea="NO" id="Ioy-42-Bn6">
                                             <rect key="frame" x="0.0" y="0.0" width="240" height="135"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Uo-Nc-4zR">
+                                                    <rect key="frame" x="0.0" y="3" width="240" height="128"/>
+                                                    <color key="backgroundColor" name="Black"/>
+                                                </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6X9-Ly-aH1">
+                                                    <rect key="frame" x="99" y="57" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" name="White"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                             <color key="backgroundColor" name="Black"/>
+                                            <constraints>
+                                                <constraint firstItem="2Uo-Nc-4zR" firstAttribute="top" secondItem="Ioy-42-Bn6" secondAttribute="top" id="8S8-GL-h22"/>
+                                                <constraint firstItem="2Uo-Nc-4zR" firstAttribute="leading" secondItem="Ioy-42-Bn6" secondAttribute="leading" id="R83-UZ-3Hs"/>
+                                                <constraint firstAttribute="bottom" secondItem="2Uo-Nc-4zR" secondAttribute="bottom" id="htE-LV-w1Z"/>
+                                                <constraint firstAttribute="trailing" secondItem="2Uo-Nc-4zR" secondAttribute="trailing" id="ouG-Yc-GDs"/>
+                                                <constraint firstItem="6X9-Ly-aH1" firstAttribute="centerX" secondItem="Ioy-42-Bn6" secondAttribute="centerX" id="vYw-wJ-GeL"/>
+                                                <constraint firstItem="6X9-Ly-aH1" firstAttribute="centerY" secondItem="Ioy-42-Bn6" secondAttribute="centerY" constant="40" id="xNi-hu-Ikn"/>
+                                            </constraints>
                                         </collectionViewCellContentView>
                                         <color key="backgroundColor" name="Black"/>
                                         <size key="customSize" width="240" height="135"/>
@@ -774,7 +794,8 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <outlet property="videoView" destination="Ioy-42-Bn6" id="daj-BI-aRn"/>
+                                            <outlet property="nameplate" destination="6X9-Ly-aH1" id="Ymb-B1-EnY"/>
+                                            <outlet property="videoView" destination="2Uo-Nc-4zR" id="yMN-Hs-sd0"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>

@@ -18,7 +18,7 @@ class ConferenceViewController: UIViewController {
     @IBOutlet private var topControlView: UILabel!
     @IBOutlet private var toggleCallButton: UIButton!
     @IBOutlet private var bottomViewContainer: UIView!
-    
+
     var videoEngine: VideoEngine?
     var chatEngine: ChatEngine?
     var chatBox: ChatBoxDelegate?
@@ -30,6 +30,7 @@ class ConferenceViewController: UIViewController {
     var isChatShown = false
     var roomId: String?
     private var videoOverlays = [UIView]()
+    private var nameplates = [UILabel]()
     private var appearance = BadgeAppearance(animate: true)
     private var unreadMessageCount = 0
 
@@ -70,10 +71,12 @@ class ConferenceViewController: UIViewController {
     }
 
     @IBAction private func videoButtonDidTap(_ sender: Any) {
+
         if isVideoOff {
             videoEngine?.showVideo()
             if !videoOverlays.isEmpty {
                 videoOverlays[0].removeFromSuperview()
+                nameplates[0].removeFromSuperview()
             }
         } else {
             videoEngine?.hideVideo()
@@ -87,12 +90,25 @@ class ConferenceViewController: UIViewController {
                 overlay.backgroundColor = UIConstants.black
                 videoOverlays.append(overlay)
                 cellView.addSubview(overlay)
+
+                let nameplate = UILabel(frame: CGRect(x: 0,
+                                                      y: cellView.frame.size.height / 2 + 19.5,
+                                                      width: cellView.frame.size.width,
+                                                      height: 40))
+                nameplate.textAlignment = .center
+                nameplate.text = DTAuth.user?.displayName ?? "Unknown"
+                nameplate.textColor = UIConstants.white
+
+                nameplates.append(nameplate)
+                cellView.addSubview(nameplate)
             } else {
                 cellView.addSubview(videoOverlays[0])
+                cellView.addSubview(nameplates[0])
             }
         }
         videoButton.isSelected = isVideoOff
         isVideoOff.toggle()
+
     }
 
     @IBAction private func bottomMinimizeButtonDidTap(_ sender: UIButton) {
@@ -155,20 +171,18 @@ class ConferenceViewController: UIViewController {
 
         if self.isInCall {
             self.videoEngine?.tearDown()
-            DispatchQueue.main.async {
-                self.toggleCallButton.isSelected.toggle()
-                self.collectionView.isHidden = true
-                self.topControlViewContainer.isHidden = true
-                self.isInCall.toggle()
-            }
+            self.toggleCallButton.isSelected.toggle()
+            self.collectionView.isHidden = true
+            self.topControlViewContainer.isHidden = true
+            self.isInCall.toggle()
+            remoteUserIDs.removeAll()
+            collectionView.reloadData()
         } else {
             self.videoEngine?.joinChannel(channelName: self.roomId ?? "testing")
-            DispatchQueue.main.async {
-                self.toggleCallButton.isSelected.toggle()
-                self.collectionView.isHidden = false
-                self.topControlViewContainer.isHidden = false
-                self.isInCall.toggle()
-            }
+            self.toggleCallButton.isSelected.toggle()
+            self.collectionView.isHidden = false
+            self.topControlViewContainer.isHidden = false
+            self.isInCall.toggle()
         }
 
     }
@@ -256,8 +270,11 @@ extension ConferenceViewController: UICollectionViewDataSource {
         }
         if indexPath.row == 0 { // Put our local video first
             videoEngine?.setupLocalUserView(view: videoCell.getVideoView())
+            videoCell.setName(DTAuth.user?.displayName ?? "Unknown")
         } else {
             let remoteID = remoteUserIDs[indexPath.row - 1]
+            let username = videoEngine?.getUserInfo(uid: remoteID)
+            videoCell.setName(username ?? "Unknown")
             DispatchQueue.main.async {
                 self.videoEngine?.setupRemoteUserView(view: videoCell.getVideoView(), id: remoteID)
                 self.collectionView.reloadData()
