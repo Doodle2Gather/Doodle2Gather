@@ -81,9 +81,13 @@ class WSRoomController {
                         users: oldUsers.map { DTAdaptedUser(user: $0) }
                     )
                     
+                    // send participant info
                     self.getWebSockets([.socket(ws)]).forEach {
                         $0.send(message: message)
                     }
+                    
+                    // fetch all existing doodles
+                    self.initiateDoodleFetching(ws, wsId)
                     
                 case .failure(let error):
                     // Unable to find user in DB
