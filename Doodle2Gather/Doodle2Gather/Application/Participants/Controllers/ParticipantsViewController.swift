@@ -5,7 +5,7 @@ class ParticipantsViewController: UIViewController {
 
     @IBOutlet private var tableView: UITableView!
 
-    var participants = [DTParticipant]()
+    var participants = [DTAdaptedUser]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,9 +32,9 @@ extension ParticipantsViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ParticipantCell",
                                                  for: indexPath) as? ParticipantViewCell
         cell?.displayName = participant.displayName
-        cell?.userId = participant.userId.uuidString
-        cell?.isAudioOn = participant.isAudioOn
-        cell?.isVideoOn = participant.isVideoOn
+        cell?.userId = participant.id
+        cell?.isAudioOn = false
+        cell?.isVideoOn = false
         return cell!
     }
 }

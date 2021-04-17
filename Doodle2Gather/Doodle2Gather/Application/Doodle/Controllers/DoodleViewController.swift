@@ -34,16 +34,23 @@ class DoodleViewController: UIViewController {
     @IBOutlet private var magicPenButton: UIButton!
 
     // Profile Images
-    @IBOutlet private var userProfileImage: UIImageView!
-    @IBOutlet private var otherProfileImageOne: UIImageView!
-    @IBOutlet private var otherProfileImageTwo: UIImageView!
+    @IBOutlet private var userProfileLabel: UILabel!
+    @IBOutlet private var separator: UIImageView!
+    @IBOutlet private var otherProfileLabelOne: UILabel!
+    @IBOutlet private var otherProfileLabelTwo: UILabel!
     @IBOutlet private var numberOfOtherUsersLabel: UILabel!
 
     // Subview Controllers
-    private var canvasController: CanvasController?
-    private var socketController: SocketController?
-    private var strokeEditor: StrokeEditor?
-    private var layerTable: DoodleLayerTable?
+    var canvasController: CanvasController?
+    var socketController: SocketController?
+    var strokeEditor: StrokeEditor?
+    var layerTable: DoodleLayerTable?
+
+    // Top righ user icons
+    @IBOutlet private var currentUserIcon: UIImageView!
+    @IBOutlet private var secondaryUserIcon: UIImageView!
+    @IBOutlet private var tertiaryUserIcon: UIImageView!
+    @IBOutlet private var additionalUserCount: UILabel!
 
     // State
     var username: String?
@@ -52,6 +59,7 @@ class DoodleViewController: UIViewController {
     var inviteCode: String?
     private var previousDrawingTool = DrawingTools.pen
     var doodles: [DTAdaptedDoodle]?
+    var participants: [DTAdaptedUser] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,6 +75,7 @@ class DoodleViewController: UIViewController {
 
         registerGestures()
         loadBorderColors()
+        updateProfileViews()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -100,12 +109,68 @@ class DoodleViewController: UIViewController {
         colorPickerButton.layer.borderColor = UIConstants.stackGrey.cgColor
         numberOfOtherUsersLabel.layer.borderColor = UIConstants.stackGrey.cgColor
         // TODO: Replace profile picture borders with assigned colors
-        userProfileImage.layer.borderColor = UIConstants.white.cgColor
-        otherProfileImageOne.layer.borderColor = UIConstants.white.cgColor
-        otherProfileImageTwo.layer.borderColor = UIConstants.white.cgColor
+        userProfileLabel.layer.borderColor = UIConstants.white.cgColor
+        otherProfileLabelOne.layer.borderColor = UIConstants.white.cgColor
+        otherProfileLabelTwo.layer.borderColor = UIConstants.white.cgColor
     }
 
-    // MARK: - Navigation
+    private func updateProfileViews() {
+        userProfileLabel.layer.masksToBounds = true
+        otherProfileLabelOne.layer.masksToBounds = true
+        otherProfileLabelTwo.layer.masksToBounds = true
+
+        guard let user = DTAuth.user else {
+            DTLogger.error("Attempted to join room without a user.")
+            return
+        }
+
+        if let firstChar = user.displayName.first(where: {
+            !$0.isWhitespace
+        }) {
+            userProfileLabel.text = String(firstChar)
+        } else {
+            userProfileLabel.text = "-"
+        }
+
+        if participants.count <= 1 {
+            separator.isHidden = true
+            otherProfileLabelOne.isHidden = true
+            otherProfileLabelTwo.isHidden = true
+            numberOfOtherUsersLabel.isHidden = true
+        } else if participants.count <= 2 {
+            separator.isHidden = false
+            setProfileLabel(otherProfileLabelOne, text: participants[1].displayName, index: 1)
+            otherProfileLabelOne.isHidden = false
+            otherProfileLabelTwo.isHidden = true
+            numberOfOtherUsersLabel.isHidden = true
+        } else if participants.count <= 3 {
+            separator.isHidden = false
+            setProfileLabel(otherProfileLabelOne, text: participants[1].displayName, index: 1)
+            setProfileLabel(otherProfileLabelOne, text: participants[2].displayName, index: 2)
+            otherProfileLabelOne.isHidden = false
+            otherProfileLabelTwo.isHidden = false
+            numberOfOtherUsersLabel.isHidden = true
+        } else {
+            separator.isHidden = false
+            setProfileLabel(otherProfileLabelOne, text: participants[1].displayName, index: 1)
+            setProfileLabel(otherProfileLabelOne, text: participants[2].displayName, index: 2)
+            otherProfileLabelOne.isHidden = false
+            otherProfileLabelTwo.isHidden = false
+            numberOfOtherUsersLabel.isHidden = false
+            numberOfOtherUsersLabel.text = "+\(participants.count - 3)"
+        }
+
+    }
+
+    private func setProfileLabel(_ label: UILabel, text: String, index: Int) {
+        if let firstChar = participants[index].displayName.first(where: {
+            !$0.isWhitespace
+        }) {
+            label.text = String(firstChar)
+        } else {
+            label.text = "-"
+        }
+    }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
@@ -116,56 +181,6 @@ class DoodleViewController: UIViewController {
         default:
             return
         }
-    }
-
-    func prepareForSubviews(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier {
-        case SegueConstants.toCanvas:
-            guard let destination = segue.destination as? DTCanvasViewController else {
-                return
-            }
-            destination.delegate = self
-            if let doodles = self.doodles {
-                destination.loadDoodles(doodles)
-            }
-            self.canvasController = destination
-        case SegueConstants.toStrokeEditor:
-            guard let destination = segue.destination as? StrokeEditorViewController else {
-                return
-            }
-            destination.delegate = self
-            self.strokeEditor = destination
-        case SegueConstants.toConference:
-            guard let destination = segue.destination as? ConferenceViewController else {
-                return
-            }
-            destination.roomId = roomId?.uuidString
-        default:
-            return
-        }
-    }
-
-    func prepareForPopUps(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier {
-        case SegueConstants.toLayerTable:
-            guard let destination = segue.destination as? DoodleLayerTableViewController else {
-                return
-            }
-            destination.delegate = self
-            if let doodles = self.doodles {
-                destination.loadDoodles(doodles)
-            }
-            self.layerTable = destination
-        case SegueConstants.toInvitation:
-            guard let destination = segue.destination as? InvitationViewController else {
-                return
-            }
-            destination.modalPresentationStyle = .formSheet
-            destination.inviteCode = inviteCode
-        default:
-            return
-        }
-
     }
 
     @IBAction private func exitButtonDidTap(_ sender: Any) {
@@ -283,6 +298,14 @@ extension DoodleViewController {
 
 }
 
+extension DoodleViewController: DoodleLayerTableDelegate {
+
+    func selectedDoodleDidChange(index: Int) {
+        canvasController?.setSelectedDoodle(index: index)
+    }
+
+}
+
 // MARK: - CanvasControllerDelegate
 
 extension DoodleViewController: CanvasControllerDelegate {
@@ -302,6 +325,8 @@ extension DoodleViewController: CanvasControllerDelegate {
     }
 
 }
+
+// MARK: - SocketControllerDelegate
 
 extension DoodleViewController: SocketControllerDelegate {
 
@@ -327,6 +352,8 @@ extension DoodleViewController: SocketControllerDelegate {
 
 }
 
+// MARK: - StrokeEditorDelegate
+
 extension DoodleViewController: StrokeEditorDelegate {
 
     func colorDidChange(_ color: UIColor) {
@@ -349,14 +376,6 @@ extension DoodleViewController: StrokeEditorDelegate {
             .withAlphaComponent(opacity)
         coloredCircle.fillColor = newColor.cgColor
         canvasController?.setColor(newColor)
-    }
-
-}
-
-extension DoodleViewController: DoodleLayerTableDelegate {
-
-    func selectedDoodleDidChange(index: Int) {
-        canvasController?.setSelectedDoodle(index: index)
     }
 
 }

@@ -431,15 +431,16 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="DwN-FB-eIE">
                                         <rect key="frame" x="20" y="10" width="196" height="40"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DOs-uP-8SE" userLabel="Profile Image">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eu2-o6-mDx" userLabel="User Profile 1">
                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                                                 <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="FXy-BD-PGN"/>
-                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="ajP-TA-HBj"/>
-                                                    <constraint firstAttribute="width" constant="40" id="cAV-y5-hLl"/>
-                                                    <constraint firstAttribute="height" constant="40" id="qr4-PT-58w"/>
+                                                    <constraint firstAttribute="height" constant="40" id="PWn-CD-EBX"/>
+                                                    <constraint firstAttribute="width" constant="40" id="Z84-ta-rzi"/>
                                                 </constraints>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                <color key="textColor" name="White"/>
+                                                <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
                                                         <real key="value" value="3"/>
@@ -448,7 +449,7 @@
                                                         <real key="value" value="20"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
-                                            </imageView>
+                                            </label>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Separator" translatesAutoresizingMaskIntoConstraints="NO" id="QiO-xb-nBY">
                                                 <rect key="frame" x="47" y="0.0" width="8" height="40"/>
                                                 <accessibility key="accessibilityConfiguration">
@@ -459,47 +460,49 @@
                                                     <constraint firstAttribute="height" constant="40" id="Naz-LH-mwp"/>
                                                 </constraints>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XbA-gD-b0Z" userLabel="Other Profile Image 1">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="B" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NMb-rO-KfU" userLabel="User Profile 1">
                                                 <rect key="frame" x="62" y="0.0" width="40" height="40"/>
                                                 <color key="backgroundColor" systemColor="systemGreenColor"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="A5I-99-Tgd"/>
-                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="OMr-EE-dPd"/>
-                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="PIG-hd-XeO"/>
-                                                    <constraint firstAttribute="width" constant="40" id="uAf-gG-oXr"/>
-                                                </constraints>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                                        <real key="value" value="3"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                        <real key="value" value="20"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                            </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uLN-OJ-qat" userLabel="Other Profile Image 2">
-                                                <rect key="frame" x="109" y="0.0" width="40" height="40"/>
-                                                <color key="backgroundColor" systemColor="systemPinkColor"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="QBv-xH-R9Z"/>
-                                                    <constraint firstAttribute="width" constant="40" id="T70-Gr-8Qj"/>
-                                                    <constraint firstAttribute="height" constant="40" id="V3J-o3-tnU"/>
-                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="rdl-eT-R58"/>
-                                                </constraints>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                                        <real key="value" value="3"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                        <real key="value" value="20"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                            </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NMb-rO-KfU">
-                                                <rect key="frame" x="156" y="0.0" width="40" height="40"/>
-                                                <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="CVe-To-DsT"/>
                                                     <constraint firstAttribute="width" constant="40" id="ivR-tp-QBu"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                <color key="textColor" name="White"/>
+                                                <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                        <real key="value" value="3"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <real key="value" value="20"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="C" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ynw-Wz-Sdm" userLabel="User Profile 2">
+                                                <rect key="frame" x="109" y="0.0" width="40" height="40"/>
+                                                <color key="backgroundColor" name="Flamingo Red"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="2yu-BM-dbq"/>
+                                                    <constraint firstAttribute="width" constant="40" id="Xdb-xd-JB5"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                <color key="textColor" name="White"/>
+                                                <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                        <real key="value" value="3"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <real key="value" value="20"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ue-v9-pyV" userLabel="Additional User Count">
+                                                <rect key="frame" x="156" y="0.0" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="Jih-s9-yTe"/>
+                                                    <constraint firstAttribute="height" constant="40" id="ypJ-vt-Qs0"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                 <color key="textColor" name="White"/>
@@ -696,15 +699,16 @@
                         <outlet property="inviteButton" destination="Ho7-dv-XBP" id="grj-Pw-ad8"/>
                         <outlet property="layerTableView" destination="MWm-9W-hoQ" id="mE6-K8-c5P"/>
                         <outlet property="magicPenButton" destination="EE8-GC-4Km" id="atf-KX-JRK"/>
-                        <outlet property="numberOfOtherUsersLabel" destination="NMb-rO-KfU" id="ReU-bU-SX3"/>
-                        <outlet property="otherProfileImageOne" destination="XbA-gD-b0Z" id="2Qf-Uk-eh8"/>
-                        <outlet property="otherProfileImageTwo" destination="uLN-OJ-qat" id="9tc-Cz-flG"/>
+                        <outlet property="numberOfOtherUsersLabel" destination="7ue-v9-pyV" id="uBz-3F-Kmv"/>
+                        <outlet property="otherProfileLabelOne" destination="NMb-rO-KfU" id="SZC-jq-EvI"/>
+                        <outlet property="otherProfileLabelTwo" destination="ynw-Wz-Sdm" id="FxO-IT-jI4"/>
                         <outlet property="penButton" destination="rKg-Y4-tax" id="rf0-wj-paC"/>
                         <outlet property="pencilButton" destination="PHr-oW-a4i" id="kEZ-Te-JZn"/>
+                        <outlet property="separator" destination="QiO-xb-nBY" id="B4k-Ko-asY"/>
                         <outlet property="separatorView" destination="cIQ-SF-6Au" id="2iL-i3-acE"/>
                         <outlet property="shapesButton" destination="w78-OH-H1V" id="Jet-zX-JVV"/>
                         <outlet property="textButton" destination="Va2-Px-Ku6" id="GYN-tg-pop"/>
-                        <outlet property="userProfileImage" destination="DOs-uP-8SE" id="Tke-aD-WLd"/>
+                        <outlet property="userProfileLabel" destination="Eu2-o6-mDx" id="1r5-oQ-cQm"/>
                         <outlet property="zoomScaleLabel" destination="heI-9Y-pSS" id="Odg-py-uxd"/>
                     </connections>
                 </viewController>
@@ -1287,6 +1291,9 @@
         <namedColor name="Black">
             <color red="0.125" green="0.125" blue="0.11400000005960464" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <namedColor name="Flamingo Red">
+            <color red="0.99199998378753662" green="0.31400001049041748" blue="0.31400001049041748" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="Stack Grey">
             <color red="0.54500001668930054" green="0.54500001668930054" blue="0.54500001668930054" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
@@ -1301,9 +1308,6 @@
         </systemColor>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemPinkColor">
-            <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemPurpleColor">
             <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -1,5 +1,6 @@
 import UIKit
 import EasyNotificationBadge
+import DTSharedLibrary
 
 class ConferenceViewController: UIViewController {
 
@@ -22,13 +23,16 @@ class ConferenceViewController: UIViewController {
     var videoEngine: VideoEngine?
     var chatEngine: ChatEngine?
     var chatBox: ChatBoxDelegate?
-    var videoCallUserList: [VideoCallUser] = []
+    var usersWithPermissions: [DTAdaptedUser] = []
+    var participants: [DTAdaptedUser] = []
     lazy var chatList = [Message]()
     var isMuted = true
     var isVideoOff = true
     var isInCall = false
     var isChatShown = false
     var roomId: String?
+    private var videoCallUserList: [VideoCallUser] = []
+    private var currentUser: VideoCallUser?
     private var videoOverlays = [UIView]()
     private var nameplates = [UILabel]()
     private var appearance = BadgeAppearance(animate: true)
@@ -74,38 +78,18 @@ class ConferenceViewController: UIViewController {
 
         if isVideoOff {
             videoEngine?.showVideo()
-            if !videoOverlays.isEmpty {
-                videoOverlays[0].removeFromSuperview()
-                nameplates[0].removeFromSuperview()
-            }
+            currentUser?.overlay.removeFromSuperview()
+            currentUser?.nameplate.removeFromSuperview()
         } else {
             videoEngine?.hideVideo()
             guard let cellView = collectionView.cellForItem(at: IndexPath(row: 0, section: 0)) else {
                 return
             }
-            if videoOverlays.isEmpty {
-                let overlay = UIView(frame: CGRect(x: 0, y: 0,
-                                                   width: cellView.frame.size.width,
-                                                   height: cellView.frame.size.height))
-                print(cellView.frame)
-                overlay.backgroundColor = UIConstants.black
-                videoOverlays.append(overlay)
-                cellView.addSubview(overlay)
-
-                let nameplate = UILabel(frame: CGRect(x: 0,
-                                                      y: cellView.frame.size.height / 2 + 19.5,
-                                                      width: cellView.frame.size.width,
-                                                      height: 40))
-                nameplate.textAlignment = .center
-                nameplate.text = DTAuth.user?.displayName ?? "Unknown"
-                nameplate.textColor = UIConstants.white
-
-                nameplates.append(nameplate)
-                cellView.addSubview(nameplate)
-            } else {
-                cellView.addSubview(videoOverlays[0])
-                cellView.addSubview(nameplates[0])
+            guard let user = currentUser else {
+                return
             }
+            cellView.addSubview(user.overlay)
+            cellView.addSubview(user.nameplate)
         }
         videoButton.isSelected = isVideoOff
         isVideoOff.toggle()
@@ -135,7 +119,8 @@ class ConferenceViewController: UIViewController {
 
     // Passes data to the ChatViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == SegueConstants.toChat {
+        switch segue.identifier {
+        case SegueConstants.toChat:
             guard let nav = segue.destination as? UINavigationController else {
                 return
             }
@@ -159,6 +144,16 @@ class ConferenceViewController: UIViewController {
             }
             unreadMessageCount = 0
             chatButton.badge(text: nil, appearance: appearance)
+        case SegueConstants.toParticipants:
+            guard let nav = segue.destination as? UINavigationController else {
+                return
+            }
+            guard let vc = nav.topViewController as? ParticipantsViewController else {
+                return
+            }
+            vc.participants = participants
+        default:
+            return
         }
     }
 
@@ -169,6 +164,10 @@ class ConferenceViewController: UIViewController {
     }
 
     @IBAction private func didTapCall(_ sender: UIButton) {
+        guard let user = DTAuth.user else {
+            DTLogger.error("Attempted to join call without a user.")
+            return
+        }
 
         if isInCall {
             videoEngine?.tearDown()
@@ -179,9 +178,29 @@ class ConferenceViewController: UIViewController {
             videoCallUserList.removeAll()
             collectionView.reloadData()
         } else {
+            if currentUser == nil {
+                let overlay = UIView(frame: CGRect(x: 0, y: 0,
+                                                   width: 200,
+                                                   height: 112.5))
+                overlay.backgroundColor = UIConstants.black
+
+                let nameplate = UILabel(frame: CGRect(x: 0,
+                                                      y: 112.5 / 2 + 19.5,
+                                                      width: 180,
+                                                      height: 40))
+                nameplate.textAlignment = .center
+                nameplate.text = user.displayName
+                nameplate.textColor = UIConstants.white
+                currentUser = VideoCallUser(uid: 0,
+                                            userId: user.uid,
+                                            overlay: overlay,
+                                            nameplate: nameplate)
+            }
+
             videoEngine?.joinChannel(channelName: self.roomId ?? "testing")
             toggleCallButton.isSelected.toggle()
             collectionView.isHidden = false
+            collectionView.reloadData()
             topControlViewContainer.isHidden = false
             isInCall.toggle()
         }
@@ -197,12 +216,18 @@ extension ConferenceViewController: VideoEngineDelegate {
         let overlay = UIView(frame: CGRect(x: 0, y: 0,
                                            width: 200,
                                            height: 112.5))
+        overlay.backgroundColor = UIConstants.black
+
         let nameplate = UILabel(frame: CGRect(x: 0,
                                               y: 112.5 / 2 + 19.5,
                                               width: 180,
                                               height: 40))
+        nameplate.textAlignment = .center
+        nameplate.text = username
+        nameplate.textColor = UIConstants.white
+
         let userObject = VideoCallUser(uid: id,
-                                       username: username,
+                                       userId: username,
                                        overlay: overlay,
                                        nameplate: nameplate)
         videoCallUserList.append(userObject)
@@ -285,8 +310,8 @@ extension ConferenceViewController: UICollectionViewDataSource {
             videoCell.setName(DTAuth.user?.displayName ?? "Unknown")
         } else {
             let remoteID = videoCallUserList[indexPath.row - 1].uid
-            let username = videoCallUserList[indexPath.row - 1].username
-            videoCell.setName(username)
+            let userId = videoCallUserList[indexPath.row - 1].userId
+            videoCell.setName(userId)
             DispatchQueue.main.async {
                 self.videoEngine?.setupRemoteUserView(view: videoCell.getVideoView(), id: remoteID)
                 self.collectionView.reloadData()
@@ -316,7 +341,7 @@ extension ConferenceViewController: UICollectionViewDelegateFlowLayout {
 
 struct VideoCallUser {
     let uid: UInt
-    let username: String
+    let userId: String
     let overlay: UIView
     let nameplate: UILabel
 }
