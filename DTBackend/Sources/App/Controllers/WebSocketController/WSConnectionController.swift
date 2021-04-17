@@ -2,7 +2,7 @@ import Vapor
 import Fluent
 import DTSharedLibrary
 
-struct DTWebSocketController: RouteCollection {
+struct WSConnectionController: RouteCollection {
     let db: Database
     private let webSocketsManager: DTWebSocketsManager
 

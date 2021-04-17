@@ -3,7 +3,7 @@ import DTSharedLibrary
 
 func routes(_ app: Application) throws {
 
-    try app.register(collection: DTWebSocketController(db: app.db))
+    try app.register(collection: WSConnectionController(db: app.db))
 
     let api = app.grouped("api")
     try api.grouped(Endpoints.Action.root.toPathComponents).register(collection: DTActionController())
