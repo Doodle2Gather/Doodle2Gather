@@ -1,5 +1,6 @@
 import Vapor
 import Fluent
+import DTSharedLibrary
 
 struct DTWebSocketController: RouteCollection {
     let db: Database
@@ -11,7 +12,7 @@ struct DTWebSocketController: RouteCollection {
     }
 
     func boot(routes: RoutesBuilder) throws {
-        routes.webSocket("rooms", ":roomId",
+        routes.webSocket("rooms", ":roomId", ":userId",
                          maxFrameSize: WebSocketMaxFrameSize(integerLiteral: 1 << 24),
                          onUpgrade: self.webSocket)
     }
@@ -21,12 +22,16 @@ struct DTWebSocketController: RouteCollection {
             req.logger.error("Missing roomId")
             return
         }
+        guard let userId = req.parameters.get("userId") else {
+            req.logger.error("Missing userId")
+            return
+        }
         guard let id = UUID(uuidString: roomId) else {
             req.logger.error("Invalid roomId")
             return
         }
-        webSocketsManager.directToWebSocketController(socket: socket, roomId: id)
-        req.logger.info("User joined room \(id.uuidString)")
+        webSocketsManager.directToWebSocketController(socket: socket, roomId: id, userId: userId)
+        req.logger.info("User \(userId) joined room \(id.uuidString)")
     }
 }
 
@@ -38,9 +43,9 @@ private class DTWebSocketsManager {
         self.db = db
     }
 
-    func directToWebSocketController(socket: WebSocket, roomId: UUID) {
+    func directToWebSocketController(socket: WebSocket, roomId: UUID, userId: String) {
         let wsController = wsControllers[roomId, default: WebSocketController(roomId: roomId, db: db)]
         wsControllers[roomId] = wsController
-        wsController.connect(socket)
+        wsController.connect(socket, userId: userId)
     }
 }
