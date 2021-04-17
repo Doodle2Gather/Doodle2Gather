@@ -1,4 +1,6 @@
+import Foundation
 import CoreGraphics
+import DTSharedLibrary
 
 /// Delegate for a `CanvasController`.
 protocol CanvasControllerDelegate: AnyObject {
@@ -7,10 +9,13 @@ protocol CanvasControllerDelegate: AnyObject {
     func actionDidFinish(action: DTAction)
 
     /// Dispatches the action to the canvas controller.
-    func dispatchAction(_ action: DTAction)
+    func dispatchChanges<S: DTStroke>(type: DTActionType, strokes: [(S, Int)], doodleId: UUID)
 
     /// Informs the delegate that the zoom of the canvas has changed.
     func canvasZoomScaleDidChange(scale: CGFloat)
+
+    /// Informs the delegate to refetch the doodles.
+    func refetchDoodles()
 
 }
 
@@ -22,11 +27,15 @@ extension CanvasControllerDelegate {
         // Do nothing
     }
 
-    func dispatchAction(_ action: DTAction) {
+    func dispatchChanges<S: DTStroke>(type: DTActionType, strokes: [(S, Int)], doodleId: UUID) {
         // Do nothing
     }
 
     func canvasZoomScaleDidChange(scale: CGFloat) {
+        // Do nothing
+    }
+
+    func refetchDoodles() {
         // Do nothing
     }
 

@@ -1,5 +1,5 @@
 import UIKit
-import DTFrontendLibrary
+import DTSharedLibrary
 
 class ParticipantsViewController: UIViewController {
 

@@ -1,11 +1,124 @@
 import Foundation
+import Alamofire
 import DTSharedLibrary
 
 struct DTApi {
 
     static let baseURLString = ApiEndpoints.Api // change to .localApi for local testing
 
-    // MARK: Strokes
+    // MARK: - User
+
+    static func sendUserData(
+        id: String, displayName: String, email: String,
+        completion: @escaping (DTApiResult<[DTAdaptedUser]>) -> Void
+    ) {
+        let newUserData = DTAdaptedUser.CreateRequest(id: id, displayName: displayName, email: email)
+        perform(Endpoints.User.createUserInfo,
+                send: newUserData,
+                completion: completion)
+    }
+
+    // MARK: - Room
+
+    static func createRoom(
+        _ room: DTAdaptedRoom.CreateRequest,
+        completion: ((DTApiResult<DTAdaptedRoom>) -> Void)? = nil
+    ) {
+        perform(Endpoints.Room.create, send: room, completion: completion)
+    }
+
+    static func getRoomFromId(
+        id: UUID,
+        completion: @escaping (DTApiResult<DTAdaptedRoom>) -> Void
+    ) {
+        perform(Endpoints.Room.getRoomFromRoomId,
+                pathParameters: [.id: id.uuidString],
+                completion: completion)
+    }
+
+    static func getRoomFromInvite(
+        id: UUID,
+        completion: @escaping (DTApiResult<DTAdaptedRoom>) -> Void
+    ) {
+        perform(Endpoints.Room.getRoomFromInvite,
+                pathParameters: [.roomId: id.uuidString],
+                completion: completion)
+    }
+
+    static func getUserAccessibleRooms(userId: String, completion: @escaping (DTApiResult<[DTAdaptedRoom]>) -> Void) {
+        perform(Endpoints.User.getAllRooms,
+                pathParameters: [.id: userId],
+                completion: completion)
+    }
+
+    static func getParticipants(roomId: UUID, callback: @escaping ([DTParticipant]) -> Void) {
+
+    }
+
+    static func joinRoomFromInvite(
+        joinRoomRequest: DTJoinRoomMessage,
+        completion: @escaping (DTApiResult<DTAdaptedRoom>) -> Void
+    ) {
+        perform(Endpoints.Room.joinRoomFromInvite,
+                send: joinRoomRequest,
+                completion: completion)
+    }
+
+    static func getRoomsDoodles(
+        roomId: UUID,
+        completion: @escaping (DTApiResult<[DTAdaptedDoodle]>) -> Void
+    ) {
+        perform(Endpoints.Room.getAllDoodlesFromRoom,
+                pathParameters: [.roomId: roomId.uuidString],
+                completion: completion)
+    }
+
+    static func deleteRoom(
+        roomId: UUID,
+        completion: ((DTApiResult<EmptyResponse>) -> Void)? = nil
+    ) {
+        perform(Endpoints.Room.delete,
+                pathParameters: [.roomId: roomId.uuidString],
+                completion: completion)
+    }
+
+    // MARK: - Doodles
+
+    static func createDoodle(
+        _ doodle: DTAdaptedDoodle.CreateRequest,
+        completion: ((DTApiResult<DTAdaptedDoodle>) -> Void)? = nil
+    ) {
+        perform(Endpoints.Doodle.create, send: doodle, completion: completion)
+    }
+
+    static func getDoodleFromId(
+        id: UUID,
+        completion: @escaping (DTApiResult<DTAdaptedDoodle>) -> Void
+    ) {
+        perform(Endpoints.Doodle.getDoodleFromDooleId,
+                pathParameters: [.doodleId: id.uuidString],
+                completion: completion)
+    }
+
+    static func getDoodleStrokes(
+        doodleId: UUID,
+        completion: @escaping (DTApiResult<[DTAdaptedStroke]>) -> Void
+    ) {
+        perform(Endpoints.Doodle.getAllStrokes,
+                pathParameters: [.doodleId: doodleId.uuidString],
+                completion: completion)
+    }
+
+    static func deleteDoodle(
+        doodleId: UUID,
+        completion: ((DTApiResult<EmptyResponse>) -> Void)? = nil
+    ) {
+        perform(Endpoints.Doodle.delete,
+                pathParameters: [.doodleId: doodleId.uuidString],
+                completion: completion)
+    }
+
+    // MARK: - Strokes
 
     static func getAllStrokes(
         completion: @escaping (DTApiResult<[DTAdaptedStroke]>) -> Void
@@ -22,7 +135,7 @@ struct DTApi {
                 completion: completion)
     }
 
-    // MARK: Actions
+    // MARK: - Actions
 
     static func getAllActions(
         completion: @escaping (DTApiResult<[DTAdaptedAction]>) -> Void
@@ -39,6 +152,8 @@ struct DTApi {
                 completion: completion)
     }
 }
+
+// MARK: - API helper methods
 
 extension DTApi {
 
@@ -107,7 +222,7 @@ extension DTApi {
         _ error: Error,
         completion: ((DTApiResult<OutputModel>) -> Void)? = nil
     ) where OutputModel: Codable {
-        print("\(Date()): \(error)")
+        DTLogger.error("\(Date()): \(error)")
         completion?(.failure(error))
     }
 
@@ -121,3 +236,38 @@ enum DTApiResult<ResourceType> {
     case failure(Error)
 }
 struct EmptyResponse: Codable {}
+
+// MARK: - API Request helper struct (to be removed)
+
+struct RoomsResponseEntry: Codable {
+    let id: String
+    let user: RoomsResponseUserEntry
+    let room: RoomsResponseRoomEntry
+}
+
+struct RoomsResponseUserEntry: Codable {
+    let id: String
+}
+
+struct RoomsResponseRoomEntry: Codable {
+    let id: String
+    let inviteCode: String
+    let name: String
+    let createdBy: userEntry
+}
+
+struct DoodleResponseEntry: Codable {
+    let id: String
+    let room: RoomsResponseRoomEntry
+}
+
+struct CreateRoomResponse: Codable {
+    let id: String
+    let inviteCode: String
+    let name: String
+    let createdBy: userEntry
+}
+
+struct userEntry: Codable {
+    let id: String
+}

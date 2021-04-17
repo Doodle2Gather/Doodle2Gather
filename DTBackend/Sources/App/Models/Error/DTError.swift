@@ -40,6 +40,13 @@ public struct DTError: Error {
         )
     }
 
+    public static func modelNotFound(type: String, code: String) -> DTError {
+        DTError(
+            errorIdentifier: .modelNotFound,
+            reason: "Model of type `\(type)` with code `\(code)` not found"
+        )
+    }
+
     public static func unableToRetreiveID(type: String) -> DTError {
         DTError(
             errorIdentifier: .missingParameter,

@@ -1,10 +1,11 @@
 import UIKit
-import Pikko
+import DTSharedLibrary
 
 class DoodleViewController: UIViewController {
 
     // Storyboard UI Elements
     @IBOutlet private var zoomScaleLabel: UILabel!
+    @IBOutlet private var layerTableView: UIView!
     @IBOutlet private var colorPickerView: UIView!
     @IBOutlet private var colorPickerButton: UIView!
     private var coloredCircle = CAShapeLayer()
@@ -38,21 +39,25 @@ class DoodleViewController: UIViewController {
     @IBOutlet private var otherProfileImageTwo: UIImageView!
     @IBOutlet private var numberOfOtherUsersLabel: UILabel!
 
-    // Controllers
+    // Subview Controllers
     private var canvasController: CanvasController?
     private var socketController: SocketController?
     private var strokeEditor: StrokeEditor?
+    private var layerTable: DoodleLayerTable?
 
     // State
     var username: String?
     var roomName: String?
+    var roomId: UUID?
+    var inviteCode: String?
     private var previousDrawingTool = DrawingTools.pen
+    var doodles: [DTAdaptedDoodle]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // TODO: Replace this with dependency injection from AppDelegate / HomeController
-        let socketController = DTWebSocketController()
+        let socketController = DTWebSocketController(roomId: roomId!)
         socketController.delegate = self
         self.socketController = socketController
 
@@ -104,13 +109,25 @@ class DoodleViewController: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
+        case SegueConstants.toCanvas, SegueConstants.toStrokeEditor, SegueConstants.toConference:
+            prepareForSubviews(for: segue, sender: sender)
+        case SegueConstants.toLayerTable, SegueConstants.toInvitation:
+            prepareForPopUps(for: segue, sender: sender)
+        default:
+            return
+        }
+    }
+
+    func prepareForSubviews(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
         case SegueConstants.toCanvas:
             guard let destination = segue.destination as? DTCanvasViewController else {
                 return
             }
             destination.delegate = self
-            // TODO: Complete injection of doodle into subcontroller
-            // destination.doodle = // Inject doodle
+            if let doodles = self.doodles {
+                destination.loadDoodles(doodles)
+            }
             self.canvasController = destination
         case SegueConstants.toStrokeEditor:
             guard let destination = segue.destination as? StrokeEditorViewController else {
@@ -118,13 +135,45 @@ class DoodleViewController: UIViewController {
             }
             destination.delegate = self
             self.strokeEditor = destination
+        case SegueConstants.toConference:
+            guard let destination = segue.destination as? ConferenceViewController else {
+                return
+            }
+            destination.roomId = roomId?.uuidString
         default:
             return
         }
     }
 
+    func prepareForPopUps(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case SegueConstants.toLayerTable:
+            guard let destination = segue.destination as? DoodleLayerTableViewController else {
+                return
+            }
+            destination.delegate = self
+            if let doodles = self.doodles {
+                destination.loadDoodles(doodles)
+            }
+            self.layerTable = destination
+        case SegueConstants.toInvitation:
+            guard let destination = segue.destination as? InvitationViewController else {
+                return
+            }
+            destination.modalPresentationStyle = .formSheet
+            destination.inviteCode = inviteCode
+        default:
+            return
+        }
+
+    }
+
     @IBAction private func exitButtonDidTap(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        alert(title: "Exit", message: "Are you sure you wish to exit and return to the main menu?",
+              buttonStyle: .default, handler: { _ in
+                    self.dismiss(animated: true, completion: nil)
+              }
+        )
     }
 
 }
@@ -198,6 +247,15 @@ extension DoodleViewController {
         }
     }
 
+    @IBAction private func layerButtonDidTap(_ sender: UIButton) {
+        layerTableView.isHidden.toggle()
+        sender.isSelected.toggle()
+    }
+
+    @IBAction private func addLayerButtonDidTap(_ sender: UIButton) {
+        // TODO: Create new layer
+    }
+
     @objc
     private func zoomScaleDidTap(_ gesture: UITapGestureRecognizer) {
         canvasController?.resetZoomScale()
@@ -239,30 +297,34 @@ extension DoodleViewController: CanvasControllerDelegate {
         zoomScaleLabel.text = "\(scalePercent)%"
     }
 
+    func refetchDoodles() {
+        socketController?.refetchDoodles()
+    }
+
 }
 
 extension DoodleViewController: SocketControllerDelegate {
+
+    func dispatchChanges<S>(type: DTActionType, strokes: [(S, Int)], doodleId: UUID) where S: DTStroke {
+        guard let roomId = self.roomId,
+              let action = DTAction(type: type, roomId: roomId, doodleId: doodleId, strokes: strokes) else {
+            return
+        }
+        socketController?.addAction(action)
+    }
 
     func dispatchAction(_ action: DTAction) {
         canvasController?.dispatchAction(action)
     }
 
-    func handleConflict(_ undoAction: DTAction, histories: [DTAction]) {
-
-        for action in histories {
-            canvasController?.dispatchAction(action)
-        }
-
-        canvasController?.dispatchAction(undoAction)
-
-        for action in histories.reversed() {
-            canvasController?.dispatchAction(action)
-        }
-    }
-
     func clearDrawing() {
         canvasController?.clearDoodle()
     }
+
+    func loadDoodles(_ doodles: [DTAdaptedDoodle]) {
+        canvasController?.loadDoodles(doodles)
+    }
+
 }
 
 extension DoodleViewController: StrokeEditorDelegate {
@@ -287,6 +349,14 @@ extension DoodleViewController: StrokeEditorDelegate {
             .withAlphaComponent(opacity)
         coloredCircle.fillColor = newColor.cgColor
         canvasController?.setColor(newColor)
+    }
+
+}
+
+extension DoodleViewController: DoodleLayerTableDelegate {
+
+    func selectedDoodleDidChange(index: Int) {
+        canvasController?.setSelectedDoodle(index: index)
     }
 
 }

@@ -12,8 +12,13 @@ public func configure(_ app: Application) throws {
 
     // Configure database
     app.databases.use(.sqlite(), as: .sqlite)
-    app.migrations.add(AddAction())
+    app.migrations.add(AddRoom())
+    app.migrations.add(AddDoodle())
+    app.migrations.add(AddPair())
     app.migrations.add(AddStroke())
+    app.migrations.add(AddAction())
+    app.migrations.add(AddUser())
+    app.migrations.add(AddAccesses())
 
     // Run migrations at app startup.
     try app.autoMigrate().wait()

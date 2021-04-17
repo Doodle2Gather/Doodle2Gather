@@ -2,48 +2,34 @@ import Foundation
 
 public struct DTAdaptedAction: Codable {
 
-    public let strokesAdded: Set<Data>
-    public let strokesRemoved: Set<Data>
+    public let type: DTActionType
+    public let strokes: [DTStrokeIndexPair]
     public let roomId: UUID
+    public let doodleId: UUID
     public let createdBy: UUID
 
-    public init(strokesAdded: Set<Data>, strokesRemoved: Set<Data>, roomId: UUID, createdBy: UUID) {
-        self.strokesAdded = strokesAdded
-        self.strokesRemoved = strokesRemoved
+    public init(type: DTActionType, strokes: [DTStrokeIndexPair], roomId: UUID, doodleId: UUID, createdBy: UUID) {
+        self.type = type
+        self.strokes = strokes
         self.roomId = roomId
+        self.doodleId = doodleId
         self.createdBy = createdBy
     }
 
-    public func makeStrokesAdded() -> Set<DTAdaptedStroke> {
-        var strokes = Set<DTAdaptedStroke>()
-        for stroke in strokesAdded {
-            strokes.insert(
+    public func makeStrokes() -> [DTAdaptedStroke] {
+        var dtStrokes = [DTAdaptedStroke]()
+        for stroke in strokes {
+            dtStrokes.append(
                 DTAdaptedStroke(
-                    stroke: stroke, roomId: roomId, createdBy: createdBy
+                    stroke: stroke.stroke, roomId: roomId, doodleId: doodleId, createdBy: createdBy
                 )
             )
         }
-        return strokes
+        return dtStrokes
     }
 
-    public func makeStrokesRemoved() -> Set<DTAdaptedStroke> {
-        var strokes = Set<DTAdaptedStroke>()
-        for stroke in strokesRemoved {
-            strokes.insert(
-                DTAdaptedStroke(
-                    stroke: stroke, roomId: roomId, createdBy: createdBy
-                )
-            )
-        }
-        return strokes
-    }
-
-    func reverse() -> DTAdaptedAction {
-        DTAdaptedAction(
-            strokesAdded: strokesRemoved,
-            strokesRemoved: strokesAdded,
-            roomId: roomId, createdBy: createdBy
-        )
+    public func getNewAction(with paris: [DTStrokeIndexPair]) -> DTAdaptedAction {
+        DTAdaptedAction(type: type, strokes: paris, roomId: roomId, doodleId: doodleId, createdBy: createdBy)
     }
 }
 

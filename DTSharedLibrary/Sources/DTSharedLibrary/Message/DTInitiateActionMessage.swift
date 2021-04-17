@@ -5,14 +5,11 @@ public struct DTInitiateActionMessage: Codable {
     public let id: UUID
     public let action: DTAdaptedAction
 
-    public init(strokesAdded: Set<Data>, strokesRemoved: Set<Data>,
-                id: UUID, roomId: UUID) {
-        self.action = DTAdaptedAction(
-            strokesAdded: strokesAdded,
-            strokesRemoved: strokesRemoved,
-            roomId: roomId,
-            createdBy: id
-        )
+    public init(actionType: DTActionType, strokes: [DTStrokeIndexPair],
+                id: UUID, roomId: UUID, doodleId: UUID) {
         self.id = id
+        self.action = DTAdaptedAction(
+            type: actionType, strokes: strokes,
+            roomId: roomId, doodleId: doodleId, createdBy: id)
     }
 }

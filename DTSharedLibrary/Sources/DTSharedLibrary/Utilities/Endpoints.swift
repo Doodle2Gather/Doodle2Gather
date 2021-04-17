@@ -11,6 +11,8 @@ public struct Endpoints {
 
     public enum PathParameter: String {
         case roomId
+        case doodleId
+        case id
     }
 
     public struct RouteDefinition {
@@ -43,5 +45,34 @@ public struct Endpoints {
         public static let getRoomAll = RouteDefinition(root: root, method: .GET, path: [":roomId"])
         public static let getSingle = RouteDefinition(root: root, method: .GET, path: [":strokeId"])
         public static let create = RouteDefinition(root: root, method: .POST, path: [])
+    }
+
+    public struct User {
+        public static let root = ["user"]
+        public static let createUserInfo = RouteDefinition(root: root, method: .POST, path: [])
+        public static let readUserInfo = RouteDefinition(root: root, method: .GET, path: [":id"])
+        public static let getAllRooms = RouteDefinition(root: root, method: .GET, path: ["rooms", ":id"])
+        public static let updateUserInfo = RouteDefinition(root: root, method: .PUT, path: [":id"])
+        public static let deleteUserInfo = RouteDefinition(root: root, method: .DELETE, path: [":id"])
+    }
+
+    public struct Room {
+        public static let root = ["room"]
+        public static let create = RouteDefinition(root: root, method: .POST, path: [])
+        public static let getRoomFromRoomId = RouteDefinition(root: root, method: .GET, path: [":roomId"])
+        public static let getRoomFromInvite = RouteDefinition(root: root, method: .GET, path: ["invite", ":code"])
+        public static let getAllDoodlesFromRoom = RouteDefinition(root: root, method: .GET,
+                                                                  path: ["doodles", ":roomId"])
+        public static let joinRoomFromInvite = RouteDefinition(root: root, method: .POST, path: ["invite"])
+        public static let delete = RouteDefinition(root: root, method: .DELETE, path: [":roomId"])
+    }
+
+    public struct Doodle {
+        public static let root = ["doodle"]
+        public static let create = RouteDefinition(root: root, method: .POST, path: [])
+        public static let getDoodleFromDooleId = RouteDefinition(root: root, method: .GET, path: [":doodleId"])
+        public static let getAllStrokes = RouteDefinition(root: root, method: .GET,
+                                                          path: ["strokes", ":doodleId"])
+        public static let delete = RouteDefinition(root: root, method: .DELETE, path: [":doodleId"])
     }
 }

@@ -1,4 +1,4 @@
-import DTFrontendLibrary
+import DTSharedLibrary
 
 protocol DTAbstractAuthProvider {
     var delegate: DTAuthDelegate? { get set }

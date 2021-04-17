@@ -1,5 +1,4 @@
 import CoreGraphics
-import DTFrontendLibrary
 
 struct HoughShapeDetector: ShapeDetector {
 
@@ -48,10 +47,7 @@ struct HoughShapeDetector: ShapeDetector {
             S.Point(location: CGPoint(x: endX + minX, y: -endY + minY), timeOffset: lastPoint.timeOffset,
                     size: lastPoint.size, opacity: lastPoint.opacity, force: lastPoint.force,
                     azimuth: lastPoint.azimuth, altitude: lastPoint.altitude)
-        ])
-
-        print(stroke.points.map { $0.location })
-        print(finalStroke.points.map { $0.location })
+        ], transform: stroke.transform, mask: stroke.mask)
 
         return finalStroke
     }

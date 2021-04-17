@@ -1,5 +1,5 @@
 import UIKit
-import DTFrontendLibrary
+import DTSharedLibrary
 
 /// An interface for a controller that manages the canvas.
 /// This abstracts away all canvas-level operations.
@@ -11,8 +11,8 @@ protocol CanvasController {
     /// Dispatches an action that will update the canvas accordingly.
     func dispatchAction(_ action: DTAction)
 
-    /// Loads a given `DTDoodle`.
-    func loadDoodle<D: DTDoodle>(_ doodle: D)
+    /// Loads a given array of `DTDoodle`s.
+    func loadDoodles(_ doodles: [DTAdaptedDoodle])
 
     /// Clears the canvas.
     func clearDoodle()
@@ -31,5 +31,8 @@ protocol CanvasController {
 
     /// Resets the zoom scale of the canvas to 100%.
     func resetZoomScale()
+
+    /// Sets the current doodle to the one at this index.
+    func setSelectedDoodle(index: Int)
 
 }

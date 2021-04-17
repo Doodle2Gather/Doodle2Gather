@@ -1,67 +1,57 @@
 import Foundation
-import DTFrontendLibrary
 import DTSharedLibrary
 
 struct DTAction {
 
-    let strokesAdded: Set<Data>
-    let strokesRemoved: Set<Data>
+    let type: DTActionType
+    let strokes: [DTStrokeIndexPair]
+    let roomId: UUID
+    let doodleId: UUID
 
     init(action: DTAdaptedAction) {
-        self.strokesAdded = action.strokesAdded
-        self.strokesRemoved = action.strokesRemoved
+        self.type = action.type
+        self.strokes = action.strokes
+        self.roomId = action.roomId
+        self.doodleId = action.doodleId
     }
 
-    init(strokesAdded: Set<Data>, strokesRemoved: Set<Data>) {
-        self.strokesAdded = strokesAdded
-        self.strokesRemoved = strokesRemoved
+    init(type: DTActionType, roomId: UUID, doodleId: UUID, strokes: [DTStrokeIndexPair]) {
+        self.type = type
+        self.roomId = roomId
+        self.doodleId = doodleId
+        self.strokes = strokes
     }
 
-    init?<S: DTStroke>(added: [S], removed: [S]) {
+    init?<S: DTStroke>(type: DTActionType, roomId: UUID, doodleId: UUID, strokes: [(S, Int)]) {
+        self.type = type
+        self.roomId = roomId
+        self.doodleId = doodleId
+
         let encoder = JSONEncoder()
+        var strokesData = [DTStrokeIndexPair]()
 
-        var addedData = Set<Data>()
-        var removedData = Set<Data>()
-
-        for stroke in added {
-            guard let addedStroke = try? encoder.encode(stroke) else {
+        for (stroke, index) in strokes {
+            guard let data = try? encoder.encode(stroke) else {
                 return nil
             }
-            addedData.insert(addedStroke)
+            strokesData.append(DTStrokeIndexPair(data, index))
         }
-
-        for stroke in removed {
-            guard let removedStroke = try? encoder.encode(stroke) else {
-                return nil
-            }
-            removedData.insert(removedStroke)
-        }
-
-        strokesAdded = addedData
-        strokesRemoved = removedData
+        self.strokes = strokesData
     }
 
-    func getStrokes<S: DTStroke>() -> (added: [S], removed: [S])? {
+    func getStrokes<S: DTStroke>() -> [S]? {
         let decoder = JSONDecoder()
 
-        var added = [S]()
-        var removed = [S]()
+        var strokeArr = [S]()
 
-        for stroke in strokesAdded {
-            guard let addedStroke = try? decoder.decode(S.self, from: stroke) else {
+        for pair in strokes {
+            guard let stroke = try? decoder.decode(S.self, from: pair.stroke) else {
                 return nil
             }
-            added.append(addedStroke)
-        }
 
-        for stroke in strokesRemoved {
-            guard let removedStroke = try? decoder.decode(S.self, from: stroke) else {
-                return nil
-            }
-            removed.append(removedStroke)
+            strokeArr.append(stroke)
         }
-
-        return (added, removed)
+        return strokeArr
     }
 }
 

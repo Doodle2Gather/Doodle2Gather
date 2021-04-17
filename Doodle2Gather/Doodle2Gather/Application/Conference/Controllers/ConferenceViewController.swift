@@ -14,7 +14,9 @@ class ConferenceViewController: UIViewController {
     @IBOutlet private var audioButton: UIButton!
     @IBOutlet private var chatButton: UIButton!
     @IBOutlet private var resizeButton: UIButton!
+    @IBOutlet var topControlViewContainer: UIView!
     @IBOutlet private var topControlView: UILabel!
+    @IBOutlet private var toggleCallButton: UIButton!
 
     var videoEngine: VideoEngine?
     var chatEngine: ChatEngine?
@@ -23,7 +25,9 @@ class ConferenceViewController: UIViewController {
     lazy var chatList = [Message]()
     var isMuted = true
     var isVideoOff = true
+    var isInCall = false
     var isChatShown = false
+    var roomId: String?
     private var videoOverlays = [UIView]()
     private var appearance = BadgeAppearance(animate: true)
     private var unreadMessageCount = 0
@@ -38,16 +42,19 @@ class ConferenceViewController: UIViewController {
         videoEngine = AgoraVideoEngine()
         videoEngine?.delegate = self
         videoEngine?.initialize()
-        videoEngine?.joinChannel(channelName: "testing")
+
         chatEngine = AgoraChatEngine()
         chatEngine?.initialize()
-        chatEngine?.joinChannel(channelName: "testing")
+        chatEngine?.joinChannel(channelName: roomId ?? "testing")
         chatEngine?.delegate = self
         appearance.distanceFromCenterX = UIConstants.largeOffset
         appearance.distanceFromCenterY = -UIConstants.largeOffset
 
         videoEngine?.muteAudio()
         videoEngine?.hideVideo()
+
+        collectionView.isHidden = true
+        topControlViewContainer.isHidden = true
     }
 
     @IBAction private func audioButtonDidTap(_ sender: Any) {
@@ -136,6 +143,33 @@ class ConferenceViewController: UIViewController {
         }
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        videoEngine?.tearDown()
+        chatEngine?.tearDown()
+    }
+
+    @IBAction private func didTapCall(_ sender: UIButton) {
+
+        if self.isInCall {
+            self.videoEngine?.tearDown()
+            DispatchQueue.main.async {
+                self.toggleCallButton.isSelected.toggle()
+                self.collectionView.isHidden = true
+                self.topControlViewContainer.isHidden = true
+                self.isInCall.toggle()
+            }
+        } else {
+            self.videoEngine?.joinChannel(channelName: self.roomId ?? "testing")
+            DispatchQueue.main.async {
+                self.toggleCallButton.isSelected.toggle()
+                self.collectionView.isHidden = false
+                self.topControlViewContainer.isHidden = false
+                self.isInCall.toggle()
+            }
+        }
+
+    }
 }
 
 // MARK: - VideoEngineDelegate
@@ -144,13 +178,17 @@ extension ConferenceViewController: VideoEngineDelegate {
 
     func didJoinCall(id: UInt) {
         remoteUserIDs.append(id)
-        collectionView.reloadData()
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
     }
 
     func didLeaveCall(id: UInt) {
         if let index = remoteUserIDs.firstIndex(where: { $0 == id }) {
             remoteUserIDs.remove(at: index)
-            collectionView.reloadData()
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
         }
     }
 
@@ -162,6 +200,14 @@ extension ConferenceViewController: VideoEngineDelegate {
 extension ConferenceViewController: ChatEngineDelegate {
 
     func deliverMessage(from user: String, message: String) {
+        guard let currentUser = DTAuth.user else {
+            return
+        }
+        if currentUser.uid == user {
+            AudioPlayer.shared.playSound(fileName: AudioConstants.send)
+        } else {
+            AudioPlayer.shared.playSound(fileName: AudioConstants.receive)
+        }
         let prefix = message.prefix(while: { "0"..."9" ~= $0 })
         let numericPrefix = String(prefix)
         let prefixLength = prefix.count + 1
@@ -210,9 +256,10 @@ extension ConferenceViewController: UICollectionViewDataSource {
             videoEngine?.setupLocalUserView(view: videoCell.getVideoView())
         } else {
             let remoteID = remoteUserIDs[indexPath.row - 1]
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+            DispatchQueue.main.async {
                 self.videoEngine?.setupRemoteUserView(view: videoCell.getVideoView(), id: remoteID)
-            })
+                self.collectionView.reloadData()
+            }
         }
         return cell
     }

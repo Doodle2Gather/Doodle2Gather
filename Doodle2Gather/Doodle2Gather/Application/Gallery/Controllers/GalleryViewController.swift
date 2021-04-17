@@ -1,10 +1,5 @@
 import UIKit
-import DTFrontendLibrary
-
-struct Room: DTRoom {
-    var roomId: UUID
-    var roomName: String
-}
+import DTSharedLibrary
 
 class GalleryViewController: UIViewController {
 
@@ -24,10 +19,25 @@ class GalleryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        rooms.append(Room(roomId: UUID(), roomName: DefaultValues.roomName))
-
         if let user = DTAuth.user {
             welcomeLabel.text = "Welcome, \(user.displayName)!"
+            DTApi.getUserAccessibleRooms(userId: user.uid) { result in
+                switch result {
+                case .failure(let error):
+                    DTLogger.error(error.localizedDescription)
+                case .success(.some(let rooms)):
+                    self.rooms = rooms.map { guard let room = Room(room: $0) else {
+                        fatalError("Cannot parse room")
+                    }
+                    return room
+                    }
+                    DispatchQueue.main.async {
+                        self.collectionView.reloadData()
+                    }
+                case .success(.none):
+                    break
+                }
+            }
         } else {
             welcomeLabel.text = "Welcome"
         }
@@ -36,35 +46,41 @@ class GalleryViewController: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == SegueConstants.toNewDocument {
-            guard let vc = segue.destination as? NewDocumentViewController else {
+            guard let nav = segue.destination as? UINavigationController else {
                 return
             }
-            vc.createDocumentCallback = { title in
+            guard let vc = nav.topViewController as? NewDocumentViewController else {
+                return
+            }
+            vc.checkDocumentNameCallback = { title in
                 let match = self.rooms.first { room -> Bool in
                     room.roomName == title
                 }
                 if match != nil {
-                    print("The name is already taken.")
+                    DTLogger.error("The name is already taken.")
                     return CreateDocumentStatus.duplicatedName
                 } else {
-                    self.rooms.append(Room(roomId: UUID(), roomName: title))
-                    self.collectionView.reloadData()
                     return CreateDocumentStatus.success
                 }
             }
+            vc.didCreateDocumentCallback = { room in
+                self.rooms.append(room)
+                self.collectionView.reloadData()
+            }
+            vc.joinDocumentCallback = { room in
+                self.rooms.append(room)
+                self.collectionView.reloadData()
+            }
         }
-    }
-
-    @IBAction private func didTapAdd(_ sender: Any) {
-        rooms.append(Room(roomId: UUID(), roomName: "Room \(count)"))
-        count += 1
-        collectionView.reloadData()
     }
 
     @IBAction private func didTapEdit(_ sender: Any) {
 
     }
+
 }
+
+// MARK: - UICollectionViewDelegate
 
 extension GalleryViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -74,13 +90,30 @@ extension GalleryViewController: UICollectionViewDelegate {
                 as? DoodleViewController else {
             return
         }
-        vc.username = DefaultValues.username
-        vc.roomName = rooms[index].roomName
-        vc.modalPresentationStyle = .fullScreen
-        vc.modalTransitionStyle = .flipHorizontal
-        self.present(vc, animated: true, completion: nil)
+
+        DTApi.getRoomsDoodles(roomId: rooms[index].roomId) { result in
+            switch result {
+            case .failure(let error):
+                DTLogger.error(error.localizedDescription)
+            case .success(.some(let doodles)):
+              DispatchQueue.main.async {
+                vc.loadDoodles(doodles)
+                vc.username = DTAuth.user?.displayName ?? "Unknown"
+                vc.roomName = self.rooms[index].roomName
+                vc.roomId = self.rooms[index].roomId
+                vc.inviteCode = self.rooms[index].inviteCode
+                vc.modalPresentationStyle = .fullScreen
+                vc.modalTransitionStyle = .flipHorizontal
+                self.present(vc, animated: true, completion: nil)
+              }
+            case .success(.none):
+                break
+            }
+        }
     }
 }
+
+// MARK: - UICollectionViewDataSource
 
 extension GalleryViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -95,6 +128,8 @@ extension GalleryViewController: UICollectionViewDataSource {
         return cell!
     }
 }
+
+// MARK: - UICollectionViewDelegateFlowLayout
 
 extension GalleryViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,

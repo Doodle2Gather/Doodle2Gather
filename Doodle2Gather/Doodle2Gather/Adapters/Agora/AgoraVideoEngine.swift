@@ -19,6 +19,10 @@ class AgoraVideoEngine: NSObject, VideoEngine {
         getAgoraEngine().setVideoEncoderConfiguration(configuration)
     }
 
+    func tearDown() {
+        getAgoraEngine().leaveChannel(nil)
+    }
+
     private func getAgoraTokenAndJoinChannel(channelName: String) {
         let url = URL(string: "\(ApiEndpoints.AgoraRtcTokenServer)?uid=\(callID)&channelName=\(channelName)")!
 
@@ -36,12 +40,15 @@ class AgoraVideoEngine: NSObject, VideoEngine {
 
             if let data = data,
                let tokenResponse = try? JSONDecoder().decode(AgoraTokenAPIResponse.self, from: data) {
-                self.getAgoraEngine().joinChannel(byToken: tokenResponse.key,
-                                                  channelId: channelName,
-                                                  info: nil,
-                                                  uid: self.callID) { [weak self] _, uid, _ in
-                    self?.callID = uid
+                DispatchQueue.main.async {
+                    self.getAgoraEngine().joinChannel(byToken: tokenResponse.key,
+                                                      channelId: channelName,
+                                                      info: nil,
+                                                      uid: self.callID) { [weak self] _, uid, _ in
+                        self?.callID = uid
+                    }
                 }
+
             }
         })
         task.resume()
