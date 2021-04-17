@@ -735,7 +735,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="834" height="1174"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" pagingEnabled="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Bxd-CB-wII" customClass="SubviewTouchCollectionView" customModule="Doodle2Gather" customModuleProvider="target">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Bxd-CB-wII" customClass="SubviewTouchCollectionView" customModule="Doodle2Gather" customModuleProvider="target">
                                 <rect key="frame" x="622" y="132" width="200" height="357.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
