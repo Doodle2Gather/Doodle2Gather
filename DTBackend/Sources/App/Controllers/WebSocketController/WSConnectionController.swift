@@ -30,15 +30,15 @@ struct WSConnectionController: RouteCollection {
         }
         webSocketController.onConnect(ws)
     }
-    
+
     private func runReceiveDataMiddlewares(_ data: Data) -> Data {
         // Dummy method for server receive middlewares
         data
     }
-    
+
     private func decodeReceivedData(_ ws: WebSocket, _ data: Data) {
         let decodedData = runReceiveDataMiddlewares(data)
         webSocketController.onData(ws, decodedData)
     }
-    
+
 }

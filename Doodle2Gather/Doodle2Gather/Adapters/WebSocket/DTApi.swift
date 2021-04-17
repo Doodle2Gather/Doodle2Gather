@@ -52,7 +52,7 @@ struct DTApi {
     }
 
     static func joinRoomFromInvite(
-        joinRoomRequest: DTJoinRoomMessage,
+        joinRoomRequest: DTJoinRoomViaInviteMessage,
         completion: @escaping (DTApiResult<DTAdaptedRoom>) -> Void
     ) {
         perform(Endpoints.Room.joinRoomFromInvite,

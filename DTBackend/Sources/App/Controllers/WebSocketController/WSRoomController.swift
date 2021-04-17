@@ -9,10 +9,10 @@ class WSRoomController {
     var users: [UUID: PersistedDTUser]
     let db: Database
     let logger: Logger
-    
+
     let roomId: UUID
     let roomController: ActiveRoomController
-    
+
     init(roomId: UUID, db: Database) {
         self.lock = Lock()
         self.usersLock = Lock()
@@ -20,11 +20,11 @@ class WSRoomController {
         self.users = [:]
         self.db = db
         self.logger = Logger(label: "RoomController")
-        
+
         self.roomId = roomId
         self.roomController = ActiveRoomController(roomId: roomId, db: db)
     }
-    
+
     var getAllWebSocketOptions: [WebSocketSendOption] {
         var options = [WebSocketSendOption]()
         for ws in sockets {
@@ -32,7 +32,7 @@ class WSRoomController {
         }
         return options
     }
-    
+
     func getAllWebSocketOptionsExcept(_ uuid: UUID) -> [WebSocketSendOption] {
         var options = [WebSocketSendOption]()
         for ws in sockets where ws.key != uuid {
@@ -40,7 +40,7 @@ class WSRoomController {
         }
         return options
     }
-    
+
     func getWebSockets(_ sendOptions: [WebSocketSendOption]) -> [WebSocket] {
         self.lock.withLock {
             var webSockets = [WebSocket]()
@@ -55,14 +55,14 @@ class WSRoomController {
             return webSockets
         }
     }
-    
+
     func onJoinRoom(_ ws: WebSocket, _ data: Data) {
         let decoder = JSONDecoder()
         do {
             let decodedData = try decoder.decode(DTJoinRoomMessage.self, from: data)
             let userId = decodedData.userId
             let wsId = decodedData.id
-            
+
             PersistedDTUser.getSingleById(userId, on: db).whenComplete { result in
                 switch result {
                 case .success(let user):
@@ -94,7 +94,7 @@ class WSRoomController {
             logger.report(error: error)
         }
     }
-    
+
     func onRoomMessage(_ ws: WebSocket, _ data: Data) {
         let decoder = JSONDecoder()
         do {
@@ -127,22 +127,22 @@ class WSRoomController {
             logger.report(error: error)
         }
     }
-    
+
     // MARK: - exitRoom
-    
+
     func onExitRoom(_ id: UUID) {
         self.lock.withLockVoid {
             self.sockets[id] = nil
             self.users[id] = nil
         }
     }
-    
+
     // MARK: - initiateAction
-    
+
     func onNewAction(_ ws: WebSocket, _ id: UUID,
                      _ message: DTInitiateActionMessage) {
         let action = message.action
-        
+
         // action successful
         if let dispatchAction = roomController.process(action) {
             self.dispatchActionToPeers(
@@ -156,7 +156,7 @@ class WSRoomController {
             )
             return
         }
-        
+
         // action denied
         self.initiateDoodleFetching(ws, id)
         self.sendActionFeedback(
@@ -165,7 +165,7 @@ class WSRoomController {
             to: .id(id), success: false, message: "Action failed. Please refetch"
         )
     }
-    
+
     func dispatchActionToPeers(_ action: DTAdaptedAction, id: UUID, to sendOptions: [WebSocketSendOption],
                                success: Bool = true, message: String = "") {
         self.logger.info("Dispatched an action to peers!")
@@ -175,12 +175,12 @@ class WSRoomController {
             message: message,
             action: action
         )
-        
+
         getWebSockets(sendOptions).forEach {
             $0.send(message: message)
         }
     }
-    
+
     func sendActionFeedback(orginalAction: DTAdaptedAction, dispatchAction: DTAdaptedAction?,
                             id: UUID, to sendOption: WebSocketSendOption,
                             success: Bool = true, message: String = "",
@@ -197,9 +197,9 @@ class WSRoomController {
             $0.send(message: message)
         }
     }
-    
+
     // MARK: - requestFetch
-    
+
     func initiateDoodleFetching(_ ws: WebSocket, _ id: UUID) {
         if !roomController.hasFetchedDoodles {
             PersistedDTRoom.getAllDoodles(roomId, on: self.db)
@@ -208,7 +208,7 @@ class WSRoomController {
                     switch res {
                     case .failure(let err):
                         self.logger.report(error: err)
-                        
+
                     case .success(let doodles):
                         self.logger.info("Fetching existing doodles.")
                         self.sendFetchedDoodles(doodles, id, to: [.socket(ws)])
@@ -218,7 +218,7 @@ class WSRoomController {
             self.sendFetchedDoodles(roomController.doodleArray, id, to: [.socket(ws)])
         }
     }
-    
+
     func sendFetchedDoodles(_ doodles: [DTAdaptedDoodle], _ id: UUID,
                             to sendOptions: [WebSocketSendOption],
                             success: Bool = true, message: String = "") {
@@ -233,7 +233,7 @@ class WSRoomController {
             $0.send(message: message)
         }
     }
-    
+
     // MARK: - addDoodle & removeDoodle
     
     func handleAddDoodle(_ ws: WebSocket, _ id: UUID, _ createDoodleData: DTAdaptedDoodle.CreateRequest) {
@@ -255,7 +255,7 @@ class WSRoomController {
                 }
             }
     }
-    
+
     func handleRemoveDoodle(_ ws: WebSocket, _ id: UUID, doodleId: UUID) {
         PersistedDTDoodle.getSingleById(doodleId, on: db)
             .flatMap { doodle in
@@ -274,10 +274,9 @@ class WSRoomController {
                 }
             }
     }
-    
-    
+
     // MARK: - clearDrawing
-    
+
     func onClearDrawing(_ ws: WebSocket, _ id: UUID, _ message: DTClearDrawingMessage) {
         PersistedDTAction.query(on: self.db).delete().whenComplete { res in
             switch res {
@@ -293,7 +292,7 @@ class WSRoomController {
     }
 
     // MARK: - Data syncing
-    
+
     func syncData() {
         let doodles = roomController.doodles
         doodles.forEach { doodle in

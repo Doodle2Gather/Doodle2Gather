@@ -12,7 +12,7 @@ class WebSocketController {
     private let db: Database
     private var sockets: [UUID: WebSocket]
     private var roomControllers: [UUID: WSRoomController]
-    
+
     init(db: Database) {
         self.lock = Lock()
         self.db = db
@@ -20,7 +20,7 @@ class WebSocketController {
         self.sockets = [:]
         self.roomControllers = [:]
     }
-    
+
     func onConnect(_ ws: WebSocket) {
         let uuid = UUID()
         self.lock.withLockVoid {
@@ -53,7 +53,7 @@ class WebSocketController {
         let decoder = JSONDecoder()
         do {
             let roomMessage = try decoder.decode(DTRoomMessage.self, from: data)
-            if (roomMessage.subtype == .joinRoom) {
+            if roomMessage.subtype == .joinRoom {
                 if roomControllers[roomMessage.roomId] == nil {
                     roomControllers[roomMessage.roomId] = WSRoomController(roomId: UUID(), db: db)
                 }
@@ -64,19 +64,19 @@ class WebSocketController {
                 roomController.onJoinRoom(ws, data)
                 return
             }
-            
+
             guard let roomController = roomControllers[roomMessage.roomId] else {
                 logger.warning("Received message to non-existent room controller. Room ID: \(roomMessage.roomId) From: \(wsId)")
                 return
             }
             roomController.onRoomMessage(ws, data)
-            
+
         } catch {
             logger.warning("Unable to decode room message. From: \(wsId), Error: \(error.localizedDescription)")
             return
         }
     }
-    
+
     func onDisconnect(_ id: UUID) {
         self.lock.withLockVoid {
             self.sockets[id] = nil

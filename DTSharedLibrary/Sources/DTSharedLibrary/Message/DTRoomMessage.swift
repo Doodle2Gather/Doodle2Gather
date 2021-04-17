@@ -58,7 +58,7 @@ public struct DTActionFeedbackMessage: Codable {
     public var subtype = DTRoomMessageType.actionFeedback
     public let id: UUID
     public let roomId: UUID
-    
+
     public let success: Bool
     public let message: String
     public let orginalAction: DTAdaptedAction
@@ -113,7 +113,7 @@ public struct DTFetchDoodleMessage: Codable {
     public var subtype = DTRoomMessageType.fetchDoodle
     public let id: UUID
     public let roomId: UUID
-    
+
     public let success: Bool
     public let message: String
     public let doodles: [DTAdaptedDoodle]
@@ -170,7 +170,6 @@ public struct DTClearDrawingMessage: Codable {
     }
 }
 
-
 public struct DTExitRoomMessage: Codable {
     public var type = DTMessageType.room
     public var subtype = DTRoomMessageType.exitRoom
@@ -182,4 +181,3 @@ public struct DTExitRoomMessage: Codable {
         self.roomId = roomId
     }
 }
-
