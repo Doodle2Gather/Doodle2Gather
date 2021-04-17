@@ -150,7 +150,7 @@ class RoomController {
                                success: Bool = true, message: String = "") {
         self.logger.info("Dispatched an action to peers!")
         let message = DTDispatchActionMessage(
-            id: id,
+            id: id, roomId: roomId,
             success: success,
             message: message,
             action: action
@@ -166,7 +166,7 @@ class RoomController {
                             success: Bool = true, message: String = "",
                             isActionDenied: Bool = false) {
         let message = DTActionFeedbackMessage(
-            id: id,
+            id: id, roomId: roomId,
             success: success,
             message: message,
             orginalAction: orginalAction,
@@ -204,7 +204,7 @@ class RoomController {
                             success: Bool = true, message: String = "") {
         self.logger.info("Fetched doodles!")
         let message = DTFetchDoodleMessage(
-            id: id,
+            id: id, roomId: roomId,
             success: success,
             message: message,
             doodles: doodles

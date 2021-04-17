@@ -56,7 +56,7 @@ struct DTRoomController: RouteCollection {
     }
 
     func joinRoomFromInviteHandler(req: Request) throws -> EventLoopFuture<DTAdaptedRoom> {
-        let joinRequest = try req.content.decode(DTJoinRoomMessage.self)
+        let joinRequest = try req.content.decode(DTJoinRoomViaInviteMessage.self)
 
         /* join room via invitation code */
 

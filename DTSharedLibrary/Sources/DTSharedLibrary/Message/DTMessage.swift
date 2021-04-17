@@ -5,19 +5,11 @@ public struct DTMessage: Codable {
     public let id: UUID
 }
 
-public struct DTAuthMessage: Codable {
+public struct DTHandshake: Codable {
+    var type = DTMessageType.handshake
     public let id: UUID
-    public let subtype: DTAuthMessageType
-}
 
-public struct DTHomeMessage: Codable {
-    public let id: UUID
-    public let subtype: DTHomeMessageType
+    public init(id: UUID) {
+        self.id = id
+    }
 }
-
-public struct DTRoomMessage: Codable {
-    public let id: UUID
-    public let subtype: DTRoomMessageType
-    public let roomId: UUID
-}
-
