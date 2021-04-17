@@ -100,7 +100,9 @@ class RoomController {
             case .requestFetch:
                 self.initiateDoodleFetching(ws, decodedData.id)
             case .addDoodle:
-                self.handleAddDoodle(ws, decodedData.id)
+                let createDoodleData = try decoder.decode(
+                    DTAdaptedDoodle.CreateRequest.self, from: data)
+                self.handleAddDoodle(ws, decodedData.id, createDoodleData)
             case .removeDoodle:
                 let removeDoodleData = try decoder.decode(
                     DTRemoveDoodleMessage.self, from: data)
@@ -225,27 +227,41 @@ class RoomController {
     
     // MARK: - addDoodle & removeDoodle
     
-    func handleAddDoodle(_ ws: WebSocket, _ id: UUID) {
-        if !roomController.hasFetchedDoodles {
-            PersistedDTRoom.getAllDoodles(roomId, on: self.db)
-                .flatMapThrowing { $0.map(DTAdaptedDoodle.init) }
-                .whenComplete { res in
-                    switch res {
-                    case .failure(let err):
-                        self.logger.report(error: err)
-                        
-                    case .success(let doodles):
-                        self.logger.info("Fetching existing doodles.")
-                        self.sendFetchedDoodles(doodles, id, to: [.socket(ws)])
+    func handleAddDoodle(_ ws: WebSocket, _ id: UUID, _ createDoodleData: DTAdaptedDoodle.CreateRequest) {
+        let newDoodle = createDoodleData.makePersistedDoodle()
+
+        newDoodle.save(on: db)
+            .flatMap { PersistedDTDoodle.getSingleById(newDoodle.id, on: self.db) }
+            .flatMapThrowing(DTAdaptedDoodle.init).whenComplete { res in
+                switch res {
+                case .failure(let err):
+                    self.logger.report(error: err)
+                case .success(let doodle):
+                    self.logger.info("Dispatched an add doodle action to peers!")
+                    let message = DTAddDoodleMessage(id: id, roomId: self.roomId, newDoodle: doodle)
+                    self.getWebSockets(self.getAllWebSocketOptionsExcept(id)).forEach {
+                        $0.send(message: message)
                     }
                 }
-        } else {
-            self.sendFetchedDoodles(roomController.doodleArray, id, to: [.socket(ws)])
-        }
+            }
     }
     
     func handleRemoveDoodle(_ ws: WebSocket, _ id: UUID, doodleId: UUID) {
-        
+        PersistedDTDoodle.getSingleById(doodleId, on: db)
+            .flatMap { doodle in
+                doodle.delete(on: self.db)
+            }.whenComplete { res in
+                switch res {
+                case .failure(let err):
+                    self.logger.report(error: err)
+                case .success:
+                    self.logger.info("Dispatched an remove doodle action to peers!")
+                    let message = DTRemoveDoodleMessage(id: id, roomId: self.roomId, doodleId: doodleId)
+                    self.getWebSockets(self.getAllWebSocketOptionsExcept(id)).forEach {
+                        $0.send(message: message)
+                    }
+                }
+            }
     }
     
     
