@@ -3,6 +3,7 @@
     <device id="ipad11_0rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -45,12 +46,27 @@
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a1w-fF-hps" userLabel="Delete Button">
+                                                    <rect key="frame" x="83" y="5" width="40" height="40"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="40" id="tNO-8a-h2v"/>
+                                                        <constraint firstAttribute="height" constant="40" id="wc0-vW-oDg"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                    <color key="tintColor" systemColor="systemRedColor"/>
+                                                    <state key="normal">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <imageReference key="image" image="trash" catalog="system" symbolScale="large"/>
+                                                    </state>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" name="Black"/>
                                             <constraints>
                                                 <constraint firstItem="1dX-Ku-w58" firstAttribute="top" secondItem="O93-aF-sDh" secondAttribute="bottom" constant="8" id="3Ux-pT-d3y"/>
                                                 <constraint firstItem="O93-aF-sDh" firstAttribute="leading" secondItem="mFq-zw-FfP" secondAttribute="leading" id="5FQ-4f-ZQL"/>
+                                                <constraint firstAttribute="trailing" secondItem="a1w-fF-hps" secondAttribute="trailing" constant="5" id="CEF-Xb-vKN"/>
                                                 <constraint firstItem="1dX-Ku-w58" firstAttribute="centerX" secondItem="mFq-zw-FfP" secondAttribute="centerX" id="IED-Hb-gVF"/>
+                                                <constraint firstItem="a1w-fF-hps" firstAttribute="top" secondItem="mFq-zw-FfP" secondAttribute="top" constant="5" id="i2X-GR-ozd"/>
                                                 <constraint firstItem="O93-aF-sDh" firstAttribute="top" secondItem="mFq-zw-FfP" secondAttribute="top" id="jRL-gV-Oig"/>
                                                 <constraint firstAttribute="bottom" secondItem="1dX-Ku-w58" secondAttribute="bottom" constant="8" id="joW-9U-QJl"/>
                                                 <constraint firstAttribute="trailing" secondItem="O93-aF-sDh" secondAttribute="trailing" id="qdx-L0-WsR"/>
@@ -76,6 +92,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
+                                            <outlet property="deleteButton" destination="a1w-fF-hps" id="Pnw-jZ-Elw"/>
                                             <outlet property="preview" destination="O93-aF-sDh" id="3ts-4X-AaB"/>
                                             <outlet property="roomNameLabel" destination="1dX-Ku-w58" id="3w2-6D-5ee"/>
                                         </connections>
@@ -90,21 +107,23 @@
                                 <rect key="frame" x="20" y="20" width="794" height="80"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Fy-q2-Q8w" userLabel="Add Button">
-                                        <rect key="frame" x="718" y="29" width="18" height="22"/>
+                                        <rect key="frame" x="711" y="29" width="21.5" height="22"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" image="plus" catalog="system">
+                                        <state key="normal">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <color key="titleShadowColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <imageReference key="image" image="plus" catalog="system" symbolScale="large"/>
                                         </state>
                                         <connections>
                                             <segue destination="KKj-nf-YXZ" kind="presentation" identifier="toNewDocument" modalPresentationStyle="formSheet" id="xbd-Z5-AWH"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pjC-7q-Uei" userLabel="Edit Button">
-                                        <rect key="frame" x="756" y="29" width="18" height="22"/>
+                                        <rect key="frame" x="752.5" y="29" width="21.5" height="22"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" image="pencil" catalog="system">
+                                        <state key="normal">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <imageReference key="image" image="pencil" catalog="system" symbolScale="large"/>
                                         </state>
                                         <connections>
                                             <action selector="didTapEdit:" destination="eAr-dz-W2E" eventType="touchUpInside" id="1UK-Dc-XxE"/>
@@ -178,7 +197,7 @@
             <objects>
                 <viewController id="BGz-zg-7E6" customClass="NewDocumentViewController" customModule="Doodle2Gather" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5xZ-LV-uBI">
-                        <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
+                        <rect key="frame" x="0.0" y="0.0" width="540" height="456"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C1W-4k-uKA" userLabel="Create Button">
@@ -353,6 +372,7 @@
         <image name="Cross" width="24" height="24"/>
         <image name="pencil" catalog="system" width="128" height="113"/>
         <image name="plus" catalog="system" width="128" height="113"/>
+        <image name="trash" catalog="system" width="121" height="128"/>
         <namedColor name="Black">
             <color red="0.125" green="0.125" blue="0.11400000005960464" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
@@ -364,6 +384,9 @@
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

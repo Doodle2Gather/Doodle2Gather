@@ -8,6 +8,7 @@ class GalleryViewController: UIViewController {
 
     private var rooms = [Room]()
     private var selectedCellIndex: Int?
+    private var isInEditMode: Bool = false
     var count = 1
 
     override func viewDidLoad() {
@@ -69,7 +70,24 @@ class GalleryViewController: UIViewController {
     }
 
     @IBAction private func didTapEdit(_ sender: Any) {
-
+        isInEditMode.toggle()
+        if isInEditMode {
+            for index in 0..<(rooms.count) {
+                guard let cell = collectionView.cellForItem(at: IndexPath(row: index,
+                                                                          section: 0)) as? DocumentPreviewCell else {
+                    return
+                }
+                cell.setIsEditing(true)
+            }
+        } else {
+            for index in 0..<(rooms.count) {
+                guard let cell = collectionView.cellForItem(at: IndexPath(row: index,
+                                                                          section: 0)) as? DocumentPreviewCell else {
+                    return
+                }
+                cell.setIsEditing(false)
+            }
+        }
     }
 
 }
@@ -119,6 +137,7 @@ extension GalleryViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "documentCell",
                                                       for: indexPath) as? DocumentPreviewCell
         cell?.setName(rooms[indexPath.row].roomName)
+        cell?.setIsEditing(false)
         return cell!
     }
 }
