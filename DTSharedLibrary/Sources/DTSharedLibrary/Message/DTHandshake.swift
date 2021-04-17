@@ -3,8 +3,10 @@ import Foundation
 public struct DTHandshake: Codable {
     var type = DTMessageType.handshake
     public let id: UUID
+    public let users: [DTAdaptedUser]
 
-    public init(id: UUID) {
+    public init(id: UUID, users: [DTAdaptedUser]) {
         self.id = id
+        self.users = users
     }
 }
