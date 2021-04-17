@@ -34,9 +34,10 @@ class DoodleViewController: UIViewController {
     @IBOutlet private var magicPenButton: UIButton!
 
     // Profile Images
-    @IBOutlet private var userProfileImage: UIImageView!
-    @IBOutlet private var otherProfileImageOne: UIImageView!
-    @IBOutlet private var otherProfileImageTwo: UIImageView!
+    @IBOutlet private var userProfileLabel: UILabel!
+    @IBOutlet private var separator: UIImageView!
+    @IBOutlet private var otherProfileLabelOne: UILabel!
+    @IBOutlet private var otherProfileLabelTwo: UILabel!
     @IBOutlet private var numberOfOtherUsersLabel: UILabel!
 
     // Subview Controllers
@@ -58,6 +59,7 @@ class DoodleViewController: UIViewController {
     var inviteCode: String?
     private var previousDrawingTool = DrawingTools.pen
     var doodles: [DTAdaptedDoodle]?
+    var participants: [DTAdaptedUser] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,6 +75,7 @@ class DoodleViewController: UIViewController {
 
         registerGestures()
         loadBorderColors()
+        updateProfileViews()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -106,9 +109,45 @@ class DoodleViewController: UIViewController {
         colorPickerButton.layer.borderColor = UIConstants.stackGrey.cgColor
         numberOfOtherUsersLabel.layer.borderColor = UIConstants.stackGrey.cgColor
         // TODO: Replace profile picture borders with assigned colors
-        userProfileImage.layer.borderColor = UIConstants.white.cgColor
-        otherProfileImageOne.layer.borderColor = UIConstants.white.cgColor
-        otherProfileImageTwo.layer.borderColor = UIConstants.white.cgColor
+        userProfileLabel.layer.borderColor = UIConstants.white.cgColor
+        otherProfileLabelOne.layer.borderColor = UIConstants.white.cgColor
+        otherProfileLabelTwo.layer.borderColor = UIConstants.white.cgColor
+    }
+
+    private func updateProfileViews() {
+        userProfileLabel.layer.masksToBounds = true
+        otherProfileLabelOne.layer.masksToBounds = true
+        otherProfileLabelTwo.layer.masksToBounds = true
+        guard let user = DTAuth.user else {
+            DTLogger.error("Attempted to join room without a user.")
+            return
+        }
+        if let firstChar = user.displayName.first(where: {
+            !$0.isWhitespace
+        }) {
+            userProfileLabel.text = String(firstChar)
+        } else {
+            userProfileLabel.text = "-"
+        }
+
+        if participants.count <= 1 {
+            separator.isHidden = true
+            otherProfileLabelOne.isHidden = true
+            otherProfileLabelTwo.isHidden = true
+            numberOfOtherUsersLabel.isHidden = true
+        } else if participants.count <= 2 {
+            separator.isHidden = false
+            otherProfileLabelTwo.isHidden = true
+            numberOfOtherUsersLabel.isHidden = true
+        } else if participants.count <= 3 {
+            separator.isHidden = false
+            numberOfOtherUsersLabel.isHidden = true
+        } else {
+            separator.isHidden = false
+            numberOfOtherUsersLabel.isHidden = false
+            numberOfOtherUsersLabel.text = "+\(participants.count - 3)"
+        }
+
     }
 
     // MARK: - Navigation
