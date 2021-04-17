@@ -66,8 +66,6 @@ final class DTWebSocketController {
                 break
             case .room:
                 handleRoomMessages(data)
-            default:
-                break
             }
         } catch {
             DTLogger.error(error.localizedDescription)

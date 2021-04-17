@@ -186,8 +186,8 @@ class NewDocumentViewController: UIViewController {
             return
         }
         DTApi.joinRoomFromInvite(joinRoomRequest: DTJoinRoomViaInviteMessage(userId: user.uid,
-                                                                    roomId: nil,
-                                                                    inviteCode: code)) { result in
+                                                                             roomId: nil,
+                                                                             inviteCode: code)) { result in
             switch result {
             case .failure(let error):
                 DTLogger.error(error.localizedDescription)
