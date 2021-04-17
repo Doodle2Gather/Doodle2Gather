@@ -14,10 +14,11 @@ class ConferenceViewController: UIViewController {
     @IBOutlet private var audioButton: UIButton!
     @IBOutlet private var chatButton: UIButton!
     @IBOutlet private var resizeButton: UIButton!
-    @IBOutlet var topControlViewContainer: UIView!
+    @IBOutlet private var topControlViewContainer: UIView!
     @IBOutlet private var topControlView: UILabel!
     @IBOutlet private var toggleCallButton: UIButton!
-
+    @IBOutlet private var bottomViewContainer: UIView!
+    
     var videoEngine: VideoEngine?
     var chatEngine: ChatEngine?
     var chatBox: ChatBoxDelegate?
@@ -55,6 +56,7 @@ class ConferenceViewController: UIViewController {
 
         collectionView.isHidden = true
         topControlViewContainer.isHidden = true
+        bottomViewContainer.isHidden = true
     }
 
     @IBAction private func audioButtonDidTap(_ sender: Any) {
