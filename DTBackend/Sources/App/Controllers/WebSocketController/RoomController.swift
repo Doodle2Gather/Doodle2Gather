@@ -56,31 +56,40 @@ class RoomController {
         }
     }
     
-    func onJoinRoom(_ ws: WebSocket, wsId: UUID, userId: String) {
-        PersistedDTUser.getSingleById(userId, on: db).whenComplete { result in
-            switch result {
-            case .success(let user):                
-                var oldUsers = [PersistedDTUser]()
-                self.usersLock.withLockVoid {
-                    oldUsers = Array(self.users.values)
-                    self.logger.info("Old users: \(oldUsers.map { $0.displayName })")
-                    self.logger.info("Adding user: \(user.displayName)")
-                    self.users[wsId] = user
+    func onJoinRoom(_ ws: WebSocket, _ data: Data) {
+        let decoder = JSONDecoder()
+        do {
+            let decodedData = try decoder.decode(DTJoinRoomMessage.self, from: data)
+            let userId = decodedData.userId
+            let wsId = decodedData.id
+            
+            PersistedDTUser.getSingleById(userId, on: db).whenComplete { result in
+                switch result {
+                case .success(let user):
+                    var oldUsers = [PersistedDTUser]()
+                    self.usersLock.withLockVoid {
+                        oldUsers = Array(self.users.values)
+                        self.logger.info("Old users: \(oldUsers.map { $0.displayName })")
+                        self.logger.info("Adding user: \(user.displayName)")
+                        self.users[wsId] = user
+                    }
+                    self.lock.withLockVoid {
+                        self.sockets[wsId] = ws
+                    }
+                case .failure(let error):
+                    // Unable to find user in DB
+                    self.logger.error("\(error.localizedDescription)")
                 }
-                self.lock.withLockVoid {
-                    self.sockets[wsId] = ws
-                }
-            case .failure(let error):
-                // Unable to find user in DB
-                self.logger.error("\(error.localizedDescription)")
             }
+        } catch {
+            logger.report(error: error)
         }
     }
     
     func onRoomMessage(_ ws: WebSocket, _ data: Data) {
         let decoder = JSONDecoder()
         do {
-            let decodedData = try decoder.decode(DTRoomMessage.self, from: data) // TODO: DTRoomMessage
+            let decodedData = try decoder.decode(DTRoomMessage.self, from: data)
             switch decodedData.subtype {
             case .exitRoom:
                 self.onExitRoom(decodedData.id)
