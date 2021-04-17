@@ -9,13 +9,6 @@ class GalleryViewController: UIViewController {
     private var selectedCellIndex: Int?
     var count = 1
 
-    private enum DefaultValues {
-        static let username = UIDevice.current.name
-        // For ease of development
-        static let password = "goodpassword"
-        static let roomName = "devRoom"
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 

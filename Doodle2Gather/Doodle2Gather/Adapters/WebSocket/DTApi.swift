@@ -236,38 +236,3 @@ enum DTApiResult<ResourceType> {
     case failure(Error)
 }
 struct EmptyResponse: Codable {}
-
-// MARK: - API Request helper struct (to be removed)
-
-struct RoomsResponseEntry: Codable {
-    let id: String
-    let user: RoomsResponseUserEntry
-    let room: RoomsResponseRoomEntry
-}
-
-struct RoomsResponseUserEntry: Codable {
-    let id: String
-}
-
-struct RoomsResponseRoomEntry: Codable {
-    let id: String
-    let inviteCode: String
-    let name: String
-    let createdBy: userEntry
-}
-
-struct DoodleResponseEntry: Codable {
-    let id: String
-    let room: RoomsResponseRoomEntry
-}
-
-struct CreateRoomResponse: Codable {
-    let id: String
-    let inviteCode: String
-    let name: String
-    let createdBy: userEntry
-}
-
-struct userEntry: Codable {
-    let id: String
-}
