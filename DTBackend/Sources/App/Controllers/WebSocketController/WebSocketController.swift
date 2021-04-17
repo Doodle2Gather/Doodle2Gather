@@ -7,7 +7,7 @@ enum WebSocketSendOption {
 }
 
 class WebSocketController {
-    private let logger = Logger(label: "WebSocketController")
+    private var logger = Logger(label: "WebSocketController")
     private let lock: Lock
     private let db: Database
     private var sockets: [UUID: WebSocket]
@@ -17,6 +17,7 @@ class WebSocketController {
         self.lock = Lock()
         self.db = db
         self.logger = Logger(label: "WebSocketController")
+        self.sockets = [:]
         self.roomControllers = [:]
     }
     
@@ -34,10 +35,10 @@ class WebSocketController {
         do {
             let message = try decoder.decode(DTMessage.self, from: data)
             switch message.type {
-            case .auth:
-                let authMessage = try decoder.decode(DTAuthMessage.self, from: data)
-            case .home:
-                let homeMessage = try decoder.decode(DTHomeMessage.self, from: data)
+            case .auth: break
+//                let authMessage = try decoder.decode(DTAuthMessage.self, from: data)
+            case .home: break
+//                let homeMessage = try decoder.decode(DTHomeMessage.self, from: data)
             case .room:
                 handleRoomMessages(ws, wsId: message.id, data: data)
             default:
