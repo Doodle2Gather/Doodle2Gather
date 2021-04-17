@@ -169,20 +169,20 @@ class ConferenceViewController: UIViewController {
 
     @IBAction private func didTapCall(_ sender: UIButton) {
 
-        if self.isInCall {
-            self.videoEngine?.tearDown()
-            self.toggleCallButton.isSelected.toggle()
-            self.collectionView.isHidden = true
-            self.topControlViewContainer.isHidden = true
-            self.isInCall.toggle()
+        if isInCall {
+            videoEngine?.tearDown()
+            toggleCallButton.isSelected.toggle()
+            collectionView.isHidden = true
+            topControlViewContainer.isHidden = true
+            isInCall.toggle()
             remoteUserIDs.removeAll()
             collectionView.reloadData()
         } else {
-            self.videoEngine?.joinChannel(channelName: self.roomId ?? "testing")
-            self.toggleCallButton.isSelected.toggle()
-            self.collectionView.isHidden = false
-            self.topControlViewContainer.isHidden = false
-            self.isInCall.toggle()
+            videoEngine?.joinChannel(channelName: self.roomId ?? "testing")
+            toggleCallButton.isSelected.toggle()
+            collectionView.isHidden = false
+            topControlViewContainer.isHidden = false
+            isInCall.toggle()
         }
 
     }
