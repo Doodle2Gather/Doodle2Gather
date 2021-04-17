@@ -61,14 +61,16 @@ class NewDocumentViewController: UIViewController {
         }
     }
 
-    @objc func didTapTitleTextField(textField: UITextField) {
+    @objc
+    func didTapTitleTextField(textField: UITextField) {
         isEditingTitle = true
         UIView.animate(withDuration: 0.25) {
             self.view.frame.origin.y = 0
         }
     }
 
-    @objc func didTapInvitationCodeField(textField: UITextField) {
+    @objc
+    func didTapInvitationCodeField(textField: UITextField) {
         isEditingTitle = false
     }
 

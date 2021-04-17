@@ -9,4 +9,5 @@ protocol VideoEngine {
     func hideVideo()
     func setupLocalUserView(view: VideoCollectionViewCell)
     func setupRemoteUserView(view: VideoCollectionViewCell, id: UInt)
+    func getUserInfo(uid: UInt) -> String
 }

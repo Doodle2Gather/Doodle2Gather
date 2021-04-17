@@ -5,6 +5,7 @@ class GalleryViewController: UIViewController {
 
     @IBOutlet private var welcomeLabel: UILabel!
     @IBOutlet private var collectionView: UICollectionView!
+
     private var rooms = [Room]()
     private var selectedCellIndex: Int?
     var count = 1

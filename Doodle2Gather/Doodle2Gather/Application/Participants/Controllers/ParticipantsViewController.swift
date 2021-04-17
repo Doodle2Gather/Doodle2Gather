@@ -9,12 +9,16 @@ class ParticipantsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        isModalInPresentation = true
     }
 
     @IBAction private func didTapClose(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
 }
+
+// MARK: - UITableViewDataSource
 
 extension ParticipantsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView,
@@ -34,6 +38,8 @@ extension ParticipantsViewController: UITableViewDataSource {
         return cell!
     }
 }
+
+// MARK: - UITableViewDelegate
 
 extension ParticipantsViewController: UITableViewDelegate {
 

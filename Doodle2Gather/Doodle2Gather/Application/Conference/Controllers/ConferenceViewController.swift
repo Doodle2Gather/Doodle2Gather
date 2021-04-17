@@ -14,14 +14,15 @@ class ConferenceViewController: UIViewController {
     @IBOutlet private var audioButton: UIButton!
     @IBOutlet private var chatButton: UIButton!
     @IBOutlet private var resizeButton: UIButton!
-    @IBOutlet var topControlViewContainer: UIView!
+    @IBOutlet private var topControlViewContainer: UIView!
     @IBOutlet private var topControlView: UILabel!
     @IBOutlet private var toggleCallButton: UIButton!
+    @IBOutlet private var bottomViewContainer: UIView!
 
     var videoEngine: VideoEngine?
     var chatEngine: ChatEngine?
     var chatBox: ChatBoxDelegate?
-    var remoteUserIDs: [UInt] = []
+    var videoCallUserList: [VideoCallUser] = []
     lazy var chatList = [Message]()
     var isMuted = true
     var isVideoOff = true
@@ -29,6 +30,7 @@ class ConferenceViewController: UIViewController {
     var isChatShown = false
     var roomId: String?
     private var videoOverlays = [UIView]()
+    private var nameplates = [UILabel]()
     private var appearance = BadgeAppearance(animate: true)
     private var unreadMessageCount = 0
 
@@ -55,6 +57,7 @@ class ConferenceViewController: UIViewController {
 
         collectionView.isHidden = true
         topControlViewContainer.isHidden = true
+        bottomViewContainer.isHidden = true
     }
 
     @IBAction private func audioButtonDidTap(_ sender: Any) {
@@ -68,10 +71,12 @@ class ConferenceViewController: UIViewController {
     }
 
     @IBAction private func videoButtonDidTap(_ sender: Any) {
+
         if isVideoOff {
             videoEngine?.showVideo()
             if !videoOverlays.isEmpty {
                 videoOverlays[0].removeFromSuperview()
+                nameplates[0].removeFromSuperview()
             }
         } else {
             videoEngine?.hideVideo()
@@ -82,15 +87,29 @@ class ConferenceViewController: UIViewController {
                 let overlay = UIView(frame: CGRect(x: 0, y: 0,
                                                    width: cellView.frame.size.width,
                                                    height: cellView.frame.size.height))
+                print(cellView.frame)
                 overlay.backgroundColor = UIConstants.black
                 videoOverlays.append(overlay)
                 cellView.addSubview(overlay)
+
+                let nameplate = UILabel(frame: CGRect(x: 0,
+                                                      y: cellView.frame.size.height / 2 + 19.5,
+                                                      width: cellView.frame.size.width,
+                                                      height: 40))
+                nameplate.textAlignment = .center
+                nameplate.text = DTAuth.user?.displayName ?? "Unknown"
+                nameplate.textColor = UIConstants.white
+
+                nameplates.append(nameplate)
+                cellView.addSubview(nameplate)
             } else {
                 cellView.addSubview(videoOverlays[0])
+                cellView.addSubview(nameplates[0])
             }
         }
         videoButton.isSelected = isVideoOff
         isVideoOff.toggle()
+
     }
 
     @IBAction private func bottomMinimizeButtonDidTap(_ sender: UIButton) {
@@ -151,22 +170,20 @@ class ConferenceViewController: UIViewController {
 
     @IBAction private func didTapCall(_ sender: UIButton) {
 
-        if self.isInCall {
-            self.videoEngine?.tearDown()
-            DispatchQueue.main.async {
-                self.toggleCallButton.isSelected.toggle()
-                self.collectionView.isHidden = true
-                self.topControlViewContainer.isHidden = true
-                self.isInCall.toggle()
-            }
+        if isInCall {
+            videoEngine?.tearDown()
+            toggleCallButton.isSelected.toggle()
+            collectionView.isHidden = true
+            topControlViewContainer.isHidden = true
+            isInCall.toggle()
+            videoCallUserList.removeAll()
+            collectionView.reloadData()
         } else {
-            self.videoEngine?.joinChannel(channelName: self.roomId ?? "testing")
-            DispatchQueue.main.async {
-                self.toggleCallButton.isSelected.toggle()
-                self.collectionView.isHidden = false
-                self.topControlViewContainer.isHidden = false
-                self.isInCall.toggle()
-            }
+            videoEngine?.joinChannel(channelName: self.roomId ?? "testing")
+            toggleCallButton.isSelected.toggle()
+            collectionView.isHidden = false
+            topControlViewContainer.isHidden = false
+            isInCall.toggle()
         }
 
     }
@@ -176,16 +193,27 @@ class ConferenceViewController: UIViewController {
 
 extension ConferenceViewController: VideoEngineDelegate {
 
-    func didJoinCall(id: UInt) {
-        remoteUserIDs.append(id)
+    func didJoinCall(id: UInt, username: String) {
+        let overlay = UIView(frame: CGRect(x: 0, y: 0,
+                                           width: 200,
+                                           height: 112.5))
+        let nameplate = UILabel(frame: CGRect(x: 0,
+                                              y: 112.5 / 2 + 19.5,
+                                              width: 180,
+                                              height: 40))
+        let userObject = VideoCallUser(uid: id,
+                                       username: username,
+                                       overlay: overlay,
+                                       nameplate: nameplate)
+        videoCallUserList.append(userObject)
         DispatchQueue.main.async {
             self.collectionView.reloadData()
         }
     }
 
-    func didLeaveCall(id: UInt) {
-        if let index = remoteUserIDs.firstIndex(where: { $0 == id }) {
-            remoteUserIDs.remove(at: index)
+    func didLeaveCall(id: UInt, username: String) {
+        if let index = videoCallUserList.firstIndex(where: { $0.uid == id }) {
+            videoCallUserList.remove(at: index)
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
             }
@@ -243,7 +271,7 @@ extension ConferenceViewController: UICollectionViewDelegate {
 extension ConferenceViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        remoteUserIDs.count + 1
+        videoCallUserList.count + 1
     }
 
     func collectionView(_ collectionView: UICollectionView,
@@ -254,8 +282,11 @@ extension ConferenceViewController: UICollectionViewDataSource {
         }
         if indexPath.row == 0 { // Put our local video first
             videoEngine?.setupLocalUserView(view: videoCell.getVideoView())
+            videoCell.setName(DTAuth.user?.displayName ?? "Unknown")
         } else {
-            let remoteID = remoteUserIDs[indexPath.row - 1]
+            let remoteID = videoCallUserList[indexPath.row - 1].uid
+            let username = videoCallUserList[indexPath.row - 1].username
+            videoCell.setName(username)
             DispatchQueue.main.async {
                 self.videoEngine?.setupRemoteUserView(view: videoCell.getVideoView(), id: remoteID)
                 self.collectionView.reloadData()
@@ -281,4 +312,11 @@ extension ConferenceViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: totalWidth, height: totalWidth * ConferenceConstants.aspectRatio)
     }
 
+}
+
+struct VideoCallUser {
+    let uid: UInt
+    let username: String
+    let overlay: UIView
+    let nameplate: UILabel
 }

@@ -8,6 +8,8 @@ class AgoraVideoEngine: NSObject, VideoEngine {
     weak var delegate: VideoEngineDelegate?
     private var agoraKit: AgoraRtcEngineKit?
     private var callID: UInt = 0
+    private var savedChannelName: String?
+    private var savedToken: String?
 
     func initialize() {
         getAgoraEngine().setChannelProfile(.communication)
@@ -24,6 +26,10 @@ class AgoraVideoEngine: NSObject, VideoEngine {
     }
 
     private func getAgoraTokenAndJoinChannel(channelName: String) {
+        guard let user = DTAuth.user else {
+            return
+        }
+
         let url = URL(string: "\(ApiEndpoints.AgoraRtcTokenServer)?uid=\(callID)&channelName=\(channelName)")!
 
         let task = URLSession.shared.dataTask(with: url, completionHandler: { data, response, error in
@@ -41,12 +47,14 @@ class AgoraVideoEngine: NSObject, VideoEngine {
             if let data = data,
                let tokenResponse = try? JSONDecoder().decode(AgoraTokenAPIResponse.self, from: data) {
                 DispatchQueue.main.async {
-                    self.getAgoraEngine().joinChannel(byToken: tokenResponse.key,
-                                                      channelId: channelName,
-                                                      info: nil,
-                                                      uid: self.callID) { [weak self] _, uid, _ in
-                        self?.callID = uid
-                    }
+                    self.getAgoraEngine()
+                        .joinChannel(byUserAccount: user.uid,
+                                     token: tokenResponse.key,
+                                     channelId: channelName) { [weak self] _, uid, _ in
+                            self?.callID = uid
+                            self?.savedChannelName = channelName
+                            self?.savedToken = tokenResponse.key
+                        }
                 }
 
             }
@@ -55,8 +63,22 @@ class AgoraVideoEngine: NSObject, VideoEngine {
     }
 
     func joinChannel(channelName: String) {
-        DispatchQueue.main.async {
-            self.getAgoraTokenAndJoinChannel(channelName: channelName)
+        guard let user = DTAuth.user else {
+            return
+        }
+
+        if channelName == savedChannelName {
+            if let token = savedToken {
+                self.getAgoraEngine().joinChannel(byUserAccount: user.uid, token: token, channelId: channelName)
+            } else {
+                DispatchQueue.main.async {
+                    self.getAgoraTokenAndJoinChannel(channelName: channelName)
+                }
+            }
+        } else {
+            DispatchQueue.main.async {
+                self.getAgoraTokenAndJoinChannel(channelName: channelName)
+            }
         }
     }
 
@@ -92,6 +114,15 @@ class AgoraVideoEngine: NSObject, VideoEngine {
         getAgoraEngine().setupRemoteVideo(videoCanvas)
     }
 
+    func getUserInfo(uid: UInt) -> String {
+        if let userInfo = getAgoraEngine().getUserInfo(byUid: uid, withError: nil),
+            let username = userInfo.userAccount {
+            return username
+        } else {
+            return "Unknown"
+        }
+    }
+
     /**
      Returns the agora RTC engine instance (singleton).
      */
@@ -114,12 +145,22 @@ extension AgoraVideoEngine: AgoraRtcEngineDelegate {
 
     func rtcEngine(_ engine: AgoraRtcEngineKit, didJoinedOfUid uid: UInt, elapsed: Int) {
         DTLogger.event("Joined call of uid: \(uid)")
-        delegate?.didJoinCall(id: uid)
+        if let userInfo = getAgoraEngine().getUserInfo(byUid: uid, withError: nil),
+            let username = userInfo.userAccount {
+            delegate?.didJoinCall(id: uid, username: username)
+        } else {
+            delegate?.didJoinCall(id: uid, username: "Unknown")
+        }
     }
 
     func rtcEngine(_ engine: AgoraRtcEngineKit, didOfflineOfUid uid: UInt, reason: AgoraUserOfflineReason) {
         DTLogger.event("Left call of uid: \(uid)")
-        delegate?.didLeaveCall(id: uid)
+        if let userInfo = getAgoraEngine().getUserInfo(byUid: uid, withError: nil),
+            let username = userInfo.userAccount {
+            delegate?.didLeaveCall(id: uid, username: username)
+        } else {
+            delegate?.didLeaveCall(id: uid, username: "Unknown")
+        }
     }
 
 }
