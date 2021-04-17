@@ -247,6 +247,7 @@ class RoomController {
                     self.logger.report(error: err)
                 case .success(let doodle):
                     self.logger.info("Dispatched an add doodle action to peers!")
+                    self.roomController.addDoodle(doodle)
                     let message = DTAddDoodleMessage(id: id, roomId: self.roomId, newDoodle: doodle)
                     self.getWebSockets(self.getAllWebSocketOptionsExcept(id)).forEach {
                         $0.send(message: message)
@@ -265,6 +266,7 @@ class RoomController {
                     self.logger.report(error: err)
                 case .success:
                     self.logger.info("Dispatched an remove doodle action to peers!")
+                    self.roomController.removeDoodle(doodleId)
                     let message = DTRemoveDoodleMessage(id: id, roomId: self.roomId, doodleId: doodleId)
                     self.getWebSockets(self.getAllWebSocketOptionsExcept(id)).forEach {
                         $0.send(message: message)

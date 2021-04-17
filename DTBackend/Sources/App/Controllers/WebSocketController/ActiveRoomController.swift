@@ -41,10 +41,19 @@ class ActiveRoomController {
             }
         }
     }
+    
+    func addDoodle(_ doodle: DTAdaptedDoodle) {
+        guard let doodleId = doodle.doodleId else {
+            return
+        }
+        self.doodles[doodleId] = doodle
+    }
+    
+    func removeDoodle(_ doodleId: UUID) {
+        self.doodles[doodleId] = nil
+    }
 
     func process(_ action: DTAdaptedAction) -> DTAdaptedAction? {
-
-//        joinRoom(action.roomId) // create live copy of room
 
         let strokes = action.makeStrokes()
         let strokeIndexPairs = action.strokes
