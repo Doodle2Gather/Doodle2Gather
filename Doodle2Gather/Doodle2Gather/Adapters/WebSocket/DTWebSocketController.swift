@@ -19,7 +19,8 @@ final class DTWebSocketController {
     }
 
     func connect() {
-        guard let url = URL(string: ApiEndpoints.Room(roomId.uuidString)) else {
+        guard let uid = DTAuth.user?.uid,
+              let url = URL(string: ApiEndpoints.Room(roomId.uuidString, uid)) else {
             return
         }
         self.socket = session.webSocketTask(with: url) // change to localRoom for testing

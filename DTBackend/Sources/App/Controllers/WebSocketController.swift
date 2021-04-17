@@ -8,7 +8,9 @@ enum WebSocketSendOption {
 
 class WebSocketController {
     let lock: Lock
+    let usersLock: Lock
     var sockets: [UUID: WebSocket]
+    var users: [UUID: PersistedDTUser]
     let db: Database
     let logger: Logger
 
@@ -17,12 +19,13 @@ class WebSocketController {
 
     init(roomId: UUID, db: Database) {
         self.lock = Lock()
+        self.usersLock = Lock()
         self.sockets = [:]
+        self.users = [:]
         self.db = db
         self.logger = Logger(label: "WebSocketController")
         self.roomId = roomId
         self.roomController = ActiveRoomController(roomId: roomId, db: db)
-
     }
 
     var getAllWebSocketOptions: [WebSocketSendOption] {
@@ -41,8 +44,28 @@ class WebSocketController {
         return options
     }
 
-    func connect(_ ws: WebSocket) {
+    func connect(_ ws: WebSocket, userId: String) {
+        PersistedDTUser.getSingleById(userId, on: db).whenComplete { result in
+            switch result {
+            case .success(let user):
+                self.onSuccessfulConnect(ws, user: user)
+            case .failure(let error):
+                // Unable to find user in DB
+                self.logger.error("\(error.localizedDescription)")
+                ws.close()
+            }
+        }
+    }
+
+    private func onSuccessfulConnect(_ ws: WebSocket, user: PersistedDTUser) {
         let uuid = UUID()
+        var oldUsers = [PersistedDTUser]()
+        self.usersLock.withLockVoid {
+            oldUsers = Array(users.values)
+            logger.info("Old users: \(oldUsers.map { $0.displayName })")
+            logger.info("Adding user: \(user.displayName)")
+            users[uuid] = user
+        }
         self.lock.withLockVoid {
             self.sockets[uuid] = ws
         }
@@ -59,7 +82,7 @@ class WebSocketController {
             }
             self.onData(ws, data)
         }
-        self.send(message: DTHandshake(id: uuid), to: [.socket(ws)])
+        self.send(message: DTHandshake(id: uuid, users: oldUsers.map { DTAdaptedUser(user: $0) }), to: [.socket(ws)])
 
         self.initiateDoodleFetching(ws, uuid)
     }
