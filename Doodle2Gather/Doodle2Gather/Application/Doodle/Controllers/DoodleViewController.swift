@@ -41,10 +41,10 @@ class DoodleViewController: UIViewController {
     @IBOutlet private var numberOfOtherUsersLabel: UILabel!
 
     // Subview Controllers
-    private var canvasController: CanvasController?
-    private var socketController: SocketController?
-    private var strokeEditor: StrokeEditor?
-    private var layerTable: DoodleLayerTable?
+    var canvasController: CanvasController?
+    var socketController: SocketController?
+    var strokeEditor: StrokeEditor?
+    var layerTable: DoodleLayerTable?
 
     // Top righ user icons
     @IBOutlet private var currentUserIcon: UIImageView!
@@ -118,12 +118,12 @@ class DoodleViewController: UIViewController {
         userProfileLabel.layer.masksToBounds = true
         otherProfileLabelOne.layer.masksToBounds = true
         otherProfileLabelTwo.layer.masksToBounds = true
-        
+
         guard let user = DTAuth.user else {
             DTLogger.error("Attempted to join room without a user.")
             return
         }
-        
+
         if let firstChar = user.displayName.first(where: {
             !$0.isWhitespace
         }) {
@@ -172,8 +172,6 @@ class DoodleViewController: UIViewController {
         }
     }
 
-    // MARK: - Navigation
-
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case SegueConstants.toCanvas, SegueConstants.toStrokeEditor, SegueConstants.toConference:
@@ -183,58 +181,6 @@ class DoodleViewController: UIViewController {
         default:
             return
         }
-    }
-
-    func prepareForSubviews(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier {
-        case SegueConstants.toCanvas:
-            guard let destination = segue.destination as? DTCanvasViewController else {
-                return
-            }
-            destination.delegate = self
-            if let doodles = self.doodles {
-                destination.loadDoodles(doodles)
-            }
-            self.canvasController = destination
-        case SegueConstants.toStrokeEditor:
-            guard let destination = segue.destination as? StrokeEditorViewController else {
-                return
-            }
-            destination.delegate = self
-            self.strokeEditor = destination
-        case SegueConstants.toConference:
-            guard let destination = segue.destination as? ConferenceViewController else {
-                return
-            }
-            destination.roomId = roomId?.uuidString
-            // TODO: Fetch users from the socket controller and assign to the participants
-            // TODO: Fetch all users who have permissions to the room and assign to the usersWithPermissions
-        default:
-            return
-        }
-    }
-
-    func prepareForPopUps(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier {
-        case SegueConstants.toLayerTable:
-            guard let destination = segue.destination as? DoodleLayerTableViewController else {
-                return
-            }
-            destination.delegate = self
-            if let doodles = self.doodles {
-                destination.loadDoodles(doodles)
-            }
-            self.layerTable = destination
-        case SegueConstants.toInvitation:
-            guard let destination = segue.destination as? InvitationViewController else {
-                return
-            }
-            destination.modalPresentationStyle = .formSheet
-            destination.inviteCode = inviteCode
-        default:
-            return
-        }
-
     }
 
     @IBAction private func exitButtonDidTap(_ sender: Any) {
@@ -352,6 +298,14 @@ extension DoodleViewController {
 
 }
 
+extension DoodleViewController: DoodleLayerTableDelegate {
+
+    func selectedDoodleDidChange(index: Int) {
+        canvasController?.setSelectedDoodle(index: index)
+    }
+
+}
+
 // MARK: - CanvasControllerDelegate
 
 extension DoodleViewController: CanvasControllerDelegate {
@@ -371,6 +325,8 @@ extension DoodleViewController: CanvasControllerDelegate {
     }
 
 }
+
+// MARK: - SocketControllerDelegate
 
 extension DoodleViewController: SocketControllerDelegate {
 
@@ -396,6 +352,8 @@ extension DoodleViewController: SocketControllerDelegate {
 
 }
 
+// MARK: - StrokeEditorDelegate
+
 extension DoodleViewController: StrokeEditorDelegate {
 
     func colorDidChange(_ color: UIColor) {
@@ -418,14 +376,6 @@ extension DoodleViewController: StrokeEditorDelegate {
             .withAlphaComponent(opacity)
         coloredCircle.fillColor = newColor.cgColor
         canvasController?.setColor(newColor)
-    }
-
-}
-
-extension DoodleViewController: DoodleLayerTableDelegate {
-
-    func selectedDoodleDidChange(index: Int) {
-        canvasController?.setSelectedDoodle(index: index)
     }
 
 }

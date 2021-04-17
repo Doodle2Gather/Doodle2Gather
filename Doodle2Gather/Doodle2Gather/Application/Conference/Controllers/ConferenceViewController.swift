@@ -191,9 +191,10 @@ class ConferenceViewController: UIViewController {
                 nameplate.textAlignment = .center
                 nameplate.text = user.displayName
                 nameplate.textColor = UIConstants.white
-                currentUser = VideoCallUser(uid: 0, userId: user.uid,
-                                                overlay: overlay,
-                                                nameplate: nameplate)
+                currentUser = VideoCallUser(uid: 0,
+                                            userId: user.uid,
+                                            overlay: overlay,
+                                            nameplate: nameplate)
             }
 
             videoEngine?.joinChannel(channelName: self.roomId ?? "testing")
