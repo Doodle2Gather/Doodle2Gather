@@ -682,9 +682,11 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="additionalUserCount" destination="NMb-rO-KfU" id="Xiz-Gh-dpS"/>
                         <outlet property="auxiliaryButtonsView" destination="4Xj-kh-aUN" id="w6p-q7-6pF"/>
                         <outlet property="colorPickerButton" destination="Dae-hy-jiK" id="HnN-jF-uPY"/>
                         <outlet property="colorPickerView" destination="DHu-9F-THM" id="daN-at-Zo2"/>
+                        <outlet property="currentUserIcon" destination="DOs-uP-8SE" id="SjS-Hk-81R"/>
                         <outlet property="cursorButton" destination="ryu-pR-t2y" id="Rh3-fR-798"/>
                         <outlet property="drawButton" destination="IP2-Vo-DRb" id="pWr-wH-aee"/>
                         <outlet property="eraserButton" destination="kjq-AY-SZg" id="gZs-d9-Zd1"/>
@@ -701,8 +703,10 @@
                         <outlet property="otherProfileImageTwo" destination="uLN-OJ-qat" id="9tc-Cz-flG"/>
                         <outlet property="penButton" destination="rKg-Y4-tax" id="rf0-wj-paC"/>
                         <outlet property="pencilButton" destination="PHr-oW-a4i" id="kEZ-Te-JZn"/>
+                        <outlet property="secondaryUserIcon" destination="XbA-gD-b0Z" id="MVO-DA-SWb"/>
                         <outlet property="separatorView" destination="cIQ-SF-6Au" id="2iL-i3-acE"/>
                         <outlet property="shapesButton" destination="w78-OH-H1V" id="Jet-zX-JVV"/>
+                        <outlet property="tertiaryUserIcon" destination="uLN-OJ-qat" id="Ihg-iZ-SHz"/>
                         <outlet property="textButton" destination="Va2-Px-Ku6" id="GYN-tg-pop"/>
                         <outlet property="userProfileImage" destination="DOs-uP-8SE" id="Tke-aD-WLd"/>
                         <outlet property="zoomScaleLabel" destination="heI-9Y-pSS" id="Odg-py-uxd"/>

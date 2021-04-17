@@ -51,10 +51,6 @@ struct DTApi {
                 completion: completion)
     }
 
-    static func getParticipants(roomId: UUID, callback: @escaping ([DTParticipant]) -> Void) {
-
-    }
-
     static func joinRoomFromInvite(
         joinRoomRequest: DTJoinRoomMessage,
         completion: @escaping (DTApiResult<DTAdaptedRoom>) -> Void

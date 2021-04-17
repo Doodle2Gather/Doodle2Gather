@@ -1,5 +1,6 @@
 import UIKit
 import EasyNotificationBadge
+import DTSharedLibrary
 
 class ConferenceViewController: UIViewController {
 
@@ -22,13 +23,15 @@ class ConferenceViewController: UIViewController {
     var videoEngine: VideoEngine?
     var chatEngine: ChatEngine?
     var chatBox: ChatBoxDelegate?
-    var videoCallUserList: [VideoCallUser] = []
+    var usersWithPermissions: [DTAdaptedUser] = []
+    var participants: [DTAdaptedUser] = []
     lazy var chatList = [Message]()
     var isMuted = true
     var isVideoOff = true
     var isInCall = false
     var isChatShown = false
     var roomId: String?
+    private var videoCallUserList: [VideoCallUser] = []
     private var videoOverlays = [UIView]()
     private var nameplates = [UILabel]()
     private var appearance = BadgeAppearance(animate: true)
@@ -135,7 +138,8 @@ class ConferenceViewController: UIViewController {
 
     // Passes data to the ChatViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == SegueConstants.toChat {
+        switch segue.identifier {
+        case SegueConstants.toChat:
             guard let nav = segue.destination as? UINavigationController else {
                 return
             }
@@ -159,6 +163,16 @@ class ConferenceViewController: UIViewController {
             }
             unreadMessageCount = 0
             chatButton.badge(text: nil, appearance: appearance)
+        case SegueConstants.toParticipants:
+            guard let nav = segue.destination as? UINavigationController else {
+                return
+            }
+            guard let vc = nav.topViewController as? ParticipantsViewController else {
+                return
+            }
+            vc.participants = participants
+        default:
+            return
         }
     }
 

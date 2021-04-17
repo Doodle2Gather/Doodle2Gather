@@ -45,6 +45,12 @@ class DoodleViewController: UIViewController {
     private var strokeEditor: StrokeEditor?
     private var layerTable: DoodleLayerTable?
 
+    // Top righ user icons
+    @IBOutlet private var currentUserIcon: UIImageView!
+    @IBOutlet private var secondaryUserIcon: UIImageView!
+    @IBOutlet private var tertiaryUserIcon: UIImageView!
+    @IBOutlet private var additionalUserCount: UILabel!
+
     // State
     var username: String?
     var roomName: String?
@@ -140,6 +146,8 @@ class DoodleViewController: UIViewController {
                 return
             }
             destination.roomId = roomId?.uuidString
+            // TODO: Fetch users from the socket controller and assign to the participants
+            // TODO: Fetch all users who have permissions to the room and assign to the usersWithPermissions
         default:
             return
         }
