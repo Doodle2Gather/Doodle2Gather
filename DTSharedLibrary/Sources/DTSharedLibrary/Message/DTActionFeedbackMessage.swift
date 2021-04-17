@@ -1,7 +1,7 @@
 import Foundation
 
 public struct DTActionFeedbackMessage: Codable {
-    var type = DTMessageType.actionFeedback
+    var type = DTRoomMessageType.actionFeedback
 
     public let id: UUID
     public let success: Bool

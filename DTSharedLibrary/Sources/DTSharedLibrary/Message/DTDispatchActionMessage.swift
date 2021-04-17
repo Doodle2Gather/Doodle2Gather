@@ -1,7 +1,7 @@
 import Foundation
 
 public struct DTDispatchActionMessage: Codable {
-    var type = DTMessageType.dispatchAction
+    var type = DTRoomMessageType.dispatchAction
     public let id: UUID
     public let success: Bool
     public let message: String

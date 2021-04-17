@@ -1,7 +1,7 @@
 import Foundation
 
 public struct DTHandshake: Codable {
-    var type = DTMessageType.handshake
+    var type = DTRoomMessageType.handshake
     public let id: UUID
     public let users: [DTAdaptedUser]
 

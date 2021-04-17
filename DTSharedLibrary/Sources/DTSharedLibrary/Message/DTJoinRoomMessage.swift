@@ -1,7 +1,7 @@
 import Foundation
 
 public struct DTJoinRoomMessage: Codable {
-    public var type = DTMessageType.joinRoom
+    public var type = DTRoomMessageType.joinRoom
 
     public let userId: String
     public let roomId: UUID?

@@ -14,8 +14,8 @@ class WebSocketController {
     let db: Database
     let logger: Logger
 
-    let roomId: UUID
-    let roomController: ActiveRoomController
+    let roomControllers: [UUID: RoomController]
+    
 
     init(roomId: UUID, db: Database) {
         self.lock = Lock()
@@ -24,8 +24,8 @@ class WebSocketController {
         self.users = [:]
         self.db = db
         self.logger = Logger(label: "WebSocketController")
-        self.roomId = roomId
-        self.roomController = ActiveRoomController(roomId: roomId, db: db)
+
+        self.roomControllers = [:]
     }
 
     var getAllWebSocketOptions: [WebSocketSendOption] {
@@ -84,29 +84,14 @@ class WebSocketController {
         }
         self.send(message: DTHandshake(id: uuid, users: oldUsers.map { DTAdaptedUser(user: $0) }), to: [.socket(ws)])
 
-        self.initiateDoodleFetching(ws, uuid)
+//        self.initiateDoodleFetching(ws, uuid)
     }
 
     func onData(_ ws: WebSocket, _ data: Data) {
         let decoder = JSONDecoder()
+
         do {
-            let decodedData = try decoder.decode(DTMessage.self, from: data)
-            switch decodedData.type {
-            case .disconnect:
-                self.onDisconnect(decodedData.id)
-            case .initiateAction:
-                let newActionData = try decoder.decode(
-                    DTInitiateActionMessage.self, from: data)
-                self.onNewAction(ws, decodedData.id, newActionData)
-            case .requestFetch:
-                self.initiateDoodleFetching(ws, decodedData.id)
-            case .clearDrawing:
-                let actionData = try decoder.decode(
-                    DTClearDrawingMessage.self, from: data)
-                self.onClearDrawing(ws, decodedData.id, actionData)
-            default:
-                break
-            }
+
         } catch {
             logger.report(error: error)
         }
@@ -115,67 +100,6 @@ class WebSocketController {
     func onDisconnect(_ id: UUID) {
         self.lock.withLockVoid {
             self.sockets[id] = nil
-        }
-    }
-
-    func onClearDrawing(_ ws: WebSocket, _ id: UUID, _ message: DTClearDrawingMessage) {
-        PersistedDTAction.query(on: self.db).delete().whenComplete { res in
-            switch res {
-            case .failure(let err):
-                self.logger.report(error: err)
-            case .success:
-                self.dispatchClearActionToPeers(
-                    message, to: self.getAllWebSocketOptionsExcept(id)
-                )
-            }
-        }
-    }
-
-    func onNewAction(_ ws: WebSocket, _ id: UUID, _ message: DTInitiateActionMessage) {
-        let action = message.action
-
-        // action successful
-        if let dispatchAction = roomController.process(action) {
-            self.dispatchActionToPeers(
-                dispatchAction, id: id, to: self.getAllWebSocketOptionsExcept(id), success: true, message: "New Action"
-            )
-            self.sendActionFeedback(
-                orginalAction: action,
-                dispatchAction: dispatchAction, id: id,
-                to: .id(id), success: true, message: "Action sucessful."
-            )
-            return
-        }
-
-        // action denied
-
-        self.initiateDoodleFetching(ws, id)
-        self.sendActionFeedback(
-            orginalAction: action,
-            dispatchAction: nil, id: id,
-            to: .id(id), success: false, message: "Action failed. Please refetch"
-        )
-    }
-
-    func syncData() {
-        let doodles = roomController.doodles
-        doodles.forEach { doodle in
-            PersistedDTDoodle.getSingleById(doodle.key, on: self.db)
-                .flatMapThrowing { res in
-                    _ = res.strokes.forEach { $0.delete(on: self.db) }
-                }
-                .flatMapThrowing {
-                    for stroke in doodle.value.strokes {
-                        _ = stroke.makePersistedStroke().save(on: self.db)
-                    }
-                }.whenComplete { res in
-                    switch res {
-                    case .failure(let err):
-                        self.logger.report(error: err)
-                    case .success:
-                        self.logger.info("Synced doodle \(doodle.key.uuidString)")
-                    }
-                }
         }
     }
 
@@ -204,64 +128,5 @@ class WebSocketController {
         } catch {
             logger.report(error: error)
         }
-    }
-
-    func initiateDoodleFetching(_ ws: WebSocket, _ id: UUID) {
-        if !roomController.hasFetchedDoodles {
-            PersistedDTRoom.getAllDoodles(roomId, on: self.db)
-                .flatMapThrowing { $0.map(DTAdaptedDoodle.init) }
-                .whenComplete { res in
-                    switch res {
-                    case .failure(let err):
-                        self.logger.report(error: err)
-
-                    case .success(let doodles):
-                        self.logger.info("Fetching existing doodles.")
-                        self.sendFetchedDoodles(doodles, id, to: [.socket(ws)])
-                    }
-                }
-        } else {
-            self.sendFetchedDoodles(roomController.doodleArray, id, to: [.socket(ws)])
-        }
-    }
-
-    func sendFetchedDoodles(_ doodles: [DTAdaptedDoodle], _ id: UUID, to sendOptions: [WebSocketSendOption],
-                            success: Bool = true, message: String = "") {
-        self.logger.info("Fetched doodles!")
-        self.send(message: DTFetchDoodleMessage(
-            id: id,
-            success: success,
-            message: message,
-            doodles: doodles
-        ), to: sendOptions)
-    }
-
-    func dispatchActionToPeers(_ action: DTAdaptedAction, id: UUID, to sendOptions: [WebSocketSendOption],
-                               success: Bool = true, message: String = "") {
-        self.logger.info("Dispatched an action to peers!")
-        self.send(message: DTDispatchActionMessage(
-            id: id,
-            success: success,
-            message: message,
-            action: action
-        ), to: sendOptions)
-    }
-
-    func dispatchClearActionToPeers(_ message: DTClearDrawingMessage, to sendOptions: [WebSocketSendOption]) {
-        self.logger.info("Dispatched a clear action to peers!")
-        self.send(message: message, to: sendOptions)
-    }
-
-    func sendActionFeedback(orginalAction: DTAdaptedAction, dispatchAction: DTAdaptedAction?,
-                            id: UUID, to sendOption: WebSocketSendOption,
-                            success: Bool = true, message: String = "",
-                            isActionDenied: Bool = false) {
-        self.send(message: DTActionFeedbackMessage(
-            id: id,
-            success: success,
-            message: message,
-            orginalAction: orginalAction,
-            dispatchedAction: dispatchAction
-        ), to: [sendOption])
     }
 }

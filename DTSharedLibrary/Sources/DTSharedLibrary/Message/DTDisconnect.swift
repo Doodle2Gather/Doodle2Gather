@@ -1,7 +1,7 @@
 import Foundation
 
 public struct DTDisconnect: Codable {
-    var type = DTMessageType.disconnect
+    var type = DTRoomMessageType.disconnect
     public let id: UUID
 
     public init(id: UUID) {

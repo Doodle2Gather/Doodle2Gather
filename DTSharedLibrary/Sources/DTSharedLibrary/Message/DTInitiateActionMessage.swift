@@ -1,7 +1,7 @@
 import Foundation
 
 public struct DTInitiateActionMessage: Codable {
-    var type = DTMessageType.initiateAction
+    var type = DTRoomMessageType.initiateAction
     public let id: UUID
     public let action: DTAdaptedAction
 

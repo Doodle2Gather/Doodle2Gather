@@ -1,7 +1,7 @@
 import Foundation
 
 public struct DTClearDrawingMessage: Codable {
-    var type = DTMessageType.clearDrawing
+    var type = DTRoomMessageType.clearDrawing
     public let id: UUID
     public let roomId: UUID
 

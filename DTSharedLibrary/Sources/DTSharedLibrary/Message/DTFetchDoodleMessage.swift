@@ -1,7 +1,7 @@
 import Foundation
 
 public struct DTFetchDoodleMessage: Codable {
-    var type = DTMessageType.fetchDoodle
+    var type = DTRoomMessageType.fetchDoodle
     public let id: UUID
     public let success: Bool
     public let message: String
