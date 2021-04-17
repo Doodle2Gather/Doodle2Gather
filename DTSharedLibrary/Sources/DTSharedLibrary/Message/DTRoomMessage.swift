@@ -133,7 +133,7 @@ public struct DTAddDoodleMessage: Codable {
     public var subtype = DTRoomMessageType.addDoodle
     public let id: UUID
     public let roomId: UUID
-    
+
     public let newDoodle: DTAdaptedDoodle
 
     public init(id: UUID, roomId: UUID, newDoodle: DTAdaptedDoodle) {

@@ -10,11 +10,10 @@ final class DTWebSocketController {
     var socket: URLSessionWebSocketTask!
     private let decoder = JSONDecoder()
     private let encoder = JSONEncoder()
-    private var roomId: UUID
+    var roomId: UUID?
 
-    init(roomId: UUID) {
+    init() {
         self.session = URLSession(configuration: .default)
-        self.roomId = roomId
         self.connect()
     }
 
@@ -56,12 +55,29 @@ final class DTWebSocketController {
 
     func handle(_ data: Data) {
         do {
-            let decodedData = try decoder.decode(DTMessage.self, from: data)
-            switch decodedData.type {
+            let message = try decoder.decode(DTMessage.self, from: data)
+            switch message.type {
             case .handshake:
                 DTLogger.event("Shook the hand")
-                let message = try decoder.decode(DTHandshake.self, from: data)
-                self.id = message.id
+                let handshake = try decoder.decode(DTHandshake.self, from: data)
+                self.id = handshake.id
+                self.joinRoom(roomId: roomId!)
+            case .auth, .home:
+                break
+            case .room:
+                handleRoomMessages(data)
+            default:
+                break
+            }
+        } catch {
+            DTLogger.error(error.localizedDescription)
+        }
+    }
+
+    private func handleRoomMessages(_ data: Data) {
+        do {
+            let message = try decoder.decode(DTRoomMessage.self, from: data)
+            switch message.subtype {
             case .actionFeedback:
                 try self.handleActionFeedback(data)
             case .dispatchAction:
@@ -124,6 +140,25 @@ final class DTWebSocketController {
 
 extension DTWebSocketController: SocketController {
 
+    func joinRoom(roomId: UUID) {
+        guard let id = self.id else {
+            return
+        }
+        DTLogger.info("Joining room")
+
+        let message = DTJoinRoomMessage(id: id, userId: DTAuth.user!.uid, roomId: roomId)
+        do {
+            let data = try encoder.encode(message)
+            self.socket.send(.data(data)) { err in
+                if err != nil {
+                    DTLogger.error(err.debugDescription)
+                }
+            }
+        } catch {
+            DTLogger.error(error.localizedDescription)
+        }
+    }
+
     func addAction(_ action: DTAction) {
         guard let id = self.id else {
             return
@@ -170,7 +205,7 @@ extension DTWebSocketController: SocketController {
         }
         DTLogger.info("Request fetching doodles.")
 
-        let message = DTRequestFetchMessage(id: id)
+        let message = DTRequestFetchMessage(id: id, roomId: roomId!)
         do {
             let data = try encoder.encode(message)
             self.socket.send(.data(data)) { err in
@@ -185,17 +220,17 @@ extension DTWebSocketController: SocketController {
 
     func disconnect() {
         DTLogger.info("Leaving room. Disconnecting ...")
-        let message = DTDisconnect(id: id)
-        do {
-            let data = try encoder.encode(message)
-            self.socket.send(.data(data)) { err in
-                if err != nil {
-                    DTLogger.error(err.debugDescription)
-                }
-            }
-        } catch {
-            DTLogger.error(error.localizedDescription)
-        }
-        self.socket.cancel(with: .goingAway, reason: nil)
+//        let message = DTDisconnect(id: id)
+//        do {
+//            let data = try encoder.encode(message)
+//            self.socket.send(.data(data)) { err in
+//                if err != nil {
+//                    DTLogger.error(err.debugDescription)
+//                }
+//            }
+//        } catch {
+//            DTLogger.error(error.localizedDescription)
+//        }
+//        self.socket.cancel(with: .goingAway, reason: nil)
     }
 }

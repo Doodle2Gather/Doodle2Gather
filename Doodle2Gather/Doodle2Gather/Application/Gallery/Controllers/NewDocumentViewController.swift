@@ -185,7 +185,7 @@ class NewDocumentViewController: UIViewController {
             )
             return
         }
-        DTApi.joinRoomFromInvite(joinRoomRequest: DTJoinRoomMessage(userId: user.uid,
+        DTApi.joinRoomFromInvite(joinRoomRequest: DTJoinRoomViaInviteMessage(userId: user.uid,
                                                                     roomId: nil,
                                                                     inviteCode: code)) { result in
             switch result {

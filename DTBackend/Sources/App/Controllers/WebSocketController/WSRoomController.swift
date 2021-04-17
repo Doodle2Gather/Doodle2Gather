@@ -239,7 +239,7 @@ class WSRoomController {
     }
 
     // MARK: - addDoodle & removeDoodle
-    
+
     func handleAddDoodle(_ ws: WebSocket, _ id: UUID, _ createDoodleData: DTAdaptedDoodle.CreateRequest) {
         let newDoodle = createDoodleData.makePersistedDoodle()
 

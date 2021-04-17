@@ -59,7 +59,8 @@ class DoodleViewController: UIViewController {
         super.viewDidLoad()
 
         // TODO: Replace this with dependency injection from AppDelegate / HomeController
-        let socketController = DTWebSocketController(roomId: roomId!)
+        let socketController = DTWebSocketController()
+        socketController.roomId = roomId!
         socketController.delegate = self
         self.socketController = socketController
 
