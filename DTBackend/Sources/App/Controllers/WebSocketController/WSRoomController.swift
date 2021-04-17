@@ -2,7 +2,7 @@ import Vapor
 import Fluent
 import DTSharedLibrary
 
-class RoomController {
+class WSRoomController {
     let lock: Lock
     let usersLock: Lock
     var sockets: [UUID: WebSocket]
