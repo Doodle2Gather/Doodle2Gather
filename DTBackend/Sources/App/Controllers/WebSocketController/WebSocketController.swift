@@ -82,9 +82,7 @@ class WebSocketController {
             }
             self.onData(ws, data)
         }
-        self.send(message: DTHandshake(id: uuid, users: oldUsers.map { DTAdaptedUser(user: $0) }), to: [.socket(ws)])
 
-//        self.initiateDoodleFetching(ws, uuid)
     }
 
     func onData(_ ws: WebSocket, _ data: Data) {
