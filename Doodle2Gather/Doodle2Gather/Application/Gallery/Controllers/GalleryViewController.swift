@@ -8,7 +8,7 @@ class GalleryViewController: UIViewController {
 
     private var rooms = [Room]()
     private var selectedCellIndex: Int?
-    private var isInEditMode: Bool = false
+    private var isInEditMode = false
     var count = 1
 
     override func viewDidLoad() {
