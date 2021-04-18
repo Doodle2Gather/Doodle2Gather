@@ -25,7 +25,10 @@ extension DoodleViewController {
             guard let destination = segue.destination as? ConferenceViewController else {
                 return
             }
-            destination.roomId = roomId?.uuidString
+            guard let roomId = room?.roomId?.uuidString else {
+                return
+            }
+            destination.roomId = roomId
             // TODO: Fetch users from the socket controller and assign to the participants
             // TODO: Fetch all users who have permissions to the room and assign to the usersWithPermissions
         default:
@@ -49,7 +52,11 @@ extension DoodleViewController {
                 return
             }
             destination.modalPresentationStyle = .formSheet
-            destination.inviteCode = inviteCode
+            destination.existingUsers = existingUsers
+            guard let room = room else {
+                return
+            }
+            destination.room = room
         default:
             return
         }

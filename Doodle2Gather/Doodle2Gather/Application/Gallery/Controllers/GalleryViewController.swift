@@ -111,10 +111,8 @@ extension GalleryViewController: UICollectionViewDelegate {
             case .success(.some(let doodles)):
               DispatchQueue.main.async {
                 vc.doodles = doodles
+                vc.room = self.rooms[index]
                 vc.username = DTAuth.user?.displayName ?? "Unknown"
-                vc.roomName = self.rooms[index].name
-                vc.roomId = self.rooms[index].roomId
-                vc.inviteCode = self.rooms[index].inviteCode
                 vc.modalPresentationStyle = .fullScreen
                 vc.modalTransitionStyle = .flipHorizontal
                 self.present(vc, animated: true, completion: nil)

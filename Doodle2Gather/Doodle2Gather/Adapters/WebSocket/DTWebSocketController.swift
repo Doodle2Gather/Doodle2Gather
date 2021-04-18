@@ -129,7 +129,7 @@ final class DTWebSocketController {
 
     func handleParticipantInfo(_ data: Data) throws {
         let fetch = try decoder.decode(DTParticipantInfoMessage.self, from: data)
-        // TODO
+        delegate?.updateUsers(fetch.users)
     }
 
     func handleClearDrawing(_ data: Data) throws {
