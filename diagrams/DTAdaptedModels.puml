@@ -1,0 +1,83 @@
+@startuml
+' STYLE START
+hide empty members
+skinparam shadowing false
+' STYLE END
+
+class "DTStrokeIndexPair" as DTStrokeIndexPair << (S, SkyBlue) struct >> { 
+  +strokeId : UUID
+  +stroke : Data
+  +index : Int
+  +isDeleted : Bool
+}
+class "DTActionType" as DTActionType << (E, LightSteelBlue) enum >> { 
+  +add
+  +remove
+  +unremove
+  +modify
+}
+
+class "DTAdaptedDoodle" as DTAdaptedDoodle << (S, SkyBlue) struct >> { 
+  +roomId : UUID
+  +doodleId : UUID?
+  +strokeCount : Int
+  +getStroke(at:)
+  +addStroke(_:)
+  +removeStroke(at:)
+  +unremoveStroke(at:)
+  +modifyStroke(at:to:) 
+}
+
+class "DTAdaptedUserAccesses" as DTAdaptedUserAccesses << (S, SkyBlue) struct >> { 
+  +userId : String
+  +displayName : String
+  +email : String
+  +isOwner : Bool
+  +canEdit : Bool
+  +canVideoConference : Bool
+  +canChat : Bool
+}
+class "DTAdaptedStroke" as DTAdaptedStroke << (S, SkyBlue) struct >> { 
+  +stroke : Data
+  +strokeId : UUID
+  +roomId : UUID
+  +doodleId : UUID
+  +createdBy : String
+  +isDeleted : Bool
+  +safeDelete()
+  +safeUndelete() 
+}
+
+class "DTAdaptedAction" as DTAdaptedAction << (S, SkyBlue) struct >> { 
+  +roomId : UUID
+  +doodleId : UUID
+  +createdBy : String
+  +makeStrokes()
+  +getNewAction(with:) 
+}
+
+class "DTAdaptedUser" as DTAdaptedUser << (S, SkyBlue) struct >> { 
+  +id : String
+  +displayName : String
+  +email : String
+  +updatedAt : Date
+}
+
+class "DTAdaptedRoom" as DTAdaptedRoom << (S, SkyBlue) struct >> { 
+  +ownerId : String
+  +roomId : UUID?
+  +name : String
+  +inviteCode : String
+  +doodleCount : Int
+  +getDoodle(at:)
+  +addDoodles(_:) 
+}
+DTAdaptedDoodle *-- "0..*" DTAdaptedStroke
+DTAdaptedAction *-- "1..*" DTStrokeIndexPair
+DTAdaptedRoom *-- "1..*" DTAdaptedDoodle
+DTAdaptedAction *-- DTActionType
+DTAdaptedUser *-- "0..*" DTAdaptedRoom
+DTStrokeIndexPair ..> DTAdaptedStroke : can be converted to
+DTAdaptedUserAccesses ..left. DTAdaptedUser
+DTAdaptedUserAccesses ..left. DTAdaptedRoom 
+@enduml
