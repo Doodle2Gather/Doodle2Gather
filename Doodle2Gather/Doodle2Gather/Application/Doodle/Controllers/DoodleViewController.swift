@@ -177,7 +177,7 @@ class DoodleViewController: UIViewController {
         }
     }
 
-    @IBAction private func exitButtonDidTap(_ sender: Any) {
+    @IBAction private func exitButtonDidTap(_ sender: UIButton) {
         alert(title: AlertConstants.exit, message: AlertConstants.exitToMainMenu,
               buttonStyle: .default, handler: { _ in
                 self.dismiss(animated: true, completion: nil)
@@ -188,6 +188,9 @@ class DoodleViewController: UIViewController {
         )
     }
 
+    @IBAction private func exportButtonDidTap(_ sender: UIButton) {
+        // TODO: Export to image for now
+    }
 }
 
 // MARK: - IBActions

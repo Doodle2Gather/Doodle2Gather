@@ -100,6 +100,9 @@
                                                     <constraint firstAttribute="height" constant="60" id="sQd-lK-V72"/>
                                                 </constraints>
                                                 <state key="normal" image="Export"/>
+                                                <connections>
+                                                    <action selector="exportButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="lbb-2l-nXI"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QIS-ja-FEr" userLabel="Minimise Button">
                                                 <rect key="frame" x="242.5" y="0.0" width="60" height="60"/>
