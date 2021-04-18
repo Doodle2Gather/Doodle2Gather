@@ -22,7 +22,10 @@ struct DTRoomController: RouteCollection {
 
         return room.and(user)
             .flatMap { (room: PersistedDTRoom, user: PersistedDTUser) in
-                let attachRoom = user.$accessibleRooms.attach(room, on: req.db)
+                let attachRoom = user.$accessibleRooms.attach(room, on: req.db) {
+                    $0.setDefaultPermissions()
+                    $0.isOwner = true
+                }
                 let newDoodle = PersistedDTDoodle(room: room)
                 let defaultDoodle = newDoodle.save(on: req.db)
                 return attachRoom.and(defaultDoodle)
@@ -30,6 +33,7 @@ struct DTRoomController: RouteCollection {
                     .map { r in DTAdaptedRoom(room: r) }
             }
     }
+
 
     func getSingleHandler(req: Request) throws -> EventLoopFuture<DTAdaptedRoom> {
         let roomId = try req.requireUUID(parameterName: "roomId")
@@ -64,7 +68,9 @@ struct DTRoomController: RouteCollection {
             let room = PersistedDTRoom.getSingleByCode(inviteCode, on: req.db)
             let user = PersistedDTUser.getSingleById(joinRequest.userId, on: req.db)
             return user.and(room).flatMap { user, room in
-                user.$accessibleRooms.attach(room, on: req.db)
+                user.$accessibleRooms.attach(room, on: req.db) {
+                    $0.setDefaultPermissions()
+                }
             }
             .flatMap { PersistedDTRoom.getSingleByCode(inviteCode, on: req.db) }
             .flatMapThrowing(DTAdaptedRoom.init)
@@ -76,7 +82,10 @@ struct DTRoomController: RouteCollection {
             let room = PersistedDTRoom.getSingleById(roomId, on: req.db)
             let user = PersistedDTUser.getSingleById(joinRequest.userId, on: req.db)
             return user.and(room).flatMap { user, room in
-                user.$accessibleRooms.attach(room, on: req.db)
+                user.$accessibleRooms.attach(room, on: req.db) {
+                    $0.setDefaultPermissions()
+                    $0.isOwner = true
+                }
             }
             .flatMap { PersistedDTRoom.getSingleById(roomId, on: req.db) }
             .flatMapThrowing(DTAdaptedRoom.init)

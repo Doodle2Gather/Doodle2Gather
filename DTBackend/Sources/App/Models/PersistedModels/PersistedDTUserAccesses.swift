@@ -45,4 +45,11 @@ final class PersistedDTUserAccesses: Model, Content {
         self.canVideoConference = canVideoConference
         self.canChat = canChat
     }
+    
+    func setDefaultPermissions() {
+        self.isOwner = false
+        self.canEdit = PersistedDTUserAccesses.CAN_EDIT_BY_DEFAULT
+        self.canVideoConference = PersistedDTUserAccesses.CAN_VIDEO_CONFERENCE_BY_DEFAULT
+        self.canChat = PersistedDTUserAccesses.CAN_CHAT_BY_DEFAULT
+    }
 }
