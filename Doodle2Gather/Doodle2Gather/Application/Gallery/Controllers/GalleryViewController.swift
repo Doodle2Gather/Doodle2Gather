@@ -111,19 +111,23 @@ extension GalleryViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "documentCell",
-                                                      for: indexPath) as? DocumentPreviewCell
-        cell?.setName(rooms[indexPath.row].name)
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "documentCell",
+                                                            for: indexPath) as? DocumentPreviewCell else {
+            fatalError("Incorrect cell type")
+        }
+        cell.setName(rooms[indexPath.row].name)
         if rooms.count > indexPath.row {
             guard let topLayer = rooms[indexPath.row].doodles.first else {
-                return cell!
+                return cell
             }
             guard let previewImage = DTDoodlePreview(doodle: topLayer).image else {
-                return cell!
+                return cell
             }
-            cell?.setImage(previewImage)
+            DispatchQueue.main.async {
+                cell.setImage(previewImage)
+            }
         }
-        return cell!
+        return cell
     }
 }
 

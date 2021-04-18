@@ -10,6 +10,7 @@ class UserViewCell: UITableViewCell {
     var tapPermissionButtonCallback: ((CGPoint, UIView) -> Void)?
     var modifyPermissionCallback: ((String, UserPermission) -> UserPermission)?
     private var userId: String?
+    private var isEditable = false
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -44,15 +45,19 @@ class UserViewCell: UITableViewCell {
     func setPermissions(_ permission: UserPermission) {
         switch permission {
         case .viewer:
-            permissionsButton.setTitle("Viewer", for: [.normal, .selected])
+            permissionsButton.setTitle("Viewer", for: .normal)
+            permissionsButton.setTitle("Viewer", for: .selected)
         case .editor:
-            permissionsButton.setTitle("Editor", for: [.normal, .selected])
+            permissionsButton.setTitle("Editor", for: .normal)
+            permissionsButton.setTitle("Editor", for: .selected)
         case .owner:
-            permissionsButton.setTitle("Owner", for: [.normal, .selected])
+            permissionsButton.setTitle("Owner", for: .normal)
+            permissionsButton.setTitle("Owner", for: .selected)
         }
     }
 
     func setEditable(_ editable: Bool) {
+        isEditable = editable
         if editable {
             permissionsButton.isSelected = true
         } else {
@@ -66,6 +71,9 @@ class UserViewCell: UITableViewCell {
 
     @IBAction private func didTapPermissions(_ sender: UIButton) {
         guard let tapCallback = tapPermissionButtonCallback else {
+            return
+        }
+        if !isEditable {
             return
         }
         let origin = CGPoint(x: sender.frame.midX, y: sender.frame.midY)

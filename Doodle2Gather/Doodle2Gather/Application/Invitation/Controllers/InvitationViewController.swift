@@ -56,32 +56,37 @@ extension InvitationViewController: UITableViewDataSource {
         }
 
         // TODO: Set permissions here
-        if user.userId == DTAuth.user?.uid {
-            cell?.setPermissions(.owner)
+        guard let currentUser = DTAuth.user?.uid else {
+            fatalError("Attempted to join room without a user.")
         }
-
-        if let ownerId = room?.ownerId, let currentUserId = DTAuth.user?.uid {
-            if ownerId == currentUserId {
-                // Set callback to cell
-                cell?.setEditable(true)
-                cell?.tapPermissionButtonCallback = { origin, source in
-                    let setViewerAction = UIAlertAction(title: "Viewer",
-                                                        style: .default,
-                                                        handler: { _ in
-                        print("Change to viewer")
-                    })
-                    let setEditorAction = UIAlertAction(title: "Editor",
-                                                        style: .default,
-                                                        handler: { _ in
-                        print("Change to editor")
-                    })
-                    DispatchQueue.main.async {
-                        self.actionSheet(message: nil,
-                                         actions: [setViewerAction, setEditorAction],
-                                         origin: origin,
-                                         source: source)
-                    }
+        if currentUser == room?.ownerId {
+            cell?.setEditable(true)
+            cell?.tapPermissionButtonCallback = { origin, source in
+                let setViewerAction = UIAlertAction(title: "Viewer",
+                                                    style: .default,
+                                                    handler: { _ in
+                    print("Change to viewer")
+                })
+                let setEditorAction = UIAlertAction(title: "Editor",
+                                                    style: .default,
+                                                    handler: { _ in
+                    print("Change to editor")
+                })
+                DispatchQueue.main.async {
+                    self.actionSheet(message: nil,
+                                     actions: [setViewerAction, setEditorAction],
+                                     origin: origin,
+                                     source: source)
                 }
+            }
+        }
+        cell?.setPermissions(.editor)
+
+        if let ownerId = room?.ownerId {
+            if ownerId == user.userId {
+                // Set callback to cell
+                cell?.setEditable(false)
+                cell?.setPermissions(.owner)
             }
         }
 
