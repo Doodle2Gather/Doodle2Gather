@@ -9,12 +9,12 @@ public enum DTAuthMessageType: String, Codable {
 }
 
 public enum DTHomeMessageType: String, Codable {
-    case joinViaInvite
+    case createRoom, joinViaInvite, accessibleRooms
 }
 
 public enum DTRoomMessageType: String, Codable {
     // Client to server types
-    case joinRoom, initiateAction, clearDrawing, requestFetch, addDoodle, removeDoodle, exitRoom
+    case joinRoom, initiateAction, clearDrawing, requestFetch, requestAddDoodle, exitRoom
     // Server to client types
-    case actionFeedback, dispatchAction, fetchDoodle, participantInfo
+    case actionFeedback, dispatchAction, fetchDoodle, participantInfo, addDoodle, removeDoodle
 }

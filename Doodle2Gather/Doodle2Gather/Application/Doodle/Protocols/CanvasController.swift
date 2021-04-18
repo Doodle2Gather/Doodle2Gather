@@ -11,11 +11,8 @@ protocol CanvasController {
     /// Dispatches an action that will update the canvas accordingly.
     func dispatchAction(_ action: DTAction)
 
-    /// Loads a given array of `DTDoodle`s.
-    func loadDoodles(_ doodles: [DTAdaptedDoodle])
-
-    /// Clears the canvas.
-    func clearDoodle()
+    /// Loads a given array of `DTDoodleWrapper`s.
+    func loadDoodles(_ doodles: [DTDoodleWrapper])
 
     /// Sets the current tool to the drawing tool.
     func setDrawingTool(_ drawingTool: DrawingTools)

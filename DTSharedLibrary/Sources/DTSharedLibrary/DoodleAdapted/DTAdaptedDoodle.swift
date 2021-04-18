@@ -25,7 +25,11 @@ public struct DTAdaptedDoodle: Codable {
     }
 
     public mutating func removeStroke(at index: Int) {
-        strokes.remove(at: index)
+        strokes[index].safeDelete()
+    }
+
+    public mutating func unremoveStroke(at index: Int) {
+        strokes[index].safeUndelete()
     }
 
     public mutating func modifyStroke(at index: Int, to newStroke: DTAdaptedStroke) {

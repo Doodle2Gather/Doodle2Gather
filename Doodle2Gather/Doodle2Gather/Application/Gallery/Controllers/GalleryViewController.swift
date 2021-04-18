@@ -109,7 +109,7 @@ extension GalleryViewController: UICollectionViewDelegate {
                 DTLogger.error(error.localizedDescription)
             case .success(.some(let doodles)):
               DispatchQueue.main.async {
-                vc.doodles = doodles
+                vc.doodles = doodles.map { DTDoodleWrapper(doodle: $0) }
                 vc.room = self.rooms[index]
                 vc.username = DTAuth.user?.displayName ?? "Unknown"
                 vc.modalPresentationStyle = .fullScreen
