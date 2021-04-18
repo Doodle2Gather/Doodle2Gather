@@ -84,6 +84,7 @@
 		840D6B3326023F90001F3D43 /* VideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D6B3226023F90001F3D43 /* VideoCollectionViewCell.swift */; };
 		8415BC7D262B4E3F00E6CF1B /* DoodleViewController+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415BC7C262B4E3F00E6CF1B /* DoodleViewController+Navigation.swift */; };
 		8415BC91262BDF0A00E6CF1B /* AlertConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415BC90262BDF0A00E6CF1B /* AlertConstants.swift */; };
+		8415BC99262BFB1000E6CF1B /* UserViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415BC98262BFB1000E6CF1B /* UserViewCell.swift */; };
 		8464E77D262586B4002B5BEE /* InvitationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8464E77C262586B4002B5BEE /* InvitationViewController.swift */; };
 		8464E7892625878C002B5BEE /* Invitation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8464E7882625878C002B5BEE /* Invitation.storyboard */; };
 		8464E7982625B08C002B5BEE /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8464E7972625B08C002B5BEE /* Room.swift */; };
@@ -230,6 +231,7 @@
 		840D6B3226023F90001F3D43 /* VideoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewCell.swift; sourceTree = "<group>"; };
 		8415BC7C262B4E3F00E6CF1B /* DoodleViewController+Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DoodleViewController+Navigation.swift"; sourceTree = "<group>"; };
 		8415BC90262BDF0A00E6CF1B /* AlertConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertConstants.swift; sourceTree = "<group>"; };
+		8415BC98262BFB1000E6CF1B /* UserViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewCell.swift; sourceTree = "<group>"; };
 		8464E77C262586B4002B5BEE /* InvitationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitationViewController.swift; sourceTree = "<group>"; };
 		8464E7882625878C002B5BEE /* Invitation.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Invitation.storyboard; sourceTree = "<group>"; };
 		8464E7972625B08C002B5BEE /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
@@ -779,7 +781,8 @@
 		8464E77A2625868A002B5BEE /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				8464E77C262586B4002B5BEE /* InvitationViewController.swift */,
+				8464E7882625878C002B5BEE /* Invitation.storyboard */,
+				8415BC98262BFB1000E6CF1B /* UserViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -787,7 +790,7 @@
 		8464E77B26258691002B5BEE /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				8464E7882625878C002B5BEE /* Invitation.storyboard */,
+				8464E77C262586B4002B5BEE /* InvitationViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1230,6 +1233,7 @@
 				2EB12ABE261BFBB600131FE6 /* DoodleLayerTableDelegate.swift in Sources */,
 				2EB129B5261BB4B500131FE6 /* DTActionQueueDelegate.swift in Sources */,
 				2EB12A3F261BE3F400131FE6 /* DTTool.swift in Sources */,
+				8415BC99262BFB1000E6CF1B /* UserViewCell.swift in Sources */,
 				848F3581261451D400AD46C6 /* ParticipantViewCell.swift in Sources */,
 				848F354F2614177000AD46C6 /* Sender.swift in Sources */,
 				2E987E7D26075C0200352E7D /* SocketController.swift in Sources */,
