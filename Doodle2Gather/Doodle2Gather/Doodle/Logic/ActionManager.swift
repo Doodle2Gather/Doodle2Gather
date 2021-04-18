@@ -23,6 +23,11 @@ extension ActionManager {
 
         let newStrokes = doodle.dtStrokes
         let oldStrokes = currentDoodle.drawing.dtStrokes
+
+        if newStrokes == oldStrokes {
+            return (nil, nil)
+        }
+
         var action: DTPartialAction?
 
         switch actionType {
@@ -132,7 +137,8 @@ extension ActionManager {
     }
 
     /// Removes or unremoves the given pairs quietly.
-    private mutating func removeOrUnremovePairsQuietly(pairs: [(DTStrokeWrapper, Int)], isUnremove: Bool = false) throws -> DTDoodleWrapper {
+    private mutating func removeOrUnremovePairsQuietly(pairs: [(DTStrokeWrapper, Int)],
+                                                       isUnremove: Bool = false) throws -> DTDoodleWrapper {
         for (stroke, index) in pairs {
             if index >= currentDoodle.strokes.count {
                 DTLogger.error("Failed to remove pairs quietly")

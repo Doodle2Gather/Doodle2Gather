@@ -7,7 +7,12 @@ struct DTDoodleWrapper {
 
     var doodleId: UUID
     // Model
-    var strokes: [DTStrokeWrapper]
+    var strokes: [DTStrokeWrapper] {
+        didSet {
+            drawing = PKDrawing(strokes: self.strokes.filter({ !$0.isDeleted })
+                                    .compactMap { $0.stroke })
+        }
+    }
     // View
     var drawing: PKDrawing
 
