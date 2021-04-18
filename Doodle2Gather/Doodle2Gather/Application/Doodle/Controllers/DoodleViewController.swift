@@ -113,67 +113,61 @@ class DoodleViewController: UIViewController {
         userProfileLabel.layer.masksToBounds = true
         otherProfileLabelOne.layer.masksToBounds = true
         otherProfileLabelTwo.layer.masksToBounds = true
+    }
 
+    private func updateProfileColors() {
         guard let user = DTAuth.user else {
             DTLogger.error("Attempted to join room without a user.")
             return
         }
 
-        if let firstChar = user.displayName.first(where: {
-            !$0.isWhitespace
-        }) {
-            userProfileLabel.text = String(firstChar)
-        } else {
-            userProfileLabel.text = "-"
-        }
-
-        if participants.count <= 1 {
+        setProfileLabel(userProfileLabel, text: user.displayName)
+        if existingUsers.count <= 1 {
             separator.isHidden = true
+            userProfileLabel.backgroundColor = userIconColors[0]
             otherProfileLabelOne.isHidden = true
             otherProfileLabelTwo.isHidden = true
             numberOfOtherUsersLabel.isHidden = true
-        } else if participants.count <= 2 {
+        } else if existingUsers.count <= 2 {
             separator.isHidden = false
-            setProfileLabel(otherProfileLabelOne, text: participants[1].displayName, index: 1)
+            setProfileLabel(otherProfileLabelOne, text: participants[1].displayName)
             otherProfileLabelOne.isHidden = false
             otherProfileLabelTwo.isHidden = true
             numberOfOtherUsersLabel.isHidden = true
-        } else if participants.count <= 3 {
+            userProfileLabel.backgroundColor = userIconColors[0]
+            otherProfileLabelOne.backgroundColor = userIconColors[1]
+        } else if existingUsers.count <= 3 {
             separator.isHidden = false
-            setProfileLabel(otherProfileLabelOne, text: participants[1].displayName, index: 1)
-            setProfileLabel(otherProfileLabelOne, text: participants[2].displayName, index: 2)
+            setProfileLabel(otherProfileLabelOne, text: participants[1].displayName)
+            setProfileLabel(otherProfileLabelOne, text: participants[2].displayName)
             otherProfileLabelOne.isHidden = false
             otherProfileLabelTwo.isHidden = false
             numberOfOtherUsersLabel.isHidden = true
+            userProfileLabel.backgroundColor = userIconColors[0]
+            otherProfileLabelOne.backgroundColor = userIconColors[1]
+            otherProfileLabelTwo.backgroundColor = userIconColors[2]
         } else {
             separator.isHidden = false
-            setProfileLabel(otherProfileLabelOne, text: participants[1].displayName, index: 1)
-            setProfileLabel(otherProfileLabelOne, text: participants[2].displayName, index: 2)
+            setProfileLabel(otherProfileLabelOne, text: participants[1].displayName)
+            setProfileLabel(otherProfileLabelOne, text: participants[2].displayName)
             otherProfileLabelOne.isHidden = false
             otherProfileLabelTwo.isHidden = false
             numberOfOtherUsersLabel.isHidden = false
+            userProfileLabel.backgroundColor = userIconColors[0]
+            otherProfileLabelOne.backgroundColor = userIconColors[1]
+            otherProfileLabelTwo.backgroundColor = userIconColors[2]
             numberOfOtherUsersLabel.text = "+\(participants.count - 3)"
         }
-
     }
 
-    private func setProfileLabel(_ label: UILabel, text: String, index: Int) {
-        if let firstChar = participants[index].displayName.first(where: {
+    private func setProfileLabel(_ label: UILabel, text: String) {
+        if let firstChar = text.first(where: {
             !$0.isWhitespace
         }) {
             label.text = String(firstChar)
         } else {
             label.text = "-"
         }
-    }
-
-    private func generateRandomColor() -> UIColor {
-        UIColor(
-            red: .random(in: 0..<1),
-            green: .random(in: 0..<1),
-            blue: .random(in: 0..<1),
-            alpha: 1.0
-        )
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -364,6 +358,9 @@ extension DoodleViewController: SocketControllerDelegate {
         existingUsers = users
         if userIconColors.isEmpty {
             userIconColors.append(generateRandomColor())
+            DispatchQueue.main.async {
+                self.updateProfileColors()
+            }
         }
     }
 

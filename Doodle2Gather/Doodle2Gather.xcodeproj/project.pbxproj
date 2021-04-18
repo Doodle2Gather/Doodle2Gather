@@ -81,7 +81,7 @@
 		83F5890E2619B47C00BB9F07 /* UserDefaultsCredentialsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F5890D2619B47C00BB9F07 /* UserDefaultsCredentialsProvider.swift */; };
 		840D6B2B260236CF001F3D43 /* ConferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D6B2A260236CF001F3D43 /* ConferenceViewController.swift */; };
 		840D6B3326023F90001F3D43 /* VideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D6B3226023F90001F3D43 /* VideoCollectionViewCell.swift */; };
-		8415BC7D262B4E3F00E6CF1B /* DoodleViewController+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415BC7C262B4E3F00E6CF1B /* DoodleViewController+Navigation.swift */; };
+		8415BC7D262B4E3F00E6CF1B /* DoodleViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415BC7C262B4E3F00E6CF1B /* DoodleViewController+Extensions.swift */; };
 		8415BC91262BDF0A00E6CF1B /* AlertConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415BC90262BDF0A00E6CF1B /* AlertConstants.swift */; };
 		8415BC99262BFB1000E6CF1B /* UserViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415BC98262BFB1000E6CF1B /* UserViewCell.swift */; };
 		8415BCA0262C05A000E6CF1B /* ActionSheetAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415BC9F262C05A000E6CF1B /* ActionSheetAlertController.swift */; };
@@ -228,7 +228,7 @@
 		83F5890D2619B47C00BB9F07 /* UserDefaultsCredentialsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsCredentialsProvider.swift; sourceTree = "<group>"; };
 		840D6B2A260236CF001F3D43 /* ConferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConferenceViewController.swift; sourceTree = "<group>"; };
 		840D6B3226023F90001F3D43 /* VideoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewCell.swift; sourceTree = "<group>"; };
-		8415BC7C262B4E3F00E6CF1B /* DoodleViewController+Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DoodleViewController+Navigation.swift"; sourceTree = "<group>"; };
+		8415BC7C262B4E3F00E6CF1B /* DoodleViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DoodleViewController+Extensions.swift"; sourceTree = "<group>"; };
 		8415BC90262BDF0A00E6CF1B /* AlertConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertConstants.swift; sourceTree = "<group>"; };
 		8415BC98262BFB1000E6CF1B /* UserViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewCell.swift; sourceTree = "<group>"; };
 		8415BC9F262C05A000E6CF1B /* ActionSheetAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetAlertController.swift; sourceTree = "<group>"; };
@@ -516,7 +516,7 @@
 			children = (
 				2ED7A3CB2601C0450006D873 /* DoodleViewController.swift */,
 				2EB12AB1261BEDDC00131FE6 /* DoodleLayerTableViewController.swift */,
-				8415BC7C262B4E3F00E6CF1B /* DoodleViewController+Navigation.swift */,
+				8415BC7C262B4E3F00E6CF1B /* DoodleViewController+Extensions.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1273,7 +1273,7 @@
 				8415BCA0262C05A000E6CF1B /* ActionSheetAlertController.swift in Sources */,
 				2EB12A41261BE3F400131FE6 /* DTCodableColor.swift in Sources */,
 				2EB129AF261BB32F00131FE6 /* Queue.swift in Sources */,
-				8415BC7D262B4E3F00E6CF1B /* DoodleViewController+Navigation.swift in Sources */,
+				8415BC7D262B4E3F00E6CF1B /* DoodleViewController+Extensions.swift in Sources */,
 				84E95961260D758B00D587CC /* ChatEngineDelegate.swift in Sources */,
 				2EA8C3182606682500BE750C /* PKCanvasView+Doodle.swift in Sources */,
 				83AB9C5226171088008E48D0 /* DTAuth.swift in Sources */,
