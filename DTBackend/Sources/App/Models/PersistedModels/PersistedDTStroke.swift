@@ -23,12 +23,12 @@ final class PersistedDTStroke: Model, Content {
     var isDeleted: Bool
 
     @Field(key: "created_by")
-    var createdBy: UUID
+    var createdBy: String
 
     init() { }
 
     init(strokeData: Data, strokeId: UUID, roomId: UUID, doodleId: PersistedDTDoodle.IDValue,
-         createdBy: UUID, isDeleted: Bool = false, id: UUID? = nil) {
+         createdBy: String, isDeleted: Bool = false, id: UUID? = nil) {
         self.roomId = roomId
         self.$doodle.id = doodleId
         self.strokeId = strokeId

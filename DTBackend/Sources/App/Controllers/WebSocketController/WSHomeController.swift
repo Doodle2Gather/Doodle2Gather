@@ -40,6 +40,10 @@ class WSHomeController {
         do {
             let decodedData = try decoder.decode(DTHomeMessage.self, from: data)
             switch decodedData.subtype {
+            case .createRoom:
+                let createRoomData = try decoder.decode(
+                    DTAdaptedRoom.CreateRequest.self, from: data)
+                self.handleCreateRoom(ws, decodedData.id, createRoomData)
 //            case .joinViaInvite:
 //                self.handleJoinViaInvite(decodedData.id)
             case .accessibleRooms:
@@ -52,6 +56,24 @@ class WSHomeController {
         } catch {
             logger.report(error: error)
         }
+    }
+
+    func handleCreateRoom(_ ws: WebSocket, _ id: UUID,
+                          _ request: DTAdaptedRoom.CreateRequest) {
+        PersistedDTRoom.createRoom(request, on: db)
+            .whenComplete { res in
+                switch res {
+                case .failure(let err):
+                    self.logger.report(error: err)
+
+                case .success(let room):
+                    self.logger.info("Created room.")
+                    let message = DTCreateRoomMessage(id: id, ownerId: request.ownerId, room: room)
+                    self.getWebSockets([.socket(ws)]).forEach {
+                        $0.send(message: message)
+                    }
+                }
+            }
     }
 
     func handleJoinViaInvite(_ ws: WebSocket, _ id: UUID,

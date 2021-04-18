@@ -9,7 +9,7 @@ public enum DTAuthMessageType: String, Codable {
 }
 
 public enum DTHomeMessageType: String, Codable {
-    case joinViaInvite, accessibleRooms
+    case createRoom, joinViaInvite, accessibleRooms
 }
 
 public enum DTRoomMessageType: String, Codable {

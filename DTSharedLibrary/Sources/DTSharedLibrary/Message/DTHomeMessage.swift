@@ -5,6 +5,22 @@ public struct DTHomeMessage: Codable {
     public let subtype: DTHomeMessageType
 }
 
+public struct DTCreateRoomMessage: Codable {
+    public var type = DTMessageType.home
+    public var subtype = DTHomeMessageType.createRoom
+    public let id: UUID
+
+    public let ownerId: String
+    // nil for request message nad not nil for response from server
+    public let room: DTAdaptedRoom?
+
+    public init(id: UUID, ownerId: String, room: DTAdaptedRoom? = nil) {
+        self.id = id
+        self.ownerId = ownerId
+        self.room = room
+    }
+}
+
 public struct DTJoinRoomViaInviteMessage: Codable {
     public var type = DTMessageType.home
     public var subtype = DTHomeMessageType.joinViaInvite

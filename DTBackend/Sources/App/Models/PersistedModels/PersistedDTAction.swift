@@ -21,7 +21,7 @@ final class PersistedDTAction: Model, Content {
     var strokes: [PersistedDTStrokeIndexPair]
 
     @Field(key: "created_by")
-    var createdBy: UUID
+    var createdBy: String
 
     @Timestamp(key: "created_at", on: .create)
     var createdAt: Date?
@@ -29,7 +29,7 @@ final class PersistedDTAction: Model, Content {
     init() { }
 
     init(type: DTActionType, strokes: [PersistedDTStrokeIndexPair], roomId: UUID,
-         doodleId: PersistedDTDoodle.IDValue, createdBy: UUID, id: UUID? = nil) {
+         doodleId: PersistedDTDoodle.IDValue, createdBy: String, id: UUID? = nil) {
         self.type = type.rawValue
         self.roomId = roomId
         self.$doodle.id = doodleId

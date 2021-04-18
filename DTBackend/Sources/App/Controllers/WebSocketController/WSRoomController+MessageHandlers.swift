@@ -13,6 +13,7 @@ extension WSRoomController {
             self.users[id] = nil
         }
         self.logger.info("users in room \(Array(self.users.values))")
+        syncData()
     }
 
     // MARK: - initiateAction
