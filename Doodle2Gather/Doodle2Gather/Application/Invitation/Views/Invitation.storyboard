@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -69,11 +70,11 @@
                                             <constraint firstAttribute="bottom" secondItem="hTc-eA-jkh" secondAttribute="bottom" id="vCk-7S-arC"/>
                                         </constraints>
                                     </view>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7TU-ES-ThS">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7TU-ES-ThS">
                                         <rect key="frame" x="30" y="135" width="440" height="235"/>
                                         <color key="backgroundColor" name="Black"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="sfh-Ms-fGa" customClass="UserViewCell" customModule="Doodle2Gather" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="userCell" id="sfh-Ms-fGa" customClass="UserViewCell" customModule="Doodle2Gather" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="440" height="62.5"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sfh-Ms-fGa" id="Zqe-C9-EkK">
@@ -82,6 +83,7 @@
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="We0-tE-6w8" userLabel="User Icon Label">
                                                             <rect key="frame" x="16" y="11" width="40" height="40.5"/>
+                                                            <color key="backgroundColor" systemColor="systemIndigoColor"/>
                                                             <color key="tintColor" name="White"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="40" id="a7C-qL-6aZ"/>
@@ -90,6 +92,14 @@
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" name="White"/>
                                                             <nil key="highlightedColor"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                                    <real key="value" value="3"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                    <real key="value" value="20"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aJU-z8-rhI" userLabel="Username Label">
                                                             <rect key="frame" x="76" y="11" width="42" height="20"/>
@@ -113,11 +123,15 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="onT-X0-1nX" userLabel="Permissions">
-                                                            <rect key="frame" x="361" y="19.5" width="79" height="24"/>
+                                                            <rect key="frame" x="385" y="14.5" width="55" height="34"/>
                                                             <color key="tintColor" name="White"/>
-                                                            <state key="normal" title="Viewer" image="CaretDown">
+                                                            <state key="normal" title="Viewer">
                                                                 <color key="titleColor" name="White"/>
                                                             </state>
+                                                            <state key="selected" title="Editor" image="SingleArrowDown"/>
+                                                            <connections>
+                                                                <action selector="didTapPermissions:" destination="sfh-Ms-fGa" eventType="touchUpInside" id="d8v-h5-pqx"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                     <constraints>
@@ -174,6 +188,7 @@
                     <modalFormSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="inviteCodeField" destination="KBh-U9-HZF" id="oNC-pU-7SD"/>
+                        <outlet property="tableView" destination="7TU-ES-ThS" id="epl-F1-fdl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fkt-Lr-BgL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -182,7 +197,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="CaretDown" width="24" height="24"/>
+        <image name="SingleArrowDown" width="24" height="24"/>
         <namedColor name="Black">
             <color red="0.125" green="0.125" blue="0.11400000005960464" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
@@ -195,5 +210,8 @@
         <namedColor name="White">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="systemIndigoColor">
+            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

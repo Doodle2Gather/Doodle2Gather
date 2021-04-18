@@ -11,4 +11,3 @@ enum ApiEndpoints {
     static let localApi = "http://localhost:8080/api/"
     static let localWS = "ws://localhost:8080"
 }
-
