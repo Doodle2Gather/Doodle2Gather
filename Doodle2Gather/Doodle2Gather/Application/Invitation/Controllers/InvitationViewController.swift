@@ -60,6 +60,24 @@ extension InvitationViewController: UITableViewDataSource {
             if ownerId == currentUserId {
                 // Set callback to cell
                 cell?.setEditable(true)
+                cell?.tapPermissionButtonCallback = { origin, source in
+                    let setViewerAction = UIAlertAction(title: "Viewer",
+                                                        style: .default,
+                                                        handler: { _ in
+                        print("Change to viewer")
+                    })
+                    let setEditorAction = UIAlertAction(title: "Editor",
+                                                        style: .default,
+                                                        handler: { _ in
+                        print("Change to editor")
+                    })
+                    DispatchQueue.main.async {
+                        self.actionSheet(message: nil,
+                                         actions: [setViewerAction, setEditorAction],
+                                         origin: origin,
+                                         source: source)
+                    }
+                }
             }
         }
 

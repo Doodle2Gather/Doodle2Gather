@@ -7,7 +7,8 @@ class UserViewCell: UITableViewCell {
     @IBOutlet private var emailLabel: UILabel!
     @IBOutlet private var permissionsButton: UIButton!
 
-    var modifyPermissionCallback: ((String) -> UserPermission)?
+    var tapPermissionButtonCallback: ((CGPoint, UIView) -> Void)?
+    var modifyPermissionCallback: ((String, UserPermission) -> UserPermission)?
     private var userId: String?
 
     override func awakeFromNib() {
@@ -70,13 +71,10 @@ class UserViewCell: UITableViewCell {
     }
 
     @IBAction private func didTapPermissions(_ sender: UIButton) {
-        guard let callback = modifyPermissionCallback else {
+        guard let tapCallback = tapPermissionButtonCallback else {
             return
         }
-        guard let id = userId else {
-            return
-        }
-        let permission = callback(id)
-        setPermissions(permission)
+        let origin = CGPoint(x: sender.frame.midX, y: sender.frame.midY)
+        tapCallback(origin, self)
     }
 }

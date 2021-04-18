@@ -33,7 +33,7 @@ extension UIViewController {
 
     /// Creates an action with the given `message`, `actions`
     /// and `origin`.
-    func actionSheet(message: String?, actions: [UIAlertAction], origin: CGPoint) {
+    func actionSheet(message: String?, actions: [UIAlertAction], origin: CGPoint, source: UIView) {
         let actionSheet = ActionSheetAlertController(title: nil, message: message,
                                                      preferredStyle: .actionSheet)
         actions.forEach { actionSheet.addAction($0) }
@@ -42,9 +42,15 @@ extension UIViewController {
             origin: origin,
             size: CGSize()
         )
-        actionSheet.popoverPresentationController?.sourceView = view
+        actionSheet.popoverPresentationController?.sourceView = source
 
+        styleActionSheet(actionSheet)
         present(actionSheet, animated: true, completion: nil)
+    }
+
+    func styleActionSheet(_ actionSheet: UIAlertController) {
+        actionSheet.popoverPresentationController?.backgroundColor = UIConstants.black
+        actionSheet.setTint(color: UIConstants.white)
     }
 
 }
