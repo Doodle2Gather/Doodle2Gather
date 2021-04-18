@@ -25,9 +25,10 @@ class DoodleLayerTableViewController: UITableViewController {
 
         let doodle = doodles[indexPath.row]
         cell.setName("Layer \(indexPath.row + 1)")
-        cell.setImageView(DTDoodlePreview(doodle: doodles[indexPath.row]))
+        cell.setImageView(DTDoodlePreview(doodle: doodle))
         cell.index = indexPath.row
         cell.isSelected = selectedDoodleIndex == indexPath.row
+        cell.delegate = self
 
         return cell
     }
