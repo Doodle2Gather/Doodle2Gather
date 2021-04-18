@@ -6,6 +6,8 @@ struct AddPair: Migration {
             .id()
             .field("stroke_data", .data, .required)
             .field("index", .int, .required)
+            .field("stroke_id", .uuid, .required)
+            .field("is_deleted", .bool, .required)
             .create()
     }
 

@@ -6,9 +6,9 @@ public struct DTAdaptedAction: Codable {
     public let strokes: [DTStrokeIndexPair]
     public let roomId: UUID
     public let doodleId: UUID
-    public let createdBy: UUID
+    public let createdBy: String
 
-    public init(type: DTActionType, strokes: [DTStrokeIndexPair], roomId: UUID, doodleId: UUID, createdBy: UUID) {
+    public init(type: DTActionType, strokes: [DTStrokeIndexPair], roomId: UUID, doodleId: UUID, createdBy: String) {
         self.type = type
         self.strokes = strokes
         self.roomId = roomId
@@ -21,7 +21,9 @@ public struct DTAdaptedAction: Codable {
         for stroke in strokes {
             dtStrokes.append(
                 DTAdaptedStroke(
-                    stroke: stroke.stroke, roomId: roomId, doodleId: doodleId, createdBy: createdBy
+                    stroke: stroke.stroke, strokeId: stroke.strokeId,
+                    roomId: roomId, doodleId: doodleId,
+                    createdBy: createdBy, isDeleted: stroke.isDeleted
                 )
             )
         }

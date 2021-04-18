@@ -50,7 +50,7 @@ class DoodleViewController: UIViewController {
     var room: DTAdaptedRoom?
     var username: String?
     private var previousDrawingTool = DrawingTools.pen
-    var doodles: [DTAdaptedDoodle]?
+    var doodles: [DTDoodleWrapper]?
     var participants: [DTAdaptedUser] = []
     var existingUsers: [DTAdaptedUserAccesses] = []
     var userIconColors: [UIColor] = []
@@ -92,6 +92,10 @@ class DoodleViewController: UIViewController {
         self.view.layer.addSublayer(shapeLayer)
     }
 
+    deinit {
+        socketController?.exitRoom()
+    }
+
     private func registerGestures() {
         let zoomTap = UITapGestureRecognizer(target: self, action: #selector(zoomScaleDidTap(_:)))
         zoomScaleLabel.addGestureRecognizer(zoomTap)
@@ -130,7 +134,7 @@ class DoodleViewController: UIViewController {
             numberOfOtherUsersLabel.isHidden = true
         } else if existingUsers.count <= 2 {
             separator.isHidden = false
-            setProfileLabel(otherProfileLabelOne, text: participants[1].displayName)
+            setProfileLabel(otherProfileLabelOne, text: existingUsers[1].displayName)
             otherProfileLabelOne.isHidden = false
             otherProfileLabelTwo.isHidden = true
             numberOfOtherUsersLabel.isHidden = true
@@ -138,8 +142,8 @@ class DoodleViewController: UIViewController {
             otherProfileLabelOne.backgroundColor = userIconColors[1]
         } else if existingUsers.count <= 3 {
             separator.isHidden = false
-            setProfileLabel(otherProfileLabelOne, text: participants[1].displayName)
-            setProfileLabel(otherProfileLabelOne, text: participants[2].displayName)
+            setProfileLabel(otherProfileLabelOne, text: existingUsers[1].displayName)
+            setProfileLabel(otherProfileLabelOne, text: existingUsers[2].displayName)
             otherProfileLabelOne.isHidden = false
             otherProfileLabelTwo.isHidden = false
             numberOfOtherUsersLabel.isHidden = true
@@ -148,8 +152,8 @@ class DoodleViewController: UIViewController {
             otherProfileLabelTwo.backgroundColor = userIconColors[2]
         } else {
             separator.isHidden = false
-            setProfileLabel(otherProfileLabelOne, text: participants[1].displayName)
-            setProfileLabel(otherProfileLabelOne, text: participants[2].displayName)
+            setProfileLabel(otherProfileLabelOne, text: existingUsers[1].displayName)
+            setProfileLabel(otherProfileLabelOne, text: existingUsers[2].displayName)
             otherProfileLabelOne.isHidden = false
             otherProfileLabelTwo.isHidden = false
             numberOfOtherUsersLabel.isHidden = false
@@ -272,7 +276,7 @@ extension DoodleViewController {
     }
 
     @IBAction private func addLayerButtonDidTap(_ sender: UIButton) {
-        // TODO: Create new layer
+        socketController?.addDoodle()
     }
 
     @objc
@@ -314,7 +318,11 @@ extension DoodleViewController: DoodleLayerTableDelegate {
 
 extension DoodleViewController: CanvasControllerDelegate {
 
-    func actionDidFinish(action: DTAction) {
+    func dispatchPartialAction(_ action: DTPartialAction) {
+        guard let roomId = self.room?.roomId else {
+            return
+        }
+        let action = DTAction(partialAction: action, roomId: roomId)
         socketController?.addAction(action)
     }
 
@@ -334,30 +342,35 @@ extension DoodleViewController: CanvasControllerDelegate {
 
 extension DoodleViewController: SocketControllerDelegate {
 
-    func dispatchChanges<S>(type: DTActionType, strokes: [(S, Int)], doodleId: UUID) where S: DTStroke {
-        guard let roomId = self.room?.roomId,
-              let action = DTAction(type: type, roomId: roomId, doodleId: doodleId, strokes: strokes) else {
-            return
-        }
-        socketController?.addAction(action)
-    }
-
     func dispatchAction(_ action: DTAction) {
         canvasController?.dispatchAction(action)
     }
 
-    func clearDrawing() {
-        canvasController?.clearDoodle()
+    func loadDoodles(_ doodles: [DTDoodleWrapper]) {
+        canvasController?.loadDoodles(doodles)
+        layerTable?.loadDoodles(doodles)
     }
 
-    func loadDoodles(_ doodles: [DTAdaptedDoodle]) {
+    func addNewDoodle(_ doodle: DTDoodleWrapper) {
+        guard var doodles = doodles else {
+            return
+        }
+        doodles.append(doodle)
+        self.doodles = doodles
         canvasController?.loadDoodles(doodles)
+        layerTable?.loadDoodles(doodles)
+    }
+
+    func removeDoodle(doodleId: UUID) {
+        // TODO: Add after refactoring doodles
     }
 
     func updateUsers(_ users: [DTAdaptedUserAccesses]) {
         existingUsers = users
         if userIconColors.isEmpty {
-            userIconColors.append(generateRandomColor())
+            for _ in 0..<50 {
+                userIconColors.append(generateRandomColor())
+            }
             DispatchQueue.main.async {
                 self.updateProfileColors()
             }

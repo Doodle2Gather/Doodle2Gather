@@ -39,17 +39,19 @@ public struct DTInitiateActionMessage: Codable {
     public var type = DTMessageType.room
     public var subtype = DTRoomMessageType.initiateAction
     public let id: UUID
+    public let userId: String
     public let roomId: UUID
 
     public let action: DTAdaptedAction
 
     public init(actionType: DTActionType, strokes: [DTStrokeIndexPair],
-                id: UUID, roomId: UUID, doodleId: UUID) {
+                id: UUID, userId: String, roomId: UUID, doodleId: UUID) {
         self.id = id
+        self.userId = userId
         self.roomId = roomId
         self.action = DTAdaptedAction(
             type: actionType, strokes: strokes,
-            roomId: roomId, doodleId: doodleId, createdBy: id)
+            roomId: roomId, doodleId: doodleId, createdBy: userId)
     }
 }
 
@@ -61,24 +63,24 @@ public struct DTActionFeedbackMessage: Codable {
 
     public let success: Bool
     public let message: String
-    public let orginalAction: DTAdaptedAction
+    public let originalAction: DTAdaptedAction
     public let dispatchedAction: DTAdaptedAction?
 
     public init(id: UUID, roomId: UUID, success: Bool, message: String,
-                orginalAction: DTAdaptedAction, dispatchedAction: DTAdaptedAction?
+                originalAction: DTAdaptedAction, dispatchedAction: DTAdaptedAction?
     ) {
         self.id = id
         self.roomId = roomId
         self.success = success
         self.message = message
-        self.orginalAction = orginalAction
+        self.originalAction = originalAction
         self.dispatchedAction = dispatchedAction
     }
 }
 
 public struct DTDispatchActionMessage: Codable {
     public var type = DTMessageType.room
-    public var subtype = DTRoomMessageType.actionFeedback
+    public var subtype = DTRoomMessageType.dispatchAction
     public let id: UUID
     public let roomId: UUID
 
@@ -125,6 +127,18 @@ public struct DTFetchDoodleMessage: Codable {
         self.success = success
         self.message = message
         self.doodles = doodles
+    }
+}
+
+public struct DTRequestAddDoodleMessage: Codable {
+    public var type = DTMessageType.room
+    public var subtype = DTRoomMessageType.requestAddDoodle
+    public let id: UUID
+    public let roomId: UUID
+
+    public init(id: UUID, roomId: UUID) {
+        self.id = id
+        self.roomId = roomId
     }
 }
 
