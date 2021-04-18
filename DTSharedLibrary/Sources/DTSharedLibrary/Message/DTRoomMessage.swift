@@ -39,17 +39,19 @@ public struct DTInitiateActionMessage: Codable {
     public var type = DTMessageType.room
     public var subtype = DTRoomMessageType.initiateAction
     public let id: UUID
+    public let userId: String
     public let roomId: UUID
 
     public let action: DTAdaptedAction
 
     public init(actionType: DTActionType, strokes: [DTStrokeIndexPair],
-                id: UUID, roomId: UUID, doodleId: UUID) {
+                id: UUID, userId: String, roomId: UUID, doodleId: UUID) {
         self.id = id
+        self.userId = userId
         self.roomId = roomId
         self.action = DTAdaptedAction(
             type: actionType, strokes: strokes,
-            roomId: roomId, doodleId: doodleId, createdBy: id)
+            roomId: roomId, doodleId: doodleId, createdBy: userId)
     }
 }
 

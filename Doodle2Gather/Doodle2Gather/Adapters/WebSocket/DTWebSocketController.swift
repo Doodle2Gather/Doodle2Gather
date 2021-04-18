@@ -183,7 +183,7 @@ extension DTWebSocketController: SocketController {
 
         let message = DTInitiateActionMessage(
             actionType: action.type, strokes: action.strokes,
-            id: id, roomId: action.roomId, doodleId: action.doodleId
+            id: id, userId: DTAuth.user!.uid, roomId: action.roomId, doodleId: action.doodleId
         )
 
         do {
