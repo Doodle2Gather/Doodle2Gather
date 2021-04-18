@@ -5,4 +5,5 @@ protocol DTAbstractAuthProvider {
     var user: DTUser? { get }
     func signUp(email: String, password: String, displayName: String)
     func login(email: String, password: String)
+    func configure()
 }

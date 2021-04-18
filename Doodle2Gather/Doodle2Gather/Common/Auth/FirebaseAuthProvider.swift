@@ -16,6 +16,10 @@ class FirebaseAuthProvider: DTAbstractAuthProvider {
         Auth.auth().currentUser?.toDTUser()
     }
 
+    func configure() {
+        FirebaseApp.configure()
+    }
+
     func signUp(email: String, password: String, displayName: String) {
       Auth.auth().createUser(withEmail: email, password: password) { _, error in
         guard error == nil else {
