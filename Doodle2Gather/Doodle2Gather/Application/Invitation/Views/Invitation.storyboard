@@ -112,9 +112,8 @@
                                                             <color key="textColor" name="White"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="onT-X0-1nX" userLabel="Permissions">
-                                                            <rect key="frame" x="362" y="19" width="79" height="24"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="onT-X0-1nX" userLabel="Permissions">
+                                                            <rect key="frame" x="361" y="19.5" width="79" height="24"/>
                                                             <color key="tintColor" name="White"/>
                                                             <state key="normal" title="Viewer" image="CaretDown">
                                                                 <color key="titleColor" name="White"/>
@@ -122,6 +121,8 @@
                                                         </button>
                                                     </subviews>
                                                     <constraints>
+                                                        <constraint firstAttribute="trailing" secondItem="onT-X0-1nX" secondAttribute="trailing" id="1be-Lk-71k"/>
+                                                        <constraint firstItem="onT-X0-1nX" firstAttribute="centerY" secondItem="Zqe-C9-EkK" secondAttribute="centerY" id="5ad-U5-u9R"/>
                                                         <constraint firstItem="We0-tE-6w8" firstAttribute="leading" secondItem="Zqe-C9-EkK" secondAttribute="leadingMargin" id="IIa-fJ-5v8"/>
                                                         <constraint firstAttribute="bottomMargin" secondItem="We0-tE-6w8" secondAttribute="bottom" id="Ps4-qP-hDJ"/>
                                                         <constraint firstItem="aJU-z8-rhI" firstAttribute="top" secondItem="Zqe-C9-EkK" secondAttribute="topMargin" id="SEo-te-a42"/>
