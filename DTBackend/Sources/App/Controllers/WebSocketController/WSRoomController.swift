@@ -63,7 +63,6 @@ class WSRoomController {
             let userId = decodedData.userId
             let wsId = decodedData.id
 
-            
             PersistedDTUser.getSingleById(userId, on: db)
                 .and(PersistedDTRoom.getRoomPermissions(roomId: self.roomId, on: db))
                 .whenComplete { result in
@@ -89,12 +88,12 @@ class WSRoomController {
 
                     // fetch all existing doodles
                     self.initiateDoodleFetching(ws, wsId)
-                    
+
                 case .failure(let error):
                     // Unable to find user in DB
                     self.logger.error("\(error.localizedDescription)")
                 }
-            }
+                }
         } catch {
             logger.report(error: error)
         }
