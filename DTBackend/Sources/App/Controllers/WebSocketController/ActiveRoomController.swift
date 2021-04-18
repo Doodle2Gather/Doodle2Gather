@@ -61,7 +61,7 @@ class ActiveRoomController {
 
         switch action.type {
         case .add:
-            guard strokes.count != 1, let strokeToAdd = strokes.first else {
+            guard strokes.count == 1, let strokeToAdd = strokes.first else {
                 return nil
             }
 
