@@ -26,9 +26,9 @@ public struct DTParticipantInfoMessage: Codable {
     public let id: UUID
     public let roomId: UUID
 
-    public let users: [DTAdaptedUser]
+    public let users: [DTAdaptedUserAccesses]
 
-    public init(id: UUID, roomId: UUID, users: [DTAdaptedUser]) {
+    public init(id: UUID, roomId: UUID, users: [DTAdaptedUserAccesses]) {
         self.id = id
         self.roomId = roomId
         self.users = users
