@@ -27,6 +27,10 @@ public struct DTAdaptedStroke: Codable {
     }
 
     public mutating func safeDelete() {
+        isDeleted = true
+    }
+
+    public mutating func safeUndelete() {
         isDeleted = false
     }
 }

@@ -77,6 +77,9 @@ class ActiveRoomController {
             }
             returnPairs = removeStrokes(strokes, strokeIndexPairs)
 
+        case .unremove:
+            returnPairs = unremoveStrokes(strokes, strokeIndexPairs)
+
         case .modify:
             if strokes.count != 2 {
                 return nil
@@ -129,6 +132,27 @@ class ActiveRoomController {
             returnPairs.append(
                 DTStrokeIndexPair(stroke.stroke, index,
                                   strokeId: stroke.strokeId, isDeleted: true)
+            )
+        }
+        return returnPairs
+    }
+
+    func unremoveStrokes(_ strokes: [DTAdaptedStroke], _ pairs: [DTStrokeIndexPair]) -> [DTStrokeIndexPair]? {
+        var returnPairs = [DTStrokeIndexPair]()
+        for index in 0 ..< strokes.count {
+            let stroke = strokes[index]
+            let index = pairs[index].index
+            guard let doodle = doodles[stroke.doodleId] else {
+                return nil
+            }
+            if !doodle.checkIfStrokeIsAtIndex(stroke, at: index) {
+                return nil
+            }
+            doodles[stroke.doodleId]?.unremoveStroke(at: index)
+
+            returnPairs.append(
+                DTStrokeIndexPair(stroke.stroke, index,
+                                  strokeId: stroke.strokeId, isDeleted: false)
             )
         }
         return returnPairs
