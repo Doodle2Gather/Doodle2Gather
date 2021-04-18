@@ -1,0 +1,102 @@
+@startuml
+' STYLE START
+hide empty members
+skinparam shadowing false
+' STYLE END
+
+class "WSConnectionController" as WSConnectionController << (S, SkyBlue) struct >> { 
+  ~onUpgradedWebSocket(req:ws:)
+  -runReceiveDataMiddlewares(_:)
+  -decodeReceivedData(_:_:) 
+}
+class "WSRoomController" as WSRoomController << (C, DarkSeaGreen) >> { 
+  ~lock : Lock
+  ~sockets : [UUID: WebSocket]
+  ~users : [UUID: PersistedDTUser]
+  ~db : Database
+  ~roomId : UUID
+  ~onJoinRoom(_:_:)
+  ~onRoomMessage(_:_:)
+  ~syncData() 
+}
+class "ActiveRoomController" as ActiveRoomController << (C, DarkSeaGreen) >> { 
+  ~roomId : UUID
+  ~doodles : [UUID: DTAdaptedDoodle]
+  ~db : Database
+  ~hasFetchedDoodles
+  ~doodleArray : [DTAdaptedDoodle]
+  ~joinRoom(_:)
+  ~addDoodle(_:)
+  ~removeDoodle(_:)
+  ~process(_:)
+  ~addStroke(_:)
+  ~removeStrokes(_:_:)
+  ~unremoveStrokes(_:_:)
+  ~modifyStroke(original:modified:pair:) 
+}
+ActiveRoomController --* WSRoomController : facilitate CRDT
+class "WSRoomController" as WSRoomControllerExt << (X, Orchid) extension >> {
+  ~dispatchParticipantsInfo(_:wsId:userAccesses:)
+  ~handleExitRoom(_:)
+  ~handleNewAction(_:_:_:)
+  ~dispatchActionToPeers(_:id:to:success:message:)
+  ~sendActionFeedback(original:dispatched:id:to:)
+  ~handleDoodleFetching(_:_:)
+  ~sendFetchedDoodles(_:_:to:success:message:)
+  ~handleAddDoodle(_:_:_:)
+  ~handleRemoveDoodle(_:_:doodleId:)
+  ~handleClearDrawing(_:_:_:) 
+}
+WSRoomController --> WSRoomControllerExt : handle event
+
+class "WSHomeController" as WSHomeController << (C, DarkSeaGreen) >> { 
+  ~db : Database
+  ~onHomeMessage(_:_:)
+}
+class "WSHomeController" as WSHomeControllerExt << (X, Orchid) extension >> { 
+  ~handleCreateRoom(_:_:_:)
+  ~handleJoinViaInvite(_:_:_:)
+  ~handleAccessibleRooms(_:_:_:) 
+}
+WSHomeController --> WSHomeControllerExt : handle event
+
+class "WSAuthController" as WSAuthController << (C, DarkSeaGreen) >> { 
+  ~db : Database
+  ~onAuthMessage(_:_:)
+}
+class "WSAuthController" as WSAuthControllerExt << (X, Orchid) extension >> { 
+  ~handleRegister(_:_:_:)
+  ~handleLogin(_:_:_:)
+}
+WSAuthController --> WSAuthControllerExt : handle event
+class "WebSocketController" as WebSocketController << (C, DarkSeaGreen) >> { 
+  -lock : Lock
+  -db : Database
+  -sockets : [UUID: WebSocket]
+  -homeController : WSHomeController
+  -roomControllers : [UUID: WSRoomController]
+  ~init(db:)
+  ~onConnect(_:)
+  ~onData(_:_:)
+  -handleRoomMessages(_:wsId:data:)
+  ~onDisconnect(_:)
+}
+
+class "WebSocket" as WebSocket << (X, Orchid) extension >> { 
+  -{static} _lock: Lock
+  ~send(message:id:)
+  ~send(message:)
+  -runSendDataMiddlewares(_:)
+  -encodeSendData(_:) 
+}
+
+WSConnectionController --> "1" WebSocketController : decode and preprocess data
+WebSocketController --> "1" WSAuthController : relay auth messages
+WebSocketController --> "1" WSHomeController : relay home messages
+WebSocketController --> "0..*" WSRoomController : relay room messages
+WSAuthController -right[hidden]- WSHomeController
+WSHomeController -right[hidden]- WSRoomController
+WSAuthControllerExt --> WebSocket : send reply
+WSHomeControllerExt --> WebSocket : send reply
+WSRoomControllerExt --> WebSocket : send reply
+@enduml

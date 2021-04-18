@@ -1,0 +1,120 @@
+@startuml
+' STYLE START
+hide empty members
+skinparam shadowing false
+' STYLE END
+
+class "PersistedDTStroke" as PersistedDTStroke << (C, DarkSeaGreen) >> { 
+  ~{static} schema
+  ~id : UUID?
+  ~roomId : UUID
+  ~doodle : PersistedDTDoodle
+  ~strokeId : UUID
+  ~strokeData : Data
+  ~isDeleted : Bool
+  ~createdBy : String
+}
+class "PersistedDTAction" as PersistedDTAction << (C, DarkSeaGreen) >> { 
+  ~{static} schema
+  ~id : UUID?
+  ~type : String
+  ~roomId : UUID
+  ~doodle : PersistedDTDoodle
+  ~strokes : [PersistedDTStrokeIndexPair]
+  ~createdBy : String
+  ~createdAt : Date?
+}
+class "PersistedDTDoodle" as PersistedDTDoodle << (C, DarkSeaGreen) >> { 
+  ~{static} schema
+  ~id : UUID?
+  ~room : PersistedDTRoom
+  ~strokes : [PersistedDTStroke]
+  ~actions : [PersistedDTAction]
+  ~getStrokes()
+  ~getActions() 
+}
+class "PersistedDTUserAccesses" as PersistedDTUserAccesses << (C, DarkSeaGreen) >> { 
+  ~{static} schema
+  ~id : UUID?
+  ~user : PersistedDTUser
+  ~room : PersistedDTRoom
+  ~isOwner : Bool
+  ~canEdit : Bool
+  ~canVideoConference : Bool
+  ~canChat : Bool
+  ~setDefaultPermissions() 
+}
+class "PersistedDTRoom" as PersistedDTRoom << (C, DarkSeaGreen) >> { 
+  ~{static} schema
+  ~id : UUID?
+  ~name : String
+  ~inviteCode : String
+  ~createdBy : PersistedDTUser
+  ~accessibleBy : [PersistedDTUser]
+  ~doodles : [PersistedDTDoodle]
+  -generateInviteCode()
+}
+class "PersistedDTUser" as PersistedDTUser << (C, DarkSeaGreen) >> { 
+  ~{static} schema
+  ~id : String?
+  ~displayName : String
+  ~email : String
+  ~createdRooms : [PersistedDTRoom]
+  ~accessibleRooms : [PersistedDTRoom]
+  ~createdAt : Date?
+  ~updatedAt : Date?
+  ~getAccessibleRooms() 
+}
+class "PersistedDTUser" as PersistedDTUser13 << (X, Orchid) extension >> { 
+  {static} getAllAccessibleRooms(userId:on:) 
+}
+class "PersistedDTUser" as PersistedDTUser14 << (X, Orchid) extension >> { 
+  {static} getSingleById(_:on:)
+  {static} getAll(on:)
+  {static} getAllRooms(_:on:)
+  {static} createUserInfo(req:)
+  {static} readUserInfo(req:)
+  {static} getAllRooms(req:) 
+}
+class "PersistedDTRoom" as PersistedDTRoom15 << (X, Orchid) extension >> { 
+  {static} createRoom(_:on:) 
+}
+class "PersistedDTRoom" as PersistedDTRoom16 << (X, Orchid) extension >> { 
+  {static} getSingleById(_:on:)
+  {static} getSingleByCode(_:on:)
+  {static} getAllDoodles(_:on:)
+  {static} getAll(on:)
+  {static} getRoomDTUserAccesses(_:on:)
+  {static} getRoomPermissions(roomId:on:) 
+}
+class "PersistedDTStroke" as PersistedDTStroke17 << (X, Orchid) extension >> { 
+  {static} getSingle(_:on:)
+  {static} getAll(on:) 
+}
+class "PersistedDTAction" as PersistedDTAction18 << (X, Orchid) extension >> { 
+  {static} getAll(on:)
+  {static} getLatest(on:) 
+}
+class "PersistedDTDoodle" as PersistedDTDoodle19 << (X, Orchid) extension >> { 
+  {static} createDoodle(_:on:)
+  {static} removeDoodle(_:on:) 
+}
+class "PersistedDTDoodle" as PersistedDTDoodle20 << (X, Orchid) extension >> { 
+  {static} getSingleById(_:on:)
+  {static} getAllActions(_:on:)
+  {static} getAllStrokes(_:on:)
+  {static} getAll(on:) 
+}
+
+PersistedDTUser --> PersistedDTUser13 : has queries
+PersistedDTUser --> PersistedDTUser14 : has queries
+PersistedDTRoom --> PersistedDTRoom15 : has queries
+PersistedDTRoom --> PersistedDTRoom16 : has queries
+PersistedDTStroke --> PersistedDTStroke17 : has queries
+PersistedDTAction --> PersistedDTAction18 : has queries
+PersistedDTDoodle --> PersistedDTDoodle19 : has queries
+PersistedDTDoodle --> PersistedDTDoodle20 : has queries
+PersistedDTUserAccesses -up[hidden]- PersistedDTStroke17
+PersistedDTRoom -up[hidden]- PersistedDTAction18
+PersistedDTUser -up[hidden]- PersistedDTDoodle20
+@enduml
