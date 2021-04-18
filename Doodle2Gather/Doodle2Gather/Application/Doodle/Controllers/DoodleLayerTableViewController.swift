@@ -49,7 +49,10 @@ extension DoodleLayerTableViewController: DoodleLayerTable {
 
     func loadDoodles(_ doodles: [DTDoodleWrapper]) {
         self.doodles = doodles
-        selectedDoodleIndex = 0
+        if selectedDoodleIndex >= self.doodles.count {
+            selectedDoodleIndex = 0
+            delegate?.selectedDoodleDidChange(index: 0)
+        }
         tableView.reloadData()
     }
 
