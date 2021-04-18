@@ -8,7 +8,7 @@ class UserViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
+
         userIconLabel.layer.masksToBounds = true
         userIconLabel.layer.borderColor = UIConstants.stackGrey.cgColor
     }
