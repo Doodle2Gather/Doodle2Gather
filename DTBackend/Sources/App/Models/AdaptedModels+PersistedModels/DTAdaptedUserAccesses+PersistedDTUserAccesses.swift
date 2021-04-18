@@ -3,14 +3,15 @@ import DTSharedLibrary
 
 extension DTAdaptedUserAccesses {
     init(userAccesses: PersistedDTUserAccesses) {
-        guard let id = userAccesses.id else {
-            fatalError("Unable to unwrap user details")
+        guard let roomId = userAccesses.room.id else {
+            fatalError("Unable to unwrap room ID")
         }
-        self.init(
-            id: id,
-            user: DTAdaptedUser(user: userAccesses.user),
-            room: DTAdaptedRoom(room: userAccesses.room)
-        )
+        self.init(user: DTAdaptedUser(user: userAccesses.user),
+                  roomId: roomId,
+                  isOwner: userAccesses.isOwner,
+                  canEdit: userAccesses.canEdit,
+                  canVideoConference: userAccesses.canVideoConference,
+                  canChat: userAccesses.canChat)
     }
 }
 // MARK: - Content
