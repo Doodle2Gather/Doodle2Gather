@@ -16,16 +16,16 @@ final class PersistedDTUserAccesses: Model, Content {
 
     @Parent(key: "room_id")
     var room: PersistedDTRoom
-    
+
     @Field(key: "is_owner")
     var isOwner: Bool
-    
+
     @Field(key: "can_edit")
     var canEdit: Bool
-    
+
     @Field(key: "can_video_conference")
     var canVideoConference: Bool
-    
+
     @Field(key: "can_chat")
     var canChat: Bool
 
@@ -45,7 +45,7 @@ final class PersistedDTUserAccesses: Model, Content {
         self.canVideoConference = canVideoConference
         self.canChat = canChat
     }
-    
+
     func setDefaultPermissions() {
         self.isOwner = false
         self.canEdit = PersistedDTUserAccesses.CAN_EDIT_BY_DEFAULT

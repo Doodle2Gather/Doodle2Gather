@@ -10,6 +10,7 @@ struct DTRoomController: RouteCollection {
         routes.on(Endpoints.Room.joinRoomFromInvite, use: joinRoomFromInviteHandler)
         routes.on(Endpoints.Room.getAllDoodlesFromRoom, use: getAllDoodlesHandler)
         routes.on(Endpoints.Room.delete, use: deleteHandler)
+        routes.on(Endpoints.Room.getRoomPermissionsFromRoomId, use: getRoomPermissionsHandler)
     }
 
     func createHandler(req: Request) throws -> EventLoopFuture<DTAdaptedRoom> {
@@ -34,7 +35,6 @@ struct DTRoomController: RouteCollection {
             }
     }
 
-
     func getSingleHandler(req: Request) throws -> EventLoopFuture<DTAdaptedRoom> {
         let roomId = try req.requireUUID(parameterName: "roomId")
 
@@ -56,6 +56,15 @@ struct DTRoomController: RouteCollection {
         return PersistedDTRoom.getAllDoodles(roomId, on: req.db)
             .flatMapThrowing { doodles in
                 doodles.map(DTAdaptedDoodle.init)
+            }
+    }
+
+    func getRoomPermissionsHandler(req: Request) throws -> EventLoopFuture<[DTAdaptedUserAccesses]> {
+        let roomId = try req.requireUUID(parameterName: "roomId")
+
+        return PersistedDTRoom.getRoomDTUserAccesses(roomId, on: req.db)
+            .flatMapThrowing { userAccesses in
+                userAccesses.map(DTAdaptedUserAccesses.init)
             }
     }
 
@@ -137,6 +146,19 @@ extension PersistedDTRoom {
     static func getAll(on db: Database) -> EventLoopFuture<[PersistedDTRoom]> {
         PersistedDTRoom.query(on: db)
             .with(\.$doodles)
+            .all()
+    }
+
+    static func getRoomDTUserAccesses(_ id: PersistedDTRoom.IDValue?,
+                                      on db: Database) -> EventLoopFuture<[PersistedDTUserAccesses]> {
+        guard let id = id else {
+            return db.eventLoop.makeFailedFuture(DTError.unableToRetreiveID(type: "PersistedDTRoom"))
+        }
+        return PersistedDTUserAccesses
+            .query(on: db)
+            .with(\.$room)
+            .with(\.$user, { $0.with(\.$accessibleRooms, { $0.with(\.$doodles, { $0.with(\.$strokes) }) }) })
+            .filter(\.$room.$id == id)
             .all()
     }
 }
