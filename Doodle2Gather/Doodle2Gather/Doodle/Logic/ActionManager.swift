@@ -97,70 +97,74 @@ extension ActionManager {
 
 extension ActionManager {
 
-    func dispatchAction(_ action: DTAction) -> DTDoodleWrapper? {
+    mutating func dispatchAction(_ action: DTAction) -> DTDoodleWrapper? {
         do {
             let pairs = action.getStrokes()
-            guard let firstStroke: (stroke: DTStrokeWrapper, index: Int) = pairs.first else {
+            guard let firstStroke = pairs.first else {
                 throw DTCanvasError.cannotParseStroke
             }
-            return nil
 
-//            switch action.type {
-//            case .add:
-//                return try addPairQuietly(pair: firstStroke)
-//            case .remove:
-//                return try removePairsQuietly(pairs: pairs)
-//            case .unremove:
-//                return try unremovePairsQuietly(pairs: pairs)
-//            case .modify:
-//                return try modifyPairQuietly(pair: firstStroke)
-//            case .unknown:
-//                return
-//            }
+            switch action.type {
+            case .add:
+                return try addPairQuietly(stroke: firstStroke.stroke, index: firstStroke.index)
+            case .remove:
+                return try removeOrUnremovePairsQuietly(pairs: pairs)
+            case .unremove:
+                return try removeOrUnremovePairsQuietly(pairs: pairs, isUnremove: true)
+            case .modify:
+                return try modifyPairQuietly(pairs: pairs)
+            case .unknown:
+                return nil
+            }
         } catch {
             DTLogger.error(error.localizedDescription)
             return nil
         }
     }
-//
-//    private func addPairQuietly(pair: (stroke: DTStrokeWrapper, index: Int)) throws {
-//        if currentDoodle.strokes.count != index {
-//            DTLogger.error("Failed to add pairs quietly")
-//            throw DTCanvasError.indexMismatch
-//        }
-//        currentDoodle.strokes.append(stroke)
-//        canvasView.drawing = doodleCopy
-//    }
-//
-//    /// Removes the given pairs quietly.
-//    private func removePairsQuietly(indices: [Int], strokes: [PKStroke]) throws {
-//        var doodleCopy = currentDoodle
-//        for (i, index) in indices.enumerated() {
-//            if index >= doodleCopy.strokes.count {
-//                DTLogger.error("Failed to remove pairs quietly")
-//                throw DTCanvasError.indexMismatch
-//            }
-//            let stroke = doodleCopy.strokes[index]
-//
-//            if stroke != strokes[i] {
-//                DTLogger.error("Failed to remove pairs quietly")
-//                throw DTCanvasError.indexMismatch
-//            }
-//            doodleCopy.removeStrokes([stroke])
-//        }
-//        currentDoodle = doodleCopy
-//        canvasView.drawing = doodleCopy
-//    }
-//
-//    private func modifyPairQuietly(index: Int, stroke: PKStroke) throws {
-//        var doodleCopy = currentDoodle
-//        if index >= doodleCopy.strokes.count || doodleCopy.strokes[index] != stroke {
-//            DTLogger.error("Failed to modify pairs quietly")
-//            throw DTCanvasError.indexMismatch
-//        }
-//        doodleCopy.strokes[index] = stroke
-//        currentDoodle = doodleCopy
-//        canvasView.drawing = doodleCopy
-//    }
+
+    private mutating func addPairQuietly(stroke: DTStrokeWrapper, index: Int) throws -> DTDoodleWrapper {
+        if currentDoodle.strokes.count != index {
+            DTLogger.error("Failed to add pairs quietly")
+            throw DTCanvasError.indexMismatch
+        }
+        self.currentDoodle.strokes.append(stroke)
+        return currentDoodle
+    }
+
+    /// Removes or unremoves the given pairs quietly.
+    private mutating func removeOrUnremovePairsQuietly(pairs: [(DTStrokeWrapper, Int)], isUnremove: Bool = false) throws -> DTDoodleWrapper {
+        for (stroke, index) in pairs {
+            if index >= currentDoodle.strokes.count {
+                DTLogger.error("Failed to remove pairs quietly")
+                throw DTCanvasError.indexMismatch
+            }
+
+            let currentStroke = currentDoodle.strokes[index]
+
+            if stroke.strokeId != currentStroke.strokeId {
+                DTLogger.error("Failed to remove pairs quietly")
+                throw DTCanvasError.indexMismatch
+            }
+            currentDoodle.strokes[index].isDeleted = !isUnremove
+        }
+        return currentDoodle
+    }
+
+    private mutating func modifyPairQuietly(pairs: [(DTStrokeWrapper, Int)]) throws -> DTDoodleWrapper {
+        guard pairs.count == 2 else {
+            DTLogger.error("Failed to modify pairs quietly")
+            throw DTCanvasError.indexMismatch
+        }
+
+        let (originalStroke, originalIndex) = pairs[0]
+        let (newStroke, newIndex) = pairs[1]
+        if originalIndex != newIndex || newIndex >= currentDoodle.strokes.count
+            || currentDoodle.strokes[newIndex].strokeId != originalStroke.strokeId {
+            DTLogger.error("Failed to modify pairs quietly")
+            throw DTCanvasError.indexMismatch
+        }
+        currentDoodle.strokes[newIndex] = newStroke
+        return currentDoodle
+    }
 
 }
