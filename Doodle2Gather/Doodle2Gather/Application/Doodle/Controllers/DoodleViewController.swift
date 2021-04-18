@@ -47,24 +47,23 @@ class DoodleViewController: UIViewController {
     var layerTable: DoodleLayerTable?
 
     // State
+    var room: DTAdaptedRoom?
     var username: String?
-    var roomName: String?
-    var roomId: UUID?
-    var inviteCode: String?
     private var previousDrawingTool = DrawingTools.pen
     var doodles: [DTAdaptedDoodle]?
     var participants: [DTAdaptedUser] = []
+    var existingUsers: [DTAdaptedUser] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // TODO: Replace this with dependency injection from AppDelegate / HomeController
         let socketController = DTWebSocketController()
-        socketController.roomId = roomId!
+        socketController.roomId = room?.roomId!
         socketController.delegate = self
         self.socketController = socketController
 
-        if let roomName = roomName {
+        if let roomName = room?.name {
             fileNameLabel.text = roomName
         }
 
@@ -326,7 +325,7 @@ extension DoodleViewController: CanvasControllerDelegate {
 extension DoodleViewController: SocketControllerDelegate {
 
     func dispatchChanges<S>(type: DTActionType, strokes: [(S, Int)], doodleId: UUID) where S: DTStroke {
-        guard let roomId = self.roomId,
+        guard let roomId = self.room?.roomId,
               let action = DTAction(type: type, roomId: roomId, doodleId: doodleId, strokes: strokes) else {
             return
         }
@@ -343,6 +342,10 @@ extension DoodleViewController: SocketControllerDelegate {
 
     func loadDoodles(_ doodles: [DTAdaptedDoodle]) {
         canvasController?.loadDoodles(doodles)
+    }
+
+    func updateUsers(_ users: [DTAdaptedUser]) {
+        existingUsers = users
     }
 
 }

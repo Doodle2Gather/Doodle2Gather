@@ -6,7 +6,7 @@ class InvitationViewController: UIViewController {
     @IBOutlet private var tableView: UITableView!
     @IBOutlet private var inviteCodeField: UITextField!
 
-    var inviteCode: String?
+    var room: DTAdaptedRoom?
     var existingUsers = [DTAdaptedUser]()
 
     override func viewDidLoad() {
@@ -20,11 +20,11 @@ class InvitationViewController: UIViewController {
         inviteCodeField.leftViewMode = .always
         inviteCodeField.addBottomBorderWithColor(color: UIConstants.stackGrey, width: 3)
 
-        inviteCodeField.text = inviteCode
+        inviteCodeField.text = room?.inviteCode ?? "Unavailable"
     }
 
     @IBAction private func didTapCopy(_ sender: UIButton) {
-        guard let code = inviteCode else {
+        guard let code = room?.inviteCode else {
             return
         }
         let pasteboard = UIPasteboard.general
@@ -48,7 +48,21 @@ extension InvitationViewController: UITableViewDataSource {
         let user = existingUsers[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "userCell",
                                                  for: indexPath) as? UserViewCell
+        cell?.setUsername(user.displayName)
+        cell?.setEmail(user.email)
+
+        // TODO: Set permissions here
+        if user.id == DTAuth.user?.uid {
+            cell?.setPermissions(.owner)
+        }
+
         return cell!
     }
 
+}
+
+enum UserPermission {
+    case viewer
+    case editor
+    case owner
 }
