@@ -83,6 +83,7 @@
 		840D6B2B260236CF001F3D43 /* ConferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D6B2A260236CF001F3D43 /* ConferenceViewController.swift */; };
 		840D6B3326023F90001F3D43 /* VideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D6B3226023F90001F3D43 /* VideoCollectionViewCell.swift */; };
 		8415BC7D262B4E3F00E6CF1B /* DoodleViewController+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415BC7C262B4E3F00E6CF1B /* DoodleViewController+Navigation.swift */; };
+		8415BC91262BDF0A00E6CF1B /* AlertConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415BC90262BDF0A00E6CF1B /* AlertConstants.swift */; };
 		8464E77D262586B4002B5BEE /* InvitationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8464E77C262586B4002B5BEE /* InvitationViewController.swift */; };
 		8464E7892625878C002B5BEE /* Invitation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8464E7882625878C002B5BEE /* Invitation.storyboard */; };
 		8464E7982625B08C002B5BEE /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8464E7972625B08C002B5BEE /* Room.swift */; };
@@ -228,6 +229,7 @@
 		840D6B2A260236CF001F3D43 /* ConferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConferenceViewController.swift; sourceTree = "<group>"; };
 		840D6B3226023F90001F3D43 /* VideoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewCell.swift; sourceTree = "<group>"; };
 		8415BC7C262B4E3F00E6CF1B /* DoodleViewController+Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DoodleViewController+Navigation.swift"; sourceTree = "<group>"; };
+		8415BC90262BDF0A00E6CF1B /* AlertConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertConstants.swift; sourceTree = "<group>"; };
 		8464E77C262586B4002B5BEE /* InvitationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitationViewController.swift; sourceTree = "<group>"; };
 		8464E7882625878C002B5BEE /* Invitation.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Invitation.storyboard; sourceTree = "<group>"; };
 		8464E7972625B08C002B5BEE /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
@@ -851,6 +853,7 @@
 				2E07C4232619B3EA003A87C9 /* UIConstants.swift */,
 				2EFF38E9261AAF9A00488289 /* DoodleConstants.swift */,
 				8464E7E12626BB30002B5BEE /* AudioConstants.swift */,
+				8415BC90262BDF0A00E6CF1B /* AlertConstants.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -1201,6 +1204,7 @@
 				83F588EB2619242A00BB9F07 /* DTAbstractAuthProvider.swift in Sources */,
 				2EA8C2FA2605E51500BE750C /* CanvasController.swift in Sources */,
 				2EFF38EA261AAF9A00488289 /* DoodleConstants.swift in Sources */,
+				8415BC91262BDF0A00E6CF1B /* AlertConstants.swift in Sources */,
 				2EA8C335260677C800BE750C /* PKDrawing+DTDrawing.swift in Sources */,
 				848F35472614174000AD46C6 /* Message.swift in Sources */,
 				84D803B326174EDC0096692E /* DocumentPreviewCell.swift in Sources */,

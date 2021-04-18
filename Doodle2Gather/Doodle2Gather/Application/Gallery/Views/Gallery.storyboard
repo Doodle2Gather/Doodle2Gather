@@ -197,7 +197,7 @@
             <objects>
                 <viewController id="BGz-zg-7E6" customClass="NewDocumentViewController" customModule="Doodle2Gather" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5xZ-LV-uBI">
-                        <rect key="frame" x="0.0" y="0.0" width="540" height="456"/>
+                        <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C1W-4k-uKA" userLabel="Create Button">

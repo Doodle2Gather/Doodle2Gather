@@ -174,9 +174,9 @@ class ConferenceViewController: UIViewController {
             toggleCallButton.isSelected.toggle()
             collectionView.isHidden = true
             topControlViewContainer.isHidden = true
-            isInCall.toggle()
             videoCallUserList.removeAll()
             collectionView.reloadData()
+            isInCall.toggle()
         } else {
             if currentUser == nil {
                 let overlay = UIView(frame: CGRect(x: 0, y: 0,
@@ -186,7 +186,7 @@ class ConferenceViewController: UIViewController {
 
                 let nameplate = UILabel(frame: CGRect(x: 0,
                                                       y: 112.5 / 2 + 19.5,
-                                                      width: 180,
+                                                      width: 160,
                                                       height: 40))
                 nameplate.textAlignment = .center
                 nameplate.text = user.displayName

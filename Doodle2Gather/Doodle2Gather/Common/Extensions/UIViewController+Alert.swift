@@ -14,10 +14,10 @@ extension UIViewController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
 
         if let safeHandler = handler {
-            alert.addAction(UIAlertAction(title: "OK", style: buttonStyle, handler: safeHandler))
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: cancelHandler))
+            alert.addAction(UIAlertAction(title: AlertConstants.ok, style: buttonStyle, handler: safeHandler))
+            alert.addAction(UIAlertAction(title: AlertConstants.cancel, style: .cancel, handler: cancelHandler))
         } else {
-            alert.addAction(UIAlertAction(title: "OK", style: buttonStyle))
+            alert.addAction(UIAlertAction(title: AlertConstants.ok, style: buttonStyle))
         }
 
         styleAlert(alert)

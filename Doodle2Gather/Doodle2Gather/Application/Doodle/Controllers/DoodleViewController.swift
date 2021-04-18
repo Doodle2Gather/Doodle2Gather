@@ -179,7 +179,7 @@ class DoodleViewController: UIViewController {
     }
 
     @IBAction private func exitButtonDidTap(_ sender: Any) {
-        alert(title: "Exit", message: "Are you sure you wish to exit and return to the main menu?",
+        alert(title: AlertConstants.exit, message: AlertConstants.exitToMainMenu,
               buttonStyle: .default, handler: { _ in
                     self.dismiss(animated: true, completion: nil)
               }
