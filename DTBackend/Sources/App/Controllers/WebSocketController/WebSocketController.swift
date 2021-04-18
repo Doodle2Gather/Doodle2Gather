@@ -39,7 +39,7 @@ class WebSocketController {
                 break
 //                let authMessage = try decoder.decode(DTAuthMessage.self, from: data)
             case .home:
-                
+
                 break
 //                let homeMessage = try decoder.decode(DTHomeMessage.self, from: data)
             case .room:

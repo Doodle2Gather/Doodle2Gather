@@ -14,11 +14,19 @@ final class PersistedDTStrokeIndexPair: Model, Content {
     @Field(key: "index")
     var index: Int
 
+    @Field(key: "stroke_id")
+    var strokeId: UUID
+
+    @Field(key: "is_deleted")
+    var isDeleted: Bool
+
     init() { }
 
-    init(stroke: Data, index: Int, id: UUID? = nil) {
+    init(stroke: Data, index: Int, strokeId: UUID, isDeleted: Bool = false, id: UUID? = nil) {
         self.stroke = stroke
         self.index = index
+        self.strokeId = strokeId
+        self.isDeleted = isDeleted
         self.id = id
     }
 }

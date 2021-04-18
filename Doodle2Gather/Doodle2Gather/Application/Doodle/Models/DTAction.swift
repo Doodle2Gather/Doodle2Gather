@@ -34,7 +34,7 @@ struct DTAction {
             guard let data = try? encoder.encode(stroke) else {
                 return nil
             }
-            strokesData.append(DTStrokeIndexPair(data, index))
+//            strokesData.append(DTStrokeIndexPair(data, index))
         }
         self.strokes = strokesData
     }

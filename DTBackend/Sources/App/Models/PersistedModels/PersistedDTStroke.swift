@@ -13,20 +13,28 @@ final class PersistedDTStroke: Model, Content {
     @Parent(key: "doodle_id")
     var doodle: PersistedDTDoodle
 
+    @Field(key: "stroke_id")
+    var strokeId: UUID
+
     @Field(key: "stroke_data")
     var strokeData: Data
+
+    @Field(key: "is_deleted")
+    var isDeleted: Bool
 
     @Field(key: "created_by")
     var createdBy: UUID
 
     init() { }
 
-    init(strokeData: Data, roomId: UUID,
-         doodleId: PersistedDTDoodle.IDValue, createdBy: UUID, id: UUID? = nil) {
+    init(strokeData: Data, strokeId: UUID, roomId: UUID, doodleId: PersistedDTDoodle.IDValue,
+         createdBy: UUID, isDeleted: Bool = false, id: UUID? = nil) {
         self.roomId = roomId
         self.$doodle.id = doodleId
+        self.strokeId = strokeId
         self.strokeData = strokeData
         self.createdBy = createdBy
+        self.isDeleted = isDeleted
         self.id = id
     }
 }
