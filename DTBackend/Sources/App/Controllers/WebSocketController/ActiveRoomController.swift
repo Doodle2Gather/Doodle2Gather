@@ -108,7 +108,8 @@ class ActiveRoomController {
         }
         doodles[stroke.doodleId]?.addStroke(stroke)
         self.logger.info("successfully modified")
-        return [DTStrokeIndexPair(stroke.stroke, index)]
+        return [DTStrokeIndexPair(stroke.stroke, index,
+                                  strokeId: stroke.strokeId, isDeleted: stroke.isDeleted)]
     }
 
     func removeStrokes(_ strokes: [DTAdaptedStroke], _ pairs: [DTStrokeIndexPair]) -> [DTStrokeIndexPair]? {
@@ -126,7 +127,10 @@ class ActiveRoomController {
             doodles[stroke.doodleId]?.removeStroke(at: indexFound)
             self.logger.info("successfully removed \(startingIndex)")
             self.logger.info("all strokes \(doodles[stroke.doodleId])")
-            returnPairs.append(DTStrokeIndexPair(stroke.stroke, indexFound))
+            returnPairs.append(
+                DTStrokeIndexPair(stroke.stroke, indexFound,
+                                  strokeId: stroke.strokeId, isDeleted: stroke.isDeleted)
+            )
         }
         return returnPairs
     }
@@ -144,8 +148,10 @@ class ActiveRoomController {
         doodles[original.doodleId]?.modifyStroke(at: indexFound, to: modified)
         self.logger.info("successfully modified \(startingIndex)")
         self.logger.info("all strokes \(doodles[original.doodleId])")
-        return [DTStrokeIndexPair(original.stroke, indexFound),
-                DTStrokeIndexPair(modified.stroke, indexFound)]
+        return [DTStrokeIndexPair(original.stroke, indexFound,
+                                  strokeId: original.strokeId, isDeleted: original.isDeleted),
+                DTStrokeIndexPair(modified.stroke, indexFound,
+                                  strokeId: modified.strokeId, isDeleted: modified.isDeleted)]
     }
 }
 

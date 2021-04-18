@@ -5,19 +5,23 @@ extension DTStrokeIndexPair {
     init(_ persisted: PersistedDTStrokeIndexPair) {
         self.init(
             persisted.stroke,
-            persisted.index
+            persisted.index,
+            strokeId: persisted.strokeId,
+            isDeleted: persisted.isDeleted
         )
     }
 
     func makePersistedPair() -> PersistedDTStrokeIndexPair {
         PersistedDTStrokeIndexPair(
             stroke: stroke,
-            index: index
+            index: index,
+            strokeId: strokeId,
+            isDeleted: isDeleted
         )
     }
 
     func isSamePair(as persisted: PersistedDTStrokeIndexPair) -> Bool {
-        stroke == persisted.stroke &&
+        strokeId == persisted.strokeId &&
             index == persisted.index
     }
 }

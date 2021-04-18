@@ -21,7 +21,9 @@ public struct DTAdaptedAction: Codable {
         for stroke in strokes {
             dtStrokes.append(
                 DTAdaptedStroke(
-                    stroke: stroke.stroke, roomId: roomId, doodleId: doodleId, createdBy: createdBy
+                    stroke: stroke.stroke, strokeId: stroke.strokeId,
+                    roomId: roomId, doodleId: doodleId,
+                    createdBy: createdBy, isDeleted: stroke.isDeleted
                 )
             )
         }
