@@ -10,7 +10,6 @@ class GalleryViewController: UIViewController {
     private var doodles = [DTAdaptedDoodle]()
     private var selectedCellIndex: Int?
     private var isInEditMode = false
-    var count = 1
 
     override func viewDidLoad() {
         super.viewDidLoad()

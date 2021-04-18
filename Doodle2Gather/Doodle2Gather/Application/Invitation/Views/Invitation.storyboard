@@ -102,7 +102,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aJU-z8-rhI" userLabel="Username Label">
-                                                            <rect key="frame" x="66" y="11" width="42" height="20"/>
+                                                            <rect key="frame" x="66" y="11" width="249" height="20"/>
                                                             <color key="tintColor" name="White"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="20" id="URV-KG-Aja"/>
@@ -112,7 +112,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bBS-Kt-fwB" userLabel="Email Label">
-                                                            <rect key="frame" x="66" y="31" width="42" height="20.5"/>
+                                                            <rect key="frame" x="66" y="31" width="249" height="20.5"/>
                                                             <color key="tintColor" name="White"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="1DU-x6-JaK"/>
@@ -123,12 +123,24 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="onT-X0-1nX" userLabel="Permissions">
-                                                            <rect key="frame" x="380" y="14.5" width="55" height="34"/>
+                                                            <rect key="frame" x="335" y="14.5" width="100" height="34"/>
+                                                            <color key="backgroundColor" name="Merlin Grey"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="34" id="OOa-wl-LOu"/>
+                                                                <constraint firstAttribute="width" constant="100" id="Zb7-UE-Iru"/>
+                                                            </constraints>
                                                             <color key="tintColor" name="White"/>
                                                             <state key="normal" title="Viewer">
                                                                 <color key="titleColor" name="White"/>
                                                             </state>
-                                                            <state key="selected" title="Editor" image="SingleArrowDown"/>
+                                                            <state key="selected" title="Editor" image="SingleArrowDown">
+                                                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
+                                                            </state>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                    <integer key="value" value="10"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
                                                             <connections>
                                                                 <action selector="didTapPermissions:" destination="sfh-Ms-fGa" eventType="touchUpInside" id="d8v-h5-pqx"/>
                                                             </connections>
@@ -137,11 +149,13 @@
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" secondItem="onT-X0-1nX" secondAttribute="trailing" constant="5" id="1be-Lk-71k"/>
                                                         <constraint firstItem="onT-X0-1nX" firstAttribute="centerY" secondItem="Zqe-C9-EkK" secondAttribute="centerY" id="5ad-U5-u9R"/>
+                                                        <constraint firstItem="onT-X0-1nX" firstAttribute="leading" secondItem="aJU-z8-rhI" secondAttribute="trailing" constant="20" id="FWt-IW-KFx"/>
                                                         <constraint firstItem="We0-tE-6w8" firstAttribute="leading" secondItem="Zqe-C9-EkK" secondAttribute="leadingMargin" constant="-10" id="IIa-fJ-5v8"/>
                                                         <constraint firstAttribute="bottomMargin" secondItem="We0-tE-6w8" secondAttribute="bottom" id="Ps4-qP-hDJ"/>
                                                         <constraint firstItem="aJU-z8-rhI" firstAttribute="top" secondItem="Zqe-C9-EkK" secondAttribute="topMargin" id="SEo-te-a42"/>
                                                         <constraint firstItem="bBS-Kt-fwB" firstAttribute="top" secondItem="aJU-z8-rhI" secondAttribute="bottom" id="T6t-zZ-6j2"/>
                                                         <constraint firstItem="We0-tE-6w8" firstAttribute="top" secondItem="Zqe-C9-EkK" secondAttribute="topMargin" id="cQI-3Z-yKR"/>
+                                                        <constraint firstItem="onT-X0-1nX" firstAttribute="leading" secondItem="bBS-Kt-fwB" secondAttribute="trailing" constant="20" id="dwN-aR-MpL"/>
                                                         <constraint firstItem="bBS-Kt-fwB" firstAttribute="leading" secondItem="We0-tE-6w8" secondAttribute="trailing" constant="20" id="e1t-MD-jQT"/>
                                                         <constraint firstItem="aJU-z8-rhI" firstAttribute="leading" secondItem="We0-tE-6w8" secondAttribute="trailing" constant="20" id="kam-iE-Oxx"/>
                                                         <constraint firstAttribute="bottomMargin" secondItem="bBS-Kt-fwB" secondAttribute="bottom" id="t1G-60-BBt"/>
