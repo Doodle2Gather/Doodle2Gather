@@ -1,8 +1,7 @@
 import Foundation
 
 public struct DTAdaptedUserAccesses: Codable {
-    public let user: DTAdaptedUser
-    public let roomId: UUID
+    public let userId: String
     public let isOwner: Bool
 
     // Permissions
@@ -10,10 +9,9 @@ public struct DTAdaptedUserAccesses: Codable {
     public let canVideoConference: Bool
     public let canChat: Bool
 
-    public init(user: DTAdaptedUser, roomId: UUID, isOwner: Bool,
+    public init(userId: String, isOwner: Bool,
                 canEdit: Bool, canVideoConference: Bool, canChat: Bool) {
-        self.user = user
-        self.roomId = roomId
+        self.userId = userId
         self.isOwner = isOwner
         self.canEdit = canEdit
         self.canVideoConference = canVideoConference

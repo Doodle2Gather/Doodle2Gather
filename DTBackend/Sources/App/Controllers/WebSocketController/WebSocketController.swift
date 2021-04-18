@@ -39,7 +39,7 @@ class WebSocketController {
                 break
 //                let authMessage = try decoder.decode(DTAuthMessage.self, from: data)
             case .home:
-                
+
                 break
 //                let homeMessage = try decoder.decode(DTHomeMessage.self, from: data)
             case .room:
@@ -69,7 +69,9 @@ class WebSocketController {
             }
 
             guard let roomController = roomControllers[roomMessage.roomId] else {
-                logger.warning("Received message to non-existent room controller. Room ID: \(roomMessage.roomId) From: \(wsId)")
+                let warningMessage = "Received message to non-existent room controller. " +
+                    "Room ID: \(roomMessage.roomId) From: \(wsId)"
+                logger.warning("\(warningMessage)")
                 return
             }
             roomController.onRoomMessage(ws, data)
