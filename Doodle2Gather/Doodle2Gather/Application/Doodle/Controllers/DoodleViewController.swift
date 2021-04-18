@@ -47,24 +47,24 @@ class DoodleViewController: UIViewController {
     var layerTable: DoodleLayerTable?
 
     // State
+    var room: DTAdaptedRoom?
     var username: String?
-    var roomName: String?
-    var roomId: UUID?
-    var inviteCode: String?
     private var previousDrawingTool = DrawingTools.pen
     var doodles: [DTDoodleWrapper]?
     var participants: [DTAdaptedUser] = []
+    var existingUsers: [DTAdaptedUserAccesses] = []
+    var userIconColors: [UIColor] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // TODO: Replace this with dependency injection from AppDelegate / HomeController
         let socketController = DTWebSocketController()
-        socketController.roomId = roomId!
+        socketController.roomId = room?.roomId!
         socketController.delegate = self
         self.socketController = socketController
 
-        if let roomName = roomName {
+        if let roomName = room?.name {
             fileNameLabel.text = roomName
         }
 
@@ -117,52 +117,55 @@ class DoodleViewController: UIViewController {
         userProfileLabel.layer.masksToBounds = true
         otherProfileLabelOne.layer.masksToBounds = true
         otherProfileLabelTwo.layer.masksToBounds = true
+    }
 
+    private func updateProfileColors() {
         guard let user = DTAuth.user else {
             DTLogger.error("Attempted to join room without a user.")
             return
         }
 
-        if let firstChar = user.displayName.first(where: {
-            !$0.isWhitespace
-        }) {
-            userProfileLabel.text = String(firstChar)
-        } else {
-            userProfileLabel.text = "-"
-        }
-
-        if participants.count <= 1 {
+        setProfileLabel(userProfileLabel, text: user.displayName)
+        if existingUsers.count <= 1 {
             separator.isHidden = true
+            userProfileLabel.backgroundColor = userIconColors[0]
             otherProfileLabelOne.isHidden = true
             otherProfileLabelTwo.isHidden = true
             numberOfOtherUsersLabel.isHidden = true
-        } else if participants.count <= 2 {
+        } else if existingUsers.count <= 2 {
             separator.isHidden = false
-            setProfileLabel(otherProfileLabelOne, text: participants[1].displayName, index: 1)
+            setProfileLabel(otherProfileLabelOne, text: participants[1].displayName)
             otherProfileLabelOne.isHidden = false
             otherProfileLabelTwo.isHidden = true
             numberOfOtherUsersLabel.isHidden = true
-        } else if participants.count <= 3 {
+            userProfileLabel.backgroundColor = userIconColors[0]
+            otherProfileLabelOne.backgroundColor = userIconColors[1]
+        } else if existingUsers.count <= 3 {
             separator.isHidden = false
-            setProfileLabel(otherProfileLabelOne, text: participants[1].displayName, index: 1)
-            setProfileLabel(otherProfileLabelOne, text: participants[2].displayName, index: 2)
+            setProfileLabel(otherProfileLabelOne, text: participants[1].displayName)
+            setProfileLabel(otherProfileLabelOne, text: participants[2].displayName)
             otherProfileLabelOne.isHidden = false
             otherProfileLabelTwo.isHidden = false
             numberOfOtherUsersLabel.isHidden = true
+            userProfileLabel.backgroundColor = userIconColors[0]
+            otherProfileLabelOne.backgroundColor = userIconColors[1]
+            otherProfileLabelTwo.backgroundColor = userIconColors[2]
         } else {
             separator.isHidden = false
-            setProfileLabel(otherProfileLabelOne, text: participants[1].displayName, index: 1)
-            setProfileLabel(otherProfileLabelOne, text: participants[2].displayName, index: 2)
+            setProfileLabel(otherProfileLabelOne, text: participants[1].displayName)
+            setProfileLabel(otherProfileLabelOne, text: participants[2].displayName)
             otherProfileLabelOne.isHidden = false
             otherProfileLabelTwo.isHidden = false
             numberOfOtherUsersLabel.isHidden = false
+            userProfileLabel.backgroundColor = userIconColors[0]
+            otherProfileLabelOne.backgroundColor = userIconColors[1]
+            otherProfileLabelTwo.backgroundColor = userIconColors[2]
             numberOfOtherUsersLabel.text = "+\(participants.count - 3)"
         }
-
     }
 
-    private func setProfileLabel(_ label: UILabel, text: String, index: Int) {
-        if let firstChar = participants[index].displayName.first(where: {
+    private func setProfileLabel(_ label: UILabel, text: String) {
+        if let firstChar = text.first(where: {
             !$0.isWhitespace
         }) {
             label.text = String(firstChar)
@@ -182,14 +185,20 @@ class DoodleViewController: UIViewController {
         }
     }
 
-    @IBAction private func exitButtonDidTap(_ sender: Any) {
+    @IBAction private func exitButtonDidTap(_ sender: UIButton) {
         alert(title: AlertConstants.exit, message: AlertConstants.exitToMainMenu,
               buttonStyle: .default, handler: { _ in
-                    self.dismiss(animated: true, completion: nil)
+                self.dismiss(animated: true, completion: nil)
+                DispatchQueue.main.async {
+                    // TODO: Call backend to update the preview(s) to reflect the latest changes
+                }
               }
         )
     }
 
+    @IBAction private func exportButtonDidTap(_ sender: UIButton) {
+        // TODO: Export to image for now
+    }
 }
 
 // MARK: - IBActions
@@ -310,7 +319,7 @@ extension DoodleViewController: DoodleLayerTableDelegate {
 extension DoodleViewController: CanvasControllerDelegate {
 
     func dispatchPartialAction(action: DTPartialAction) {
-        guard let roomId = self.roomId else {
+        guard let roomId = self.room?.roomId else {
             return
         }
         let action = DTAction(partialAction: action, roomId: roomId)
@@ -354,6 +363,16 @@ extension DoodleViewController: SocketControllerDelegate {
 
     func removeDoodle(doodleId: UUID) {
         // TODO: Add after refactoring doodles
+    }
+
+    func updateUsers(_ users: [DTAdaptedUserAccesses]) {
+        existingUsers = users
+        if userIconColors.isEmpty {
+            userIconColors.append(generateRandomColor())
+            DispatchQueue.main.async {
+                self.updateProfileColors()
+            }
+        }
     }
 
 }

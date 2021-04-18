@@ -137,6 +137,12 @@ final class DTWebSocketController {
         }
     }
 
+    func handleParticipantInfo(_ data: Data) throws {
+        let fetch = try decoder.decode(DTParticipantInfoMessage.self, from: data)
+        DTLogger.info { "Fetched participant info: \(fetch.users)" }
+        delegate?.updateUsers(fetch.users)
+    }
+
     func handleRemoveDoodle(_ data: Data) throws {
         // receive a message from backend to remove doodle
         let fetch = try decoder.decode(DTRemoveDoodleMessage.self, from: data)

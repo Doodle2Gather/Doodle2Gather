@@ -10,6 +10,7 @@ struct DTRoomController: RouteCollection {
         routes.on(Endpoints.Room.joinRoomFromInvite, use: joinRoomFromInviteHandler)
         routes.on(Endpoints.Room.getAllDoodlesFromRoom, use: getAllDoodlesHandler)
         routes.on(Endpoints.Room.delete, use: deleteHandler)
+        routes.on(Endpoints.Room.getRoomPermissionsFromRoomId, use: getRoomPermissionsHandler)
     }
 
     func createHandler(req: Request) throws -> EventLoopFuture<DTAdaptedRoom> {
@@ -22,7 +23,10 @@ struct DTRoomController: RouteCollection {
 
         return room.and(user)
             .flatMap { (room: PersistedDTRoom, user: PersistedDTUser) in
-                let attachRoom = user.$accessibleRooms.attach(room, on: req.db)
+                let attachRoom = user.$accessibleRooms.attach(room, on: req.db) {
+                    $0.setDefaultPermissions()
+                    $0.isOwner = true
+                }
                 let newDoodle = PersistedDTDoodle(room: room)
                 let defaultDoodle = newDoodle.save(on: req.db)
                 return attachRoom.and(defaultDoodle)
@@ -55,6 +59,15 @@ struct DTRoomController: RouteCollection {
             }
     }
 
+    func getRoomPermissionsHandler(req: Request) throws -> EventLoopFuture<[DTAdaptedUserAccesses]> {
+        let roomId = try req.requireUUID(parameterName: "roomId")
+
+        return PersistedDTRoom.getRoomDTUserAccesses(roomId, on: req.db)
+            .flatMapThrowing { userAccesses in
+                userAccesses.map(DTAdaptedUserAccesses.init)
+            }
+    }
+
     func joinRoomFromInviteHandler(req: Request) throws -> EventLoopFuture<DTAdaptedRoom> {
         let joinRequest = try req.content.decode(DTJoinRoomViaInviteMessage.self)
 
@@ -64,7 +77,9 @@ struct DTRoomController: RouteCollection {
             let room = PersistedDTRoom.getSingleByCode(inviteCode, on: req.db)
             let user = PersistedDTUser.getSingleById(joinRequest.userId, on: req.db)
             return user.and(room).flatMap { user, room in
-                user.$accessibleRooms.attach(room, on: req.db)
+                user.$accessibleRooms.attach(room, on: req.db) {
+                    $0.setDefaultPermissions()
+                }
             }
             .flatMap { PersistedDTRoom.getSingleByCode(inviteCode, on: req.db) }
             .flatMapThrowing(DTAdaptedRoom.init)
@@ -76,7 +91,10 @@ struct DTRoomController: RouteCollection {
             let room = PersistedDTRoom.getSingleById(roomId, on: req.db)
             let user = PersistedDTUser.getSingleById(joinRequest.userId, on: req.db)
             return user.and(room).flatMap { user, room in
-                user.$accessibleRooms.attach(room, on: req.db)
+                user.$accessibleRooms.attach(room, on: req.db) {
+                    $0.setDefaultPermissions()
+                    $0.isOwner = true
+                }
             }
             .flatMap { PersistedDTRoom.getSingleById(roomId, on: req.db) }
             .flatMapThrowing(DTAdaptedRoom.init)
@@ -155,5 +173,25 @@ extension PersistedDTRoom {
         PersistedDTRoom.query(on: db)
             .with(\.$doodles)
             .all()
+    }
+
+    static func getRoomDTUserAccesses(_ id: PersistedDTRoom.IDValue?,
+                                      on db: Database) -> EventLoopFuture<[PersistedDTUserAccesses]> {
+        guard let id = id else {
+            return db.eventLoop.makeFailedFuture(DTError.unableToRetreiveID(type: "PersistedDTRoom"))
+        }
+        return PersistedDTUserAccesses
+            .query(on: db)
+            .with(\.$room)
+            .with(\.$user, { $0.with(\.$accessibleRooms, { $0.with(\.$doodles, { $0.with(\.$strokes) }) }) })
+            .filter(\.$room.$id == id)
+            .all()
+    }
+
+    static func getRoomPermissions(roomId: UUID, on db: Database) -> EventLoopFuture<[DTAdaptedUserAccesses]> {
+        PersistedDTRoom.getRoomDTUserAccesses(roomId, on: db)
+            .flatMapThrowing { userAccesses in
+                userAccesses.map(DTAdaptedUserAccesses.init)
+            }
     }
 }
