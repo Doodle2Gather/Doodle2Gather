@@ -124,26 +124,29 @@ class DoodleViewController: UIViewController {
             DTLogger.error("Attempted to join room without a user.")
             return
         }
+        let otherUsers = existingUsers.filter({ access -> Bool in
+            access.userId != DTAuth.user?.uid
+        })
 
         setProfileLabel(userProfileLabel, text: user.displayName)
-        if existingUsers.count <= 1 {
+        if otherUsers.count < 1 {
             separator.isHidden = true
             userProfileLabel.backgroundColor = userIconColors[0]
             otherProfileLabelOne.isHidden = true
             otherProfileLabelTwo.isHidden = true
             numberOfOtherUsersLabel.isHidden = true
-        } else if existingUsers.count <= 2 {
+        } else if otherUsers.count < 2 {
             separator.isHidden = false
-            setProfileLabel(otherProfileLabelOne, text: existingUsers[1].displayName)
+            setProfileLabel(otherProfileLabelOne, text: otherUsers[0].displayName)
             otherProfileLabelOne.isHidden = false
             otherProfileLabelTwo.isHidden = true
             numberOfOtherUsersLabel.isHidden = true
             userProfileLabel.backgroundColor = userIconColors[0]
             otherProfileLabelOne.backgroundColor = userIconColors[1]
-        } else if existingUsers.count <= 3 {
+        } else if otherUsers.count < 3 {
             separator.isHidden = false
-            setProfileLabel(otherProfileLabelOne, text: existingUsers[1].displayName)
-            setProfileLabel(otherProfileLabelOne, text: existingUsers[2].displayName)
+            setProfileLabel(otherProfileLabelOne, text: otherUsers[0].displayName)
+            setProfileLabel(otherProfileLabelTwo, text: otherUsers[1].displayName)
             otherProfileLabelOne.isHidden = false
             otherProfileLabelTwo.isHidden = false
             numberOfOtherUsersLabel.isHidden = true
@@ -152,15 +155,15 @@ class DoodleViewController: UIViewController {
             otherProfileLabelTwo.backgroundColor = userIconColors[2]
         } else {
             separator.isHidden = false
-            setProfileLabel(otherProfileLabelOne, text: existingUsers[1].displayName)
-            setProfileLabel(otherProfileLabelOne, text: existingUsers[2].displayName)
+            setProfileLabel(otherProfileLabelOne, text: otherUsers[0].displayName)
+            setProfileLabel(otherProfileLabelTwo, text: otherUsers[1].displayName)
             otherProfileLabelOne.isHidden = false
             otherProfileLabelTwo.isHidden = false
             numberOfOtherUsersLabel.isHidden = false
             userProfileLabel.backgroundColor = userIconColors[0]
             otherProfileLabelOne.backgroundColor = userIconColors[1]
             otherProfileLabelTwo.backgroundColor = userIconColors[2]
-            numberOfOtherUsersLabel.text = "+\(participants.count - 3)"
+            numberOfOtherUsersLabel.text = "+\(existingUsers.count - 3)"
         }
     }
 
