@@ -92,6 +92,10 @@ class DoodleViewController: UIViewController {
         self.view.layer.addSublayer(shapeLayer)
     }
 
+    deinit {
+        socketController?.exitRoom()
+    }
+
     private func registerGestures() {
         let zoomTap = UITapGestureRecognizer(target: self, action: #selector(zoomScaleDidTap(_:)))
         zoomScaleLabel.addGestureRecognizer(zoomTap)
@@ -263,7 +267,7 @@ extension DoodleViewController {
     }
 
     @IBAction private func addLayerButtonDidTap(_ sender: UIButton) {
-        // TODO: Create new layer
+        socketController?.addDoodle(DTAdaptedDoodle(roomId: roomId!))
     }
 
     @objc
@@ -337,12 +341,23 @@ extension DoodleViewController: SocketControllerDelegate {
         canvasController?.dispatchAction(action)
     }
 
-    func clearDrawing() {
-        canvasController?.clearDoodle()
-    }
-
     func loadDoodles(_ doodles: [DTAdaptedDoodle]) {
         canvasController?.loadDoodles(doodles)
+        layerTable?.loadDoodles(doodles)
+    }
+
+    func addNewDoodle(_ doodle: DTAdaptedDoodle) {
+        guard var doodles = doodles else {
+            return
+        }
+        doodles.append(doodle)
+        self.doodles = doodles
+        canvasController?.loadDoodles(doodles)
+        layerTable?.loadDoodles(doodles)
+    }
+
+    func removeDoodle(doodleId: UUID) {
+        // TODO: Add after refactoring doodles
     }
 
 }
