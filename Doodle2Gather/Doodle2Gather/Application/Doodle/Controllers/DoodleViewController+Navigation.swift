@@ -53,6 +53,7 @@ extension DoodleViewController {
             }
             destination.modalPresentationStyle = .formSheet
             destination.existingUsers = existingUsers
+            destination.userIconColors = userIconColors
             guard let room = room else {
                 return
             }
