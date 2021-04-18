@@ -812,10 +812,10 @@
                                 </connections>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xWj-qC-1ia" userLabel="Bottom Buttons View">
-                                <rect key="frame" x="12" y="1102" width="460" height="60"/>
+                                <rect key="frame" x="12" y="1102" width="410" height="60"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="vRG-Cw-GCR" userLabel="Button Stack">
-                                        <rect key="frame" x="10" y="0.0" width="440" height="60"/>
+                                        <rect key="frame" x="10" y="0.0" width="390" height="60"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mmL-ay-rCs" userLabel="Timer Button">
                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="60"/>
@@ -884,17 +884,8 @@
                                                     <action selector="videoButtonDidTap:" destination="iqH-RH-LvU" eventType="touchUpInside" id="cL9-NY-3n5"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0YY-FW-Ew0" userLabel="Present Button">
-                                                <rect key="frame" x="300" y="0.0" width="40" height="60"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="60" id="iAL-hF-i3b"/>
-                                                    <constraint firstAttribute="width" constant="40" id="qDo-ES-9yu"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                                <state key="normal" image="Presentation"/>
-                                            </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9u2-un-NL2" userLabel="Participants Button">
-                                                <rect key="frame" x="350" y="0.0" width="40" height="60"/>
+                                                <rect key="frame" x="300" y="0.0" width="40" height="60"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="40" id="L6V-ow-sIY"/>
                                                     <constraint firstAttribute="height" constant="60" id="nGN-he-yhQ"/>
@@ -905,7 +896,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y9T-9K-ShW" userLabel="Minimise Button">
-                                                <rect key="frame" x="400" y="0.0" width="40" height="60"/>
+                                                <rect key="frame" x="350" y="0.0" width="40" height="60"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="nZ8-jd-PKk"/>
                                                     <constraint firstAttribute="width" constant="40" id="rsh-Pz-YGK"/>
@@ -1030,7 +1021,6 @@
                         <outlet property="chatButton" destination="MeP-8O-gla" id="xrb-4P-ih0"/>
                         <outlet property="collectionView" destination="Bxd-CB-wII" id="oSa-98-sii"/>
                         <outlet property="participantsButton" destination="9u2-un-NL2" id="PYG-uu-63Y"/>
-                        <outlet property="presentButton" destination="0YY-FW-Ew0" id="JhO-VV-nQB"/>
                         <outlet property="resizeButton" destination="KSI-yV-Rw5" id="xrB-O3-quL"/>
                         <outlet property="startStopButton" destination="0Hf-3m-fGi" id="10T-H2-Fcc"/>
                         <outlet property="timerButton" destination="mmL-ay-rCs" id="4g7-Kc-95a"/>
@@ -1273,7 +1263,6 @@
         <image name="Pencil_Yellow" width="24" height="24"/>
         <image name="PlayButton" width="24" height="24"/>
         <image name="Plus" width="24" height="24"/>
-        <image name="Presentation" width="24" height="24"/>
         <image name="Redo_Grey" width="24" height="24"/>
         <image name="Resize" width="24" height="24"/>
         <image name="Separator" width="3" height="33"/>

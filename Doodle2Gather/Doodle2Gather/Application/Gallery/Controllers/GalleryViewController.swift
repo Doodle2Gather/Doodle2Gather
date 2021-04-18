@@ -65,27 +65,6 @@ class GalleryViewController: UIViewController {
         }
     }
 
-    @IBAction private func didTapEdit(_ sender: Any) {
-        isInEditMode.toggle()
-        if isInEditMode {
-            for index in 0..<(rooms.count) {
-                guard let cell = collectionView.cellForItem(at: IndexPath(row: index,
-                                                                          section: 0)) as? DocumentPreviewCell else {
-                    return
-                }
-                cell.setIsEditing(true)
-            }
-        } else {
-            for index in 0..<(rooms.count) {
-                guard let cell = collectionView.cellForItem(at: IndexPath(row: index,
-                                                                          section: 0)) as? DocumentPreviewCell else {
-                    return
-                }
-                cell.setIsEditing(false)
-            }
-        }
-    }
-
 }
 
 // MARK: - UICollectionViewDelegate
@@ -135,7 +114,6 @@ extension GalleryViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "documentCell",
                                                       for: indexPath) as? DocumentPreviewCell
         cell?.setName(rooms[indexPath.row].name)
-        cell?.setIsEditing(false)
         if rooms.count > indexPath.row {
             guard let topLayer = rooms[indexPath.row].doodles.first else {
                 return cell!
