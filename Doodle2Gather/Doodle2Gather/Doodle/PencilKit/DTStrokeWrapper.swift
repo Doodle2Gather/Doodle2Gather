@@ -25,7 +25,7 @@ struct DTStrokeWrapper {
 
     init?(stroke: DTAdaptedStroke) {
         self.strokeId = stroke.strokeId
-        self.createdBy = stroke.createdBy.uuidString
+        self.createdBy = stroke.createdBy
         self.isDeleted = stroke.isDeleted
         guard let stroke = PKStroke(from: stroke) else {
             return nil

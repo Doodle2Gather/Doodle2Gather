@@ -14,7 +14,7 @@ struct DTAction {
         self.strokes = action.strokes
         self.roomId = action.roomId
         self.doodleId = action.doodleId
-        self.createdBy = action.createdBy.uuidString
+        self.createdBy = action.createdBy
     }
 
     init(type: DTActionType, roomId: UUID, doodleId: UUID, strokes: [DTStrokeIndexPair], createdBy: String) {
