@@ -134,7 +134,7 @@ class DoodleViewController: UIViewController {
             numberOfOtherUsersLabel.isHidden = true
         } else if existingUsers.count <= 2 {
             separator.isHidden = false
-            setProfileLabel(otherProfileLabelOne, text: participants[1].displayName)
+            setProfileLabel(otherProfileLabelOne, text: existingUsers[1].displayName)
             otherProfileLabelOne.isHidden = false
             otherProfileLabelTwo.isHidden = true
             numberOfOtherUsersLabel.isHidden = true
@@ -142,8 +142,8 @@ class DoodleViewController: UIViewController {
             otherProfileLabelOne.backgroundColor = userIconColors[1]
         } else if existingUsers.count <= 3 {
             separator.isHidden = false
-            setProfileLabel(otherProfileLabelOne, text: participants[1].displayName)
-            setProfileLabel(otherProfileLabelOne, text: participants[2].displayName)
+            setProfileLabel(otherProfileLabelOne, text: existingUsers[1].displayName)
+            setProfileLabel(otherProfileLabelOne, text: existingUsers[2].displayName)
             otherProfileLabelOne.isHidden = false
             otherProfileLabelTwo.isHidden = false
             numberOfOtherUsersLabel.isHidden = true
@@ -152,8 +152,8 @@ class DoodleViewController: UIViewController {
             otherProfileLabelTwo.backgroundColor = userIconColors[2]
         } else {
             separator.isHidden = false
-            setProfileLabel(otherProfileLabelOne, text: participants[1].displayName)
-            setProfileLabel(otherProfileLabelOne, text: participants[2].displayName)
+            setProfileLabel(otherProfileLabelOne, text: existingUsers[1].displayName)
+            setProfileLabel(otherProfileLabelOne, text: existingUsers[2].displayName)
             otherProfileLabelOne.isHidden = false
             otherProfileLabelTwo.isHidden = false
             numberOfOtherUsersLabel.isHidden = false
@@ -368,7 +368,9 @@ extension DoodleViewController: SocketControllerDelegate {
     func updateUsers(_ users: [DTAdaptedUserAccesses]) {
         existingUsers = users
         if userIconColors.isEmpty {
-            userIconColors.append(generateRandomColor())
+            for _ in 0..<50 {
+                userIconColors.append(generateRandomColor())
+            }
             DispatchQueue.main.async {
                 self.updateProfileColors()
             }
