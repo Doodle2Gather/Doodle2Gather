@@ -22,3 +22,17 @@ public struct DTJoinRoomViaInviteMessage: Codable {
         self.inviteCode = inviteCode
     }
 }
+
+public struct DTRequestAccessibleRoomMessage: Codable {
+    public var type = DTMessageType.home
+    public var subtype = DTHomeMessageType.accessibleRooms
+    // public let id: UUID // I think this is meant for WS UUID, so I'll comment this out until we transition to full WS
+
+    public let userId: String
+
+    public init(// id: UUID,
+        userId: String) {
+        // self.id = id
+        self.userId = userId
+    }
+}
