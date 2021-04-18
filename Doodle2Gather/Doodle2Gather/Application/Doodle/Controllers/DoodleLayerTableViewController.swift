@@ -3,7 +3,7 @@ import DTSharedLibrary
 
 class DoodleLayerTableViewController: UITableViewController {
 
-    var doodles = [DTAdaptedDoodle]()
+    var doodles = [DTDoodleWrapper]()
     var selectedDoodleIndex = 0
     weak var delegate: DoodleLayerTableDelegate?
 
@@ -25,7 +25,7 @@ class DoodleLayerTableViewController: UITableViewController {
 
         let doodle = doodles[indexPath.row]
         cell.setName("Layer \(indexPath.row + 1)")
-        cell.setImageView(DTDoodlePreview(doodle: doodle))
+        cell.setImageView(DTDoodlePreview(doodle: doodle.drawing))
         cell.index = indexPath.row
         cell.isSelected = selectedDoodleIndex == indexPath.row
         cell.delegate = self
@@ -47,7 +47,7 @@ extension DoodleLayerTableViewController: DoodleLayerCellDelegate {
 
 extension DoodleLayerTableViewController: DoodleLayerTable {
 
-    func loadDoodles(_ doodles: [DTAdaptedDoodle]) {
+    func loadDoodles(_ doodles: [DTDoodleWrapper]) {
         self.doodles = doodles
         selectedDoodleIndex = 0
         tableView.reloadData()

@@ -13,6 +13,11 @@
 		2E146CC126190246001F6845 /* Participants.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E146CC026190246001F6845 /* Participants.storyboard */; };
 		2E2B16D926197BFF0014DD4A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EF8E92B25F754C700C7EE7D /* Assets.xcassets */; };
 		2E4A0B422616FDFF003257D4 /* PKDrawing+StrokesFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4A0B412616FDFF003257D4 /* PKDrawing+StrokesFrame.swift */; };
+		2E6830CF262C1E1100A16F5D /* ActionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6830CE262C1E1100A16F5D /* ActionManager.swift */; };
+		2E6830D3262C1EBE00A16F5D /* CanvasManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6830D2262C1EBE00A16F5D /* CanvasManager.swift */; };
+		2E6830DD262C229F00A16F5D /* CanvasManager+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6830DC262C229F00A16F5D /* CanvasManager+Tools.swift */; };
+		2E6830E3262C25B300A16F5D /* CanvasManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6830E2262C25B300A16F5D /* CanvasManagerDelegate.swift */; };
+		2E6830E7262C31C000A16F5D /* DTPartialAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6830E6262C31C000A16F5D /* DTPartialAction.swift */; };
 		2E81D82B262BFAC200ABB61F /* DTDoodlePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E81D82A262BFAC200ABB61F /* DTDoodlePreview.swift */; };
 		2E8AC7222613F3060033869E /* Pods_Doodle2Gather.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2E3F8FAD2607380100C58F33 /* Pods_Doodle2Gather.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2E8AC74A2613F4C90033869E /* DTCanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8AC7492613F4C90033869E /* DTCanvasViewController.swift */; };
@@ -21,15 +26,13 @@
 		2E987E8226075C5200352E7D /* SocketControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E987E8126075C5200352E7D /* SocketControllerDelegate.swift */; };
 		2EA8C2FA2605E51500BE750C /* CanvasController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8C2F92605E51500BE750C /* CanvasController.swift */; };
 		2EA8C3052605E5B700BE750C /* CanvasControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8C3042605E5B700BE750C /* CanvasControllerDelegate.swift */; };
-		2EA8C3182606682500BE750C /* PKCanvasView+Doodle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8C3172606682500BE750C /* PKCanvasView+Doodle.swift */; };
-		2EA8C335260677C800BE750C /* PKDrawing+DTDrawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8C334260677C800BE750C /* PKDrawing+DTDrawing.swift */; };
+		2EA8C335260677C800BE750C /* PKDrawing+DTDoodle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8C334260677C800BE750C /* PKDrawing+DTDoodle.swift */; };
 		2EA8C34226067F0000BE750C /* PKStroke+DTStroke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8C34126067F0000BE750C /* PKStroke+DTStroke.swift */; };
 		2EB128F9261B6B3F00131FE6 /* ShapeDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB128F8261B6B3F00131FE6 /* ShapeDetector.swift */; };
 		2EB128FF261B6E9E00131FE6 /* HoughShapeDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB128FE261B6E9E00131FE6 /* HoughShapeDetector.swift */; };
 		2EB12903261B8BED00131FE6 /* BestFitShapeDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12902261B8BED00131FE6 /* BestFitShapeDetector.swift */; };
 		2EB129AF261BB32F00131FE6 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB129AE261BB32F00131FE6 /* Queue.swift */; };
 		2EB129B9261BB6E000131FE6 /* DTCanvasError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB129B8261BB6E000131FE6 /* DTCanvasError.swift */; };
-		2EB129C1261BC8BD00131FE6 /* PKStrokeHashWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB129C0261BC8BD00131FE6 /* PKStrokeHashWrapper.swift */; };
 		2EB12A3F261BE3F400131FE6 /* DTTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12A3A261BE3F400131FE6 /* DTTool.swift */; };
 		2EB12A40261BE3F400131FE6 /* DTStroke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12A3B261BE3F400131FE6 /* DTStroke.swift */; };
 		2EB12A41261BE3F400131FE6 /* DTCodableColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12A3C261BE3F400131FE6 /* DTCodableColor.swift */; };
@@ -57,6 +60,8 @@
 		2EF8E92F25F754C700C7EE7D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EF8E92D25F754C700C7EE7D /* LaunchScreen.storyboard */; };
 		2EF8E93A25F754C700C7EE7D /* Doodle2GatherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8E93925F754C700C7EE7D /* Doodle2GatherTests.swift */; };
 		2EF8E94525F754C700C7EE7D /* Doodle2GatherUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8E94425F754C700C7EE7D /* Doodle2GatherUITests.swift */; };
+		2EF94824262C108C00CB3E42 /* DTDoodleWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF94823262C108C00CB3E42 /* DTDoodleWrapper.swift */; };
+		2EF9482A262C10CD00CB3E42 /* DTStrokeWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF94829262C10CD00CB3E42 /* DTStrokeWrapper.swift */; };
 		2EFF38DC261AAEF400488289 /* StrokeEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFF38DB261AAEF400488289 /* StrokeEditorViewController.swift */; };
 		2EFF38E0261AAF2000488289 /* StrokeEditorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFF38DF261AAF2000488289 /* StrokeEditorDelegate.swift */; };
 		2EFF38EA261AAF9A00488289 /* DoodleConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFF38E9261AAF9A00488289 /* DoodleConstants.swift */; };
@@ -154,6 +159,11 @@
 		2E146CC026190246001F6845 /* Participants.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Participants.storyboard; sourceTree = "<group>"; };
 		2E3F8FAD2607380100C58F33 /* Pods_Doodle2Gather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Doodle2Gather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E4A0B412616FDFF003257D4 /* PKDrawing+StrokesFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PKDrawing+StrokesFrame.swift"; sourceTree = "<group>"; };
+		2E6830CE262C1E1100A16F5D /* ActionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionManager.swift; sourceTree = "<group>"; };
+		2E6830D2262C1EBE00A16F5D /* CanvasManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasManager.swift; sourceTree = "<group>"; };
+		2E6830DC262C229F00A16F5D /* CanvasManager+Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CanvasManager+Tools.swift"; sourceTree = "<group>"; };
+		2E6830E2262C25B300A16F5D /* CanvasManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasManagerDelegate.swift; sourceTree = "<group>"; };
+		2E6830E6262C31C000A16F5D /* DTPartialAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTPartialAction.swift; sourceTree = "<group>"; };
 		2E81D82A262BFAC200ABB61F /* DTDoodlePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTDoodlePreview.swift; sourceTree = "<group>"; };
 		2E8AC7492613F4C90033869E /* DTCanvasViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTCanvasViewController.swift; sourceTree = "<group>"; };
 		2E987E6D2607468000352E7D /* PKStrokePoint+DTPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PKStrokePoint+DTPoint.swift"; sourceTree = "<group>"; };
@@ -161,15 +171,13 @@
 		2E987E8126075C5200352E7D /* SocketControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketControllerDelegate.swift; sourceTree = "<group>"; };
 		2EA8C2F92605E51500BE750C /* CanvasController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasController.swift; sourceTree = "<group>"; };
 		2EA8C3042605E5B700BE750C /* CanvasControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasControllerDelegate.swift; sourceTree = "<group>"; };
-		2EA8C3172606682500BE750C /* PKCanvasView+Doodle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PKCanvasView+Doodle.swift"; sourceTree = "<group>"; };
-		2EA8C334260677C800BE750C /* PKDrawing+DTDrawing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PKDrawing+DTDrawing.swift"; sourceTree = "<group>"; };
+		2EA8C334260677C800BE750C /* PKDrawing+DTDoodle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PKDrawing+DTDoodle.swift"; sourceTree = "<group>"; };
 		2EA8C34126067F0000BE750C /* PKStroke+DTStroke.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PKStroke+DTStroke.swift"; sourceTree = "<group>"; };
 		2EB128F8261B6B3F00131FE6 /* ShapeDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeDetector.swift; sourceTree = "<group>"; };
 		2EB128FE261B6E9E00131FE6 /* HoughShapeDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoughShapeDetector.swift; sourceTree = "<group>"; };
 		2EB12902261B8BED00131FE6 /* BestFitShapeDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BestFitShapeDetector.swift; sourceTree = "<group>"; };
 		2EB129AE261BB32F00131FE6 /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		2EB129B8261BB6E000131FE6 /* DTCanvasError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTCanvasError.swift; sourceTree = "<group>"; };
-		2EB129C0261BC8BD00131FE6 /* PKStrokeHashWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKStrokeHashWrapper.swift; sourceTree = "<group>"; };
 		2EB12A3A261BE3F400131FE6 /* DTTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTTool.swift; sourceTree = "<group>"; };
 		2EB12A3B261BE3F400131FE6 /* DTStroke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTStroke.swift; sourceTree = "<group>"; };
 		2EB12A3C261BE3F400131FE6 /* DTCodableColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTCodableColor.swift; sourceTree = "<group>"; };
@@ -204,6 +212,8 @@
 		2EF8E94025F754C700C7EE7D /* Doodle2GatherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Doodle2GatherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EF8E94425F754C700C7EE7D /* Doodle2GatherUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doodle2GatherUITests.swift; sourceTree = "<group>"; };
 		2EF8E94625F754C700C7EE7D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2EF94823262C108C00CB3E42 /* DTDoodleWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTDoodleWrapper.swift; sourceTree = "<group>"; };
+		2EF94829262C10CD00CB3E42 /* DTStrokeWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTStrokeWrapper.swift; sourceTree = "<group>"; };
 		2EFF38DB261AAEF400488289 /* StrokeEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeEditorViewController.swift; sourceTree = "<group>"; };
 		2EFF38DF261AAF2000488289 /* StrokeEditorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeEditorDelegate.swift; sourceTree = "<group>"; };
 		2EFF38E9261AAF9A00488289 /* DoodleConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodleConstants.swift; sourceTree = "<group>"; };
@@ -351,9 +361,10 @@
 		2EB129A6261BB29500131FE6 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				2EB12A3C261BE3F400131FE6 /* DTCodableColor.swift */,
 				2EB129B8261BB6E000131FE6 /* DTCanvasError.swift */,
-				2EB129C0261BC8BD00131FE6 /* PKStrokeHashWrapper.swift */,
 				2E81D82A262BFAC200ABB61F /* DTDoodlePreview.swift */,
+				2E6830E6262C31C000A16F5D /* DTPartialAction.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -373,7 +384,6 @@
 				2EB12A3B261BE3F400131FE6 /* DTStroke.swift */,
 				2EB12A3E261BE3F400131FE6 /* DTPoint.swift */,
 				2EB12A3A261BE3F400131FE6 /* DTTool.swift */,
-				2EB12A3C261BE3F400131FE6 /* DTCodableColor.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -381,12 +391,12 @@
 		2EB12A46261BE3F900131FE6 /* PencilKit */ = {
 			isa = PBXGroup;
 			children = (
-				2E8AC7492613F4C90033869E /* DTCanvasViewController.swift */,
-				2EA8C3172606682500BE750C /* PKCanvasView+Doodle.swift */,
-				2EA8C334260677C800BE750C /* PKDrawing+DTDrawing.swift */,
+				2EF94823262C108C00CB3E42 /* DTDoodleWrapper.swift */,
+				2EF94829262C10CD00CB3E42 /* DTStrokeWrapper.swift */,
+				2EA8C334260677C800BE750C /* PKDrawing+DTDoodle.swift */,
+				2E4A0B412616FDFF003257D4 /* PKDrawing+StrokesFrame.swift */,
 				2EA8C34126067F0000BE750C /* PKStroke+DTStroke.swift */,
 				2E987E6D2607468000352E7D /* PKStrokePoint+DTPoint.swift */,
-				2E4A0B412616FDFF003257D4 /* PKDrawing+StrokesFrame.swift */,
 			);
 			path = PencilKit;
 			sourceTree = "<group>";
@@ -460,6 +470,7 @@
 		2ED629822618FFD6009F92D0 /* Doodle */ = {
 			isa = PBXGroup;
 			children = (
+				2EF94849262C1A4200CB3E42 /* Logic */,
 				2EB12A39261BE3E200131FE6 /* Protocols */,
 				2EB12A46261BE3F900131FE6 /* PencilKit */,
 				2EB129A6261BB29500131FE6 /* Helpers */,
@@ -670,6 +681,18 @@
 				2EF0E51B26096B490008184D /* Views */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		2EF94849262C1A4200CB3E42 /* Logic */ = {
+			isa = PBXGroup;
+			children = (
+				2E8AC7492613F4C90033869E /* DTCanvasViewController.swift */,
+				2E6830CE262C1E1100A16F5D /* ActionManager.swift */,
+				2E6830D2262C1EBE00A16F5D /* CanvasManager.swift */,
+				2E6830DC262C229F00A16F5D /* CanvasManager+Tools.swift */,
+				2E6830E2262C25B300A16F5D /* CanvasManagerDelegate.swift */,
+			);
+			path = Logic;
 			sourceTree = "<group>";
 		};
 		2EFF38DA261AAED300488289 /* Stroke Editor */ = {
@@ -1190,6 +1213,7 @@
 			files = (
 				835D3BFA2606B11A004491D5 /* AgoraVideoEngine.swift in Sources */,
 				840D6B3326023F90001F3D43 /* VideoCollectionViewCell.swift in Sources */,
+				2EF94824262C108C00CB3E42 /* DTDoodleWrapper.swift in Sources */,
 				2EC419562625ED5700BE0518 /* UIAlertController+Style.swift in Sources */,
 				8464E7982625B08C002B5BEE /* Room.swift in Sources */,
 				840D6B2B260236CF001F3D43 /* ConferenceViewController.swift in Sources */,
@@ -1201,7 +1225,7 @@
 				2EA8C2FA2605E51500BE750C /* CanvasController.swift in Sources */,
 				2EFF38EA261AAF9A00488289 /* DoodleConstants.swift in Sources */,
 				8415BC91262BDF0A00E6CF1B /* AlertConstants.swift in Sources */,
-				2EA8C335260677C800BE750C /* PKDrawing+DTDrawing.swift in Sources */,
+				2EA8C335260677C800BE750C /* PKDrawing+DTDoodle.swift in Sources */,
 				848F35472614174000AD46C6 /* Message.swift in Sources */,
 				84D803B326174EDC0096692E /* DocumentPreviewCell.swift in Sources */,
 				67B62AB926198F8B0062037E /* DTApi.swift in Sources */,
@@ -1235,6 +1259,7 @@
 				84E9595C260D757700D587CC /* ChatEngine.swift in Sources */,
 				67B62B4C2619BB980062037E /* DTWebSocketController.swift in Sources */,
 				2EBD90D0261B01F4009859FE /* ThickSliderView.swift in Sources */,
+				2E6830E7262C31C000A16F5D /* DTPartialAction.swift in Sources */,
 				2EB12A40261BE3F400131FE6 /* DTStroke.swift in Sources */,
 				2EFF38F0261AB2F300488289 /* StrokeEditor.swift in Sources */,
 				2EB128FF261B6E9E00131FE6 /* HoughShapeDetector.swift in Sources */,
@@ -1242,9 +1267,12 @@
 				2E01245F26195B8400A38B77 /* BorderedShadowedView.swift in Sources */,
 				2E987E8226075C5200352E7D /* SocketControllerDelegate.swift in Sources */,
 				2EFF38E0261AAF2000488289 /* StrokeEditorDelegate.swift in Sources */,
+				2E6830DD262C229F00A16F5D /* CanvasManager+Tools.swift in Sources */,
 				84A451D52614709400DFCA75 /* GalleryViewController.swift in Sources */,
 				84D803C026186E7C0096692E /* NewDocumentViewController.swift in Sources */,
 				2EC4197626263AD100BE0518 /* Double+Round.swift in Sources */,
+				2EF9482A262C10CD00CB3E42 /* DTStrokeWrapper.swift in Sources */,
+				2E6830CF262C1E1100A16F5D /* ActionManager.swift in Sources */,
 				2EC4195A2625ED9E00BE0518 /* UIViewController+Alert.swift in Sources */,
 				84E95966260D805C00D587CC /* ChatBoxDelegate.swift in Sources */,
 				83F588E72619240200BB9F07 /* DTAuthDelegate.swift in Sources */,
@@ -1252,16 +1280,16 @@
 				83D2EC3E2609283A004F875D /* ApiEndpoints.swift in Sources */,
 				2EB12903261B8BED00131FE6 /* BestFitShapeDetector.swift in Sources */,
 				2ED7A3CC2601C0450006D873 /* DoodleViewController.swift in Sources */,
-				2EB129C1261BC8BD00131FE6 /* PKStrokeHashWrapper.swift in Sources */,
 				2E4A0B422616FDFF003257D4 /* PKDrawing+StrokesFrame.swift in Sources */,
 				2EB929D9260778F600AAB396 /* SubviewTouchView.swift in Sources */,
 				2EB12A41261BE3F400131FE6 /* DTCodableColor.swift in Sources */,
 				2EB129AF261BB32F00131FE6 /* Queue.swift in Sources */,
+				2E6830E3262C25B300A16F5D /* CanvasManagerDelegate.swift in Sources */,
 				8415BC7D262B4E3F00E6CF1B /* DoodleViewController+Navigation.swift in Sources */,
 				84E95961260D758B00D587CC /* ChatEngineDelegate.swift in Sources */,
-				2EA8C3182606682500BE750C /* PKCanvasView+Doodle.swift in Sources */,
 				83AB9C5226171088008E48D0 /* DTAuth.swift in Sources */,
 				8464E77D262586B4002B5BEE /* InvitationViewController.swift in Sources */,
+				2E6830D3262C1EBE00A16F5D /* CanvasManager.swift in Sources */,
 				2EB12AB6261BEF6700131FE6 /* DoodleLayerTableViewCell.swift in Sources */,
 				8464E7B52625C51D002B5BEE /* ParticipantsDelegate.swift in Sources */,
 				8464E7E22626BB30002B5BEE /* AudioConstants.swift in Sources */,

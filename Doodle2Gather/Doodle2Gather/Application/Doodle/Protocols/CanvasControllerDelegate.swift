@@ -5,11 +5,8 @@ import DTSharedLibrary
 /// Delegate for a `CanvasController`.
 protocol CanvasControllerDelegate: AnyObject {
 
-    /// Notifies the delegate that an action has been completed.
-    func actionDidFinish(action: DTAction)
-
-    /// Dispatches the action to the canvas controller.
-    func dispatchChanges<S: DTStroke>(type: DTActionType, strokes: [(S, Int)], doodleId: UUID)
+    /// Notifies the delegate that an action has been completed and needs to be dispatched.
+    func dispatchPartialAction(_ action: DTPartialAction)
 
     /// Informs the delegate that the zoom of the canvas has changed.
     func canvasZoomScaleDidChange(scale: CGFloat)
@@ -23,11 +20,7 @@ protocol CanvasControllerDelegate: AnyObject {
 
 extension CanvasControllerDelegate {
 
-    func actionDidFinish(action: DTAction) {
-        // Do nothing
-    }
-
-    func dispatchChanges<S: DTStroke>(type: DTActionType, strokes: [(S, Int)], doodleId: UUID) {
+    func dispatchPartialAction(_ action: DTPartialAction) {
         // Do nothing
     }
 

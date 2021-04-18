@@ -52,7 +52,7 @@ class DoodleViewController: UIViewController {
     var roomId: UUID?
     var inviteCode: String?
     private var previousDrawingTool = DrawingTools.pen
-    var doodles: [DTAdaptedDoodle]?
+    var doodles: [DTDoodleWrapper]?
     var participants: [DTAdaptedUser] = []
 
     override func viewDidLoad() {
@@ -309,7 +309,11 @@ extension DoodleViewController: DoodleLayerTableDelegate {
 
 extension DoodleViewController: CanvasControllerDelegate {
 
-    func actionDidFinish(action: DTAction) {
+    func dispatchPartialAction(action: DTPartialAction) {
+        guard let roomId = self.roomId else {
+            return
+        }
+        let action = DTAction(partialAction: action, roomId: roomId)
         socketController?.addAction(action)
     }
 
@@ -329,24 +333,16 @@ extension DoodleViewController: CanvasControllerDelegate {
 
 extension DoodleViewController: SocketControllerDelegate {
 
-    func dispatchChanges<S>(type: DTActionType, strokes: [(S, Int)], doodleId: UUID) where S: DTStroke {
-        guard let roomId = self.roomId,
-              let action = DTAction(type: type, roomId: roomId, doodleId: doodleId, strokes: strokes) else {
-            return
-        }
-        socketController?.addAction(action)
-    }
-
     func dispatchAction(_ action: DTAction) {
         canvasController?.dispatchAction(action)
     }
 
-    func loadDoodles(_ doodles: [DTAdaptedDoodle]) {
+    func loadDoodles(_ doodles: [DTDoodleWrapper]) {
         canvasController?.loadDoodles(doodles)
         layerTable?.loadDoodles(doodles)
     }
 
-    func addNewDoodle(_ doodle: DTAdaptedDoodle) {
+    func addNewDoodle(_ doodle: DTDoodleWrapper) {
         guard var doodles = doodles else {
             return
         }

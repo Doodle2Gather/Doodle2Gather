@@ -7,10 +7,10 @@ protocol SocketControllerDelegate: AnyObject {
     func dispatchAction(_ action: DTAction)
 
     /// Tells the delegate to load the current doodles.
-    func loadDoodles(_ doodles: [DTAdaptedDoodle])
+    func loadDoodles(_ doodles: [DTDoodleWrapper])
 
     /// Tells the delegate to add a new doodle.
-    func addNewDoodle(_ doodle: DTAdaptedDoodle)
+    func addNewDoodle(_ doodle: DTDoodleWrapper)
 
     /// Tells the delegate to remove the doodle with the given UUID.
     func removeDoodle(doodleId: UUID)

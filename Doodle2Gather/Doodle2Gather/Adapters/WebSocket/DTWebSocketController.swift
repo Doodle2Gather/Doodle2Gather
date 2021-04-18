@@ -125,7 +125,7 @@ final class DTWebSocketController {
     func handleFetchDoodle(_ data: Data) throws {
         let fetch = try decoder.decode(DTFetchDoodleMessage.self, from: data)
         DispatchQueue.main.async {
-            self.delegate?.loadDoodles(fetch.doodles)
+            self.delegate?.loadDoodles(fetch.doodles.map { DTDoodleWrapper(doodle: $0) })
         }
     }
 
@@ -133,7 +133,7 @@ final class DTWebSocketController {
         // receive a message from backend to add doodle
         let fetch = try decoder.decode(DTAddDoodleMessage.self, from: data)
         DispatchQueue.main.async {
-             self.delegate?.addNewDoodle(fetch.newDoodle)
+             self.delegate?.addNewDoodle(DTDoodleWrapper(doodle: fetch.newDoodle))
         }
     }
 

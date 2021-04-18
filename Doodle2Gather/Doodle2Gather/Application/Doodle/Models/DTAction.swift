@@ -7,51 +7,63 @@ struct DTAction {
     let strokes: [DTStrokeIndexPair]
     let roomId: UUID
     let doodleId: UUID
+    let createdBy: String
 
     init(action: DTAdaptedAction) {
         self.type = action.type
         self.strokes = action.strokes
         self.roomId = action.roomId
         self.doodleId = action.doodleId
+        self.createdBy = action.createdBy.uuidString
     }
 
-    init(type: DTActionType, roomId: UUID, doodleId: UUID, strokes: [DTStrokeIndexPair]) {
+    init(type: DTActionType, roomId: UUID, doodleId: UUID, strokes: [DTStrokeIndexPair], createdBy: String) {
         self.type = type
         self.roomId = roomId
         self.doodleId = doodleId
         self.strokes = strokes
+        self.createdBy = createdBy
     }
 
-    init?<S: DTStroke>(type: DTActionType, roomId: UUID, doodleId: UUID, strokes: [(S, Int)]) {
+    init?(type: DTActionType, roomId: UUID, doodleId: UUID, strokes: [(DTStrokeWrapper, Int)], createdBy: String) {
         self.type = type
         self.roomId = roomId
         self.doodleId = doodleId
+        self.createdBy = createdBy
 
         let encoder = JSONEncoder()
         var strokesData = [DTStrokeIndexPair]()
 
         for (stroke, index) in strokes {
-            guard let data = try? encoder.encode(stroke) else {
+            guard let data = try? encoder.encode(stroke.stroke) else {
                 return nil
             }
-//            strokesData.append(DTStrokeIndexPair(data, index))
+            strokesData.append(DTStrokeIndexPair(data, index, strokeId: stroke.strokeId, isDeleted: stroke.isDeleted))
         }
         self.strokes = strokesData
     }
 
-    func getStrokes<S: DTStroke>() -> [S]? {
-        let decoder = JSONDecoder()
+    init(partialAction: DTPartialAction, roomId: UUID) {
+        type = partialAction.type
+        strokes = partialAction.strokes
+        doodleId = partialAction.doodleId
+        self.roomId = roomId
+        self.createdBy = partialAction.createdBy
+    }
 
-        var strokeArr = [S]()
+    func getStrokes() -> [(stroke: DTStrokeWrapper, index: Int)] {
+        var wrappers = [(stroke: DTStrokeWrapper, index: Int)]()
 
-        for pair in strokes {
-            guard let stroke = try? decoder.decode(S.self, from: pair.stroke) else {
-                return nil
+        for stroke in strokes {
+            guard let wrapper = DTStrokeWrapper(data: stroke.stroke, strokeId: stroke.strokeId,
+                                                createdBy: createdBy, isDeleted: stroke.isDeleted) else {
+                continue
             }
 
-            strokeArr.append(stroke)
+            wrappers.append((stroke: wrapper, index: stroke.index))
         }
-        return strokeArr
+
+        return wrappers
     }
 }
 
