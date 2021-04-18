@@ -66,37 +66,51 @@ class WSRoomController {
             PersistedDTUser.getSingleById(userId, on: db)
                 .and(PersistedDTRoom.getRoomPermissions(roomId: self.roomId, on: db))
                 .whenComplete { result in
-                switch result {
-                case .success(let innerResult):
-                    let (user, userAccesses) = innerResult
-                    self.usersLock.withLockVoid {
-                        self.logger.info("Adding user: \(user.displayName)")
-                        self.users[wsId] = user
-                    }
-                    self.lock.withLockVoid {
-                        self.sockets[wsId] = ws
-                    }
-                    let message = DTParticipantInfoMessage(
-                        id: wsId, roomId: self.roomId,
-                        users: userAccesses
-                    )
+                    switch result {
+                    case .success(let innerResult):
+                        let (user, userAccesses) = innerResult
 
-                    // send participant info
-                    self.getWebSockets([.socket(ws)]).forEach {
-                        $0.send(message: message)
+                        // Register user into room
+                        self.registerUser(user: user, wsId: wsId)
+
+                        // Register socket to room
+                        self.registerSocket(socket: ws, wsId: wsId)
+
+                        self.dispatchParticipantsInfo(ws, wsId: wsId, userAccesses: userAccesses)
+
+                        // Fetch all existing doodles
+                        self.initiateDoodleFetching(ws, wsId)
+
+                    case .failure(let error):
+                        // Unable to find user in DB
+                        self.logger.error("\(error.localizedDescription)")
                     }
-
-                    // fetch all existing doodles
-                    self.initiateDoodleFetching(ws, wsId)
-
-                case .failure(let error):
-                    // Unable to find user in DB
-                    self.logger.error("\(error.localizedDescription)")
-                }
                 }
         } catch {
             logger.report(error: error)
         }
+    }
+
+    private func registerUser(user: PersistedDTUser, wsId: UUID) {
+        self.usersLock.withLockVoid {
+            self.logger.info("Adding user: \(user.displayName)")
+            self.users[wsId] = user
+        }
+    }
+
+    private func registerSocket(socket: WebSocket, wsId: UUID) {
+        self.lock.withLockVoid {
+            self.sockets[wsId] = socket
+        }
+    }
+
+    private func dispatchParticipantsInfo(_ ws: WebSocket, wsId: UUID, userAccesses: [DTAdaptedUserAccesses]) {
+        // Send participant info message
+        let message = DTParticipantInfoMessage(
+            id: wsId, roomId: self.roomId,
+            users: userAccesses
+        )
+        ws.send(message: message)
     }
 
     func onRoomMessage(_ ws: WebSocket, _ data: Data) {
