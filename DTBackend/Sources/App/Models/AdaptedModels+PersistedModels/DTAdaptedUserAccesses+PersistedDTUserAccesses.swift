@@ -7,6 +7,7 @@ extension DTAdaptedUserAccesses {
             fatalError("Unable to fetch user ID from userAccesses")
         }
         self.init(userId: userId,
+                  displayName: userAccesses.user.displayName,
                   isOwner: userAccesses.isOwner,
                   canEdit: userAccesses.canEdit,
                   canVideoConference: userAccesses.canVideoConference,

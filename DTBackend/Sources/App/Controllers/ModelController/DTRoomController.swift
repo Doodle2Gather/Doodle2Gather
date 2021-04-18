@@ -161,4 +161,11 @@ extension PersistedDTRoom {
             .filter(\.$room.$id == id)
             .all()
     }
+    
+    static func getRoomPermissions(roomId: UUID, on db: Database) -> EventLoopFuture<[DTAdaptedUserAccesses]> {
+        return PersistedDTRoom.getRoomDTUserAccesses(roomId, on: db)
+            .flatMapThrowing { userAccesses in
+                userAccesses.map(DTAdaptedUserAccesses.init)
+            }
+    }
 }

@@ -63,13 +63,14 @@ class WSRoomController {
             let userId = decodedData.userId
             let wsId = decodedData.id
 
-            PersistedDTUser.getSingleById(userId, on: db).whenComplete { result in
+            
+            PersistedDTUser.getSingleById(userId, on: db)
+                .and(PersistedDTRoom.getRoomPermissions(roomId: self.roomId, on: db))
+                .whenComplete { result in
                 switch result {
-                case .success(let user):
-                    var oldUsers = [PersistedDTUser]()
+                case .success(let innerResult):
+                    let (user, userAccesses) = innerResult
                     self.usersLock.withLockVoid {
-                        oldUsers = Array(self.users.values)
-                        self.logger.info("Old users: \(oldUsers.map { $0.displayName })")
                         self.logger.info("Adding user: \(user.displayName)")
                         self.users[wsId] = user
                     }
@@ -78,7 +79,7 @@ class WSRoomController {
                     }
                     let message = DTParticipantInfoMessage(
                         id: wsId, roomId: self.roomId,
-                        users: oldUsers.map { DTAdaptedUser(user: $0) }
+                        users: userAccesses
                     )
 
                     // send participant info
@@ -88,7 +89,7 @@ class WSRoomController {
 
                     // fetch all existing doodles
                     self.initiateDoodleFetching(ws, wsId)
-
+                    
                 case .failure(let error):
                     // Unable to find user in DB
                     self.logger.error("\(error.localizedDescription)")
