@@ -49,6 +49,24 @@ struct DTDoodleController: RouteCollection {
 
 // MARK: - Queries
 
+// contains queries that return adapted model
+extension PersistedDTDoodle {
+
+    static func createDoodle(_ request: DTAdaptedDoodle.CreateRequest,
+                             on db: Database) -> EventLoopFuture<DTAdaptedDoodle> {
+        let newDoodle = request.makePersistedDoodle()
+        return newDoodle.save(on: db)
+            .flatMap { PersistedDTDoodle.getSingleById(newDoodle.id, on: db) }
+            .flatMapThrowing(DTAdaptedDoodle.init)
+    }
+
+    static func removeDoodle(_ doodleId: UUID, on db: Database) -> EventLoopFuture<Void> {
+        getSingleById(doodleId, on: db)
+            .flatMap { $0.delete(on: db) }
+    }
+}
+
+// contains queries that return persisted model
 extension PersistedDTDoodle {
 
     static func getSingleById(_ id: PersistedDTDoodle.IDValue?, on db: Database) -> EventLoopFuture<PersistedDTDoodle> {

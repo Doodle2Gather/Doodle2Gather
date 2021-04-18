@@ -19,7 +19,7 @@ class WSRoomController {
         self.sockets = [:]
         self.users = [:]
         self.db = db
-        self.logger = Logger(label: "RoomController")
+        self.logger = Logger(label: "WSRoomController")
 
         self.roomId = roomId
         self.roomController = ActiveRoomController(roomId: roomId, db: db)

@@ -7,19 +7,21 @@ extension WSRoomController {
     // MARK: - exitRoom
 
     func handleExitRoom(_ id: UUID) {
+        self.logger.info("\(id) exit room")
         self.lock.withLockVoid {
             self.sockets[id] = nil
             self.users[id] = nil
         }
+        self.logger.info("users in room \(Array(self.users.values))")
     }
 
     // MARK: - initiateAction
 
     func handleNewAction(_ ws: WebSocket, _ id: UUID,
-                     _ message: DTInitiateActionMessage) {
+                         _ message: DTInitiateActionMessage) {
         let action = message.action
 
-//        self.logger.info("\(action)")
+        //        self.logger.info("\(action)")
         // action successful
         if let dispatchAction = roomController.process(action) {
             self.dispatchActionToPeers(
@@ -114,11 +116,9 @@ extension WSRoomController {
     // MARK: - addDoodle & removeDoodle
 
     func handleAddDoodle(_ ws: WebSocket, _ id: UUID, _ createDoodleData: DTAdaptedDoodle.CreateRequest) {
-        let newDoodle = createDoodleData.makePersistedDoodle()
 
-        newDoodle.save(on: db)
-            .flatMap { PersistedDTDoodle.getSingleById(newDoodle.id, on: self.db) }
-            .flatMapThrowing(DTAdaptedDoodle.init).whenComplete { res in
+        PersistedDTDoodle.createDoodle(createDoodleData, on: self.db)
+            .whenComplete { res in
                 switch res {
                 case .failure(let err):
                     self.logger.report(error: err)
@@ -134,10 +134,8 @@ extension WSRoomController {
     }
 
     func handleRemoveDoodle(_ ws: WebSocket, _ id: UUID, doodleId: UUID) {
-        PersistedDTDoodle.getSingleById(doodleId, on: db)
-            .flatMap { doodle in
-                doodle.delete(on: self.db)
-            }.whenComplete { res in
+        PersistedDTDoodle.removeDoodle(doodleId, on: db)
+            .whenComplete { res in
                 switch res {
                 case .failure(let err):
                     self.logger.report(error: err)

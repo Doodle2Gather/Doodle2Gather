@@ -51,6 +51,19 @@ struct DTUserController: RouteCollection {
        }
 }
 
+// contains all the queries that return Adapted models
+extension PersistedDTUser {
+
+    static func getAllAccessibleRooms(userId: String, on db: Database) -> EventLoopFuture<[DTAdaptedRoom]> {
+        PersistedDTUser.getAllRooms(userId, on: db)
+            .flatMapThrowing {
+                $0.map { DTAdaptedRoom(room: $0 ) }
+            }
+    }
+
+}
+
+// contains all the queries that return Persisted models
 extension PersistedDTUser {
 
     static func getSingleById(_ id: PersistedDTUser.IDValue?, on db: Database) -> EventLoopFuture<PersistedDTUser> {
@@ -69,6 +82,16 @@ extension PersistedDTUser {
             .with(\.$accessibleRooms)
             .all()
     }
+
+    static func getAllRooms(_ id: PersistedDTUser.IDValue?, on db: Database) -> EventLoopFuture<[PersistedDTRoom]> {
+        guard let id = id else {
+          return db.eventLoop.makeFailedFuture(DTError.unableToRetreiveID(type: "PersistedDTUser"))
+        }
+        return getSingleById(id, on: db)
+            .flatMapThrowing { $0.getAccessibleRooms() }
+    }
+
+    // req should not be used in Persisted model
 
     static func createUserInfo(req: Request) throws -> EventLoopFuture<PersistedDTUser> {
         let create = try req.content.decode(DTAdaptedUser.CreateRequest.self)
