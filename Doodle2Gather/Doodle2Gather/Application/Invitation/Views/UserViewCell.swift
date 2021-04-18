@@ -18,7 +18,6 @@ class UserViewCell: UITableViewCell {
         userIconLabel.layer.masksToBounds = true
         userIconLabel.layer.borderColor = UIConstants.stackGrey.cgColor
         userIconLabel.textAlignment = .center
-        userIconLabel.backgroundColor = generateRandomColor()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -38,13 +37,8 @@ class UserViewCell: UITableViewCell {
         emailLabel.text = email
     }
 
-    func generateRandomColor() -> UIColor {
-        UIColor(
-            red: .random(in: 0..<1),
-            green: .random(in: 0..<1),
-            blue: .random(in: 0..<1),
-            alpha: 1.0
-        )
+    func setColor(_ color: UIColor) {
+        userIconLabel.backgroundColor = color
     }
 
     func setPermissions(_ permission: UserPermission) {

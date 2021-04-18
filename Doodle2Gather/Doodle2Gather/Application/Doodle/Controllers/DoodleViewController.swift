@@ -53,6 +53,7 @@ class DoodleViewController: UIViewController {
     var doodles: [DTAdaptedDoodle]?
     var participants: [DTAdaptedUser] = []
     var existingUsers: [DTAdaptedUserAccesses] = []
+    var userIconColors: [UIColor] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -164,6 +165,15 @@ class DoodleViewController: UIViewController {
         } else {
             label.text = "-"
         }
+    }
+
+    private func generateRandomColor() -> UIColor {
+        UIColor(
+            red: .random(in: 0..<1),
+            green: .random(in: 0..<1),
+            blue: .random(in: 0..<1),
+            alpha: 1.0
+        )
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -352,6 +362,9 @@ extension DoodleViewController: SocketControllerDelegate {
 
     func updateUsers(_ users: [DTAdaptedUserAccesses]) {
         existingUsers = users
+        if userIconColors.isEmpty {
+            userIconColors.append(generateRandomColor())
+        }
     }
 
 }

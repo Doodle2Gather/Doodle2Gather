@@ -8,6 +8,7 @@ class InvitationViewController: UIViewController {
 
     var room: DTAdaptedRoom?
     var existingUsers = [DTAdaptedUserAccesses]()
+    var userIconColors = [UIColor]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +51,9 @@ extension InvitationViewController: UITableViewDataSource {
                                                  for: indexPath) as? UserViewCell
         cell?.setUsername(user.displayName)
         cell?.setEmail(user.email)
+        if userIconColors.count > indexPath.row {
+            cell?.setColor(userIconColors[indexPath.row])
+        }
 
         // TODO: Set permissions here
         if user.userId == DTAuth.user?.uid {
