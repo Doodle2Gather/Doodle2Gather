@@ -15,9 +15,9 @@ class NewDocumentViewController: UIViewController {
     @IBOutlet private var joinDocumentLabel: UILabel!
     @IBOutlet private var newDocumentLabel: UILabel!
 
-    var didCreateDocumentCallback: ((Room) -> Void)?
+    var didCreateDocumentCallback: ((DTAdaptedRoom) -> Void)?
     var checkDocumentNameCallback: ((String) -> CreateDocumentStatus)?
-    var joinDocumentCallback: ((Room) -> Void)?
+    var joinDocumentCallback: ((DTAdaptedRoom) -> Void)?
     private var isEditingTitle = true
 
     override func viewDidLoad() {
@@ -157,11 +157,8 @@ class NewDocumentViewController: UIViewController {
                 }
                 return
             case .success(.some(let room)):
-                guard let createdRoom = Room(room: room) else {
-                    return
-                }
               DispatchQueue.main.async {
-                creationCallback(createdRoom)
+                creationCallback(room)
                 self.dismiss(animated: true, completion: nil)
               }
             case .success(.none):
@@ -208,11 +205,8 @@ class NewDocumentViewController: UIViewController {
                 }
                 return
             case .success(.some(let room)):
-                guard let createdRoom = Room(room: room) else {
-                    return
-                }
               DispatchQueue.main.async {
-                joinCallback(createdRoom)
+                joinCallback(room)
                 self.dismiss(animated: true, completion: nil)
               }
             case .success(.none):
