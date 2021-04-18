@@ -11,6 +11,7 @@
 		2E01245F26195B8400A38B77 /* BorderedShadowedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E01245E26195B8400A38B77 /* BorderedShadowedView.swift */; };
 		2E07C4242619B3EA003A87C9 /* UIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E07C4232619B3EA003A87C9 /* UIConstants.swift */; };
 		2E146CC126190246001F6845 /* Participants.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E146CC026190246001F6845 /* Participants.storyboard */; };
+		2E280275262C88A800CA6BF5 /* DoodleViewController+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E280274262C88A800CA6BF5 /* DoodleViewController+Delegate.swift */; };
 		2E2B16D926197BFF0014DD4A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EF8E92B25F754C700C7EE7D /* Assets.xcassets */; };
 		2E4A0B422616FDFF003257D4 /* PKDrawing+StrokesFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4A0B412616FDFF003257D4 /* PKDrawing+StrokesFrame.swift */; };
 		2E6830CF262C1E1100A16F5D /* ActionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6830CE262C1E1100A16F5D /* ActionManager.swift */; };
@@ -158,6 +159,7 @@
 		2E01245E26195B8400A38B77 /* BorderedShadowedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderedShadowedView.swift; sourceTree = "<group>"; };
 		2E07C4232619B3EA003A87C9 /* UIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIConstants.swift; sourceTree = "<group>"; };
 		2E146CC026190246001F6845 /* Participants.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Participants.storyboard; sourceTree = "<group>"; };
+		2E280274262C88A800CA6BF5 /* DoodleViewController+Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DoodleViewController+Delegate.swift"; sourceTree = "<group>"; };
 		2E3F8FAD2607380100C58F33 /* Pods_Doodle2Gather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Doodle2Gather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E4A0B412616FDFF003257D4 /* PKDrawing+StrokesFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PKDrawing+StrokesFrame.swift"; sourceTree = "<group>"; };
 		2E6830CE262C1E1100A16F5D /* ActionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionManager.swift; sourceTree = "<group>"; };
@@ -522,8 +524,9 @@
 			isa = PBXGroup;
 			children = (
 				2ED7A3CB2601C0450006D873 /* DoodleViewController.swift */,
-				2EB12AB1261BEDDC00131FE6 /* DoodleLayerTableViewController.swift */,
 				8415BC7C262B4E3F00E6CF1B /* DoodleViewController+Extensions.swift */,
+				2E280274262C88A800CA6BF5 /* DoodleViewController+Delegate.swift */,
+				2EB12AB1261BEDDC00131FE6 /* DoodleLayerTableViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1284,6 +1287,7 @@
 				8415BC7D262B4E3F00E6CF1B /* DoodleViewController+Extensions.swift in Sources */,
 				84E95961260D758B00D587CC /* ChatEngineDelegate.swift in Sources */,
 				83AB9C5226171088008E48D0 /* DTAuth.swift in Sources */,
+				2E280275262C88A800CA6BF5 /* DoodleViewController+Delegate.swift in Sources */,
 				8464E77D262586B4002B5BEE /* InvitationViewController.swift in Sources */,
 				2E6830D3262C1EBE00A16F5D /* CanvasManager.swift in Sources */,
 				2EB12AB6261BEF6700131FE6 /* DoodleLayerTableViewCell.swift in Sources */,

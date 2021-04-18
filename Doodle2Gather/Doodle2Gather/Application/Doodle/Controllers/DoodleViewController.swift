@@ -104,7 +104,7 @@ class DoodleViewController: UIViewController {
 
     }
 
-    private func loadBorderColors() {
+    func loadBorderColors() {
         colorPickerButton.layer.borderColor = UIConstants.stackGrey.cgColor
         numberOfOtherUsersLabel.layer.borderColor = UIConstants.stackGrey.cgColor
         // TODO: Replace profile picture borders with assigned colors
@@ -113,13 +113,13 @@ class DoodleViewController: UIViewController {
         otherProfileLabelTwo.layer.borderColor = UIConstants.white.cgColor
     }
 
-    private func updateProfileViews() {
+    func updateProfileViews() {
         userProfileLabel.layer.masksToBounds = true
         otherProfileLabelOne.layer.masksToBounds = true
         otherProfileLabelTwo.layer.masksToBounds = true
     }
 
-    private func updateProfileColors() {
+    func updateProfileColors() {
         guard let user = DTAuth.user else {
             DTLogger.error("Attempted to join room without a user.")
             return
@@ -306,14 +306,6 @@ extension DoodleViewController {
 
 }
 
-extension DoodleViewController: DoodleLayerTableDelegate {
-
-    func selectedDoodleDidChange(index: Int) {
-        canvasController?.setSelectedDoodle(index: index)
-    }
-
-}
-
 // MARK: - CanvasControllerDelegate
 
 extension DoodleViewController: CanvasControllerDelegate {
@@ -334,47 +326,6 @@ extension DoodleViewController: CanvasControllerDelegate {
 
     func refetchDoodles() {
         socketController?.refetchDoodles()
-    }
-
-}
-
-// MARK: - SocketControllerDelegate
-
-extension DoodleViewController: SocketControllerDelegate {
-
-    func dispatchAction(_ action: DTAction) {
-        canvasController?.dispatchAction(action)
-    }
-
-    func loadDoodles(_ doodles: [DTDoodleWrapper]) {
-        canvasController?.loadDoodles(doodles)
-        layerTable?.loadDoodles(doodles)
-    }
-
-    func addNewDoodle(_ doodle: DTDoodleWrapper) {
-        guard var doodles = doodles else {
-            return
-        }
-        doodles.append(doodle)
-        self.doodles = doodles
-        canvasController?.loadDoodles(doodles)
-        layerTable?.loadDoodles(doodles)
-    }
-
-    func removeDoodle(doodleId: UUID) {
-        // TODO: Add after refactoring doodles
-    }
-
-    func updateUsers(_ users: [DTAdaptedUserAccesses]) {
-        existingUsers = users
-        if userIconColors.isEmpty {
-            for _ in 0..<50 {
-                userIconColors.append(generateRandomColor())
-            }
-            DispatchQueue.main.async {
-                self.updateProfileColors()
-            }
-        }
     }
 
 }

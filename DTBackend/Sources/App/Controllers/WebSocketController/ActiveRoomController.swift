@@ -54,23 +54,18 @@ class ActiveRoomController {
     }
 
     func process(_ action: DTAdaptedAction) -> DTAdaptedAction? {
-
         let strokes = action.makeStrokes()
         let strokeIndexPairs = action.strokes
 
         let returnPairs: [DTStrokeIndexPair]?
 
-//        self.logger.info("\(strokes)")
         switch action.type {
         case .add:
-            if strokes.count != 1 {
+            guard strokes.count != 1, let strokeToAdd = strokes.first else {
                 return nil
             }
-            guard let strokeToAdd = strokes.first else {
-                return nil
-            }
+
             returnPairs = addStroke(strokeToAdd)
-//            self.logger.info("\(returnPairs)")
         case .remove:
             if strokes.isEmpty {
                 return nil
