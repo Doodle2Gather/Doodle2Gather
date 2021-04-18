@@ -18,7 +18,7 @@ final class DTWebSocketController {
     }
 
     func connect() {
-        guard let url = URL(string: ApiEndpoints.localWS) else {
+        guard let url = URL(string: ApiEndpoints.WS) else {
             return
         }
         self.socket = session.webSocketTask(with: url) // change to localRoom for testing

@@ -13,6 +13,7 @@
 		2E146CC126190246001F6845 /* Participants.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E146CC026190246001F6845 /* Participants.storyboard */; };
 		2E2B16D926197BFF0014DD4A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EF8E92B25F754C700C7EE7D /* Assets.xcassets */; };
 		2E4A0B422616FDFF003257D4 /* PKDrawing+StrokesFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4A0B412616FDFF003257D4 /* PKDrawing+StrokesFrame.swift */; };
+		2E81D82B262BFAC200ABB61F /* DTDoodlePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E81D82A262BFAC200ABB61F /* DTDoodlePreview.swift */; };
 		2E8AC7222613F3060033869E /* Pods_Doodle2Gather.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2E3F8FAD2607380100C58F33 /* Pods_Doodle2Gather.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2E8AC74A2613F4C90033869E /* DTCanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8AC7492613F4C90033869E /* DTCanvasViewController.swift */; };
 		2E987E6E2607468000352E7D /* PKStrokePoint+DTPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E987E6D2607468000352E7D /* PKStrokePoint+DTPoint.swift */; };
@@ -26,9 +27,7 @@
 		2EB128F9261B6B3F00131FE6 /* ShapeDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB128F8261B6B3F00131FE6 /* ShapeDetector.swift */; };
 		2EB128FF261B6E9E00131FE6 /* HoughShapeDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB128FE261B6E9E00131FE6 /* HoughShapeDetector.swift */; };
 		2EB12903261B8BED00131FE6 /* BestFitShapeDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12902261B8BED00131FE6 /* BestFitShapeDetector.swift */; };
-		2EB129A8261BB29F00131FE6 /* DTActionQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB129A7261BB29F00131FE6 /* DTActionQueue.swift */; };
 		2EB129AF261BB32F00131FE6 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB129AE261BB32F00131FE6 /* Queue.swift */; };
-		2EB129B5261BB4B500131FE6 /* DTActionQueueDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB129B4261BB4B500131FE6 /* DTActionQueueDelegate.swift */; };
 		2EB129B9261BB6E000131FE6 /* DTCanvasError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB129B8261BB6E000131FE6 /* DTCanvasError.swift */; };
 		2EB129C1261BC8BD00131FE6 /* PKStrokeHashWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB129C0261BC8BD00131FE6 /* PKStrokeHashWrapper.swift */; };
 		2EB12A3F261BE3F400131FE6 /* DTTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12A3A261BE3F400131FE6 /* DTTool.swift */; };
@@ -156,6 +155,7 @@
 		2E146CC026190246001F6845 /* Participants.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Participants.storyboard; sourceTree = "<group>"; };
 		2E3F8FAD2607380100C58F33 /* Pods_Doodle2Gather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Doodle2Gather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E4A0B412616FDFF003257D4 /* PKDrawing+StrokesFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PKDrawing+StrokesFrame.swift"; sourceTree = "<group>"; };
+		2E81D82A262BFAC200ABB61F /* DTDoodlePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTDoodlePreview.swift; sourceTree = "<group>"; };
 		2E8AC7492613F4C90033869E /* DTCanvasViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTCanvasViewController.swift; sourceTree = "<group>"; };
 		2E987E6D2607468000352E7D /* PKStrokePoint+DTPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PKStrokePoint+DTPoint.swift"; sourceTree = "<group>"; };
 		2E987E7C26075C0200352E7D /* SocketController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketController.swift; sourceTree = "<group>"; };
@@ -168,9 +168,7 @@
 		2EB128F8261B6B3F00131FE6 /* ShapeDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeDetector.swift; sourceTree = "<group>"; };
 		2EB128FE261B6E9E00131FE6 /* HoughShapeDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoughShapeDetector.swift; sourceTree = "<group>"; };
 		2EB12902261B8BED00131FE6 /* BestFitShapeDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BestFitShapeDetector.swift; sourceTree = "<group>"; };
-		2EB129A7261BB29F00131FE6 /* DTActionQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTActionQueue.swift; sourceTree = "<group>"; };
 		2EB129AE261BB32F00131FE6 /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
-		2EB129B4261BB4B500131FE6 /* DTActionQueueDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTActionQueueDelegate.swift; sourceTree = "<group>"; };
 		2EB129B8261BB6E000131FE6 /* DTCanvasError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTCanvasError.swift; sourceTree = "<group>"; };
 		2EB129C0261BC8BD00131FE6 /* PKStrokeHashWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKStrokeHashWrapper.swift; sourceTree = "<group>"; };
 		2EB12A3A261BE3F400131FE6 /* DTTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTTool.swift; sourceTree = "<group>"; };
@@ -338,7 +336,6 @@
 				67B62B4A2619BB980062037E /* WebSocket */,
 				2ED629852618FFE6009F92D0 /* Agora */,
 				2ED6297E2618FEEB009F92D0 /* Chat */,
-				2ED629822618FFD6009F92D0 /* Doodle */,
 				2EFF38DA261AAED300488289 /* Stroke Editor */,
 				2EB128F7261B6B2500131FE6 /* Shape Detection */,
 			);
@@ -358,10 +355,9 @@
 		2EB129A6261BB29500131FE6 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				2EB129A7261BB29F00131FE6 /* DTActionQueue.swift */,
-				2EB129B4261BB4B500131FE6 /* DTActionQueueDelegate.swift */,
 				2EB129B8261BB6E000131FE6 /* DTCanvasError.swift */,
 				2EB129C0261BC8BD00131FE6 /* PKStrokeHashWrapper.swift */,
+				2E81D82A262BFAC200ABB61F /* DTDoodlePreview.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -563,6 +559,7 @@
 				2EA8C3162606680500BE750C /* Adapters */,
 				2EF8E97A25F75EAE00C7EE7D /* Application */,
 				2EF8E97F25F75F5100C7EE7D /* Common */,
+				2ED629822618FFD6009F92D0 /* Doodle */,
 				2EF8E97225F75E2900C7EE7D /* Assets */,
 				2EF8E97125F75E1400C7EE7D /* Bootstrap */,
 				2EF8E97025F75E0700C7EE7D /* Supporting Files */,
@@ -1198,7 +1195,6 @@
 				840D6B3326023F90001F3D43 /* VideoCollectionViewCell.swift in Sources */,
 				2EC419562625ED5700BE0518 /* UIAlertController+Style.swift in Sources */,
 				8464E7982625B08C002B5BEE /* Room.swift in Sources */,
-				2EB129A8261BB29F00131FE6 /* DTActionQueue.swift in Sources */,
 				840D6B2B260236CF001F3D43 /* ConferenceViewController.swift in Sources */,
 				83F5890E2619B47C00BB9F07 /* UserDefaultsCredentialsProvider.swift in Sources */,
 				83260807261471EF00B90F25 /* WillowLogger.swift in Sources */,
@@ -1224,6 +1220,7 @@
 				83AB9C56261711B4008E48D0 /* FirebaseAuthProvider.swift in Sources */,
 				84EEC6C326102B5100876F66 /* ConferenceConstants.swift in Sources */,
 				84E847A8260AD4EB00E39C1F /* ChatViewController.swift in Sources */,
+				2E81D82B262BFAC200ABB61F /* DTDoodlePreview.swift in Sources */,
 				2EB12AB2261BEDDC00131FE6 /* DoodleLayerTableViewController.swift in Sources */,
 				84E847CA260B21AA00E39C1F /* AgoraTokenAPIResponse.swift in Sources */,
 				2EF8E92525F754C600C7EE7D /* SceneDelegate.swift in Sources */,
@@ -1231,7 +1228,6 @@
 				2E987E6E2607468000352E7D /* PKStrokePoint+DTPoint.swift in Sources */,
 				83F5890A2619B44100BB9F07 /* DTUserCredentialsProvider.swift in Sources */,
 				2EB12ABE261BFBB600131FE6 /* DoodleLayerTableDelegate.swift in Sources */,
-				2EB129B5261BB4B500131FE6 /* DTActionQueueDelegate.swift in Sources */,
 				2EB12A3F261BE3F400131FE6 /* DTTool.swift in Sources */,
 				8415BC99262BFB1000E6CF1B /* UserViewCell.swift in Sources */,
 				848F3581261451D400AD46C6 /* ParticipantViewCell.swift in Sources */,
