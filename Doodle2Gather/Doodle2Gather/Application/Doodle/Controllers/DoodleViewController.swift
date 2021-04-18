@@ -129,9 +129,9 @@ class DoodleViewController: UIViewController {
         })
 
         setProfileLabel(userProfileLabel, text: user.displayName)
+        userProfileLabel.backgroundColor = userIconColors[0]
         if otherUsers.count < 1 {
             separator.isHidden = true
-            userProfileLabel.backgroundColor = userIconColors[0]
             otherProfileLabelOne.isHidden = true
             otherProfileLabelTwo.isHidden = true
             numberOfOtherUsersLabel.isHidden = true
@@ -141,7 +141,6 @@ class DoodleViewController: UIViewController {
             otherProfileLabelOne.isHidden = false
             otherProfileLabelTwo.isHidden = true
             numberOfOtherUsersLabel.isHidden = true
-            userProfileLabel.backgroundColor = userIconColors[0]
             otherProfileLabelOne.backgroundColor = userIconColors[1]
         } else if otherUsers.count < 3 {
             separator.isHidden = false
@@ -150,7 +149,6 @@ class DoodleViewController: UIViewController {
             otherProfileLabelOne.isHidden = false
             otherProfileLabelTwo.isHidden = false
             numberOfOtherUsersLabel.isHidden = true
-            userProfileLabel.backgroundColor = userIconColors[0]
             otherProfileLabelOne.backgroundColor = userIconColors[1]
             otherProfileLabelTwo.backgroundColor = userIconColors[2]
         } else {
@@ -160,7 +158,6 @@ class DoodleViewController: UIViewController {
             otherProfileLabelOne.isHidden = false
             otherProfileLabelTwo.isHidden = false
             numberOfOtherUsersLabel.isHidden = false
-            userProfileLabel.backgroundColor = userIconColors[0]
             otherProfileLabelOne.backgroundColor = userIconColors[1]
             otherProfileLabelTwo.backgroundColor = userIconColors[2]
             numberOfOtherUsersLabel.text = "+\(existingUsers.count - 3)"
