@@ -56,6 +56,13 @@ extension InvitationViewController: UITableViewDataSource {
             cell?.setPermissions(.owner)
         }
 
+        if let ownerId = room?.ownerId, let currentUserId = DTAuth.user?.uid {
+            if ownerId == currentUserId {
+                // Set callback to cell
+                cell?.setEditable(true)
+            }
+        }
+
         return cell!
     }
 
