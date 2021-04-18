@@ -84,6 +84,7 @@
 		8415BC7D262B4E3F00E6CF1B /* DoodleViewController+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415BC7C262B4E3F00E6CF1B /* DoodleViewController+Navigation.swift */; };
 		8415BC91262BDF0A00E6CF1B /* AlertConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415BC90262BDF0A00E6CF1B /* AlertConstants.swift */; };
 		8415BC99262BFB1000E6CF1B /* UserViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415BC98262BFB1000E6CF1B /* UserViewCell.swift */; };
+		8415BCA0262C05A000E6CF1B /* ActionSheetAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415BC9F262C05A000E6CF1B /* ActionSheetAlertController.swift */; };
 		8464E77D262586B4002B5BEE /* InvitationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8464E77C262586B4002B5BEE /* InvitationViewController.swift */; };
 		8464E7892625878C002B5BEE /* Invitation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8464E7882625878C002B5BEE /* Invitation.storyboard */; };
 		8464E7982625B08C002B5BEE /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8464E7972625B08C002B5BEE /* Room.swift */; };
@@ -230,6 +231,7 @@
 		8415BC7C262B4E3F00E6CF1B /* DoodleViewController+Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DoodleViewController+Navigation.swift"; sourceTree = "<group>"; };
 		8415BC90262BDF0A00E6CF1B /* AlertConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertConstants.swift; sourceTree = "<group>"; };
 		8415BC98262BFB1000E6CF1B /* UserViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewCell.swift; sourceTree = "<group>"; };
+		8415BC9F262C05A000E6CF1B /* ActionSheetAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetAlertController.swift; sourceTree = "<group>"; };
 		8464E77C262586B4002B5BEE /* InvitationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitationViewController.swift; sourceTree = "<group>"; };
 		8464E7882625878C002B5BEE /* Invitation.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Invitation.storyboard; sourceTree = "<group>"; };
 		8464E7972625B08C002B5BEE /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
@@ -665,6 +667,7 @@
 		2EF8E97F25F75F5100C7EE7D /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				8415BC9E262C057F00E6CF1B /* Helpers */,
 				8464E7D02626B8D6002B5BEE /* Sound */,
 				83AB9C5026171068008E48D0 /* Auth */,
 				832607EC26145D3900B90F25 /* Utils */,
@@ -748,6 +751,14 @@
 				83F5890D2619B47C00BB9F07 /* UserDefaultsCredentialsProvider.swift */,
 			);
 			path = "Credentials Storage";
+			sourceTree = "<group>";
+		};
+		8415BC9E262C057F00E6CF1B /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				8415BC9F262C05A000E6CF1B /* ActionSheetAlertController.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		8460D73B2605A65800F160B1 /* Controllers */ = {
@@ -1259,6 +1270,7 @@
 				2EB129C1261BC8BD00131FE6 /* PKStrokeHashWrapper.swift in Sources */,
 				2E4A0B422616FDFF003257D4 /* PKDrawing+StrokesFrame.swift in Sources */,
 				2EB929D9260778F600AAB396 /* SubviewTouchView.swift in Sources */,
+				8415BCA0262C05A000E6CF1B /* ActionSheetAlertController.swift in Sources */,
 				2EB12A41261BE3F400131FE6 /* DTCodableColor.swift in Sources */,
 				2EB129AF261BB32F00131FE6 /* Queue.swift in Sources */,
 				8415BC7D262B4E3F00E6CF1B /* DoodleViewController+Navigation.swift in Sources */,
