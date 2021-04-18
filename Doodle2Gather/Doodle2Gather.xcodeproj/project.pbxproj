@@ -319,8 +319,6 @@
 			children = (
 				2EA8C2F92605E51500BE750C /* CanvasController.swift */,
 				2EA8C3042605E5B700BE750C /* CanvasControllerDelegate.swift */,
-				2E987E7C26075C0200352E7D /* SocketController.swift */,
-				2E987E8126075C5200352E7D /* SocketControllerDelegate.swift */,
 				2EB12AB9261BF41900131FE6 /* DoodleLayerCellDelegate.swift */,
 				2EB12ABD261BFBB600131FE6 /* DoodleLayerTableDelegate.swift */,
 				2EB12AC1261BFCD100131FE6 /* DoodleLayerTable.swift */,
@@ -689,6 +687,8 @@
 			children = (
 				67B62B4B2619BB980062037E /* DTWebSocketController.swift */,
 				67B62AB826198F8B0062037E /* DTApi.swift */,
+				2E987E7C26075C0200352E7D /* SocketController.swift */,
+				2E987E8126075C5200352E7D /* SocketControllerDelegate.swift */,
 			);
 			name = WebSocket;
 			path = Doodle2Gather/Adapters/WebSocket;
