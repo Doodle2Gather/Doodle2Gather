@@ -180,7 +180,10 @@ class DoodleViewController: UIViewController {
     @IBAction private func exitButtonDidTap(_ sender: Any) {
         alert(title: AlertConstants.exit, message: AlertConstants.exitToMainMenu,
               buttonStyle: .default, handler: { _ in
-                    self.dismiss(animated: true, completion: nil)
+                self.dismiss(animated: true, completion: nil)
+                DispatchQueue.main.async {
+                    // TODO: Call backend to update the preview(s) to reflect the latest changes
+                }
               }
         )
     }

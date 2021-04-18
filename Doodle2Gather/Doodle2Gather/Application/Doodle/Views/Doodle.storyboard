@@ -39,10 +39,10 @@
                                 </connections>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lOM-bA-4te" userLabel="File Name View">
-                                <rect key="frame" x="12" y="12" width="342.5" height="60"/>
+                                <rect key="frame" x="12" y="12" width="302.5" height="60"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xPu-xR-t4a">
-                                        <rect key="frame" x="0.0" y="0.0" width="342.5" height="60"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="302.5" height="60"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jRm-uM-qyl" userLabel="Exit Button">
                                                 <rect key="frame" x="0.0" y="0.0" width="50" height="60"/>
@@ -58,13 +58,13 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="File Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cdg-gm-cRI">
                                                 <rect key="frame" x="50" y="0.0" width="92.5" height="60"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="100" id="LN5-ri-UgB"/>
+                                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="140" id="LN5-ri-UgB"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                 <color key="textColor" name="White"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mzX-F3-7fu" userLabel="Info Button">
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mzX-F3-7fu" userLabel="Info Button">
                                                 <rect key="frame" x="142.5" y="0.0" width="40" height="60"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="ssY-zz-1oL"/>
@@ -73,7 +73,7 @@
                                                 <state key="normal" image="Info_Grey"/>
                                             </button>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Separator" translatesAutoresizingMaskIntoConstraints="NO" id="cIQ-SF-6Au">
-                                                <rect key="frame" x="182.5" y="0.0" width="20" height="60"/>
+                                                <rect key="frame" x="142.5" y="0.0" width="20" height="60"/>
                                                 <accessibility key="accessibilityConfiguration">
                                                     <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
                                                 </accessibility>
@@ -83,7 +83,7 @@
                                                 </constraints>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ho7-dv-XBP" userLabel="Invite Button">
-                                                <rect key="frame" x="202.5" y="0.0" width="40" height="60"/>
+                                                <rect key="frame" x="162.5" y="0.0" width="40" height="60"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="8AA-bj-bbb"/>
                                                     <constraint firstAttribute="width" constant="40" id="pif-vh-XQa"/>
@@ -94,7 +94,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ruK-Zq-Zye" userLabel="Export Button">
-                                                <rect key="frame" x="242.5" y="0.0" width="40" height="60"/>
+                                                <rect key="frame" x="202.5" y="0.0" width="40" height="60"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="40" id="b4M-ac-loi"/>
                                                     <constraint firstAttribute="height" constant="60" id="sQd-lK-V72"/>
@@ -102,7 +102,7 @@
                                                 <state key="normal" image="Export"/>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QIS-ja-FEr" userLabel="Minimise Button">
-                                                <rect key="frame" x="282.5" y="0.0" width="60" height="60"/>
+                                                <rect key="frame" x="242.5" y="0.0" width="60" height="60"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="B7c-Cu-QdG"/>
                                                     <constraint firstAttribute="width" constant="60" id="Pbj-zj-b8s"/>
@@ -139,7 +139,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pn5-xG-qj1" userLabel="Undo Redo View">
-                                <rect key="frame" x="364.5" y="12" width="122" height="60"/>
+                                <rect key="frame" x="324.5" y="12" width="122" height="60"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="SRL-CW-Mem">
                                         <rect key="frame" x="10" y="10" width="102" height="40"/>
