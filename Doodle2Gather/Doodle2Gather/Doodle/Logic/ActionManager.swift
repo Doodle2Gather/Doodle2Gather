@@ -15,8 +15,12 @@ struct ActionManager {
 
 extension ActionManager {
 
-    mutating func createActionAndNewDoodle(doodle: PKDrawing, actionType: DTActionType) -> (action: DTPartialAction?,
-                                                                                   newDoodle: DTDoodleWrapper?) {
+    /// Creates an action based on a new doodle and an action type.
+    ///
+    /// - Returns: A tuple containing an action that can be dispatch to
+    ///   others in the same room + an updated doodle.
+    mutating func createActionAndNewDoodle(doodle: PKDrawing, actionType: DTActionType) ->
+            (action: DTPartialAction?, newDoodle: DTDoodleWrapper?) {
         guard let userId = DTAuth.user?.uid else {
             fatalError("You're not authenticated!")
         }
@@ -24,6 +28,7 @@ extension ActionManager {
         let newStrokes = doodle.dtStrokes
         let oldStrokes = currentDoodle.drawing.dtStrokes
 
+        // No change detected amongst undeleted strokes
         if newStrokes == oldStrokes {
             return (nil, nil)
         }
@@ -32,68 +37,91 @@ extension ActionManager {
 
         switch actionType {
         case .add:
-            if newStrokes.count != oldStrokes.count + 1 {
-                fatalError("Invalid canvas state!")
-            }
-            guard let stroke = doodle.strokes.last else {
-                fatalError("Invalid canvas state!")
-            }
-            let strokeWrapper = DTStrokeWrapper(stroke: stroke, strokeId: UUID(), createdBy: userId)
-
-            action = DTPartialAction(type: .add, doodleId: currentDoodle.doodleId,
-                                     strokes: [(strokeWrapper, currentDoodle.strokes.count + 1)],
-                                     createdBy: userId)
-            currentDoodle.strokes.append(strokeWrapper)
+            action = createAddActionAndUpdateCurrentDoodle(newStrokes: newStrokes,
+                                                           oldStrokes: oldStrokes,
+                                                           userId: userId)
         case .remove:
-            if newStrokes.count > oldStrokes.count {
-                fatalError("Invalid canvas state!")
-            }
-            let newStrokesSet = Set(newStrokes)
-            var removedStrokes = [(DTStrokeWrapper, Int)]()
-
-            for (index, stroke) in currentDoodle.strokes.enumerated() {
-                if stroke.isDeleted {
-                    continue
-                }
-                // Stroke has been removed
-                if !newStrokesSet.contains(stroke.stroke) {
-                    removedStrokes.append((stroke, index))
-                    currentDoodle.strokes[index].isDeleted = true
-                }
-            }
-            if removedStrokes.isEmpty {
-                return (nil, nil)
-            }
-
-            action = DTPartialAction(type: .remove, doodleId: currentDoodle.doodleId,
-                                     strokes: removedStrokes, createdBy: userId)
+            action = createRemoveActionAndUpdateCurrentDoodle(newStrokes: newStrokes,
+                                                              oldStrokes: oldStrokes,
+                                                              userId: userId)
         case .modify:
-            if newStrokes.count != oldStrokes.count {
-                fatalError("Invalid canvas state!")
-            }
-
-            var newStrokeIndex = 0
-
-            for (index, stroke) in currentDoodle.strokes.enumerated() {
-                if stroke.isDeleted {
-                    continue
-                }
-                // Stroke has been removed
-                if !(newStrokes[newStrokeIndex] == stroke.stroke) {
-                    let newStrokeWrapper = DTStrokeWrapper(stroke: newStrokes[newStrokeIndex],
-                                                           strokeId: UUID(), createdBy: userId)
-                    action = DTPartialAction(type: .modify, doodleId: currentDoodle.doodleId,
-                                             strokes: [(stroke, index), (newStrokeWrapper, index)], createdBy: userId)
-                    currentDoodle.strokes[index] = newStrokeWrapper
-                    break
-                }
-                newStrokeIndex += 1
-            }
+            action = createModifyActionAndUpdateCurrentDoodle(newStrokes: newStrokes,
+                                                              oldStrokes: oldStrokes,
+                                                              userId: userId)
         case .unknown, .unremove:
             break
         }
 
         return (action, currentDoodle)
+    }
+
+    mutating func createAddActionAndUpdateCurrentDoodle(newStrokes: [PKStroke], oldStrokes: [PKStroke],
+                                                        userId: String) -> DTPartialAction? {
+        guard newStrokes.count == oldStrokes.count + 1, let stroke = newStrokes.last else {
+            fatalError("Invalid canvas state!")
+        }
+
+        let strokeWrapper = DTStrokeWrapper(stroke: stroke, strokeId: UUID(), createdBy: userId)
+
+        let action = DTPartialAction(type: .add, doodleId: currentDoodle.doodleId,
+                                     strokes: [(strokeWrapper, currentDoodle.strokes.count + 1)],
+                                     createdBy: userId)
+        currentDoodle.strokes.append(strokeWrapper)
+        return action
+    }
+
+    mutating func createRemoveActionAndUpdateCurrentDoodle(newStrokes: [PKStroke], oldStrokes: [PKStroke],
+                                                           userId: String) -> DTPartialAction? {
+        if newStrokes.count > oldStrokes.count {
+            fatalError("Invalid canvas state!")
+        }
+        let newStrokesSet = Set(newStrokes)
+        var removedStrokes = [(DTStrokeWrapper, Int)]()
+
+        for (index, stroke) in currentDoodle.strokes.enumerated() {
+            if stroke.isDeleted {
+                continue
+            }
+            // Stroke has been removed
+            if !newStrokesSet.contains(stroke.stroke) {
+                removedStrokes.append((stroke, index))
+                currentDoodle.strokes[index].isDeleted = true
+            }
+        }
+
+        if removedStrokes.isEmpty {
+            return nil
+        }
+
+        return DTPartialAction(type: .remove, doodleId: currentDoodle.doodleId,
+                               strokes: removedStrokes, createdBy: userId)
+    }
+
+    mutating func createModifyActionAndUpdateCurrentDoodle(newStrokes: [PKStroke], oldStrokes: [PKStroke],
+                                                           userId: String) -> DTPartialAction? {
+        if newStrokes.count != oldStrokes.count {
+            fatalError("Invalid canvas state!")
+        }
+
+        var newStrokeIndex = 0
+
+        for (index, stroke) in currentDoodle.strokes.enumerated() {
+            if stroke.isDeleted {
+                continue
+            }
+            // Stroke has been modified
+            if !(newStrokes[newStrokeIndex] == stroke.stroke) {
+                let newStrokeWrapper = DTStrokeWrapper(stroke: newStrokes[newStrokeIndex],
+                                                       strokeId: UUID(), createdBy: stroke.createdBy)
+                currentDoodle.strokes[index] = newStrokeWrapper
+                return DTPartialAction(type: .modify, doodleId: currentDoodle.doodleId,
+                                       strokes: [(stroke, index), (newStrokeWrapper, index)],
+                                       createdBy: userId)
+            }
+            newStrokeIndex += 1
+        }
+
+        return nil
     }
 
 }
@@ -102,6 +130,8 @@ extension ActionManager {
 
 extension ActionManager {
 
+    /// Dispatches an action received from the socket to the current state.
+    /// Doing so through this method results in no action being re-fired off.
     mutating func dispatchAction(_ action: DTAction) -> DTDoodleWrapper? {
         do {
             let pairs = action.getStrokes()
@@ -127,6 +157,10 @@ extension ActionManager {
         }
     }
 
+    /// Adds a given stroke at the given index without any action fired off.
+    /// This method will throw an error if the indices do not match up.
+    ///
+    /// - Throws: DTCanvasError.indexMismatch if the indices do not match up.
     private mutating func addPairQuietly(stroke: DTStrokeWrapper, index: Int) throws -> DTDoodleWrapper {
         if currentDoodle.strokes.count != index {
             DTLogger.error("Failed to add pairs quietly")
@@ -136,7 +170,10 @@ extension ActionManager {
         return currentDoodle
     }
 
-    /// Removes or unremoves the given pairs quietly.
+    /// Removes or unremoves the given strokes at the given indices without any action fired off.
+    /// This method will throw an error if the indices do not match up.
+    ///
+    /// - Throws: DTCanvasError.indexMismatch if the indices do not match up.
     private mutating func removeOrUnremovePairsQuietly(pairs: [(DTStrokeWrapper, Int)],
                                                        isUnremove: Bool = false) throws -> DTDoodleWrapper {
         for (stroke, index) in pairs {
@@ -156,6 +193,10 @@ extension ActionManager {
         return currentDoodle
     }
 
+    /// Modifies the given stroke at the given index without any action fired off.
+    /// This method will throw an error if the indices do not match up.
+    ///
+    /// - Throws: DTCanvasError.indexMismatch if the indices do not match up.
     private mutating func modifyPairQuietly(pairs: [(DTStrokeWrapper, Int)]) throws -> DTDoodleWrapper {
         guard pairs.count == 2 else {
             DTLogger.error("Failed to modify pairs quietly")
