@@ -102,7 +102,8 @@ struct DTRoomController: RouteCollection {
 // queries that return adapted models
 extension PersistedDTRoom {
 
-    static func createRoom(_ createRequest: DTAdaptedRoom.CreateRequest, on db: Database) -> EventLoopFuture<DTAdaptedRoom> {
+    static func createRoom(_ createRequest: DTAdaptedRoom.CreateRequest,
+                           on db: Database) -> EventLoopFuture<DTAdaptedRoom> {
 
         let newRoom = createRequest.makePersistedRoom()
 

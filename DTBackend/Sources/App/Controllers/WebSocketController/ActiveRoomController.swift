@@ -124,8 +124,8 @@ class ActiveRoomController {
                 return nil
             }
             doodles[stroke.doodleId]?.removeStroke(at: index)
-//            self.logger.info("successfully removed \(index)")
-//            self.logger.info("all strokes \(doodles[stroke.doodleId])")
+            //            self.logger.info("successfully removed \(index)")
+            //            self.logger.info("all strokes \(doodles[stroke.doodleId])")
             returnPairs.append(
                 DTStrokeIndexPair(stroke.stroke, index,
                                   strokeId: stroke.strokeId, isDeleted: true)
