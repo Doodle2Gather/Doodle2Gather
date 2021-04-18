@@ -20,4 +20,8 @@ class DTAuth {
     static func login(email: String, password: String) {
         shared.authProvider.login(email: email, password: password)
     }
+
+    static func configure() {
+        shared.authProvider.configure()
+    }
 }

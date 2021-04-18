@@ -15,4 +15,6 @@ protocol SocketControllerDelegate: AnyObject {
     /// Tells the delegate to remove the doodle with the given UUID.
     func removeDoodle(doodleId: UUID)
 
+    func updateUsers(_ users: [DTAdaptedUserAccesses])
+
 }

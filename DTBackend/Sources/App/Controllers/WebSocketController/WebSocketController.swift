@@ -68,8 +68,9 @@ class WebSocketController {
             }
 
             guard let roomController = roomControllers[roomMessage.roomId] else {
-                logger.warning("Received message to non-existent room controller.")
-                logger.warning("Room ID: \(roomMessage.roomId) From: \(wsId)")
+                let warningMessage = "Received message to non-existent room controller. " +
+                    "Room ID: \(roomMessage.roomId) From: \(wsId)"
+                logger.warning("\(warningMessage)")
                 return
             }
             roomController.onRoomMessage(ws, data)

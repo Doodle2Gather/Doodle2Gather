@@ -10,6 +10,10 @@ struct AddAccesses: Migration {
             .field("room_id", .uuid, .required,
                    .references(PersistedDTRoom.schema, .id, onDelete: .cascade)
             )
+            .field("is_owner", .bool, .required)
+            .field("can_edit", .bool, .required)
+            .field("can_video_conference", .bool, .required)
+            .field("can_chat", .bool, .required)
             .unique(on: "user_id", "room_id")
             .create()
     }

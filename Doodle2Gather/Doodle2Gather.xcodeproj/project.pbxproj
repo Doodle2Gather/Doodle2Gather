@@ -86,8 +86,10 @@
 		83F5890E2619B47C00BB9F07 /* UserDefaultsCredentialsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F5890D2619B47C00BB9F07 /* UserDefaultsCredentialsProvider.swift */; };
 		840D6B2B260236CF001F3D43 /* ConferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D6B2A260236CF001F3D43 /* ConferenceViewController.swift */; };
 		840D6B3326023F90001F3D43 /* VideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D6B3226023F90001F3D43 /* VideoCollectionViewCell.swift */; };
-		8415BC7D262B4E3F00E6CF1B /* DoodleViewController+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415BC7C262B4E3F00E6CF1B /* DoodleViewController+Navigation.swift */; };
+		8415BC7D262B4E3F00E6CF1B /* DoodleViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415BC7C262B4E3F00E6CF1B /* DoodleViewController+Extensions.swift */; };
 		8415BC91262BDF0A00E6CF1B /* AlertConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415BC90262BDF0A00E6CF1B /* AlertConstants.swift */; };
+		8415BC99262BFB1000E6CF1B /* UserViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415BC98262BFB1000E6CF1B /* UserViewCell.swift */; };
+		8415BCA0262C05A000E6CF1B /* ActionSheetAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415BC9F262C05A000E6CF1B /* ActionSheetAlertController.swift */; };
 		8464E77D262586B4002B5BEE /* InvitationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8464E77C262586B4002B5BEE /* InvitationViewController.swift */; };
 		8464E7892625878C002B5BEE /* Invitation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8464E7882625878C002B5BEE /* Invitation.storyboard */; };
 		8464E7982625B08C002B5BEE /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8464E7972625B08C002B5BEE /* Room.swift */; };
@@ -236,8 +238,10 @@
 		83F5890D2619B47C00BB9F07 /* UserDefaultsCredentialsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsCredentialsProvider.swift; sourceTree = "<group>"; };
 		840D6B2A260236CF001F3D43 /* ConferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConferenceViewController.swift; sourceTree = "<group>"; };
 		840D6B3226023F90001F3D43 /* VideoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewCell.swift; sourceTree = "<group>"; };
-		8415BC7C262B4E3F00E6CF1B /* DoodleViewController+Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DoodleViewController+Navigation.swift"; sourceTree = "<group>"; };
+		8415BC7C262B4E3F00E6CF1B /* DoodleViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DoodleViewController+Extensions.swift"; sourceTree = "<group>"; };
 		8415BC90262BDF0A00E6CF1B /* AlertConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertConstants.swift; sourceTree = "<group>"; };
+		8415BC98262BFB1000E6CF1B /* UserViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewCell.swift; sourceTree = "<group>"; };
+		8415BC9F262C05A000E6CF1B /* ActionSheetAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetAlertController.swift; sourceTree = "<group>"; };
 		8464E77C262586B4002B5BEE /* InvitationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitationViewController.swift; sourceTree = "<group>"; };
 		8464E7882625878C002B5BEE /* Invitation.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Invitation.storyboard; sourceTree = "<group>"; };
 		8464E7972625B08C002B5BEE /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
@@ -521,7 +525,7 @@
 			children = (
 				2ED7A3CB2601C0450006D873 /* DoodleViewController.swift */,
 				2EB12AB1261BEDDC00131FE6 /* DoodleLayerTableViewController.swift */,
-				8415BC7C262B4E3F00E6CF1B /* DoodleViewController+Navigation.swift */,
+				8415BC7C262B4E3F00E6CF1B /* DoodleViewController+Extensions.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -672,6 +676,7 @@
 		2EF8E97F25F75F5100C7EE7D /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				8415BC9E262C057F00E6CF1B /* Helpers */,
 				8464E7D02626B8D6002B5BEE /* Sound */,
 				83AB9C5026171068008E48D0 /* Auth */,
 				832607EC26145D3900B90F25 /* Utils */,
@@ -771,6 +776,14 @@
 			path = "Credentials Storage";
 			sourceTree = "<group>";
 		};
+		8415BC9E262C057F00E6CF1B /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				8415BC9F262C05A000E6CF1B /* ActionSheetAlertController.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		8460D73B2605A65800F160B1 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -799,7 +812,8 @@
 		8464E77A2625868A002B5BEE /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				8464E77C262586B4002B5BEE /* InvitationViewController.swift */,
+				8464E7882625878C002B5BEE /* Invitation.storyboard */,
+				8415BC98262BFB1000E6CF1B /* UserViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -807,7 +821,7 @@
 		8464E77B26258691002B5BEE /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				8464E7882625878C002B5BEE /* Invitation.storyboard */,
+				8464E77C262586B4002B5BEE /* InvitationViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1250,6 +1264,7 @@
 				83F5890A2619B44100BB9F07 /* DTUserCredentialsProvider.swift in Sources */,
 				2EB12ABE261BFBB600131FE6 /* DoodleLayerTableDelegate.swift in Sources */,
 				2EB12A3F261BE3F400131FE6 /* DTTool.swift in Sources */,
+				8415BC99262BFB1000E6CF1B /* UserViewCell.swift in Sources */,
 				848F3581261451D400AD46C6 /* ParticipantViewCell.swift in Sources */,
 				848F354F2614177000AD46C6 /* Sender.swift in Sources */,
 				2E987E7D26075C0200352E7D /* SocketController.swift in Sources */,
@@ -1282,10 +1297,11 @@
 				2ED7A3CC2601C0450006D873 /* DoodleViewController.swift in Sources */,
 				2E4A0B422616FDFF003257D4 /* PKDrawing+StrokesFrame.swift in Sources */,
 				2EB929D9260778F600AAB396 /* SubviewTouchView.swift in Sources */,
+				8415BCA0262C05A000E6CF1B /* ActionSheetAlertController.swift in Sources */,
 				2EB12A41261BE3F400131FE6 /* DTCodableColor.swift in Sources */,
 				2EB129AF261BB32F00131FE6 /* Queue.swift in Sources */,
 				2E6830E3262C25B300A16F5D /* CanvasManagerDelegate.swift in Sources */,
-				8415BC7D262B4E3F00E6CF1B /* DoodleViewController+Navigation.swift in Sources */,
+				8415BC7D262B4E3F00E6CF1B /* DoodleViewController+Extensions.swift in Sources */,
 				84E95961260D758B00D587CC /* ChatEngineDelegate.swift in Sources */,
 				83AB9C5226171088008E48D0 /* DTAuth.swift in Sources */,
 				8464E77D262586B4002B5BEE /* InvitationViewController.swift in Sources */,
