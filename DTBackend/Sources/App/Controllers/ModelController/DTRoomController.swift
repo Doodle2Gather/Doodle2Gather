@@ -99,6 +99,31 @@ struct DTRoomController: RouteCollection {
 
 // MARK: - Queries
 
+// queries that return adapted models
+extension PersistedDTRoom {
+
+    static func createRoom(_ createRequest: DTAdaptedRoom.CreateRequest, on db: Database) -> EventLoopFuture<DTAdaptedRoom> {
+
+        let newRoom = createRequest.makePersistedRoom()
+
+        let user = PersistedDTUser.getSingleById(createRequest.ownerId, on: db)
+        let room = newRoom.save(on: db)
+            .flatMap { PersistedDTRoom.getSingleById(newRoom.id, on: db) }
+
+        return room.and(user)
+            .flatMap { (room: PersistedDTRoom, user: PersistedDTUser) in
+                let attachRoom = user.$accessibleRooms.attach(room, on: db)
+                let newDoodle = PersistedDTDoodle(room: room)
+                let defaultDoodle = newDoodle.save(on: db)
+                return attachRoom.and(defaultDoodle)
+                    .flatMap { _ in PersistedDTRoom.getSingleById(room.id, on: db) }
+                    .map { r in DTAdaptedRoom(room: r) }
+            }
+    }
+
+}
+
+// queries that return persisted models
 extension PersistedDTRoom {
 
     static func getSingleById(_ id: PersistedDTRoom.IDValue?, on db: Database) -> EventLoopFuture<PersistedDTRoom> {
