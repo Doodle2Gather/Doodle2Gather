@@ -366,7 +366,6 @@
 				2EB12A3C261BE3F400131FE6 /* DTCodableColor.swift */,
 				2EB129B8261BB6E000131FE6 /* DTCanvasError.swift */,
 				2E81D82A262BFAC200ABB61F /* DTDoodlePreview.swift */,
-				2E6830E6262C31C000A16F5D /* DTPartialAction.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -494,6 +493,7 @@
 			isa = PBXGroup;
 			children = (
 				678F8922261B554A005530A0 /* DTAction.swift */,
+				2E6830E6262C31C000A16F5D /* DTPartialAction.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
