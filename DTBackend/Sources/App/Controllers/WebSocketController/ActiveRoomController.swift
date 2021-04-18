@@ -116,20 +116,19 @@ class ActiveRoomController {
         var returnPairs = [DTStrokeIndexPair]()
         for index in 0 ..< strokes.count {
             let stroke = strokes[index]
-            let startingIndex = pairs[index].index
+            let index = pairs[index].index
             guard let doodle = doodles[stroke.doodleId] else {
                 return nil
             }
-            let index = doodle.findFirstMatchIndex(for: stroke, startingFrom: startingIndex)
-            guard let indexFound = index else {
+            if !doodle.checkIfStrokeIsAtIndex(stroke, at: index) {
                 return nil
             }
-            doodles[stroke.doodleId]?.removeStroke(at: indexFound)
-            self.logger.info("successfully removed \(startingIndex)")
-            self.logger.info("all strokes \(doodles[stroke.doodleId])")
+            doodles[stroke.doodleId]?.removeStroke(at: index)
+//            self.logger.info("successfully removed \(index)")
+//            self.logger.info("all strokes \(doodles[stroke.doodleId])")
             returnPairs.append(
-                DTStrokeIndexPair(stroke.stroke, indexFound,
-                                  strokeId: stroke.strokeId, isDeleted: stroke.isDeleted)
+                DTStrokeIndexPair(stroke.stroke, index,
+                                  strokeId: stroke.strokeId, isDeleted: true)
             )
         }
         return returnPairs
@@ -137,20 +136,20 @@ class ActiveRoomController {
 
     func modifyStroke(original: DTAdaptedStroke, modified: DTAdaptedStroke,
                       pair: DTStrokeIndexPair) -> [DTStrokeIndexPair]? {
-        let startingIndex = pair.index
+        let index = pair.index
+
         guard let doodle = doodles[original.doodleId] else {
             return nil
         }
-        let index = doodle.findFirstMatchIndex(for: original, startingFrom: startingIndex)
-        guard let indexFound = index else {
+        if !doodle.checkIfStrokeIsAtIndex(original, at: index) {
             return nil
         }
-        doodles[original.doodleId]?.modifyStroke(at: indexFound, to: modified)
-        self.logger.info("successfully modified \(startingIndex)")
-        self.logger.info("all strokes \(doodles[original.doodleId])")
-        return [DTStrokeIndexPair(original.stroke, indexFound,
+        doodles[original.doodleId]?.modifyStroke(at: index, to: modified)
+//        self.logger.info("successfully modified \(startingIndex)")
+//        self.logger.info("all strokes \(doodles[original.doodleId])")
+        return [DTStrokeIndexPair(original.stroke, index,
                                   strokeId: original.strokeId, isDeleted: original.isDeleted),
-                DTStrokeIndexPair(modified.stroke, indexFound,
+                DTStrokeIndexPair(modified.stroke, index,
                                   strokeId: modified.strokeId, isDeleted: modified.isDeleted)]
     }
 }

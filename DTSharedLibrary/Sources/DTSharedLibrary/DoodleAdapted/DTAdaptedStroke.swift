@@ -7,7 +7,7 @@ public struct DTAdaptedStroke: Codable {
     public let roomId: UUID
     public let doodleId: UUID
     public let createdBy: UUID
-    public let isDeleted: Bool
+    public var isDeleted: Bool
 
     public init(stroke: Data, strokeId: UUID,
                 roomId: UUID, doodleId: UUID,
@@ -24,6 +24,10 @@ public struct DTAdaptedStroke: Codable {
         self.init(stroke: strokeIndexPair.stroke, strokeId: strokeIndexPair.strokeId,
                   roomId: roomId, doodleId: doodleId,
                   createdBy: createdBy, isDeleted: strokeIndexPair.isDeleted)
+    }
+
+    public mutating func safeDelete() {
+        isDeleted = false
     }
 }
 

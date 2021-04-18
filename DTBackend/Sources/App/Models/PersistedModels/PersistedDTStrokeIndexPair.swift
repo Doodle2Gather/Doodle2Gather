@@ -13,10 +13,10 @@ final class PersistedDTStrokeIndexPair: Model, Content {
 
     @Field(key: "index")
     var index: Int
-    
+
     @Field(key: "stroke_id")
     var strokeId: UUID
-    
+
     @Field(key: "is_deleted")
     var isDeleted: Bool
 

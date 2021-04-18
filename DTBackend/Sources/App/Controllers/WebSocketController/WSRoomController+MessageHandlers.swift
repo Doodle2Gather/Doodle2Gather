@@ -3,7 +3,7 @@ import Fluent
 import DTSharedLibrary
 
 extension WSRoomController {
-    
+
     // MARK: - exitRoom
 
     func handleExitRoom(_ id: UUID) {

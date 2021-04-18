@@ -12,13 +12,13 @@ final class PersistedDTStroke: Model, Content {
 
     @Parent(key: "doodle_id")
     var doodle: PersistedDTDoodle
-    
+
     @Field(key: "stroke_id")
     var strokeId: UUID
 
     @Field(key: "stroke_data")
     var strokeData: Data
-    
+
     @Field(key: "is_deleted")
     var isDeleted: Bool
 
