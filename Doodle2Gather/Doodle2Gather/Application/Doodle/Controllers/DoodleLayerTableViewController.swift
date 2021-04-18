@@ -1,7 +1,5 @@
 import UIKit
 import DTSharedLibrary
-// TODO: Refactor this out
-import PencilKit
 
 class DoodleLayerTableViewController: UITableViewController {
 
@@ -27,7 +25,7 @@ class DoodleLayerTableViewController: UITableViewController {
 
         let doodle = doodles[indexPath.row]
         cell.setName("Layer \(indexPath.row + 1)")
-        cell.setImage(PKDrawing(from: doodle).image(from: UIScreen.main.bounds, scale: 1))
+        cell.setImageView(DTDoodlePreview(doodle: doodles[indexPath.row]))
         cell.index = indexPath.row
         cell.isSelected = selectedDoodleIndex == indexPath.row
 
