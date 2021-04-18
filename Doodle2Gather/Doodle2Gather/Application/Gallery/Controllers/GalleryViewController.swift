@@ -7,6 +7,7 @@ class GalleryViewController: UIViewController {
     @IBOutlet private var collectionView: UICollectionView!
 
     private var rooms = [Room]()
+    private var doodles = [DTAdaptedDoodle]()
     private var selectedCellIndex: Int?
     private var isInEditMode = false
     var count = 1
