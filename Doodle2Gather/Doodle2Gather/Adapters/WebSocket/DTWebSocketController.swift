@@ -129,6 +129,7 @@ final class DTWebSocketController {
 
     func handleParticipantInfo(_ data: Data) throws {
         let fetch = try decoder.decode(DTParticipantInfoMessage.self, from: data)
+        DTLogger.info { "Fetched participant info: \(fetch.users)" }
         delegate?.updateUsers(fetch.users)
     }
 

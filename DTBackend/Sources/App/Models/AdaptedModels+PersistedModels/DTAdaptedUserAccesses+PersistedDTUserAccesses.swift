@@ -8,6 +8,7 @@ extension DTAdaptedUserAccesses {
         }
         self.init(userId: userId,
                   displayName: userAccesses.user.displayName,
+                  email: userAccesses.user.email,
                   isOwner: userAccesses.isOwner,
                   canEdit: userAccesses.canEdit,
                   canVideoConference: userAccesses.canVideoConference,
