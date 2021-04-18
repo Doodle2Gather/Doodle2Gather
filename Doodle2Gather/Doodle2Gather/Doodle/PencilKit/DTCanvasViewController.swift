@@ -307,9 +307,7 @@ extension DTCanvasViewController: CanvasController {
         if index >= self.doodles.count {
             return
         }
-        doodles[currentDoodleIndex] = canvasView.drawing
-        currentDoodle = PKDrawing(from: doodles[currentDoodleIndex])
-        canvasView.drawing = currentDoodle
+        currentDoodleIndex = index
     }
 
 }
