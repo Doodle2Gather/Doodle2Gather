@@ -6,7 +6,7 @@ class GalleryViewController: UIViewController {
     @IBOutlet private var welcomeLabel: UILabel!
     @IBOutlet private var collectionView: UICollectionView!
 
-    private var rooms = [Room]()
+    private var rooms = [DTAdaptedRoom]()
     private var doodles = [DTAdaptedDoodle]()
     private var selectedCellIndex: Int?
     private var isInEditMode = false
@@ -22,11 +22,7 @@ class GalleryViewController: UIViewController {
                 case .failure(let error):
                     DTLogger.error(error.localizedDescription)
                 case .success(.some(let rooms)):
-                    self.rooms = rooms.map { guard let room = Room(room: $0) else {
-                        fatalError("Cannot parse room")
-                    }
-                    return room
-                    }
+                    self.rooms = rooms
                     DispatchQueue.main.async {
                         self.collectionView.reloadData()
                     }
@@ -50,7 +46,7 @@ class GalleryViewController: UIViewController {
             }
             vc.checkDocumentNameCallback = { title in
                 let match = self.rooms.first { room -> Bool in
-                    room.roomName == title
+                    room.name == title
                 }
                 if match != nil {
                     DTLogger.error("The name is already taken.")
@@ -104,7 +100,11 @@ extension GalleryViewController: UICollectionViewDelegate {
             return
         }
 
-        DTApi.getRoomsDoodles(roomId: rooms[index].roomId) { result in
+        guard let roomId = rooms[index].roomId else {
+            DTLogger.error("Room does not exist yet")
+            return
+        }
+        DTApi.getRoomsDoodles(roomId: roomId) { result in
             switch result {
             case .failure(let error):
                 DTLogger.error(error.localizedDescription)
@@ -112,7 +112,7 @@ extension GalleryViewController: UICollectionViewDelegate {
               DispatchQueue.main.async {
                 vc.doodles = doodles
                 vc.username = DTAuth.user?.displayName ?? "Unknown"
-                vc.roomName = self.rooms[index].roomName
+                vc.roomName = self.rooms[index].name
                 vc.roomId = self.rooms[index].roomId
                 vc.inviteCode = self.rooms[index].inviteCode
                 vc.modalPresentationStyle = .fullScreen
@@ -137,8 +137,17 @@ extension GalleryViewController: UICollectionViewDataSource {
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "documentCell",
                                                       for: indexPath) as? DocumentPreviewCell
-        cell?.setName(rooms[indexPath.row].roomName)
+        cell?.setName(rooms[indexPath.row].name)
         cell?.setIsEditing(false)
+        if rooms.count > indexPath.row {
+            guard let topLayer = rooms[indexPath.row].doodles.first else {
+                return cell!
+            }
+            guard let previewImage = DTDoodlePreview(doodle: topLayer).image else {
+                return cell!
+            }
+            cell?.setImage(previewImage)
+        }
         return cell!
     }
 }
