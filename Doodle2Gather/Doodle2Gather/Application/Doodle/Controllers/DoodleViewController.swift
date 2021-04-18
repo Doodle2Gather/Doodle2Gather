@@ -52,7 +52,7 @@ class DoodleViewController: UIViewController {
     private var previousDrawingTool = DrawingTools.pen
     var doodles: [DTAdaptedDoodle]?
     var participants: [DTAdaptedUser] = []
-    var existingUsers: [DTAdaptedUser] = []
+    var existingUsers: [DTAdaptedUserAccesses] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -344,7 +344,7 @@ extension DoodleViewController: SocketControllerDelegate {
         canvasController?.loadDoodles(doodles)
     }
 
-    func updateUsers(_ users: [DTAdaptedUser]) {
+    func updateUsers(_ users: [DTAdaptedUserAccesses]) {
         existingUsers = users
     }
 

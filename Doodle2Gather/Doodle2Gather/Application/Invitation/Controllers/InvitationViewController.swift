@@ -7,7 +7,7 @@ class InvitationViewController: UIViewController {
     @IBOutlet private var inviteCodeField: UITextField!
 
     var room: DTAdaptedRoom?
-    var existingUsers = [DTAdaptedUser]()
+    var existingUsers = [DTAdaptedUserAccesses]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,7 +52,7 @@ extension InvitationViewController: UITableViewDataSource {
         cell?.setEmail(user.email)
 
         // TODO: Set permissions here
-        if user.id == DTAuth.user?.uid {
+        if user.userId == DTAuth.user?.uid {
             cell?.setPermissions(.owner)
         }
 

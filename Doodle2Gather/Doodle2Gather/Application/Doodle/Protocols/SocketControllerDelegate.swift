@@ -8,6 +8,6 @@ protocol SocketControllerDelegate: AnyObject {
 
     func loadDoodles(_ doodles: [DTAdaptedDoodle])
 
-    func updateUsers(_ users: [DTAdaptedUser])
+    func updateUsers(_ users: [DTAdaptedUserAccesses])
 
 }
