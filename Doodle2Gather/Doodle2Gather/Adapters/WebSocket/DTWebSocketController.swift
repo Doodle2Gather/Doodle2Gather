@@ -82,6 +82,10 @@ final class DTWebSocketController {
                 try self.handleDispatchedAction(data)
             case .fetchDoodle:
                 try self.handleFetchDoodle(data)
+            case .addDoodle:
+                try self.handleAddDoodle(data)
+            case .removeDoodle:
+                try self.handleRemoveDoodle(data)
             case .participantInfo:
                 try self.handleParticipantInfo(data)
             case .clearDrawing:
@@ -124,6 +128,22 @@ final class DTWebSocketController {
         let fetch = try decoder.decode(DTFetchDoodleMessage.self, from: data)
         DispatchQueue.main.async {
             self.delegate?.loadDoodles(fetch.doodles)
+        }
+    }
+
+    func handleAddDoodle(_ data: Data) throws {
+        // receive a message from backend to add doodle
+        let fetch = try decoder.decode(DTAddDoodleMessage.self, from: data)
+        DispatchQueue.main.async {
+            // self.delegate?.addDoodle(doodle: fetch.newDoodle)
+        }
+    }
+
+    func handleRemoveDoodle(_ data: Data) throws {
+        // receive a message from backend to remove doodle
+        let fetch = try decoder.decode(DTRemoveDoodleMessage.self, from: data)
+        DispatchQueue.main.async {
+            // self.delegate?.removeDoodle(doodleId: fetch.doodleId)
         }
     }
 
@@ -212,6 +232,46 @@ extension DTWebSocketController: SocketController {
         DTLogger.info("Request fetching doodles.")
 
         let message = DTRequestFetchMessage(id: id, roomId: roomId!)
+        do {
+            let data = try encoder.encode(message)
+            self.socket.send(.data(data)) { err in
+                if err != nil {
+                    DTLogger.error(err.debugDescription)
+                }
+            }
+        } catch {
+            DTLogger.error(error.localizedDescription)
+        }
+    }
+
+    func addDoodle(_ doodle: DTAdaptedDoodle) {
+        // Send a request to backend to send back a DTAddDoodleMessage
+        guard let id = self.id else {
+            return
+        }
+        DTLogger.info("Request add doodle.")
+
+        let message = DTAddDoodleMessage(id: id, roomId: roomId!, newDoodle: doodle)
+        do {
+            let data = try encoder.encode(message)
+            self.socket.send(.data(data)) { err in
+                if err != nil {
+                    DTLogger.error(err.debugDescription)
+                }
+            }
+        } catch {
+            DTLogger.error(error.localizedDescription)
+        }
+    }
+
+    func removeDoodle(_ doodleId: UUID) {
+        // Send a request to backend to send back a DTRemoveDoodleMessage
+        guard let id = self.id else {
+            return
+        }
+        DTLogger.info("Request remove doodle.")
+
+        let message = DTRemoveDoodleMessage(id: id, roomId: roomId!, doodleId: doodleId)
         do {
             let data = try encoder.encode(message)
             self.socket.send(.data(data)) { err in
