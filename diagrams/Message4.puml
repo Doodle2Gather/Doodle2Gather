@@ -1,0 +1,104 @@
+@startuml
+' STYLE START
+hide empty members
+skinparam shadowing false
+' STYLE END
+
+left to right direction
+
+together "Room" as Room {
+    class "DTRoomMessageType" as DTRoomMessageType << (E, LightSteelBlue) enum >> { 
+      +joinRoom
+      +initiateAction
+      +clearDrawing
+      +requestFetch
+      +requestAddDoodle
+      +exitRoom
+      +actionFeedback
+      +dispatchAction
+      +fetchDoodle
+      +participantInfo
+      +addDoodle
+      +removeDoodle
+    }
+    
+    class "DTRoomMessage" as DTRoomMessage << (S, SkyBlue) struct >> { 
+      +id : UUID
+      +roomId : UUID 
+    }
+    
+    class "DTParticipantInfoMessage" as DTParticipantInfoMessage << (S, SkyBlue) struct >> {
+      +id : UUID
+      +roomId : UUID
+      +users : [DTAdaptedUserAccesses]
+    }
+    class "DTInitiateActionMessage" as DTInitiateActionMessage << (S, SkyBlue) struct >> {
+      +id : UUID
+      +userId : String
+      +roomId : UUID
+      +action : DTAdaptedAction
+    }
+    class "DTActionFeedbackMessage" as DTActionFeedbackMessage << (S, SkyBlue) struct >> {
+      +id : UUID
+      +roomId : UUID
+      +success : Bool
+      +message : String
+      +originalAction : DTAdaptedAction
+      +dispatchedAction : DTAdaptedAction?
+    }
+    class "DTDispatchActionMessage" as DTDispatchActionMessage << (S, SkyBlue) struct >> { 
+      +id : UUID
+      +roomId : UUID
+      +success : Bool
+      +message : String
+      +action : DTAdaptedAction
+    }
+    class "DTRequestFetchMessage" as DTRequestFetchMessage << (S, SkyBlue) struct >> {
+      +id : UUID
+      +roomId : UUID
+    }
+    class "DTFetchDoodleMessage" as DTFetchDoodleMessage << (S, SkyBlue) struct >> {
+      +id : UUID
+      +roomId : UUID
+      +success : Bool
+      +message : String
+      +doodles : [DTAdaptedDoodle]
+    }
+    class "DTRequestAddDoodleMessage" as DTRequestAddDoodleMessage << (S, SkyBlue) struct >> {
+      +id : UUID
+      +roomId : UUID
+    }
+    class "DTAddDoodleMessage" as DTAddDoodleMessage << (S, SkyBlue) struct >> {
+      +id : UUID
+      +roomId : UUID
+      +newDoodle : DTAdaptedDoodle
+    }
+    class "DTRemoveDoodleMessage" as DTRemoveDoodleMessage << (S, SkyBlue) struct >> {
+      +id : UUID
+      +roomId : UUID
+      +doodleId : UUID
+    }
+    class "DTClearDrawingMessage" as DTClearDrawingMessage << (S, SkyBlue) struct >> {
+      +id : UUID
+      +roomId : UUID
+    }
+    class "DTExitRoomMessage" as DTExitRoomMessage << (S, SkyBlue) struct >> {
+      +id : UUID
+      +roomId : UUID
+    }
+    
+    DTRoomMessage *-- DTRoomMessageType
+    DTParticipantInfoMessage *-- DTRoomMessageType
+    DTInitiateActionMessage *-- DTRoomMessageType
+    DTActionFeedbackMessage *-- DTRoomMessageType
+    DTDispatchActionMessage *-- DTRoomMessageType
+    DTRequestFetchMessage *-- DTRoomMessageType
+    DTRoomMessageType --* DTFetchDoodleMessage
+    DTRoomMessageType --* DTRequestAddDoodleMessage
+    DTRoomMessageType --* DTAddDoodleMessage
+    DTRoomMessageType --* DTRemoveDoodleMessage
+    DTRoomMessageType --* DTClearDrawingMessage
+    DTRoomMessageType --* DTExitRoomMessage
+}
+
+@enduml
