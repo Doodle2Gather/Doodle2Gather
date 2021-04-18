@@ -309,7 +309,7 @@ extension DoodleViewController: DoodleLayerTableDelegate {
 
 extension DoodleViewController: CanvasControllerDelegate {
 
-    func dispatchPartialAction(action: DTPartialAction) {
+    func dispatchPartialAction(_ action: DTPartialAction) {
         guard let roomId = self.roomId else {
             return
         }

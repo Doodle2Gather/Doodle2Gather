@@ -63,24 +63,24 @@ public struct DTActionFeedbackMessage: Codable {
 
     public let success: Bool
     public let message: String
-    public let orginalAction: DTAdaptedAction
+    public let originalAction: DTAdaptedAction
     public let dispatchedAction: DTAdaptedAction?
 
     public init(id: UUID, roomId: UUID, success: Bool, message: String,
-                orginalAction: DTAdaptedAction, dispatchedAction: DTAdaptedAction?
+                originalAction: DTAdaptedAction, dispatchedAction: DTAdaptedAction?
     ) {
         self.id = id
         self.roomId = roomId
         self.success = success
         self.message = message
-        self.orginalAction = orginalAction
+        self.originalAction = originalAction
         self.dispatchedAction = dispatchedAction
     }
 }
 
 public struct DTDispatchActionMessage: Codable {
     public var type = DTMessageType.room
-    public var subtype = DTRoomMessageType.actionFeedback
+    public var subtype = DTRoomMessageType.dispatchAction
     public let id: UUID
     public let roomId: UUID
 

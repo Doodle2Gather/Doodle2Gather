@@ -30,7 +30,7 @@ extension WSRoomController {
                 success: true, message: "New Action"
             )
             self.sendActionFeedback(
-                orginalAction: action,
+                originalAction: action,
                 dispatchAction: dispatchAction, id: id,
                 to: .id(id), success: true, message: "Action sucessful."
             )
@@ -40,7 +40,7 @@ extension WSRoomController {
         // action denied
         self.handleDoodleFetching(ws, id)
         self.sendActionFeedback(
-            orginalAction: action,
+            originalAction: action,
             dispatchAction: nil, id: id,
             to: .id(id), success: false, message: "Action failed. Please refetch"
         )
@@ -61,7 +61,7 @@ extension WSRoomController {
         }
     }
 
-    func sendActionFeedback(orginalAction: DTAdaptedAction, dispatchAction: DTAdaptedAction?,
+    func sendActionFeedback(originalAction: DTAdaptedAction, dispatchAction: DTAdaptedAction?,
                             id: UUID, to sendOption: WebSocketSendOption,
                             success: Bool = true, message: String = "",
                             isActionDenied: Bool = false) {
@@ -69,7 +69,7 @@ extension WSRoomController {
             id: id, roomId: roomId,
             success: success,
             message: message,
-            orginalAction: orginalAction,
+            originalAction: originalAction,
             dispatchedAction: dispatchAction
         )
         let sendOptions = [sendOption]
