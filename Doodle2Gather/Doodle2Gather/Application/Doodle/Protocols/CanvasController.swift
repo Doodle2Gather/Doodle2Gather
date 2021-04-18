@@ -14,9 +14,6 @@ protocol CanvasController {
     /// Loads a given array of `DTDoodle`s.
     func loadDoodles(_ doodles: [DTAdaptedDoodle])
 
-    /// Clears the canvas.
-    func clearDoodle()
-
     /// Sets the current tool to the drawing tool.
     func setDrawingTool(_ drawingTool: DrawingTools)
 
