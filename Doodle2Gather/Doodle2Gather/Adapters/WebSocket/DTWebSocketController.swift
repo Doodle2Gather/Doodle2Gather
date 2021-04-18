@@ -151,11 +151,6 @@ final class DTWebSocketController {
         }
     }
 
-    func handleParticipantInfo(_ data: Data) throws {
-        _ = try decoder.decode(DTParticipantInfoMessage.self, from: data)
-        // TODO
-    }
-
 }
 
 // MARK: - SocketController
