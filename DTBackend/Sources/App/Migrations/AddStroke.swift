@@ -7,6 +7,8 @@ struct AddStroke: Migration {
             .field("room_id", .uuid, .required)
             .field("doodle_id", .uuid, .required, .references(PersistedDTDoodle.schema, .id, onDelete: .cascade))
             .field("stroke_data", .data, .required)
+            .field("stroke_id", .uuid, .required)
+            .field("is_deleted", .bool, .required)
             .field("created_by", .uuid, .required)
             .create()
     }

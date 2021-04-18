@@ -218,14 +218,14 @@ extension DTWebSocketController: SocketController {
         }
     }
 
-    func addDoodle(_ doodle: DTAdaptedDoodle) {
+    func addDoodle() {
         // Send a request to backend to send back a DTAddDoodleMessage
         guard let id = self.id else {
             return
         }
         DTLogger.info("Request add doodle.")
 
-        let message = DTAddDoodleMessage(id: id, roomId: roomId!, newDoodle: doodle)
+        let message = DTRequestAddDoodleMessage(id: id, roomId: roomId!)
         do {
             let data = try encoder.encode(message)
             self.socket.send(.data(data)) { err in

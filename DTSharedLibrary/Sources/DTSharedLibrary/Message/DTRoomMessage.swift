@@ -128,6 +128,18 @@ public struct DTFetchDoodleMessage: Codable {
     }
 }
 
+public struct DTRequestAddDoodleMessage: Codable {
+    public var type = DTMessageType.room
+    public var subtype = DTRoomMessageType.requestAddDoodle
+    public let id: UUID
+    public let roomId: UUID
+
+    public init(id: UUID, roomId: UUID) {
+        self.id = id
+        self.roomId = roomId
+    }
+}
+
 public struct DTAddDoodleMessage: Codable {
     public var type = DTMessageType.room
     public var subtype = DTRoomMessageType.addDoodle

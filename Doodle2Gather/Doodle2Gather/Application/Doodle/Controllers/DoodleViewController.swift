@@ -267,7 +267,7 @@ extension DoodleViewController {
     }
 
     @IBAction private func addLayerButtonDidTap(_ sender: UIButton) {
-        socketController?.addDoodle(DTAdaptedDoodle(roomId: roomId!))
+        socketController?.addDoodle()
     }
 
     @objc

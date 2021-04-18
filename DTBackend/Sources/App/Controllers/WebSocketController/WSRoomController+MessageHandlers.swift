@@ -126,7 +126,7 @@ extension WSRoomController {
                     self.logger.info("Dispatched an add doodle action to peers!")
                     self.roomController.addDoodle(doodle)
                     let message = DTAddDoodleMessage(id: id, roomId: self.roomId, newDoodle: doodle)
-                    self.getWebSockets(self.getAllWebSocketOptionsExcept(id)).forEach {
+                    self.getWebSockets(self.getAllWebSocketOptions).forEach {
                         $0.send(message: message)
                     }
                 }
@@ -145,7 +145,7 @@ extension WSRoomController {
                     self.logger.info("Dispatched an remove doodle action to peers!")
                     self.roomController.removeDoodle(doodleId)
                     let message = DTRemoveDoodleMessage(id: id, roomId: self.roomId, doodleId: doodleId)
-                    self.getWebSockets(self.getAllWebSocketOptionsExcept(id)).forEach {
+                    self.getWebSockets(self.getAllWebSocketOptions).forEach {
                         $0.send(message: message)
                     }
                 }

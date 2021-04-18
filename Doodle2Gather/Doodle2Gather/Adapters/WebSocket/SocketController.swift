@@ -11,7 +11,7 @@ protocol SocketController {
     func refetchDoodles()
 
     /// Tells the socket to add a new doodle.
-    func addDoodle(_ doodle: DTAdaptedDoodle)
+    func addDoodle()
 
     /// Tells the socket to remove the doodle with the given id.
     func removeDoodle(doodleId: UUID)

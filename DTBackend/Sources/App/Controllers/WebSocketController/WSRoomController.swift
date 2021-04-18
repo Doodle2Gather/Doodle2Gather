@@ -112,7 +112,7 @@ class WSRoomController {
                 self.handleNewAction(ws, decodedData.id, newActionData)
             case .requestFetch:
                 self.handleDoodleFetching(ws, decodedData.id)
-            case .addDoodle:
+            case .requestAddDoodle:
                 let createDoodleData = try decoder.decode(
                     DTAdaptedDoodle.CreateRequest.self, from: data)
                 self.handleAddDoodle(ws, decodedData.id, createDoodleData)
