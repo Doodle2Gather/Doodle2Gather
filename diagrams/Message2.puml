@@ -1,0 +1,34 @@
+@startuml
+' STYLE START
+hide empty members
+skinparam shadowing false
+' STYLE END
+
+left to right direction
+
+together "Auth" as Auth {
+    class "DTAuthMessageType" as DTAuthMessageType << (E, LightSteelBlue) enum >> { 
+      +login
+      +register
+    }
+    
+    class "DTAuthMessage" as DTAuthMessage << (S, SkyBlue) struct >> { 
+      +id : UUID
+    }
+    
+    class "DTLoginMessage" as DTLoginMessage << (S, SkyBlue) struct >> { 
+      +id : UUID
+      +uid: String
+    }
+    class "DTRegisterMessage" as DTRegisterMessage << (S, SkyBlue) struct >> { 
+      +id : UUID
+      +uid: String
+      +displayName: String
+      +email: String
+    }
+    
+    DTAuthMessage *-- DTAuthMessageType
+    DTAuthMessageType --* DTLoginMessage
+    DTAuthMessageType --* DTRegisterMessage
+}
+@enduml

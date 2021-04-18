@@ -1,0 +1,30 @@
+@startuml
+' STYLE START
+hide empty members
+skinparam shadowing false
+' STYLE END
+
+left to right direction
+
+together "Main" as Main {
+    class "DTMessageType" as DTMessageType << (E, LightSteelBlue) enum >> { 
+      +handshake
+      +auth
+      +home
+      +room
+    }
+    
+    class "DTMessage" as DTMessage << (S, SkyBlue) struct >> { 
+      +id : UUID 
+    }
+    
+    class "DTHandshake" as DTHandshake << (S, SkyBlue) struct >> { 
+      ~type
+      +id : UUID
+      +init(id:) 
+    }
+    
+    DTMessage *-down- DTMessageType
+    DTMessageType -down[hidden]- DTHandshake
+}
+@enduml

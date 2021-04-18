@@ -1,0 +1,48 @@
+@startuml
+' STYLE START
+hide empty members
+skinparam shadowing false
+' STYLE END
+
+left to right direction
+
+together "Home" as Home {
+    class "DTHomeMessageType" as DTHomeMessageType << (E, LightSteelBlue) enum >> { 
+      +createRoom
+      +joinViaInvite
+      +accessibleRooms
+    }
+    
+    class "DTHomeMessage" as DTHomeMessage << (S, SkyBlue) struct >> { 
+      +id : UUID
+    }
+    class "DTCreateRoomMessage" as DTCreateRoomMessage << (S, SkyBlue) struct >> { 
+      +id : UUID
+      +ownerId : String
+      +room : DTAdaptedRoom?
+    }
+    class "DTJoinRoomViaInviteMessage" as DTJoinRoomViaInviteMessage << (S, SkyBlue) struct >> { 
+      +userId : String
+      +roomId : UUID?
+      +inviteCode : String?
+    }
+    class "DTAccessibleRoomMessage" as DTAccessibleRoomMessage << (S, SkyBlue) struct >> {
+      +id : UUID
+      +userId : String
+      +rooms : [DTAdaptedRoom]?
+    }
+    
+    class "DTJoinRoomMessage" as DTJoinRoomMessage << (S, SkyBlue) struct >> { 
+      +id : UUID
+      +userId : String
+      +roomId : UUID
+    }
+    
+    DTHomeMessage *-- DTHomeMessageType
+    DTCreateRoomMessage *-- DTHomeMessageType
+    DTJoinRoomViaInviteMessage *-- DTHomeMessageType
+    DTHomeMessageType --* DTAccessibleRoomMessage
+    DTHomeMessageType --* DTJoinRoomMessage
+}
+
+@enduml
