@@ -33,7 +33,7 @@
 		2EA8C3052605E5B700BE750C /* CanvasControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8C3042605E5B700BE750C /* CanvasControllerDelegate.swift */; };
 		2EA8C335260677C800BE750C /* PKDrawing+DTDoodle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8C334260677C800BE750C /* PKDrawing+DTDoodle.swift */; };
 		2EA8C34226067F0000BE750C /* PKStroke+DTStroke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA8C34126067F0000BE750C /* PKStroke+DTStroke.swift */; };
-		2EB128F9261B6B3F00131FE6 /* ShapeDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB128F8261B6B3F00131FE6 /* ShapeDetector.swift */; };
+		2EB128F9261B6B3F00131FE6 /* StrokeAugmentor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB128F8261B6B3F00131FE6 /* StrokeAugmentor.swift */; };
 		2EB128FF261B6E9E00131FE6 /* HoughShapeDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB128FE261B6E9E00131FE6 /* HoughShapeDetector.swift */; };
 		2EB12903261B8BED00131FE6 /* BestFitShapeDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12902261B8BED00131FE6 /* BestFitShapeDetector.swift */; };
 		2EB129AF261BB32F00131FE6 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB129AE261BB32F00131FE6 /* Queue.swift */; };
@@ -184,7 +184,7 @@
 		2EA8C3042605E5B700BE750C /* CanvasControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasControllerDelegate.swift; sourceTree = "<group>"; };
 		2EA8C334260677C800BE750C /* PKDrawing+DTDoodle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PKDrawing+DTDoodle.swift"; sourceTree = "<group>"; };
 		2EA8C34126067F0000BE750C /* PKStroke+DTStroke.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PKStroke+DTStroke.swift"; sourceTree = "<group>"; };
-		2EB128F8261B6B3F00131FE6 /* ShapeDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeDetector.swift; sourceTree = "<group>"; };
+		2EB128F8261B6B3F00131FE6 /* StrokeAugmentor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeAugmentor.swift; sourceTree = "<group>"; };
 		2EB128FE261B6E9E00131FE6 /* HoughShapeDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoughShapeDetector.swift; sourceTree = "<group>"; };
 		2EB12902261B8BED00131FE6 /* BestFitShapeDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BestFitShapeDetector.swift; sourceTree = "<group>"; };
 		2EB129AE261BB32F00131FE6 /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
@@ -311,6 +311,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2E0C9DE1262DAA98006F55ED /* Augmentors */ = {
+			isa = PBXGroup;
+			children = (
+				2EB128F8261B6B3F00131FE6 /* StrokeAugmentor.swift */,
+				2EB128F7261B6B2500131FE6 /* Shape Detection */,
+			);
+			path = Augmentors;
+			sourceTree = "<group>";
+		};
 		2E146CBF2619023A001F6845 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -355,7 +364,6 @@
 				2ED629852618FFE6009F92D0 /* Agora */,
 				2ED6297E2618FEEB009F92D0 /* Chat */,
 				2EFF38DA261AAED300488289 /* Stroke Editor */,
-				2EB128F7261B6B2500131FE6 /* Shape Detection */,
 			);
 			path = Adapters;
 			sourceTree = "<group>";
@@ -363,7 +371,6 @@
 		2EB128F7261B6B2500131FE6 /* Shape Detection */ = {
 			isa = PBXGroup;
 			children = (
-				2EB128F8261B6B3F00131FE6 /* ShapeDetector.swift */,
 				2EB128FE261B6E9E00131FE6 /* HoughShapeDetector.swift */,
 				2EB12902261B8BED00131FE6 /* BestFitShapeDetector.swift */,
 			);
@@ -482,6 +489,7 @@
 			isa = PBXGroup;
 			children = (
 				2EF94849262C1A4200CB3E42 /* Logic */,
+				2E0C9DE1262DAA98006F55ED /* Augmentors */,
 				2EB12A39261BE3E200131FE6 /* Protocols */,
 				2EB12A46261BE3F900131FE6 /* PencilKit */,
 				2EB129A6261BB29500131FE6 /* Helpers */,
@@ -1314,7 +1322,7 @@
 				2E07C4242619B3EA003A87C9 /* UIConstants.swift in Sources */,
 				84E9594F260D754100D587CC /* VideoEngine.swift in Sources */,
 				2EFF38DC261AAEF400488289 /* StrokeEditorViewController.swift in Sources */,
-				2EB128F9261B6B3F00131FE6 /* ShapeDetector.swift in Sources */,
+				2EB128F9261B6B3F00131FE6 /* StrokeAugmentor.swift in Sources */,
 				2EB12A43261BE3F400131FE6 /* DTPoint.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
