@@ -147,13 +147,17 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="SRL-CW-Mem">
                                         <rect key="frame" x="10" y="10" width="102" height="40"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rww-zn-SEF" userLabel="Undo Button">
+                                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rww-zn-SEF" userLabel="Undo Button">
                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="40" id="BOC-bb-Yat"/>
                                                     <constraint firstAttribute="height" constant="40" id="qVq-7F-Vpk"/>
                                                 </constraints>
-                                                <state key="normal" image="Undo_Grey"/>
+                                                <state key="normal" image="Undo"/>
+                                                <state key="disabled" image="Undo_Grey"/>
+                                                <connections>
+                                                    <action selector="undoButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="QHF-ip-SNb"/>
+                                                </connections>
                                             </button>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Separator" translatesAutoresizingMaskIntoConstraints="NO" id="Lkw-Ld-d1o">
                                                 <rect key="frame" x="47" y="0.0" width="8" height="40"/>
@@ -165,13 +169,17 @@
                                                     <constraint firstAttribute="width" constant="8" id="L3S-T6-4NA"/>
                                                 </constraints>
                                             </imageView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BvY-qF-rcv" userLabel="Redo Button">
+                                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BvY-qF-rcv" userLabel="Redo Button">
                                                 <rect key="frame" x="62" y="0.0" width="40" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="40" id="Rgh-fw-wag"/>
                                                     <constraint firstAttribute="height" constant="40" id="fjh-ui-vZq"/>
                                                 </constraints>
-                                                <state key="normal" image="Redo_Grey"/>
+                                                <state key="normal" image="Redo"/>
+                                                <state key="disabled" image="Redo_Grey"/>
+                                                <connections>
+                                                    <action selector="redoButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="PYe-xE-WI9"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -707,10 +715,12 @@
                         <outlet property="otherProfileLabelTwo" destination="ynw-Wz-Sdm" id="FxO-IT-jI4"/>
                         <outlet property="penButton" destination="rKg-Y4-tax" id="rf0-wj-paC"/>
                         <outlet property="pencilButton" destination="PHr-oW-a4i" id="kEZ-Te-JZn"/>
+                        <outlet property="redoButton" destination="BvY-qF-rcv" id="g2r-JF-6de"/>
                         <outlet property="separator" destination="QiO-xb-nBY" id="B4k-Ko-asY"/>
                         <outlet property="separatorView" destination="cIQ-SF-6Au" id="2iL-i3-acE"/>
                         <outlet property="shapesButton" destination="w78-OH-H1V" id="Jet-zX-JVV"/>
                         <outlet property="textButton" destination="Va2-Px-Ku6" id="GYN-tg-pop"/>
+                        <outlet property="undoButton" destination="rww-zn-SEF" id="Psj-zY-vrQ"/>
                         <outlet property="userProfileLabel" destination="Eu2-o6-mDx" id="1r5-oQ-cQm"/>
                         <outlet property="zoomScaleLabel" destination="heI-9Y-pSS" id="Odg-py-uxd"/>
                     </connections>
@@ -1263,6 +1273,7 @@
         <image name="Pencil_Yellow" width="24" height="24"/>
         <image name="PlayButton" width="24" height="24"/>
         <image name="Plus" width="24" height="24"/>
+        <image name="Redo" width="24" height="24"/>
         <image name="Redo_Grey" width="24" height="24"/>
         <image name="Resize" width="24" height="24"/>
         <image name="Separator" width="3" height="33"/>
@@ -1275,6 +1286,7 @@
         <image name="Text" width="24" height="24"/>
         <image name="Text_Yellow" width="24" height="24"/>
         <image name="ThumbsUp" width="24" height="24"/>
+        <image name="Undo" width="24" height="24"/>
         <image name="Undo_Grey" width="24" height="24"/>
         <image name="UserAdd" width="24" height="24"/>
         <image name="Users" width="24" height="24"/>

@@ -18,6 +18,8 @@ class DoodleViewController: UIViewController {
     @IBOutlet private var separatorView: UIImageView!
     @IBOutlet private var inviteButton: UIButton!
     @IBOutlet private var exportButton: UIButton!
+    @IBOutlet private var undoButton: UIButton!
+    @IBOutlet private var redoButton: UIButton!
 
     // Left Main Menu
     @IBOutlet private var drawButton: UIButton!
@@ -196,9 +198,6 @@ class DoodleViewController: UIViewController {
         )
     }
 
-    @IBAction private func exportButtonDidTap(_ sender: UIButton) {
-        // TODO: Export to image for now
-    }
 }
 
 // MARK: - IBActions
@@ -282,6 +281,28 @@ extension DoodleViewController {
         socketController?.addDoodle()
     }
 
+    @IBAction private func exportButtonDidTap(_ sender: UIButton) {
+        // TODO: Export to image for now
+    }
+
+    @IBAction private func undoButtonDidTap(_ sender: Any) {
+        guard let canvasController = canvasController, canvasController.canUndo else {
+            return
+        }
+        canvasController.undo()
+        undoButton.isEnabled = canvasController.canUndo
+        redoButton.isEnabled = canvasController.canRedo
+    }
+
+    @IBAction private func redoButtonDidTap(_ sender: Any) {
+        guard let canvasController = canvasController, canvasController.canRedo else {
+            return
+        }
+        canvasController.redo()
+        undoButton.isEnabled = canvasController.canUndo
+        redoButton.isEnabled = canvasController.canRedo
+    }
+
     @objc
     private func zoomScaleDidTap(_ gesture: UITapGestureRecognizer) {
         canvasController?.resetZoomScale()
@@ -313,12 +334,15 @@ extension DoodleViewController {
 
 extension DoodleViewController: CanvasControllerDelegate {
 
-    func dispatchPartialAction(_ action: DTPartialAction) {
+    func dispatchPartialAction(_ action: DTPartialAdaptedAction) {
         guard let roomId = self.room?.roomId else {
             return
         }
         let action = DTAdaptedAction(partialAction: action, roomId: roomId)
         socketController?.addAction(action)
+
+        undoButton.isEnabled = canvasController?.canUndo ?? false
+        redoButton.isEnabled = canvasController?.canRedo ?? false
     }
 
     func canvasZoomScaleDidChange(scale: CGFloat) {

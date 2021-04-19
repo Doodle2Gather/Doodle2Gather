@@ -5,6 +5,10 @@ import DTSharedLibrary
 /// This abstracts away all canvas-level operations.
 protocol CanvasController {
 
+    /// Whether it is possible to undo or redo an action.
+    var canUndo: Bool { get }
+    var canRedo: Bool { get }
+
     /// Delegate that will be notified when an action is performed.
     var delegate: CanvasControllerDelegate? { get set }
 
@@ -34,5 +38,11 @@ protocol CanvasController {
 
     /// Gets the current doodle state.
     func getCurrentDoodles() -> [DTDoodleWrapper]
+
+    /// Undos the latest action, if any.
+    func undo()
+
+    /// Redos the last undone action, if any.
+    func redo()
 
 }
