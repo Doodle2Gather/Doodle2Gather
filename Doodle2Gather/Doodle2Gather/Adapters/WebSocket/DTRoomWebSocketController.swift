@@ -1,7 +1,7 @@
 import Foundation
 import DTSharedLibrary
 
-final class DTWebSocketController {
+final class DTRoomWebSocketController {
 
     weak var delegate: SocketControllerDelegate?
 
@@ -152,7 +152,7 @@ final class DTWebSocketController {
 
 // MARK: - SocketController
 
-extension DTWebSocketController: SocketController {
+extension DTRoomWebSocketController: SocketController {
 
     func joinRoom(roomId: UUID) {
         guard let id = self.id else {

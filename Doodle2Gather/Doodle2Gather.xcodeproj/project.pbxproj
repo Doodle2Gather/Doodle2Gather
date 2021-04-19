@@ -74,7 +74,7 @@
 		2EFF38F0261AB2F300488289 /* StrokeEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFF38EF261AB2F300488289 /* StrokeEditor.swift */; };
 		678F8923261B554A005530A0 /* DTAdaptedAction+DTActionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678F8922261B554A005530A0 /* DTAdaptedAction+DTActionProtocol.swift */; };
 		67B62AB926198F8B0062037E /* DTApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B62AB826198F8B0062037E /* DTApi.swift */; };
-		67B62B4C2619BB980062037E /* DTWebSocketController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B62B4B2619BB980062037E /* DTWebSocketController.swift */; };
+		67B62B4C2619BB980062037E /* DTRoomWebSocketController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B62B4B2619BB980062037E /* DTRoomWebSocketController.swift */; };
 		67B62B662619CEF10062037E /* DTSharedLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 67B62B652619CEF10062037E /* DTSharedLibrary */; };
 		832607EE26145D5200B90F25 /* DTLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832607ED26145D5200B90F25 /* DTLogger.swift */; };
 		83260807261471EF00B90F25 /* WillowLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83260806261471EF00B90F25 /* WillowLogger.swift */; };
@@ -234,7 +234,7 @@
 		5630A42182E9C28155E1A130 /* Pods-Doodle2Gather.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Doodle2Gather.release.xcconfig"; path = "Target Support Files/Pods-Doodle2Gather/Pods-Doodle2Gather.release.xcconfig"; sourceTree = "<group>"; };
 		678F8922261B554A005530A0 /* DTAdaptedAction+DTActionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DTAdaptedAction+DTActionProtocol.swift"; sourceTree = "<group>"; };
 		67B62AB826198F8B0062037E /* DTApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTApi.swift; sourceTree = "<group>"; };
-		67B62B4B2619BB980062037E /* DTWebSocketController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTWebSocketController.swift; sourceTree = "<group>"; };
+		67B62B4B2619BB980062037E /* DTRoomWebSocketController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTRoomWebSocketController.swift; sourceTree = "<group>"; };
 		832607ED26145D5200B90F25 /* DTLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTLogger.swift; sourceTree = "<group>"; };
 		83260806261471EF00B90F25 /* WillowLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WillowLogger.swift; sourceTree = "<group>"; };
 		8326080C26147FC600B90F25 /* DTAbstractLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTAbstractLogger.swift; sourceTree = "<group>"; };
@@ -737,7 +737,7 @@
 		67B62B4A2619BB980062037E /* WebSocket */ = {
 			isa = PBXGroup;
 			children = (
-				67B62B4B2619BB980062037E /* DTWebSocketController.swift */,
+				67B62B4B2619BB980062037E /* DTRoomWebSocketController.swift */,
 				67B62AB826198F8B0062037E /* DTApi.swift */,
 				2E987E7C26075C0200352E7D /* SocketController.swift */,
 				2E987E8126075C5200352E7D /* SocketControllerDelegate.swift */,
@@ -1287,7 +1287,7 @@
 				2EB12A42261BE3F400131FE6 /* DTDoodle.swift in Sources */,
 				2EB12ABA261BF41900131FE6 /* DoodleLayerCellDelegate.swift in Sources */,
 				84E9595C260D757700D587CC /* ChatEngine.swift in Sources */,
-				67B62B4C2619BB980062037E /* DTWebSocketController.swift in Sources */,
+				67B62B4C2619BB980062037E /* DTRoomWebSocketController.swift in Sources */,
 				2E0C9DC4262D6F18006F55ED /* ActionManager+UndoRedo.swift in Sources */,
 				2EBD90D0261B01F4009859FE /* ThickSliderView.swift in Sources */,
 				2E6830E7262C31C000A16F5D /* DTPartialAdaptedAction.swift in Sources */,
