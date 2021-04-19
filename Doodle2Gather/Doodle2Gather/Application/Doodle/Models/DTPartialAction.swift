@@ -33,4 +33,28 @@ struct DTPartialAction {
         self.strokes = strokesData
     }
 
+    func inverse() -> DTPartialAction {
+        var newType: DTActionType = .add
+        var newStrokes = strokes
+
+        switch type {
+        case .add, .unremove:
+            newType = .remove
+            newStrokes = [DTStrokeIndexPair(strokes[0].stroke, strokes[0].index,
+                                            strokeId: strokes[0].strokeId, isDeleted: true)]
+        case .modify:
+            newType = .modify
+            newStrokes = [strokes[1], strokes[0]]
+        case .remove:
+            newType = .unremove
+            newStrokes = [DTStrokeIndexPair(strokes[0].stroke, strokes[0].index,
+                                            strokeId: strokes[0].strokeId, isDeleted: false)]
+        case .unknown:
+            newType = .unknown
+        }
+
+        return DTPartialAction(type: newType, doodleId: doodleId, strokes: newStrokes,
+                               createdBy: createdBy)
+    }
+
 }
