@@ -8,21 +8,27 @@ protocol DTWebSocketSubController {
 
 protocol DTSendableWebSocketSubController: DTWebSocketSubController {
     var parentController: DTWebSocketController? { get set }
+    var id: UUID? { get set }
     func send(_ data: Data)
+    func send(_ data: Data, callback: @escaping () -> Void)
 }
 
 extension DTSendableWebSocketSubController {
-    func send(_ data: Data) {
+    func send<T>(_ message: T) where T: Codable {
+        send(message, callback: {})
+    }
+
+    func send<T>(_ message: T, callback: @escaping () -> Void) where T: Codable {
         guard let parentController = self.parentController else {
             fatalError("Unable to get parent WS controller")
         }
-        parentController.sendViaPipeline(data)
+        parentController.sendViaPipeline(message, callback: callback)
     }
 }
 
 final class DTWebSocketController {
     var id: UUID?
-    private let encoder = JSONEncoder()
+    let encoder = JSONEncoder()
     let decoder = JSONDecoder()
     private var wsSubcontrollers = [DTMessageType: DTWebSocketSubController]()
     private let socket: URLSessionWebSocketTask
@@ -102,12 +108,23 @@ final class DTWebSocketController {
         data
     }
 
-    func sendViaPipeline(_ data: Data) {
-        let encodedData = runSendDataMiddlewares(data)
-        self.socket.send(.data(encodedData)) { err in
-            if err != nil {
-                DTLogger.error { err.debugDescription }
+    func sendViaPipeline<T>(_ message: T) where T: Codable {
+        sendViaPipeline(message, callback: {})
+    }
+
+    func sendViaPipeline<T>(_ message: T, callback: @escaping () -> Void) where T: Codable {
+        do {
+            let rawData = try encoder.encode(message)
+            let encodedData = runSendDataMiddlewares(rawData)
+            self.socket.send(.data(encodedData)) { err in
+                if err != nil {
+                    DTLogger.error { err.debugDescription }
+                } else {
+                    callback()
+                }
             }
+        } catch {
+            DTLogger.error { error.localizedDescription }
         }
     }
 
@@ -122,5 +139,10 @@ final class DTWebSocketController {
         // can run through DTWebSocketController's send pipeline
         var sc = subcontroller
         sc.parentController = self
+        sc.id = self.id
+    }
+
+    func removeSubcontroller(_ subcontroller: DTWebSocketSubController) {
+        wsSubcontrollers[subcontroller.handledMessageType] = nil
     }
 }
