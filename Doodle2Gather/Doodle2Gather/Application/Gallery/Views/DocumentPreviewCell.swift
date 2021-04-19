@@ -15,8 +15,6 @@ class DocumentPreviewCell: UICollectionViewCell {
     }
 
     func setImage(_ image: UIImage) {
-        print("setting!")
-        print(image)
         self.preview.image = image
     }
 }
