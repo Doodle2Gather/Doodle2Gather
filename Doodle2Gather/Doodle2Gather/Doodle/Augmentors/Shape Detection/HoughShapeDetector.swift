@@ -1,6 +1,6 @@
 import CoreGraphics
 
-struct HoughShapeDetector: ShapeDetector {
+struct HoughShapeDetector: StrokeAugmentor {
 
     typealias Vector = [Double]
     typealias Matrix = [Vector]
@@ -11,20 +11,20 @@ struct HoughShapeDetector: ShapeDetector {
         var occurrence: Int
     }
 
-    func processStroke<S>(_ stroke: S) -> S? where S: DTStroke {
+    func augmentStroke<S>(_ stroke: S) -> S where S: DTStroke {
         guard !stroke.points.isEmpty, let firstPoint = stroke.points.first,
               let lastPoint = stroke.points.last else {
-            return nil
+            return stroke
         }
         let locations = stroke.points.map { $0.location }
 
         guard let minX = locations.map({ $0.x }).min(), let minY = locations.map({ $0.y }).min() else {
-            return nil
+            return stroke
         }
 
         let houghSpace = createHoughSpace(from: stroke)
         guard let line = getTopLine(of: houghSpace) else {
-            return nil
+            return stroke
         }
 
         let rtheta = Double(line.theta) * Double.pi / 180

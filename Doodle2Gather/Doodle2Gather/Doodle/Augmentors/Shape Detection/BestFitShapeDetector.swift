@@ -1,17 +1,17 @@
 import CoreGraphics
 
-struct BestFitShapeDetector: ShapeDetector {
+struct BestFitShapeDetector: StrokeAugmentor {
 
     enum Constants {
         static let lineErrorThreshold: CGFloat = 2_000
         static let circleErrorThreshold: CGFloat = 100
     }
 
-    func processStroke<S>(_ stroke: S) -> S? where S: DTStroke {
+    func augmentStroke<S>(_ stroke: S) -> S where S: DTStroke {
         var pointLocations = stroke.points.map { $0.location }
         guard let minX = pointLocations.map({ $0.x }).min(),
               let minY = pointLocations.map({ $0.y }).min() else {
-            return nil
+            return stroke
         }
         pointLocations = pointLocations.map { CGPoint(x: $0.x - minX, y: $0.y - minY) }
 
@@ -23,7 +23,7 @@ struct BestFitShapeDetector: ShapeDetector {
         }
 
         guard let finalPoints = bestFitPoints else {
-            return nil
+            return stroke
         }
 
         var points = [S.Point]()
