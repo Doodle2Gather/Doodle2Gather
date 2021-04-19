@@ -9,7 +9,7 @@ protocol CanvasController {
     var delegate: CanvasControllerDelegate? { get set }
 
     /// Dispatches an action that will update the canvas accordingly.
-    func dispatchAction(_ action: DTAction)
+    func dispatchAction(_ action: DTAdaptedAction)
 
     /// Loads a given array of `DTDoodleWrapper`s.
     func loadDoodles(_ doodles: [DTDoodleWrapper])

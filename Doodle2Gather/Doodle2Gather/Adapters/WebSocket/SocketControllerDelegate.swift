@@ -4,7 +4,7 @@ import DTSharedLibrary
 protocol SocketControllerDelegate: AnyObject {
 
     /// Tells the delegate that an action was received and should be dispatched.
-    func dispatchAction(_ action: DTAction)
+    func dispatchAction(_ action: DTAdaptedAction)
 
     /// Tells the delegate to load the current doodles.
     func loadDoodles(_ doodles: [DTDoodleWrapper])

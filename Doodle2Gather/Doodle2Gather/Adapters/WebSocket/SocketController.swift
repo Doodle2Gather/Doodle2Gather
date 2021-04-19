@@ -5,7 +5,7 @@ import DTSharedLibrary
 protocol SocketController {
 
     /// Tells the socket to fire off an action.
-    func addAction(_ action: DTAction)
+    func addAction(_ action: DTAdaptedAction)
 
     /// Tells the socket that a refetch will be required.
     func refetchDoodles()

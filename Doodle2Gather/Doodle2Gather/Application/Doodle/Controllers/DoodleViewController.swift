@@ -317,7 +317,7 @@ extension DoodleViewController: CanvasControllerDelegate {
         guard let roomId = self.room?.roomId else {
             return
         }
-        let action = DTAction(partialAction: action, roomId: roomId)
+        let action = DTAdaptedAction(partialAction: action, roomId: roomId)
         socketController?.addAction(action)
     }
 

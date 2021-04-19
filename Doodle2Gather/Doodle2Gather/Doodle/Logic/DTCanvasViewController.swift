@@ -82,7 +82,7 @@ class DTCanvasViewController: UIViewController {
 extension DTCanvasViewController: CanvasController {
 
     // Note: This method does not fire off any subsequent actions.
-    func dispatchAction(_ action: DTAction) {
+    func dispatchAction(_ action: DTAdaptedAction) {
         guard let doodle = actionManager.dispatchAction(action) else {
             delegate?.refetchDoodles()
             return

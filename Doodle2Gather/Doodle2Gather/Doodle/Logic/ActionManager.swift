@@ -6,8 +6,9 @@ struct ActionManager {
     /// Cached previous copy of the canvas.
     var currentDoodle = DTDoodleWrapper()
 
-    // var undoActions = [Int: [(type: DTActionType, strokes: [(PKStroke, Int)])]]()
-    // var redoActions = [Int: [(type: DTActionType, strokes: [(PKStroke, Int)])]]()
+    /// Cache actions for undo and redo
+    var undoActions = [DTPartialAction]()
+    var redoActions = [DTPartialAction]()
 
 }
 
@@ -132,7 +133,7 @@ extension ActionManager {
 
     /// Dispatches an action received from the socket to the current state.
     /// Doing so through this method results in no action being re-fired off.
-    mutating func dispatchAction(_ action: DTAction) -> DTDoodleWrapper? {
+    mutating func dispatchAction(_ action: DTAdaptedAction) -> DTDoodleWrapper? {
         do {
             let pairs = action.getStrokes()
             guard let firstStroke = pairs.first else {

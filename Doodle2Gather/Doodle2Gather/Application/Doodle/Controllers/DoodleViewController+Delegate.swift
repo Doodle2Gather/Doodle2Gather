@@ -7,7 +7,7 @@ import DTSharedLibrary
 
 extension DoodleViewController: SocketControllerDelegate {
 
-    func dispatchAction(_ action: DTAction) {
+    func dispatchAction(_ action: DTAdaptedAction) {
         canvasController?.dispatchAction(action)
     }
 

@@ -112,10 +112,7 @@ final class DTWebSocketController {
         DispatchQueue.main.async {
             // TODO: refactor unhappy path to be at the top
             if dispatch.success {
-                let action = DTAction(
-                    action: dispatch.action
-                )
-                self.delegate?.dispatchAction(action)
+                self.delegate?.dispatchAction(dispatch.action)
             } else {
                 DTLogger.error(dispatch.message)
             }
@@ -176,7 +173,7 @@ extension DTWebSocketController: SocketController {
         }
     }
 
-    func addAction(_ action: DTAction) {
+    func addAction(_ action: DTAdaptedAction) {
         guard let id = self.id else {
             return
         }
