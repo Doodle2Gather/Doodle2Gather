@@ -14,10 +14,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Setup initial view controller
         self.window = UIWindow(frame: UIScreen.main.bounds)
-        
+
         let storyboard = UIStoryboard(name: "Home", bundle: nil)
         let initialViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController")
-        
+
+        // Inject App WS controller
+        guard let homeViewController = initialViewController as? HomeViewController else {
+            fatalError("Unable to use initial VC as HomeViewController")
+        }
+        homeViewController.appWSController = wsController
+
         self.window?.rootViewController = initialViewController
         self.window?.makeKeyAndVisible()
 

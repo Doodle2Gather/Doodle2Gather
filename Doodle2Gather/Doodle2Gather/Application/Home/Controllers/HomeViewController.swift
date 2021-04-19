@@ -15,6 +15,8 @@ class HomeViewController: UIViewController {
     @IBOutlet private var passwordContainer: UIView!
     @IBOutlet private var displayNameContainer: UIView!
 
+    var appWSController: DTWebSocketController?
+
     private enum Segment: Int {
         case login
         case register

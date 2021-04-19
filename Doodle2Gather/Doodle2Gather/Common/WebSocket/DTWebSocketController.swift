@@ -117,7 +117,7 @@ final class DTWebSocketController {
 
     func registerSubcontroller(_ subcontroller: DTSendableWebSocketSubController) {
         registerSubcontroller(subcontroller as DTWebSocketSubController)
-        
+
         // Inject DTWebSocketController into sendable subcontroller so that send operations
         // can run through DTWebSocketController's send pipeline
         var sc = subcontroller
