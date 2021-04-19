@@ -44,7 +44,7 @@ class WSHomeController {
 
                 case .success(let room):
                     self.logger.info("Created room.")
-                    let message = DTCreateRoomMessage(id: id, ownerId: request.ownerId, room: room)
+                    let message = DTCreateRoomMessage(id: id, ownerId: request.ownerId, name: request.name, room: room)
                     ws.send(message: message)
                 }
             }

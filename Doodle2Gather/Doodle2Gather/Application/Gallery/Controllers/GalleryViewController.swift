@@ -40,6 +40,7 @@ class GalleryViewController: UIViewController {
             guard let vc = nav.topViewController as? NewDocumentViewController else {
                 return
             }
+            vc.homeWSController = self.homeWSController
             vc.checkDocumentNameCallback = { title in
                 let match = self.rooms.first { room -> Bool in
                     room.name == title

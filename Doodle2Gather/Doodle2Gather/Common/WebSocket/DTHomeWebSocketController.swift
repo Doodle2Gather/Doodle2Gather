@@ -5,10 +5,15 @@ protocol DTHomeWebSocketControllerDelegate: AnyObject {
     func didGetAccessibleRooms(newRooms: [DTAdaptedRoom])
 }
 
+protocol DTNewDocumentWebSocketControllerDelegate: AnyObject {
+    func didCreateRoom(newRoom: DTAdaptedRoom)
+}
+
 final class DTHomeWebSocketController: DTSendableWebSocketSubController {
     var parentController: DTWebSocketController?
     var id: UUID?
     weak var delegate: DTHomeWebSocketControllerDelegate?
+    weak var newDocDelegate: DTNewDocumentWebSocketControllerDelegate?
     private let decoder = JSONDecoder()
 
     var handledMessageType = DTMessageType.home
@@ -18,7 +23,7 @@ final class DTHomeWebSocketController: DTSendableWebSocketSubController {
             let message = try decoder.decode(DTHomeMessage.self, from: data)
             switch message.subtype {
             case .createRoom:
-                break
+                try self.handleCreateRoom(data)
             case .joinViaInvite:
                 break
             case .accessibleRooms:
@@ -27,6 +32,14 @@ final class DTHomeWebSocketController: DTSendableWebSocketSubController {
         } catch {
             DTLogger.error { error.localizedDescription }
         }
+    }
+
+    func handleCreateRoom(_ data: Data) throws {
+        let message = try decoder.decode(DTCreateRoomMessage.self, from: data)
+        guard let createdRoom = message.room else {
+            fatalError("Backend sent nil created room")
+        }
+        newDocDelegate?.didCreateRoom(newRoom: createdRoom)
     }
 
     func handleAccessibleRooms(_ data: Data) throws {
@@ -45,20 +58,12 @@ final class DTHomeWebSocketController: DTSendableWebSocketSubController {
         let message = DTAccessibleRoomMessage(id: id, userId: userId)
         send(message)
     }
-//
-//    func sendRegisterMessage(userId: String, displayName: String, email: String, callback: @escaping () -> Void) {
-//        guard let id = id else {
-//            fatalError("Cannot get socket UUID")
-//        }
-//        let message = DTRegisterMessage(id: id, uid: userId, displayName: displayName, email: email)
-//        send(message, callback: callback)
-//    }
-//
-//    func sendLoginMessage(userId: String, displayName: String, email: String, callback: @escaping () -> Void) {
-//        guard let id = id else {
-//            fatalError("Cannot get socket UUID")
-//        }
-//        let message = DTLoginMessage(id: id, uid: userId, displayName: displayName, email: email)
-//        send(message, callback: callback)
-//    }
+
+    func createRoom(newRoom: DTAdaptedRoom.CreateRequest) {
+        guard let id = id else {
+            fatalError("Cannot get socket UUID")
+        }
+        let message = DTCreateRoomMessage(id: id, ownerId: newRoom.ownerId, name: newRoom.name)
+        send(message)
+    }
 }

@@ -131,7 +131,10 @@ extension PersistedDTRoom {
 
         return room.and(user)
             .flatMap { (room: PersistedDTRoom, user: PersistedDTUser) in
-                let attachRoom = user.$accessibleRooms.attach(room, on: db)
+                let attachRoom = user.$accessibleRooms.attach(room, on: db) {
+                    $0.setDefaultPermissions()
+                    $0.isOwner = true
+                }
                 let newDoodle = PersistedDTDoodle(room: room)
                 let defaultDoodle = newDoodle.save(on: db)
                 return attachRoom.and(defaultDoodle)

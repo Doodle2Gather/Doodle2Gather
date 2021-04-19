@@ -11,12 +11,14 @@ public struct DTCreateRoomMessage: Codable {
     public let id: UUID
 
     public let ownerId: String
+    public let name: String
     // nil for request message nad not nil for response from server
     public let room: DTAdaptedRoom?
 
-    public init(id: UUID, ownerId: String, room: DTAdaptedRoom? = nil) {
+    public init(id: UUID, ownerId: String, name: String, room: DTAdaptedRoom? = nil) {
         self.id = id
         self.ownerId = ownerId
+        self.name = name
         self.room = room
     }
 }

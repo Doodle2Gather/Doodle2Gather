@@ -18,10 +18,13 @@ class NewDocumentViewController: UIViewController {
     var didCreateDocumentCallback: ((DTAdaptedRoom) -> Void)?
     var checkDocumentNameCallback: ((String) -> CreateDocumentStatus)?
     var joinDocumentCallback: ((DTAdaptedRoom) -> Void)?
+    var homeWSController: DTHomeWebSocketController?
+
     private var isEditingTitle = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        homeWSController?.newDocDelegate = self
 
         addKeyboardObserver()
         isModalInPresentation = true
@@ -125,9 +128,6 @@ class NewDocumentViewController: UIViewController {
         guard let nameCallback = checkDocumentNameCallback else {
             return
         }
-        guard let creationCallback = didCreateDocumentCallback else {
-            return
-        }
         guard let title = titleTextField.text else {
             return
         }
@@ -144,27 +144,7 @@ class NewDocumentViewController: UIViewController {
         let newRoom = DTAdaptedRoom.CreateRequest(
             ownerId: user.uid, name: title
         )
-        DTApi.createRoom(newRoom) { result in
-            switch result {
-            case .failure(let error):
-                DTLogger.error(error.localizedDescription)
-                DispatchQueue.main.async {
-                    self.alert(
-                        title: AlertConstants.notice,
-                        message: AlertConstants.serverError,
-                        buttonStyle: .default
-                    )
-                }
-                return
-            case .success(.some(let room)):
-              DispatchQueue.main.async {
-                creationCallback(room)
-                self.dismiss(animated: true, completion: nil)
-              }
-            case .success(.none):
-                break
-            }
-        }
+        homeWSController?.createRoom(newRoom: newRoom)
     }
 
     @IBAction private func didTapJoin(_ sender: UIButton) {
@@ -217,5 +197,18 @@ class NewDocumentViewController: UIViewController {
 
     @IBAction private func didTapClose(_ sender: Any) {
         dismiss(animated: true, completion: nil)
+    }
+}
+
+extension NewDocumentViewController: DTNewDocumentWebSocketControllerDelegate {
+    func didCreateRoom(newRoom: DTAdaptedRoom) {
+        guard let creationCallback = didCreateDocumentCallback else {
+            return
+        }
+        DTLogger.info { "New room creation successful" }
+        DispatchQueue.main.async {
+            creationCallback(newRoom)
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 }
