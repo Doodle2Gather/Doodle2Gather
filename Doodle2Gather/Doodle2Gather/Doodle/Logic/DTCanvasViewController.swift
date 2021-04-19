@@ -23,6 +23,13 @@ class DTCanvasViewController: UIViewController {
     var canvasManager = CanvasManager()
     var actionManager = ActionManager()
 
+    var canUndo: Bool {
+        actionManager.canUndo
+    }
+    var canRedo: Bool {
+        actionManager.canRedo
+    }
+
     /// Delegate for action dispatching.
     internal weak var delegate: CanvasControllerDelegate?
 
@@ -128,6 +135,26 @@ extension DTCanvasViewController: CanvasController {
 
     func getCurrentDoodles() -> [DTDoodleWrapper] {
         doodles
+    }
+
+    func undo() {
+        let (tempAction, tempNewDoodle) = actionManager.undo()
+        guard let action = tempAction, let newDoodle = tempNewDoodle else {
+            return
+        }
+        doodles[currentDoodleIndex] = newDoodle
+        canvasView.drawing = newDoodle.drawing
+        delegate?.dispatchPartialAction(action)
+    }
+
+    func redo() {
+        let (tempAction, tempNewDoodle) = actionManager.redo()
+        guard let action = tempAction, let newDoodle = tempNewDoodle else {
+            return
+        }
+        doodles[currentDoodleIndex] = newDoodle
+        canvasView.drawing = newDoodle.drawing
+        delegate?.dispatchPartialAction(action)
     }
 
 }

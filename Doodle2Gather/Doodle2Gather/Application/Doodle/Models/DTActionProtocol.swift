@@ -1,14 +1,20 @@
-import Foundation
 import DTSharedLibrary
 
-// MARK: - Frontend Extensions
+/// Represents an action that can be performed.
+protocol DTActionProtocol {
 
-extension DTAdaptedAction {
+    var type: DTActionType { get }
+    var strokes: [DTStrokeIndexPair] { get }
+    var createdBy: String { get }
 
-    init(partialAction: DTPartialAction, roomId: UUID) {
-        self.init(type: partialAction.type, strokes: partialAction.strokes, roomId: roomId,
-                  doodleId: partialAction.doodleId, createdBy: partialAction.createdBy)
-    }
+    func getStrokes() -> [(stroke: DTStrokeWrapper, index: Int)]
+    func inverse() -> Self
+
+}
+
+// MARK: - Default Implementations
+
+extension DTActionProtocol {
 
     func getStrokes() -> [(stroke: DTStrokeWrapper, index: Int)] {
         var wrappers = [(stroke: DTStrokeWrapper, index: Int)]()
@@ -24,4 +30,5 @@ extension DTAdaptedAction {
 
         return wrappers
     }
+
 }

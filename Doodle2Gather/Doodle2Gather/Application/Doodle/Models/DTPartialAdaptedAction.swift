@@ -1,7 +1,7 @@
 import Foundation
 import DTSharedLibrary
 
-struct DTPartialAction {
+struct DTPartialAdaptedAction {
 
     let type: DTActionType
     let strokes: [DTStrokeIndexPair]
@@ -33,7 +33,13 @@ struct DTPartialAction {
         self.strokes = strokesData
     }
 
-    func inverse() -> DTPartialAction {
+}
+
+// MARK: - DTActionProtocol
+
+extension DTPartialAdaptedAction: DTActionProtocol {
+
+    func inverse() -> DTPartialAdaptedAction {
         var newType: DTActionType = .add
         var newStrokes = strokes
 
@@ -53,8 +59,8 @@ struct DTPartialAction {
             newType = .unknown
         }
 
-        return DTPartialAction(type: newType, doodleId: doodleId, strokes: newStrokes,
-                               createdBy: createdBy)
+        return DTPartialAdaptedAction(type: newType, doodleId: doodleId, strokes: newStrokes,
+                                      createdBy: createdBy)
     }
 
 }
