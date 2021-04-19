@@ -12,6 +12,8 @@
 		2E07C4242619B3EA003A87C9 /* UIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E07C4232619B3EA003A87C9 /* UIConstants.swift */; };
 		2E0C9DC4262D6F18006F55ED /* ActionManager+UndoRedo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0C9DC3262D6F18006F55ED /* ActionManager+UndoRedo.swift */; };
 		2E0C9DC8262D6FEE006F55ED /* DTActionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0C9DC7262D6FEE006F55ED /* DTActionProtocol.swift */; };
+		2E0C9DD6262D85C2006F55ED /* ActionManager+Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0C9DD5262D85C2006F55ED /* ActionManager+Apply.swift */; };
+		2E0C9DDC262D8857006F55ED /* ActionManager+Create.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0C9DDB262D8857006F55ED /* ActionManager+Create.swift */; };
 		2E146CC126190246001F6845 /* Participants.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E146CC026190246001F6845 /* Participants.storyboard */; };
 		2E280275262C88A800CA6BF5 /* DoodleViewController+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E280274262C88A800CA6BF5 /* DoodleViewController+Delegate.swift */; };
 		2E2B16D926197BFF0014DD4A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EF8E92B25F754C700C7EE7D /* Assets.xcassets */; };
@@ -162,6 +164,8 @@
 		2E07C4232619B3EA003A87C9 /* UIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIConstants.swift; sourceTree = "<group>"; };
 		2E0C9DC3262D6F18006F55ED /* ActionManager+UndoRedo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActionManager+UndoRedo.swift"; sourceTree = "<group>"; };
 		2E0C9DC7262D6FEE006F55ED /* DTActionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTActionProtocol.swift; sourceTree = "<group>"; };
+		2E0C9DD5262D85C2006F55ED /* ActionManager+Apply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActionManager+Apply.swift"; sourceTree = "<group>"; };
+		2E0C9DDB262D8857006F55ED /* ActionManager+Create.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActionManager+Create.swift"; sourceTree = "<group>"; };
 		2E146CC026190246001F6845 /* Participants.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Participants.storyboard; sourceTree = "<group>"; };
 		2E280274262C88A800CA6BF5 /* DoodleViewController+Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DoodleViewController+Delegate.swift"; sourceTree = "<group>"; };
 		2E3F8FAD2607380100C58F33 /* Pods_Doodle2Gather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Doodle2Gather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -691,6 +695,8 @@
 			children = (
 				2E8AC7492613F4C90033869E /* DTCanvasViewController.swift */,
 				2E6830CE262C1E1100A16F5D /* ActionManager.swift */,
+				2E0C9DDB262D8857006F55ED /* ActionManager+Create.swift */,
+				2E0C9DD5262D85C2006F55ED /* ActionManager+Apply.swift */,
 				2E0C9DC3262D6F18006F55ED /* ActionManager+UndoRedo.swift */,
 				2E6830D2262C1EBE00A16F5D /* CanvasManager.swift */,
 				2E6830DC262C229F00A16F5D /* CanvasManager+Tools.swift */,
@@ -1267,6 +1273,8 @@
 				2E6830E7262C31C000A16F5D /* DTPartialAdaptedAction.swift in Sources */,
 				2EB12A40261BE3F400131FE6 /* DTStroke.swift in Sources */,
 				2EFF38F0261AB2F300488289 /* StrokeEditor.swift in Sources */,
+				2E0C9DD6262D85C2006F55ED /* ActionManager+Apply.swift in Sources */,
+				2E0C9DDC262D8857006F55ED /* ActionManager+Create.swift in Sources */,
 				2EB128FF261B6E9E00131FE6 /* HoughShapeDetector.swift in Sources */,
 				2EA8C3052605E5B700BE750C /* CanvasControllerDelegate.swift in Sources */,
 				2E01245F26195B8400A38B77 /* BorderedShadowedView.swift in Sources */,

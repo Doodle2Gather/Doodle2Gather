@@ -71,4 +71,12 @@ extension CanvasManager: PKCanvasViewDelegate {
         delegate?.canvasZoomScaleDidChange(scale: scrollView.zoomScale)
     }
 
+    func canvasViewDidBeginUsingTool(_ canvasView: PKCanvasView) {
+        delegate?.setCanvasIsEditing(false)
+    }
+
+    func canvasViewDidEndUsingTool(_ canvasView: PKCanvasView) {
+        delegate?.setCanvasIsEditing(false)
+    }
+
 }

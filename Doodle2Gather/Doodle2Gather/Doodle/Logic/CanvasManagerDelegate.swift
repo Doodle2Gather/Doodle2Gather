@@ -7,4 +7,6 @@ protocol CanvasManagerDelegate: AnyObject {
 
     func canvasViewDidChange(type: DTActionType)
 
+    func setCanvasIsEditing(_ isEditing: Bool)
+
 }

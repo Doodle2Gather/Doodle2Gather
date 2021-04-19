@@ -12,11 +12,11 @@ class DTCanvasViewController: UIViewController {
     var doodles = [DTDoodleWrapper]()
     private var currentDoodleIndex = 0 {
         didSet {
-            doodles[oldValue] = actionManager.currentDoodle // To be safe
-            actionManager.currentDoodle = doodles[currentDoodleIndex]
+            currentDoodle = doodles[currentDoodleIndex]
             canvasView.drawing = doodles[currentDoodleIndex].drawing
         }
     }
+    private var currentDoodle = DTDoodleWrapper()
 
     /// Main canvas view that we will work with.
     var canvasView = PKCanvasView()
@@ -35,7 +35,8 @@ class DTCanvasViewController: UIViewController {
 
     /// Tracks whether a initial scroll to offset has already been done.
     private var hasScrolledToInitialOffset = false
-    private var shouldSendAction = true
+    /// Tracks whether an action received from peers should update the canvas.
+    private var shouldUpdateCanvas = true
 
     /// Sets up the canvas view and the initial doodle.
     override func viewWillAppear(_ animated: Bool) {
@@ -49,7 +50,6 @@ class DTCanvasViewController: UIViewController {
         canvasView.drawing = doodles[currentDoodleIndex].drawing
 
         // Set up managers
-        actionManager.currentDoodle = doodles[currentDoodleIndex]
         canvasManager.canvas = canvasView
         canvasManager.delegate = self
     }
@@ -88,21 +88,33 @@ class DTCanvasViewController: UIViewController {
 
 extension DTCanvasViewController: CanvasController {
 
-    // Note: This method does not fire off any subsequent actions.
+    /// Dispatches an action from peers to the current drawing.
     func dispatchAction(_ action: DTAdaptedAction) {
-        guard let doodle = actionManager.dispatchAction(action) else {
+        let doodleId = action.doodleId
+        let index = doodles.firstIndex(where: { $0.doodleId == doodleId })
+        guard let safeIndex = index else {
+            return
+        }
+
+        guard let newDoodle = actionManager.applyAction(action, on: doodles[safeIndex]) else {
             delegate?.refetchDoodles()
             return
         }
-        doodles[currentDoodleIndex] = doodle
-        canvasView.drawing = doodle.drawing
+
+        doodles[safeIndex] = newDoodle
+
+        if currentDoodleIndex == safeIndex && shouldUpdateCanvas {
+            currentDoodle = newDoodle   // Setting this first prevents the next update
+                                        // from firing off an action
+            canvasView.drawing = newDoodle.drawing
+        }
     }
 
     // Note: This method does not fire off any subsequent actions.
     func loadDoodles(_ doodles: [DTDoodleWrapper]) {
         self.doodles = doodles
         currentDoodleIndex = min(currentDoodleIndex, self.doodles.count - 1)
-        actionManager.currentDoodle = doodles[currentDoodleIndex]
+        currentDoodle = doodles[currentDoodleIndex]
         canvasView.drawing = doodles[currentDoodleIndex].drawing
     }
 
@@ -145,21 +157,27 @@ extension DTCanvasViewController: CanvasController {
     }
 
     func undo() {
-        let (tempAction, tempNewDoodle) = actionManager.undo()
-        guard let action = tempAction, let newDoodle = tempNewDoodle else {
+        guard let action = actionManager.undo() else {
+            return
+        }
+        guard let newDoodle = actionManager.applyAction(action, on: doodles[currentDoodleIndex]) else {
             return
         }
         doodles[currentDoodleIndex] = newDoodle
+        currentDoodle = newDoodle
         canvasView.drawing = newDoodle.drawing
         delegate?.dispatchPartialAction(action)
     }
 
     func redo() {
-        let (tempAction, tempNewDoodle) = actionManager.redo()
-        guard let action = tempAction, let newDoodle = tempNewDoodle else {
+        guard let action = actionManager.redo() else {
+            return
+        }
+        guard let newDoodle = actionManager.applyAction(action, on: doodles[currentDoodleIndex]) else {
             return
         }
         doodles[currentDoodleIndex] = newDoodle
+        currentDoodle = newDoodle
         canvasView.drawing = newDoodle.drawing
         delegate?.dispatchPartialAction(action)
     }
@@ -173,16 +191,34 @@ extension DTCanvasViewController: CanvasManagerDelegate {
     }
 
     func canvasViewDidChange(type: DTActionType) {
-        if !shouldSendAction {
+        guard let action = actionManager.createAction(oldDoodle: currentDoodle,
+                                                      newDoodle: canvasView.drawing,
+                                                      actionType: type) else {
+            // Somehow, a change was triggered without any actual change
+            // We cannot update the canvas here, else we will be stuck in an infinite loop
             return
         }
-        let (tempAction, tempNewDoodle) = actionManager
-            .createActionAndNewDoodle(doodle: canvasView.drawing, actionType: type)
-        guard let action = tempAction, let newDoodle = tempNewDoodle else {
+
+        guard let translatedAction = actionManager.translateAction(action, on: doodles[currentDoodleIndex]) else {
+            currentDoodle = doodles[currentDoodleIndex]
+            canvasView.drawing = currentDoodle.drawing
             return
         }
+
+        guard let newDoodle = actionManager.applyAction(translatedAction, on: doodles[currentDoodleIndex]) else {
+            delegate?.refetchDoodles()
+            return
+        }
+
         doodles[currentDoodleIndex] = newDoodle
-        delegate?.dispatchPartialAction(action)
+        currentDoodle = newDoodle
+        canvasView.drawing = newDoodle.drawing
+        actionManager.addNewActionToUndo(translatedAction)
+        delegate?.dispatchPartialAction(translatedAction)
+    }
+
+    func setCanvasIsEditing(_ isEditing: Bool) {
+        shouldUpdateCanvas = !isEditing
     }
 
 }
