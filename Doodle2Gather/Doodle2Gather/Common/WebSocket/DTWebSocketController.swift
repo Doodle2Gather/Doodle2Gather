@@ -2,13 +2,14 @@ import Foundation
 import DTSharedLibrary
 
 protocol DTWebSocketSubController {
+    var handledMessageType: DTMessageType { get }
     func handleMessage(_ data: Data)
 }
 
 final class DTWebSocketController {
-    private var id: UUID?
+    var id: UUID?
     private let encoder = JSONEncoder()
-    private let decoder = JSONDecoder()
+    let decoder = JSONDecoder()
     private var wsSubcontrollers = [DTMessageType: DTWebSocketSubController]()
     private let socket: URLSessionWebSocketTask
 
@@ -23,6 +24,7 @@ final class DTWebSocketController {
 
     private func connect() {
         self.setupWebsocket()
+        self.registerSubcontroller(self)
         self.listen()
         self.socket.resume()
     }
@@ -72,17 +74,16 @@ final class DTWebSocketController {
     private func onData(_ data: Data) {
         do {
             let message = try decoder.decode(DTMessage.self, from: data)
-            if message.type == .handshake {
-                try handleHandshake(data)
+            guard let wsSubcontroller = wsSubcontrollers[message.type] else {
+                fatalError("No registered WS subcontroller for message type \(message.type)")
             }
+            wsSubcontroller.handleMessage(data)
         } catch {
             DTLogger.error(error.localizedDescription)
         }
     }
 
-    private func handleHandshake(_ data: Data) throws {
-        let handshake = try decoder.decode(DTHandshake.self, from: data)
-        self.id = handshake.id
-        DTLogger.event { "Established WS handshake. My socket UUID: \(handshake.id.uuidString)" }
+    func registerSubcontroller(_ subcontroller: DTWebSocketSubController) {
+        wsSubcontrollers[subcontroller.handledMessageType] = subcontroller
     }
 }
