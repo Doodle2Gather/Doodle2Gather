@@ -55,6 +55,7 @@ class DoodleViewController: UIViewController {
     var doodles: [DTDoodleWrapper]?
     var participants: [DTAdaptedUser] = []
     var existingUsers: [DTAdaptedUserAccesses] = []
+    var userIcons: [UserIconData] = []
     var userIconColors: [UIColor] = []
 
     override func viewDidLoad() {
@@ -73,6 +74,12 @@ class DoodleViewController: UIViewController {
         registerGestures()
         loadBorderColors()
         updateProfileViews()
+        existingUsers.sort { u, v -> Bool in
+            u.displayName < v.displayName
+        }
+        userIcons = existingUsers.map({ x -> UserIconData in
+            UserIconData(user: x, color: generateRandomColor())
+        })
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -126,12 +133,15 @@ class DoodleViewController: UIViewController {
             DTLogger.error("Attempted to join room without a user.")
             return
         }
-        let otherUsers = existingUsers.filter({ access -> Bool in
-            access.userId != DTAuth.user?.uid
+        let otherUsers = userIcons.filter({ icon -> Bool in
+            icon.user.userId != DTAuth.user?.uid
         })
+        let currentUser = userIcons.first { icon -> Bool in
+            icon.user.userId == DTAuth.user?.uid
+        }
 
         setProfileLabel(userProfileLabel, text: user.displayName)
-        userProfileLabel.backgroundColor = userIconColors[0]
+        userProfileLabel.backgroundColor = currentUser?.color ?? UIConstants.black
         if otherUsers.count < 1 {
             separator.isHidden = true
             otherProfileLabelOne.isHidden = true
@@ -139,29 +149,29 @@ class DoodleViewController: UIViewController {
             numberOfOtherUsersLabel.isHidden = true
         } else if otherUsers.count < 2 {
             separator.isHidden = false
-            setProfileLabel(otherProfileLabelOne, text: otherUsers[0].displayName)
+            setProfileLabel(otherProfileLabelOne, text: otherUsers[0].user.displayName)
             otherProfileLabelOne.isHidden = false
             otherProfileLabelTwo.isHidden = true
             numberOfOtherUsersLabel.isHidden = true
-            otherProfileLabelOne.backgroundColor = userIconColors[1]
+            otherProfileLabelOne.backgroundColor = otherUsers[0].color
         } else if otherUsers.count < 3 {
             separator.isHidden = false
-            setProfileLabel(otherProfileLabelOne, text: otherUsers[0].displayName)
-            setProfileLabel(otherProfileLabelTwo, text: otherUsers[1].displayName)
+            setProfileLabel(otherProfileLabelOne, text: otherUsers[0].user.displayName)
+            setProfileLabel(otherProfileLabelTwo, text: otherUsers[1].user.displayName)
             otherProfileLabelOne.isHidden = false
             otherProfileLabelTwo.isHidden = false
             numberOfOtherUsersLabel.isHidden = true
-            otherProfileLabelOne.backgroundColor = userIconColors[1]
-            otherProfileLabelTwo.backgroundColor = userIconColors[2]
+            otherProfileLabelOne.backgroundColor = otherUsers[0].color
+            otherProfileLabelTwo.backgroundColor = otherUsers[1].color
         } else {
             separator.isHidden = false
-            setProfileLabel(otherProfileLabelOne, text: otherUsers[0].displayName)
-            setProfileLabel(otherProfileLabelTwo, text: otherUsers[1].displayName)
+            setProfileLabel(otherProfileLabelOne, text: otherUsers[0].user.displayName)
+            setProfileLabel(otherProfileLabelTwo, text: otherUsers[1].user.displayName)
             otherProfileLabelOne.isHidden = false
             otherProfileLabelTwo.isHidden = false
             numberOfOtherUsersLabel.isHidden = false
-            otherProfileLabelOne.backgroundColor = userIconColors[1]
-            otherProfileLabelTwo.backgroundColor = userIconColors[2]
+            otherProfileLabelOne.backgroundColor = otherUsers[0].color
+            otherProfileLabelTwo.backgroundColor = otherUsers[1].color
             numberOfOtherUsersLabel.text = "+\(existingUsers.count - 3)"
         }
     }
@@ -239,7 +249,6 @@ extension DoodleViewController {
     }
 
     @IBAction private func topMinimizeButtonDidTap(_ sender: UIButton) {
-        exitButton.isHidden.toggle()
         fileNameLabel.isHidden.toggle()
         fileInfoButton.isHidden.toggle()
         separatorView.isHidden.toggle()
