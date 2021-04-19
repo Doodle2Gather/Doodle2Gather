@@ -183,10 +183,7 @@ extension ActionManager {
     private mutating func removeOrUnremovePairsQuietly(pairs: [(DTStrokeWrapper, Int)],
                                                        isUnremove: Bool = false) throws -> DTDoodleWrapper {
         for (stroke, index) in pairs {
-            print(index)
-            print(currentDoodle.strokes.count)
             if index >= currentDoodle.strokes.count {
-                print("here1")
                 DTLogger.error("Failed to remove/unremove pairs quietly")
                 throw DTCanvasError.indexMismatch
             }
@@ -194,7 +191,6 @@ extension ActionManager {
             let currentStroke = currentDoodle.strokes[index]
 
             if stroke.strokeId != currentStroke.strokeId {
-                print("here2")
                 DTLogger.error("Failed to remove/unremove pairs quietly")
                 throw DTCanvasError.indexMismatch
             }
