@@ -60,7 +60,6 @@
 		2ED7A3CC2601C0450006D873 /* DoodleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED7A3CB2601C0450006D873 /* DoodleViewController.swift */; };
 		2EF0E51D26096B5C0008184D /* SubviewTouchCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF0E51C26096B5C0008184D /* SubviewTouchCollectionView.swift */; };
 		2EF8E92325F754C600C7EE7D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8E92225F754C600C7EE7D /* AppDelegate.swift */; };
-		2EF8E92525F754C600C7EE7D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8E92425F754C600C7EE7D /* SceneDelegate.swift */; };
 		2EF8E92725F754C600C7EE7D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8E92625F754C600C7EE7D /* HomeViewController.swift */; };
 		2EF8E92A25F754C600C7EE7D /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EF8E92825F754C600C7EE7D /* Home.storyboard */; };
 		2EF8E92F25F754C700C7EE7D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EF8E92D25F754C700C7EE7D /* LaunchScreen.storyboard */; };
@@ -215,7 +214,6 @@
 		2EF0E51C26096B5C0008184D /* SubviewTouchCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubviewTouchCollectionView.swift; sourceTree = "<group>"; };
 		2EF8E91F25F754C600C7EE7D /* Doodle2Gather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doodle2Gather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EF8E92225F754C600C7EE7D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2EF8E92425F754C600C7EE7D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		2EF8E92625F754C600C7EE7D /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		2EF8E92925F754C600C7EE7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Home.storyboard; sourceTree = "<group>"; };
 		2EF8E92B25F754C700C7EE7D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -641,7 +639,6 @@
 			isa = PBXGroup;
 			children = (
 				2EF8E92225F754C600C7EE7D /* AppDelegate.swift */,
-				2EF8E92425F754C600C7EE7D /* SceneDelegate.swift */,
 				2EF8E92D25F754C700C7EE7D /* LaunchScreen.storyboard */,
 			);
 			path = Bootstrap;
@@ -1279,7 +1276,6 @@
 				2E81D82B262BFAC200ABB61F /* DTDoodlePreview.swift in Sources */,
 				2EB12AB2261BEDDC00131FE6 /* DoodleLayerTableViewController.swift in Sources */,
 				84E847CA260B21AA00E39C1F /* AgoraTokenAPIResponse.swift in Sources */,
-				2EF8E92525F754C600C7EE7D /* SceneDelegate.swift in Sources */,
 				2E8AC74A2613F4C90033869E /* DTCanvasViewController.swift in Sources */,
 				2E987E6E2607468000352E7D /* PKStrokePoint+DTPoint.swift in Sources */,
 				83F5890A2619B44100BB9F07 /* DTUserCredentialsProvider.swift in Sources */,
