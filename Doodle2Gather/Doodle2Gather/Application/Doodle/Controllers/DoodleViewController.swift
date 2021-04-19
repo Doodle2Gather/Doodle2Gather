@@ -290,8 +290,6 @@ extension DoodleViewController {
             return
         }
         canvasController.undo()
-        undoButton.isEnabled = canvasController.canUndo
-        redoButton.isEnabled = canvasController.canRedo
     }
 
     @IBAction private func redoButtonDidTap(_ sender: Any) {
@@ -299,8 +297,6 @@ extension DoodleViewController {
             return
         }
         canvasController.redo()
-        undoButton.isEnabled = canvasController.canUndo
-        redoButton.isEnabled = canvasController.canRedo
     }
 
     @objc
