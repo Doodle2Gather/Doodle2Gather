@@ -8,36 +8,29 @@ extension ActionManager {
         !redoActions.isEmpty
     }
 
-    mutating func undo() -> (action: DTPartialAdaptedAction?, newDoodle: DTDoodleWrapper?) {
+    mutating func undo() -> DTPartialAdaptedAction? {
         guard let latestAction = undoActions.popLast() else {
-            return (nil, currentDoodle)
+            return nil
         }
 
-        let newAction = latestAction.inverse()
-        let newDoodle = dispatchAction(newAction)
-
-        if newDoodle == nil {
-            return (nil, currentDoodle)
-        }
-
-        redoActions.append(newAction)
-        return (newAction, newDoodle)
+        let action = latestAction.inverse()
+        redoActions.append(action)
+        return action
     }
 
-    mutating func redo() -> (action: DTPartialAdaptedAction?, newDoodle: DTDoodleWrapper?) {
+    mutating func redo() -> DTPartialAdaptedAction? {
         guard let latestAction = redoActions.popLast() else {
-            return (nil, currentDoodle)
+            return nil
         }
 
-        let newAction = latestAction.inverse()
-        let newDoodle = dispatchAction(newAction)
+        let action = latestAction.inverse()
+        undoActions.append(action)
+        return action
+    }
 
-        if newDoodle == nil {
-            return (nil, currentDoodle)
-        }
-
-        undoActions.append(newAction)
-        return (newAction, newDoodle)
+    mutating func addNewActionToUndo(_ action: DTPartialAdaptedAction) {
+        undoActions.append(action)
+        redoActions = []
     }
 
 }
