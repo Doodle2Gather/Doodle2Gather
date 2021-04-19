@@ -72,7 +72,7 @@ extension CanvasManager: PKCanvasViewDelegate {
     }
 
     func canvasViewDidBeginUsingTool(_ canvasView: PKCanvasView) {
-        delegate?.setCanvasIsEditing(false)
+        delegate?.setCanvasIsEditing(true)
     }
 
     func canvasViewDidEndUsingTool(_ canvasView: PKCanvasView) {
