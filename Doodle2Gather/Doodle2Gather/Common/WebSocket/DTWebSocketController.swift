@@ -21,7 +21,7 @@ final class DTWebSocketController {
         self.connect()
     }
 
-    func connect() {
+    private func connect() {
         self.setupWebsocket()
         self.listen()
         self.socket.resume()
@@ -69,45 +69,20 @@ final class DTWebSocketController {
         self.onData(decodedData)
     }
 
-    func onData(_ data: Data) {
+    private func onData(_ data: Data) {
         do {
             let message = try decoder.decode(DTMessage.self, from: data)
-            switch message.type {
-            case .handshake:
-                DTLogger.event("Shook the hand")
-                let handshake = try decoder.decode(DTHandshake.self, from: data)
-                self.id = handshake.id
-            case .auth, .home:
-                break
-            case .room:
-                handleRoomMessages(data)
+            if message.type == .handshake {
+                try handleHandshake(data)
             }
         } catch {
             DTLogger.error(error.localizedDescription)
         }
     }
 
-    private func handleRoomMessages(_ data: Data) {
-//        do {
-//            let message = try decoder.decode(DTRoomMessage.self, from: data)
-//            switch message.subtype {
-//            case .actionFeedback:
-//                try self.handleActionFeedback(data)
-//            case .dispatchAction:
-//                try self.handleDispatchedAction(data)
-//            case .fetchDoodle:
-//                try self.handleFetchDoodle(data)
-//            case .addDoodle:
-//                try self.handleAddDoodle(data)
-//            case .removeDoodle:
-//                try self.handleRemoveDoodle(data)
-//            case .participantInfo:
-//                try self.handleParticipantInfo(data)
-//            default:
-//                break
-//            }
-//        } catch {
-//            DTLogger.error(error.localizedDescription)
-//        }
+    private func handleHandshake(_ data: Data) throws {
+        let handshake = try decoder.decode(DTHandshake.self, from: data)
+        self.id = handshake.id
+        DTLogger.event { "Established WS handshake. My socket UUID: \(handshake.id.uuidString)" }
     }
 }
