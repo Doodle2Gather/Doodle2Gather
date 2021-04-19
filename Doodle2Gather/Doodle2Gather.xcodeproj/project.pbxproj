@@ -371,7 +371,6 @@
 		2EA8C3162606680500BE750C /* Adapters */ = {
 			isa = PBXGroup;
 			children = (
-				67B62B4A2619BB980062037E /* WebSocket */,
 				2ED629852618FFE6009F92D0 /* Agora */,
 				2ED6297E2618FEEB009F92D0 /* Chat */,
 				2EFF38DA261AAED300488289 /* Stroke Editor */,
@@ -697,6 +696,7 @@
 		2EF8E97F25F75F5100C7EE7D /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				67B62B4A2619BB980062037E /* WebSocket */,
 				8415BC9E262C057F00E6CF1B /* Helpers */,
 				8464E7D02626B8D6002B5BEE /* Sound */,
 				83AB9C5026171068008E48D0 /* Auth */,
@@ -743,7 +743,7 @@
 				2E987E8126075C5200352E7D /* SocketControllerDelegate.swift */,
 			);
 			name = WebSocket;
-			path = Doodle2Gather/Adapters/WebSocket;
+			path = Doodle2Gather/Common/WebSocket;
 			sourceTree = SOURCE_ROOT;
 		};
 		832607EC26145D3900B90F25 /* Utils */ = {
