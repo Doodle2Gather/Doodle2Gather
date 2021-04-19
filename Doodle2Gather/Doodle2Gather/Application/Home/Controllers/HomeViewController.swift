@@ -170,7 +170,7 @@ extension HomeViewController: DTAuthDelegate {
     }
 
     func loginDidSucceed() {
-        guard let uid = DTAuth.user?.displayName,
+        guard let uid = DTAuth.user?.uid,
               let displayName = DTAuth.user?.displayName,
               let email = DTAuth.user?.email else {
             fatalError("Unable to fetch user details")

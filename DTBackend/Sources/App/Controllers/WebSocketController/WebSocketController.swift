@@ -11,6 +11,7 @@ class WebSocketController {
     private let lock: Lock
     private let db: Database
     private var sockets: [UUID: WebSocket]
+    private var authController: WSAuthController
     private var homeController: WSHomeController
     private var roomControllers: [UUID: WSRoomController]
 
@@ -19,6 +20,7 @@ class WebSocketController {
         self.db = db
         self.logger = Logger(label: "WebSocketController")
         self.sockets = [:]
+        self.authController = WSAuthController(db: db)
         self.homeController = WSHomeController(db: db)
         self.roomControllers = [:]
     }
@@ -38,7 +40,7 @@ class WebSocketController {
             let message = try decoder.decode(DTMessage.self, from: data)
             switch message.type {
             case .auth:
-                break
+                authController.onAuthMessage(ws, data)
             case .home:
                 homeController.onHomeMessage(ws, data)
             case .room:
