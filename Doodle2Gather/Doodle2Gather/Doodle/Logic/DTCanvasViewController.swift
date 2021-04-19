@@ -122,8 +122,15 @@ extension DTCanvasViewController: CanvasController {
         canvasManager.setWidth(width)
     }
 
-    func resetZoomScale() {
-        canvasView.zoomScale = 1.0
+    func resetZoomScaleAndCenter() {
+        UIView.animate(withDuration: 1) {
+            self.canvasView.zoomScale = 1.0
+            if let drawingFrame = self.canvasView.drawing.strokesFrame {
+                let x = drawingFrame.midX - (UIScreen.main.bounds.width / 2)
+                let y = drawingFrame.midY - (UIScreen.main.bounds.height / 2)
+                self.canvasView.contentOffset = CGPoint(x: x, y: y)
+            }
+        }
     }
 
     func setSelectedDoodle(index: Int) {

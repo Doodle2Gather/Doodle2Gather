@@ -30,8 +30,9 @@ protocol CanvasController {
     /// Sets the width of the brush.
     func setWidth(_ width: CGFloat)
 
-    /// Resets the zoom scale of the canvas to 100%.
-    func resetZoomScale()
+    /// Resets the zoom scale of the canvas to 100% and focuses on
+    /// the center of the drawing.
+    func resetZoomScaleAndCenter()
 
     /// Sets the current doodle to the one at this index.
     func setSelectedDoodle(index: Int)

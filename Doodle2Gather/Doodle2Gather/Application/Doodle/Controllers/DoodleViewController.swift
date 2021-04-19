@@ -301,7 +301,7 @@ extension DoodleViewController {
 
     @objc
     private func zoomScaleDidTap(_ gesture: UITapGestureRecognizer) {
-        canvasController?.resetZoomScale()
+        canvasController?.resetZoomScaleAndCenter()
     }
 
     @objc
