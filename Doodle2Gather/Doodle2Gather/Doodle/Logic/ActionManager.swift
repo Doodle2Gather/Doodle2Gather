@@ -7,8 +7,8 @@ struct ActionManager {
     var currentDoodle = DTDoodleWrapper()
 
     /// Cache actions for undo and redo
-    var undoActions = [DTPartialAction]()
-    var redoActions = [DTPartialAction]()
+    var undoActions = [DTPartialAdaptedAction]()
+    var redoActions = [DTPartialAdaptedAction]()
 
 }
 
@@ -21,7 +21,7 @@ extension ActionManager {
     /// - Returns: A tuple containing an action that can be dispatch to
     ///   others in the same room + an updated doodle.
     mutating func createActionAndNewDoodle(doodle: PKDrawing, actionType: DTActionType) ->
-            (action: DTPartialAction?, newDoodle: DTDoodleWrapper?) {
+            (action: DTPartialAdaptedAction?, newDoodle: DTDoodleWrapper?) {
         guard let userId = DTAuth.user?.uid else {
             fatalError("You're not authenticated!")
         }
@@ -34,7 +34,7 @@ extension ActionManager {
             return (nil, nil)
         }
 
-        var action: DTPartialAction?
+        var action: DTPartialAdaptedAction?
 
         switch actionType {
         case .add:
@@ -53,26 +53,31 @@ extension ActionManager {
             break
         }
 
+        if let action = action {
+            undoActions.append(action)
+            redoActions = []
+        }
+
         return (action, currentDoodle)
     }
 
     mutating func createAddActionAndUpdateCurrentDoodle(newStrokes: [PKStroke], oldStrokes: [PKStroke],
-                                                        userId: String) -> DTPartialAction? {
+                                                        userId: String) -> DTPartialAdaptedAction? {
         guard newStrokes.count == oldStrokes.count + 1, let stroke = newStrokes.last else {
             fatalError("Invalid canvas state!")
         }
 
         let strokeWrapper = DTStrokeWrapper(stroke: stroke, strokeId: UUID(), createdBy: userId)
 
-        let action = DTPartialAction(type: .add, doodleId: currentDoodle.doodleId,
-                                     strokes: [(strokeWrapper, currentDoodle.strokes.count + 1)],
-                                     createdBy: userId)
+        let action = DTPartialAdaptedAction(type: .add, doodleId: currentDoodle.doodleId,
+                                            strokes: [(strokeWrapper, currentDoodle.strokes.count)],
+                                            createdBy: userId)
         currentDoodle.strokes.append(strokeWrapper)
         return action
     }
 
     mutating func createRemoveActionAndUpdateCurrentDoodle(newStrokes: [PKStroke], oldStrokes: [PKStroke],
-                                                           userId: String) -> DTPartialAction? {
+                                                           userId: String) -> DTPartialAdaptedAction? {
         if newStrokes.count > oldStrokes.count {
             fatalError("Invalid canvas state!")
         }
@@ -94,12 +99,12 @@ extension ActionManager {
             return nil
         }
 
-        return DTPartialAction(type: .remove, doodleId: currentDoodle.doodleId,
-                               strokes: removedStrokes, createdBy: userId)
+        return DTPartialAdaptedAction(type: .remove, doodleId: currentDoodle.doodleId,
+                                      strokes: removedStrokes, createdBy: userId)
     }
 
     mutating func createModifyActionAndUpdateCurrentDoodle(newStrokes: [PKStroke], oldStrokes: [PKStroke],
-                                                           userId: String) -> DTPartialAction? {
+                                                           userId: String) -> DTPartialAdaptedAction? {
         if newStrokes.count != oldStrokes.count {
             fatalError("Invalid canvas state!")
         }
@@ -115,9 +120,9 @@ extension ActionManager {
                 let newStrokeWrapper = DTStrokeWrapper(stroke: newStrokes[newStrokeIndex],
                                                        strokeId: UUID(), createdBy: stroke.createdBy)
                 currentDoodle.strokes[index] = newStrokeWrapper
-                return DTPartialAction(type: .modify, doodleId: currentDoodle.doodleId,
-                                       strokes: [(stroke, index), (newStrokeWrapper, index)],
-                                       createdBy: userId)
+                return DTPartialAdaptedAction(type: .modify, doodleId: currentDoodle.doodleId,
+                                              strokes: [(stroke, index), (newStrokeWrapper, index)],
+                                              createdBy: userId)
             }
             newStrokeIndex += 1
         }
@@ -133,7 +138,7 @@ extension ActionManager {
 
     /// Dispatches an action received from the socket to the current state.
     /// Doing so through this method results in no action being re-fired off.
-    mutating func dispatchAction(_ action: DTAdaptedAction) -> DTDoodleWrapper? {
+    mutating func dispatchAction(_ action: DTActionProtocol) -> DTDoodleWrapper? {
         do {
             let pairs = action.getStrokes()
             guard let firstStroke = pairs.first else {
@@ -178,15 +183,19 @@ extension ActionManager {
     private mutating func removeOrUnremovePairsQuietly(pairs: [(DTStrokeWrapper, Int)],
                                                        isUnremove: Bool = false) throws -> DTDoodleWrapper {
         for (stroke, index) in pairs {
+            print(index)
+            print(currentDoodle.strokes.count)
             if index >= currentDoodle.strokes.count {
-                DTLogger.error("Failed to remove pairs quietly")
+                print("here1")
+                DTLogger.error("Failed to remove/unremove pairs quietly")
                 throw DTCanvasError.indexMismatch
             }
 
             let currentStroke = currentDoodle.strokes[index]
 
             if stroke.strokeId != currentStroke.strokeId {
-                DTLogger.error("Failed to remove pairs quietly")
+                print("here2")
+                DTLogger.error("Failed to remove/unremove pairs quietly")
                 throw DTCanvasError.indexMismatch
             }
             currentDoodle.strokes[index].isDeleted = !isUnremove
