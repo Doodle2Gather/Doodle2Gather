@@ -1,0 +1,18 @@
+@startuml
+autoactivate on
+actor       user       as u
+actor       friend       as f
+entity      backend      as be
+database    database    as db
+u -> be : send DTCreateRoomMessage
+be -> db : save new room to DB
+return room saved
+return room created
+u -> f : give invite code
+f -> be: send DTJoinRoomViaInviteMessage
+be -> db: add user as participant of room
+return participant added
+return room joined successfully
+f -> be: send DTJoinRoomMessage
+return receives DTParticipantInfoMessage & DTFetchDoodleMessage
+@enduml

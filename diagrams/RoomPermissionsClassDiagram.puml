@@ -1,0 +1,37 @@
+@startuml
+' STYLE START
+hide empty members
+skinparam shadowing false
+' STYLE END
+
+class "DTAdaptedUserAccesses" as DTAdaptedUserAccesses << (S, SkyBlue) struct >> { 
+  +userId : String
+  +displayName : String
+  +email : String
+  +isOwner : Bool
+  +canEdit : Bool
+  +canVideoConference : Bool
+  +canChat : Bool
+}
+
+class "DTAdaptedUser" as DTAdaptedUser << (S, SkyBlue) struct >> { 
+  +id : String
+  +displayName : String
+  +email : String
+  +updatedAt : Date
+}
+
+class "DTAdaptedRoom" as DTAdaptedRoom << (S, SkyBlue) struct >> { 
+  +ownerId : String
+  +roomId : UUID?
+  +name : String
+  +inviteCode : String
+  +doodleCount : Int
+  +getDoodle(at:)
+  +addDoodles(_:) 
+}
+
+DTAdaptedUser *-- "0..*" DTAdaptedRoom
+DTAdaptedUserAccesses ..left. DTAdaptedUser
+DTAdaptedUserAccesses ..left. DTAdaptedRoom 
+@enduml
