@@ -11,28 +11,25 @@ class GalleryViewController: UIViewController {
     private var selectedCellIndex: Int?
     private var isInEditMode = false
 
+    var appWSController: DTWebSocketController?
+    let homeWSController = DTHomeWebSocketController()
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.appWSController?.registerSubcontroller(self.homeWSController)
 
+        self.homeWSController.delegate = self
         if let user = DTAuth.user {
             welcomeLabel.text = "Welcome, \(user.displayName)!"
-            DTApi.getUserAccessibleRooms(userId: user.uid) { result in
-                switch result {
-                case .failure(let error):
-                    DTLogger.error(error.localizedDescription)
-                case .success(.some(let rooms)):
-                    self.rooms = rooms
-                    DispatchQueue.main.async {
-                        self.collectionView.reloadData()
-                    }
-                case .success(.none):
-                    break
-                }
-            }
+            homeWSController.getAccessibleRooms()
         } else {
             welcomeLabel.text = "Welcome"
         }
         // Do any additional setup after loading the view.
+    }
+
+    deinit {
+        self.appWSController?.removeSubcontroller(self.homeWSController)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -155,5 +152,15 @@ extension GalleryViewController: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         20
+    }
+}
+
+extension GalleryViewController: DTHomeWebSocketControllerDelegate {
+    func didGetAccessibleRooms(newRooms: [DTAdaptedRoom]) {
+        DTLogger.info { "Received rooms: \(newRooms)" }
+        self.rooms = newRooms
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
     }
 }

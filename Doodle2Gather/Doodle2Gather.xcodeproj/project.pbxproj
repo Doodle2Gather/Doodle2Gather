@@ -87,6 +87,7 @@
 		83BDB537262E083500D91DB8 /* DTWebSocketController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BDB536262E083500D91DB8 /* DTWebSocketController.swift */; };
 		83BDB53D262E127D00D91DB8 /* DTWebSocketController+DTWebSocketSubController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BDB53C262E127D00D91DB8 /* DTWebSocketController+DTWebSocketSubController.swift */; };
 		83BDB543262E22C500D91DB8 /* DTAuthWebSocketController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BDB542262E22C500D91DB8 /* DTAuthWebSocketController.swift */; };
+		83BDB547262E3D0A00D91DB8 /* DTHomeWebSocketController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BDB546262E3D0A00D91DB8 /* DTHomeWebSocketController.swift */; };
 		83D2EC3E2609283A004F875D /* ApiEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D2EC3D2609283A004F875D /* ApiEndpoints.swift */; };
 		83F588E72619240200BB9F07 /* DTAuthDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F588E62619240200BB9F07 /* DTAuthDelegate.swift */; };
 		83F588EB2619242A00BB9F07 /* DTAbstractAuthProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F588EA2619242A00BB9F07 /* DTAbstractAuthProvider.swift */; };
@@ -246,6 +247,7 @@
 		83BDB536262E083500D91DB8 /* DTWebSocketController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTWebSocketController.swift; sourceTree = "<group>"; };
 		83BDB53C262E127D00D91DB8 /* DTWebSocketController+DTWebSocketSubController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DTWebSocketController+DTWebSocketSubController.swift"; sourceTree = "<group>"; };
 		83BDB542262E22C500D91DB8 /* DTAuthWebSocketController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTAuthWebSocketController.swift; sourceTree = "<group>"; };
+		83BDB546262E3D0A00D91DB8 /* DTHomeWebSocketController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTHomeWebSocketController.swift; sourceTree = "<group>"; };
 		83D2EC3D2609283A004F875D /* ApiEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiEndpoints.swift; sourceTree = "<group>"; };
 		83F588E62619240200BB9F07 /* DTAuthDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTAuthDelegate.swift; sourceTree = "<group>"; };
 		83F588EA2619242A00BB9F07 /* DTAbstractAuthProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTAbstractAuthProvider.swift; sourceTree = "<group>"; };
@@ -747,6 +749,7 @@
 				83BDB536262E083500D91DB8 /* DTWebSocketController.swift */,
 				83BDB53C262E127D00D91DB8 /* DTWebSocketController+DTWebSocketSubController.swift */,
 				83BDB542262E22C500D91DB8 /* DTAuthWebSocketController.swift */,
+				83BDB546262E3D0A00D91DB8 /* DTHomeWebSocketController.swift */,
 			);
 			name = WebSocket;
 			path = Doodle2Gather/Common/WebSocket;
@@ -1329,6 +1332,7 @@
 				2E6830E3262C25B300A16F5D /* CanvasManagerDelegate.swift in Sources */,
 				8415BC7D262B4E3F00E6CF1B /* DoodleViewController+Extensions.swift in Sources */,
 				84E95961260D758B00D587CC /* ChatEngineDelegate.swift in Sources */,
+				83BDB547262E3D0A00D91DB8 /* DTHomeWebSocketController.swift in Sources */,
 				83AB9C5226171088008E48D0 /* DTAuth.swift in Sources */,
 				2E280275262C88A800CA6BF5 /* DoodleViewController+Delegate.swift in Sources */,
 				8464E77D262586B4002B5BEE /* InvitationViewController.swift in Sources */,

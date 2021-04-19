@@ -3,42 +3,18 @@ import Fluent
 import DTSharedLibrary
 
 class WSHomeController {
-
-    let lock: Lock
-    let usersLock: Lock
-    var sockets: [UUID: WebSocket]
-    var users: [UUID: PersistedDTUser]
     let db: Database
-    let logger: Logger
+    let logger = Logger(label: "WSHomeController")
 
     init(db: Database) {
-        self.lock = Lock()
-        self.usersLock = Lock()
-        self.sockets = [:]
-        self.users = [:]
         self.db = db
-        self.logger = Logger(label: "WSHomeController")
-    }
-
-    func getWebSockets(_ sendOptions: [WebSocketSendOption]) -> [WebSocket] {
-        self.lock.withLock {
-            var webSockets = [WebSocket]()
-            for option in sendOptions {
-                switch option {
-                case .id(let id):
-                    webSockets += [self.sockets[id]].compactMap { $0 }
-                case .socket(let socket):
-                    webSockets += [socket]
-                }
-            }
-            return webSockets
-        }
     }
 
     func onHomeMessage(_ ws: WebSocket, _ data: Data) {
         let decoder = JSONDecoder()
         do {
             let decodedData = try decoder.decode(DTHomeMessage.self, from: data)
+            logger.info("Received message: \(decodedData.subtype)")
             switch decodedData.subtype {
             case .createRoom:
                 let createRoomData = try decoder.decode(
@@ -69,9 +45,7 @@ class WSHomeController {
                 case .success(let room):
                     self.logger.info("Created room.")
                     let message = DTCreateRoomMessage(id: id, ownerId: request.ownerId, room: room)
-                    self.getWebSockets([.socket(ws)]).forEach {
-                        $0.send(message: message)
-                    }
+                    ws.send(message: message)
                 }
             }
     }
@@ -92,9 +66,7 @@ class WSHomeController {
                 case .success(let rooms):
                     self.logger.info("Fetching accessible rooms.")
                     let message = DTAccessibleRoomMessage(id: id, userId: message.userId, rooms: rooms)
-                    self.getWebSockets([.socket(ws)]).forEach {
-                        $0.send(message: message)
-                    }
+                    ws.send(message: message)
                 }
             }
     }

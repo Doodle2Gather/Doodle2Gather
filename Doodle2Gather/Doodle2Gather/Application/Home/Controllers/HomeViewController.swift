@@ -150,6 +150,14 @@ class HomeViewController: UIViewController {
     private func attemptLogin() {
         DTAuth.login(email: emailTextField.text!, password: passwordTextField.text!)
     }
+
+    // Inject app WS controller to Gallery VC
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let galleryVC = segue.destination as? GalleryViewController else {
+            fatalError("Unable to pass data to Gallery VC in segue")
+        }
+        galleryVC.appWSController = self.appWSController
+    }
 }
 
 extension HomeViewController: DTAuthDelegate {
