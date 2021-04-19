@@ -31,14 +31,14 @@ extension DoodleViewController: SocketControllerDelegate {
     }
 
     func updateUsers(_ users: [DTAdaptedUserAccesses]) {
-        existingUsers = users
-        if userIconColors.isEmpty {
-            for _ in 0..<50 {
-                userIconColors.append(generateRandomColor())
-            }
-            DispatchQueue.main.async {
-                self.updateProfileColors()
-            }
+        existingUsers = users.sorted(by: { x, y -> Bool in
+            x.displayName < y.displayName
+        })
+        userIcons = existingUsers.map({ x -> UserIconData in
+            UserIconData(user: x, color: generateRandomColor())
+        })
+        DispatchQueue.main.async {
+            self.updateProfileColors()
         }
     }
 

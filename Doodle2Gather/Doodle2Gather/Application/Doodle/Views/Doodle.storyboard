@@ -64,14 +64,6 @@
                                                 <color key="textColor" name="White"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mzX-F3-7fu" userLabel="Info Button">
-                                                <rect key="frame" x="142.5" y="0.0" width="40" height="60"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="60" id="ssY-zz-1oL"/>
-                                                    <constraint firstAttribute="width" constant="40" id="uIt-4Y-4hS"/>
-                                                </constraints>
-                                                <state key="normal" image="Info_Grey"/>
-                                            </button>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Separator" translatesAutoresizingMaskIntoConstraints="NO" id="cIQ-SF-6Au">
                                                 <rect key="frame" x="142.5" y="0.0" width="20" height="60"/>
                                                 <accessibility key="accessibilityConfiguration">
@@ -434,9 +426,8 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="DwN-FB-eIE">
                                         <rect key="frame" x="20" y="10" width="196" height="40"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eu2-o6-mDx" userLabel="User Profile 1">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eu2-o6-mDx" userLabel="User Profile 1">
                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
-                                                <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="PWn-CD-EBX"/>
                                                     <constraint firstAttribute="width" constant="40" id="Z84-ta-rzi"/>
@@ -463,9 +454,8 @@
                                                     <constraint firstAttribute="height" constant="40" id="Naz-LH-mwp"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="B" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NMb-rO-KfU" userLabel="User Profile 1">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NMb-rO-KfU" userLabel="User Profile 1">
                                                 <rect key="frame" x="62" y="0.0" width="40" height="40"/>
-                                                <color key="backgroundColor" systemColor="systemGreenColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="CVe-To-DsT"/>
                                                     <constraint firstAttribute="width" constant="40" id="ivR-tp-QBu"/>
@@ -482,9 +472,8 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="C" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ynw-Wz-Sdm" userLabel="User Profile 2">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ynw-Wz-Sdm" userLabel="User Profile 2">
                                                 <rect key="frame" x="109" y="0.0" width="40" height="40"/>
-                                                <color key="backgroundColor" name="Flamingo Red"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="2yu-BM-dbq"/>
                                                     <constraint firstAttribute="width" constant="40" id="Xdb-xd-JB5"/>
@@ -501,7 +490,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ue-v9-pyV" userLabel="Additional User Count">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ue-v9-pyV" userLabel="Additional User Count">
                                                 <rect key="frame" x="156" y="0.0" width="40" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="40" id="Jih-s9-yTe"/>
@@ -696,7 +685,6 @@
                         <outlet property="eraserButton" destination="kjq-AY-SZg" id="gZs-d9-Zd1"/>
                         <outlet property="exitButton" destination="jRm-uM-qyl" id="loO-8c-NSN"/>
                         <outlet property="exportButton" destination="ruK-Zq-Zye" id="Hv0-Qf-XJX"/>
-                        <outlet property="fileInfoButton" destination="mzX-F3-7fu" id="zMQ-8A-iW5"/>
                         <outlet property="fileNameLabel" destination="cdg-gm-cRI" id="T1z-s8-E2O"/>
                         <outlet property="highlighterButton" destination="AMp-iL-zoR" id="lLt-iQ-edp"/>
                         <outlet property="inviteButton" destination="Ho7-dv-XBP" id="grj-Pw-ad8"/>
@@ -1254,7 +1242,6 @@
         <image name="Eraser" width="24" height="24"/>
         <image name="Eraser_Yellow" width="24" height="24"/>
         <image name="Export" width="24" height="24"/>
-        <image name="Info_Grey" width="24" height="24"/>
         <image name="Layers" width="24" height="24"/>
         <image name="Layers_Yellow" width="24" height="24"/>
         <image name="MagicWand" width="24" height="24"/>
@@ -1283,9 +1270,6 @@
         <namedColor name="Black">
             <color red="0.125" green="0.125" blue="0.11400000005960464" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="Flamingo Red">
-            <color red="0.99199998378753662" green="0.31400001049041748" blue="0.31400001049041748" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="Stack Grey">
             <color red="0.54500001668930054" green="0.54500001668930054" blue="0.54500001668930054" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
@@ -1297,12 +1281,6 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemGreenColor">
-            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemPurpleColor">
-            <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
