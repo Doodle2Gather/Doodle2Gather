@@ -271,6 +271,9 @@ extension DoodleViewController {
     }
 
     @IBAction private func layerButtonDidTap(_ sender: UIButton) {
+        if let doodles = canvasController?.getCurrentDoodles() {
+            layerTable?.loadDoodles(doodles)
+        }
         layerTableView.isHidden.toggle()
         sender.isSelected.toggle()
     }
