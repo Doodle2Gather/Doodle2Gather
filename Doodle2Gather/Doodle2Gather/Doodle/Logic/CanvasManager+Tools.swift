@@ -19,6 +19,7 @@ extension CanvasManager {
     }
 
     func setDrawingTool(_ drawingTool: DrawingTools) {
+        augmentors.removeValue(forKey: Constants.detectionKey)
         currentDrawingTool = drawingTool
         switch drawingTool {
         case .pen:
@@ -28,6 +29,7 @@ extension CanvasManager {
         case .highlighter:
             setTool(.highlighter)
         case .magicPen:
+            augmentors[Constants.detectionKey] = BestFitShapeDetector()
             setTool(.pen)
         }
     }

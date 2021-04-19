@@ -14,14 +14,18 @@ class CanvasManager: NSObject {
     var currentMainTool = MainTools.drawing
     var currentDrawingTool = DrawingTools.pen
 
+    /// Contains augmentors that will be used to augment the strokes.
+    var augmentors = [String: StrokeAugmentor]()
+    var isAugmenting = false
+
     weak var delegate: CanvasManagerDelegate?
 
     /// Constants used in CanvasManager specifically.
     enum Constants {
         static let canvasSize = CGSize(width: 1_000_000, height: 1_000_000)
+        static let detectionKey = "shapeDetection"
+        static let pressureKey = "shapePressure"
     }
-
-    private let shapeDetector: ShapeDetector = BestFitShapeDetector()
 
     /// Creates a canvas manager.
     override init() {
@@ -64,6 +68,23 @@ class CanvasManager: NSObject {
 extension CanvasManager: PKCanvasViewDelegate {
 
     func canvasViewDrawingDidChange(_ canvas: PKCanvasView) {
+        if isAugmenting {
+            return
+        }
+
+        if currentMainTool == .drawing && !canvas.drawing.strokes.isEmpty,
+           var stroke = canvas.drawing.strokes.last {
+            let count = canvas.drawing.strokes.count
+
+            for augmentor in augmentors.values {
+                stroke = augmentor.augmentStroke(stroke)
+            }
+
+            isAugmenting = true
+            canvas.drawing.strokes[count - 1] = stroke
+            isAugmenting = false
+        }
+
         delegate?.canvasViewDidChange(type: currentActionType)
     }
 
