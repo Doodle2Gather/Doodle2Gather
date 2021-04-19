@@ -8,7 +8,7 @@ import DTSharedLibrary
 /// easily swapped out without breaking any existing functionality.
 class DTCanvasViewController: UIViewController {
 
-    /// Paginated doodles
+    /// Paginated doodles. These doodles are also the source of truth.
     var doodles = [DTDoodleWrapper]()
     private var currentDoodleIndex = 0 {
         didSet {
