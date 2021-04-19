@@ -6,6 +6,20 @@ protocol DTWebSocketSubController {
     func handleMessage(_ data: Data)
 }
 
+protocol DTSendableWebSocketSubController: DTWebSocketSubController {
+    var parentController: DTWebSocketController? { get set }
+    func send(_ data: Data)
+}
+
+extension DTSendableWebSocketSubController {
+    func send(_ data: Data) {
+        guard let parentController = self.parentController else {
+            fatalError("Unable to get parent WS controller")
+        }
+        parentController.sendViaPipeline(data)
+    }
+}
+
 final class DTWebSocketController {
     var id: UUID?
     private let encoder = JSONEncoder()
@@ -83,7 +97,30 @@ final class DTWebSocketController {
         }
     }
 
+    private func runSendDataMiddlewares(_ data: Data) -> Data {
+        // Dummy method for client send middlewares
+        data
+    }
+
+    func sendViaPipeline(_ data: Data) {
+        let encodedData = runSendDataMiddlewares(data)
+        self.socket.send(.data(encodedData)) { err in
+            if err != nil {
+                DTLogger.error { err.debugDescription }
+            }
+        }
+    }
+
     func registerSubcontroller(_ subcontroller: DTWebSocketSubController) {
         wsSubcontrollers[subcontroller.handledMessageType] = subcontroller
+    }
+
+    func registerSubcontroller(_ subcontroller: DTSendableWebSocketSubController) {
+        registerSubcontroller(subcontroller as DTWebSocketSubController)
+        
+        // Inject DTWebSocketController into sendable subcontroller so that send operations
+        // can run through DTWebSocketController's send pipeline
+        var sc = subcontroller
+        sc.parentController = self
     }
 }

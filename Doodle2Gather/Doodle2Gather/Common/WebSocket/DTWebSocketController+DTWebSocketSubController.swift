@@ -2,6 +2,7 @@ import DTSharedLibrary
 import Foundation
 
 extension DTWebSocketController: DTWebSocketSubController {
+
     static let _handledMessageType = DTMessageType.handshake
 
     var handledMessageType: DTMessageType {
