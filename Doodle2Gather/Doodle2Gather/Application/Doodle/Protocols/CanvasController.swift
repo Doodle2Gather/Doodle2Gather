@@ -32,4 +32,7 @@ protocol CanvasController {
     /// Sets the current doodle to the one at this index.
     func setSelectedDoodle(index: Int)
 
+    /// Gets the current doodle state.
+    func getCurrentDoodles() -> [DTDoodleWrapper]
+
 }

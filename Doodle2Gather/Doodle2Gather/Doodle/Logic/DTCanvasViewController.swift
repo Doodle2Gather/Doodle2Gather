@@ -126,6 +126,10 @@ extension DTCanvasViewController: CanvasController {
         currentDoodleIndex = index
     }
 
+    func getCurrentDoodles() -> [DTDoodleWrapper] {
+        doodles
+    }
+
 }
 
 extension DTCanvasViewController: CanvasManagerDelegate {
