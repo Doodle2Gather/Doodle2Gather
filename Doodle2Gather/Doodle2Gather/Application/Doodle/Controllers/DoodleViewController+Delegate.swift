@@ -17,7 +17,7 @@ extension DoodleViewController: SocketControllerDelegate {
     }
 
     func addNewDoodle(_ doodle: DTDoodleWrapper) {
-        guard var doodles = doodles else {
+        guard var doodles = canvasController?.getCurrentDoodles() else {
             return
         }
         doodles.append(doodle)
