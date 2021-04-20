@@ -46,21 +46,25 @@ extension DTPartialAdaptedAction: DTActionProtocol {
         var newStrokes = entities
 
         switch type {
-        case .add, .unremove:
+        case .add:
             newType = .remove
             newStrokes = [
                 DTEntityIndexPair(entities[0].entity, entities[0].index,
                                   type: .stroke, entityId: entities[0].entityId, isDeleted: true)
             ]
+        case .unremove:
+            newType = .remove
+            newStrokes = entities.map { DTEntityIndexPair($0.entity, $0.index, type: .stroke,
+                                                          entityId: $0.entityId, isDeleted: true)
+            }
         case .modify:
             newType = .modify
             newStrokes = [entities[1], entities[0]]
         case .remove:
             newType = .unremove
-            newStrokes = [
-                DTEntityIndexPair(entities[0].entity, entities[0].index,
-                                  type: .stroke, entityId: entities[0].entityId, isDeleted: false)
-            ]
+            newStrokes = entities.map { DTEntityIndexPair($0.entity, $0.index, type: .stroke,
+                                                          entityId: $0.entityId, isDeleted: false)
+            }
         case .unknown:
             newType = .unknown
         }
