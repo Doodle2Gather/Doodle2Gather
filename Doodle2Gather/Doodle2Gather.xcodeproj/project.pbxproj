@@ -15,6 +15,7 @@
 		2E0C9DD6262D85C2006F55ED /* ActionManager+Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0C9DD5262D85C2006F55ED /* ActionManager+Apply.swift */; };
 		2E0C9DDC262D8857006F55ED /* ActionManager+Create.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0C9DDB262D8857006F55ED /* ActionManager+Create.swift */; };
 		2E146CC126190246001F6845 /* Participants.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E146CC026190246001F6845 /* Participants.storyboard */; };
+		2E245610262EBD9C0074D73A /* ShapeCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E24560F262EBD9C0074D73A /* ShapeCreator.swift */; };
 		2E2B16D926197BFF0014DD4A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EF8E92B25F754C700C7EE7D /* Assets.xcassets */; };
 		2E46CB95262E56A10003A46A /* WidthAdjustor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E46CB94262E56A10003A46A /* WidthAdjustor.swift */; };
 		2E4A0B422616FDFF003257D4 /* PKDrawing+StrokesFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4A0B412616FDFF003257D4 /* PKDrawing+StrokesFrame.swift */; };
@@ -23,9 +24,9 @@
 		2E6830DD262C229F00A16F5D /* CanvasManager+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6830DC262C229F00A16F5D /* CanvasManager+Tools.swift */; };
 		2E6830E3262C25B300A16F5D /* CanvasManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6830E2262C25B300A16F5D /* CanvasManagerDelegate.swift */; };
 		2E6830E7262C31C000A16F5D /* DTPartialAdaptedAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6830E6262C31C000A16F5D /* DTPartialAdaptedAction.swift */; };
-		2E81D82B262BFAC200ABB61F /* DTDoodlePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E81D82A262BFAC200ABB61F /* DTDoodlePreview.swift */; };
+		2E81D82B262BFAC200ABB61F /* DoodlePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E81D82A262BFAC200ABB61F /* DoodlePreview.swift */; };
 		2E8AC7222613F3060033869E /* Pods_Doodle2Gather.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2E3F8FAD2607380100C58F33 /* Pods_Doodle2Gather.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		2E8AC74A2613F4C90033869E /* DTCanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8AC7492613F4C90033869E /* DTCanvasViewController.swift */; };
+		2E8AC74A2613F4C90033869E /* CanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8AC7492613F4C90033869E /* CanvasViewController.swift */; };
 		2E987E6E2607468000352E7D /* PKStrokePoint+DTPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E987E6D2607468000352E7D /* PKStrokePoint+DTPoint.swift */; };
 		2E987E7D26075C0200352E7D /* RoomSocketController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E987E7C26075C0200352E7D /* RoomSocketController.swift */; };
 		2E987E8226075C5200352E7D /* DTRoomWebSocketControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E987E8126075C5200352E7D /* DTRoomWebSocketControllerDelegate.swift */; };
@@ -37,8 +38,7 @@
 		2EB128FF261B6E9E00131FE6 /* HoughShapeDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB128FE261B6E9E00131FE6 /* HoughShapeDetector.swift */; };
 		2EB12903261B8BED00131FE6 /* BestFitShapeDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12902261B8BED00131FE6 /* BestFitShapeDetector.swift */; };
 		2EB129AF261BB32F00131FE6 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB129AE261BB32F00131FE6 /* Queue.swift */; };
-		2EB129B9261BB6E000131FE6 /* DTCanvasError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB129B8261BB6E000131FE6 /* DTCanvasError.swift */; };
-		2EB12A3F261BE3F400131FE6 /* DTTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12A3A261BE3F400131FE6 /* DTTool.swift */; };
+		2EB12A3F261BE3F400131FE6 /* DTCodableTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12A3A261BE3F400131FE6 /* DTCodableTool.swift */; };
 		2EB12A40261BE3F400131FE6 /* DTStroke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12A3B261BE3F400131FE6 /* DTStroke.swift */; };
 		2EB12A41261BE3F400131FE6 /* DTCodableColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12A3C261BE3F400131FE6 /* DTCodableColor.swift */; };
 		2EB12A42261BE3F400131FE6 /* DTDoodle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12A3D261BE3F400131FE6 /* DTDoodle.swift */; };
@@ -170,6 +170,7 @@
 		2E0C9DD5262D85C2006F55ED /* ActionManager+Apply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActionManager+Apply.swift"; sourceTree = "<group>"; };
 		2E0C9DDB262D8857006F55ED /* ActionManager+Create.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActionManager+Create.swift"; sourceTree = "<group>"; };
 		2E146CC026190246001F6845 /* Participants.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Participants.storyboard; sourceTree = "<group>"; };
+		2E24560F262EBD9C0074D73A /* ShapeCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeCreator.swift; sourceTree = "<group>"; };
 		2E3F8FAD2607380100C58F33 /* Pods_Doodle2Gather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Doodle2Gather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E46CB94262E56A10003A46A /* WidthAdjustor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidthAdjustor.swift; sourceTree = "<group>"; };
 		2E4A0B412616FDFF003257D4 /* PKDrawing+StrokesFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PKDrawing+StrokesFrame.swift"; sourceTree = "<group>"; };
@@ -178,8 +179,8 @@
 		2E6830DC262C229F00A16F5D /* CanvasManager+Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CanvasManager+Tools.swift"; sourceTree = "<group>"; };
 		2E6830E2262C25B300A16F5D /* CanvasManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasManagerDelegate.swift; sourceTree = "<group>"; };
 		2E6830E6262C31C000A16F5D /* DTPartialAdaptedAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTPartialAdaptedAction.swift; sourceTree = "<group>"; };
-		2E81D82A262BFAC200ABB61F /* DTDoodlePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTDoodlePreview.swift; sourceTree = "<group>"; };
-		2E8AC7492613F4C90033869E /* DTCanvasViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTCanvasViewController.swift; sourceTree = "<group>"; };
+		2E81D82A262BFAC200ABB61F /* DoodlePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodlePreview.swift; sourceTree = "<group>"; };
+		2E8AC7492613F4C90033869E /* CanvasViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanvasViewController.swift; sourceTree = "<group>"; };
 		2E987E6D2607468000352E7D /* PKStrokePoint+DTPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PKStrokePoint+DTPoint.swift"; sourceTree = "<group>"; };
 		2E987E7C26075C0200352E7D /* RoomSocketController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomSocketController.swift; sourceTree = "<group>"; };
 		2E987E8126075C5200352E7D /* DTRoomWebSocketControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTRoomWebSocketControllerDelegate.swift; sourceTree = "<group>"; };
@@ -191,8 +192,7 @@
 		2EB128FE261B6E9E00131FE6 /* HoughShapeDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoughShapeDetector.swift; sourceTree = "<group>"; };
 		2EB12902261B8BED00131FE6 /* BestFitShapeDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BestFitShapeDetector.swift; sourceTree = "<group>"; };
 		2EB129AE261BB32F00131FE6 /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
-		2EB129B8261BB6E000131FE6 /* DTCanvasError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTCanvasError.swift; sourceTree = "<group>"; };
-		2EB12A3A261BE3F400131FE6 /* DTTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTTool.swift; sourceTree = "<group>"; };
+		2EB12A3A261BE3F400131FE6 /* DTCodableTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTCodableTool.swift; sourceTree = "<group>"; };
 		2EB12A3B261BE3F400131FE6 /* DTStroke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTStroke.swift; sourceTree = "<group>"; };
 		2EB12A3C261BE3F400131FE6 /* DTCodableColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTCodableColor.swift; sourceTree = "<group>"; };
 		2EB12A3D261BE3F400131FE6 /* DTDoodle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTDoodle.swift; sourceTree = "<group>"; };
@@ -394,9 +394,8 @@
 		2EB129A6261BB29500131FE6 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				2EB12A3C261BE3F400131FE6 /* DTCodableColor.swift */,
-				2EB129B8261BB6E000131FE6 /* DTCanvasError.swift */,
-				2E81D82A262BFAC200ABB61F /* DTDoodlePreview.swift */,
+				2E81D82A262BFAC200ABB61F /* DoodlePreview.swift */,
+				2E24560F262EBD9C0074D73A /* ShapeCreator.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -409,15 +408,16 @@
 			path = "Data Structures";
 			sourceTree = "<group>";
 		};
-		2EB12A39261BE3E200131FE6 /* Protocols */ = {
+		2EB12A39261BE3E200131FE6 /* Adapters */ = {
 			isa = PBXGroup;
 			children = (
 				2EB12A3D261BE3F400131FE6 /* DTDoodle.swift */,
 				2EB12A3B261BE3F400131FE6 /* DTStroke.swift */,
 				2EB12A3E261BE3F400131FE6 /* DTPoint.swift */,
-				2EB12A3A261BE3F400131FE6 /* DTTool.swift */,
+				2EB12A3A261BE3F400131FE6 /* DTCodableTool.swift */,
+				2EB12A3C261BE3F400131FE6 /* DTCodableColor.swift */,
 			);
-			path = Protocols;
+			path = Adapters;
 			sourceTree = "<group>";
 		};
 		2EB12A46261BE3F900131FE6 /* PencilKit */ = {
@@ -505,7 +505,7 @@
 			children = (
 				2EF94849262C1A4200CB3E42 /* Logic */,
 				2E0C9DE1262DAA98006F55ED /* Augmentors */,
-				2EB12A39261BE3E200131FE6 /* Protocols */,
+				2EB12A39261BE3E200131FE6 /* Adapters */,
 				2EB12A46261BE3F900131FE6 /* PencilKit */,
 				2EB129A6261BB29500131FE6 /* Helpers */,
 			);
@@ -715,7 +715,7 @@
 		2EF94849262C1A4200CB3E42 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
-				2E8AC7492613F4C90033869E /* DTCanvasViewController.swift */,
+				2E8AC7492613F4C90033869E /* CanvasViewController.swift */,
 				2E6830CE262C1E1100A16F5D /* ActionManager.swift */,
 				2E0C9DDB262D8857006F55ED /* ActionManager+Create.swift */,
 				2E0C9DD5262D85C2006F55ED /* ActionManager+Apply.swift */,
@@ -1270,20 +1270,20 @@
 				2EA8C34226067F0000BE750C /* PKStroke+DTStroke.swift in Sources */,
 				8464E7D22626B939002B5BEE /* AudioPlayer.swift in Sources */,
 				2EF0E51D26096B5C0008184D /* SubviewTouchCollectionView.swift in Sources */,
-				2EB129B9261BB6E000131FE6 /* DTCanvasError.swift in Sources */,
 				2E46CB95262E56A10003A46A /* WidthAdjustor.swift in Sources */,
 				83AB9C56261711B4008E48D0 /* FirebaseAuthProvider.swift in Sources */,
 				84EEC6C326102B5100876F66 /* ConferenceConstants.swift in Sources */,
 				84E847A8260AD4EB00E39C1F /* ChatViewController.swift in Sources */,
-				2E81D82B262BFAC200ABB61F /* DTDoodlePreview.swift in Sources */,
+				2E81D82B262BFAC200ABB61F /* DoodlePreview.swift in Sources */,
 				2EB12AB2261BEDDC00131FE6 /* DoodleLayerTableViewController.swift in Sources */,
 				84E847CA260B21AA00E39C1F /* AgoraTokenAPIResponse.swift in Sources */,
-				2E8AC74A2613F4C90033869E /* DTCanvasViewController.swift in Sources */,
 				84D6057F262EBE7500A120ED /* UIViewController+Loading.swift in Sources */,
+				2E8AC74A2613F4C90033869E /* CanvasViewController.swift in Sources */,
 				2E987E6E2607468000352E7D /* PKStrokePoint+DTPoint.swift in Sources */,
+				2E245610262EBD9C0074D73A /* ShapeCreator.swift in Sources */,
 				83F5890A2619B44100BB9F07 /* DTUserCredentialsProvider.swift in Sources */,
 				2EB12ABE261BFBB600131FE6 /* DoodleLayerTableDelegate.swift in Sources */,
-				2EB12A3F261BE3F400131FE6 /* DTTool.swift in Sources */,
+				2EB12A3F261BE3F400131FE6 /* DTCodableTool.swift in Sources */,
 				8415BC99262BFB1000E6CF1B /* UserViewCell.swift in Sources */,
 				848F3581261451D400AD46C6 /* ParticipantViewCell.swift in Sources */,
 				83BDB53D262E127D00D91DB8 /* DTWebSocketController+DTWebSocketSubController.swift in Sources */,

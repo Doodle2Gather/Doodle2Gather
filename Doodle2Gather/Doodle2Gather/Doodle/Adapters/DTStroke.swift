@@ -6,7 +6,7 @@ public protocol DTStroke: Hashable, Codable {
     associatedtype Point: DTPoint
 
     var color: UIColor { get set }
-    var tool: DTTool { get set }
+    var tool: DTCodableTool { get set }
     var points: [Point] { get set }
     var mask: UIBezierPath? { get set }
     var transform: CGAffineTransform { get set }
@@ -17,7 +17,7 @@ public protocol DTStroke: Hashable, Codable {
     /// Instantiates self using data.
     init?(from stroke: DTAdaptedStroke)
 
-    init<P: DTPoint>(color: UIColor, tool: DTTool, points: [P], transform: CGAffineTransform,
+    init<P: DTPoint>(color: UIColor, tool: DTCodableTool, points: [P], transform: CGAffineTransform,
                      mask: UIBezierPath?)
 }
 
@@ -70,7 +70,7 @@ extension DTStroke {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: DTStrokeCodingKeys.self)
         let color = try container.decode(DTCodableColor.self, forKey: .color).uiColor
-        let tool = DTTool(rawValue: try container.decode(String.self, forKey: .tool)) ?? .pen
+        let tool = DTCodableTool(rawValue: try container.decode(String.self, forKey: .tool)) ?? .pen
         let points = try container.decode(Array<Point>.self, forKey: .points)
         let transform = try container.decode(CGAffineTransform.self, forKey: .transform)
 

@@ -21,16 +21,25 @@ extension CanvasManager {
     func setDrawingTool(_ drawingTool: DrawingTools) {
         augmentors.removeValue(forKey: Constants.detectionKey)
         currentDrawingTool = drawingTool
+
+        var color = UIColor.black
+        var width: CGFloat?
+
+        if let currentTool = canvas.tool as? PKInkingTool {
+            color = currentTool.color
+            width = currentTool.width
+        }
+
         switch drawingTool {
         case .pen:
-            setTool(.pen)
+            canvas.tool = PKInkingTool(.pen, color: color, width: width)
         case .pencil:
-            setTool(.pencil)
+            canvas.tool = PKInkingTool(.pencil, color: color, width: width)
         case .highlighter:
-            setTool(.highlighter)
+            canvas.tool = PKInkingTool(.marker, color: color, width: width)
         case .magicPen:
             augmentors[Constants.detectionKey] = BestFitShapeDetector()
-            setTool(.pen)
+            canvas.tool = PKInkingTool(.pen, color: color, width: width)
         }
     }
 
@@ -46,36 +55,13 @@ extension CanvasManager {
             setDrawingTool(currentDrawingTool)
         case .eraser:
             activateDrawingGestureRecognizer()
-            setTool(.eraser)
+            canvas.tool = PKEraserTool(.vector)
         case .cursor:
             activateSelectGestureRecognizer()
         case .shapes:
             activateShapesGestureRecognizer()
         case .text:
             activateTextGestureRecognizer()
-        }
-    }
-
-    func setTool(_ tool: DTTool) {
-        var color = UIColor.black
-        var width: CGFloat?
-
-        if let currentTool = canvas.tool as? PKInkingTool {
-            color = currentTool.color
-            width = currentTool.width
-        }
-
-        switch tool {
-        case .pen:
-            canvas.tool = PKInkingTool(.pen, color: color, width: width)
-        case .pencil:
-            canvas.tool = PKInkingTool(.pencil, color: color, width: width)
-        case .highlighter:
-            canvas.tool = PKInkingTool(.marker, color: color, width: width)
-        case .eraser:
-            canvas.tool = PKEraserTool(.vector)
-        case .lasso:
-            canvas.tool = PKLassoTool()
         }
     }
 
