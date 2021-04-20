@@ -158,42 +158,32 @@ class DoodleViewController: UIViewController {
             DTLogger.error("Attempted to join room without a user.")
             return
         }
+        
+        setProfileLabel(userProfileLabel, text: user.displayName)
+        userProfileLabel.backgroundColor = userIconColors[0]
+        
         let otherUserStates = userStates.filter({ state -> Bool in
             state.userId != user.uid
         })
+        let labels: [UILabel?] = [otherProfileLabelOne, otherProfileLabelTwo, numberOfOtherUsersLabel]
 
-        setProfileLabel(userProfileLabel, text: user.displayName)
-        userProfileLabel.backgroundColor = userIconColors[0]
-        if otherUserStates.count < 1 {
-            separator.isHidden = true
-            otherProfileLabelOne.isHidden = true
-            otherProfileLabelTwo.isHidden = true
-            numberOfOtherUsersLabel.isHidden = true
-        } else if otherUserStates.count < 2 {
-            separator.isHidden = false
-            setProfileLabel(otherProfileLabelOne, text: otherUserStates[0].displayName)
-            otherProfileLabelOne.isHidden = false
-            otherProfileLabelTwo.isHidden = true
-            numberOfOtherUsersLabel.isHidden = true
-            otherProfileLabelOne.backgroundColor = userIconColors[1]
-        } else if otherUserStates.count < 3 {
-            separator.isHidden = false
-            setProfileLabel(otherProfileLabelOne, text: otherUserStates[0].displayName)
-            setProfileLabel(otherProfileLabelTwo, text: otherUserStates[1].displayName)
-            otherProfileLabelOne.isHidden = false
-            otherProfileLabelTwo.isHidden = false
-            numberOfOtherUsersLabel.isHidden = true
-            otherProfileLabelOne.backgroundColor = userIconColors[1]
-            otherProfileLabelTwo.backgroundColor = userIconColors[2]
-        } else {
-            separator.isHidden = false
-            setProfileLabel(otherProfileLabelOne, text: otherUserStates[0].displayName)
-            setProfileLabel(otherProfileLabelTwo, text: otherUserStates[1].displayName)
-            otherProfileLabelOne.isHidden = false
-            otherProfileLabelTwo.isHidden = false
-            numberOfOtherUsersLabel.isHidden = false
-            otherProfileLabelOne.backgroundColor = userIconColors[1]
-            otherProfileLabelTwo.backgroundColor = userIconColors[2]
+        for i in 0..<labels.count {
+            guard let label = labels[i] else {
+                fatalError("Label is not loaded")
+            }
+            if i >= otherUserStates.count {
+                label.isHidden = true
+                continue
+            }
+            label.isHidden = false
+            if i != 3 {
+                setProfileLabel(label, text: otherUserStates[i].displayName)
+                label.backgroundColor = userIconColors[i + 1]
+            }
+        }
+
+        separator.isHidden = otherUserStates.isEmpty
+        if otherUserStates.count > 3 {
             numberOfOtherUsersLabel.text = "+\(userStates.count - 3)"
         }
     }
