@@ -30,9 +30,9 @@ class ConferenceViewController: UIViewController {
     var isChatShown = false
     var roomId: String?
     var videoCallUserList: [VideoCallUser] = []
+    var roomWSController: DTRoomWebSocketController?
     private var currentUser: VideoCallUser?
-    private var videoOverlays = [UIView]()
-    private var nameplates = [UILabel]()
+    private var userIdToNameMapping: [String: String] = [:]
     private var appearance = BadgeAppearance(animate: true)
     private var unreadMessageCount = 0
 
@@ -61,6 +61,9 @@ class ConferenceViewController: UIViewController {
 
         collectionView.isHidden = true
         topControlViewContainer.isHidden = true
+
+        roomWSController?.updateVideoState(isVideoOn: false)
+        roomWSController?.conferenceDelegate = self
     }
 
     @IBAction private func audioButtonDidTap(_ sender: Any) {
@@ -93,7 +96,7 @@ class ConferenceViewController: UIViewController {
         }
         videoButton.isSelected = isVideoOff
         isVideoOff.toggle()
-
+        roomWSController?.updateVideoState(isVideoOn: !isVideoOff)
     }
 
     @IBAction private func bottomMinimizeButtonDidTap(_ sender: UIButton) {
@@ -311,7 +314,7 @@ extension ConferenceViewController: UICollectionViewDataSource {
         } else {
             let remoteID = videoCallUserList[indexPath.row - 1].uid
             let userId = videoCallUserList[indexPath.row - 1].userId
-            videoCell.setName(userId)
+            videoCell.setName(userIdToNameMapping[userId] ?? "Unknown")
             DispatchQueue.main.async {
                 self.videoEngine?.setupRemoteUserView(view: videoCell.getVideoView(), id: remoteID)
             }
@@ -338,16 +341,42 @@ extension ConferenceViewController: UICollectionViewDelegateFlowLayout {
 
 }
 
-class VideoCallUser {
-    let uid: UInt
-    let userId: String
-    let overlay: UIView
-    let nameplate: UILabel
+// MARK: - DTConferenceWebSocketControllerDelegate
 
-    init(uid: UInt, userId: String, overlay: UIView, nameplate: UILabel) {
-        self.uid = uid
-        self.userId = userId
-        self.overlay = overlay
-        self.nameplate = nameplate
+extension ConferenceViewController: DTConferenceWebSocketControllerDelegate {
+
+    func updateStates(_ users: [DTAdaptedUserVideoConferenceState]) {
+        for user in users {
+            userIdToNameMapping[user.id] = user.displayName
+        }
+        let otherUsers = users.filter { x -> Bool in
+            x.id != DTAuth.user?.uid
+        }
+        DispatchQueue.main.async {
+            self.updateCollectionView(otherUsers)
+        }
+
     }
+
+    private func updateCollectionView(_ users: [DTAdaptedUserVideoConferenceState]) {
+        for row in 0..<videoCallUserList.count {
+            guard let cell = collectionView
+                    .cellForItem(at: IndexPath(row: row + 1,
+                                               section: 0)) as? VideoCollectionViewCell else {
+                continue
+            }
+            cell.setName(userIdToNameMapping[videoCallUserList[row].userId] ?? "Unknown")
+            videoCallUserList[row].nameplate.text =
+                userIdToNameMapping[videoCallUserList[row].userId] ?? "Unknown"
+            if !users[row].isVideoOn {
+                cell.addSubview(videoCallUserList[row].overlay)
+                cell.addSubview(videoCallUserList[row].nameplate)
+            } else {
+                videoCallUserList[row].overlay.removeFromSuperview()
+                videoCallUserList[row].nameplate.removeFromSuperview()
+            }
+        }
+        collectionView.reloadData()
+    }
+
 }

@@ -14,7 +14,8 @@ public enum DTHomeMessageType: String, Codable {
 
 public enum DTRoomMessageType: String, Codable {
     // Client to server types
-    case joinRoom, initiateAction, clearDrawing, requestFetch, requestAddDoodle, exitRoom
+    case joinRoom, initiateAction, clearDrawing, requestFetch, requestAddDoodle, exitRoom, updateVideoState
     // Server to client types
-    case actionFeedback, dispatchAction, fetchDoodle, participantInfo, addDoodle, removeDoodle, updateLiveState
+    case actionFeedback, dispatchAction, fetchDoodle, participantInfo,
+         addDoodle, removeDoodle, updateLiveState, usersConferenceState
 }

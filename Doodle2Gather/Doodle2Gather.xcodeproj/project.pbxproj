@@ -111,6 +111,10 @@
 		84A451D52614709400DFCA75 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A451D42614709400DFCA75 /* GalleryViewController.swift */; };
 		84A451EA2614804B00DFCA75 /* Gallery.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84A451E92614804B00DFCA75 /* Gallery.storyboard */; };
 		84D6057F262EBE7500A120ED /* UIViewController+Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6057E262EBE7500A120ED /* UIViewController+Loading.swift */; };
+		84D6058B262EE20000A120ED /* DTConferenceWebSocketControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6058A262EE20000A120ED /* DTConferenceWebSocketControllerDelegate.swift */; };
+		84D60591262EF0F400A120ED /* UserPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D60590262EF0F400A120ED /* UserPermission.swift */; };
+		84D60595262EF10A00A120ED /* UserState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D60594262EF10A00A120ED /* UserState.swift */; };
+		84D6059A262EF1D400A120ED /* VideoCallUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D60599262EF1D400A120ED /* VideoCallUser.swift */; };
 		84D802F32616CB480096692E /* SegueConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D802F22616CB480096692E /* SegueConstants.swift */; };
 		84D803B326174EDC0096692E /* DocumentPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D803B226174EDC0096692E /* DocumentPreviewCell.swift */; };
 		84D803C026186E7C0096692E /* NewDocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D803BF26186E7C0096692E /* NewDocumentViewController.swift */; };
@@ -270,6 +274,10 @@
 		84A451D42614709400DFCA75 /* GalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
 		84A451E92614804B00DFCA75 /* Gallery.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Gallery.storyboard; sourceTree = "<group>"; };
 		84D6057E262EBE7500A120ED /* UIViewController+Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Loading.swift"; sourceTree = "<group>"; };
+		84D6058A262EE20000A120ED /* DTConferenceWebSocketControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTConferenceWebSocketControllerDelegate.swift; sourceTree = "<group>"; };
+		84D60590262EF0F400A120ED /* UserPermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPermission.swift; sourceTree = "<group>"; };
+		84D60594262EF10A00A120ED /* UserState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserState.swift; sourceTree = "<group>"; };
+		84D60599262EF1D400A120ED /* VideoCallUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCallUser.swift; sourceTree = "<group>"; };
 		84D802F22616CB480096692E /* SegueConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueConstants.swift; sourceTree = "<group>"; };
 		84D803B226174EDC0096692E /* DocumentPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPreviewCell.swift; sourceTree = "<group>"; };
 		84D803BF26186E7C0096692E /* NewDocumentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewDocumentViewController.swift; sourceTree = "<group>"; };
@@ -747,6 +755,7 @@
 				83BDB53C262E127D00D91DB8 /* DTWebSocketController+DTWebSocketSubController.swift */,
 				83BDB542262E22C500D91DB8 /* DTAuthWebSocketController.swift */,
 				83BDB546262E3D0A00D91DB8 /* DTHomeWebSocketController.swift */,
+				84D6058A262EE20000A120ED /* DTConferenceWebSocketControllerDelegate.swift */,
 			);
 			name = WebSocket;
 			path = Doodle2Gather/Common/WebSocket;
@@ -833,6 +842,7 @@
 		8464E77926258680002B5BEE /* Invitation */ = {
 			isa = PBXGroup;
 			children = (
+				84D6058F262EF0E400A120ED /* Models */,
 				8464E77B26258691002B5BEE /* Controllers */,
 				8464E77A2625868A002B5BEE /* Views */,
 			);
@@ -913,9 +923,27 @@
 			path = Constants;
 			sourceTree = "<group>";
 		};
+		84D6058F262EF0E400A120ED /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				84D60590262EF0F400A120ED /* UserPermission.swift */,
+				84D60594262EF10A00A120ED /* UserState.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		84D60598262EF1C400A120ED /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				84D60599262EF1D400A120ED /* VideoCallUser.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		84E847B2260AE09C00E39C1F /* Conference */ = {
 			isa = PBXGroup;
 			children = (
+				84D60598262EF1C400A120ED /* Models */,
 				8460D73D2605A67D00F160B1 /* Views */,
 				8460D73B2605A65800F160B1 /* Controllers */,
 				84E9594D260D753400D587CC /* Protocols */,
@@ -1263,12 +1291,14 @@
 				848F35472614174000AD46C6 /* Message.swift in Sources */,
 				84D803B326174EDC0096692E /* DocumentPreviewCell.swift in Sources */,
 				84E847A0260AD4C800E39C1F /* AgoraChatEngine.swift in Sources */,
+				84D60595262EF10A00A120ED /* UserState.swift in Sources */,
 				2EC4194B2625CB5900BE0518 /* UIView+Borders.swift in Sources */,
 				848F356926142D8800AD46C6 /* ParticipantsViewController.swift in Sources */,
 				2EF8E92325F754C600C7EE7D /* AppDelegate.swift in Sources */,
 				84E95957260D755A00D587CC /* VideoEngineDelegate.swift in Sources */,
 				2EA8C34226067F0000BE750C /* PKStroke+DTStroke.swift in Sources */,
 				8464E7D22626B939002B5BEE /* AudioPlayer.swift in Sources */,
+				84D60591262EF0F400A120ED /* UserPermission.swift in Sources */,
 				2EF0E51D26096B5C0008184D /* SubviewTouchCollectionView.swift in Sources */,
 				2E46CB95262E56A10003A46A /* WidthAdjustor.swift in Sources */,
 				83AB9C56261711B4008E48D0 /* FirebaseAuthProvider.swift in Sources */,
@@ -1288,6 +1318,7 @@
 				848F3581261451D400AD46C6 /* ParticipantViewCell.swift in Sources */,
 				83BDB53D262E127D00D91DB8 /* DTWebSocketController+DTWebSocketSubController.swift in Sources */,
 				848F354F2614177000AD46C6 /* Sender.swift in Sources */,
+				84D6058B262EE20000A120ED /* DTConferenceWebSocketControllerDelegate.swift in Sources */,
 				2E987E7D26075C0200352E7D /* RoomSocketController.swift in Sources */,
 				678F8923261B554A005530A0 /* DTAdaptedAction+DTActionProtocol.swift in Sources */,
 				83BDB543262E22C500D91DB8 /* DTAuthWebSocketController.swift in Sources */,
@@ -1325,6 +1356,7 @@
 				2EB929D9260778F600AAB396 /* SubviewTouchView.swift in Sources */,
 				8415BCA0262C05A000E6CF1B /* ActionSheetAlertController.swift in Sources */,
 				2EB12A41261BE3F400131FE6 /* DTCodableColor.swift in Sources */,
+				84D6059A262EF1D400A120ED /* VideoCallUser.swift in Sources */,
 				2EB129AF261BB32F00131FE6 /* Queue.swift in Sources */,
 				2E6830E3262C25B300A16F5D /* CanvasManagerDelegate.swift in Sources */,
 				8415BC7D262B4E3F00E6CF1B /* DoodleViewController+Extensions.swift in Sources */,

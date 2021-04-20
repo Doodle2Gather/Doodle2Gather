@@ -5,11 +5,22 @@ import DTSharedLibrary
 class WSRoomController {
     let lock = Lock()
     let usersLock = Lock()
+    let videoOnLock = Lock()
     var sockets = [UUID: WebSocket]()
     var users = [UUID: PersistedDTUser]() {
         didSet {
             DispatchQueue.global().async {
                 self.broadcastLiveState()
+            }
+        }
+    }
+
+    var uuidStore = [String: UUID]()
+
+    var isVideoOn = [UUID: Bool]() {
+        didSet {
+            DispatchQueue.global().async {
+                self.broadcastVideoState()
             }
         }
     }
@@ -32,6 +43,29 @@ class WSRoomController {
             usersInRoom = users.values.map { $0.toDTAdaptedUser(withRooms: false) }
         }
         let message = DTRoomLiveStateMessage(roomId: self.roomId, usersInRoom: usersInRoom)
+        self.getWebSockets(self.getAllWebSocketOptions).forEach {
+            $0.send(message: message)
+        }
+    }
+
+    func broadcastVideoState() {
+        var videoConferenceState = [DTAdaptedUserVideoConferenceState]()
+        self.videoOnLock.withLockVoid {
+            self.usersLock.withLockVoid {
+                videoConferenceState = isVideoOn.compactMap { (socketId: UUID, isVideoOn: Bool) in
+                    guard let user = users[socketId],
+                          let userId = user.id else {
+                        return nil
+                    }
+                    return DTAdaptedUserVideoConferenceState(id: userId,
+                                                             displayName: user.displayName,
+                                                             isVideoOn: isVideoOn)
+                }
+            }
+        }
+
+        let message = DTUsersVideoConferenceStateMessage(roomId: self.roomId,
+                                                         videoConferenceState: videoConferenceState)
         self.getWebSockets(self.getAllWebSocketOptions).forEach {
             $0.send(message: message)
         }
@@ -72,9 +106,25 @@ class WSRoomController {
     }
 
     private func registerUser(user: PersistedDTUser, wsId: UUID) {
+        self.logger.info("Adding user: \(user.displayName)")
+        guard let userId = user.id else {
+            fatalError("Unable to get user ID")
+        }
         self.usersLock.withLockVoid {
-            self.logger.info("Adding user: \(user.displayName)")
+            if let oldUuid = self.uuidStore[userId] {
+                self.lock.withLockVoid {
+                    self.sockets[oldUuid] = nil
+                }
+                self.users[oldUuid] = nil
+                self.videoOnLock.withLockVoid {
+                    self.isVideoOn[oldUuid] = nil
+                }
+            }
+            self.uuidStore[userId] = wsId
             self.users[wsId] = user
+        }
+        self.videoOnLock.withLockVoid {
+            self.isVideoOn[wsId] = false
         }
     }
 
@@ -118,6 +168,9 @@ class WSRoomController {
                 let actionData = try decoder.decode(
                     DTClearDrawingMessage.self, from: data)
                 self.handleClearDrawing(ws, decodedData.id, actionData)
+            case .updateVideoState:
+                let videoStateData = try decoder.decode(DTUpdateUserVideoStateMessage.self, from: data)
+                self.handleUpdateVideoState(id: videoStateData.id, isVideoOn: videoStateData.isVideoOn)
             default:
                 break
             }

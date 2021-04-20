@@ -30,6 +30,7 @@ extension DoodleViewController {
                 return
             }
             destination.roomId = roomId
+            destination.roomWSController = self.roomWSController
             // TODO: Fetch users from the socket controller and assign to the participants
             // TODO: Fetch all users who have permissions to the room and assign to the usersWithPermissions
         default:
@@ -53,7 +54,7 @@ extension DoodleViewController {
                 return
             }
             destination.modalPresentationStyle = .formSheet
-            destination.userIcons = userIcons
+            destination.userAccesses = userAccesses
             guard let room = room else {
                 return
             }
@@ -107,15 +108,25 @@ extension DoodleViewController: DTRoomWebSocketControllerDelegate {
         // TODO: Add after refactoring doodles
     }
 
-    func updateUsers(_ users: [DTAdaptedUserAccesses]) {
-        existingUsers = users.sorted(by: { x, y -> Bool in
+    func fetchUserAccesses(_ users: [DTAdaptedUserAccesses]) {
+        userAccesses = users.sorted(by: { x, y -> Bool in
             x.displayName < y.displayName
         })
-        userIcons.removeAll()
-        for index in 0..<existingUsers.count {
-            userIcons.append(UserIconData(user: existingUsers[index],
-                                          color: userIconColors[index % UIConstants.userIconColorCount]))
+    }
+
+    func updateUsers(_ users: [DTAdaptedUser]) {
+        let states = users.map({ u -> UserState in
+            UserState(userId: u.id, displayName: u.displayName, email: u.email)
+        }).sorted(by: { x, y -> Bool in
+            x.displayName < y.displayName
+        })
+        userStates.removeAll()
+        for index in 0..<(states.count - 1) where states[index].userId
+            != states[index + 1].userId {
+            userStates.append(states[index])
         }
+        userStates.append(states[states.count - 1])
+
         DispatchQueue.main.async {
             self.updateProfileColors()
         }

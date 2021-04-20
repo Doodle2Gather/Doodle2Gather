@@ -208,3 +208,30 @@ public struct DTRoomLiveStateMessage: Codable {
         self.usersInRoom = usersInRoom
     }
 }
+
+public struct DTUsersVideoConferenceStateMessage: Codable {
+    public var type = DTMessageType.room
+    public var subtype = DTRoomMessageType.usersConferenceState
+    public var id = UUID()
+    public var roomId: UUID
+    public let videoConferenceState: [DTAdaptedUserVideoConferenceState]
+
+    public init(roomId: UUID, videoConferenceState: [DTAdaptedUserVideoConferenceState]) {
+        self.roomId = roomId
+        self.videoConferenceState = videoConferenceState
+    }
+}
+
+public struct DTUpdateUserVideoStateMessage: Codable {
+    public var type = DTMessageType.room
+    public var subtype = DTRoomMessageType.updateVideoState
+    public var id: UUID
+    public var roomId: UUID
+    public var isVideoOn: Bool
+
+    public init(id: UUID, roomId: UUID, isVideoOn: Bool) {
+        self.id = id
+        self.roomId = roomId
+        self.isVideoOn = isVideoOn
+    }
+}
