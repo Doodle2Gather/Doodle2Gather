@@ -9,15 +9,20 @@ class CanvasManager: NSObject {
             initialiseDefaultProperties()
         }
     }
+    var canvasWrapper = DTDoodleWrapper()
 
     /// Tracks the tools being used
     var currentMainTool = MainTools.drawing
     var currentDrawingTool = DrawingTools.pen
     var currentShapeTool = ShapeTools.circle
+    var currentSelectTool = SelectTools.all
 
     // Gesture Recognizers
     var shapeTapGestureRecognizer = UITapGestureRecognizer()
     var shapeCreator = ShapeCreator()
+    var selectTapGestureRecognizer = UITapGestureRecognizer()
+    var currentSelectedIndex = -1
+    var selectPanGestureRecognizer = InitialPanGestureRecognizer()
 
     /// Contains augmentors that will be used to augment the strokes.
     var augmentors = [String: StrokeAugmentor]()
@@ -70,6 +75,8 @@ class CanvasManager: NSObject {
 
     func createGestureRecognizers() {
         shapeTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleShapeTap(_:)))
+        selectTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleSelectTap(_:)))
+        selectPanGestureRecognizer = InitialPanGestureRecognizer(target: self, action: #selector(handleSelectPan(_:)))
     }
 
 }
@@ -81,6 +88,11 @@ extension CanvasManager: PKCanvasViewDelegate {
     func canvasViewDrawingDidChange(_ canvas: PKCanvasView) {
         if isAugmenting {
             return
+        }
+
+        var actionType = currentActionType
+        if currentSelectedIndex != -1 {
+            actionType = .modify
         }
 
         if currentMainTool == .drawing && !canvas.drawing.strokes.isEmpty,
@@ -96,7 +108,8 @@ extension CanvasManager: PKCanvasViewDelegate {
             isAugmenting = false
         }
 
-        delegate?.canvasViewDidChange(type: currentActionType)
+        delegate?.setCanvasIsEditing(false)
+        delegate?.canvasViewDidChange(type: actionType)
     }
 
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
@@ -107,36 +120,36 @@ extension CanvasManager: PKCanvasViewDelegate {
         delegate?.setCanvasIsEditing(true)
     }
 
-    func canvasViewDidEndUsingTool(_ canvasView: PKCanvasView) {
-        delegate?.setCanvasIsEditing(false)
-    }
-
     func activateDrawingGestureRecognizer() {
+        removeAllGestureRecognizers()
         canvas.drawingGestureRecognizer.isEnabled = true
-        canvas.removeGestureRecognizer(shapeTapGestureRecognizer)
     }
 
     func activateShapesGestureRecognizer() {
-        canvas.drawingGestureRecognizer.isEnabled = false
+        removeAllGestureRecognizers()
         canvas.addGestureRecognizer(shapeTapGestureRecognizer)
     }
 
     func activateTextGestureRecognizer() {
-        canvas.drawingGestureRecognizer.isEnabled = false
-        canvas.removeGestureRecognizer(shapeTapGestureRecognizer)
+        removeAllGestureRecognizers()
         // TODO: Implement this
     }
 
     func activateSelectGestureRecognizer() {
+        removeAllGestureRecognizers()
+        canvas.addGestureRecognizer(selectTapGestureRecognizer)
+    }
+
+    func removeAllGestureRecognizers() {
         canvas.drawingGestureRecognizer.isEnabled = false
         canvas.removeGestureRecognizer(shapeTapGestureRecognizer)
-        // TODO: Implement this
+        canvas.removeGestureRecognizer(selectTapGestureRecognizer)
+        unselectStroke()
     }
 
     @objc
     func handleShapeTap(_ gesture: UITapGestureRecognizer) {
-        var location = gesture.location(in: canvas)
-        location = CGPoint(x: location.x / canvas.zoomScale, y: location.y / canvas.zoomScale)
+        let location = translatePoint(gesture.location(in: canvas))
 
         switch currentShapeTool {
         case .circle:
@@ -149,6 +162,94 @@ extension CanvasManager: PKCanvasViewDelegate {
             canvas.drawing.strokes.append(shapeCreator.createStar(center: location))
         }
 
+    }
+
+    @objc
+    func handleSelectTap(_ gesture: UITapGestureRecognizer) {
+        let location = translatePoint(gesture.location(in: canvas))
+        let strokesReversed: [PKStroke] = canvas.drawing.strokes.reversed()
+        let wrappers = canvasWrapper.strokes.reversed()
+        var selectedIndex = -1
+        var currentIndex = 0
+
+        for wrapper in wrappers {
+            if wrapper.isDeleted {
+                continue
+            }
+            if currentSelectTool == .user && wrapper.createdBy != DTAuth.user?.uid {
+                currentIndex += 1
+                continue
+            }
+
+            let stroke = strokesReversed[currentIndex]
+            if stroke.points.contains(where: { $0.location.isCloseTo(location, within: 10) }) {
+                selectedIndex = canvas.drawing.strokes.count - 1 - currentIndex
+                break
+            }
+
+            currentIndex += 1
+        }
+
+        if selectedIndex == currentSelectedIndex {
+            return
+        }
+
+        if selectedIndex != currentSelectedIndex && currentSelectedIndex != -1 {
+            unselectStroke()
+            return
+        }
+
+        selectStroke(index: selectedIndex)
+    }
+
+    @objc
+    func handleSelectPan(_ gesture: InitialPanGestureRecognizer) {
+        guard currentSelectedIndex != -1, currentSelectedIndex < canvas.drawing.strokes.count else {
+            return
+        }
+        var stroke = canvas.drawing.strokes[currentSelectedIndex]
+
+        let translation = translatePoint(gesture.translation(in: canvas))
+        if (translation.x * translation.x) + (translation.y * translation.y) < 5_000 {
+            return
+        }
+        gesture.setTranslation(.zero, in: canvas)
+
+        for (index, point) in stroke.points.enumerated() {
+            let newLocation = CGPoint(x: point.location.x + translation.x, y: point.location.y + translation.y)
+            let newPoint = PKStrokePoint(location: newLocation, timeOffset: point.timeOffset, size: point.size,
+                                         opacity: point.opacity, force: point.force, azimuth: point.azimuth,
+                                         altitude: point.altitude)
+            stroke.points[index] = newPoint
+        }
+
+        canvas.drawing.strokes[currentSelectedIndex] = stroke
+    }
+
+    func selectStroke(index: Int) {
+        delegate?.setCanvasIsEditing(true)
+        currentSelectedIndex = index
+        isAugmenting = true
+        let originalColor = canvas.drawing.strokes[index].color
+        canvas.drawing.strokes[index].setIsSelected(true)
+        delegate?.strokeDidSelect(color: originalColor)
+        canvas.addGestureRecognizer(selectPanGestureRecognizer)
+    }
+
+    func unselectStroke() {
+        if currentSelectedIndex == -1 {
+            return
+        }
+        isAugmenting = false
+        delegate?.setCanvasIsEditing(false)
+        canvas.drawing.strokes[currentSelectedIndex].setIsSelected(false)
+        currentSelectedIndex = -1
+        delegate?.strokeDidUnselect()
+        canvas.removeGestureRecognizer(selectPanGestureRecognizer)
+    }
+
+    func translatePoint(_ point: CGPoint) -> CGPoint {
+        CGPoint(x: point.x / canvas.zoomScale, y: point.y / canvas.zoomScale)
     }
 
 }

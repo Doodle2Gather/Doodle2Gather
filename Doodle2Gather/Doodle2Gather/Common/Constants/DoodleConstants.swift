@@ -20,3 +20,8 @@ enum ShapeTools: Int {
     case triangle
     case star
 }
+
+enum SelectTools: Int {
+    case all
+    case user
+}

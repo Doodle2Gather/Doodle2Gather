@@ -3,10 +3,13 @@ import Pikko
 
 class StrokeEditorViewController: UIViewController {
 
+    @IBOutlet private var widthLabel: UILabel!
     @IBOutlet private var widthSlider: UISlider!
+    @IBOutlet private var opacityLabel: UILabel!
     @IBOutlet private var opacitySlider: UISlider!
 
     weak var delegate: StrokeEditorDelegate?
+    private var pikko: Pikko?
     private var toolSelected: DrawingTools = .pen
     private var colorSelected: UIColor = .black
     private var widthCache: [DrawingTools: Float] = [
@@ -32,6 +35,7 @@ class StrokeEditorViewController: UIViewController {
         pikko.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
         pikko.heightAnchor.constraint(equalToConstant: 200).isActive = true
 
+        self.pikko = pikko
         widthSlider.setThumbImage(#imageLiteral(resourceName: "SliderThumb"), for: .normal)
         opacitySlider.setThumbImage(#imageLiteral(resourceName: "SliderThumb"), for: .normal)
     }
@@ -81,6 +85,21 @@ extension StrokeEditorViewController: StrokeEditor {
 
         widthSlider.value = width
         return (width: CGFloat(width), color: colorSelected)
+    }
+
+    func enterEditStrokeMode(color: UIColor) {
+        widthLabel.isHidden = true
+        widthSlider.isHidden = true
+        opacityLabel.isHidden = true
+        opacitySlider.isHidden = true
+        pikko?.setColor(color)
+    }
+
+    func exitEditStrokeMode() {
+        widthLabel.isHidden = false
+        widthSlider.isHidden = false
+        opacityLabel.isHidden = false
+        opacitySlider.isHidden = false
     }
 
 }

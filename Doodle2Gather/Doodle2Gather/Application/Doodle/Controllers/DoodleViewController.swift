@@ -42,6 +42,11 @@ class DoodleViewController: UIViewController {
     @IBOutlet private var triangleButton: UIButton!
     @IBOutlet private var starButton: UIButton!
 
+    // Select Menu
+    @IBOutlet private var selectButtonsView: UIView!
+    @IBOutlet private var selectAllButton: UIButton!
+    @IBOutlet private var selectSelfButton: UIButton!
+
     // Profile Labels
     @IBOutlet private var userProfileLabel: UILabel!
     @IBOutlet private var separator: UIImageView!
@@ -67,6 +72,7 @@ class DoodleViewController: UIViewController {
     var userIconColors: [UIColor] = []
     private var previousDrawingTool = DrawingTools.pen
     private var previousShapeTool = ShapeTools.circle
+    private var previousSelectTool = SelectTools.all
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -124,7 +130,6 @@ class DoodleViewController: UIViewController {
     func loadBorderColors() {
         colorPickerButton.layer.borderColor = UIConstants.stackGrey.cgColor
         numberOfOtherUsersLabel.layer.borderColor = UIConstants.stackGrey.cgColor
-        // TODO: Replace profile picture borders with assigned colors
         userProfileLabel.layer.borderColor = UIConstants.white.cgColor
         otherProfileLabelOne.layer.borderColor = UIConstants.white.cgColor
         otherProfileLabelTwo.layer.borderColor = UIConstants.white.cgColor
@@ -222,27 +227,28 @@ extension DoodleViewController {
         unselectAllMainTools()
         drawingToolsButtonsView.isHidden = true
         shapesButtonsView.isHidden = true
+        selectButtonsView.isHidden = true
         coloredCircle.isHidden = true
         sender.isSelected = true
         setDrawingTool(previousDrawingTool, shouldDismiss: sender.tag != MainTools.drawing.rawValue)
-        setShapeTool(previousShapeTool, shouldDismiss: sender.tag != MainTools.shapes.rawValue)
 
         canvasController?.setMainTool(toolSelected)
+
+        if toolSelected != .drawing {
+            colorPickerView.isHidden = true
+            pressureInfoView.isHidden = true
+        }
 
         switch toolSelected {
         case .drawing:
             drawingToolsButtonsView.isHidden = false
             coloredCircle.isHidden = false
-        case .eraser:
-            colorPickerView.isHidden = true
-            pressureInfoView.isHidden = true
-        case .text, .cursor:
-            colorPickerView.isHidden = true
-            pressureInfoView.isHidden = true
+        case .cursor:
+            selectButtonsView.isHidden = false
         case .shapes:
-            colorPickerView.isHidden = true
-            pressureInfoView.isHidden = true
             shapesButtonsView.isHidden = false
+        default:
+            break
         }
     }
 
@@ -283,9 +289,14 @@ extension DoodleViewController {
         }
     }
 
-    func setShapeTool(_ shapeTool: ShapeTools, shouldDismiss: Bool = false) {
+    func setShapeTool(_ shapeTool: ShapeTools) {
         previousShapeTool = shapeTool
         canvasController?.setShapeTool(shapeTool)
+    }
+
+    func setSelectTool(_ selectTool: SelectTools) {
+        previousSelectTool = selectTool
+        canvasController?.setSelectTool(selectTool)
     }
 
     @IBAction private func layerButtonDidTap(_ sender: UIButton) {
@@ -335,6 +346,11 @@ extension DoodleViewController {
         starButton.isSelected = false
     }
 
+    func unselectAllSelectTools() {
+        selectAllButton.isSelected = false
+        selectSelfButton.isSelected = false
+    }
+
 }
 
 // MARK: - CanvasControllerDelegate
@@ -360,6 +376,16 @@ extension DoodleViewController: CanvasControllerDelegate {
 
     func refetchDoodles() {
         roomWSController.refetchDoodles()
+    }
+
+    func strokeDidSelect(color: UIColor) {
+        strokeEditor?.enterEditStrokeMode(color: color)
+        colorPickerView.isHidden = false
+    }
+
+    func strokeDidUnselect() {
+        colorPickerView.isHidden = true
+        strokeEditor?.exitEditStrokeMode()
     }
 
 }

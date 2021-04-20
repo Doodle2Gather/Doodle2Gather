@@ -16,7 +16,11 @@ class CanvasViewController: UIViewController {
             canvasView.drawing = doodles[currentDoodleIndex].drawing
         }
     }
-    private var currentDoodle = DTDoodleWrapper()
+    private var currentDoodle = DTDoodleWrapper() {
+        didSet {
+            canvasManager.canvasWrapper = currentDoodle
+        }
+    }
 
     /// Main canvas view that we will work with.
     var canvasView = PKCanvasView()
@@ -50,6 +54,7 @@ class CanvasViewController: UIViewController {
         canvasView.drawing = doodles[currentDoodleIndex].drawing
 
         // Set up managers
+        canvasManager.canvasWrapper = doodles[currentDoodleIndex]
         canvasManager.canvas = canvasView
         canvasManager.delegate = self
     }
@@ -124,6 +129,10 @@ extension CanvasViewController: CanvasController {
 
     func setShapeTool(_ shapeTool: ShapeTools) {
         canvasManager.setShapeTool(shapeTool)
+    }
+
+    func setSelectTool(_ selectTool: SelectTools) {
+        canvasManager.setSelectTool(selectTool)
     }
 
     func setMainTool(_ mainTool: MainTools) {
@@ -208,6 +217,8 @@ extension CanvasViewController: CanvasManagerDelegate {
         }
 
         guard let translatedAction = actionManager.translateAction(action, on: doodles[currentDoodleIndex]) else {
+            // Whatever changes that were made are no longer relevant
+            // E.g. while the user is deleting a stroke, it was deleted by someone else
             currentDoodle = doodles[currentDoodleIndex]
             canvasView.drawing = currentDoodle.drawing
             return
@@ -227,6 +238,14 @@ extension CanvasViewController: CanvasManagerDelegate {
 
     func setCanvasIsEditing(_ isEditing: Bool) {
         shouldUpdateCanvas = !isEditing
+    }
+
+    func strokeDidSelect(color: UIColor) {
+        delegate?.strokeDidSelect(color: color)
+    }
+
+    func strokeDidUnselect() {
+        delegate?.strokeDidUnselect()
     }
 
 }

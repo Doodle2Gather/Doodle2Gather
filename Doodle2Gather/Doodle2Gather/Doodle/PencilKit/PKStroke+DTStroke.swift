@@ -86,4 +86,9 @@ extension PKStroke: DTStroke {
             fatalError("Unrecognised ink being used!")
         }
     }
+
+    public mutating func setIsSelected(_ isSelected: Bool) {
+        color = isSelected ? color.lighten() : color.darken()
+    }
+
 }

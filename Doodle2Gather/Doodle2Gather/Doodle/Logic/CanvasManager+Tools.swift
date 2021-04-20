@@ -47,6 +47,10 @@ extension CanvasManager {
         currentShapeTool = shapeTool
     }
 
+    func setSelectTool(_ selectTool: SelectTools) {
+        currentSelectTool = selectTool
+    }
+
     func setMainTool(_ mainTool: MainTools) {
         currentMainTool = mainTool
         switch mainTool {
@@ -66,6 +70,11 @@ extension CanvasManager {
     }
 
     func setColor(_ color: UIColor) {
+        if currentSelectedIndex != -1 {
+            canvas.drawing.strokes[currentSelectedIndex].color = color.lighten()
+            return
+        }
+
         guard let tool = canvas.tool as? PKInkingTool else {
             return
         }
