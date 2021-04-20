@@ -365,6 +365,7 @@ extension DoodleViewController {
             shapesButtonsView.isHidden = true
             selectButtonsView.isHidden = true
             colorPickerView.isHidden = true
+            coloredCircle.isHidden = true
         }
         canvasController?.setCanEdit(canEdit)
     }
