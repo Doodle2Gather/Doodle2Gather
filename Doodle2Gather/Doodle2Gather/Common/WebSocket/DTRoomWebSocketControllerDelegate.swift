@@ -16,7 +16,7 @@ protocol DTRoomWebSocketControllerDelegate: AnyObject {
     func removeDoodle(doodleId: UUID)
 
     /// Tells the delegate with the user accesses.
-    func fetchUserAccesses(_ users: [DTAdaptedUserAccesses])
+    func didUpdateUserAccesses(_ users: [DTAdaptedUserAccesses])
 
     /// Tells the delegate to update its users.
     func updateUsers(_ users: [DTAdaptedUser])

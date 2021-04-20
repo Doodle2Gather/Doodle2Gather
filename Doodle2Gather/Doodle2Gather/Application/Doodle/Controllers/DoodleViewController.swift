@@ -75,6 +75,7 @@ class DoodleViewController: UIViewController {
     var userAccesses: [DTAdaptedUserAccesses] = []
     var userStates: [UserState] = []
     var userIconColors: [UIColor] = []
+    var canEditCanvas: Bool?
     private var previousDrawingTool = DrawingTools.pen
     private var previousShapeTool = ShapeTools.circle
     private var previousSelectTool = SelectTools.all

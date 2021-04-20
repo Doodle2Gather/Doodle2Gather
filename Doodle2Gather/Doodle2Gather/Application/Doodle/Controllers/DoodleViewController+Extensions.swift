@@ -111,10 +111,18 @@ extension DoodleViewController: DTRoomWebSocketControllerDelegate {
         // TODO: Add after refactoring doodles
     }
 
-    func fetchUserAccesses(_ users: [DTAdaptedUserAccesses]) {
+    func didUpdateUserAccesses(_ users: [DTAdaptedUserAccesses]) {
         userAccesses = users.sorted(by: { x, y -> Bool in
             x.displayName < y.displayName
         })
+        let currentUserAccess = userAccesses.first { x -> Bool in
+            x.userId == DTAuth.user?.uid
+        }
+        if let access = currentUserAccess {
+            canEditCanvas = access.canEdit
+        } else {
+            canEditCanvas = false
+        }
         invitationDelegate?.didUpdateUserAccesses(userAccesses)
     }
 
