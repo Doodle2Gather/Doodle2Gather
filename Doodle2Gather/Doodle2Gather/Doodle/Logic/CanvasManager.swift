@@ -15,6 +15,10 @@ class CanvasManager: NSObject {
     var currentDrawingTool = DrawingTools.pen
     var currentShapeTool = ShapeTools.circle
 
+    // Gesture Recognizers
+    var shapeTapGestureRecognizer = UITapGestureRecognizer()
+    var shapeCreator = ShapeCreator()
+
     /// Contains augmentors that will be used to augment the strokes.
     var augmentors = [String: StrokeAugmentor]()
     var isAugmenting = false
@@ -32,6 +36,7 @@ class CanvasManager: NSObject {
     override init() {
         super.init()
         initialiseDefaultProperties()
+        createGestureRecognizers()
     }
 
     /// Creates a canvas manager.
@@ -39,6 +44,7 @@ class CanvasManager: NSObject {
         super.init()
         self.canvas = canvas
         initialiseDefaultProperties()
+        createGestureRecognizers()
     }
 
     /// Initialises this canvas view with the default properties.
@@ -62,20 +68,8 @@ class CanvasManager: NSObject {
         setWidth(CGFloat(UIConstants.defaultPenWidth))
     }
 
-    func activateDrawingGestureRecognizer() {
-        canvas.drawingGestureRecognizer.isEnabled = true
-    }
-
-    func activateShapesGestureRecognizer() {
-        canvas.drawingGestureRecognizer.isEnabled = false
-    }
-
-    func activateTextGestureRecognizer() {
-        // TODO: Implement this
-    }
-
-    func activateSelectGestureRecognizer() {
-        // TODO: Implement this
+    func createGestureRecognizers() {
+        shapeTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleShapeTap(_:)))
     }
 
 }
@@ -101,6 +95,8 @@ extension CanvasManager: PKCanvasViewDelegate {
             canvas.drawing.strokes[count - 1] = stroke
             isAugmenting = false
         }
+        print(canvas.drawing.strokes.last?.mask)
+        print(canvas.drawing.strokes.last?.transform)
 
         delegate?.canvasViewDidChange(type: currentActionType)
     }
@@ -115,6 +111,36 @@ extension CanvasManager: PKCanvasViewDelegate {
 
     func canvasViewDidEndUsingTool(_ canvasView: PKCanvasView) {
         delegate?.setCanvasIsEditing(false)
+    }
+
+    func activateDrawingGestureRecognizer() {
+        canvas.drawingGestureRecognizer.isEnabled = true
+        canvas.removeGestureRecognizer(shapeTapGestureRecognizer)
+    }
+
+    func activateShapesGestureRecognizer() {
+        canvas.drawingGestureRecognizer.isEnabled = false
+        canvas.addGestureRecognizer(shapeTapGestureRecognizer)
+    }
+
+    func activateTextGestureRecognizer() {
+        canvas.drawingGestureRecognizer.isEnabled = false
+        canvas.removeGestureRecognizer(shapeTapGestureRecognizer)
+        // TODO: Implement this
+    }
+
+    func activateSelectGestureRecognizer() {
+        canvas.drawingGestureRecognizer.isEnabled = false
+        canvas.removeGestureRecognizer(shapeTapGestureRecognizer)
+        // TODO: Implement this
+    }
+
+    @objc
+    func handleShapeTap(_ gesture: UITapGestureRecognizer) {
+        print("adding")
+        let stroke: PKStroke = shapeCreator.createCircle(center: gesture.location(in: canvas))
+        print(stroke)
+        canvas.drawing.strokes.append(stroke)
     }
 
 }
