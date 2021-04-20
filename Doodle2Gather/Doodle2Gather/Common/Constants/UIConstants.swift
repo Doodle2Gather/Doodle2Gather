@@ -13,8 +13,8 @@ enum UIConstants {
     static let maxZoom: CGFloat = 2
     static let currentZoom: CGFloat = 1
 
-    static let defaultPenWidth: Float = 5
-    static let minPenWidth: Float = 0.9
+    static let defaultPenWidth: Float = 7
+    static let minPenWidth: Float = 3
     static let maxPenWidth: Float = 25
     static let defaultPencilWidth: Float = 5
     static let minPencilWidth: Float = 3

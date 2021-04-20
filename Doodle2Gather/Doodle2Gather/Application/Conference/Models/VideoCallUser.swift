@@ -5,7 +5,7 @@ class VideoCallUser {
     var userId: String
     var overlay: UIView
     var nameplate: UILabel
-    var isPlateActive: Bool = false
+    var isPlateActive = false
 
     init(uid: UInt, userId: String, overlay: UIView, nameplate: UILabel) {
         self.uid = uid

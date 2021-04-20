@@ -6,6 +6,7 @@ import DTSharedLibrary
 struct DTDoodleWrapper {
 
     var doodleId: UUID
+    var createdAt: Date
     // Model
     var strokes: [DTStrokeWrapper] {
         didSet {
@@ -20,6 +21,7 @@ struct DTDoodleWrapper {
         self.doodleId = UUID()
         self.strokes = []
         self.drawing = PKDrawing()
+        self.createdAt = Date()
     }
 
     init(doodle: DTAdaptedDoodle) {
@@ -27,6 +29,7 @@ struct DTDoodleWrapper {
         self.strokes = doodle.strokes.compactMap { DTStrokeWrapper(stroke: $0) }
         self.drawing = PKDrawing(strokes: self.strokes.filter({ !$0.isDeleted })
                                     .compactMap { $0.stroke })
+        self.createdAt = doodle.createdAt
     }
 
 }
