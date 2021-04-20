@@ -198,7 +198,114 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Xj-kh-aUN" userLabel="Left Auxiliary Buttons View">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zab-bH-VRq" userLabel="Shapes Buttons View">
+                                <rect key="frame" x="82" y="489.5" width="60" height="215"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="GV2-lt-wg1" userLabel="Button Stack">
+                                        <rect key="frame" x="10" y="10" width="40" height="190"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KWG-vf-nNg" userLabel="Circle Button">
+                                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="7ju-fC-LU9"/>
+                                                    <constraint firstAttribute="width" constant="40" id="Sk3-MS-kRp"/>
+                                                </constraints>
+                                                <color key="tintColor" systemColor="labelColor"/>
+                                                <state key="normal" image="Circle"/>
+                                                <state key="selected" image="Circle_Yellow"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="20"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="shapeToolButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="Zmy-br-R0G"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9z7-zt-8yD" userLabel="Square Button">
+                                                <rect key="frame" x="0.0" y="50" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="8TS-zJ-1lS"/>
+                                                    <constraint firstAttribute="width" constant="40" id="M1K-MX-4Xp"/>
+                                                </constraints>
+                                                <color key="tintColor" systemColor="labelColor"/>
+                                                <state key="normal" image="Square"/>
+                                                <state key="selected" image="Square_Yellow"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="20"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="shapeToolButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="Zn4-JI-B31"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7nw-wi-WYg" userLabel="Triangle Button">
+                                                <rect key="frame" x="0.0" y="100" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="2tz-lN-6OQ"/>
+                                                    <constraint firstAttribute="width" constant="40" id="J0t-jX-F2w"/>
+                                                </constraints>
+                                                <color key="tintColor" systemColor="labelColor"/>
+                                                <state key="normal" image="Triangle"/>
+                                                <state key="selected" image="Triangle_Yellow"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="20"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="shapeToolButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="sSw-oi-yQV"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qmb-uq-ZSH" userLabel="Star Button">
+                                                <rect key="frame" x="0.0" y="150" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="H6D-WH-RA6"/>
+                                                    <constraint firstAttribute="width" constant="40" id="urx-Wf-Dul"/>
+                                                </constraints>
+                                                <color key="tintColor" systemColor="labelColor"/>
+                                                <state key="normal" image="Star"/>
+                                                <state key="selected" image="Star_Yellow"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="20"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="shapeToolButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="J6H-6h-PFu"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" name="Black"/>
+                                <constraints>
+                                    <constraint firstItem="GV2-lt-wg1" firstAttribute="bottom" secondItem="Zab-bH-VRq" secondAttribute="bottom" constant="-15" id="WHo-Dd-vLo"/>
+                                    <constraint firstItem="GV2-lt-wg1" firstAttribute="top" secondItem="Zab-bH-VRq" secondAttribute="top" constant="10" id="bQb-mt-Ovs"/>
+                                    <constraint firstItem="GV2-lt-wg1" firstAttribute="trailing" secondItem="Zab-bH-VRq" secondAttribute="trailing" constant="-10" id="fsr-pf-Sll"/>
+                                    <constraint firstItem="GV2-lt-wg1" firstAttribute="leading" secondItem="Zab-bH-VRq" secondAttribute="leading" constant="10" id="pfL-h6-wiR"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                        <size key="value" width="0.0" height="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                        <real key="value" value="0.40000000000000002"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Xj-kh-aUN" userLabel="Drawing Tools Buttons View">
                                 <rect key="frame" x="82" y="449.5" width="60" height="295"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="a3W-PN-KVs" userLabel="Button Stack">
@@ -724,6 +831,8 @@
                             <constraint firstItem="HdL-Pj-pPB" firstAttribute="centerY" secondItem="Rvn-Q8-Irn" secondAttribute="centerY" id="Qwu-X3-bv3"/>
                             <constraint firstItem="2v7-Hc-qJ9" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" id="T0g-Ac-o8n"/>
                             <constraint firstItem="4Xj-kh-aUN" firstAttribute="centerY" secondItem="Rvn-Q8-Irn" secondAttribute="centerY" id="Vhb-2b-DLJ"/>
+                            <constraint firstItem="Zab-bH-VRq" firstAttribute="centerY" secondItem="Rvn-Q8-Irn" secondAttribute="centerY" id="cKB-BO-23R"/>
+                            <constraint firstItem="Zab-bH-VRq" firstAttribute="leading" secondItem="HdL-Pj-pPB" secondAttribute="trailing" constant="10" id="fG5-47-KYc"/>
                             <constraint firstItem="HdL-Pj-pPB" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" constant="12" id="nVn-9r-nOE"/>
                             <constraint firstItem="lOM-bA-4te" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" constant="12" id="o7i-Qk-N3e"/>
                             <constraint firstItem="o49-IX-df3" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" constant="152" id="pvB-la-VWn"/>
@@ -735,11 +844,12 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="auxiliaryButtonsView" destination="4Xj-kh-aUN" id="w6p-q7-6pF"/>
+                        <outlet property="circleButton" destination="KWG-vf-nNg" id="aK6-7X-aSI"/>
                         <outlet property="colorPickerButton" destination="Dae-hy-jiK" id="HnN-jF-uPY"/>
                         <outlet property="colorPickerView" destination="DHu-9F-THM" id="daN-at-Zo2"/>
                         <outlet property="cursorButton" destination="ryu-pR-t2y" id="Rh3-fR-798"/>
                         <outlet property="drawButton" destination="IP2-Vo-DRb" id="pWr-wH-aee"/>
+                        <outlet property="drawingToolsButtonsView" destination="4Xj-kh-aUN" id="w6p-q7-6pF"/>
                         <outlet property="eraserButton" destination="kjq-AY-SZg" id="gZs-d9-Zd1"/>
                         <outlet property="exitButton" destination="jRm-uM-qyl" id="loO-8c-NSN"/>
                         <outlet property="exportButton" destination="ruK-Zq-Zye" id="Hv0-Qf-XJX"/>
@@ -758,7 +868,11 @@
                         <outlet property="separator" destination="QiO-xb-nBY" id="B4k-Ko-asY"/>
                         <outlet property="separatorView" destination="cIQ-SF-6Au" id="2iL-i3-acE"/>
                         <outlet property="shapesButton" destination="w78-OH-H1V" id="Jet-zX-JVV"/>
+                        <outlet property="shapesButtonsView" destination="Zab-bH-VRq" id="yVS-E5-qDJ"/>
+                        <outlet property="squareButton" destination="9z7-zt-8yD" id="Yfg-BI-Xqn"/>
+                        <outlet property="starButton" destination="qmb-uq-ZSH" id="XoN-UR-01U"/>
                         <outlet property="textButton" destination="Va2-Px-Ku6" id="GYN-tg-pop"/>
+                        <outlet property="triangleButton" destination="7nw-wi-WYg" id="FNc-TM-Phm"/>
                         <outlet property="undoButton" destination="rww-zn-SEF" id="Psj-zY-vrQ"/>
                         <outlet property="userProfileLabel" destination="Eu2-o6-mDx" id="1r5-oQ-cQm"/>
                         <outlet property="zoomScaleLabel" destination="heI-9Y-pSS" id="Odg-py-uxd"/>
@@ -1270,6 +1384,8 @@
         <image name="BrushAlt_Yellow" width="24" height="24"/>
         <image name="Brush_Yellow" width="24" height="24"/>
         <image name="Chat" width="24" height="24"/>
+        <image name="Circle" width="24" height="24"/>
+        <image name="Circle_Yellow" width="24" height="24"/>
         <image name="Cross" width="24" height="24"/>
         <image name="Cursor" width="24" height="24"/>
         <image name="Cursor_Yellow" width="24" height="24"/>
@@ -1295,10 +1411,16 @@
         <image name="Shapes_Yellow" width="24" height="24"/>
         <image name="SoundOff_Red" width="24" height="24"/>
         <image name="SoundOn" width="24" height="24"/>
+        <image name="Square" width="24" height="24"/>
+        <image name="Square_Yellow" width="24" height="24"/>
+        <image name="Star" width="24" height="24"/>
+        <image name="Star_Yellow" width="24" height="24"/>
         <image name="StopButton_Red" width="24" height="24"/>
         <image name="Text" width="24" height="24"/>
         <image name="Text_Yellow" width="24" height="24"/>
         <image name="ThumbsUp" width="24" height="24"/>
+        <image name="Triangle" width="24" height="24"/>
+        <image name="Triangle_Yellow" width="24" height="24"/>
         <image name="Undo" width="24" height="24"/>
         <image name="Undo_Grey" width="24" height="24"/>
         <image name="UserAdd" width="24" height="24"/>

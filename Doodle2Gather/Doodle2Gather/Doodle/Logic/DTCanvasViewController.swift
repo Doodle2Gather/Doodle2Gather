@@ -122,6 +122,10 @@ extension DTCanvasViewController: CanvasController {
         canvasManager.setDrawingTool(drawingTool)
     }
 
+    func setShapeTool(_ shapeTool: ShapeTools) {
+        canvasManager.setShapeTool(shapeTool)
+    }
+
     func setMainTool(_ mainTool: MainTools) {
         canvasManager.setMainTool(mainTool)
     }

@@ -156,6 +156,15 @@ extension DoodleViewController {
         updatePressureView(toolSelected: toolSelected)
     }
 
+    @IBAction private func shapeToolButtonDidTap(_ sender: UIButton) {
+        guard let toolSelected = ShapeTools(rawValue: sender.tag) else {
+            return
+        }
+        unselectAllShapeTools()
+        sender.isSelected = true
+        setShapeTool(toolSelected)
+    }
+
     @IBAction private func addLayerButtonDidTap(_ sender: UIButton) {
         roomWSController.addDoodle()
     }

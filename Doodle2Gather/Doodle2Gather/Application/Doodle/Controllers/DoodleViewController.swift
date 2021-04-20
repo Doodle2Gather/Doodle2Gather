@@ -29,12 +29,19 @@ class DoodleViewController: UIViewController {
     @IBOutlet private var shapesButton: UIButton!
     @IBOutlet private var cursorButton: UIButton!
 
-    // Left Auxiliary Menu
-    @IBOutlet private var auxiliaryButtonsView: UIView!
+    // Drawing Tools Menu
+    @IBOutlet private var drawingToolsButtonsView: UIView!
     @IBOutlet private var penButton: UIButton!
     @IBOutlet private var pencilButton: UIButton!
     @IBOutlet private var highlighterButton: UIButton!
     @IBOutlet private var magicPenButton: UIButton!
+
+    // Shapes Menu
+    @IBOutlet private var shapesButtonsView: UIView!
+    @IBOutlet private var circleButton: UIButton!
+    @IBOutlet private var squareButton: UIButton!
+    @IBOutlet private var triangleButton: UIButton!
+    @IBOutlet private var starButton: UIButton!
 
     // Profile Labels
     @IBOutlet private var userProfileLabel: UILabel!
@@ -54,6 +61,7 @@ class DoodleViewController: UIViewController {
     var room: DTAdaptedRoom?
     var username: String?
     private var previousDrawingTool = DrawingTools.pen
+    private var previousShapeTool = ShapeTools.circle
     var doodles: [DTDoodleWrapper]?
     var participants: [DTAdaptedUser] = []
     var existingUsers: [DTAdaptedUserAccesses] = []
@@ -213,25 +221,29 @@ extension DoodleViewController {
             return
         }
         unselectAllMainTools()
-        auxiliaryButtonsView.isHidden = true
+        drawingToolsButtonsView.isHidden = true
+        shapesButtonsView.isHidden = true
         coloredCircle.isHidden = true
         sender.isSelected = true
-        setDrawingTool(previousDrawingTool,
-                       shouldDismiss: sender.tag != MainTools.drawing.rawValue)
+        setDrawingTool(previousDrawingTool, shouldDismiss: sender.tag != MainTools.drawing.rawValue)
+        setShapeTool(previousShapeTool, shouldDismiss: sender.tag != MainTools.shapes.rawValue)
 
         canvasController?.setMainTool(toolSelected)
 
         switch toolSelected {
         case .drawing:
-            auxiliaryButtonsView.isHidden = false
+            drawingToolsButtonsView.isHidden = false
             coloredCircle.isHidden = false
         case .eraser:
             colorPickerView.isHidden = true
             pressureInfoView.isHidden = true
-        case .text, .shapes, .cursor:
+        case .text, .cursor:
             colorPickerView.isHidden = true
             pressureInfoView.isHidden = true
-            return
+        case .shapes:
+            colorPickerView.isHidden = true
+            pressureInfoView.isHidden = true
+            shapesButtonsView.isHidden = false
         }
     }
 
@@ -273,6 +285,11 @@ extension DoodleViewController {
         }
     }
 
+    func setShapeTool(_ shapeTool: ShapeTools, shouldDismiss: Bool = false) {
+        previousShapeTool = shapeTool
+        canvasController?.setShapeTool(shapeTool)
+    }
+
     @IBAction private func layerButtonDidTap(_ sender: UIButton) {
         if let doodles = canvasController?.getCurrentDoodles() {
             layerTable?.loadDoodles(doodles)
@@ -311,6 +328,13 @@ extension DoodleViewController {
         pencilButton.isSelected = false
         highlighterButton.isSelected = false
         magicPenButton.isSelected = false
+    }
+
+    func unselectAllShapeTools() {
+        circleButton.isSelected = false
+        squareButton.isSelected = false
+        triangleButton.isSelected = false
+        starButton.isSelected = false
     }
 
 }

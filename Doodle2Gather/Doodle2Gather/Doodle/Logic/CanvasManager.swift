@@ -13,6 +13,7 @@ class CanvasManager: NSObject {
     /// Tracks the tools being used
     var currentMainTool = MainTools.drawing
     var currentDrawingTool = DrawingTools.pen
+    var currentShapeTool = ShapeTools.circle
 
     /// Contains augmentors that will be used to augment the strokes.
     var augmentors = [String: StrokeAugmentor]()
@@ -59,6 +60,22 @@ class CanvasManager: NSObject {
 
         canvas.delegate = self
         setWidth(CGFloat(UIConstants.defaultPenWidth))
+    }
+
+    func activateDrawingGestureRecognizer() {
+        canvas.drawingGestureRecognizer.isEnabled = true
+    }
+
+    func activateShapesGestureRecognizer() {
+        canvas.drawingGestureRecognizer.isEnabled = false
+    }
+
+    func activateTextGestureRecognizer() {
+        // TODO: Implement this
+    }
+
+    func activateSelectGestureRecognizer() {
+        // TODO: Implement this
     }
 
 }

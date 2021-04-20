@@ -34,18 +34,25 @@ extension CanvasManager {
         }
     }
 
+    func setShapeTool(_ shapeTool: ShapeTools) {
+        currentShapeTool = shapeTool
+    }
+
     func setMainTool(_ mainTool: MainTools) {
         currentMainTool = mainTool
         switch mainTool {
         case .drawing:
+            activateDrawingGestureRecognizer()
             setDrawingTool(currentDrawingTool)
         case .eraser:
+            activateDrawingGestureRecognizer()
             setTool(.eraser)
         case .cursor:
-            setTool(.lasso)
-        case .shapes, .text:
-            // TODO: Add handling for these two
-            break
+            activateSelectGestureRecognizer()
+        case .shapes:
+            activateShapesGestureRecognizer()
+        case .text:
+            activateTextGestureRecognizer()
         }
     }
 
