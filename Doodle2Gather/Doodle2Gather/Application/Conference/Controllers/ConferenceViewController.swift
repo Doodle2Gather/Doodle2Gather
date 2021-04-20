@@ -349,20 +349,30 @@ extension ConferenceViewController: DTConferenceWebSocketControllerDelegate {
         for user in users {
             userIdToNameMapping[user.id] = user.displayName
         }
+        let otherUsers = users.filter { x -> Bool in
+            x.id != DTAuth.user?.uid
+        }
         DispatchQueue.main.async {
-            self.updateCollectionView()
+            self.updateCollectionView(otherUsers)
         }
 
     }
 
-    private func updateCollectionView() {
+    private func updateCollectionView(_ users: [DTAdaptedUserVideoConferenceState]) {
         for row in 0..<videoCallUserList.count {
             guard let cell = collectionView
-                    .cellForItem(at: IndexPath(row: row,
+                    .cellForItem(at: IndexPath(row: row + 1,
                                                section: 0)) as? VideoCollectionViewCell else {
                 continue
             }
             cell.setName(userIdToNameMapping[videoCallUserList[row].userId] ?? "Unknown")
+            if !users[row].isVideoOn {
+                cell.addSubview(videoCallUserList[row].overlay)
+                cell.addSubview(videoCallUserList[row].nameplate)
+            } else {
+                videoCallUserList[row].overlay.removeFromSuperview()
+                videoCallUserList[row].nameplate.removeFromSuperview()
+            }
         }
         collectionView.reloadData()
     }
