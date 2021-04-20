@@ -176,7 +176,7 @@ class DoodleViewController: UIViewController {
                 continue
             }
             label.isHidden = false
-            if i != 3 {
+            if i < 2 {
                 setProfileLabel(label, text: otherUserStates[i].displayName)
                 label.backgroundColor = userIconColors[i + 1]
             }
