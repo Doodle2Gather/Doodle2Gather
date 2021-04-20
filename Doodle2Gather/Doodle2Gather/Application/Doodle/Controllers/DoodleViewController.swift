@@ -158,10 +158,10 @@ class DoodleViewController: UIViewController {
             DTLogger.error("Attempted to join room without a user.")
             return
         }
-        
+
         setProfileLabel(userProfileLabel, text: user.displayName)
         userProfileLabel.backgroundColor = userIconColors[0]
-        
+
         let otherUserStates = userStates.filter({ state -> Bool in
             state.userId != user.uid
         })
@@ -183,7 +183,7 @@ class DoodleViewController: UIViewController {
         }
 
         separator.isHidden = otherUserStates.isEmpty
-        if otherUserStates.count > 3 {
+        if otherUserStates.count > 2 {
             numberOfOtherUsersLabel.text = "+\(userStates.count - 3)"
         }
     }
