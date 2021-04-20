@@ -7,11 +7,14 @@ final class PersistedDTDoodle: Model, Content {
     @ID(key: .id)
     var id: UUID?
 
+    @Timestamp(key: "created_at", on: .create)
+    var createdAt: Date?
+
     @Parent(key: "room_id")
     var room: PersistedDTRoom
 
     @Children(for: \.$doodle)
-    var strokes: [PersistedDTStroke]
+    var entities: [PersistedDTEntity]
 
     @Children(for: \.$doodle)
     var actions: [PersistedDTAction]
@@ -28,8 +31,16 @@ final class PersistedDTDoodle: Model, Content {
         self.$room.id = room.id!
     }
 
-    func getStrokes() -> [PersistedDTStroke] {
-        self.strokes
+    func getEntities() -> [PersistedDTEntity] {
+        self.entities
+    }
+
+    func getStrokes() -> [PersistedDTEntity] {
+        self.entities.filter { $0.type == .stroke }
+    }
+
+    func getText() -> [PersistedDTEntity] {
+        self.entities.filter { $0.type == .text }
     }
 
     func getActions() -> [PersistedDTAction] {

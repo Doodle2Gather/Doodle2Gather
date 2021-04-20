@@ -1,8 +1,8 @@
 import Foundation
 
-public struct DTAdaptedStroke: DTAdaptedEntityProtocol {
+public struct DTAdaptedText: DTAdaptedEntityProtocol {
 
-    public var type: DTEntityType = .stroke
+    public var type: DTEntityType = .text
     public var entity: Data
     public var entityId: UUID
     public var roomId: UUID
@@ -10,19 +10,19 @@ public struct DTAdaptedStroke: DTAdaptedEntityProtocol {
     public var createdBy: String
     public var isDeleted: Bool
 
-    public var stroke: Data {
+    public var text: Data {
         entity
     }
 
-    public var strokeId: UUID {
+    public var textId: UUID {
         entityId
     }
 
-    public init(stroke: Data, strokeId: UUID,
+    public init(text: Data, textId: UUID,
                 roomId: UUID, doodleId: UUID,
                 createdBy: String, isDeleted: Bool = false) {
-        self.entity = stroke
-        self.entityId = strokeId
+        self.entity = text
+        self.entityId = textId
         self.roomId = roomId
         self.doodleId = doodleId
         self.createdBy = createdBy
@@ -30,9 +30,9 @@ public struct DTAdaptedStroke: DTAdaptedEntityProtocol {
     }
 
     public init(_ pair: DTEntityIndexPair, roomId: UUID, doodleId: UUID, createdBy: String) {
-        assert(pair.type == .stroke)
+        assert(pair.type == .text)
 
-        self.init(stroke: pair.entity, strokeId: pair.entityId,
+        self.init(text: pair.entity, textId: pair.entityId,
                   roomId: roomId, doodleId: doodleId,
                   createdBy: createdBy, isDeleted: pair.isDeleted)
     }

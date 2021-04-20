@@ -5,6 +5,7 @@ struct AddDoodle: Migration {
         database.schema(PersistedDTDoodle.schema)
             .id()
             .field("room_id", .uuid, .required, .references(PersistedDTRoom.schema, .id, onDelete: .cascade))
+            .field("created_at", .date)
             .create()
     }
 

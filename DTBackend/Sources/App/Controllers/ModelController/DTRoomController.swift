@@ -189,7 +189,7 @@ extension PersistedDTRoom {
         }
         return PersistedDTRoom.query(on: db)
             .filter(\.$id == id)
-            .with(\.$doodles, { $0.with(\.$strokes) })
+            .with(\.$doodles, { $0.with(\.$entities) })
             .first()
             .unwrap(or: DTError.modelNotFound(type: "PersistedDTRoom", id: id.uuidString))
     }
@@ -197,7 +197,7 @@ extension PersistedDTRoom {
     static func getSingleByCode(_ code: String, on db: Database) -> EventLoopFuture<PersistedDTRoom> {
         PersistedDTRoom.query(on: db)
             .filter(\.$inviteCode == code)
-            .with(\.$doodles, { $0.with(\.$strokes) })
+            .with(\.$doodles, { $0.with(\.$entities) })
             .first()
             .unwrap(or: DTError.modelNotFound(type: "PersistedDTRoom", code: code))
     }
@@ -221,7 +221,7 @@ extension PersistedDTRoom {
         return PersistedDTUserAccesses
             .query(on: db)
             .with(\.$room)
-            .with(\.$user, { $0.with(\.$accessibleRooms, { $0.with(\.$doodles, { $0.with(\.$strokes) }) }) })
+            .with(\.$user, { $0.with(\.$accessibleRooms, { $0.with(\.$doodles, { $0.with(\.$entities) }) }) })
             .filter(\.$room.$id == id)
             .all()
     }

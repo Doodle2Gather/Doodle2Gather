@@ -4,14 +4,14 @@ import DTSharedLibrary
 struct DTPartialAdaptedAction {
 
     let type: DTActionType
-    let strokes: [DTStrokeIndexPair]
+    let entities: [DTEntityIndexPair]
     let doodleId: UUID
     let createdBy: String
 
-    init(type: DTActionType, doodleId: UUID, strokes: [DTStrokeIndexPair], createdBy: String) {
+    init(type: DTActionType, doodleId: UUID, strokes: [DTEntityIndexPair], createdBy: String) {
         self.type = type
         self.doodleId = doodleId
-        self.strokes = strokes
+        self.entities = strokes
         self.createdBy = createdBy
     }
 
@@ -21,16 +21,18 @@ struct DTPartialAdaptedAction {
         self.createdBy = createdBy
 
         let encoder = JSONEncoder()
-        var strokesData = [DTStrokeIndexPair]()
+        var strokesData = [DTEntityIndexPair]()
 
         for (stroke, index) in strokes {
             guard let data = try? encoder.encode(stroke.stroke) else {
                 return nil
             }
-            strokesData.append(DTStrokeIndexPair(data, index, strokeId: stroke.strokeId, isDeleted: stroke.isDeleted))
+            strokesData.append(
+                DTEntityIndexPair(data, index, type: .stroke, entityId: stroke.strokeId, isDeleted: stroke.isDeleted)
+            )
         }
 
-        self.strokes = strokesData
+        self.entities = strokesData
     }
 
 }
@@ -41,20 +43,24 @@ extension DTPartialAdaptedAction: DTActionProtocol {
 
     func inverse() -> DTPartialAdaptedAction {
         var newType: DTActionType = .add
-        var newStrokes = strokes
+        var newStrokes = entities
 
         switch type {
         case .add, .unremove:
             newType = .remove
-            newStrokes = [DTStrokeIndexPair(strokes[0].stroke, strokes[0].index,
-                                            strokeId: strokes[0].strokeId, isDeleted: true)]
+            newStrokes = [
+                DTEntityIndexPair(entities[0].entity, entities[0].index,
+                                  type: .stroke, entityId: entities[0].entityId, isDeleted: true)
+            ]
         case .modify:
             newType = .modify
-            newStrokes = [strokes[1], strokes[0]]
+            newStrokes = [entities[1], entities[0]]
         case .remove:
             newType = .unremove
-            newStrokes = [DTStrokeIndexPair(strokes[0].stroke, strokes[0].index,
-                                            strokeId: strokes[0].strokeId, isDeleted: false)]
+            newStrokes = [
+                DTEntityIndexPair(entities[0].entity, entities[0].index,
+                                  type: .stroke, entityId: entities[0].entityId, isDeleted: false)
+            ]
         case .unknown:
             newType = .unknown
         }

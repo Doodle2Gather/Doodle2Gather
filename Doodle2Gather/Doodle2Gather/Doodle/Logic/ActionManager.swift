@@ -10,15 +10,15 @@ struct ActionManager {
         switch action.type {
         case .add:
             let length = doodle.strokes.count
-            let stroke = DTStrokeIndexPair(action.strokes[0].stroke, length,
-                                           strokeId: action.strokes[0].strokeId, isDeleted: false)
+            let stroke = DTEntityIndexPair(action.entities[0].entity, length, type: .stroke,
+                                           entityId: action.entities[0].entityId, isDeleted: false)
             return DTPartialAdaptedAction(type: .add, doodleId: action.doodleId, strokes: [stroke],
                                           createdBy: action.createdBy)
         case .remove:
-            var removedStrokes = [DTStrokeIndexPair]()
+            var removedStrokes = [DTEntityIndexPair]()
 
-            for stroke in action.strokes {
-                if stroke.index >= doodle.strokes.count || doodle.strokes[stroke.index].strokeId != stroke.strokeId
+            for stroke in action.entities {
+                if stroke.index >= doodle.strokes.count || doodle.strokes[stroke.index].strokeId != stroke.entityId
                     || doodle.strokes[stroke.index].isDeleted {
                     continue
                 }
@@ -32,9 +32,9 @@ struct ActionManager {
             return DTPartialAdaptedAction(type: .remove, doodleId: action.doodleId, strokes: removedStrokes,
                                           createdBy: action.createdBy)
         case .modify:
-            let oldStroke = action.strokes[0]
+            let oldStroke = action.entities[0]
             if oldStroke.index >= doodle.strokes.count
-                || doodle.strokes[oldStroke.index].strokeId != oldStroke.strokeId {
+                || doodle.strokes[oldStroke.index].strokeId != oldStroke.entityId {
                 return nil
             }
             return action

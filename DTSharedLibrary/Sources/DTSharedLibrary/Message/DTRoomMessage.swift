@@ -44,13 +44,13 @@ public struct DTInitiateActionMessage: Codable {
 
     public let action: DTAdaptedAction
 
-    public init(actionType: DTActionType, strokes: [DTStrokeIndexPair],
+    public init(actionType: DTActionType, entities: [DTEntityIndexPair],
                 id: UUID, userId: String, roomId: UUID, doodleId: UUID) {
         self.id = id
         self.userId = userId
         self.roomId = roomId
         self.action = DTAdaptedAction(
-            type: actionType, strokes: strokes,
+            type: actionType, entities: entities,
             roomId: roomId, doodleId: doodleId, createdBy: userId)
     }
 }
