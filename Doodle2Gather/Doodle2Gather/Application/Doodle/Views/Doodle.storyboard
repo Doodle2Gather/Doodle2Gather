@@ -671,6 +671,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="32" id="T7q-7c-cbY"/>
                                                 </constraints>
+                                                <color key="onTintColor" name="Texas Yellow"/>
                                                 <connections>
                                                     <action selector="pressureSwitchDidToggle:" destination="rZI-TI-AZo" eventType="valueChanged" id="sZk-gG-VQY"/>
                                                 </connections>
@@ -1334,6 +1335,9 @@
         </namedColor>
         <namedColor name="Stack Grey">
             <color red="0.54500001668930054" green="0.54500001668930054" blue="0.54500001668930054" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Texas Yellow">
+            <color red="0.96899998188018799" green="1" blue="0.55299997329711914" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="White">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
