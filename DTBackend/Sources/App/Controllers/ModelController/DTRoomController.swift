@@ -143,6 +143,41 @@ extension PersistedDTRoom {
             }
     }
 
+    static func joinRoomViaInvite(_ joinRequest: DTJoinRoomViaInviteMessage,
+                                  on db: Database) ->
+    EventLoopFuture<DTAdaptedRoom> {
+
+        /* join room via invitation code */
+
+        if let inviteCode = joinRequest.inviteCode {
+            let room = PersistedDTRoom.getSingleByCode(inviteCode, on: db)
+            let user = PersistedDTUser.getSingleById(joinRequest.userId, on: db)
+            return user.and(room).flatMap { user, room in
+                user.$accessibleRooms.attach(room, on: db) {
+                    $0.setDefaultPermissions()
+                }
+            }
+            .flatMap { PersistedDTRoom.getSingleByCode(inviteCode, on: db) }
+            .flatMapThrowing(DTAdaptedRoom.init)
+        } else {
+            guard let roomId = joinRequest.roomId else {
+                return db.eventLoop
+                    .makeFailedFuture(
+                        DTError.modelNotFound(type: "joinRequest.roomId or joinRequest.inviteCode")
+                    )
+            }
+            let room = PersistedDTRoom.getSingleById(roomId, on: db)
+            let user = PersistedDTUser.getSingleById(joinRequest.userId, on: db)
+            return user.and(room).flatMap { user, room in
+                user.$accessibleRooms.attach(room, on: db) {
+                    $0.setDefaultPermissions()
+                    $0.isOwner = true
+                }
+            }
+            .flatMap { PersistedDTRoom.getSingleById(roomId, on: db) }
+            .flatMapThrowing(DTAdaptedRoom.init)
+        }
+    }
 }
 
 // queries that return persisted models

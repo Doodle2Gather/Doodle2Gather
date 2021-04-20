@@ -148,12 +148,6 @@ class NewDocumentViewController: UIViewController {
     }
 
     @IBAction private func didTapJoin(_ sender: UIButton) {
-        guard let user = DTAuth.user else {
-            return
-        }
-        guard let joinCallback = joinDocumentCallback else {
-            return
-        }
         guard let code = invitationCodeField.text else {
             return
         }
@@ -170,29 +164,7 @@ class NewDocumentViewController: UIViewController {
             )
             return
         }
-        DTApi.joinRoomFromInvite(joinRoomRequest: DTJoinRoomViaInviteMessage(userId: user.uid,
-                                                                             roomId: nil,
-                                                                             inviteCode: code)) { result in
-            switch result {
-            case .failure(let error):
-                DTLogger.error(error.localizedDescription)
-                DispatchQueue.main.async {
-                    self.alert(
-                        title: AlertConstants.notice,
-                        message: AlertConstants.invitationCodeNotFound,
-                        buttonStyle: .default
-                    )
-                }
-                return
-            case .success(.some(let room)):
-              DispatchQueue.main.async {
-                joinCallback(room)
-                self.dismiss(animated: true, completion: nil)
-              }
-            case .success(.none):
-                break
-            }
-        }
+        homeWSController?.joinRoomFromInvite(inviteCode: code)
     }
 
     @IBAction private func didTapClose(_ sender: Any) {
@@ -209,6 +181,26 @@ extension NewDocumentViewController: DTNewDocumentWebSocketControllerDelegate {
         DispatchQueue.main.async {
             creationCallback(newRoom)
             self.dismiss(animated: true, completion: nil)
+        }
+    }
+
+    func didFailToJoinRoom() {
+        DispatchQueue.main.async {
+            self.alert(
+                title: AlertConstants.notice,
+                message: AlertConstants.invitationCodeNotFound,
+                buttonStyle: .default
+            )
+        }
+    }
+
+    func didJoinRoomFromInvite(joinedRoom: DTAdaptedRoom) {
+        guard let joinCallback = joinDocumentCallback else {
+            return
+        }
+        DispatchQueue.main.async {
+          joinCallback(joinedRoom)
+          self.dismiss(animated: true, completion: nil)
         }
     }
 }

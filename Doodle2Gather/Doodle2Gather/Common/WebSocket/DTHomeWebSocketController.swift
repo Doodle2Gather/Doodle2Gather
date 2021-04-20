@@ -7,6 +7,8 @@ protocol DTHomeWebSocketControllerDelegate: AnyObject {
 
 protocol DTNewDocumentWebSocketControllerDelegate: AnyObject {
     func didCreateRoom(newRoom: DTAdaptedRoom)
+    func didFailToJoinRoom()
+    func didJoinRoomFromInvite(joinedRoom: DTAdaptedRoom)
 }
 
 final class DTHomeWebSocketController: DTSendableWebSocketSubController {
@@ -25,7 +27,7 @@ final class DTHomeWebSocketController: DTSendableWebSocketSubController {
             case .createRoom:
                 try self.handleCreateRoom(data)
             case .joinViaInvite:
-                break
+                try self.handleJoinRoomFromInvite(data)
             case .accessibleRooms:
                 try self.handleAccessibleRooms(data)
             }
@@ -50,6 +52,15 @@ final class DTHomeWebSocketController: DTSendableWebSocketSubController {
         delegate?.didGetAccessibleRooms(newRooms: newRooms)
     }
 
+    func handleJoinRoomFromInvite(_ data: Data) throws {
+        let message = try decoder.decode(DTJoinRoomViaInviteMessage.self, from: data)
+        guard let joinedRoom = message.joinedRoom else {
+            newDocDelegate?.didFailToJoinRoom()
+            return
+        }
+        newDocDelegate?.didJoinRoomFromInvite(joinedRoom: joinedRoom)
+    }
+
     func getAccessibleRooms() {
         guard let id = id,
               let userId = DTAuth.user?.uid else {
@@ -66,4 +77,15 @@ final class DTHomeWebSocketController: DTSendableWebSocketSubController {
         let message = DTCreateRoomMessage(id: id, ownerId: newRoom.ownerId, name: newRoom.name)
         send(message)
     }
+
+    func joinRoomFromInvite(inviteCode: String) {
+        guard let id = id,
+              let userId = DTAuth.user?.uid else {
+            fatalError("Cannot get socket UUID or userId")
+        }
+
+        let message = DTJoinRoomViaInviteMessage(id: id, userId: userId, inviteCode: inviteCode)
+        send(message)
+    }
+
 }
