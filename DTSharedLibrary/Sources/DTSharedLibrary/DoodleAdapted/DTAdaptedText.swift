@@ -1,8 +1,8 @@
 import Foundation
 
-public struct DTAdaptedStroke: DTAdaptedEntityProtocol {
+public struct DTAdaptedText: DTAdaptedEntityProtocol {
 
-    public var type: DTEntityType = .stroke
+    public var type: DTEntityType = .text
     public var entity: Data
     public var entityId: UUID
     public var roomId: UUID
@@ -10,28 +10,28 @@ public struct DTAdaptedStroke: DTAdaptedEntityProtocol {
     public var createdBy: String
     public var isDeleted: Bool
 
-    public var stroke: Data {
+    public var text: Data {
         entity
     }
 
-    public var strokeId: UUID {
+    public var textId: UUID {
         entityId
     }
 
-    public init(stroke: Data, strokeId: UUID,
+    public init(text: Data, textId: UUID,
                 roomId: UUID, doodleId: UUID,
                 createdBy: String, isDeleted: Bool = false) {
-        self.entity = stroke
-        self.entityId = strokeId
+        self.entity = text
+        self.entityId = textId
         self.roomId = roomId
         self.doodleId = doodleId
         self.createdBy = createdBy
         self.isDeleted = isDeleted
     }
 
-    public init(_ strokeIndexPair: DTStrokeIndexPair, roomId: UUID, doodleId: UUID, createdBy: String) {
-        self.init(stroke: strokeIndexPair.stroke, strokeId: strokeIndexPair.strokeId,
+    public init(_ textIndexPair: DTTextIndexPair, roomId: UUID, doodleId: UUID, createdBy: String) {
+        self.init(text: textIndexPair.text, textId: textIndexPair.textId,
                   roomId: roomId, doodleId: doodleId,
-                  createdBy: createdBy, isDeleted: strokeIndexPair.isDeleted)
+                  createdBy: createdBy, isDeleted: textIndexPair.isDeleted)
     }
 }
