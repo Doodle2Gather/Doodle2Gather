@@ -102,12 +102,12 @@ final class DTRoomWebSocketController: DTSendableWebSocketSubController {
     }
 
     func handleUpdateUsersConferenceState(_ data: Data) throws {
-        let newState = try decoder.decode(DTUsersVideoConferenceStateMessage.self, from: data)
-        let newVideoState = newState.videoConferenceState
-        DTLogger.debug { "New video conference state: " +
-            "\(newVideoState.map { "\($0.displayName): \($0.isVideoOn)" }.joined(separator: ", "))"
+        let newState = try decoder.decode(DTUsersConferenceStateMessage.self, from: data)
+        let newConferenceState = newState.conferenceState
+        DTLogger.debug { "New conference state: " +
+            "\(newConferenceState.map { "\($0.displayName): \($0.isVideoOn) \($0.isAudioOn)" }.joined(separator: ", "))"
         }
-        conferenceDelegate?.updateStates(newVideoState)
+        conferenceDelegate?.updateStates(newConferenceState)
     }
 }
 
@@ -183,13 +183,16 @@ extension DTRoomWebSocketController: RoomSocketController {
         send(message)
     }
 
-    func updateVideoState(isVideoOn: Bool) {
+    func updateConferencingState(isVideoOn: Bool, isAudioOn: Bool) {
         guard let id = self.id,
               let roomId = self.roomId else {
             return
         }
         DTLogger.info("Sending video state to backend, isVideoOn: \(isVideoOn)")
-        let message = DTUpdateUserVideoStateMessage(id: id, roomId: roomId, isVideoOn: isVideoOn)
+        let message = DTUpdateUserConferencingStateMessage(id: id,
+                                                           roomId: roomId,
+                                                           isVideoOn: isVideoOn,
+                                                           isAudioOn: isAudioOn)
         send(message)
     }
 }

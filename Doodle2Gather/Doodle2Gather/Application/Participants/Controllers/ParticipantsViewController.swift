@@ -5,7 +5,7 @@ class ParticipantsViewController: UIViewController {
 
     @IBOutlet private var tableView: UITableView!
 
-    var participants = [DTAdaptedUserVideoConferenceState]()
+    var participants = [DTAdaptedUserConferenceState]()
 
     override func viewDidLoad() {
         super.viewDidLoad()

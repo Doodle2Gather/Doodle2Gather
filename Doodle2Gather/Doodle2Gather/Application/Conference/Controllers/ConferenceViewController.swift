@@ -22,7 +22,7 @@ class ConferenceViewController: UIViewController {
     var chatEngine: ChatEngine?
     var chatBox: ChatBoxDelegate?
     var usersWithPermissions: [DTAdaptedUser] = []
-    var participants: [DTAdaptedUserVideoConferenceState] = []
+    var participants: [DTAdaptedUserConferenceState] = []
     lazy var chatList = [Message]()
     var isMuted = true
     var isVideoOff = true
@@ -69,10 +69,9 @@ class ConferenceViewController: UIViewController {
                                      selector: #selector(updateState),
                                      userInfo: nil,
                                      repeats: true)
-
         roomWSController?.conferenceDelegate = self
         DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-            self.roomWSController?.updateVideoState(isVideoOn: false)
+            self.roomWSController?.updateConferencingState(isVideoOn: false, isAudioOn: false)
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
             self.timer.invalidate()
@@ -81,7 +80,7 @@ class ConferenceViewController: UIViewController {
 
     @objc
     func updateState() {
-        roomWSController?.updateVideoState(isVideoOn: !isVideoOff)
+        roomWSController?.updateConferencingState(isVideoOn: !isVideoOff, isAudioOn: !isMuted)
     }
 
     @IBAction private func audioButtonDidTap(_ sender: Any) {
@@ -92,6 +91,7 @@ class ConferenceViewController: UIViewController {
         }
         audioButton.isSelected = isMuted
         isMuted.toggle()
+        roomWSController?.updateConferencingState(isVideoOn: !isVideoOff, isAudioOn: !isMuted)
     }
 
     @IBAction private func videoButtonDidTap(_ sender: Any) {
@@ -114,7 +114,7 @@ class ConferenceViewController: UIViewController {
         }
         videoButton.isSelected = isVideoOff
         isVideoOff.toggle()
-        roomWSController?.updateVideoState(isVideoOn: !isVideoOff)
+        roomWSController?.updateConferencingState(isVideoOn: !isVideoOff, isAudioOn: !isMuted)
     }
 
     @IBAction private func bottomMinimizeButtonDidTap(_ sender: UIButton) {
@@ -362,8 +362,7 @@ extension ConferenceViewController: UICollectionViewDelegateFlowLayout {
 
 extension ConferenceViewController: DTConferenceWebSocketControllerDelegate {
 
-    func updateStates(_ users: [DTAdaptedUserVideoConferenceState]) {
-        participants = users
+    func updateStates(_ users: [DTAdaptedUserConferenceState]) {
         for user in users {
             userIdToNameMapping[user.id] = user.displayName
         }
@@ -373,10 +372,9 @@ extension ConferenceViewController: DTConferenceWebSocketControllerDelegate {
         DispatchQueue.main.async {
             self.updateCollectionView(otherUsers)
         }
-
     }
 
-    private func updateCollectionView(_ users: [DTAdaptedUserVideoConferenceState]) {
+    private func updateCollectionView(_ users: [DTAdaptedUserConferenceState]) {
         for row in 0..<videoCallUserList.count {
             guard let cell = collectionView
                     .cellForItem(at: IndexPath(row: row + 1,

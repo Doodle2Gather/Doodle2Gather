@@ -209,29 +209,31 @@ public struct DTRoomLiveStateMessage: Codable {
     }
 }
 
-public struct DTUsersVideoConferenceStateMessage: Codable {
+public struct DTUsersConferenceStateMessage: Codable {
     public var type = DTMessageType.room
     public var subtype = DTRoomMessageType.usersConferenceState
     public var id = UUID()
     public var roomId: UUID
-    public let videoConferenceState: [DTAdaptedUserVideoConferenceState]
+    public let conferenceState: [DTAdaptedUserConferenceState]
 
-    public init(roomId: UUID, videoConferenceState: [DTAdaptedUserVideoConferenceState]) {
+    public init(roomId: UUID, conferenceState: [DTAdaptedUserConferenceState]) {
         self.roomId = roomId
-        self.videoConferenceState = videoConferenceState
+        self.conferenceState = conferenceState
     }
 }
 
-public struct DTUpdateUserVideoStateMessage: Codable {
+public struct DTUpdateUserConferencingStateMessage: Codable {
     public var type = DTMessageType.room
-    public var subtype = DTRoomMessageType.updateVideoState
+    public var subtype = DTRoomMessageType.updateConferenceState
     public var id: UUID
     public var roomId: UUID
     public var isVideoOn: Bool
+    public var isAudioOn: Bool
 
-    public init(id: UUID, roomId: UUID, isVideoOn: Bool) {
+    public init(id: UUID, roomId: UUID, isVideoOn: Bool, isAudioOn: Bool) {
         self.id = id
         self.roomId = roomId
         self.isVideoOn = isVideoOn
+        self.isAudioOn = isAudioOn
     }
 }

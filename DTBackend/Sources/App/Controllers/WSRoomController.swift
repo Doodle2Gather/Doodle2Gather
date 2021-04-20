@@ -5,7 +5,7 @@ import DTSharedLibrary
 class WSRoomController {
     let lock = Lock()
     let usersLock = Lock()
-    let videoOnLock = Lock()
+    let conferenceLock = Lock()
     var sockets = [UUID: WebSocket]()
     var users = [UUID: PersistedDTUser]() {
         didSet {
@@ -17,10 +17,10 @@ class WSRoomController {
 
     var uuidStore = [String: UUID]()
 
-    var isVideoOn = [UUID: Bool]() {
+    var conferenceState = [UUID: (Bool, Bool)]() {
         didSet {
             DispatchQueue.global().async {
-                self.broadcastVideoState()
+                self.broadcastConferenceState()
             }
         }
     }
@@ -48,24 +48,26 @@ class WSRoomController {
         }
     }
 
-    func broadcastVideoState() {
-        var videoConferenceState = [DTAdaptedUserVideoConferenceState]()
-        self.videoOnLock.withLockVoid {
+    func broadcastConferenceState() {
+        var conferenceState = [DTAdaptedUserConferenceState]()
+        self.conferenceLock.withLockVoid {
             self.usersLock.withLockVoid {
-                videoConferenceState = isVideoOn.compactMap { (socketId: UUID, isVideoOn: Bool) in
+                conferenceState = self.conferenceState.compactMap { (socketId: UUID, state: (Bool, Bool)) in
                     guard let user = users[socketId],
                           let userId = user.id else {
                         return nil
                     }
-                    return DTAdaptedUserVideoConferenceState(id: userId,
-                                                             displayName: user.displayName,
-                                                             isVideoOn: isVideoOn)
+                    let (isVideoOn, isAudioOn) = state
+                    return DTAdaptedUserConferenceState(id: userId,
+                                                        displayName: user.displayName,
+                                                        isVideoOn: isVideoOn,
+                                                        isAudioOn: isAudioOn)
                 }
             }
         }
 
-        let message = DTUsersVideoConferenceStateMessage(roomId: self.roomId,
-                                                         videoConferenceState: videoConferenceState)
+        let message = DTUsersConferenceStateMessage(roomId: self.roomId,
+                                                    conferenceState: conferenceState)
         self.getWebSockets(self.getAllWebSocketOptions).forEach {
             $0.send(message: message)
         }
@@ -116,15 +118,15 @@ class WSRoomController {
                     self.sockets[oldUuid] = nil
                 }
                 self.users[oldUuid] = nil
-                self.videoOnLock.withLockVoid {
-                    self.isVideoOn[oldUuid] = nil
+                self.conferenceLock.withLockVoid {
+                    self.conferenceState[oldUuid] = nil
                 }
             }
             self.uuidStore[userId] = wsId
             self.users[wsId] = user
         }
-        self.videoOnLock.withLockVoid {
-            self.isVideoOn[wsId] = false
+        self.conferenceLock.withLockVoid {
+            self.conferenceState[wsId] = (false, false)
         }
     }
 
@@ -168,9 +170,11 @@ class WSRoomController {
                 let actionData = try decoder.decode(
                     DTClearDrawingMessage.self, from: data)
                 self.handleClearDrawing(ws, decodedData.id, actionData)
-            case .updateVideoState:
-                let videoStateData = try decoder.decode(DTUpdateUserVideoStateMessage.self, from: data)
-                self.handleUpdateVideoState(id: videoStateData.id, isVideoOn: videoStateData.isVideoOn)
+            case .updateConferenceState:
+                let conferenceStateData = try decoder.decode(DTUpdateUserConferencingStateMessage.self, from: data)
+                self.handleUpdateConferenceState(id: conferenceStateData.id,
+                                                 isVideoOn: conferenceStateData.isVideoOn,
+                                                 isAudioOn: conferenceStateData.isAudioOn)
             default:
                 break
             }
