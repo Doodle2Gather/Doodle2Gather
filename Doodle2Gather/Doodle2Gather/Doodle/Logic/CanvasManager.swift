@@ -95,8 +95,6 @@ extension CanvasManager: PKCanvasViewDelegate {
             canvas.drawing.strokes[count - 1] = stroke
             isAugmenting = false
         }
-        print(canvas.drawing.strokes.last?.mask)
-        print(canvas.drawing.strokes.last?.transform)
 
         delegate?.canvasViewDidChange(type: currentActionType)
     }
@@ -137,10 +135,18 @@ extension CanvasManager: PKCanvasViewDelegate {
 
     @objc
     func handleShapeTap(_ gesture: UITapGestureRecognizer) {
-        print("adding")
-        let stroke: PKStroke = shapeCreator.createCircle(center: gesture.location(in: canvas))
-        print(stroke)
-        canvas.drawing.strokes.append(stroke)
+        var location = gesture.location(in: canvas)
+        location = CGPoint(x: location.x / canvas.zoomScale, y: location.y / canvas.zoomScale)
+
+        switch currentShapeTool {
+        case .circle:
+            canvas.drawing.strokes.append(shapeCreator.createCircle(center: location))
+        case .square:
+            canvas.drawing.strokes.append(shapeCreator.createSquare(center: location))
+        default:
+            break
+        }
+
     }
 
 }

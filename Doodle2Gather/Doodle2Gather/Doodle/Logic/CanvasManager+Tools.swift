@@ -7,7 +7,7 @@ extension CanvasManager {
 
     var currentActionType: DTActionType {
         switch currentMainTool {
-        case .drawing:
+        case .drawing, .shapes:
             return .add
         case .eraser:
             return .remove
