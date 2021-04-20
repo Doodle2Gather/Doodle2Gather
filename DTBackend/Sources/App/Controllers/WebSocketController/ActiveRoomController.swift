@@ -164,7 +164,6 @@ class ActiveRoomController {
         var returnPairs = [DTEntityIndexPair]()
         for ind in 0 ..< entities.count {
             let entity = entities[ind]
-            print("getting \(ind)th entity/pair")
             let index = pairs[ind].index
             if entitiesInDoodle[index] != entity {
                 self.logger.error("Client and server doodle out of sync at index \(index)")
@@ -202,7 +201,6 @@ class ActiveRoomController {
         var returnPairs = [DTEntityIndexPair]()
         for ind in 0 ..< entities.count {
             let entity = entities[ind]
-            print("getting \(ind)th entity/pair")
             let index = pairs[ind].index
             if entitiesInDoodle[index] != entity {
                 self.logger.error("Client and server doodle out of sync at index \(index)")
