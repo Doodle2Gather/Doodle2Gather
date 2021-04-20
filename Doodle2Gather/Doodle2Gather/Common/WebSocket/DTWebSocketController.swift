@@ -45,7 +45,7 @@ final class DTWebSocketController {
 
     init() {
         // change to localRoom for testing
-        guard let wsEndpoint = URL(string: ApiEndpoints.localWS) else {
+        guard let wsEndpoint = URL(string: ApiEndpoints.WS) else {
             fatalError("Unable to parse WebSocket endpoint URL")
         }
         self.socket = URLSession(configuration: .default).webSocketTask(with: wsEndpoint)
