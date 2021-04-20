@@ -84,24 +84,12 @@ class ActiveRoomController {
 
             returnPairs = addEntity(toAdd)
         case .remove:
-            if entities.isEmpty {
-                self.logger.error("Remove action has incorrect number of entities")
-                return nil
-            }
             returnPairs = removeEntities(entities, pairs)
 
         case .unremove:
-            if entities.isEmpty {
-                self.logger.error("Unremove action has incorrect number of entities")
-                return nil
-            }
             returnPairs = unremoveEntities(entities, pairs)
 
         case .modify:
-            if entities.count != 2 {
-                self.logger.error("Modify action has incorrect number of entities")
-                return nil
-            }
             guard let originalStroke = entities.first, let modifiedStroke = entities.last,
                   let originalPair = pairs.first,
                   let modifiedPair = pairs.last,

@@ -7,6 +7,9 @@ final class PersistedDTDoodle: Model, Content {
     @ID(key: .id)
     var id: UUID?
 
+    @Timestamp(key: "created_at", on: .create)
+    var createdAt: Date?
+
     @Parent(key: "room_id")
     var room: PersistedDTRoom
 

@@ -4,15 +4,17 @@ public struct DTAdaptedDoodle: Codable {
 
     public let roomId: UUID
     public let doodleId: UUID?
+    public let createdAt: Date
     public var strokes: [DTAdaptedStroke]
     public var text: [DTAdaptedText]
 
-    public init(roomId: UUID, doodleId: UUID? = nil,
+    public init(roomId: UUID, createdAt: Date, doodleId: UUID? = nil,
                 strokes: [DTAdaptedStroke] = [], text: [DTAdaptedText] = []) {
         self.strokes = strokes
         self.text = text
         self.roomId = roomId
         self.doodleId = doodleId
+        self.createdAt = createdAt
     }
 
     public func getStroke(at index: Int) -> DTAdaptedStroke {
