@@ -64,7 +64,7 @@ class WSRoomController {
         var seenUids = Set<String>()
         var uniqueConferenceState = [DTAdaptedUserVideoConferenceState]()
         videoConferenceState.forEach {
-            if (!seenUids.contains($0.id)) {
+            if !seenUids.contains($0.id) {
                 seenUids.insert($0.id)
                 uniqueConferenceState.append($0)
             }
