@@ -145,8 +145,8 @@ extension CanvasManager: PKCanvasViewDelegate {
             canvas.drawing.strokes.append(shapeCreator.createSquare(center: location))
         case .triangle:
             canvas.drawing.strokes.append(shapeCreator.createTriangle(center: location))
-        default:
-            break
+        case .star:
+            canvas.drawing.strokes.append(shapeCreator.createStar(center: location))
         }
 
     }

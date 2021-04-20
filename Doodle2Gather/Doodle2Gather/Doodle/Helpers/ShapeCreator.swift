@@ -7,6 +7,7 @@ struct ShapeCreator {
         static let circleRadius: CGFloat = 100
         static let squareLength: CGFloat = 200
         static let triangleDistance: CGFloat = 133
+        static let starDistance: CGFloat = 110
 
         // Point properties
         static let pointDensity: Int = 30
@@ -41,39 +42,23 @@ struct ShapeCreator {
     }
 
     func createSquare<S: DTStroke>(center: CGPoint) -> S {
-        var points = [S.Point]()
-        let startingLocation = CGPoint(x: center.x - Constants.squareLength / 2,
-                                       y: center.y - Constants.squareLength / 2)
+        let topLeftCorner = CGPoint(x: center.x - Constants.squareLength / 2,
+                                    y: center.y - Constants.squareLength / 2)
+        let topRightCorner = CGPoint(x: center.x + Constants.squareLength / 2,
+                                     y: center.y - Constants.squareLength / 2)
+        let bottomRightCorner = CGPoint(x: center.x + Constants.squareLength / 2,
+                                        y: center.y + Constants.squareLength / 2)
+        let bottomLeftCorner = CGPoint(x: center.x - Constants.squareLength / 2,
+                                       y: center.y + Constants.squareLength / 2)
 
-        let numberOfPointsPerEdge = Int(ceil(Double(Constants.pointDensity) / 4))
-
-        for i in 0...(numberOfPointsPerEdge * 4) {
-            let side = Int(floor(Double(i / numberOfPointsPerEdge)))
-            let ratio = CGFloat(i % numberOfPointsPerEdge) / CGFloat(numberOfPointsPerEdge - 1)
-            var currentLocation = startingLocation
-
-            if side == 0 {
-                currentLocation.x += ratio * Constants.squareLength
-            } else if side == 1 {
-                currentLocation.x += Constants.squareLength
-                currentLocation.y += ratio * Constants.squareLength
-            } else if side == 2 {
-                currentLocation.x += (1 - ratio) * Constants.squareLength
-                currentLocation.y += Constants.squareLength
-            } else if side == 3 {
-                currentLocation.y += (1 - ratio) * Constants.squareLength
-            }
-
-            let point: S.Point = createPoint(at: currentLocation, timeOffset: Constants.maxTimeOffset * Double(ratio))
-            points.append(point)
-        }
+        let points: [S.Point] = createPointsBetweenCorners(corners: [topLeftCorner, topRightCorner,
+                                                                     bottomRightCorner, bottomLeftCorner])
 
         return S(color: Constants.defaultColor, tool: Constants.defaultTool, points: points,
                  transform: Constants.defaultTransform, mask: nil)
     }
 
     func createTriangle<S: DTStroke>(center: CGPoint) -> S {
-        var points = [S.Point]()
         let topCorner = CGPoint(x: center.x, y: center.y - Constants.triangleDistance)
 
         let yDifference = CGFloat(sin(Double.pi / 6)) * Constants.triangleDistance
@@ -81,27 +66,26 @@ struct ShapeCreator {
 
         let leftCorner = CGPoint(x: center.x - xDifference, y: center.y + yDifference)
         let rightCorner = CGPoint(x: center.x + xDifference, y: center.y + yDifference)
-
-        let numberOfPointsPerEdge = Int(ceil(Double(Constants.pointDensity) / 3))
         let corners = [topCorner, rightCorner, leftCorner]
 
-        for i in 0..<3 {
-            let firstCorner = corners[i]
-            let secondCorner = corners[(i + 1) % 3]
+        let points: [S.Point] = createPointsBetweenCorners(corners: corners)
 
-            let xDiff = secondCorner.x - firstCorner.x
-            let yDiff = secondCorner.y - firstCorner.y
+        return S(color: Constants.defaultColor, tool: Constants.defaultTool, points: points,
+                 transform: Constants.defaultTransform, mask: nil)
+    }
 
-            for j in 0..<numberOfPointsPerEdge {
-                let ratio = CGFloat(j % numberOfPointsPerEdge) / CGFloat(numberOfPointsPerEdge - 1)
-                let currentLocation = CGPoint(x: firstCorner.x + (xDiff * ratio),
-                                              y: firstCorner.y + (yDiff * ratio))
-                let overallRatio = Double(i * numberOfPointsPerEdge + j) / Double(numberOfPointsPerEdge * 3)
-                let point: S.Point = createPoint(at: currentLocation,
-                                                 timeOffset: Constants.maxTimeOffset * overallRatio)
-                points.append(point)
-            }
+    func createStar<S: DTStroke>(center: CGPoint) -> S {
+        var corners = [CGPoint]()
+
+        for i in 0..<10 {
+            let distanceOfPoint = i.isMultiple(of: 2) ? Constants.starDistance : Constants.starDistance / 3
+            let angle = (Double.pi / 5) * Double(i) - (Double.pi / 2)
+            let yDiff = CGFloat(sin(angle) * Double(distanceOfPoint))
+            let xDiff = CGFloat(cos(angle) * Double(distanceOfPoint))
+            corners.append(CGPoint(x: center.x + xDiff, y: center.y + yDiff))
         }
+
+        let points: [S.Point] = createPointsBetweenCorners(corners: corners)
 
         return S(color: Constants.defaultColor, tool: Constants.defaultTool, points: points,
                  transform: Constants.defaultTransform, mask: nil)
@@ -111,6 +95,31 @@ struct ShapeCreator {
         P(location: location, timeOffset: timeOffset, size: Constants.defaultSize,
           opacity: Constants.defaultOpacity, force: Constants.defaultForce,
           azimuth: Constants.defaultAzimuth, altitude: Constants.defaultAltitude)
+    }
+
+    private func createPointsBetweenCorners<P: DTPoint>(corners: [CGPoint]) -> [P] {
+        let numberOfPointsPerEdge = Int(ceil(Double(Constants.pointDensity) / Double(corners.count)))
+
+        var points = [P]()
+
+        for i in 0..<corners.count {
+            let firstCorner = corners[i]
+            let secondCorner = corners[(i + 1) % corners.count]
+
+            let xDiff = secondCorner.x - firstCorner.x
+            let yDiff = secondCorner.y - firstCorner.y
+
+            for j in 0..<numberOfPointsPerEdge {
+                let ratio = CGFloat(j % numberOfPointsPerEdge) / CGFloat(numberOfPointsPerEdge - 1)
+                let currentLocation = CGPoint(x: firstCorner.x + (xDiff * ratio),
+                                              y: firstCorner.y + (yDiff * ratio))
+                let overallRatio = Double(i * numberOfPointsPerEdge + j) / Double(numberOfPointsPerEdge * corners.count)
+                let point: P = createPoint(at: currentLocation, timeOffset: Constants.maxTimeOffset * overallRatio)
+                points.append(point)
+            }
+        }
+
+        return points
     }
 
 }
