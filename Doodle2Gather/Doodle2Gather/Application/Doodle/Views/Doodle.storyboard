@@ -929,6 +929,7 @@
                         <outlet property="highlighterButton" destination="AMp-iL-zoR" id="lLt-iQ-edp"/>
                         <outlet property="inviteButton" destination="Ho7-dv-XBP" id="grj-Pw-ad8"/>
                         <outlet property="layerTableView" destination="MWm-9W-hoQ" id="mE6-K8-c5P"/>
+                        <outlet property="leftButtonsView" destination="HdL-Pj-pPB" id="Hqh-FF-Lpz"/>
                         <outlet property="magicPenButton" destination="EE8-GC-4Km" id="atf-KX-JRK"/>
                         <outlet property="numberOfOtherUsersLabel" destination="7ue-v9-pyV" id="uBz-3F-Kmv"/>
                         <outlet property="otherProfileLabelOne" destination="NMb-rO-KfU" id="SZC-jq-EvI"/>

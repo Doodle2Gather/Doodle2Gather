@@ -55,4 +55,7 @@ protocol CanvasController {
     /// Set whether the stroke drawn should be sensitive to pressure.
     func setIsPressureSensitive(_ isPressureSensitive: Bool)
 
+    /// Update the permissions of the user for this canvas.
+    func setCanEdit(_ canEdit: Bool)
+
 }

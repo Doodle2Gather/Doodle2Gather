@@ -24,6 +24,7 @@ class DoodleViewController: UIViewController {
     @IBOutlet private var redoButton: UIButton!
 
     // Left Main Menu
+    @IBOutlet private var leftButtonsView: UIView!
     @IBOutlet private var drawButton: UIButton!
     @IBOutlet private var eraserButton: UIButton!
     @IBOutlet private var textButton: UIButton!
@@ -75,7 +76,20 @@ class DoodleViewController: UIViewController {
     var userAccesses: [DTAdaptedUserAccesses] = []
     var userStates: [UserState] = []
     var userIconColors: [UIColor] = []
-    var canEditCanvas: Bool?
+    var canEditCanvas = true {
+        didSet {
+            if canEditCanvas {
+                leftButtonsView.isHidden = false
+            } else {
+                leftButtonsView.isHidden = true
+                drawingToolsButtonsView.isHidden = true
+                shapesButtonsView.isHidden = true
+                selectButtonsView.isHidden = true
+                colorPickerView.isHidden = true
+            }
+            canvasController?.setCanEdit(canEditCanvas)
+        }
+    }
     private var previousDrawingTool = DrawingTools.pen
     private var previousShapeTool = ShapeTools.circle
     private var previousSelectTool = SelectTools.all

@@ -4,6 +4,16 @@ import PencilKit
 /// Also helps with the set-up of additional advanced gestures.
 class CanvasManager: NSObject {
 
+    var canEdit = true {
+        didSet {
+            if canEdit {
+                setMainTool(currentMainTool)
+            } else {
+                removeAllGestureRecognizers()
+            }
+        }
+    }
+
     var canvas = PKCanvasView() {
         didSet {
             initialiseDefaultProperties()

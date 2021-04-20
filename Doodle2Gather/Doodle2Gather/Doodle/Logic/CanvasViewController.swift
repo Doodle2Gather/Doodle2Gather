@@ -199,6 +199,10 @@ extension CanvasViewController: CanvasController {
         canvasManager.setIsPressureSensitive(isPressureSensitive)
     }
 
+    func setCanEdit(_ canEdit: Bool) {
+        canvasManager.canEdit = canEdit
+    }
+
 }
 
 extension CanvasViewController: CanvasManagerDelegate {
