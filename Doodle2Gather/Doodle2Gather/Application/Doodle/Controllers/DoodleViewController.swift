@@ -76,20 +76,6 @@ class DoodleViewController: UIViewController {
     var userAccesses: [DTAdaptedUserAccesses] = []
     var userStates: [UserState] = []
     var userIconColors: [UIColor] = []
-    var canEditCanvas = true {
-        didSet {
-            if canEditCanvas {
-                leftButtonsView.isHidden = false
-            } else {
-                leftButtonsView.isHidden = true
-                drawingToolsButtonsView.isHidden = true
-                shapesButtonsView.isHidden = true
-                selectButtonsView.isHidden = true
-                colorPickerView.isHidden = true
-            }
-            canvasController?.setCanEdit(canEditCanvas)
-        }
-    }
     private var previousDrawingTool = DrawingTools.pen
     private var previousShapeTool = ShapeTools.circle
     private var previousSelectTool = SelectTools.all
@@ -368,6 +354,19 @@ extension DoodleViewController {
     func unselectAllSelectTools() {
         selectAllButton.isSelected = false
         selectSelfButton.isSelected = false
+    }
+
+    func setCanEdit(_ canEdit: Bool) {
+        if canEdit {
+            leftButtonsView.isHidden = false
+        } else {
+            leftButtonsView.isHidden = true
+            drawingToolsButtonsView.isHidden = true
+            shapesButtonsView.isHidden = true
+            selectButtonsView.isHidden = true
+            colorPickerView.isHidden = true
+        }
+        canvasController?.setCanEdit(canEdit)
     }
 
 }

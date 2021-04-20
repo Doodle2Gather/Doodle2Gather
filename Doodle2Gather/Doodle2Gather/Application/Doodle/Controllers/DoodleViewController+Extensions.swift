@@ -121,10 +121,8 @@ extension DoodleViewController: DTRoomWebSocketControllerDelegate {
         let currentUserAccess = userAccesses.first { x -> Bool in
             x.userId == DTAuth.user?.uid
         }
-        if let access = currentUserAccess {
-            canEditCanvas = access.canEdit
-        } else {
-            canEditCanvas = false
+        DispatchQueue.main.async {
+            self.setCanEdit(currentUserAccess?.canEdit ?? false)
         }
         invitationDelegate?.didUpdateUserAccesses(userAccesses)
     }
