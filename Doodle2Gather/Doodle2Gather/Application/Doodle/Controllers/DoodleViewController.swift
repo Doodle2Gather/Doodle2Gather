@@ -106,7 +106,7 @@ class DoodleViewController: UIViewController {
 
         circleCenter = colorPickerButton.convert(CGPoint(x: colorPickerButton.bounds.midX,
                                                          y: colorPickerButton.bounds.midY),
-                                                 to: view)
+                                                 to: drawingToolsButtonsView)
 
         // Set up color picker selector
         let path = UIBezierPath(arcCenter: circleCenter, radius: CGFloat(UIConstants.defaultPenWidth / 2),
@@ -117,7 +117,7 @@ class DoodleViewController: UIViewController {
         shapeLayer.fillColor = UIColor.black.cgColor
         coloredCircle = shapeLayer
 
-        self.view.layer.addSublayer(shapeLayer)
+        self.drawingToolsButtonsView.layer.addSublayer(shapeLayer)
     }
 
     deinit {
@@ -233,7 +233,6 @@ extension DoodleViewController {
         drawingToolsButtonsView.isHidden = true
         shapesButtonsView.isHidden = true
         selectButtonsView.isHidden = true
-        coloredCircle.isHidden = true
         sender.isSelected = true
         setDrawingTool(previousDrawingTool, shouldDismiss: sender.tag != MainTools.drawing.rawValue)
 
@@ -247,7 +246,6 @@ extension DoodleViewController {
         switch toolSelected {
         case .drawing:
             drawingToolsButtonsView.isHidden = false
-            coloredCircle.isHidden = false
         case .cursor:
             selectButtonsView.isHidden = false
         case .shapes:
