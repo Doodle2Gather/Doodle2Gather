@@ -8,7 +8,8 @@ public struct DTAdaptedUser: Codable {
     public let accessibleRooms: [DTAdaptedRoom]?
     public let updatedAt: Date?
 
-    public init(id: String, displayName: String,
+    public init(id: String,
+                displayName: String,
                 email: String,
                 accessibleRooms: [DTAdaptedRoom]? = nil,
                 updatedAt: Date? = nil) {

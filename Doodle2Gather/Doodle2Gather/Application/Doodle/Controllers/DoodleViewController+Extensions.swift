@@ -30,6 +30,7 @@ extension DoodleViewController {
                 return
             }
             destination.roomId = roomId
+            destination.roomWSController = self.roomWSController
             // TODO: Fetch users from the socket controller and assign to the participants
             // TODO: Fetch all users who have permissions to the room and assign to the usersWithPermissions
         default:

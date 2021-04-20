@@ -14,6 +14,9 @@ extension WSRoomController {
         self.usersLock.withLockVoid {
             self.users[id] = nil
         }
+        self.videoOnLock.withLockVoid {
+            self.isVideoOn[id] = nil
+        }
         self.logger.info("users in room \(Array(self.users.values))")
         syncData()
     }
@@ -166,6 +169,12 @@ extension WSRoomController {
                     $0.send(message: message)
                 }
             }
+        }
+    }
+
+    func handleUpdateVideoState(id: UUID, isVideoOn: Bool) {
+        self.videoOnLock.withLockVoid {
+            self.isVideoOn[id] = isVideoOn
         }
     }
 }

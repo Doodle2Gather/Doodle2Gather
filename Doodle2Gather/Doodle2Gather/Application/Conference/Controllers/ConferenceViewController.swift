@@ -30,6 +30,7 @@ class ConferenceViewController: UIViewController {
     var isChatShown = false
     var roomId: String?
     var videoCallUserList: [VideoCallUser] = []
+    var roomWSController: DTRoomWebSocketController?
     private var currentUser: VideoCallUser?
     private var videoOverlays = [UIView]()
     private var nameplates = [UILabel]()
@@ -61,6 +62,8 @@ class ConferenceViewController: UIViewController {
 
         collectionView.isHidden = true
         topControlViewContainer.isHidden = true
+        
+        roomWSController?.updateVideoState(isVideoOn: false)
     }
 
     @IBAction private func audioButtonDidTap(_ sender: Any) {
@@ -93,7 +96,7 @@ class ConferenceViewController: UIViewController {
         }
         videoButton.isSelected = isVideoOff
         isVideoOff.toggle()
-
+        roomWSController?.updateVideoState(isVideoOn: !isVideoOff)
     }
 
     @IBAction private func bottomMinimizeButtonDidTap(_ sender: UIButton) {

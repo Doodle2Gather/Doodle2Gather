@@ -4,6 +4,7 @@ import DTSharedLibrary
 final class DTRoomWebSocketController: DTSendableWebSocketSubController {
 
     weak var delegate: DTRoomWebSocketControllerDelegate?
+    // weak var conferenceDelegate
 
     var parentController: DTWebSocketController?
     var handledMessageType = DTMessageType.room
@@ -31,6 +32,8 @@ final class DTRoomWebSocketController: DTSendableWebSocketSubController {
                 try self.handleParticipantInfo(data)
             case .updateLiveState:
                 try self.handleUpdateLiveState(data)
+            case .usersConferenceState:
+                try self.handleUpdateUsersConferenceState(data)
             default:
                 break
             }
@@ -99,6 +102,14 @@ final class DTRoomWebSocketController: DTSendableWebSocketSubController {
         delegate?.updateUsers(newUsersInRoom)
     }
 
+    func handleUpdateUsersConferenceState(_ data: Data) throws {
+        let newState = try decoder.decode(DTUsersVideoConferenceStateMessage.self, from: data)
+        let newVideoState = newState.videoConferenceState
+        DTLogger.debug { "New video conference state: " +
+            "\(newVideoState.map { "\($0.displayName): \($0.isVideoOn)" }.joined(separator: ", "))"
+        }
+        // TODO: Wang Luo fill this up!!!
+    }
 }
 
 // MARK: - SocketController
@@ -170,6 +181,16 @@ extension DTRoomWebSocketController: RoomSocketController {
         }
         DTLogger.info("Leaving room. Disconnecting ...")
         let message = DTExitRoomMessage(id: id, roomId: roomId)
+        send(message)
+    }
+
+    func updateVideoState(isVideoOn: Bool) {
+        guard let id = self.id,
+              let roomId = self.roomId else {
+            return
+        }
+        DTLogger.info("Sending video state to backend, isVideoOn: \(isVideoOn)")
+        let message = DTUpdateUserVideoStateMessage(id: id, roomId: roomId, isVideoOn: isVideoOn)
         send(message)
     }
 }
