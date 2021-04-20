@@ -172,6 +172,10 @@ class WSRoomController {
                 self.handleUpdateConferenceState(id: conferenceStateData.id,
                                                  isVideoOn: conferenceStateData.isVideoOn,
                                                  isAudioOn: conferenceStateData.isAudioOn)
+            case .setUserPermission:
+                let requestData = try decoder.decode(
+                    DTSetUserPermissionsMessage.self, from: data)
+                self.handleSetUserPermission(ws, requestData)
             default:
                 break
             }
