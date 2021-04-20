@@ -381,7 +381,9 @@ extension DoodleViewController: CanvasControllerDelegate {
     }
 
     func refetchDoodles() {
-        loadingSpinner = self.createSpinnerView(message: "Refetching Doodles...")
+        if loadingSpinner == nil {
+            loadingSpinner = self.createSpinnerView(message: "Refetching Doodles...")
+        }
         roomWSController.refetchDoodles()
     }
 
