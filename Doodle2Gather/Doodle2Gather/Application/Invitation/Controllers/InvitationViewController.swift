@@ -8,6 +8,7 @@ class InvitationViewController: UIViewController {
 
     var room: DTAdaptedRoom?
     var userAccesses: [DTAdaptedUserAccesses] = []
+    var roomWSController: DTRoomWebSocketController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,12 +62,19 @@ extension InvitationViewController: UITableViewDataSource {
                 let setViewerAction = UIAlertAction(title: "Viewer",
                                                     style: .default,
                                                     handler: { _ in
-                    print("Change to viewer")
+                    self.roomWSController?.setUserPermissions(userToSetId: userAccess.userId,
+                                                              setCanEdit: false,
+                                                              setCanVideoConference: true,
+                                                              setCanChat: true)
+
                 })
                 let setEditorAction = UIAlertAction(title: "Editor",
                                                     style: .default,
                                                     handler: { _ in
-                    print("Change to editor")
+                    self.roomWSController?.setUserPermissions(userToSetId: userAccess.userId,
+                                                              setCanEdit: true,
+                                                              setCanVideoConference: true,
+                                                              setCanChat: true)
                 })
                 DispatchQueue.main.async {
                     self.actionSheet(message: nil,
