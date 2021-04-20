@@ -30,3 +30,17 @@ extension DTAdaptedUser.CreateRequest {
 // MARK: - Content
 
 extension DTAdaptedUser: Content {}
+
+// MARK: PersistedDTUser -> DTAdaptedUser
+
+extension PersistedDTUser {
+    func toDTAdaptedUser(withRooms: Bool = true) -> DTAdaptedUser {
+        if withRooms {
+            return DTAdaptedUser(user: self)
+        }
+        guard let id = id else {
+            fatalError("Unable to fetch uid from DB")
+        }
+        return DTAdaptedUser(id: id, displayName: displayName, email: email)
+    }
+}

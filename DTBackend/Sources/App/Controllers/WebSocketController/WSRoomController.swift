@@ -6,7 +6,14 @@ class WSRoomController {
     let lock = Lock()
     let usersLock = Lock()
     var sockets = [UUID: WebSocket]()
-    var users = [UUID: PersistedDTUser]()
+    var users = [UUID: PersistedDTUser]() {
+        didSet {
+            DispatchQueue.global().async {
+                self.broadcastLiveState()
+            }
+        }
+    }
+
     let db: Database
     let logger = Logger(label: "WSRoomController")
 
@@ -17,6 +24,17 @@ class WSRoomController {
         self.db = db
         self.roomId = roomId
         self.roomController = ActiveRoomController(roomId: roomId, db: db)
+    }
+
+    func broadcastLiveState() {
+        var usersInRoom = [DTAdaptedUser]()
+        self.usersLock.withLockVoid {
+            usersInRoom = users.values.map { $0.toDTAdaptedUser(withRooms: false) }
+        }
+        let message = DTRoomLiveStateMessage(roomId: self.roomId, usersInRoom: usersInRoom)
+        self.getWebSockets(self.getAllWebSocketOptions).forEach {
+            $0.send(message: message)
+        }
     }
 
     func onJoinRoom(_ ws: WebSocket, _ data: Data) {
@@ -33,11 +51,11 @@ class WSRoomController {
                     case .success(let innerResult):
                         let (user, userAccesses) = innerResult
 
-                        // Register user into room
-                        self.registerUser(user: user, wsId: wsId)
-
                         // Register socket to room
                         self.registerSocket(socket: ws, wsId: wsId)
+
+                        // Register user into room
+                        self.registerUser(user: user, wsId: wsId)
 
                         // fetch all existing doodles
                         self.handleDoodleFetching(ws, wsId)
