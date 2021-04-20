@@ -76,27 +76,12 @@ extension GalleryViewController: UICollectionViewDelegate {
             return
         }
         vc.appWSController = self.appWSController
-
-        guard let roomId = rooms[index].roomId else {
-            DTLogger.error("Room does not exist yet")
-            return
-        }
-        DTApi.getRoomsDoodles(roomId: roomId) { result in
-            switch result {
-            case .failure(let error):
-                DTLogger.error(error.localizedDescription)
-            case .success(.some(let doodles)):
-              DispatchQueue.main.async {
-                vc.doodles = doodles.map { DTDoodleWrapper(doodle: $0) }
-                vc.room = self.rooms[index]
-                vc.username = DTAuth.user?.displayName ?? "Unknown"
-                vc.modalPresentationStyle = .fullScreen
-                vc.modalTransitionStyle = .flipHorizontal
-                self.present(vc, animated: true, completion: nil)
-              }
-            case .success(.none):
-                break
-            }
+        vc.room = self.rooms[index]
+        vc.username = DTAuth.user?.displayName ?? "Unknown"
+        vc.modalPresentationStyle = .fullScreen
+        vc.modalTransitionStyle = .flipHorizontal
+        DispatchQueue.main.async {
+            self.present(vc, animated: true, completion: nil)
         }
     }
 }
