@@ -27,7 +27,17 @@ extension DTSendableWebSocketSubController {
 }
 
 final class DTWebSocketController {
-    var id: UUID?
+    var id: UUID? {
+        didSet {
+            self.wsSubcontrollers.values.forEach {
+                if let sendController = $0 as? DTSendableWebSocketSubController {
+                    var controller = sendController
+                    controller.id = self.id
+                }
+            }
+        }
+    }
+
     let encoder = JSONEncoder()
     let decoder = JSONDecoder()
     private var wsSubcontrollers = [DTMessageType: DTWebSocketSubController]()
