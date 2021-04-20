@@ -165,8 +165,11 @@ extension HomeViewController: DTAuthDelegate {
     func displayError(_ error: Error) {
         DispatchQueue.main.async {
             DTLogger.error(error.localizedDescription)
-            self.actionMessageLabel.textColor = .systemRed
-            self.actionMessageLabel.text = error.localizedDescription
+            self.alert(title: AlertConstants.notice,
+                       message: AlertConstants.serverError,
+                       buttonStyle: .default,
+                       handler: { _ in }
+            )
         }
     }
 
@@ -196,10 +199,19 @@ User Logged in
             self.credentialsProvider.savedPassword = self.passwordTextField.text
         }
 
-        authWSController.sendLoginMessage(userId: uid, displayName: displayName, email: email) {
+        authWSController.sendLoginMessage(userId: uid, displayName: displayName, email: email, successCallback: {
             DTLogger.info { "Login to backend is successful" }
             DispatchQueue.main.async {
                 self.performSegue(withIdentifier: SegueConstants.toGallery, sender: self)
+            }
+        }) { errorMessage in
+            DispatchQueue.main.async {
+                DTLogger.error(errorMessage)
+                self.alert(title: AlertConstants.notice,
+                           message: AlertConstants.serverError,
+                           buttonStyle: .default,
+                           handler: { _ in }
+                )
             }
         }
 

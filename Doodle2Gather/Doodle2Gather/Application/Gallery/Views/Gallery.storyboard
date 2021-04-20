@@ -20,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="l49-Pr-3Xp">
-                                <rect key="frame" x="20" y="120" width="794" height="1034"/>
+                                <rect key="frame" x="20" y="120" width="794" height="1054"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="mfB-gE-gEU">
                                     <size key="itemSize" width="128" height="128"/>
@@ -157,7 +157,7 @@
                             <constraint firstItem="Wk6-oU-8Ea" firstAttribute="trailing" secondItem="URB-fD-Vcz" secondAttribute="trailing" constant="20" id="YbU-rI-ay4"/>
                             <constraint firstItem="URB-fD-Vcz" firstAttribute="leading" secondItem="Wk6-oU-8Ea" secondAttribute="leading" constant="20" id="aLX-JM-eas"/>
                             <constraint firstItem="l49-Pr-3Xp" firstAttribute="top" secondItem="URB-fD-Vcz" secondAttribute="bottom" constant="20" id="n1a-CH-87r"/>
-                            <constraint firstItem="Wk6-oU-8Ea" firstAttribute="bottom" secondItem="l49-Pr-3Xp" secondAttribute="bottom" constant="20" id="sG5-5Q-o1x"/>
+                            <constraint firstAttribute="bottom" secondItem="l49-Pr-3Xp" secondAttribute="bottom" constant="20" id="sG5-5Q-o1x"/>
                         </constraints>
                     </view>
                     <connections>
@@ -174,7 +174,7 @@
             <objects>
                 <viewController id="BGz-zg-7E6" customClass="NewDocumentViewController" customModule="Doodle2Gather" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5xZ-LV-uBI">
-                        <rect key="frame" x="0.0" y="0.0" width="540" height="456"/>
+                        <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C1W-4k-uKA" userLabel="Create Button">

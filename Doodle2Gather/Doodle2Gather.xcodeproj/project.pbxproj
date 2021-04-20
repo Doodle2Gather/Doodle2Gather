@@ -110,6 +110,7 @@
 		848F3581261451D400AD46C6 /* ParticipantViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848F3580261451D400AD46C6 /* ParticipantViewCell.swift */; };
 		84A451D52614709400DFCA75 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A451D42614709400DFCA75 /* GalleryViewController.swift */; };
 		84A451EA2614804B00DFCA75 /* Gallery.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84A451E92614804B00DFCA75 /* Gallery.storyboard */; };
+		84D6057F262EBE7500A120ED /* UIViewController+Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6057E262EBE7500A120ED /* UIViewController+Loading.swift */; };
 		84D802F32616CB480096692E /* SegueConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D802F22616CB480096692E /* SegueConstants.swift */; };
 		84D803B326174EDC0096692E /* DocumentPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D803B226174EDC0096692E /* DocumentPreviewCell.swift */; };
 		84D803C026186E7C0096692E /* NewDocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D803BF26186E7C0096692E /* NewDocumentViewController.swift */; };
@@ -268,6 +269,7 @@
 		848F3580261451D400AD46C6 /* ParticipantViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantViewCell.swift; sourceTree = "<group>"; };
 		84A451D42614709400DFCA75 /* GalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
 		84A451E92614804B00DFCA75 /* Gallery.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Gallery.storyboard; sourceTree = "<group>"; };
+		84D6057E262EBE7500A120ED /* UIViewController+Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Loading.swift"; sourceTree = "<group>"; };
 		84D802F22616CB480096692E /* SegueConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueConstants.swift; sourceTree = "<group>"; };
 		84D803B226174EDC0096692E /* DocumentPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPreviewCell.swift; sourceTree = "<group>"; };
 		84D803BF26186E7C0096692E /* NewDocumentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewDocumentViewController.swift; sourceTree = "<group>"; };
@@ -438,6 +440,7 @@
 				2EC419552625ED5700BE0518 /* UIAlertController+Style.swift */,
 				2EC419592625ED9E00BE0518 /* UIViewController+Alert.swift */,
 				2EC4197526263AD100BE0518 /* Double+Round.swift */,
+				84D6057E262EBE7500A120ED /* UIViewController+Loading.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1276,6 +1279,7 @@
 				2EB12AB2261BEDDC00131FE6 /* DoodleLayerTableViewController.swift in Sources */,
 				84E847CA260B21AA00E39C1F /* AgoraTokenAPIResponse.swift in Sources */,
 				2E8AC74A2613F4C90033869E /* DTCanvasViewController.swift in Sources */,
+				84D6057F262EBE7500A120ED /* UIViewController+Loading.swift in Sources */,
 				2E987E6E2607468000352E7D /* PKStrokePoint+DTPoint.swift in Sources */,
 				83F5890A2619B44100BB9F07 /* DTUserCredentialsProvider.swift in Sources */,
 				2EB12ABE261BFBB600131FE6 /* DoodleLayerTableDelegate.swift in Sources */,

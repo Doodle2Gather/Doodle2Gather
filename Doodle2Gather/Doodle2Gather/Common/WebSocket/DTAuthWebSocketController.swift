@@ -15,19 +15,36 @@ final class DTAuthWebSocketController: DTSendableWebSocketSubController {
         //        }
     }
 
-    func sendRegisterMessage(userId: String, displayName: String, email: String, callback: @escaping () -> Void) {
+    func sendRegisterMessage(userId: String,
+                             displayName: String,
+                             email: String,
+                             successCallback: @escaping () -> Void,
+                             failureCallback: ((String) -> Void)?) {
         guard let id = id else {
-            fatalError("Cannot get socket UUID")
+            if let callback = failureCallback {
+                callback("Could not get UUID of socket.")
+            }
+            return
         }
-        let message = DTRegisterMessage(id: id, uid: userId, displayName: displayName, email: email)
-        send(message, callback: callback)
+        let message = DTRegisterMessage(id: id,
+                                        uid: userId,
+                                        displayName: displayName,
+                                        email: email)
+        send(message, callback: successCallback)
     }
 
-    func sendLoginMessage(userId: String, displayName: String, email: String, callback: @escaping () -> Void) {
+    func sendLoginMessage(userId: String,
+                          displayName: String,
+                          email: String,
+                          successCallback: @escaping () -> Void,
+                          failureCallback: ((String) -> Void)?) {
         guard let id = id else {
-            fatalError("Cannot get socket UUID")
+            if let callback = failureCallback {
+                callback("Could not get UUID of socket.")
+            }
+            return
         }
         let message = DTLoginMessage(id: id, uid: userId, displayName: displayName, email: email)
-        send(message, callback: callback)
+        send(message, callback: successCallback)
     }
 }
