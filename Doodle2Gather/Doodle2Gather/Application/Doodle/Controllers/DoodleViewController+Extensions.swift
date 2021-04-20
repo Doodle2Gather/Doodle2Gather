@@ -93,8 +93,11 @@ extension DoodleViewController: DTRoomWebSocketControllerDelegate {
     }
 
     func loadDoodles(_ doodles: [DTDoodleWrapper]) {
-        canvasController?.loadDoodles(doodles)
-        layerTable?.loadDoodles(doodles)
+        let sortedDoodles = doodles.sorted { a, b in
+            a.createdAt < b.createdAt
+        }
+        canvasController?.loadDoodles(sortedDoodles)
+        layerTable?.loadDoodles(sortedDoodles)
     }
 
     func addNewDoodle(_ doodle: DTDoodleWrapper) {
