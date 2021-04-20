@@ -46,7 +46,8 @@ class DoodleViewController: UIViewController {
 
     // Subview Controllers
     var canvasController: CanvasController?
-    var socketController: SocketController?
+    var appWSController: DTWebSocketController?
+    var roomWSController = DTRoomWebSocketController()
     var strokeEditor: StrokeEditor?
     var layerTable: DoodleLayerTable?
 
@@ -63,15 +64,17 @@ class DoodleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // TODO: Replace this with dependency injection from AppDelegate / HomeController
-        let socketController = DTRoomWebSocketController()
-        socketController.roomId = room?.roomId!
-        socketController.delegate = self
-        self.socketController = socketController
-
-        if let roomName = room?.name {
-            fileNameLabel.text = roomName
+        guard let room = room,
+              let roomId = room.roomId else {
+            fatalError("Doodle VC has no injected room")
         }
+        self.appWSController?.registerSubcontroller(self.roomWSController)
+        self.roomWSController.roomId = roomId
+        self.roomWSController.delegate = self
+
+        self.roomWSController.joinRoom(roomId: roomId)
+
+        fileNameLabel.text = room.name
 
         registerGestures()
         loadBorderColors()
@@ -104,7 +107,8 @@ class DoodleViewController: UIViewController {
     }
 
     deinit {
-        socketController?.exitRoom()
+        roomWSController.exitRoom()
+        self.appWSController?.removeSubcontroller(self.roomWSController)
     }
 
     private func registerGestures() {
@@ -297,7 +301,7 @@ extension DoodleViewController {
     }
 
     @IBAction private func addLayerButtonDidTap(_ sender: UIButton) {
-        socketController?.addDoodle()
+        roomWSController.addDoodle()
     }
 
     @IBAction private func exportButtonDidTap(_ sender: UIButton) {
@@ -361,7 +365,7 @@ extension DoodleViewController: CanvasControllerDelegate {
             return
         }
         let action = DTAdaptedAction(partialAction: action, roomId: roomId)
-        socketController?.addAction(action)
+        roomWSController.addAction(action)
 
         undoButton.isEnabled = canvasController?.canUndo ?? false
         redoButton.isEnabled = canvasController?.canRedo ?? false
@@ -374,7 +378,7 @@ extension DoodleViewController: CanvasControllerDelegate {
     }
 
     func refetchDoodles() {
-        socketController?.refetchDoodles()
+        roomWSController.refetchDoodles()
     }
 
 }

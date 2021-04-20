@@ -75,6 +75,7 @@ extension GalleryViewController: UICollectionViewDelegate {
                 as? DoodleViewController else {
             return
         }
+        vc.appWSController = self.appWSController
 
         guard let roomId = rooms[index].roomId else {
             DTLogger.error("Room does not exist yet")

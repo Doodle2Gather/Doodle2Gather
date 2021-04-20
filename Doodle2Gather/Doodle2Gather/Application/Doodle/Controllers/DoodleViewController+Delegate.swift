@@ -5,7 +5,7 @@ import DTSharedLibrary
 
 // MARK: - SocketControllerDelegate
 
-extension DoodleViewController: SocketControllerDelegate {
+extension DoodleViewController: DTRoomWebSocketControllerDelegate {
 
     func dispatchAction(_ action: DTAdaptedAction) {
         canvasController?.dispatchAction(action)

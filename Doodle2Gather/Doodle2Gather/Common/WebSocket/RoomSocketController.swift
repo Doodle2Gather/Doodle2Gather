@@ -2,7 +2,7 @@ import Foundation
 import DTSharedLibrary
 
 /// Represents a controller that managers a web socket.
-protocol SocketController {
+protocol RoomSocketController {
 
     /// Tells the socket to fire off an action.
     func addAction(_ action: DTAdaptedAction)
