@@ -34,8 +34,8 @@ class DoodleLayerTableViewCell: UITableViewCell {
         layerNameLabel.text = name
     }
 
-    func setImageView(_ imageView: UIImageView) {
-        previewImage.image = imageView.image
+    func setImage(_ image: UIImage) {
+        previewImage.image = image
     }
 
     @IBAction private func editButtonDidTap(_ sender: UIButton) {
