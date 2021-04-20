@@ -10,6 +10,7 @@ class GalleryViewController: UIViewController {
     private var doodles = [DTAdaptedDoodle]()
     private var selectedCellIndex: Int?
     private var isInEditMode = false
+    private let sectionInsets = UIEdgeInsets(top: 20.0, left: 20.0, bottom: 20.0, right: 20.0)
 
     var appWSController: DTWebSocketController?
     let homeWSController = DTHomeWebSocketController()
@@ -103,9 +104,7 @@ extension GalleryViewController: UICollectionViewDataSource {
             guard let topLayer = rooms[indexPath.row].doodles.first else {
                 return cell
             }
-            guard let previewImage = DoodlePreview(doodle: topLayer).image else {
-                return cell
-            }
+            let previewImage = DoodlePreview(doodle: topLayer)?.image ?? #imageLiteral(resourceName: "GalleryPlaceholder")
             DispatchQueue.main.async {
                 cell.setImage(previewImage)
             }
@@ -117,6 +116,7 @@ extension GalleryViewController: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegateFlowLayout
 
 extension GalleryViewController: UICollectionViewDelegateFlowLayout {
+
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -139,6 +139,12 @@ extension GalleryViewController: UICollectionViewDelegateFlowLayout {
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         20
     }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+        sectionInsets
+    }
+
 }
 
 extension GalleryViewController: DTHomeWebSocketControllerDelegate {
