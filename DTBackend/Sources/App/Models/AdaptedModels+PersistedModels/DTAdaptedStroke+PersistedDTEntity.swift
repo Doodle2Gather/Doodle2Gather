@@ -1,6 +1,7 @@
 import Vapor
 import DTSharedLibrary
 
+/// Supports the conversion between `DTAdaptedStroke` and `PersistedDTEntity`
 extension DTAdaptedStroke {
     init(stroke: PersistedDTEntity) {
         self.init(

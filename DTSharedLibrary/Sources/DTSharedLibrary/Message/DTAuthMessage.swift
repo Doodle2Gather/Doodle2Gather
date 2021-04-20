@@ -1,5 +1,7 @@
 import Foundation
 
+/// Represents the messages sent between client and server
+/// in order to register a user account or to log in to his/her account
 public struct DTAuthMessage: Codable {
     public let id: UUID
     public let subtype: DTAuthMessageType

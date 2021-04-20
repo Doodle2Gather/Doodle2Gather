@@ -6,6 +6,7 @@ protocol WSHomeControllerDelegate: AnyObject {
     func didJoinRoomViaInvite(roomId: UUID)
 }
 
+/// Handles all `DTHomeMessage` sent between the clients and the server
 class WSHomeController {
     let db: Database
     let logger = Logger(label: "WSHomeController")

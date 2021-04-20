@@ -2,7 +2,7 @@ import Fluent
 import Vapor
 import DTSharedLibrary
 
-/// contains queries that return adapted model
+/// contains queries on `PersistedDTDoodle` that return adapted model
 extension PersistedDTDoodle {
 
     static func createDoodle(_ request: DTAdaptedDoodle.CreateRequest,
@@ -19,7 +19,7 @@ extension PersistedDTDoodle {
     }
 }
 
-/// contains queries that return persisted model
+/// contains queries on `PersistedDTDoodle` that return persisted model
 extension PersistedDTDoodle {
 
     static func getSingleById(_ id: PersistedDTDoodle.IDValue?, on db: Database) -> EventLoopFuture<PersistedDTDoodle> {

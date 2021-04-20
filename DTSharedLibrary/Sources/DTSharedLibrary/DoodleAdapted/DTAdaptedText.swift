@@ -1,5 +1,7 @@
 import Foundation
 
+/// Represents a text box that can be added to a doodle
+/// An adapted model for `DTText`
 public struct DTAdaptedText: DTAdaptedEntityProtocol {
 
     public var type: DTEntityType = .text

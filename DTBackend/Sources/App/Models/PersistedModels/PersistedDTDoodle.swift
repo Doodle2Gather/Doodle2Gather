@@ -1,6 +1,7 @@
 import Fluent
 import Vapor
 
+/// persisted model and schema which represents `DTAdaptedDoodle` and `DTDoodle`
 final class PersistedDTDoodle: Model, Content {
     static let schema = "doodles"
 

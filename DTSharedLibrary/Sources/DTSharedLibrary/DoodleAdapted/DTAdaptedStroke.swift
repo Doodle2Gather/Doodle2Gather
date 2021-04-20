@@ -1,5 +1,7 @@
 import Foundation
 
+/// Represents a single stroke that can be added to a doodle
+/// An adapted model for `DTStroke`
 public struct DTAdaptedStroke: DTAdaptedEntityProtocol {
 
     public var type: DTEntityType = .stroke

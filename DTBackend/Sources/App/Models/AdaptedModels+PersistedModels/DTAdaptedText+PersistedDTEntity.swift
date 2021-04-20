@@ -1,6 +1,7 @@
 import Vapor
 import DTSharedLibrary
 
+/// Supports the conversion between `DTAdaptedText` and `PersistedDTEntity`
 extension DTAdaptedText {
     init(text: PersistedDTEntity) {
         self.init(

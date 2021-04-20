@@ -2,6 +2,7 @@ import Fluent
 import Vapor
 import DTSharedLibrary
 
+/// Contains queries on`PersistedDTEntity`
 extension PersistedDTEntity {
 
     // swiftlint:disable first_where

@@ -1,6 +1,7 @@
 import Vapor
 import DTSharedLibrary
 
+/// Supports the conversion between `DTEntityIndexPair` and `PersistedDTEntityIndexPair`
 extension DTEntityIndexPair {
     init(_ persisted: PersistedDTEntityIndexPair) {
         self.init(
