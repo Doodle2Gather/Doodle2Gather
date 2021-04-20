@@ -32,6 +32,14 @@ final class PersistedDTDoodle: Model, Content {
         self.entities
     }
 
+    func getStrokes() -> [PersistedDTEntity] {
+        self.entities.filter { $0.type == .stroke }
+    }
+
+    func getText() -> [PersistedDTEntity] {
+        self.entities.filter { $0.type == .text }
+    }
+
     func getActions() -> [PersistedDTAction] {
         self.actions
     }
