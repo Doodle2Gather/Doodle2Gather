@@ -209,4 +209,16 @@ extension DTRoomWebSocketController: RoomSocketController {
                                                   setCanChat: setCanChat)
         send(message)
     }
+    
+    func setRoomTimer(minutes: Int, seconds: Int) {
+        guard let id = id,
+              let roomId = roomId else {
+            fatalError("Cannot get userId")
+        }
+        let message = DTSetRoomTimerMessage(id: id,
+                                            roomId: roomId,
+                                            minutes: minutes,
+                                            seconds: seconds)
+        send(message)
+    }
 }

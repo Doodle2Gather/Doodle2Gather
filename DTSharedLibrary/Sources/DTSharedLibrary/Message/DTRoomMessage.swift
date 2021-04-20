@@ -273,3 +273,19 @@ public struct DTSetUserPermissionsMessage: Codable {
         self.setCanChat = setCanChat
     }
 }
+
+public struct DTSetRoomTimerMessage: Codable {
+    public var type = DTMessageType.room
+    public var subtype = DTRoomMessageType.setRoomTimer
+    public var id: UUID
+    public var roomId: UUID
+    public var minutes: Int
+    public var seconds: Int
+
+    public init(id: UUID, roomId: UUID, minutes: Int, seconds: Int) {
+        self.id = id
+        self.roomId = roomId
+        self.minutes = minutes
+        self.seconds = seconds
+    }
+}
