@@ -58,6 +58,8 @@ class ConferenceViewController: UIViewController {
 
         videoEngine?.muteAudio()
         videoEngine?.hideVideo()
+        videoButton.isHidden = true
+        audioButton.isHidden = true
 
         collectionView.isHidden = true
         topControlViewContainer.isHidden = true
@@ -177,6 +179,8 @@ class ConferenceViewController: UIViewController {
             videoCallUserList.removeAll()
             collectionView.reloadData()
             isInCall.toggle()
+            videoButton.isHidden = true
+            audioButton.isHidden = true
         } else {
             if currentUser == nil {
                 let overlay = UIView(frame: CGRect(x: 0, y: 0,
@@ -184,7 +188,7 @@ class ConferenceViewController: UIViewController {
                                                    height: 112.5))
                 overlay.backgroundColor = UIConstants.black
 
-                let nameplate = UILabel(frame: CGRect(x: 0,
+                let nameplate = UILabel(frame: CGRect(x: 20,
                                                       y: 112.5 / 2 + 19.5,
                                                       width: 160,
                                                       height: 40))
@@ -202,6 +206,8 @@ class ConferenceViewController: UIViewController {
             collectionView.isHidden = false
             collectionView.reloadData()
             topControlViewContainer.isHidden = false
+            videoButton.isHidden = false
+            audioButton.isHidden = false
             isInCall.toggle()
         }
 
@@ -218,9 +224,9 @@ extension ConferenceViewController: VideoEngineDelegate {
                                            height: 112.5))
         overlay.backgroundColor = UIConstants.black
 
-        let nameplate = UILabel(frame: CGRect(x: 0,
+        let nameplate = UILabel(frame: CGRect(x: 20,
                                               y: 112.5 / 2 + 19.5,
-                                              width: 180,
+                                              width: 160,
                                               height: 40))
         nameplate.textAlignment = .center
         nameplate.text = username
@@ -231,17 +237,13 @@ extension ConferenceViewController: VideoEngineDelegate {
                                        overlay: overlay,
                                        nameplate: nameplate)
         videoCallUserList.append(userObject)
-        DispatchQueue.main.async {
-            self.collectionView.reloadData()
-        }
+        self.collectionView.reloadData()
     }
 
     func didLeaveCall(id: UInt, username: String) {
         if let index = videoCallUserList.firstIndex(where: { $0.uid == id }) {
             videoCallUserList.remove(at: index)
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
+            self.collectionView.reloadData()
         }
     }
 
@@ -307,7 +309,7 @@ extension ConferenceViewController: UICollectionViewDataSource {
         }
         if indexPath.row == 0 { // Put our local video first
             videoEngine?.setupLocalUserView(view: videoCell.getVideoView())
-            videoCell.setName(DTAuth.user?.displayName ?? "Unknown")
+            videoCell.setName(DTAuth.user?.displayName ?? "Me")
         } else {
             let remoteID = videoCallUserList[indexPath.row - 1].uid
             let userId = videoCallUserList[indexPath.row - 1].userId
