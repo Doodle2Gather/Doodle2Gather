@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		10011EDDD1885F1534712443 /* Pods_Doodle2Gather_Doodle2GatherUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B33FD6204D18E2374A79D9 /* Pods_Doodle2Gather_Doodle2GatherUITests.framework */; };
+		2E00ED7E262F7BEA007F9B15 /* LeftPanelsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E00ED7D262F7BEA007F9B15 /* LeftPanelsViewController.swift */; };
+		2E00ED82262F7EB3007F9B15 /* LeftPanelsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E00ED81262F7EB3007F9B15 /* LeftPanelsControllerDelegate.swift */; };
+		2E00ED86262F7EBD007F9B15 /* LeftPanelsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E00ED85262F7EBD007F9B15 /* LeftPanelsController.swift */; };
 		2E01245F26195B8400A38B77 /* BorderedShadowedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E01245E26195B8400A38B77 /* BorderedShadowedView.swift */; };
 		2E07C4242619B3EA003A87C9 /* UIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E07C4232619B3EA003A87C9 /* UIConstants.swift */; };
 		2E0C9DC4262D6F18006F55ED /* ActionManager+UndoRedo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0C9DC3262D6F18006F55ED /* ActionManager+UndoRedo.swift */; };
@@ -97,7 +100,7 @@
 		83F5890E2619B47C00BB9F07 /* UserDefaultsCredentialsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F5890D2619B47C00BB9F07 /* UserDefaultsCredentialsProvider.swift */; };
 		840D6B2B260236CF001F3D43 /* ConferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D6B2A260236CF001F3D43 /* ConferenceViewController.swift */; };
 		840D6B3326023F90001F3D43 /* VideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840D6B3226023F90001F3D43 /* VideoCollectionViewCell.swift */; };
-		8415BC7D262B4E3F00E6CF1B /* DoodleViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415BC7C262B4E3F00E6CF1B /* DoodleViewController+Extensions.swift */; };
+		8415BC7D262B4E3F00E6CF1B /* DoodleViewController+Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415BC7C262B4E3F00E6CF1B /* DoodleViewController+Delegates.swift */; };
 		8415BC91262BDF0A00E6CF1B /* AlertConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415BC90262BDF0A00E6CF1B /* AlertConstants.swift */; };
 		8415BC99262BFB1000E6CF1B /* UserViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415BC98262BFB1000E6CF1B /* UserViewCell.swift */; };
 		8415BCA0262C05A000E6CF1B /* ActionSheetAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415BC9F262C05A000E6CF1B /* ActionSheetAlertController.swift */; };
@@ -171,6 +174,9 @@
 		15B33FD6204D18E2374A79D9 /* Pods_Doodle2Gather_Doodle2GatherUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Doodle2Gather_Doodle2GatherUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1890AB750E84E15DDAD20FBF /* Pods-Doodle2GatherTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Doodle2GatherTests.debug.xcconfig"; path = "Target Support Files/Pods-Doodle2GatherTests/Pods-Doodle2GatherTests.debug.xcconfig"; sourceTree = "<group>"; };
 		23319EF80EB848F237EA105B /* Pods_Doodle2GatherTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Doodle2GatherTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2E00ED7D262F7BEA007F9B15 /* LeftPanelsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftPanelsViewController.swift; sourceTree = "<group>"; };
+		2E00ED81262F7EB3007F9B15 /* LeftPanelsControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftPanelsControllerDelegate.swift; sourceTree = "<group>"; };
+		2E00ED85262F7EBD007F9B15 /* LeftPanelsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftPanelsController.swift; sourceTree = "<group>"; };
 		2E01245E26195B8400A38B77 /* BorderedShadowedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderedShadowedView.swift; sourceTree = "<group>"; };
 		2E07C4232619B3EA003A87C9 /* UIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIConstants.swift; sourceTree = "<group>"; };
 		2E0C9DC3262D6F18006F55ED /* ActionManager+UndoRedo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActionManager+UndoRedo.swift"; sourceTree = "<group>"; };
@@ -264,7 +270,7 @@
 		83F5890D2619B47C00BB9F07 /* UserDefaultsCredentialsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsCredentialsProvider.swift; sourceTree = "<group>"; };
 		840D6B2A260236CF001F3D43 /* ConferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConferenceViewController.swift; sourceTree = "<group>"; };
 		840D6B3226023F90001F3D43 /* VideoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewCell.swift; sourceTree = "<group>"; };
-		8415BC7C262B4E3F00E6CF1B /* DoodleViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DoodleViewController+Extensions.swift"; sourceTree = "<group>"; };
+		8415BC7C262B4E3F00E6CF1B /* DoodleViewController+Delegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DoodleViewController+Delegates.swift"; sourceTree = "<group>"; };
 		8415BC90262BDF0A00E6CF1B /* AlertConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertConstants.swift; sourceTree = "<group>"; };
 		8415BC98262BFB1000E6CF1B /* UserViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewCell.swift; sourceTree = "<group>"; };
 		8415BC9F262C05A000E6CF1B /* ActionSheetAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetAlertController.swift; sourceTree = "<group>"; };
@@ -384,6 +390,8 @@
 				2EB12AB9261BF41900131FE6 /* DoodleLayerCellDelegate.swift */,
 				2EB12ABD261BFBB600131FE6 /* DoodleLayerTableDelegate.swift */,
 				2EB12AC1261BFCD100131FE6 /* DoodleLayerTable.swift */,
+				2E00ED81262F7EB3007F9B15 /* LeftPanelsControllerDelegate.swift */,
+				2E00ED85262F7EBD007F9B15 /* LeftPanelsController.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -575,8 +583,9 @@
 			isa = PBXGroup;
 			children = (
 				2ED7A3CB2601C0450006D873 /* DoodleViewController.swift */,
-				8415BC7C262B4E3F00E6CF1B /* DoodleViewController+Extensions.swift */,
+				8415BC7C262B4E3F00E6CF1B /* DoodleViewController+Delegates.swift */,
 				2EB12AB1261BEDDC00131FE6 /* DoodleLayerTableViewController.swift */,
+				2E00ED7D262F7BEA007F9B15 /* LeftPanelsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1301,6 +1310,7 @@
 				8415BC91262BDF0A00E6CF1B /* AlertConstants.swift in Sources */,
 				2EA8C335260677C800BE750C /* PKDrawing+DTDoodle.swift in Sources */,
 				848F35472614174000AD46C6 /* Message.swift in Sources */,
+				2E00ED86262F7EBD007F9B15 /* LeftPanelsController.swift in Sources */,
 				84D803B326174EDC0096692E /* DocumentPreviewCell.swift in Sources */,
 				84E847A0260AD4C800E39C1F /* AgoraChatEngine.swift in Sources */,
 				84D60595262EF10A00A120ED /* UserState.swift in Sources */,
@@ -1363,6 +1373,7 @@
 				84E95966260D805C00D587CC /* ChatBoxDelegate.swift in Sources */,
 				83F588E72619240200BB9F07 /* DTAuthDelegate.swift in Sources */,
 				2E4A8FA0262F048C00E398F0 /* UIColor+Lightness.swift in Sources */,
+				2E00ED82262F7EB3007F9B15 /* LeftPanelsControllerDelegate.swift in Sources */,
 				2EB12AC2261BFCD100131FE6 /* DoodleLayerTable.swift in Sources */,
 				83D2EC3E2609283A004F875D /* ApiEndpoints.swift in Sources */,
 				2EB12903261B8BED00131FE6 /* BestFitShapeDetector.swift in Sources */,
@@ -1375,7 +1386,7 @@
 				84D6059A262EF1D400A120ED /* VideoCallUser.swift in Sources */,
 				2EB129AF261BB32F00131FE6 /* Queue.swift in Sources */,
 				2E6830E3262C25B300A16F5D /* CanvasManagerDelegate.swift in Sources */,
-				8415BC7D262B4E3F00E6CF1B /* DoodleViewController+Extensions.swift in Sources */,
+				8415BC7D262B4E3F00E6CF1B /* DoodleViewController+Delegates.swift in Sources */,
 				84E95961260D758B00D587CC /* ChatEngineDelegate.swift in Sources */,
 				83BDB547262E3D0A00D91DB8 /* DTHomeWebSocketController.swift in Sources */,
 				83AB9C5226171088008E48D0 /* DTAuth.swift in Sources */,
@@ -1391,6 +1402,7 @@
 				84E9594F260D754100D587CC /* VideoEngine.swift in Sources */,
 				2EFF38DC261AAEF400488289 /* StrokeEditorViewController.swift in Sources */,
 				2EB128F9261B6B3F00131FE6 /* StrokeAugmentor.swift in Sources */,
+				2E00ED7E262F7BEA007F9B15 /* LeftPanelsViewController.swift in Sources */,
 				2EB12A43261BE3F400131FE6 /* DTPoint.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

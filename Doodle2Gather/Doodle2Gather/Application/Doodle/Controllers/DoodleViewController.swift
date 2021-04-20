@@ -1,18 +1,13 @@
-// swiftlint:disable file_length
 import UIKit
 import DTSharedLibrary
 
 class DoodleViewController: UIViewController {
 
+    // MARK: - Initialization + Navigation
+
     // Storyboard UI Elements
     @IBOutlet private var zoomScaleLabel: UILabel!
     @IBOutlet private var layerTableView: UIView!
-    @IBOutlet private var colorPickerView: UIView!
-    @IBOutlet private var pressureInfoView: UIView!
-    @IBOutlet private var colorPickerButton: UIView!
-    @IBOutlet private var strokeEditorHeightConstraint: NSLayoutConstraint!
-    private var coloredCircle = CAShapeLayer()
-    private var circleCenter = CGPoint()
 
     // Top Left Options
     @IBOutlet private var exitButton: UIButton!
@@ -22,33 +17,6 @@ class DoodleViewController: UIViewController {
     @IBOutlet private var exportButton: UIButton!
     @IBOutlet private var undoButton: UIButton!
     @IBOutlet private var redoButton: UIButton!
-
-    // Left Main Menu
-    @IBOutlet private var leftButtonsView: UIView!
-    @IBOutlet private var drawButton: UIButton!
-    @IBOutlet private var eraserButton: UIButton!
-    @IBOutlet private var textButton: UIButton!
-    @IBOutlet private var shapesButton: UIButton!
-    @IBOutlet private var cursorButton: UIButton!
-
-    // Drawing Tools Menu
-    @IBOutlet private var drawingToolsButtonsView: UIView!
-    @IBOutlet private var penButton: UIButton!
-    @IBOutlet private var pencilButton: UIButton!
-    @IBOutlet private var highlighterButton: UIButton!
-    @IBOutlet private var magicPenButton: UIButton!
-
-    // Shapes Menu
-    @IBOutlet private var shapesButtonsView: UIView!
-    @IBOutlet private var circleButton: UIButton!
-    @IBOutlet private var squareButton: UIButton!
-    @IBOutlet private var triangleButton: UIButton!
-    @IBOutlet private var starButton: UIButton!
-
-    // Select Menu
-    @IBOutlet private var selectButtonsView: UIView!
-    @IBOutlet private var selectAllButton: UIButton!
-    @IBOutlet private var selectSelfButton: UIButton!
 
     // Profile Labels
     @IBOutlet private var userProfileLabel: UILabel!
@@ -61,7 +29,7 @@ class DoodleViewController: UIViewController {
     var canvasController: CanvasController?
     var appWSController: DTWebSocketController?
     var roomWSController = DTRoomWebSocketController()
-    var strokeEditor: StrokeEditor?
+    var leftPanelsController: LeftPanelsController?
     var layerTable: DoodleLayerTable?
     var loadingSpinner: UIAlertController?
 
@@ -70,15 +38,10 @@ class DoodleViewController: UIViewController {
 
     // State
     var room: DTAdaptedRoom?
-    var username: String?
     var doodles: [DTDoodleWrapper]?
-    var participants: [DTAdaptedUser] = []
     var userAccesses: [DTAdaptedUserAccesses] = []
     var userStates: [UserState] = []
     var userIconColors: [UIColor] = []
-    private var previousDrawingTool = DrawingTools.pen
-    private var previousShapeTool = ShapeTools.circle
-    private var previousSelectTool = SelectTools.all
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,34 +53,12 @@ class DoodleViewController: UIViewController {
         self.appWSController?.registerSubcontroller(self.roomWSController)
         self.roomWSController.roomId = roomId
         self.roomWSController.delegate = self
-
         self.roomWSController.joinRoom(roomId: roomId)
 
         fileNameLabel.text = room.name
 
         registerGestures()
-        loadBorderColors()
-        initialiseProfileColors()
-        updateProfileViews()
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        circleCenter = colorPickerButton.convert(CGPoint(x: colorPickerButton.bounds.midX,
-                                                         y: colorPickerButton.bounds.midY),
-                                                 to: drawingToolsButtonsView)
-
-        // Set up color picker selector
-        let path = UIBezierPath(arcCenter: circleCenter, radius: CGFloat(UIConstants.defaultPenWidth / 2),
-                                startAngle: 0, endAngle: .pi * 2, clockwise: true)
-
-        let shapeLayer = CAShapeLayer()
-        shapeLayer.path = path.cgPath
-        shapeLayer.fillColor = UIColor.black.cgColor
-        coloredCircle = shapeLayer
-
-        self.drawingToolsButtonsView.layer.addSublayer(shapeLayer)
+        initialiseProfileIcons()
     }
 
     deinit {
@@ -128,32 +69,99 @@ class DoodleViewController: UIViewController {
     private func registerGestures() {
         let zoomTap = UITapGestureRecognizer(target: self, action: #selector(zoomScaleDidTap(_:)))
         zoomScaleLabel.addGestureRecognizer(zoomTap)
-        let colorTap = UITapGestureRecognizer(target: self, action: #selector(colorPickerButtonDidTap(_:)))
-        colorPickerButton.addGestureRecognizer(colorTap)
-
     }
 
-    func loadBorderColors() {
-        colorPickerButton.layer.borderColor = UIConstants.stackGrey.cgColor
+    private func initialiseProfileIcons() {
+        for _ in 0..<UIConstants.userIconColorCount {
+            userIconColors.append(generateRandomColor())
+        }
+
         numberOfOtherUsersLabel.layer.borderColor = UIConstants.stackGrey.cgColor
         userProfileLabel.layer.borderColor = UIConstants.white.cgColor
         otherProfileLabelOne.layer.borderColor = UIConstants.white.cgColor
         otherProfileLabelTwo.layer.borderColor = UIConstants.white.cgColor
     }
 
-    func updateProfileViews() {
-        userProfileLabel.layer.masksToBounds = true
-        otherProfileLabelOne.layer.masksToBounds = true
-        otherProfileLabelTwo.layer.masksToBounds = true
-    }
-
-    func initialiseProfileColors() {
-        for _ in 0..<UIConstants.userIconColorCount {
-            userIconColors.append(generateRandomColor())
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case SegueConstants.toCanvas, SegueConstants.toLeftPanels, SegueConstants.toConference:
+            prepareForSubviews(for: segue, sender: sender)
+        case SegueConstants.toLayerTable, SegueConstants.toInvitation:
+            prepareForPopUps(for: segue, sender: sender)
+        default:
+            return
         }
     }
 
-    func updateProfileColors() {
+    func prepareForSubviews(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case SegueConstants.toCanvas:
+            guard let destination = segue.destination as? CanvasViewController else {
+                return
+            }
+            destination.delegate = self
+            if let doodles = self.doodles {
+                destination.loadDoodles(doodles)
+            }
+            self.canvasController = destination
+        case SegueConstants.toLeftPanels:
+            guard let destination = segue.destination as? LeftPanelsViewController else {
+                return
+            }
+            destination.delegate = self
+            self.leftPanelsController = destination
+        case SegueConstants.toConference:
+            guard let destination = segue.destination as? ConferenceViewController else {
+                return
+            }
+            guard let roomId = room?.roomId?.uuidString else {
+                return
+            }
+            destination.roomId = roomId
+            destination.roomWSController = self.roomWSController
+            for user in userAccesses {
+                destination.userIdToNameMapping[user.userId] = user.displayName
+            }
+        default:
+            return
+        }
+    }
+
+    func prepareForPopUps(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case SegueConstants.toLayerTable:
+            guard let destination = segue.destination as? DoodleLayerTableViewController else {
+                return
+            }
+            destination.delegate = self
+            if let doodles = self.doodles {
+                destination.loadDoodles(doodles)
+            }
+            self.layerTable = destination
+        case SegueConstants.toInvitation:
+            guard let destination = segue.destination as? InvitationViewController else {
+                return
+            }
+            destination.modalPresentationStyle = .formSheet
+            destination.userAccesses = userAccesses
+            invitationDelegate = destination
+            guard let room = room else {
+                return
+            }
+            destination.room = room
+            destination.roomWSController = roomWSController
+        default:
+            return
+        }
+    }
+
+}
+
+// MARK: - Top Right: Profile Icons
+
+extension DoodleViewController {
+
+    func updateProfileIcons() {
         guard let user = DTAuth.user else {
             DTLogger.error("Attempted to join room without a user.")
             return
@@ -198,52 +206,20 @@ class DoodleViewController: UIViewController {
         }
     }
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier {
-        case SegueConstants.toCanvas, SegueConstants.toStrokeEditor, SegueConstants.toConference:
-            prepareForSubviews(for: segue, sender: sender)
-        case SegueConstants.toLayerTable, SegueConstants.toInvitation:
-            prepareForPopUps(for: segue, sender: sender)
-        default:
-            return
-        }
+    private func generateRandomColor() -> UIColor {
+        UIColor(
+            red: .random(in: 0..<1),
+            green: .random(in: 0..<1),
+            blue: .random(in: 0..<1),
+            alpha: 1.0
+        )
     }
 
 }
 
-// MARK: - IBActions Part 1
+// MARK: - Top Left: Exit + Invitation + Export + Undo/Redo
 
 extension DoodleViewController {
-
-    @IBAction private func mainToolButtonDidTap(_ sender: UIButton) {
-        guard let toolSelected = MainTools(rawValue: sender.tag) else {
-            return
-        }
-        unselectAllMainTools()
-        drawingToolsButtonsView.isHidden = true
-        shapesButtonsView.isHidden = true
-        selectButtonsView.isHidden = true
-        sender.isSelected = true
-        setDrawingTool(previousDrawingTool, shouldDismiss: sender.tag != MainTools.drawing.rawValue)
-
-        canvasController?.setMainTool(toolSelected)
-
-        if toolSelected != .drawing {
-            colorPickerView.isHidden = true
-            pressureInfoView.isHidden = true
-        }
-
-        switch toolSelected {
-        case .drawing:
-            drawingToolsButtonsView.isHidden = false
-        case .cursor:
-            selectButtonsView.isHidden = false
-        case .shapes:
-            shapesButtonsView.isHidden = false
-        default:
-            break
-        }
-    }
 
     @IBAction private func topMinimizeButtonDidTap(_ sender: UIButton) {
         fileNameLabel.isHidden.toggle()
@@ -253,43 +229,52 @@ extension DoodleViewController {
         sender.isSelected.toggle()
     }
 
-    func updatePressureView(toolSelected: DrawingTools) {
-        if toolSelected == .magicPen && !colorPickerView.isHidden {
-            pressureInfoView.isHidden = false
-        } else {
-            pressureInfoView.isHidden = true
-        }
+    @IBAction private func exportButtonDidTap(_ sender: UIButton) {
+        // TODO: Export to image for now
     }
 
-    func setDrawingTool(_ drawingTool: DrawingTools, shouldDismiss: Bool = false) {
-        previousDrawingTool = drawingTool
-        canvasController?.setDrawingTool(drawingTool)
-
-        switch drawingTool {
-        case .pen:
-            shouldDismiss ? drawButton.setImage(#imageLiteral(resourceName: "Brush"), for: .normal) : drawButton.setImage(#imageLiteral(resourceName: "Brush_Yellow"), for: .normal)
-        case .pencil:
-            shouldDismiss ? drawButton.setImage(#imageLiteral(resourceName: "Pencil"), for: .normal) : drawButton.setImage(#imageLiteral(resourceName: "Pencil_Yellow"), for: .normal)
-        case .highlighter:
-            shouldDismiss ? drawButton.setImage(#imageLiteral(resourceName: "BrushAlt"), for: .normal) : drawButton.setImage(#imageLiteral(resourceName: "BrushAlt_Yellow"), for: .normal)
-        case .magicPen:
-            shouldDismiss ? drawButton.setImage(#imageLiteral(resourceName: "MagicWand"), for: .normal) : drawButton.setImage(#imageLiteral(resourceName: "MagicWand_Yellow"), for: .normal)
-        }
-
-        if let (width, color) = strokeEditor?.setToolAndGetProperties(drawingTool) {
-            widthDidChange(width)
-            colorDidChange(color)
-        }
+    @IBAction private func exitButtonDidTap(_ sender: UIButton) {
+        alert(title: AlertConstants.exit, message: AlertConstants.exitToMainMenu,
+              buttonStyle: .default, handler: { _ in
+                self.dismiss(animated: true, completion: nil)
+                DispatchQueue.main.async {
+                    // TODO: Call backend to update the preview(s) to reflect the latest changes
+                }
+              }
+        )
     }
 
-    func setShapeTool(_ shapeTool: ShapeTools) {
-        previousShapeTool = shapeTool
-        canvasController?.setShapeTool(shapeTool)
+    @IBAction private func undoButtonDidTap(_ sender: Any) {
+        guard let canvasController = canvasController, canvasController.canUndo else {
+            return
+        }
+        canvasController.undo()
     }
 
-    func setSelectTool(_ selectTool: SelectTools) {
-        previousSelectTool = selectTool
-        canvasController?.setSelectTool(selectTool)
+    @IBAction private func redoButtonDidTap(_ sender: Any) {
+        guard let canvasController = canvasController, canvasController.canRedo else {
+            return
+        }
+        canvasController.redo()
+    }
+
+    func updateUndoRedoButtons() {
+        undoButton.isEnabled = canvasController?.canUndo ?? false
+        redoButton.isEnabled = canvasController?.canRedo ?? false
+    }
+
+    func setZoomText(scalePercent: Int) {
+        zoomScaleLabel.text = "\(scalePercent)%"
+    }
+
+}
+
+// MARK: - Bottom Right: DoodleLayerTableDelegate + Layers + Zoom
+
+extension DoodleViewController: DoodleLayerTableDelegate {
+
+    func selectedDoodleDidChange(index: Int) {
+        canvasController?.setSelectedDoodle(index: index)
     }
 
     @IBAction private func layerButtonDidTap(_ sender: UIButton) {
@@ -300,131 +285,13 @@ extension DoodleViewController {
         sender.isSelected.toggle()
     }
 
-    @IBAction private func exportButtonDidTap(_ sender: UIButton) {
-        // TODO: Export to image for now
-    }
-
-    @objc
-    func colorPickerButtonDidTap(_ gesture: UITapGestureRecognizer) {
-        colorPickerView.isHidden.toggle()
-        if previousDrawingTool == .magicPen {
-            pressureInfoView.isHidden = colorPickerView.isHidden
-        }
+    @IBAction private func addLayerButtonDidTap(_ sender: UIButton) {
+        roomWSController.addDoodle()
     }
 
     @objc
     private func zoomScaleDidTap(_ gesture: UITapGestureRecognizer) {
         canvasController?.resetZoomScaleAndCenter()
-    }
-
-    func unselectAllMainTools() {
-        drawButton.isSelected = false
-        eraserButton.isSelected = false
-        textButton.isSelected = false
-        shapesButton.isSelected = false
-        cursorButton.isSelected = false
-    }
-
-    func unselectAllDrawingTools() {
-        penButton.isSelected = false
-        pencilButton.isSelected = false
-        highlighterButton.isSelected = false
-        magicPenButton.isSelected = false
-    }
-
-    func unselectAllShapeTools() {
-        circleButton.isSelected = false
-        squareButton.isSelected = false
-        triangleButton.isSelected = false
-        starButton.isSelected = false
-    }
-
-    func unselectAllSelectTools() {
-        selectAllButton.isSelected = false
-        selectSelfButton.isSelected = false
-    }
-
-    func setCanEdit(_ canEdit: Bool) {
-        if canEdit {
-            leftButtonsView.isHidden = false
-        } else {
-            leftButtonsView.isHidden = true
-            drawingToolsButtonsView.isHidden = true
-            shapesButtonsView.isHidden = true
-            selectButtonsView.isHidden = true
-            colorPickerView.isHidden = true
-        }
-        canvasController?.setCanEdit(canEdit)
-    }
-
-}
-
-// MARK: - CanvasControllerDelegate
-
-extension DoodleViewController: CanvasControllerDelegate {
-
-    func dispatchPartialAction(_ action: DTPartialAdaptedAction) {
-        guard let roomId = self.room?.roomId else {
-            return
-        }
-        let action = DTAdaptedAction(partialAction: action, roomId: roomId)
-        roomWSController.addAction(action)
-
-        undoButton.isEnabled = canvasController?.canUndo ?? false
-        redoButton.isEnabled = canvasController?.canRedo ?? false
-    }
-
-    func canvasZoomScaleDidChange(scale: CGFloat) {
-        let scale = min(UIConstants.maxZoom, max(UIConstants.minZoom, scale))
-        let scalePercent = Int(scale * 100)
-        zoomScaleLabel.text = "\(scalePercent)%"
-    }
-
-    func refetchDoodles() {
-        if loadingSpinner == nil {
-            loadingSpinner = self.createSpinnerView(message: "Refetching Doodles...")
-        }
-        roomWSController.refetchDoodles()
-    }
-
-    func strokeDidSelect(color: UIColor) {
-        strokeEditor?.enterEditStrokeMode(color: color)
-        strokeEditorHeightConstraint.constant = 220
-        colorPickerView.isHidden = false
-    }
-
-    func strokeDidUnselect() {
-        colorPickerView.isHidden = true
-        strokeEditorHeightConstraint.constant = 349
-        strokeEditor?.exitEditStrokeMode()
-    }
-
-}
-
-// MARK: - StrokeEditorDelegate
-
-extension DoodleViewController: StrokeEditorDelegate {
-
-    func colorDidChange(_ color: UIColor) {
-        coloredCircle.fillColor = color.cgColor
-        canvasController?.setColor(color)
-    }
-
-    func widthDidChange(_ width: CGFloat) {
-        canvasController?.setWidth(width)
-        let path = UIBezierPath(arcCenter: circleCenter, radius: width / 2,
-                                startAngle: 0, endAngle: .pi * 2, clockwise: true)
-        coloredCircle.path = path.cgPath
-    }
-
-    func opacityDidChange(_ opacity: CGFloat) {
-        guard let currentColor = coloredCircle.fillColor else {
-            fatalError("Missing fill for colored circle!")
-        }
-        let newColor = UIColor(cgColor: currentColor)
-            .withAlphaComponent(opacity)
-        coloredCircle.fillColor = newColor.cgColor
-        canvasController?.setColor(newColor)
     }
 
 }

@@ -77,7 +77,6 @@ extension GalleryViewController: UICollectionViewDelegate {
         }
         vc.appWSController = self.appWSController
         vc.room = self.rooms[index]
-        vc.username = DTAuth.user?.displayName ?? "Unknown"
         vc.modalPresentationStyle = .fullScreen
         vc.modalTransitionStyle = .flipHorizontal
         DispatchQueue.main.async {

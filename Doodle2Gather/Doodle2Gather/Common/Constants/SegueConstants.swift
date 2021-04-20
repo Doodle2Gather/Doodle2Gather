@@ -8,4 +8,5 @@ enum SegueConstants {
     static let toConference = "toConference"
     static let toLayerTable = "toLayerTable"
     static let toInvitation = "toInvitation"
+    static let toLeftPanels = "toLeftPanels"
 }

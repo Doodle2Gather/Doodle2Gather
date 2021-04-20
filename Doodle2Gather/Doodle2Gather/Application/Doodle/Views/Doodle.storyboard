@@ -133,6 +133,16 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DJr-ph-d1Q" userLabel="Left Panels View" customClass="SubviewTouchView" customModule="Doodle2Gather" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="438.5" width="372" height="489"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="372" id="L4T-5i-eCL"/>
+                                    <constraint firstAttribute="height" constant="489" id="N4p-Dm-tmO"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="06U-ud-477" kind="embed" identifier="toLeftPanels" id="Yjc-cJ-dth"/>
+                                </connections>
+                            </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pn5-xG-qj1" userLabel="Undo Redo View">
                                 <rect key="frame" x="324.5" y="12" width="122" height="60"/>
                                 <subviews>
@@ -198,350 +208,13 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zab-bH-VRq" userLabel="Shapes Buttons View">
-                                <rect key="frame" x="82" y="575.5" width="60" height="215"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="GV2-lt-wg1" userLabel="Button Stack">
-                                        <rect key="frame" x="10" y="10" width="40" height="190"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KWG-vf-nNg" userLabel="Circle Button">
-                                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="7ju-fC-LU9"/>
-                                                    <constraint firstAttribute="width" constant="40" id="Sk3-MS-kRp"/>
-                                                </constraints>
-                                                <color key="tintColor" systemColor="labelColor"/>
-                                                <state key="normal" image="Circle"/>
-                                                <state key="selected" image="Circle_Yellow"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                        <integer key="value" value="20"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="shapeToolButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="Zmy-br-R0G"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9z7-zt-8yD" userLabel="Square Button">
-                                                <rect key="frame" x="0.0" y="50" width="40" height="40"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="8TS-zJ-1lS"/>
-                                                    <constraint firstAttribute="width" constant="40" id="M1K-MX-4Xp"/>
-                                                </constraints>
-                                                <color key="tintColor" systemColor="labelColor"/>
-                                                <state key="normal" image="Square"/>
-                                                <state key="selected" image="Square_Yellow"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                        <integer key="value" value="20"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="shapeToolButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="Zn4-JI-B31"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7nw-wi-WYg" userLabel="Triangle Button">
-                                                <rect key="frame" x="0.0" y="100" width="40" height="40"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="2tz-lN-6OQ"/>
-                                                    <constraint firstAttribute="width" constant="40" id="J0t-jX-F2w"/>
-                                                </constraints>
-                                                <color key="tintColor" systemColor="labelColor"/>
-                                                <state key="normal" image="Triangle"/>
-                                                <state key="selected" image="Triangle_Yellow"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                        <integer key="value" value="20"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="shapeToolButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="sSw-oi-yQV"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qmb-uq-ZSH" userLabel="Star Button">
-                                                <rect key="frame" x="0.0" y="150" width="40" height="40"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="H6D-WH-RA6"/>
-                                                    <constraint firstAttribute="width" constant="40" id="urx-Wf-Dul"/>
-                                                </constraints>
-                                                <color key="tintColor" systemColor="labelColor"/>
-                                                <state key="normal" image="Star"/>
-                                                <state key="selected" image="Star_Yellow"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                        <integer key="value" value="20"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="shapeToolButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="J6H-6h-PFu"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
-                                </subviews>
-                                <color key="backgroundColor" name="Black"/>
-                                <constraints>
-                                    <constraint firstItem="GV2-lt-wg1" firstAttribute="bottom" secondItem="Zab-bH-VRq" secondAttribute="bottom" constant="-15" id="WHo-Dd-vLo"/>
-                                    <constraint firstItem="GV2-lt-wg1" firstAttribute="top" secondItem="Zab-bH-VRq" secondAttribute="top" constant="10" id="bQb-mt-Ovs"/>
-                                    <constraint firstItem="GV2-lt-wg1" firstAttribute="trailing" secondItem="Zab-bH-VRq" secondAttribute="trailing" constant="-10" id="fsr-pf-Sll"/>
-                                    <constraint firstItem="GV2-lt-wg1" firstAttribute="leading" secondItem="Zab-bH-VRq" secondAttribute="leading" constant="10" id="pfL-h6-wiR"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <real key="value" value="20"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
-                                        <real key="value" value="20"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
-                                        <size key="value" width="0.0" height="0.0"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
-                                        <real key="value" value="0.40000000000000002"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Xj-kh-aUN" userLabel="Drawing Tools Buttons View">
-                                <rect key="frame" x="82" y="535.5" width="60" height="295"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="a3W-PN-KVs" userLabel="Button Stack">
-                                        <rect key="frame" x="10" y="10" width="40" height="270"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rKg-Y4-tax" userLabel="Pen Button">
-                                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="40" id="Hja-wa-jmF"/>
-                                                    <constraint firstAttribute="height" constant="40" id="VOe-dh-pgc"/>
-                                                </constraints>
-                                                <color key="tintColor" systemColor="labelColor"/>
-                                                <state key="normal" image="Brush"/>
-                                                <state key="selected" image="Brush_Yellow"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                        <integer key="value" value="20"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="drawingToolButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="mh8-Ju-KcB"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PHr-oW-a4i" userLabel="Pencil Button">
-                                                <rect key="frame" x="0.0" y="50" width="40" height="40"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="WCC-sx-g8M"/>
-                                                    <constraint firstAttribute="width" constant="40" id="YNB-2Q-nwX"/>
-                                                </constraints>
-                                                <color key="tintColor" systemColor="labelColor"/>
-                                                <state key="normal" image="Pencil"/>
-                                                <state key="selected" image="Pencil_Yellow"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                        <integer key="value" value="20"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="drawingToolButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="ePe-Wp-PpL"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AMp-iL-zoR" userLabel="Highlighter Button">
-                                                <rect key="frame" x="0.0" y="100" width="40" height="40"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="aAz-Xg-Us7"/>
-                                                    <constraint firstAttribute="width" constant="40" id="wX6-4N-bxW"/>
-                                                </constraints>
-                                                <color key="tintColor" systemColor="labelColor"/>
-                                                <state key="normal" image="BrushAlt"/>
-                                                <state key="selected" image="BrushAlt_Yellow"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                        <integer key="value" value="20"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="drawingToolButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="IWs-t2-mFG"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EE8-GC-4Km" userLabel="Magic Pen Button">
-                                                <rect key="frame" x="0.0" y="150" width="40" height="40"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="40" id="BHW-Ic-vcm"/>
-                                                    <constraint firstAttribute="height" constant="40" id="G0J-T6-dj7"/>
-                                                </constraints>
-                                                <color key="tintColor" systemColor="labelColor"/>
-                                                <state key="normal" image="MagicWand"/>
-                                                <state key="selected" image="MagicWand_Yellow"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                        <integer key="value" value="20"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="drawingToolButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="azI-dV-NXN"/>
-                                                </connections>
-                                            </button>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Separator_Horizontal" translatesAutoresizingMaskIntoConstraints="NO" id="iqa-v5-fMZ">
-                                                <rect key="frame" x="0.0" y="200" width="40" height="20"/>
-                                                <accessibility key="accessibilityConfiguration">
-                                                    <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
-                                                </accessibility>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="20" id="0lJ-Vh-qKH"/>
-                                                    <constraint firstAttribute="width" constant="40" id="wvl-gz-hCe"/>
-                                                </constraints>
-                                            </imageView>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dae-hy-jiK" userLabel="Color Picker Button Container">
-                                                <rect key="frame" x="0.0" y="230" width="40" height="40"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="40" id="RB8-K0-ntQ"/>
-                                                    <constraint firstAttribute="height" constant="40" id="hb6-Dy-JFp"/>
-                                                </constraints>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                        <integer key="value" value="20"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                                        <real key="value" value="3"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                            </view>
-                                        </subviews>
-                                    </stackView>
-                                </subviews>
-                                <color key="backgroundColor" name="Black"/>
-                                <constraints>
-                                    <constraint firstItem="a3W-PN-KVs" firstAttribute="leading" secondItem="4Xj-kh-aUN" secondAttribute="leading" constant="10" id="6e2-zW-wAr"/>
-                                    <constraint firstItem="a3W-PN-KVs" firstAttribute="top" secondItem="4Xj-kh-aUN" secondAttribute="top" constant="10" id="9wv-Il-Lt8"/>
-                                    <constraint firstItem="a3W-PN-KVs" firstAttribute="trailing" secondItem="4Xj-kh-aUN" secondAttribute="trailing" constant="-10" id="KRv-3z-8RV"/>
-                                    <constraint firstItem="a3W-PN-KVs" firstAttribute="bottom" secondItem="4Xj-kh-aUN" secondAttribute="bottom" constant="-15" id="UCw-2l-6lO"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <real key="value" value="20"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
-                                        <real key="value" value="20"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
-                                        <size key="value" width="0.0" height="0.0"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
-                                        <real key="value" value="0.40000000000000002"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HdL-Pj-pPB" userLabel="Left Buttons View">
-                                <rect key="frame" x="12" y="553" width="60" height="260"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Pqb-uy-IVC" userLabel="Button Stack">
-                                        <rect key="frame" x="10" y="10" width="40" height="240"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IP2-Vo-DRb" userLabel="Draw Button">
-                                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="40" id="g6H-cL-8dT"/>
-                                                    <constraint firstAttribute="height" constant="40" id="kyv-a9-dtY"/>
-                                                </constraints>
-                                                <color key="tintColor" systemColor="labelColor"/>
-                                                <state key="normal" image="Brush_Yellow"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                        <integer key="value" value="20"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="mainToolButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="yke-zi-6lO"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kjq-AY-SZg" userLabel="Eraser Button">
-                                                <rect key="frame" x="0.0" y="50" width="40" height="40"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="40" id="U6e-Ro-YbU"/>
-                                                    <constraint firstAttribute="height" constant="40" id="qEF-tM-NMt"/>
-                                                </constraints>
-                                                <state key="normal" image="Eraser"/>
-                                                <state key="selected" image="Eraser_Yellow"/>
-                                                <connections>
-                                                    <action selector="mainToolButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="0os-R4-GG0"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Va2-Px-Ku6" userLabel="Text Button">
-                                                <rect key="frame" x="0.0" y="100" width="40" height="40"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="40" id="bXL-Ld-hUy"/>
-                                                    <constraint firstAttribute="height" constant="40" id="tI2-yr-Ywm"/>
-                                                </constraints>
-                                                <state key="normal" image="Text"/>
-                                                <state key="selected" image="Text_Yellow"/>
-                                                <connections>
-                                                    <action selector="mainToolButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="pgj-80-nMF"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w78-OH-H1V" userLabel="Shapes Button">
-                                                <rect key="frame" x="0.0" y="150" width="40" height="40"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="40" id="0zP-9y-JKU"/>
-                                                    <constraint firstAttribute="height" constant="40" id="coA-hG-7Mb"/>
-                                                </constraints>
-                                                <state key="normal" image="Shapes"/>
-                                                <state key="selected" image="Shapes_Yellow"/>
-                                                <connections>
-                                                    <action selector="mainToolButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="3uP-Rg-0o8"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ryu-pR-t2y" userLabel="Cursor Button">
-                                                <rect key="frame" x="0.0" y="200" width="40" height="40"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="iyh-9i-UGG"/>
-                                                    <constraint firstAttribute="width" constant="40" id="wNu-rS-KaF"/>
-                                                </constraints>
-                                                <state key="normal" image="Cursor"/>
-                                                <state key="selected" image="Cursor_Yellow"/>
-                                                <connections>
-                                                    <action selector="mainToolButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="nkd-5r-9rM"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
-                                </subviews>
-                                <color key="backgroundColor" name="Black"/>
-                                <constraints>
-                                    <constraint firstItem="Pqb-uy-IVC" firstAttribute="bottom" secondItem="HdL-Pj-pPB" secondAttribute="bottom" constant="-10" id="GNV-Ev-oPK"/>
-                                    <constraint firstItem="Pqb-uy-IVC" firstAttribute="leading" secondItem="HdL-Pj-pPB" secondAttribute="leading" constant="10" id="QLr-Hb-mC7"/>
-                                    <constraint firstItem="Pqb-uy-IVC" firstAttribute="trailing" secondItem="HdL-Pj-pPB" secondAttribute="trailing" constant="-10" id="alg-M6-ZTb"/>
-                                    <constraint firstItem="Pqb-uy-IVC" firstAttribute="top" secondItem="HdL-Pj-pPB" secondAttribute="top" constant="10" id="cHO-0b-2SA"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <real key="value" value="20"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
-                                        <real key="value" value="20"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
-                                        <size key="value" width="0.0" height="0.0"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
-                                        <real key="value" value="0.40000000000000002"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gvt-x0-wpX" userLabel="Profile Images View">
                                 <rect key="frame" x="776" y="12" width="236" height="60"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="DwN-FB-eIE">
                                         <rect key="frame" x="20" y="10" width="196" height="40"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eu2-o6-mDx" userLabel="User Profile 1">
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eu2-o6-mDx" userLabel="User Profile 1">
                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="PWn-CD-EBX"/>
@@ -569,7 +242,7 @@
                                                     <constraint firstAttribute="height" constant="40" id="Naz-LH-mwp"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NMb-rO-KfU" userLabel="User Profile 1">
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NMb-rO-KfU" userLabel="User Profile 1">
                                                 <rect key="frame" x="62" y="0.0" width="40" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="CVe-To-DsT"/>
@@ -587,7 +260,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ynw-Wz-Sdm" userLabel="User Profile 2">
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ynw-Wz-Sdm" userLabel="User Profile 2">
                                                 <rect key="frame" x="109" y="0.0" width="40" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="2yu-BM-dbq"/>
@@ -605,7 +278,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ue-v9-pyV" userLabel="Additional User Count">
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ue-v9-pyV" userLabel="Additional User Count">
                                                 <rect key="frame" x="156" y="0.0" width="40" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="40" id="Jih-s9-yTe"/>
@@ -697,16 +370,6 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <containerView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DHu-9F-THM">
-                                <rect key="frame" x="152" y="508.5" width="220" height="349"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="349" id="cVL-QR-mEA"/>
-                                    <constraint firstAttribute="width" constant="220" id="lpz-NM-W4V"/>
-                                </constraints>
-                                <connections>
-                                    <segue destination="f3u-GT-n82" kind="embed" identifier="toStrokeEditor" id="omX-tt-d4U"/>
-                                </connections>
-                            </containerView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MWm-9W-hoQ">
                                 <rect key="frame" x="692" y="984" width="320" height="280"/>
                                 <subviews>
@@ -761,154 +424,26 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o49-IX-df3" userLabel="Pressure Info View">
-                                <rect key="frame" x="152" y="867.5" width="220" height="60"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="jpV-eh-2p4">
-                                        <rect key="frame" x="15" y="14" width="195" height="32"/>
-                                        <subviews>
-                                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pressure" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DfT-XS-Yg3">
-                                                <rect key="frame" x="0.0" y="0.0" width="139" height="32"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                <color key="textColor" name="White"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TkB-vr-6L4">
-                                                <rect key="frame" x="146" y="0.0" width="51" height="32"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="32" id="T7q-7c-cbY"/>
-                                                </constraints>
-                                                <color key="onTintColor" name="Texas Yellow"/>
-                                                <connections>
-                                                    <action selector="pressureSwitchDidToggle:" destination="rZI-TI-AZo" eventType="valueChanged" id="sZk-gG-VQY"/>
-                                                </connections>
-                                            </switch>
-                                        </subviews>
-                                    </stackView>
-                                </subviews>
-                                <color key="backgroundColor" name="Black"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="220" id="Q4i-MY-Lw2"/>
-                                    <constraint firstItem="jpV-eh-2p4" firstAttribute="leading" secondItem="o49-IX-df3" secondAttribute="leading" constant="15" id="VlW-2K-pIv"/>
-                                    <constraint firstItem="jpV-eh-2p4" firstAttribute="trailing" secondItem="o49-IX-df3" secondAttribute="trailing" constant="-10" id="ZoO-ZS-6s3"/>
-                                    <constraint firstItem="jpV-eh-2p4" firstAttribute="top" secondItem="o49-IX-df3" secondAttribute="top" constant="14" id="qrz-Ha-kQH"/>
-                                    <constraint firstItem="jpV-eh-2p4" firstAttribute="bottom" secondItem="o49-IX-df3" secondAttribute="bottom" constant="-14" id="xTl-D2-ocK"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <real key="value" value="20"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
-                                        <real key="value" value="20"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
-                                        <size key="value" width="0.0" height="0.0"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
-                                        <real key="value" value="0.40000000000000002"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VOQ-U6-yH2" userLabel="Select Buttons View">
-                                <rect key="frame" x="82" y="625.5" width="60" height="115"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="JVx-jz-RXs" userLabel="Button Stack">
-                                        <rect key="frame" x="10" y="10" width="40" height="90"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sPA-Tp-Fdn" userLabel="Select All Button">
-                                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="40" id="AcB-VN-8Gg"/>
-                                                    <constraint firstAttribute="height" constant="40" id="Fsq-3n-36e"/>
-                                                </constraints>
-                                                <color key="tintColor" systemColor="labelColor"/>
-                                                <state key="normal" image="Users"/>
-                                                <state key="selected" image="Users_Yellow"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                        <integer key="value" value="20"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="selectToolButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="l1Z-47-Qjg"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YTA-CY-Xpl" userLabel="Select Self Button">
-                                                <rect key="frame" x="0.0" y="50" width="40" height="40"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="40" id="0oM-1W-2YK"/>
-                                                    <constraint firstAttribute="height" constant="40" id="fwP-r6-wa6"/>
-                                                </constraints>
-                                                <color key="tintColor" systemColor="labelColor"/>
-                                                <state key="normal" image="User"/>
-                                                <state key="selected" image="User_Yellow"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                        <integer key="value" value="20"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="selectToolButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="D6P-yI-0L1"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
-                                </subviews>
-                                <color key="backgroundColor" name="Black"/>
-                                <constraints>
-                                    <constraint firstItem="JVx-jz-RXs" firstAttribute="bottom" secondItem="VOQ-U6-yH2" secondAttribute="bottom" constant="-15" id="PEC-p3-gn3"/>
-                                    <constraint firstItem="JVx-jz-RXs" firstAttribute="leading" secondItem="VOQ-U6-yH2" secondAttribute="leading" constant="10" id="UjI-JZ-I6i"/>
-                                    <constraint firstItem="JVx-jz-RXs" firstAttribute="trailing" secondItem="VOQ-U6-yH2" secondAttribute="trailing" constant="-10" id="wmM-gI-2oL"/>
-                                    <constraint firstItem="JVx-jz-RXs" firstAttribute="top" secondItem="VOQ-U6-yH2" secondAttribute="top" constant="10" id="xGq-LX-jrk"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <real key="value" value="20"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
-                                        <real key="value" value="20"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
-                                        <size key="value" width="0.0" height="0.0"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
-                                        <real key="value" value="0.40000000000000002"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="1p6-Mf-pnl"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="1p6-Mf-pnl" firstAttribute="trailing" secondItem="MWm-9W-hoQ" secondAttribute="trailing" constant="12" id="19h-pR-NGt"/>
-                            <constraint firstItem="DHu-9F-THM" firstAttribute="leading" secondItem="4Xj-kh-aUN" secondAttribute="trailing" constant="10" id="4Sk-s4-h0i"/>
                             <constraint firstItem="CRw-tT-Mu5" firstAttribute="trailing" secondItem="Rvn-Q8-Irn" secondAttribute="trailing" id="5Wa-E0-WET"/>
                             <constraint firstItem="CRw-tT-Mu5" firstAttribute="leading" secondItem="Rvn-Q8-Irn" secondAttribute="leading" id="8jE-v5-stq"/>
                             <constraint firstItem="Pn5-xG-qj1" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" constant="12" id="AUa-rT-WMa"/>
-                            <constraint firstItem="4Xj-kh-aUN" firstAttribute="leading" secondItem="HdL-Pj-pPB" secondAttribute="trailing" constant="10" id="BxG-tZ-mLO"/>
-                            <constraint firstItem="DHu-9F-THM" firstAttribute="leading" secondItem="VOQ-U6-yH2" secondAttribute="trailing" constant="10" id="CWG-kS-eZq"/>
+                            <constraint firstItem="DJr-ph-d1Q" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" id="Cd5-rB-vfu"/>
                             <constraint firstItem="lOM-bA-4te" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" constant="12" id="EmQ-Qq-9ox"/>
-                            <constraint firstItem="o49-IX-df3" firstAttribute="top" secondItem="DHu-9F-THM" secondAttribute="bottom" constant="10" id="EnX-yN-w4U"/>
                             <constraint firstItem="1p6-Mf-pnl" firstAttribute="trailing" secondItem="Gvt-x0-wpX" secondAttribute="trailing" constant="12" id="Fb4-Ms-bf1"/>
                             <constraint firstItem="1p6-Mf-pnl" firstAttribute="bottom" secondItem="Il3-8X-YYt" secondAttribute="bottom" constant="12" id="GT8-W4-V5D"/>
                             <constraint firstItem="1p6-Mf-pnl" firstAttribute="trailing" secondItem="Il3-8X-YYt" secondAttribute="trailing" constant="12" id="IOi-4d-vpq"/>
                             <constraint firstItem="2v7-Hc-qJ9" firstAttribute="bottom" secondItem="1p6-Mf-pnl" secondAttribute="bottom" id="J40-8D-zNP"/>
-                            <constraint firstItem="VOQ-U6-yH2" firstAttribute="leading" secondItem="HdL-Pj-pPB" secondAttribute="trailing" constant="10" id="Kjw-uX-c3c"/>
                             <constraint firstItem="CRw-tT-Mu5" firstAttribute="bottom" secondItem="Rvn-Q8-Irn" secondAttribute="bottom" id="NSu-1l-xzM"/>
                             <constraint firstItem="Il3-8X-YYt" firstAttribute="top" secondItem="MWm-9W-hoQ" secondAttribute="bottom" constant="10" id="PcU-VU-osS"/>
                             <constraint firstItem="Pn5-xG-qj1" firstAttribute="leading" secondItem="lOM-bA-4te" secondAttribute="trailing" constant="10" id="QJX-Nb-XFk"/>
-                            <constraint firstItem="HdL-Pj-pPB" firstAttribute="centerY" secondItem="Rvn-Q8-Irn" secondAttribute="centerY" id="Qwu-X3-bv3"/>
                             <constraint firstItem="2v7-Hc-qJ9" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" id="T0g-Ac-o8n"/>
-                            <constraint firstItem="4Xj-kh-aUN" firstAttribute="centerY" secondItem="Rvn-Q8-Irn" secondAttribute="centerY" id="Vhb-2b-DLJ"/>
-                            <constraint firstItem="VOQ-U6-yH2" firstAttribute="centerY" secondItem="Rvn-Q8-Irn" secondAttribute="centerY" id="cCR-S7-BV4"/>
-                            <constraint firstItem="Zab-bH-VRq" firstAttribute="centerY" secondItem="Rvn-Q8-Irn" secondAttribute="centerY" id="cKB-BO-23R"/>
-                            <constraint firstItem="Zab-bH-VRq" firstAttribute="leading" secondItem="HdL-Pj-pPB" secondAttribute="trailing" constant="10" id="fG5-47-KYc"/>
-                            <constraint firstItem="HdL-Pj-pPB" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" constant="12" id="nVn-9r-nOE"/>
+                            <constraint firstItem="DJr-ph-d1Q" firstAttribute="centerY" secondItem="Rvn-Q8-Irn" secondAttribute="centerY" id="Vcq-8F-bAA"/>
                             <constraint firstItem="lOM-bA-4te" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" constant="12" id="o7i-Qk-N3e"/>
-                            <constraint firstItem="o49-IX-df3" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" constant="152" id="pvB-la-VWn"/>
-                            <constraint firstItem="DHu-9F-THM" firstAttribute="centerY" secondItem="Rvn-Q8-Irn" secondAttribute="centerY" id="tNa-Fr-mIz"/>
                             <constraint firstItem="Gvt-x0-wpX" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" constant="12" id="xlO-w9-H22"/>
                             <constraint firstItem="CRw-tT-Mu5" firstAttribute="top" secondItem="Rvn-Q8-Irn" secondAttribute="top" id="yf0-Dt-Yxp"/>
                             <constraint firstItem="2v7-Hc-qJ9" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" id="yyv-Qd-LDk"/>
@@ -916,40 +451,17 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="circleButton" destination="KWG-vf-nNg" id="aK6-7X-aSI"/>
-                        <outlet property="colorPickerButton" destination="Dae-hy-jiK" id="HnN-jF-uPY"/>
-                        <outlet property="colorPickerView" destination="DHu-9F-THM" id="daN-at-Zo2"/>
-                        <outlet property="cursorButton" destination="ryu-pR-t2y" id="Rh3-fR-798"/>
-                        <outlet property="drawButton" destination="IP2-Vo-DRb" id="pWr-wH-aee"/>
-                        <outlet property="drawingToolsButtonsView" destination="4Xj-kh-aUN" id="w6p-q7-6pF"/>
-                        <outlet property="eraserButton" destination="kjq-AY-SZg" id="gZs-d9-Zd1"/>
                         <outlet property="exitButton" destination="jRm-uM-qyl" id="loO-8c-NSN"/>
                         <outlet property="exportButton" destination="ruK-Zq-Zye" id="Hv0-Qf-XJX"/>
                         <outlet property="fileNameLabel" destination="cdg-gm-cRI" id="T1z-s8-E2O"/>
-                        <outlet property="highlighterButton" destination="AMp-iL-zoR" id="lLt-iQ-edp"/>
                         <outlet property="inviteButton" destination="Ho7-dv-XBP" id="grj-Pw-ad8"/>
                         <outlet property="layerTableView" destination="MWm-9W-hoQ" id="mE6-K8-c5P"/>
-                        <outlet property="leftButtonsView" destination="HdL-Pj-pPB" id="Hqh-FF-Lpz"/>
-                        <outlet property="magicPenButton" destination="EE8-GC-4Km" id="atf-KX-JRK"/>
                         <outlet property="numberOfOtherUsersLabel" destination="7ue-v9-pyV" id="uBz-3F-Kmv"/>
                         <outlet property="otherProfileLabelOne" destination="NMb-rO-KfU" id="SZC-jq-EvI"/>
                         <outlet property="otherProfileLabelTwo" destination="ynw-Wz-Sdm" id="FxO-IT-jI4"/>
-                        <outlet property="penButton" destination="rKg-Y4-tax" id="rf0-wj-paC"/>
-                        <outlet property="pencilButton" destination="PHr-oW-a4i" id="kEZ-Te-JZn"/>
-                        <outlet property="pressureInfoView" destination="o49-IX-df3" id="7Rc-pL-hxn"/>
                         <outlet property="redoButton" destination="BvY-qF-rcv" id="g2r-JF-6de"/>
-                        <outlet property="selectAllButton" destination="sPA-Tp-Fdn" id="2aw-Pv-GdB"/>
-                        <outlet property="selectButtonsView" destination="VOQ-U6-yH2" id="wNO-rJ-lJ5"/>
-                        <outlet property="selectSelfButton" destination="YTA-CY-Xpl" id="eKu-pZ-C94"/>
                         <outlet property="separator" destination="QiO-xb-nBY" id="B4k-Ko-asY"/>
                         <outlet property="separatorView" destination="cIQ-SF-6Au" id="2iL-i3-acE"/>
-                        <outlet property="shapesButton" destination="w78-OH-H1V" id="Jet-zX-JVV"/>
-                        <outlet property="shapesButtonsView" destination="Zab-bH-VRq" id="yVS-E5-qDJ"/>
-                        <outlet property="squareButton" destination="9z7-zt-8yD" id="Yfg-BI-Xqn"/>
-                        <outlet property="starButton" destination="qmb-uq-ZSH" id="XoN-UR-01U"/>
-                        <outlet property="strokeEditorHeightConstraint" destination="cVL-QR-mEA" id="8t7-H5-Jb2"/>
-                        <outlet property="textButton" destination="Va2-Px-Ku6" id="GYN-tg-pop"/>
-                        <outlet property="triangleButton" destination="7nw-wi-WYg" id="FNc-TM-Phm"/>
                         <outlet property="undoButton" destination="rww-zn-SEF" id="Psj-zY-vrQ"/>
                         <outlet property="userProfileLabel" destination="Eu2-o6-mDx" id="1r5-oQ-cQm"/>
                         <outlet property="zoomScaleLabel" destination="heI-9Y-pSS" id="Odg-py-uxd"/>
@@ -1444,7 +956,530 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Rm-lo-CxR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-437" y="76"/>
+            <point key="canvasLocation" x="-575" y="77"/>
+        </scene>
+        <!--Left Panels View Controller-->
+        <scene sceneID="Pyg-i6-SKU">
+            <objects>
+                <viewController id="06U-ud-477" customClass="LeftPanelsViewController" customModule="Doodle2Gather" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="f55-6A-KgB" customClass="SubviewTouchView" customModule="Doodle2Gather" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="372" height="489"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zab-bH-VRq" userLabel="Shapes Buttons View">
+                                <rect key="frame" x="82" y="137" width="60" height="215"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="GV2-lt-wg1" userLabel="Button Stack">
+                                        <rect key="frame" x="10" y="10" width="40" height="190"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KWG-vf-nNg" userLabel="Circle Button">
+                                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="7ju-fC-LU9"/>
+                                                    <constraint firstAttribute="width" constant="40" id="Sk3-MS-kRp"/>
+                                                </constraints>
+                                                <color key="tintColor" systemColor="labelColor"/>
+                                                <state key="normal" image="Circle"/>
+                                                <state key="selected" image="Circle_Yellow"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="20"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="shapeToolButtonDidTap:" destination="06U-ud-477" eventType="touchUpInside" id="Hb3-6C-ScR"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9z7-zt-8yD" userLabel="Square Button">
+                                                <rect key="frame" x="0.0" y="50" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="8TS-zJ-1lS"/>
+                                                    <constraint firstAttribute="width" constant="40" id="M1K-MX-4Xp"/>
+                                                </constraints>
+                                                <color key="tintColor" systemColor="labelColor"/>
+                                                <state key="normal" image="Square"/>
+                                                <state key="selected" image="Square_Yellow"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="20"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="shapeToolButtonDidTap:" destination="06U-ud-477" eventType="touchUpInside" id="y6m-8Q-U8q"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7nw-wi-WYg" userLabel="Triangle Button">
+                                                <rect key="frame" x="0.0" y="100" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="2tz-lN-6OQ"/>
+                                                    <constraint firstAttribute="width" constant="40" id="J0t-jX-F2w"/>
+                                                </constraints>
+                                                <color key="tintColor" systemColor="labelColor"/>
+                                                <state key="normal" image="Triangle"/>
+                                                <state key="selected" image="Triangle_Yellow"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="20"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="shapeToolButtonDidTap:" destination="06U-ud-477" eventType="touchUpInside" id="JYX-jr-zqf"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qmb-uq-ZSH" userLabel="Star Button">
+                                                <rect key="frame" x="0.0" y="150" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="H6D-WH-RA6"/>
+                                                    <constraint firstAttribute="width" constant="40" id="urx-Wf-Dul"/>
+                                                </constraints>
+                                                <color key="tintColor" systemColor="labelColor"/>
+                                                <state key="normal" image="Star"/>
+                                                <state key="selected" image="Star_Yellow"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="20"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="shapeToolButtonDidTap:" destination="06U-ud-477" eventType="touchUpInside" id="m2i-qU-XU7"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" name="Black"/>
+                                <constraints>
+                                    <constraint firstItem="GV2-lt-wg1" firstAttribute="bottom" secondItem="Zab-bH-VRq" secondAttribute="bottom" constant="-15" id="WHo-Dd-vLo"/>
+                                    <constraint firstItem="GV2-lt-wg1" firstAttribute="top" secondItem="Zab-bH-VRq" secondAttribute="top" constant="10" id="bQb-mt-Ovs"/>
+                                    <constraint firstItem="GV2-lt-wg1" firstAttribute="trailing" secondItem="Zab-bH-VRq" secondAttribute="trailing" constant="-10" id="fsr-pf-Sll"/>
+                                    <constraint firstItem="GV2-lt-wg1" firstAttribute="leading" secondItem="Zab-bH-VRq" secondAttribute="leading" constant="10" id="pfL-h6-wiR"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                        <size key="value" width="0.0" height="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                        <real key="value" value="0.40000000000000002"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Xj-kh-aUN" userLabel="Drawing Tools Buttons View">
+                                <rect key="frame" x="82" y="97" width="60" height="295"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="a3W-PN-KVs" userLabel="Button Stack">
+                                        <rect key="frame" x="10" y="10" width="40" height="270"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rKg-Y4-tax" userLabel="Pen Button">
+                                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="Hja-wa-jmF"/>
+                                                    <constraint firstAttribute="height" constant="40" id="VOe-dh-pgc"/>
+                                                </constraints>
+                                                <color key="tintColor" systemColor="labelColor"/>
+                                                <state key="normal" image="Brush"/>
+                                                <state key="selected" image="Brush_Yellow"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="20"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="drawingToolButtonDidTap:" destination="06U-ud-477" eventType="touchUpInside" id="2SI-Km-kFu"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PHr-oW-a4i" userLabel="Pencil Button">
+                                                <rect key="frame" x="0.0" y="50" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="WCC-sx-g8M"/>
+                                                    <constraint firstAttribute="width" constant="40" id="YNB-2Q-nwX"/>
+                                                </constraints>
+                                                <color key="tintColor" systemColor="labelColor"/>
+                                                <state key="normal" image="Pencil"/>
+                                                <state key="selected" image="Pencil_Yellow"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="20"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="drawingToolButtonDidTap:" destination="06U-ud-477" eventType="touchUpInside" id="hCH-wD-OYM"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AMp-iL-zoR" userLabel="Highlighter Button">
+                                                <rect key="frame" x="0.0" y="100" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="aAz-Xg-Us7"/>
+                                                    <constraint firstAttribute="width" constant="40" id="wX6-4N-bxW"/>
+                                                </constraints>
+                                                <color key="tintColor" systemColor="labelColor"/>
+                                                <state key="normal" image="BrushAlt"/>
+                                                <state key="selected" image="BrushAlt_Yellow"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="20"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="drawingToolButtonDidTap:" destination="06U-ud-477" eventType="touchUpInside" id="Pz8-zO-Nvk"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EE8-GC-4Km" userLabel="Magic Pen Button">
+                                                <rect key="frame" x="0.0" y="150" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="BHW-Ic-vcm"/>
+                                                    <constraint firstAttribute="height" constant="40" id="G0J-T6-dj7"/>
+                                                </constraints>
+                                                <color key="tintColor" systemColor="labelColor"/>
+                                                <state key="normal" image="MagicWand"/>
+                                                <state key="selected" image="MagicWand_Yellow"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="20"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="drawingToolButtonDidTap:" destination="06U-ud-477" eventType="touchUpInside" id="o0Y-uK-1GG"/>
+                                                </connections>
+                                            </button>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Separator_Horizontal" translatesAutoresizingMaskIntoConstraints="NO" id="iqa-v5-fMZ">
+                                                <rect key="frame" x="0.0" y="200" width="40" height="20"/>
+                                                <accessibility key="accessibilityConfiguration">
+                                                    <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
+                                                </accessibility>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" id="0lJ-Vh-qKH"/>
+                                                    <constraint firstAttribute="width" constant="40" id="wvl-gz-hCe"/>
+                                                </constraints>
+                                            </imageView>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dae-hy-jiK" userLabel="Color Picker Button Container">
+                                                <rect key="frame" x="0.0" y="230" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="RB8-K0-ntQ"/>
+                                                    <constraint firstAttribute="height" constant="40" id="hb6-Dy-JFp"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="20"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                        <real key="value" value="3"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" name="Black"/>
+                                <constraints>
+                                    <constraint firstItem="a3W-PN-KVs" firstAttribute="leading" secondItem="4Xj-kh-aUN" secondAttribute="leading" constant="10" id="6e2-zW-wAr"/>
+                                    <constraint firstItem="a3W-PN-KVs" firstAttribute="top" secondItem="4Xj-kh-aUN" secondAttribute="top" constant="10" id="9wv-Il-Lt8"/>
+                                    <constraint firstItem="a3W-PN-KVs" firstAttribute="trailing" secondItem="4Xj-kh-aUN" secondAttribute="trailing" constant="-10" id="KRv-3z-8RV"/>
+                                    <constraint firstItem="a3W-PN-KVs" firstAttribute="bottom" secondItem="4Xj-kh-aUN" secondAttribute="bottom" constant="-15" id="UCw-2l-6lO"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                        <size key="value" width="0.0" height="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                        <real key="value" value="0.40000000000000002"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HdL-Pj-pPB" userLabel="Left Buttons View">
+                                <rect key="frame" x="12" y="114.5" width="60" height="260"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Pqb-uy-IVC" userLabel="Button Stack">
+                                        <rect key="frame" x="10" y="10" width="40" height="240"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IP2-Vo-DRb" userLabel="Draw Button">
+                                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="g6H-cL-8dT"/>
+                                                    <constraint firstAttribute="height" constant="40" id="kyv-a9-dtY"/>
+                                                </constraints>
+                                                <color key="tintColor" systemColor="labelColor"/>
+                                                <state key="normal" image="Brush_Yellow"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="20"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="mainToolButtonDidTap:" destination="06U-ud-477" eventType="touchUpInside" id="Fqd-Sf-VpQ"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kjq-AY-SZg" userLabel="Eraser Button">
+                                                <rect key="frame" x="0.0" y="50" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="U6e-Ro-YbU"/>
+                                                    <constraint firstAttribute="height" constant="40" id="qEF-tM-NMt"/>
+                                                </constraints>
+                                                <state key="normal" image="Eraser"/>
+                                                <state key="selected" image="Eraser_Yellow"/>
+                                                <connections>
+                                                    <action selector="mainToolButtonDidTap:" destination="06U-ud-477" eventType="touchUpInside" id="vYg-LT-3HV"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Va2-Px-Ku6" userLabel="Text Button">
+                                                <rect key="frame" x="0.0" y="100" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="bXL-Ld-hUy"/>
+                                                    <constraint firstAttribute="height" constant="40" id="tI2-yr-Ywm"/>
+                                                </constraints>
+                                                <state key="normal" image="Text"/>
+                                                <state key="selected" image="Text_Yellow"/>
+                                                <connections>
+                                                    <action selector="mainToolButtonDidTap:" destination="06U-ud-477" eventType="touchUpInside" id="9mz-Zj-Guz"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w78-OH-H1V" userLabel="Shapes Button">
+                                                <rect key="frame" x="0.0" y="150" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="0zP-9y-JKU"/>
+                                                    <constraint firstAttribute="height" constant="40" id="coA-hG-7Mb"/>
+                                                </constraints>
+                                                <state key="normal" image="Shapes"/>
+                                                <state key="selected" image="Shapes_Yellow"/>
+                                                <connections>
+                                                    <action selector="mainToolButtonDidTap:" destination="06U-ud-477" eventType="touchUpInside" id="Igh-L6-CtA"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ryu-pR-t2y" userLabel="Cursor Button">
+                                                <rect key="frame" x="0.0" y="200" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="iyh-9i-UGG"/>
+                                                    <constraint firstAttribute="width" constant="40" id="wNu-rS-KaF"/>
+                                                </constraints>
+                                                <state key="normal" image="Cursor"/>
+                                                <state key="selected" image="Cursor_Yellow"/>
+                                                <connections>
+                                                    <action selector="mainToolButtonDidTap:" destination="06U-ud-477" eventType="touchUpInside" id="dHD-uE-mGR"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" name="Black"/>
+                                <constraints>
+                                    <constraint firstItem="Pqb-uy-IVC" firstAttribute="bottom" secondItem="HdL-Pj-pPB" secondAttribute="bottom" constant="-10" id="GNV-Ev-oPK"/>
+                                    <constraint firstItem="Pqb-uy-IVC" firstAttribute="leading" secondItem="HdL-Pj-pPB" secondAttribute="leading" constant="10" id="QLr-Hb-mC7"/>
+                                    <constraint firstItem="Pqb-uy-IVC" firstAttribute="trailing" secondItem="HdL-Pj-pPB" secondAttribute="trailing" constant="-10" id="alg-M6-ZTb"/>
+                                    <constraint firstItem="Pqb-uy-IVC" firstAttribute="top" secondItem="HdL-Pj-pPB" secondAttribute="top" constant="10" id="cHO-0b-2SA"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                        <size key="value" width="0.0" height="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                        <real key="value" value="0.40000000000000002"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <containerView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DHu-9F-THM">
+                                <rect key="frame" x="152" y="70" width="220" height="349"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="349" id="cVL-QR-mEA"/>
+                                    <constraint firstAttribute="width" constant="220" id="lpz-NM-W4V"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="f3u-GT-n82" kind="embed" identifier="toStrokeEditor" id="omX-tt-d4U"/>
+                                </connections>
+                            </containerView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o49-IX-df3" userLabel="Pressure Info View">
+                                <rect key="frame" x="152" y="429" width="220" height="60"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="jpV-eh-2p4">
+                                        <rect key="frame" x="15" y="14" width="195" height="32"/>
+                                        <subviews>
+                                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pressure" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DfT-XS-Yg3">
+                                                <rect key="frame" x="0.0" y="0.0" width="139" height="32"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                <color key="textColor" name="White"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TkB-vr-6L4">
+                                                <rect key="frame" x="146" y="0.0" width="51" height="32"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="32" id="T7q-7c-cbY"/>
+                                                </constraints>
+                                                <color key="onTintColor" name="Texas Yellow"/>
+                                                <connections>
+                                                    <action selector="pressureSwitchDidToggle:" destination="06U-ud-477" eventType="valueChanged" id="zGn-Iz-vNb"/>
+                                                </connections>
+                                            </switch>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" name="Black"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="220" id="Q4i-MY-Lw2"/>
+                                    <constraint firstItem="jpV-eh-2p4" firstAttribute="leading" secondItem="o49-IX-df3" secondAttribute="leading" constant="15" id="VlW-2K-pIv"/>
+                                    <constraint firstItem="jpV-eh-2p4" firstAttribute="trailing" secondItem="o49-IX-df3" secondAttribute="trailing" constant="-10" id="ZoO-ZS-6s3"/>
+                                    <constraint firstItem="jpV-eh-2p4" firstAttribute="top" secondItem="o49-IX-df3" secondAttribute="top" constant="14" id="qrz-Ha-kQH"/>
+                                    <constraint firstItem="jpV-eh-2p4" firstAttribute="bottom" secondItem="o49-IX-df3" secondAttribute="bottom" constant="-14" id="xTl-D2-ocK"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                        <size key="value" width="0.0" height="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                        <real key="value" value="0.40000000000000002"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VOQ-U6-yH2" userLabel="Select Buttons View">
+                                <rect key="frame" x="82" y="187" width="60" height="115"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="JVx-jz-RXs" userLabel="Button Stack">
+                                        <rect key="frame" x="10" y="10" width="40" height="90"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sPA-Tp-Fdn" userLabel="Select All Button">
+                                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="AcB-VN-8Gg"/>
+                                                    <constraint firstAttribute="height" constant="40" id="Fsq-3n-36e"/>
+                                                </constraints>
+                                                <color key="tintColor" systemColor="labelColor"/>
+                                                <state key="normal" image="Users"/>
+                                                <state key="selected" image="Users_Yellow"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="20"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="selectToolButtonDidTap:" destination="06U-ud-477" eventType="touchUpInside" id="dSi-77-aoW"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YTA-CY-Xpl" userLabel="Select Self Button">
+                                                <rect key="frame" x="0.0" y="50" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="0oM-1W-2YK"/>
+                                                    <constraint firstAttribute="height" constant="40" id="fwP-r6-wa6"/>
+                                                </constraints>
+                                                <color key="tintColor" systemColor="labelColor"/>
+                                                <state key="normal" image="User"/>
+                                                <state key="selected" image="User_Yellow"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="20"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="selectToolButtonDidTap:" destination="06U-ud-477" eventType="touchUpInside" id="3w7-CY-lCX"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" name="Black"/>
+                                <constraints>
+                                    <constraint firstItem="JVx-jz-RXs" firstAttribute="bottom" secondItem="VOQ-U6-yH2" secondAttribute="bottom" constant="-15" id="PEC-p3-gn3"/>
+                                    <constraint firstItem="JVx-jz-RXs" firstAttribute="leading" secondItem="VOQ-U6-yH2" secondAttribute="leading" constant="10" id="UjI-JZ-I6i"/>
+                                    <constraint firstItem="JVx-jz-RXs" firstAttribute="trailing" secondItem="VOQ-U6-yH2" secondAttribute="trailing" constant="-10" id="wmM-gI-2oL"/>
+                                    <constraint firstItem="JVx-jz-RXs" firstAttribute="top" secondItem="VOQ-U6-yH2" secondAttribute="top" constant="10" id="xGq-LX-jrk"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                        <size key="value" width="0.0" height="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                        <real key="value" value="0.40000000000000002"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="HdL-Pj-pPB" firstAttribute="centerY" secondItem="f55-6A-KgB" secondAttribute="centerY" id="7wL-HN-J2j"/>
+                            <constraint firstItem="VOQ-U6-yH2" firstAttribute="centerY" secondItem="f55-6A-KgB" secondAttribute="centerY" id="ByY-Gm-ZIQ"/>
+                            <constraint firstItem="o49-IX-df3" firstAttribute="top" secondItem="DHu-9F-THM" secondAttribute="bottom" constant="10" id="NFC-03-iiZ"/>
+                            <constraint firstItem="HdL-Pj-pPB" firstAttribute="leading" secondItem="f55-6A-KgB" secondAttribute="leading" constant="12" id="Pan-Qk-9bp"/>
+                            <constraint firstItem="DHu-9F-THM" firstAttribute="centerY" secondItem="f55-6A-KgB" secondAttribute="centerY" id="Qxg-zF-6So"/>
+                            <constraint firstItem="HdL-Pj-pPB" firstAttribute="centerY" secondItem="f55-6A-KgB" secondAttribute="centerY" id="R1s-4G-HbS"/>
+                            <constraint firstItem="4Xj-kh-aUN" firstAttribute="centerY" secondItem="f55-6A-KgB" secondAttribute="centerY" id="SCz-NE-PVe"/>
+                            <constraint firstItem="Zab-bH-VRq" firstAttribute="centerY" secondItem="f55-6A-KgB" secondAttribute="centerY" id="The-92-g8F"/>
+                            <constraint firstAttribute="trailing" secondItem="DHu-9F-THM" secondAttribute="trailing" id="Tqv-gi-XL2"/>
+                            <constraint firstItem="VOQ-U6-yH2" firstAttribute="leading" secondItem="HdL-Pj-pPB" secondAttribute="trailing" constant="10" id="YH0-sR-0S0"/>
+                            <constraint firstItem="Zab-bH-VRq" firstAttribute="leading" secondItem="HdL-Pj-pPB" secondAttribute="trailing" constant="10" id="kFM-TB-64K"/>
+                            <constraint firstItem="DHu-9F-THM" firstAttribute="leading" secondItem="VOQ-U6-yH2" secondAttribute="trailing" constant="10" id="kPV-LF-Vf7"/>
+                            <constraint firstItem="4Xj-kh-aUN" firstAttribute="leading" secondItem="HdL-Pj-pPB" secondAttribute="trailing" constant="10" id="l3l-ro-CE8"/>
+                            <constraint firstItem="DHu-9F-THM" firstAttribute="centerY" secondItem="f55-6A-KgB" secondAttribute="centerY" id="l9W-PC-Hhb"/>
+                            <constraint firstItem="DHu-9F-THM" firstAttribute="leading" secondItem="4Xj-kh-aUN" secondAttribute="trailing" constant="10" id="tWz-ct-tBm"/>
+                            <constraint firstItem="4Xj-kh-aUN" firstAttribute="centerY" secondItem="f55-6A-KgB" secondAttribute="centerY" id="wsj-dN-iFu"/>
+                            <constraint firstItem="o49-IX-df3" firstAttribute="leading" secondItem="f55-6A-KgB" secondAttribute="leading" constant="152" id="wtm-DL-G4V"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="circleButton" destination="KWG-vf-nNg" id="h5O-vG-kWs"/>
+                        <outlet property="colorPickerButton" destination="Dae-hy-jiK" id="oD5-Gr-4oX"/>
+                        <outlet property="colorPickerView" destination="DHu-9F-THM" id="Rdf-vN-G4G"/>
+                        <outlet property="cursorButton" destination="ryu-pR-t2y" id="axa-sJ-jUH"/>
+                        <outlet property="drawButton" destination="IP2-Vo-DRb" id="arZ-T8-8Mw"/>
+                        <outlet property="drawingToolsButtonsView" destination="4Xj-kh-aUN" id="3ef-2v-PNI"/>
+                        <outlet property="eraserButton" destination="kjq-AY-SZg" id="fZq-nT-f1l"/>
+                        <outlet property="highlighterButton" destination="AMp-iL-zoR" id="HQV-90-GmX"/>
+                        <outlet property="leftButtonsView" destination="HdL-Pj-pPB" id="lfU-D9-CiF"/>
+                        <outlet property="magicPenButton" destination="EE8-GC-4Km" id="UR0-3d-U8X"/>
+                        <outlet property="penButton" destination="rKg-Y4-tax" id="PLK-If-M9e"/>
+                        <outlet property="pencilButton" destination="PHr-oW-a4i" id="XnB-87-d8x"/>
+                        <outlet property="pressureInfoView" destination="o49-IX-df3" id="vy9-3O-J9d"/>
+                        <outlet property="selectAllButton" destination="sPA-Tp-Fdn" id="5Q8-xF-8PL"/>
+                        <outlet property="selectButtonsView" destination="VOQ-U6-yH2" id="IbC-Y8-Iib"/>
+                        <outlet property="selectSelfButton" destination="YTA-CY-Xpl" id="iTl-GU-wSC"/>
+                        <outlet property="shapesButton" destination="w78-OH-H1V" id="z13-rs-OA3"/>
+                        <outlet property="shapesButtonsView" destination="Zab-bH-VRq" id="2NE-6E-NYM"/>
+                        <outlet property="squareButton" destination="9z7-zt-8yD" id="Dvb-Nl-YhC"/>
+                        <outlet property="starButton" destination="qmb-uq-ZSH" id="buE-kC-01c"/>
+                        <outlet property="strokeEditorHeightConstraint" destination="cVL-QR-mEA" id="f7M-cZ-eyd"/>
+                        <outlet property="textButton" destination="Va2-Px-Ku6" id="mer-LX-OE1"/>
+                        <outlet property="triangleButton" destination="7nw-wi-WYg" id="jZF-S8-YxK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="G6f-6Z-9wV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-336" y="77"/>
         </scene>
     </scenes>
     <resources>
