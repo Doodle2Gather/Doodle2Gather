@@ -119,13 +119,13 @@ extension DoodleViewController: DTRoomWebSocketControllerDelegate {
         }).sorted(by: { x, y -> Bool in
             x.displayName < y.displayName
         })
-        
+
         for index in 0..<(states.count - 1) where states[index].userId
             != states[index + 1].userId {
             userStates.append(states[index])
         }
         userStates.append(states[states.count - 1])
- 
+
         DispatchQueue.main.async {
             self.updateProfileColors()
         }
