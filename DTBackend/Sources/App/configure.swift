@@ -15,7 +15,7 @@ public func configure(_ app: Application) throws {
     app.migrations.add(AddRoom())
     app.migrations.add(AddDoodle())
     app.migrations.add(AddPair())
-    app.migrations.add(AddStroke())
+    app.migrations.add(AddEntity())
     app.migrations.add(AddAction())
     app.migrations.add(AddUser())
     app.migrations.add(AddAccesses())

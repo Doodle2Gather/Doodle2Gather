@@ -72,7 +72,7 @@ extension PersistedDTUser {
       }
       return PersistedDTUser.query(on: db)
         .filter(\.$id == id)
-        .with(\.$accessibleRooms, { $0.with(\.$doodles, { $0.with(\.$strokes) }) })
+        .with(\.$accessibleRooms, { $0.with(\.$doodles, { $0.with(\.$entities) }) })
         .first()
         .unwrap(or: DTError.modelNotFound(type: "PersistedDTUser", id: id))
     }
