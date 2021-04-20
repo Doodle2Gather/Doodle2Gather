@@ -237,3 +237,20 @@ extension WSRoomController {
         }
     }
 }
+
+extension WSRoomController {
+    func updateParticipantsInfo() {
+        PersistedDTRoom.getRoomPermissions(roomId: self.roomId, on: db)
+            .whenComplete { result in
+                switch result {
+                case .success(let userAccesses):
+                    self.logger.info("Dispatching new participant info")
+                    self.getWebSockets(self.getAllWebSocketOptions).forEach {
+                        self.dispatchParticipantsInfo($0, wsId: UUID(), userAccesses: userAccesses)
+                    }
+                case .failure(let error):
+                    self.logger.warning("Unable to fetch room permissions \(error)")
+                }
+            }
+    }
+}

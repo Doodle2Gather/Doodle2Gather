@@ -23,6 +23,7 @@ class WebSocketController {
         self.authController = WSAuthController(db: db)
         self.homeController = WSHomeController(db: db)
         self.roomControllers = [:]
+        self.homeController.delegate = self
     }
 
     func onConnect(_ ws: WebSocket) {
@@ -86,6 +87,14 @@ class WebSocketController {
     func onDisconnect(_ id: UUID) {
         self.lock.withLockVoid {
             self.sockets[id] = nil
+        }
+    }
+}
+
+extension WebSocketController: WSHomeControllerDelegate {
+    func didJoinRoomViaInvite(roomId: UUID) {
+        if let openRoom = self.roomControllers[roomId] {
+            openRoom.updateParticipantsInfo()
         }
     }
 }
