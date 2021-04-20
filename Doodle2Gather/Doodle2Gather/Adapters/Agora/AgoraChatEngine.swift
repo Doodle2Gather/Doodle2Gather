@@ -22,7 +22,6 @@ class AgoraChatEngine: NSObject, ChatEngine {
         agoraRtmKit?.logout(completion: nil)
     }
 
-    // TODO: Currently reusing the logic for video, need to change to our own user model
     private func getAgoraTokenAndJoinChannel(channelName: String) {
         guard let user = currentUser else {
             DTLogger.error("Error with fetching current user's uid")
@@ -44,12 +43,10 @@ class AgoraChatEngine: NSObject, ChatEngine {
 
             if let data = data,
                let tokenResponse = try? JSONDecoder().decode(AgoraTokenAPIResponse.self, from: data) {
-                // TODO: CHange "username" to when authentication is done
-                // Also, the username cannot contain special characters
                 self.agoraRtmKit?.login(byToken: tokenResponse.key,
                                         user: user.uid) { errorCode in
                     guard errorCode == .ok else {
-                        DTLogger.error("Chat engine: error with logging in to Agora server: code \(errorCode.rawValue)")
+                        DTLogger.error("Error with logging in to Agora server: code \(errorCode.rawValue)")
                         return
                     }
                     self.createOrJoinChannel(channelName: channelName)
@@ -66,12 +63,12 @@ class AgoraChatEngine: NSObject, ChatEngine {
 
     private func createOrJoinChannel(channelName: String) {
         guard let rtmChannel = agoraRtmKit?.createChannel(withId: channelName, delegate: self) else {
-            DTLogger.error("Chat engine: unable to create or attach to channel: \(channelName)")
+            DTLogger.error("Unable to create or attach to chat channel: \(channelName)")
             return
         }
         rtmChannel.join { error in
             if error != .channelErrorOk {
-                DTLogger.error("Chat engine: unable to join channel: \(channelName)")
+                DTLogger.error("Unable to join chat channel: \(channelName)")
                 return
             }
         }
@@ -80,7 +77,7 @@ class AgoraChatEngine: NSObject, ChatEngine {
 
     func leaveChannel() {
         rtmChannel?.leave { error in
-            DTLogger.error("Chat engine: leave channel error: \(error.rawValue)")
+            DTLogger.error("Leave chat channel error: code \(error.rawValue)")
         }
     }
 
@@ -93,9 +90,9 @@ class AgoraChatEngine: NSObject, ChatEngine {
 
         rtmChannel?.send(rtmMessage) { errorCode in
             if errorCode != .errorOk {
-                DTLogger.error("Chat engine: error sending the message: code \(errorCode.rawValue)")
+                DTLogger.error("Error sending the message: code \(errorCode.rawValue)")
             } else {
-                DTLogger.event("Chat engine: successfully sent message from \(user.displayName): \(message)")
+                DTLogger.event("Successfully sent message from \(user.displayName): \(message)")
                 self.delegate?.deliverMessage(from: user.uid, message: rtmMessage.text)
             }
         }
@@ -134,7 +131,7 @@ extension AgoraChatEngine: AgoraRtmChannelDelegate {
     func channel(_ channel: AgoraRtmChannel,
                  messageReceived message: AgoraRtmMessage,
                  from member: AgoraRtmMember) {
-        DTLogger.event("Chat engine: received message from userId \(member.userId): \(message.text)")
+        DTLogger.event("Received message from userId \(member.userId): \(message.text)")
         delegate?.deliverMessage(from: member.userId, message: message.text)
     }
 

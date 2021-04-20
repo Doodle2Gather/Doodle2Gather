@@ -15,7 +15,6 @@ class DoodleViewController: UIViewController {
     // Top Left Options
     @IBOutlet private var exitButton: UIButton!
     @IBOutlet private var fileNameLabel: UILabel!
-    @IBOutlet private var fileInfoButton: UIButton!
     @IBOutlet private var separatorView: UIImageView!
     @IBOutlet private var inviteButton: UIButton!
     @IBOutlet private var exportButton: UIButton!
@@ -56,6 +55,7 @@ class DoodleViewController: UIViewController {
     var roomWSController = DTRoomWebSocketController()
     var strokeEditor: StrokeEditor?
     var layerTable: DoodleLayerTable?
+    private var loadingSpinner: UIAlertController?
 
     // State
     var room: DTAdaptedRoom?
@@ -250,7 +250,6 @@ extension DoodleViewController {
 
     @IBAction private func topMinimizeButtonDidTap(_ sender: UIButton) {
         fileNameLabel.isHidden.toggle()
-        fileInfoButton.isHidden.toggle()
         separatorView.isHidden.toggle()
         inviteButton.isHidden.toggle()
         exportButton.isHidden.toggle()

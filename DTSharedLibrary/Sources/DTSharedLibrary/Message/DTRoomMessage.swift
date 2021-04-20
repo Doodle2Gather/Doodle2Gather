@@ -195,3 +195,16 @@ public struct DTExitRoomMessage: Codable {
         self.roomId = roomId
     }
 }
+
+public struct DTRoomLiveStateMessage: Codable {
+    public var type = DTMessageType.room
+    public var subtype = DTRoomMessageType.updateLiveState
+    public var id = UUID()
+    public var roomId: UUID
+    public let usersInRoom: [DTAdaptedUser]
+
+    public init(roomId: UUID, usersInRoom: [DTAdaptedUser]) {
+        self.roomId = roomId
+        self.usersInRoom = usersInRoom
+    }
+}
