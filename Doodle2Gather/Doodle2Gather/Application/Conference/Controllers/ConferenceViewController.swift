@@ -63,7 +63,7 @@ class ConferenceViewController: UIViewController {
 
         collectionView.isHidden = true
         topControlViewContainer.isHidden = true
-
+        
         timer = Timer.scheduledTimer(timeInterval: 2.0,
                                      target: self,
                                      selector: #selector(updateState),
@@ -361,8 +361,6 @@ extension ConferenceViewController: UICollectionViewDelegateFlowLayout {
 extension ConferenceViewController: DTConferenceWebSocketControllerDelegate {
 
     func updateStates(_ users: [DTAdaptedUserVideoConferenceState]) {
-        print("Yolo")
-        print(users)
         for user in users {
             userIdToNameMapping[user.id] = user.displayName
         }
