@@ -53,12 +53,12 @@ class DoodleViewController: UIViewController {
     // State
     var room: DTAdaptedRoom?
     var username: String?
-    private var previousDrawingTool = DrawingTools.pen
     var doodles: [DTDoodleWrapper]?
     var participants: [DTAdaptedUser] = []
     var existingUsers: [DTAdaptedUserAccesses] = []
     var userIcons: [UserIconData] = []
     var userIconColors: [UIColor] = []
+    private var previousDrawingTool = DrawingTools.pen
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,12 +78,7 @@ class DoodleViewController: UIViewController {
         registerGestures()
         loadBorderColors()
         updateProfileViews()
-        existingUsers.sort { u, v -> Bool in
-            u.displayName < v.displayName
-        }
-        userIcons = existingUsers.map({ x -> UserIconData in
-            UserIconData(user: x, color: generateRandomColor())
-        })
+        initialiseUserIconColors()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -125,6 +120,12 @@ class DoodleViewController: UIViewController {
         userProfileLabel.layer.borderColor = UIConstants.white.cgColor
         otherProfileLabelOne.layer.borderColor = UIConstants.white.cgColor
         otherProfileLabelTwo.layer.borderColor = UIConstants.white.cgColor
+    }
+
+    func initialiseUserIconColors() {
+        for _ in 0..<UIConstants.userIconColorCount {
+            userIconColors.append(generateRandomColor())
+        }
     }
 
     func updateProfileViews() {

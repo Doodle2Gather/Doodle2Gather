@@ -111,9 +111,11 @@ extension DoodleViewController: DTRoomWebSocketControllerDelegate {
         existingUsers = users.sorted(by: { x, y -> Bool in
             x.displayName < y.displayName
         })
-        userIcons = existingUsers.map({ x -> UserIconData in
-            UserIconData(user: x, color: generateRandomColor())
-        })
+        userIcons.removeAll()
+        for index in 0..<existingUsers.count {
+            userIcons.append(UserIconData(user: existingUsers[index],
+                                          color: userIconColors[index % UIConstants.userIconColorCount]))
+        }
         DispatchQueue.main.async {
             self.updateProfileColors()
         }
