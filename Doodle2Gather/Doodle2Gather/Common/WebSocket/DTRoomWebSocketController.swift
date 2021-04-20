@@ -111,7 +111,7 @@ final class DTRoomWebSocketController: DTSendableWebSocketSubController {
         }
         conferenceDelegate?.updateStates(newConferenceState)
     }
-    
+
     func handleSetRoomTimer(_ data: Data) throws {
         let newRoomTimer = try decoder.decode(DTSetRoomTimerMessage.self, from: data)
         DTLogger.debug {
@@ -219,7 +219,7 @@ extension DTRoomWebSocketController: RoomSocketController {
                                                   setCanChat: setCanChat)
         send(message)
     }
-    
+
     func setRoomTimer(minutes: Int, seconds: Int) {
         guard let id = id,
               let roomId = roomId else {

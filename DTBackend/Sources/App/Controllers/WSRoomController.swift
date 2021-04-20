@@ -176,6 +176,9 @@ class WSRoomController {
                 let requestData = try decoder.decode(
                     DTSetUserPermissionsMessage.self, from: data)
                 self.handleSetUserPermission(ws, requestData)
+            case .setRoomTimer:
+                let newTimerData = try decoder.decode(DTSetRoomTimerMessage.self, from: data)
+                self.handleSetRoomTimer(ws, newTimerData)
             default:
                 break
             }
