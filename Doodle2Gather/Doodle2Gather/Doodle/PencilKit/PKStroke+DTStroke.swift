@@ -21,7 +21,7 @@ extension PKStroke: DTStroke {
         }
     }
 
-    public var tool: DTTool {
+    public var tool: DTCodableTool {
         get {
             convertInkToTool(ink: ink.inkType)
         }
@@ -45,11 +45,11 @@ extension PKStroke: DTStroke {
         self.init(from: stroke)
     }
 
-    public init<P>(color: UIColor, tool: DTTool, points: [P], transform: CGAffineTransform,
+    public init<P>(color: UIColor, tool: DTCodableTool, points: [P], transform: CGAffineTransform,
                    mask: UIBezierPath?) where P: DTPoint {
         var ink = PKInk.InkType.pen
         switch tool {
-        case .pen, .eraser, .lasso:
+        case .pen:
             ink = .pen
         case .pencil:
             ink = .pencil
@@ -63,9 +63,9 @@ extension PKStroke: DTStroke {
                   transform: transform, mask: mask)
     }
 
-    private func convertToolToInk(tool: DTTool) -> PKInk.InkType {
+    private func convertToolToInk(tool: DTCodableTool) -> PKInk.InkType {
         switch tool {
-        case .pen, .eraser, .lasso:
+        case .pen:
             return .pen
         case .pencil:
             return .pencil
@@ -74,7 +74,7 @@ extension PKStroke: DTStroke {
         }
     }
 
-    private func convertInkToTool(ink: PKInk.InkType) -> DTTool {
+    private func convertInkToTool(ink: PKInk.InkType) -> DTCodableTool {
         switch ink {
         case .pen:
             return .pen

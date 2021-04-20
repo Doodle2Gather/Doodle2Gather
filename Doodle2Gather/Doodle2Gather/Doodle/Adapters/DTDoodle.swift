@@ -16,6 +16,12 @@ public protocol DTDoodle: Hashable {
 
     /// Adds strokes in the given array of strokes to the current array of strokes.
     mutating func addStrokes<S: DTStroke>(_: [S])
+
+    /// Removes the given stroke from the current array of strokes.
+    mutating func removeStroke<S: DTStroke>(_: S)
+
+    /// Adds the given stroke to the current array of strokes.
+    mutating func addStroke<S: DTStroke>(_: S)
 }
 
 // MARK: - Equatable
