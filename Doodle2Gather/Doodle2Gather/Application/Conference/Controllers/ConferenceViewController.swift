@@ -366,6 +366,8 @@ extension ConferenceViewController: DTConferenceWebSocketControllerDelegate {
                 continue
             }
             cell.setName(userIdToNameMapping[videoCallUserList[row].userId] ?? "Unknown")
+            videoCallUserList[row].nameplate.text =
+                userIdToNameMapping[videoCallUserList[row].userId] ?? "Unknown"
             if !users[row].isVideoOn {
                 cell.addSubview(videoCallUserList[row].overlay)
                 cell.addSubview(videoCallUserList[row].nameplate)
