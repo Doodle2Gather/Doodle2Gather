@@ -3,57 +3,20 @@ import Fluent
 import DTSharedLibrary
 
 class WSRoomController {
-    let lock: Lock
-    let usersLock: Lock
-    var sockets: [UUID: WebSocket]
-    var users: [UUID: PersistedDTUser]
+    let lock = Lock()
+    let usersLock = Lock()
+    var sockets = [UUID: WebSocket]()
+    var users = [UUID: PersistedDTUser]()
     let db: Database
-    let logger: Logger
+    let logger = Logger(label: "WSRoomController")
 
     let roomId: UUID
     let roomController: ActiveRoomController
 
     init(roomId: UUID, db: Database) {
-        self.lock = Lock()
-        self.usersLock = Lock()
-        self.sockets = [:]
-        self.users = [:]
         self.db = db
-        self.logger = Logger(label: "WSRoomController")
-
         self.roomId = roomId
         self.roomController = ActiveRoomController(roomId: roomId, db: db)
-    }
-
-    var getAllWebSocketOptions: [WebSocketSendOption] {
-        var options = [WebSocketSendOption]()
-        for ws in sockets {
-            options.append(.socket(ws.value))
-        }
-        return options
-    }
-
-    func getAllWebSocketOptionsExcept(_ uuid: UUID) -> [WebSocketSendOption] {
-        var options = [WebSocketSendOption]()
-        for ws in sockets where ws.key != uuid {
-            options.append(.socket(ws.value))
-        }
-        return options
-    }
-
-    func getWebSockets(_ sendOptions: [WebSocketSendOption]) -> [WebSocket] {
-        self.lock.withLock {
-            var webSockets = [WebSocket]()
-            for option in sendOptions {
-                switch option {
-                case .id(let id):
-                    webSockets += [self.sockets[id]].compactMap { $0 }
-                case .socket(let socket):
-                    webSockets += [socket]
-                }
-            }
-            return webSockets
-        }
     }
 
     func onJoinRoom(_ ws: WebSocket, _ data: Data) {
@@ -166,6 +129,40 @@ class WSRoomController {
                         self.logger.info("Synced doodle \(doodle.key.uuidString)")
                     }
                 }
+        }
+    }
+}
+
+// MARK: - Broadcast Helpers
+extension WSRoomController {
+    var getAllWebSocketOptions: [WebSocketSendOption] {
+        var options = [WebSocketSendOption]()
+        for ws in sockets {
+            options.append(.socket(ws.value))
+        }
+        return options
+    }
+
+    func getAllWebSocketOptionsExcept(_ uuid: UUID) -> [WebSocketSendOption] {
+        var options = [WebSocketSendOption]()
+        for ws in sockets where ws.key != uuid {
+            options.append(.socket(ws.value))
+        }
+        return options
+    }
+
+    func getWebSockets(_ sendOptions: [WebSocketSendOption]) -> [WebSocket] {
+        self.lock.withLock {
+            var webSockets = [WebSocket]()
+            for option in sendOptions {
+                switch option {
+                case .id(let id):
+                    webSockets += [self.sockets[id]].compactMap { $0 }
+                case .socket(let socket):
+                    webSockets += [socket]
+                }
+            }
+            return webSockets
         }
     }
 }
