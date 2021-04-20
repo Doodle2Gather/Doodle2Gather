@@ -1,5 +1,6 @@
 import Foundation
 
+/// Represents an user in the application
 public struct DTAdaptedUser: Codable {
 
     public let id: String

@@ -1,5 +1,9 @@
 import Foundation
 
+/// A datatype that contains the unique identifier for a doodle entity
+/// and its index in the array
+/// Constructed to aid `DTAdaptedAction` to ensure the cleint and
+/// the server's copy of a doodle is in sync
 public struct DTEntityIndexPair: Codable, Hashable {
     public let type: DTEntityType
     public let entityId: UUID

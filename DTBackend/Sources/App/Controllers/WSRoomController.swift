@@ -2,6 +2,7 @@ import Vapor
 import Fluent
 import DTSharedLibrary
 
+/// Handles all `DTRoomMessage` sent between the clients and the server
 class WSRoomController {
     let lock = Lock()
     let usersLock = Lock()
@@ -166,10 +167,6 @@ class WSRoomController {
                 let removeDoodleData = try decoder.decode(
                     DTRemoveDoodleMessage.self, from: data)
                 self.handleRemoveDoodle(ws, decodedData.id, doodleId: removeDoodleData.doodleId)
-            case .clearDrawing:
-                let actionData = try decoder.decode(
-                    DTClearDrawingMessage.self, from: data)
-                self.handleClearDrawing(ws, decodedData.id, actionData)
             case .updateConferenceState:
                 let conferenceStateData = try decoder.decode(DTUpdateUserConferencingStateMessage.self, from: data)
                 self.handleUpdateConferenceState(id: conferenceStateData.id,
@@ -185,6 +182,7 @@ class WSRoomController {
 
     // MARK: - Data syncing
 
+    /// sync the live copy of the doodles in `ActiveRoomController` to database
     func syncData() {
         let doodles = roomController.doodles
         doodles.forEach { doodle in
@@ -212,7 +210,9 @@ class WSRoomController {
 }
 
 // MARK: - Broadcast Helpers
+
 extension WSRoomController {
+
     var getAllWebSocketOptions: [WebSocketSendOption] {
         var options = [WebSocketSendOption]()
         for ws in sockets {
@@ -246,6 +246,7 @@ extension WSRoomController {
 }
 
 extension WSRoomController {
+
     func updateParticipantsInfo() {
         PersistedDTRoom.getRoomPermissions(roomId: self.roomId, on: db)
             .whenComplete { result in

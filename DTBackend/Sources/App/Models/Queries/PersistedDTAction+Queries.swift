@@ -2,6 +2,7 @@ import Fluent
 import Vapor
 import DTSharedLibrary
 
+/// Contains queries on `PersistedDTAction`
 extension PersistedDTAction {
 
     static func getAll(on db: Database) -> EventLoopFuture<[PersistedDTAction]> {

@@ -181,6 +181,15 @@ extension DoodleViewController {
         setShapeTool(toolSelected)
     }
 
+    @IBAction private func selectToolButtonDidTap(_ sender: UIButton) {
+        guard let toolSelected = SelectTools(rawValue: sender.tag) else {
+            return
+        }
+        unselectAllSelectTools()
+        sender.isSelected = true
+        setSelectTool(toolSelected)
+    }
+
     @IBAction private func addLayerButtonDidTap(_ sender: UIButton) {
         roomWSController.addDoodle()
     }

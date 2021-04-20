@@ -19,6 +19,8 @@ public protocol DTStroke: Hashable, Codable {
 
     init<P: DTPoint>(color: UIColor, tool: DTCodableTool, points: [P], transform: CGAffineTransform,
                      mask: UIBezierPath?)
+
+    mutating func setIsSelected(_ isSelected: Bool)
 }
 
 // MARK: - Equatable

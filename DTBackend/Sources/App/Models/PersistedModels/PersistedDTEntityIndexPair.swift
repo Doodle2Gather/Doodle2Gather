@@ -2,6 +2,7 @@ import Fluent
 import Vapor
 import DTSharedLibrary
 
+/// persisted model and schema which is equivalent to `DTEntityIndexPair`
 final class PersistedDTEntityIndexPair: Model, Content {
     static let schema = "pairs"
 

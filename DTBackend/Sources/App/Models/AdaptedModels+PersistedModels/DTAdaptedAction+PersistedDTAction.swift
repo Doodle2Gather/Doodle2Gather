@@ -1,6 +1,7 @@
 import Vapor
 import DTSharedLibrary
 
+/// Supports the conversion between `DTAdaptedAction` and `PersistedDTAction`
 extension DTAdaptedAction {
     init(action: PersistedDTAction) {
         self.init(

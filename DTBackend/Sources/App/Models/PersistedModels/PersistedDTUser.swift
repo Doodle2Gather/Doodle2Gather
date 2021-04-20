@@ -1,6 +1,7 @@
 import Fluent
 import Vapor
 
+/// persisted model and schema which represents `DTAdaptedUser`
 final class PersistedDTUser: Model, Content {
     static let schema = "users"
 

@@ -24,6 +24,9 @@ protocol CanvasController {
     /// Sets the current tool to the shape tool.
     func setShapeTool(_ shapeTool: ShapeTools)
 
+    /// Sets the current tool to the select tool.
+    func setSelectTool(_ selectTool: SelectTools)
+
     /// Sets the current tool to the main tool.
     func setMainTool(_ mainTool: MainTools)
 

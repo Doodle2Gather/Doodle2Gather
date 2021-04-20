@@ -1,5 +1,8 @@
 import Foundation
 
+/// Represents a doodle that can contain multiple entities (strokes and text)
+/// An adapted model for `DTDoodle`
+/// Each doodle belongs to a room
 public struct DTAdaptedDoodle: Codable {
 
     public let roomId: UUID

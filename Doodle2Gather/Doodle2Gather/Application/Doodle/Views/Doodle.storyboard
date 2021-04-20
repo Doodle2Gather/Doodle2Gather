@@ -809,6 +809,75 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VOQ-U6-yH2" userLabel="Select Buttons View">
+                                <rect key="frame" x="82" y="625.5" width="60" height="115"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="JVx-jz-RXs" userLabel="Button Stack">
+                                        <rect key="frame" x="10" y="10" width="40" height="90"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sPA-Tp-Fdn" userLabel="Select All Button">
+                                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="AcB-VN-8Gg"/>
+                                                    <constraint firstAttribute="height" constant="40" id="Fsq-3n-36e"/>
+                                                </constraints>
+                                                <color key="tintColor" systemColor="labelColor"/>
+                                                <state key="normal" image="Users"/>
+                                                <state key="selected" image="Users_Yellow"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="20"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="selectToolButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="l1Z-47-Qjg"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YTA-CY-Xpl" userLabel="Select Self Button">
+                                                <rect key="frame" x="0.0" y="50" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="0oM-1W-2YK"/>
+                                                    <constraint firstAttribute="height" constant="40" id="fwP-r6-wa6"/>
+                                                </constraints>
+                                                <color key="tintColor" systemColor="labelColor"/>
+                                                <state key="normal" image="User"/>
+                                                <state key="selected" image="User_Yellow"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="20"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="selectToolButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="D6P-yI-0L1"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" name="Black"/>
+                                <constraints>
+                                    <constraint firstItem="JVx-jz-RXs" firstAttribute="bottom" secondItem="VOQ-U6-yH2" secondAttribute="bottom" constant="-15" id="PEC-p3-gn3"/>
+                                    <constraint firstItem="JVx-jz-RXs" firstAttribute="leading" secondItem="VOQ-U6-yH2" secondAttribute="leading" constant="10" id="UjI-JZ-I6i"/>
+                                    <constraint firstItem="JVx-jz-RXs" firstAttribute="trailing" secondItem="VOQ-U6-yH2" secondAttribute="trailing" constant="-10" id="wmM-gI-2oL"/>
+                                    <constraint firstItem="JVx-jz-RXs" firstAttribute="top" secondItem="VOQ-U6-yH2" secondAttribute="top" constant="10" id="xGq-LX-jrk"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                        <size key="value" width="0.0" height="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                        <real key="value" value="0.40000000000000002"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="1p6-Mf-pnl"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -819,18 +888,21 @@
                             <constraint firstItem="CRw-tT-Mu5" firstAttribute="leading" secondItem="Rvn-Q8-Irn" secondAttribute="leading" id="8jE-v5-stq"/>
                             <constraint firstItem="Pn5-xG-qj1" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" constant="12" id="AUa-rT-WMa"/>
                             <constraint firstItem="4Xj-kh-aUN" firstAttribute="leading" secondItem="HdL-Pj-pPB" secondAttribute="trailing" constant="10" id="BxG-tZ-mLO"/>
+                            <constraint firstItem="DHu-9F-THM" firstAttribute="leading" secondItem="VOQ-U6-yH2" secondAttribute="trailing" constant="10" id="CWG-kS-eZq"/>
                             <constraint firstItem="lOM-bA-4te" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" constant="12" id="EmQ-Qq-9ox"/>
                             <constraint firstItem="o49-IX-df3" firstAttribute="top" secondItem="DHu-9F-THM" secondAttribute="bottom" constant="10" id="EnX-yN-w4U"/>
                             <constraint firstItem="1p6-Mf-pnl" firstAttribute="trailing" secondItem="Gvt-x0-wpX" secondAttribute="trailing" constant="12" id="Fb4-Ms-bf1"/>
                             <constraint firstItem="1p6-Mf-pnl" firstAttribute="bottom" secondItem="Il3-8X-YYt" secondAttribute="bottom" constant="12" id="GT8-W4-V5D"/>
                             <constraint firstItem="1p6-Mf-pnl" firstAttribute="trailing" secondItem="Il3-8X-YYt" secondAttribute="trailing" constant="12" id="IOi-4d-vpq"/>
                             <constraint firstItem="2v7-Hc-qJ9" firstAttribute="bottom" secondItem="1p6-Mf-pnl" secondAttribute="bottom" id="J40-8D-zNP"/>
+                            <constraint firstItem="VOQ-U6-yH2" firstAttribute="leading" secondItem="HdL-Pj-pPB" secondAttribute="trailing" constant="10" id="Kjw-uX-c3c"/>
                             <constraint firstItem="CRw-tT-Mu5" firstAttribute="bottom" secondItem="Rvn-Q8-Irn" secondAttribute="bottom" id="NSu-1l-xzM"/>
                             <constraint firstItem="Il3-8X-YYt" firstAttribute="top" secondItem="MWm-9W-hoQ" secondAttribute="bottom" constant="10" id="PcU-VU-osS"/>
                             <constraint firstItem="Pn5-xG-qj1" firstAttribute="leading" secondItem="lOM-bA-4te" secondAttribute="trailing" constant="10" id="QJX-Nb-XFk"/>
                             <constraint firstItem="HdL-Pj-pPB" firstAttribute="centerY" secondItem="Rvn-Q8-Irn" secondAttribute="centerY" id="Qwu-X3-bv3"/>
                             <constraint firstItem="2v7-Hc-qJ9" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" id="T0g-Ac-o8n"/>
                             <constraint firstItem="4Xj-kh-aUN" firstAttribute="centerY" secondItem="Rvn-Q8-Irn" secondAttribute="centerY" id="Vhb-2b-DLJ"/>
+                            <constraint firstItem="VOQ-U6-yH2" firstAttribute="centerY" secondItem="Rvn-Q8-Irn" secondAttribute="centerY" id="cCR-S7-BV4"/>
                             <constraint firstItem="Zab-bH-VRq" firstAttribute="centerY" secondItem="Rvn-Q8-Irn" secondAttribute="centerY" id="cKB-BO-23R"/>
                             <constraint firstItem="Zab-bH-VRq" firstAttribute="leading" secondItem="HdL-Pj-pPB" secondAttribute="trailing" constant="10" id="fG5-47-KYc"/>
                             <constraint firstItem="HdL-Pj-pPB" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" constant="12" id="nVn-9r-nOE"/>
@@ -865,12 +937,16 @@
                         <outlet property="pencilButton" destination="PHr-oW-a4i" id="kEZ-Te-JZn"/>
                         <outlet property="pressureInfoView" destination="o49-IX-df3" id="7Rc-pL-hxn"/>
                         <outlet property="redoButton" destination="BvY-qF-rcv" id="g2r-JF-6de"/>
+                        <outlet property="selectAllButton" destination="sPA-Tp-Fdn" id="2aw-Pv-GdB"/>
+                        <outlet property="selectButtonsView" destination="VOQ-U6-yH2" id="wNO-rJ-lJ5"/>
+                        <outlet property="selectSelfButton" destination="YTA-CY-Xpl" id="eKu-pZ-C94"/>
                         <outlet property="separator" destination="QiO-xb-nBY" id="B4k-Ko-asY"/>
                         <outlet property="separatorView" destination="cIQ-SF-6Au" id="2iL-i3-acE"/>
                         <outlet property="shapesButton" destination="w78-OH-H1V" id="Jet-zX-JVV"/>
                         <outlet property="shapesButtonsView" destination="Zab-bH-VRq" id="yVS-E5-qDJ"/>
                         <outlet property="squareButton" destination="9z7-zt-8yD" id="Yfg-BI-Xqn"/>
                         <outlet property="starButton" destination="qmb-uq-ZSH" id="XoN-UR-01U"/>
+                        <outlet property="strokeEditorHeightConstraint" destination="cVL-QR-mEA" id="8t7-H5-Jb2"/>
                         <outlet property="textButton" destination="Va2-Px-Ku6" id="GYN-tg-pop"/>
                         <outlet property="triangleButton" destination="7nw-wi-WYg" id="FNc-TM-Phm"/>
                         <outlet property="undoButton" destination="rww-zn-SEF" id="Psj-zY-vrQ"/>
@@ -1359,7 +1435,9 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                     <connections>
+                        <outlet property="opacityLabel" destination="PLY-yL-d2I" id="CAm-qK-b1d"/>
                         <outlet property="opacitySlider" destination="4nb-lR-em6" id="UFU-BS-FcT"/>
+                        <outlet property="widthLabel" destination="ofg-dp-oic" id="Ggt-Me-bh5"/>
                         <outlet property="widthSlider" destination="4us-Kh-IeZ" id="F8c-4Z-rhL"/>
                     </connections>
                 </viewController>
@@ -1414,8 +1492,11 @@
         <image name="Triangle_Yellow" width="24" height="24"/>
         <image name="Undo" width="24" height="24"/>
         <image name="Undo_Grey" width="24" height="24"/>
+        <image name="User" width="24" height="24"/>
         <image name="UserAdd" width="24" height="24"/>
+        <image name="User_Yellow" width="24" height="24"/>
         <image name="Users" width="24" height="24"/>
+        <image name="Users_Yellow" width="24" height="24"/>
         <image name="VideoOff_Red" width="24" height="24"/>
         <image name="VideoOn" width="24" height="24"/>
         <namedColor name="Black">

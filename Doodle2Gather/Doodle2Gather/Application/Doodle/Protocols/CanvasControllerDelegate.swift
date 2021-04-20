@@ -1,5 +1,4 @@
-import Foundation
-import CoreGraphics
+import UIKit
 import DTSharedLibrary
 
 /// Delegate for a `CanvasController`.
@@ -13,6 +12,12 @@ protocol CanvasControllerDelegate: AnyObject {
 
     /// Informs the delegate to refetch the doodles.
     func refetchDoodles()
+
+    /// Informs the delegate that a stroke was selected, along with the color of the selected stroke.
+    func strokeDidSelect(color: UIColor)
+
+    /// Informs the delegate that the stroke was unselected.
+    func strokeDidUnselect()
 
 }
 

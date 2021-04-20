@@ -2,6 +2,7 @@ import Vapor
 import Fluent
 import DTSharedLibrary
 
+/// Handles all `DTRoomMessage` sent between the clients and the server
 extension WSRoomController {
 
     // MARK: - exitRoom
@@ -161,21 +162,7 @@ extension WSRoomController {
             }
     }
 
-    // MARK: - clearDrawing
-
-    func handleClearDrawing(_ ws: WebSocket, _ id: UUID, _ message: DTClearDrawingMessage) {
-        PersistedDTAction.query(on: self.db).delete().whenComplete { res in
-            switch res {
-            case .failure(let err):
-                self.logger.report(error: err)
-            case .success:
-                self.logger.info("Dispatched a clear action to peers!")
-                self.getWebSockets(self.getAllWebSocketOptionsExcept(id)).forEach {
-                    $0.send(message: message)
-                }
-            }
-        }
-    }
+    // MARK: - updateVideoState
 
     func handleUpdateConferenceState(id: UUID, isVideoOn: Bool, isAudioOn: Bool) {
         self.conferenceLock.withLockVoid {

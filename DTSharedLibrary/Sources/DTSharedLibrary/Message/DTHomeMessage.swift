@@ -1,10 +1,14 @@
 import Foundation
 
+/// Represents the messages sent between client and server
+/// after the client has logged in and before the client joins a room
+/// (aka when a client is the gallery view)
 public struct DTHomeMessage: Codable {
     public let id: UUID
     public let subtype: DTHomeMessageType
 }
 
+/// Represents the message sent to create a new room/document
 public struct DTCreateRoomMessage: Codable {
     public var type = DTMessageType.home
     public var subtype = DTHomeMessageType.createRoom
@@ -23,6 +27,7 @@ public struct DTCreateRoomMessage: Codable {
     }
 }
 
+/// Represents the message sent to request access to an existing room through a invite code
 public struct DTJoinRoomViaInviteMessage: Codable {
     public var type = DTMessageType.home
     public var subtype = DTHomeMessageType.joinViaInvite
@@ -32,7 +37,7 @@ public struct DTJoinRoomViaInviteMessage: Codable {
     public let roomId: UUID?
     public let inviteCode: String?
 
-    // nil for request message and not nil for response from server
+    /// nil for request message and not nil for response from server
     public var joinedRoom: DTAdaptedRoom?
 
     public init(id: UUID,
@@ -48,6 +53,7 @@ public struct DTJoinRoomViaInviteMessage: Codable {
     }
 }
 
+/// Represents the message sent to fetch all rooms that are accessible by the user
 public struct DTAccessibleRoomMessage: Codable {
     public var type = DTMessageType.home
     public var subtype = DTHomeMessageType.accessibleRooms

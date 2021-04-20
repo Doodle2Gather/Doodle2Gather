@@ -2,6 +2,7 @@ import Vapor
 import Fluent
 import DTSharedLibrary
 
+/// Handles all `DTAuthMessage` sent between the clients and the server
 class WSAuthController {
     let db: Database
     let logger = Logger(label: "WSAuthController")
