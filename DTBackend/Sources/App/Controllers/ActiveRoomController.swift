@@ -6,6 +6,7 @@ class ActiveRoomController {
 
     let roomId: UUID
 
+    /// a live copy of all doodles of a room in memory
     var doodles: [UUID: DTAdaptedDoodle]
 
     let db: Database
@@ -25,6 +26,7 @@ class ActiveRoomController {
         Array(doodles.values)
     }
 
+    /// fetch all doodles of a room from database when an user joins a previously empty room
     func joinRoom(_ roomId: UUID) {
         PersistedDTRoom.getAllDoodles(roomId, on: self.db).whenComplete { res in
             switch res {
@@ -53,6 +55,7 @@ class ActiveRoomController {
         self.doodles[doodleId] = nil
     }
 
+    /// process an action sent by a client to the server
     func process(_ action: DTAdaptedAction) -> DTAdaptedAction? {
         switch action.entityType {
         case .stroke:
@@ -71,6 +74,7 @@ class ActiveRoomController {
         }
     }
 
+    /// apply an action to the live copy of the doodles in memory
     func applyAction<T: DTAdaptedEntityProtocol>(
         action: DTAdaptedAction, entities: [T], pairs: [DTEntityIndexPair]) -> DTAdaptedAction? {
         let returnPairs: [DTEntityIndexPair]?

@@ -2,7 +2,7 @@ import Fluent
 import Vapor
 import DTSharedLibrary
 
-/// contains all the queries that return Adapted models
+/// Contains all the queries on `PersistedDTUser` that return Adapted models
 extension PersistedDTUser {
 
     static func getAllAccessibleRooms(userId: String, on db: Database) -> EventLoopFuture<[DTAdaptedRoom]> {
@@ -11,10 +11,9 @@ extension PersistedDTUser {
                 $0.map { DTAdaptedRoom(room: $0 ) }
             }
     }
-
 }
 
-/// contains all the queries that return Persisted models
+/// Contains all the queries on `PersistedDTUser`that return Persisted models
 extension PersistedDTUser {
 
     static func getSingleById(_ id: PersistedDTUser.IDValue?, on db: Database) -> EventLoopFuture<PersistedDTUser> {

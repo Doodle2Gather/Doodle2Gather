@@ -2,7 +2,7 @@ import Fluent
 import Vapor
 import DTSharedLibrary
 
-/// queries that return adapted models
+/// Contains queries on `PersistedDTRoom` that return adapted models
 extension PersistedDTRoom {
 
     static func createRoom(_ createRequest: DTAdaptedRoom.CreateRequest,
@@ -65,7 +65,7 @@ extension PersistedDTRoom {
     }
 }
 
-/// queries that return persisted models
+/// Contains queries on `PersistedDTRoom` that return persisted models
 extension PersistedDTRoom {
 
     static func getSingleById(_ id: PersistedDTRoom.IDValue?, on db: Database) -> EventLoopFuture<PersistedDTRoom> {

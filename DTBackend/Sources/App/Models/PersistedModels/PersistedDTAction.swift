@@ -2,6 +2,7 @@ import Fluent
 import Vapor
 import DTSharedLibrary
 
+/// persisted model and schema which represents `DTAdaptedAction` and `DTAction`
 final class PersistedDTAction: Model, Content {
     static let schema = "actions"
 

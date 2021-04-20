@@ -2,6 +2,8 @@ import Fluent
 import Vapor
 import DTSharedLibrary
 
+/// persisted model and schema which represents `DTAdaptedEntityProtocol`
+/// which include `DTAdaptedStroke` and `DTAdaptedText`
 final class PersistedDTEntity: Model, Content {
     static let schema = "doodle_entities"
 
