@@ -29,9 +29,15 @@ public struct DTAdaptedText: DTAdaptedEntityProtocol {
         self.isDeleted = isDeleted
     }
 
-    public init(_ textIndexPair: DTTextIndexPair, roomId: UUID, doodleId: UUID, createdBy: String) {
-        self.init(text: textIndexPair.text, textId: textIndexPair.textId,
+    public init(_ pair: DTEntityIndexPair, roomId: UUID, doodleId: UUID, createdBy: String) {
+        assert(pair.type == .text)
+
+        self.init(text: pair.entity, textId: pair.entityId,
                   roomId: roomId, doodleId: doodleId,
-                  createdBy: createdBy, isDeleted: textIndexPair.isDeleted)
+                  createdBy: createdBy, isDeleted: pair.isDeleted)
+    }
+
+    public func makeTextIndexPair(index: Int) -> DTEntityIndexPair {
+        DTEntityIndexPair(entity, index, type: type, entityId: entityId, isDeleted: isDeleted)
     }
 }

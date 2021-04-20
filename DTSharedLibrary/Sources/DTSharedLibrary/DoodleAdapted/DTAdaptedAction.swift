@@ -3,14 +3,15 @@ import Foundation
 public struct DTAdaptedAction: Codable {
 
     public let type: DTActionType
-    public let strokes: [DTStrokeIndexPair]
+    public let entities: [DTEntityIndexPair]
     public let roomId: UUID
     public let doodleId: UUID
     public let createdBy: String
 
-    public init(type: DTActionType, strokes: [DTStrokeIndexPair], roomId: UUID, doodleId: UUID, createdBy: String) {
+    public init(type: DTActionType, entities: [DTEntityIndexPair],
+                roomId: UUID, doodleId: UUID, createdBy: String) {
         self.type = type
-        self.strokes = strokes
+        self.entities = entities
         self.roomId = roomId
         self.doodleId = doodleId
         self.createdBy = createdBy
@@ -18,20 +19,34 @@ public struct DTAdaptedAction: Codable {
 
     public func makeStrokes() -> [DTAdaptedStroke] {
         var dtStrokes = [DTAdaptedStroke]()
-        for stroke in strokes {
+        for pair in entities where pair.type == .stroke {
             dtStrokes.append(
                 DTAdaptedStroke(
-                    stroke: stroke.stroke, strokeId: stroke.strokeId,
+                    stroke: pair.entity, strokeId: pair.entityId,
                     roomId: roomId, doodleId: doodleId,
-                    createdBy: createdBy, isDeleted: stroke.isDeleted
+                    createdBy: createdBy, isDeleted: pair.isDeleted
                 )
             )
         }
         return dtStrokes
     }
 
-    public func getNewAction(with pairs: [DTStrokeIndexPair]) -> DTAdaptedAction {
-        DTAdaptedAction(type: type, strokes: pairs, roomId: roomId, doodleId: doodleId, createdBy: createdBy)
+    public func makeText() -> [DTAdaptedText] {
+        var dtText = [DTAdaptedText]()
+        for pair in entities where pair.type == .text {
+            dtText.append(
+                DTAdaptedText(
+                    text: pair.entity, textId: pair.entityId,
+                    roomId: roomId, doodleId: doodleId,
+                    createdBy: createdBy, isDeleted: pair.isDeleted
+                )
+            )
+        }
+        return dtText
+    }
+
+    public func getNewAction(with pairs: [DTEntityIndexPair]) -> DTAdaptedAction {
+        DTAdaptedAction(type: type, entities: pairs, roomId: roomId, doodleId: doodleId, createdBy: createdBy)
     }
 }
 

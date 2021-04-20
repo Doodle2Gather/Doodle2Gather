@@ -29,9 +29,15 @@ public struct DTAdaptedStroke: DTAdaptedEntityProtocol {
         self.isDeleted = isDeleted
     }
 
-    public init(_ strokeIndexPair: DTStrokeIndexPair, roomId: UUID, doodleId: UUID, createdBy: String) {
-        self.init(stroke: strokeIndexPair.stroke, strokeId: strokeIndexPair.strokeId,
+    public init(_ pair: DTEntityIndexPair, roomId: UUID, doodleId: UUID, createdBy: String) {
+        assert(pair.type == .stroke)
+
+        self.init(stroke: pair.entity, strokeId: pair.entityId,
                   roomId: roomId, doodleId: doodleId,
-                  createdBy: createdBy, isDeleted: strokeIndexPair.isDeleted)
+                  createdBy: createdBy, isDeleted: pair.isDeleted)
+    }
+
+    public func makeStrokeIndexPair(index: Int) -> DTEntityIndexPair {
+        DTEntityIndexPair(entity, index, type: type, entityId: entityId, isDeleted: isDeleted)
     }
 }
