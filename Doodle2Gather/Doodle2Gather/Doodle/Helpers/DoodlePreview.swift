@@ -3,7 +3,7 @@ import PencilKit
 import DTSharedLibrary
 
 /// Helper image class that uses PencilKit for preview rendering.
-class DTDoodlePreview: UIImageView {
+class DoodlePreview: UIImageView {
 
     init<D: DTDoodle>(doodle: D) {
         super.init(image: PKDrawing(from: doodle).image(from: UIScreen.main.bounds, scale: 1))

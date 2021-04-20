@@ -6,7 +6,7 @@ import DTSharedLibrary
 ///
 /// It also ties in the `PencilKit` implementations, though those can be
 /// easily swapped out without breaking any existing functionality.
-class DTCanvasViewController: UIViewController {
+class CanvasViewController: UIViewController {
 
     /// Paginated doodles. These doodles are also the source of truth.
     var doodles = [DTDoodleWrapper]()
@@ -86,7 +86,7 @@ class DTCanvasViewController: UIViewController {
 
 }
 
-extension DTCanvasViewController: CanvasController {
+extension CanvasViewController: CanvasController {
 
     /// Dispatches an action from peers to the current drawing.
     func dispatchAction(_ action: DTAdaptedAction) {
@@ -120,6 +120,10 @@ extension DTCanvasViewController: CanvasController {
 
     func setDrawingTool(_ drawingTool: DrawingTools) {
         canvasManager.setDrawingTool(drawingTool)
+    }
+
+    func setShapeTool(_ shapeTool: ShapeTools) {
+        canvasManager.setShapeTool(shapeTool)
     }
 
     func setMainTool(_ mainTool: MainTools) {
@@ -188,7 +192,7 @@ extension DTCanvasViewController: CanvasController {
 
 }
 
-extension DTCanvasViewController: CanvasManagerDelegate {
+extension CanvasViewController: CanvasManagerDelegate {
 
     func canvasZoomScaleDidChange(scale: CGFloat) {
         delegate?.canvasZoomScaleDidChange(scale: scale)

@@ -21,35 +21,7 @@ extension CanvasManager {
     func setDrawingTool(_ drawingTool: DrawingTools) {
         augmentors.removeValue(forKey: Constants.detectionKey)
         currentDrawingTool = drawingTool
-        switch drawingTool {
-        case .pen:
-            setTool(.pen)
-        case .pencil:
-            setTool(.pencil)
-        case .highlighter:
-            setTool(.highlighter)
-        case .magicPen:
-            augmentors[Constants.detectionKey] = BestFitShapeDetector()
-            setTool(.pen)
-        }
-    }
 
-    func setMainTool(_ mainTool: MainTools) {
-        currentMainTool = mainTool
-        switch mainTool {
-        case .drawing:
-            setDrawingTool(currentDrawingTool)
-        case .eraser:
-            setTool(.eraser)
-        case .cursor:
-            setTool(.lasso)
-        case .shapes, .text:
-            // TODO: Add handling for these two
-            break
-        }
-    }
-
-    func setTool(_ tool: DTTool) {
         var color = UIColor.black
         var width: CGFloat?
 
@@ -58,17 +30,38 @@ extension CanvasManager {
             width = currentTool.width
         }
 
-        switch tool {
+        switch drawingTool {
         case .pen:
             canvas.tool = PKInkingTool(.pen, color: color, width: width)
         case .pencil:
             canvas.tool = PKInkingTool(.pencil, color: color, width: width)
         case .highlighter:
             canvas.tool = PKInkingTool(.marker, color: color, width: width)
+        case .magicPen:
+            augmentors[Constants.detectionKey] = BestFitShapeDetector()
+            canvas.tool = PKInkingTool(.pen, color: color, width: width)
+        }
+    }
+
+    func setShapeTool(_ shapeTool: ShapeTools) {
+        currentShapeTool = shapeTool
+    }
+
+    func setMainTool(_ mainTool: MainTools) {
+        currentMainTool = mainTool
+        switch mainTool {
+        case .drawing:
+            activateDrawingGestureRecognizer()
+            setDrawingTool(currentDrawingTool)
         case .eraser:
+            activateDrawingGestureRecognizer()
             canvas.tool = PKEraserTool(.vector)
-        case .lasso:
-            canvas.tool = PKLassoTool()
+        case .cursor:
+            activateSelectGestureRecognizer()
+        case .shapes:
+            activateShapesGestureRecognizer()
+        case .text:
+            activateTextGestureRecognizer()
         }
     }
 

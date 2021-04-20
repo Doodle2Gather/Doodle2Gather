@@ -9,7 +9,6 @@ class ConferenceViewController: UIViewController {
     @IBOutlet private var timerButton: UIButton!
     @IBOutlet private var voteButton: UIButton!
     @IBOutlet private var startStopButton: UIButton!
-    @IBOutlet private var presentButton: UIButton!
     @IBOutlet private var participantsButton: UIButton!
     @IBOutlet private var videoButton: UIButton!
     @IBOutlet private var audioButton: UIButton!
@@ -18,7 +17,6 @@ class ConferenceViewController: UIViewController {
     @IBOutlet private var topControlViewContainer: UIView!
     @IBOutlet private var topControlView: UILabel!
     @IBOutlet private var toggleCallButton: UIButton!
-    @IBOutlet private var bottomViewContainer: UIView!
 
     var videoEngine: VideoEngine?
     var chatEngine: ChatEngine?
@@ -31,7 +29,7 @@ class ConferenceViewController: UIViewController {
     var isInCall = false
     var isChatShown = false
     var roomId: String?
-    private var videoCallUserList: [VideoCallUser] = []
+    var videoCallUserList: [VideoCallUser] = []
     private var currentUser: VideoCallUser?
     private var videoOverlays = [UIView]()
     private var nameplates = [UILabel]()
@@ -63,7 +61,6 @@ class ConferenceViewController: UIViewController {
 
         collectionView.isHidden = true
         topControlViewContainer.isHidden = true
-        bottomViewContainer.isHidden = true
     }
 
     @IBAction private func audioButtonDidTap(_ sender: Any) {
@@ -84,6 +81,7 @@ class ConferenceViewController: UIViewController {
             currentUser?.nameplate.removeFromSuperview()
         } else {
             videoEngine?.hideVideo()
+
             guard let cellView = collectionView.cellForItem(at: IndexPath(row: 0, section: 0)) else {
                 return
             }
@@ -105,7 +103,6 @@ class ConferenceViewController: UIViewController {
         startStopButton.isHidden.toggle()
         audioButton.isHidden.toggle()
         videoButton.isHidden.toggle()
-        presentButton.isHidden.toggle()
         participantsButton.isHidden.toggle()
         sender.isSelected.toggle()
     }
@@ -173,6 +170,7 @@ class ConferenceViewController: UIViewController {
 
         if isInCall {
             videoEngine?.tearDown()
+
             toggleCallButton.isSelected.toggle()
             collectionView.isHidden = true
             topControlViewContainer.isHidden = true
@@ -181,6 +179,7 @@ class ConferenceViewController: UIViewController {
             isInCall.toggle()
             videoButton.isHidden = true
             audioButton.isHidden = true
+
         } else {
             if currentUser == nil {
                 let overlay = UIView(frame: CGRect(x: 0, y: 0,
@@ -204,7 +203,6 @@ class ConferenceViewController: UIViewController {
             videoEngine?.joinChannel(channelName: self.roomId ?? "testing")
             toggleCallButton.isSelected.toggle()
             collectionView.isHidden = false
-            collectionView.reloadData()
             topControlViewContainer.isHidden = false
             videoButton.isHidden = false
             audioButton.isHidden = false
@@ -316,7 +314,6 @@ extension ConferenceViewController: UICollectionViewDataSource {
             videoCell.setName(userId)
             DispatchQueue.main.async {
                 self.videoEngine?.setupRemoteUserView(view: videoCell.getVideoView(), id: remoteID)
-                self.collectionView.reloadData()
             }
         }
         return cell
@@ -341,9 +338,16 @@ extension ConferenceViewController: UICollectionViewDelegateFlowLayout {
 
 }
 
-struct VideoCallUser {
+class VideoCallUser {
     let uid: UInt
     let userId: String
     let overlay: UIView
     let nameplate: UILabel
+
+    init(uid: UInt, userId: String, overlay: UIView, nameplate: UILabel) {
+        self.uid = uid
+        self.userId = userId
+        self.overlay = overlay
+        self.nameplate = nameplate
+    }
 }

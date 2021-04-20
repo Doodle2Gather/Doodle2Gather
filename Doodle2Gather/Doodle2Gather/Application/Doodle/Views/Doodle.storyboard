@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rZI-TI-AZo">
-    <device id="ipad11_0rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
@@ -23,17 +22,17 @@
             <objects>
                 <viewController storyboardIdentifier="Doodle" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rZI-TI-AZo" customClass="DoodleViewController" customModule="Doodle2Gather" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Rvn-Q8-Irn">
-                        <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CRw-tT-Mu5" userLabel="Canvas Container View">
-                                <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <connections>
                                     <segue destination="rKz-2I-ekB" kind="embed" identifier="toCanvas" id="h1y-4w-gMZ"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2v7-Hc-qJ9" userLabel="Video Overlay View" customClass="SubviewTouchView" customModule="Doodle2Gather" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="834" height="1174"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <connections>
                                     <segue destination="iqH-RH-LvU" kind="embed" identifier="toConference" id="LHe-b8-q2G"/>
                                 </connections>
@@ -198,8 +197,115 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Xj-kh-aUN" userLabel="Left Auxiliary Buttons View">
-                                <rect key="frame" x="82" y="449.5" width="60" height="295"/>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zab-bH-VRq" userLabel="Shapes Buttons View">
+                                <rect key="frame" x="82" y="192.5" width="60" height="215"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="GV2-lt-wg1" userLabel="Button Stack">
+                                        <rect key="frame" x="10" y="10" width="40" height="190"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KWG-vf-nNg" userLabel="Circle Button">
+                                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="7ju-fC-LU9"/>
+                                                    <constraint firstAttribute="width" constant="40" id="Sk3-MS-kRp"/>
+                                                </constraints>
+                                                <color key="tintColor" systemColor="labelColor"/>
+                                                <state key="normal" image="Circle"/>
+                                                <state key="selected" image="Circle_Yellow"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="20"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="shapeToolButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="Zmy-br-R0G"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9z7-zt-8yD" userLabel="Square Button">
+                                                <rect key="frame" x="0.0" y="50" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="8TS-zJ-1lS"/>
+                                                    <constraint firstAttribute="width" constant="40" id="M1K-MX-4Xp"/>
+                                                </constraints>
+                                                <color key="tintColor" systemColor="labelColor"/>
+                                                <state key="normal" image="Square"/>
+                                                <state key="selected" image="Square_Yellow"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="20"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="shapeToolButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="Zn4-JI-B31"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7nw-wi-WYg" userLabel="Triangle Button">
+                                                <rect key="frame" x="0.0" y="100" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="2tz-lN-6OQ"/>
+                                                    <constraint firstAttribute="width" constant="40" id="J0t-jX-F2w"/>
+                                                </constraints>
+                                                <color key="tintColor" systemColor="labelColor"/>
+                                                <state key="normal" image="Triangle"/>
+                                                <state key="selected" image="Triangle_Yellow"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="20"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="shapeToolButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="sSw-oi-yQV"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qmb-uq-ZSH" userLabel="Star Button">
+                                                <rect key="frame" x="0.0" y="150" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="H6D-WH-RA6"/>
+                                                    <constraint firstAttribute="width" constant="40" id="urx-Wf-Dul"/>
+                                                </constraints>
+                                                <color key="tintColor" systemColor="labelColor"/>
+                                                <state key="normal" image="Star"/>
+                                                <state key="selected" image="Star_Yellow"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="20"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="shapeToolButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="J6H-6h-PFu"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" name="Black"/>
+                                <constraints>
+                                    <constraint firstItem="GV2-lt-wg1" firstAttribute="bottom" secondItem="Zab-bH-VRq" secondAttribute="bottom" constant="-15" id="WHo-Dd-vLo"/>
+                                    <constraint firstItem="GV2-lt-wg1" firstAttribute="top" secondItem="Zab-bH-VRq" secondAttribute="top" constant="10" id="bQb-mt-Ovs"/>
+                                    <constraint firstItem="GV2-lt-wg1" firstAttribute="trailing" secondItem="Zab-bH-VRq" secondAttribute="trailing" constant="-10" id="fsr-pf-Sll"/>
+                                    <constraint firstItem="GV2-lt-wg1" firstAttribute="leading" secondItem="Zab-bH-VRq" secondAttribute="leading" constant="10" id="pfL-h6-wiR"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                        <size key="value" width="0.0" height="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                        <real key="value" value="0.40000000000000002"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Xj-kh-aUN" userLabel="Drawing Tools Buttons View">
+                                <rect key="frame" x="82" y="152.5" width="60" height="295"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="a3W-PN-KVs" userLabel="Button Stack">
                                         <rect key="frame" x="10" y="10" width="40" height="270"/>
@@ -332,7 +438,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HdL-Pj-pPB" userLabel="Left Buttons View">
-                                <rect key="frame" x="12" y="467" width="60" height="260"/>
+                                <rect key="frame" x="12" y="170" width="60" height="260"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Pqb-uy-IVC" userLabel="Button Stack">
                                         <rect key="frame" x="10" y="10" width="40" height="240"/>
@@ -429,7 +535,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gvt-x0-wpX" userLabel="Profile Images View">
-                                <rect key="frame" x="586" y="12" width="236" height="60"/>
+                                <rect key="frame" x="352" y="12" width="236" height="60"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="DwN-FB-eIE">
                                         <rect key="frame" x="20" y="10" width="196" height="40"/>
@@ -542,7 +648,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Il3-8X-YYt" userLabel="Canvas Info View">
-                                <rect key="frame" x="702" y="1102" width="120" height="60"/>
+                                <rect key="frame" x="468" y="528" width="120" height="60"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="cIR-fM-baY">
                                         <rect key="frame" x="15" y="10" width="95" height="40"/>
@@ -591,7 +697,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <containerView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DHu-9F-THM">
-                                <rect key="frame" x="152" y="422.5" width="220" height="349"/>
+                                <rect key="frame" x="152" y="125.5" width="220" height="349"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="349" id="cVL-QR-mEA"/>
                                     <constraint firstAttribute="width" constant="220" id="lpz-NM-W4V"/>
@@ -601,7 +707,7 @@
                                 </connections>
                             </containerView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MWm-9W-hoQ">
-                                <rect key="frame" x="502" y="812" width="320" height="280"/>
+                                <rect key="frame" x="268" y="238" width="320" height="280"/>
                                 <subviews>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kRy-tJ-6Zr">
                                         <rect key="frame" x="0.0" y="60" width="320" height="220"/>
@@ -655,7 +761,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o49-IX-df3" userLabel="Pressure Info View">
-                                <rect key="frame" x="152" y="781.5" width="220" height="60"/>
+                                <rect key="frame" x="152" y="484.5" width="220" height="60"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="jpV-eh-2p4">
                                         <rect key="frame" x="15" y="14" width="195" height="32"/>
@@ -724,6 +830,8 @@
                             <constraint firstItem="HdL-Pj-pPB" firstAttribute="centerY" secondItem="Rvn-Q8-Irn" secondAttribute="centerY" id="Qwu-X3-bv3"/>
                             <constraint firstItem="2v7-Hc-qJ9" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" id="T0g-Ac-o8n"/>
                             <constraint firstItem="4Xj-kh-aUN" firstAttribute="centerY" secondItem="Rvn-Q8-Irn" secondAttribute="centerY" id="Vhb-2b-DLJ"/>
+                            <constraint firstItem="Zab-bH-VRq" firstAttribute="centerY" secondItem="Rvn-Q8-Irn" secondAttribute="centerY" id="cKB-BO-23R"/>
+                            <constraint firstItem="Zab-bH-VRq" firstAttribute="leading" secondItem="HdL-Pj-pPB" secondAttribute="trailing" constant="10" id="fG5-47-KYc"/>
                             <constraint firstItem="HdL-Pj-pPB" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" constant="12" id="nVn-9r-nOE"/>
                             <constraint firstItem="lOM-bA-4te" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" constant="12" id="o7i-Qk-N3e"/>
                             <constraint firstItem="o49-IX-df3" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" constant="152" id="pvB-la-VWn"/>
@@ -735,11 +843,12 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="auxiliaryButtonsView" destination="4Xj-kh-aUN" id="w6p-q7-6pF"/>
+                        <outlet property="circleButton" destination="KWG-vf-nNg" id="aK6-7X-aSI"/>
                         <outlet property="colorPickerButton" destination="Dae-hy-jiK" id="HnN-jF-uPY"/>
                         <outlet property="colorPickerView" destination="DHu-9F-THM" id="daN-at-Zo2"/>
                         <outlet property="cursorButton" destination="ryu-pR-t2y" id="Rh3-fR-798"/>
                         <outlet property="drawButton" destination="IP2-Vo-DRb" id="pWr-wH-aee"/>
+                        <outlet property="drawingToolsButtonsView" destination="4Xj-kh-aUN" id="w6p-q7-6pF"/>
                         <outlet property="eraserButton" destination="kjq-AY-SZg" id="gZs-d9-Zd1"/>
                         <outlet property="exitButton" destination="jRm-uM-qyl" id="loO-8c-NSN"/>
                         <outlet property="exportButton" destination="ruK-Zq-Zye" id="Hv0-Qf-XJX"/>
@@ -758,7 +867,11 @@
                         <outlet property="separator" destination="QiO-xb-nBY" id="B4k-Ko-asY"/>
                         <outlet property="separatorView" destination="cIQ-SF-6Au" id="2iL-i3-acE"/>
                         <outlet property="shapesButton" destination="w78-OH-H1V" id="Jet-zX-JVV"/>
+                        <outlet property="shapesButtonsView" destination="Zab-bH-VRq" id="yVS-E5-qDJ"/>
+                        <outlet property="squareButton" destination="9z7-zt-8yD" id="Yfg-BI-Xqn"/>
+                        <outlet property="starButton" destination="qmb-uq-ZSH" id="XoN-UR-01U"/>
                         <outlet property="textButton" destination="Va2-Px-Ku6" id="GYN-tg-pop"/>
+                        <outlet property="triangleButton" destination="7nw-wi-WYg" id="FNc-TM-Phm"/>
                         <outlet property="undoButton" destination="rww-zn-SEF" id="Psj-zY-vrQ"/>
                         <outlet property="userProfileLabel" destination="Eu2-o6-mDx" id="1r5-oQ-cQm"/>
                         <outlet property="zoomScaleLabel" destination="heI-9Y-pSS" id="Odg-py-uxd"/>
@@ -771,7 +884,7 @@
         <!--Canvas View Controller-->
         <scene sceneID="Tgk-Yf-Cei">
             <objects>
-                <viewController id="rKz-2I-ekB" customClass="DTCanvasViewController" customModule="Doodle2Gather" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="rKz-2I-ekB" customClass="CanvasViewController" customModule="Doodle2Gather" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0hy-zQ-mJQ">
                         <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -813,11 +926,11 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Uo-Nc-4zR">
-                                                    <rect key="frame" x="0.0" y="3" width="240" height="128"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="240" height="135"/>
                                                     <color key="backgroundColor" name="Black"/>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6X9-Ly-aH1">
-                                                    <rect key="frame" x="99" y="57" width="42" height="21"/>
+                                                    <rect key="frame" x="99.5" y="97.5" width="41.5" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" name="White"/>
                                                     <nil key="highlightedColor"/>
@@ -1029,34 +1142,10 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QJJ-rb-b9G">
-                                <rect key="frame" x="622" y="567" width="200" height="40"/>
-                                <color key="backgroundColor" name="Black"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="Vwn-Cn-Fpz"/>
-                                    <constraint firstAttribute="height" constant="40" id="hPZ-De-sAh"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <real key="value" value="20"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
-                                        <real key="value" value="20"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
-                                        <size key="value" width="0.0" height="0.0"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
-                                        <real key="value" value="0.40000000000000002"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vck-bI-o3u"/>
                         <constraints>
                             <constraint firstItem="Bxd-CB-wII" firstAttribute="trailing" secondItem="vck-bI-o3u" secondAttribute="trailing" constant="-12" id="3e2-bG-Hms"/>
-                            <constraint firstItem="vck-bI-o3u" firstAttribute="trailing" secondItem="QJJ-rb-b9G" secondAttribute="trailing" constant="12" id="Rvq-4j-w7D"/>
-                            <constraint firstItem="QJJ-rb-b9G" firstAttribute="top" secondItem="Bxd-CB-wII" secondAttribute="bottom" constant="10" id="SHx-3T-5Zh"/>
                             <constraint firstItem="xWj-qC-1ia" firstAttribute="bottom" secondItem="vck-bI-o3u" secondAttribute="bottom" constant="-12" id="h7c-4g-pJF"/>
                             <constraint firstItem="xWj-qC-1ia" firstAttribute="leading" secondItem="vck-bI-o3u" secondAttribute="leading" constant="12" id="mzw-G9-1oN"/>
                             <constraint firstItem="Bxd-CB-wII" firstAttribute="top" secondItem="hzX-Ab-qkC" secondAttribute="bottom" constant="10" id="p7x-NB-1TW"/>
@@ -1066,7 +1155,6 @@
                     </view>
                     <connections>
                         <outlet property="audioButton" destination="AkO-hK-cSB" id="a3j-SW-FOS"/>
-                        <outlet property="bottomViewContainer" destination="QJJ-rb-b9G" id="usZ-vP-efI"/>
                         <outlet property="chatButton" destination="MeP-8O-gla" id="xrb-4P-ih0"/>
                         <outlet property="collectionView" destination="Bxd-CB-wII" id="oSa-98-sii"/>
                         <outlet property="participantsButton" destination="9u2-un-NL2" id="PYG-uu-63Y"/>
@@ -1295,6 +1383,8 @@
         <image name="BrushAlt_Yellow" width="24" height="24"/>
         <image name="Brush_Yellow" width="24" height="24"/>
         <image name="Chat" width="24" height="24"/>
+        <image name="Circle" width="24" height="24"/>
+        <image name="Circle_Yellow" width="24" height="24"/>
         <image name="Cross" width="24" height="24"/>
         <image name="Cursor" width="24" height="24"/>
         <image name="Cursor_Yellow" width="24" height="24"/>
@@ -1320,10 +1410,16 @@
         <image name="Shapes_Yellow" width="24" height="24"/>
         <image name="SoundOff_Red" width="24" height="24"/>
         <image name="SoundOn" width="24" height="24"/>
+        <image name="Square" width="24" height="24"/>
+        <image name="Square_Yellow" width="24" height="24"/>
+        <image name="Star" width="24" height="24"/>
+        <image name="Star_Yellow" width="24" height="24"/>
         <image name="StopButton_Red" width="24" height="24"/>
         <image name="Text" width="24" height="24"/>
         <image name="Text_Yellow" width="24" height="24"/>
         <image name="ThumbsUp" width="24" height="24"/>
+        <image name="Triangle" width="24" height="24"/>
+        <image name="Triangle_Yellow" width="24" height="24"/>
         <image name="Undo" width="24" height="24"/>
         <image name="Undo_Grey" width="24" height="24"/>
         <image name="UserAdd" width="24" height="24"/>

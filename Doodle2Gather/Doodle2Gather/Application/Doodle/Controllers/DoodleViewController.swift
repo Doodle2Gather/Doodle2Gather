@@ -1,4 +1,3 @@
-// swiftlint:disable file_length
 import UIKit
 import DTSharedLibrary
 
@@ -30,12 +29,19 @@ class DoodleViewController: UIViewController {
     @IBOutlet private var shapesButton: UIButton!
     @IBOutlet private var cursorButton: UIButton!
 
-    // Left Auxiliary Menu
-    @IBOutlet private var auxiliaryButtonsView: UIView!
+    // Drawing Tools Menu
+    @IBOutlet private var drawingToolsButtonsView: UIView!
     @IBOutlet private var penButton: UIButton!
     @IBOutlet private var pencilButton: UIButton!
     @IBOutlet private var highlighterButton: UIButton!
     @IBOutlet private var magicPenButton: UIButton!
+
+    // Shapes Menu
+    @IBOutlet private var shapesButtonsView: UIView!
+    @IBOutlet private var circleButton: UIButton!
+    @IBOutlet private var squareButton: UIButton!
+    @IBOutlet private var triangleButton: UIButton!
+    @IBOutlet private var starButton: UIButton!
 
     // Profile Labels
     @IBOutlet private var userProfileLabel: UILabel!
@@ -54,12 +60,13 @@ class DoodleViewController: UIViewController {
     // State
     var room: DTAdaptedRoom?
     var username: String?
-    private var previousDrawingTool = DrawingTools.pen
     var doodles: [DTDoodleWrapper]?
     var participants: [DTAdaptedUser] = []
     var existingUsers: [DTAdaptedUserAccesses] = []
     var userIcons: [UserIconData] = []
     var userIconColors: [UIColor] = []
+    private var previousDrawingTool = DrawingTools.pen
+    private var previousShapeTool = ShapeTools.circle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,12 +86,7 @@ class DoodleViewController: UIViewController {
         registerGestures()
         loadBorderColors()
         updateProfileViews()
-        existingUsers.sort { u, v -> Bool in
-            u.displayName < v.displayName
-        }
-        userIcons = existingUsers.map({ x -> UserIconData in
-            UserIconData(user: x, color: generateRandomColor())
-        })
+        initialiseUserIconColors()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -126,6 +128,12 @@ class DoodleViewController: UIViewController {
         userProfileLabel.layer.borderColor = UIConstants.white.cgColor
         otherProfileLabelOne.layer.borderColor = UIConstants.white.cgColor
         otherProfileLabelTwo.layer.borderColor = UIConstants.white.cgColor
+    }
+
+    func initialiseUserIconColors() {
+        for _ in 0..<UIConstants.userIconColorCount {
+            userIconColors.append(generateRandomColor())
+        }
     }
 
     func updateProfileViews() {
@@ -203,20 +211,9 @@ class DoodleViewController: UIViewController {
         }
     }
 
-    @IBAction private func exitButtonDidTap(_ sender: UIButton) {
-        alert(title: AlertConstants.exit, message: AlertConstants.exitToMainMenu,
-              buttonStyle: .default, handler: { _ in
-                self.dismiss(animated: true, completion: nil)
-                DispatchQueue.main.async {
-                    // TODO: Call backend to update the preview(s) to reflect the latest changes
-                }
-              }
-        )
-    }
-
 }
 
-// MARK: - IBActions
+// MARK: - IBActions Part 1
 
 extension DoodleViewController {
 
@@ -225,40 +222,29 @@ extension DoodleViewController {
             return
         }
         unselectAllMainTools()
-        auxiliaryButtonsView.isHidden = true
+        drawingToolsButtonsView.isHidden = true
+        shapesButtonsView.isHidden = true
         coloredCircle.isHidden = true
         sender.isSelected = true
-        setDrawingTool(previousDrawingTool,
-                       shouldDismiss: sender.tag != MainTools.drawing.rawValue)
+        setDrawingTool(previousDrawingTool, shouldDismiss: sender.tag != MainTools.drawing.rawValue)
+        setShapeTool(previousShapeTool, shouldDismiss: sender.tag != MainTools.shapes.rawValue)
 
         canvasController?.setMainTool(toolSelected)
 
         switch toolSelected {
         case .drawing:
-            auxiliaryButtonsView.isHidden = false
+            drawingToolsButtonsView.isHidden = false
             coloredCircle.isHidden = false
         case .eraser:
             colorPickerView.isHidden = true
             pressureInfoView.isHidden = true
-        case .text, .shapes, .cursor:
+        case .text, .cursor:
             colorPickerView.isHidden = true
             pressureInfoView.isHidden = true
-            return
-        }
-    }
-
-    @IBAction private func drawingToolButtonDidTap(_ sender: UIButton) {
-        guard let toolSelected = DrawingTools(rawValue: sender.tag) else {
-            return
-        }
-        unselectAllDrawingTools()
-        sender.isSelected = true
-        setDrawingTool(toolSelected)
-
-        if toolSelected == .magicPen && !colorPickerView.isHidden {
-            pressureInfoView.isHidden = false
-        } else {
+        case .shapes:
+            colorPickerView.isHidden = true
             pressureInfoView.isHidden = true
+            shapesButtonsView.isHidden = false
         }
     }
 
@@ -271,7 +257,15 @@ extension DoodleViewController {
         sender.isSelected.toggle()
     }
 
-    private func setDrawingTool(_ drawingTool: DrawingTools, shouldDismiss: Bool = false) {
+    func updatePressureView(toolSelected: DrawingTools) {
+        if toolSelected == .magicPen && !colorPickerView.isHidden {
+            pressureInfoView.isHidden = false
+        } else {
+            pressureInfoView.isHidden = true
+        }
+    }
+
+    func setDrawingTool(_ drawingTool: DrawingTools, shouldDismiss: Bool = false) {
         previousDrawingTool = drawingTool
         canvasController?.setDrawingTool(drawingTool)
 
@@ -292,6 +286,11 @@ extension DoodleViewController {
         }
     }
 
+    func setShapeTool(_ shapeTool: ShapeTools, shouldDismiss: Bool = false) {
+        previousShapeTool = shapeTool
+        canvasController?.setShapeTool(shapeTool)
+    }
+
     @IBAction private func layerButtonDidTap(_ sender: UIButton) {
         if let doodles = canvasController?.getCurrentDoodles() {
             layerTable?.loadDoodles(doodles)
@@ -300,30 +299,16 @@ extension DoodleViewController {
         sender.isSelected.toggle()
     }
 
-    @IBAction private func addLayerButtonDidTap(_ sender: UIButton) {
-        roomWSController.addDoodle()
-    }
-
     @IBAction private func exportButtonDidTap(_ sender: UIButton) {
         // TODO: Export to image for now
     }
 
-    @IBAction private func undoButtonDidTap(_ sender: Any) {
-        guard let canvasController = canvasController, canvasController.canUndo else {
-            return
+    @objc
+    func colorPickerButtonDidTap(_ gesture: UITapGestureRecognizer) {
+        colorPickerView.isHidden.toggle()
+        if previousDrawingTool == .magicPen {
+            pressureInfoView.isHidden = colorPickerView.isHidden
         }
-        canvasController.undo()
-    }
-
-    @IBAction private func redoButtonDidTap(_ sender: Any) {
-        guard let canvasController = canvasController, canvasController.canRedo else {
-            return
-        }
-        canvasController.redo()
-    }
-
-    @IBAction private func pressureSwitchDidToggle(_ sender: UISwitch) {
-        canvasController?.setIsPressureSensitive(sender.isOn)
     }
 
     @objc
@@ -331,15 +316,7 @@ extension DoodleViewController {
         canvasController?.resetZoomScaleAndCenter()
     }
 
-    @objc
-    private func colorPickerButtonDidTap(_ gesture: UITapGestureRecognizer) {
-        colorPickerView.isHidden.toggle()
-        if previousDrawingTool == .magicPen {
-            pressureInfoView.isHidden = colorPickerView.isHidden
-        }
-    }
-
-    private func unselectAllMainTools() {
+    func unselectAllMainTools() {
         drawButton.isSelected = false
         eraserButton.isSelected = false
         textButton.isSelected = false
@@ -347,11 +324,18 @@ extension DoodleViewController {
         cursorButton.isSelected = false
     }
 
-    private func unselectAllDrawingTools() {
+    func unselectAllDrawingTools() {
         penButton.isSelected = false
         pencilButton.isSelected = false
         highlighterButton.isSelected = false
         magicPenButton.isSelected = false
+    }
+
+    func unselectAllShapeTools() {
+        circleButton.isSelected = false
+        squareButton.isSelected = false
+        triangleButton.isSelected = false
+        starButton.isSelected = false
     }
 
 }

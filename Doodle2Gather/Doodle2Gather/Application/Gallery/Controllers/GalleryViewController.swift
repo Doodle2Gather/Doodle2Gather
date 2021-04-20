@@ -104,7 +104,7 @@ extension GalleryViewController: UICollectionViewDataSource {
             guard let topLayer = rooms[indexPath.row].doodles.first else {
                 return cell
             }
-            guard let previewImage = DTDoodlePreview(doodle: topLayer).image else {
+            guard let previewImage = DoodlePreview(doodle: topLayer).image else {
                 return cell
             }
             DispatchQueue.main.async {

@@ -30,8 +30,21 @@ extension PKDrawing: DTDoodle {
         })
     }
 
+    public mutating func removeStroke<S>(_ removedStroke: S) where S: DTStroke {
+        dtStrokes = dtStrokes.filter({ stroke in
+            guard let stroke = stroke as? S else {
+                fatalError("Failed to convert PKStroke to DTStroke")
+            }
+            return !(stroke == removedStroke)
+        })
+    }
+
     public mutating func addStrokes<S>(_ addedStrokes: [S]) where S: DTStroke {
         dtStrokes.append(contentsOf: (addedStrokes.map { PKStroke(from: $0) }))
+    }
+
+    public mutating func addStroke<S>(_ addedStroke: S) where S: DTStroke {
+        dtStrokes.append(PKStroke(from: addedStroke))
     }
 
 }

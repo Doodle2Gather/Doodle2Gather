@@ -13,3 +13,10 @@ enum MainTools: Int {
     case shapes
     case cursor
 }
+
+enum ShapeTools: Int {
+    case circle
+    case square
+    case triangle
+    case star
+}
