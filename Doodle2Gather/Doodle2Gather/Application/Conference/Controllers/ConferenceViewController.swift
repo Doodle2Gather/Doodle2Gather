@@ -22,7 +22,7 @@ class ConferenceViewController: UIViewController {
     var chatEngine: ChatEngine?
     var chatBox: ChatBoxDelegate?
     var usersWithPermissions: [DTAdaptedUser] = []
-    var participants: [DTAdaptedUser] = []
+    var participants: [DTAdaptedUserVideoConferenceState] = []
     lazy var chatList = [Message]()
     var isMuted = true
     var isVideoOff = true
@@ -71,8 +71,11 @@ class ConferenceViewController: UIViewController {
                                      repeats: true)
 
         roomWSController?.conferenceDelegate = self
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
             self.roomWSController?.updateVideoState(isVideoOn: false)
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+            self.timer.invalidate()
         }
     }
 
@@ -162,12 +165,11 @@ class ConferenceViewController: UIViewController {
             unreadMessageCount = 0
             chatButton.badge(text: nil, appearance: appearance)
         case SegueConstants.toParticipants:
-            guard let nav = segue.destination as? UINavigationController else {
+            guard let vc = segue.destination as? ParticipantsViewController else {
                 return
             }
-            guard let vc = nav.topViewController as? ParticipantsViewController else {
-                return
-            }
+            print("Yolo")
+            print(participants)
             vc.participants = participants
         default:
             return
@@ -361,6 +363,7 @@ extension ConferenceViewController: UICollectionViewDelegateFlowLayout {
 extension ConferenceViewController: DTConferenceWebSocketControllerDelegate {
 
     func updateStates(_ users: [DTAdaptedUserVideoConferenceState]) {
+        participants = users
         for user in users {
             userIdToNameMapping[user.id] = user.displayName
         }

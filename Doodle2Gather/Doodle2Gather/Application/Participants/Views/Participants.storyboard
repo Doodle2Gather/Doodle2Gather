@@ -3,6 +3,7 @@
     <device id="ipad11_0rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -19,7 +20,8 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="50" estimatedRowHeight="50" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Esh-y1-OiB">
                                 <rect key="frame" x="20" y="66" width="500" height="544"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" name="Black"/>
+                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ParticipantCell" id="CIp-V8-Gs0" userLabel="Participant View Cell" customClass="ParticipantViewCell" customModule="Doodle2Gather" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="500" height="50"/>
@@ -40,8 +42,9 @@
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dhJ-G3-Vlt" userLabel="Username">
                                                     <rect key="frame" x="60" y="14.5" width="42" height="21"/>
+                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lzb-JX-rZ0">
@@ -62,6 +65,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </button>
                                             </subviews>
+                                            <color key="backgroundColor" name="Black"/>
                                             <constraints>
                                                 <constraint firstItem="dhJ-G3-Vlt" firstAttribute="centerY" secondItem="CgS-2u-Idp" secondAttribute="centerY" id="0pX-MJ-wlx"/>
                                                 <constraint firstItem="Lzb-JX-rZ0" firstAttribute="centerY" secondItem="CgS-2u-Idp" secondAttribute="centerY" id="5c3-mr-wBr"/>
@@ -79,6 +83,7 @@
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="Black"/>
                                         <connections>
                                             <outlet property="audioButton" destination="9T0-9P-80c" id="pBH-v9-d54"/>
                                             <outlet property="userLabel" destination="Lzb-JX-rZ0" id="Wpe-Ct-ebO"/>
@@ -117,7 +122,8 @@
                             </navigationBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="wGX-cT-LmT"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="Black"/>
+                        <color key="tintColor" name="Black"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iId-Gq-QCT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -131,9 +137,9 @@
         <image name="SoundOn" width="24" height="24"/>
         <image name="VideoOff_Red" width="24" height="24"/>
         <image name="VideoOn" width="24" height="24"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <namedColor name="Black">
+            <color red="0.125" green="0.125" blue="0.11400000005960464" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemIndigoColor">
             <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

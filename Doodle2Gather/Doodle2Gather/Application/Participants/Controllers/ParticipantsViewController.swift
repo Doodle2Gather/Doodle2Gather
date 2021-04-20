@@ -5,11 +5,12 @@ class ParticipantsViewController: UIViewController {
 
     @IBOutlet private var tableView: UITableView!
 
-    var participants = [DTAdaptedUser]()
+    var participants = [DTAdaptedUserVideoConferenceState]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        print(participants)
         isModalInPresentation = true
     }
 
@@ -33,8 +34,8 @@ extension ParticipantsViewController: UITableViewDataSource {
                                                  for: indexPath) as? ParticipantViewCell
         cell?.displayName = participant.displayName
         cell?.userId = participant.id
-        cell?.isAudioOn = false
-        cell?.isVideoOn = false
+        cell?.isAudioOn = true
+        cell?.isVideoOn = participant.isVideoOn
         return cell!
     }
 }
