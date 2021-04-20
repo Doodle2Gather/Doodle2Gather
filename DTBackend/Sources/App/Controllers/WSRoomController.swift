@@ -208,7 +208,7 @@ class WSRoomController {
 // MARK: - Broadcast Helpers
 
 extension WSRoomController {
-    
+
     var getAllWebSocketOptions: [WebSocketSendOption] {
         var options = [WebSocketSendOption]()
         for ws in sockets {
@@ -242,7 +242,7 @@ extension WSRoomController {
 }
 
 extension WSRoomController {
-    
+
     func updateParticipantsInfo() {
         PersistedDTRoom.getRoomPermissions(roomId: self.roomId, on: db)
             .whenComplete { result in
