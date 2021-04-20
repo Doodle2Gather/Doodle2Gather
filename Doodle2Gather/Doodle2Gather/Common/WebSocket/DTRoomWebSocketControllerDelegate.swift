@@ -15,6 +15,8 @@ protocol DTRoomWebSocketControllerDelegate: AnyObject {
     /// Tells the delegate to remove the doodle with the given UUID.
     func removeDoodle(doodleId: UUID)
 
-    func updateUsers(_ users: [DTAdaptedUserAccesses])
+    func fetchUserAccesses(_ users: [DTAdaptedUserAccesses])
+
+    func updateUsers(_ users: [DTAdaptedUser])
 
 }

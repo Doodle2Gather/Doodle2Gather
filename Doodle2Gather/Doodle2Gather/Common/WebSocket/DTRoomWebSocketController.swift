@@ -80,7 +80,7 @@ final class DTRoomWebSocketController: DTSendableWebSocketSubController {
     func handleParticipantInfo(_ data: Data) throws {
         let fetch = try decoder.decode(DTParticipantInfoMessage.self, from: data)
         DTLogger.info { "Fetched participant info: \(fetch.users)" }
-        delegate?.updateUsers(fetch.users)
+        delegate?.fetchUserAccesses(fetch.users)
     }
 
     func handleRemoveDoodle(_ data: Data) throws {
@@ -96,6 +96,7 @@ final class DTRoomWebSocketController: DTSendableWebSocketSubController {
         let newUsersInRoom = newState.usersInRoom
         DTLogger.debug { "Users in room: \(newUsersInRoom.map { $0.displayName })" }
         // TODO: Wang Luo fill this up!!!
+        delegate?.updateUsers(newUsersInRoom)
     }
 
 }

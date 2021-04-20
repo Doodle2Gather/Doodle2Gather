@@ -7,7 +7,7 @@ class InvitationViewController: UIViewController {
     @IBOutlet private var inviteCodeField: UITextField!
 
     var room: DTAdaptedRoom?
-    var userIcons = [UserIconData]()
+    var userAccesses: [DTAdaptedUserAccesses] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,16 +41,15 @@ extension InvitationViewController: UITableViewDelegate {
 
 extension InvitationViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        userIcons.count
+        userAccesses.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let userIcon = userIcons[indexPath.row]
+        let userAccess = userAccesses[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "userCell",
                                                  for: indexPath) as? UserViewCell
-        cell?.setUsername(userIcon.user.displayName)
-        cell?.setEmail(userIcon.user.email)
-        cell?.setColor(userIcon.color)
+        cell?.setUsername(userAccess.displayName)
+        cell?.setEmail(userAccess.email)
 
         // TODO: Set permissions here
         guard let currentUser = DTAuth.user?.uid else {
@@ -80,7 +79,7 @@ extension InvitationViewController: UITableViewDataSource {
         cell?.setPermissions(.editor)
 
         if let ownerId = room?.ownerId {
-            if ownerId == userIcon.user.userId {
+            if ownerId == userAccess.userId {
                 // Set callback to cell
                 cell?.setEditable(false)
                 cell?.setPermissions(.owner)
@@ -98,7 +97,12 @@ enum UserPermission {
     case owner
 }
 
-struct UserIconData {
-    let user: DTAdaptedUserAccesses
-    let color: UIColor
+struct UserState: Hashable {
+    let userId: String
+    let displayName: String
+    let email: String
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(userId)
+    }
 }

@@ -62,8 +62,8 @@ class DoodleViewController: UIViewController {
     var username: String?
     var doodles: [DTDoodleWrapper]?
     var participants: [DTAdaptedUser] = []
-    var existingUsers: [DTAdaptedUserAccesses] = []
-    var userIcons: [UserIconData] = []
+    var userAccesses: [DTAdaptedUserAccesses] = []
+    var userStates: [UserState] = []
     var userIconColors: [UIColor] = []
     private var previousDrawingTool = DrawingTools.pen
     private var previousShapeTool = ShapeTools.circle
@@ -85,8 +85,8 @@ class DoodleViewController: UIViewController {
 
         registerGestures()
         loadBorderColors()
+        initialiseProfileColors()
         updateProfileViews()
-        initialiseUserIconColors()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -130,16 +130,16 @@ class DoodleViewController: UIViewController {
         otherProfileLabelTwo.layer.borderColor = UIConstants.white.cgColor
     }
 
-    func initialiseUserIconColors() {
-        for _ in 0..<UIConstants.userIconColorCount {
-            userIconColors.append(generateRandomColor())
-        }
-    }
-
     func updateProfileViews() {
         userProfileLabel.layer.masksToBounds = true
         otherProfileLabelOne.layer.masksToBounds = true
         otherProfileLabelTwo.layer.masksToBounds = true
+    }
+
+    func initialiseProfileColors() {
+        for _ in 0..<UIConstants.userIconColorCount {
+            userIconColors.append(generateRandomColor())
+        }
     }
 
     func updateProfileColors() {
@@ -147,46 +147,43 @@ class DoodleViewController: UIViewController {
             DTLogger.error("Attempted to join room without a user.")
             return
         }
-        let otherUsers = userIcons.filter({ icon -> Bool in
-            icon.user.userId != DTAuth.user?.uid
+        let otherUserStates = userStates.filter({ state -> Bool in
+            state.userId != user.uid
         })
-        let currentUser = userIcons.first { icon -> Bool in
-            icon.user.userId == DTAuth.user?.uid
-        }
 
         setProfileLabel(userProfileLabel, text: user.displayName)
-        userProfileLabel.backgroundColor = currentUser?.color ?? UIConstants.black
-        if otherUsers.count < 1 {
+        userProfileLabel.backgroundColor = userIconColors[0]
+        if otherUserStates.count < 1 {
             separator.isHidden = true
             otherProfileLabelOne.isHidden = true
             otherProfileLabelTwo.isHidden = true
             numberOfOtherUsersLabel.isHidden = true
-        } else if otherUsers.count < 2 {
+        } else if otherUserStates.count < 2 {
             separator.isHidden = false
-            setProfileLabel(otherProfileLabelOne, text: otherUsers[0].user.displayName)
+            setProfileLabel(otherProfileLabelOne, text: otherUserStates[0].displayName)
             otherProfileLabelOne.isHidden = false
             otherProfileLabelTwo.isHidden = true
             numberOfOtherUsersLabel.isHidden = true
-            otherProfileLabelOne.backgroundColor = otherUsers[0].color
-        } else if otherUsers.count < 3 {
+            otherProfileLabelOne.backgroundColor = userIconColors[1]
+        } else if otherUserStates.count < 3 {
             separator.isHidden = false
-            setProfileLabel(otherProfileLabelOne, text: otherUsers[0].user.displayName)
-            setProfileLabel(otherProfileLabelTwo, text: otherUsers[1].user.displayName)
+            setProfileLabel(otherProfileLabelOne, text: otherUserStates[0].displayName)
+            setProfileLabel(otherProfileLabelTwo, text: otherUserStates[1].displayName)
             otherProfileLabelOne.isHidden = false
             otherProfileLabelTwo.isHidden = false
             numberOfOtherUsersLabel.isHidden = true
-            otherProfileLabelOne.backgroundColor = otherUsers[0].color
-            otherProfileLabelTwo.backgroundColor = otherUsers[1].color
+            otherProfileLabelOne.backgroundColor = userIconColors[1]
+            otherProfileLabelTwo.backgroundColor = userIconColors[2]
         } else {
             separator.isHidden = false
-            setProfileLabel(otherProfileLabelOne, text: otherUsers[0].user.displayName)
-            setProfileLabel(otherProfileLabelTwo, text: otherUsers[1].user.displayName)
+            setProfileLabel(otherProfileLabelOne, text: otherUserStates[0].displayName)
+            setProfileLabel(otherProfileLabelTwo, text: otherUserStates[1].displayName)
             otherProfileLabelOne.isHidden = false
             otherProfileLabelTwo.isHidden = false
             numberOfOtherUsersLabel.isHidden = false
-            otherProfileLabelOne.backgroundColor = otherUsers[0].color
-            otherProfileLabelTwo.backgroundColor = otherUsers[1].color
-            numberOfOtherUsersLabel.text = "+\(existingUsers.count - 3)"
+            otherProfileLabelOne.backgroundColor = userIconColors[1]
+            otherProfileLabelTwo.backgroundColor = userIconColors[2]
+            numberOfOtherUsersLabel.text = "+\(userStates.count - 3)"
         }
     }
 

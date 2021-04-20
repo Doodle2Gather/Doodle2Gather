@@ -26,5 +26,5 @@ enum UIConstants {
     static let smallOffset: CGFloat = 10
     static let largeOffset: CGFloat = 12
 
-    static let userIconColorCount = 50
+    static let userIconColorCount = 3
 }
