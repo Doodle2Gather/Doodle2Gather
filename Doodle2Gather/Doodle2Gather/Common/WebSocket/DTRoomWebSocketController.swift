@@ -188,7 +188,7 @@ extension DTRoomWebSocketController: RoomSocketController {
               let roomId = self.roomId else {
             return
         }
-        DTLogger.info("Sending video state to backend, isVideoOn: \(isVideoOn)")
+        DTLogger.info("Sending conference state to backend, isVideoOn: \(isVideoOn), isAudioOn: \(isAudioOn)")
         let message = DTUpdateUserConferencingStateMessage(id: id,
                                                            roomId: roomId,
                                                            isVideoOn: isVideoOn,

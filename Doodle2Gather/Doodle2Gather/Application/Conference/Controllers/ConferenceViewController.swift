@@ -70,8 +70,8 @@ class ConferenceViewController: UIViewController {
                                      userInfo: nil,
                                      repeats: true)
         roomWSController?.conferenceDelegate = self
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-            self.roomWSController?.updateConferencingState(isVideoOn: false, isAudioOn: false)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.roomWSController?.updateConferencingState(isVideoOn: !self.isVideoOff, isAudioOn: !self.isMuted)
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
             self.timer.invalidate()
@@ -168,8 +168,6 @@ class ConferenceViewController: UIViewController {
             guard let vc = segue.destination as? ParticipantsViewController else {
                 return
             }
-            print("Yolo")
-            print(participants)
             vc.participants = participants
         default:
             return
@@ -261,6 +259,15 @@ extension ConferenceViewController: VideoEngineDelegate {
     func didLeaveCall(id: UInt, username: String) {
         if let index = videoCallUserList.firstIndex(where: { $0.uid == id }) {
             videoCallUserList.remove(at: index)
+            self.collectionView.reloadData()
+        }
+    }
+
+    func didUpdateUserInfo(id: UInt, username: String) {
+        for index in 0..<videoCallUserList.count where videoCallUserList[index].uid == id {
+            videoCallUserList[index].userId = username
+        }
+        DispatchQueue.main.async {
             self.collectionView.reloadData()
         }
     }
@@ -363,6 +370,7 @@ extension ConferenceViewController: UICollectionViewDelegateFlowLayout {
 extension ConferenceViewController: DTConferenceWebSocketControllerDelegate {
 
     func updateStates(_ users: [DTAdaptedUserConferenceState]) {
+        participants = users
         for user in users {
             userIdToNameMapping[user.id] = user.displayName
         }
@@ -379,6 +387,9 @@ extension ConferenceViewController: DTConferenceWebSocketControllerDelegate {
             guard let cell = collectionView
                     .cellForItem(at: IndexPath(row: row + 1,
                                                section: 0)) as? VideoCollectionViewCell else {
+                continue
+            }
+            if videoCallUserList[row].isPlateActive {
                 continue
             }
             videoCallUserList[row].nameplate.text =

@@ -183,7 +183,6 @@ class DoodleViewController: UIViewController {
             numberOfOtherUsersLabel.isHidden = false
             otherProfileLabelOne.backgroundColor = userIconColors[1]
             otherProfileLabelTwo.backgroundColor = userIconColors[2]
-            print(userStates.count)
             numberOfOtherUsersLabel.text = "+\(userStates.count - 3)"
         }
     }

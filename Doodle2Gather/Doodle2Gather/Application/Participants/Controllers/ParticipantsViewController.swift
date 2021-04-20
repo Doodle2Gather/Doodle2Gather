@@ -34,7 +34,7 @@ extension ParticipantsViewController: UITableViewDataSource {
                                                  for: indexPath) as? ParticipantViewCell
         cell?.displayName = participant.displayName
         cell?.userId = participant.id
-        cell?.isAudioOn = true
+        cell?.isAudioOn = participant.isAudioOn
         cell?.isVideoOn = participant.isVideoOn
         return cell!
     }
