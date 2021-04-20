@@ -1,11 +1,14 @@
 import Foundation
 
+/// Represents the messages sent between client and server
+/// when the client is inside a room/document
 public struct DTRoomMessage: Codable {
     public let subtype: DTRoomMessageType
     public let id: UUID
     public let roomId: UUID
 }
 
+/// Represents the message sent when a user enters a room
 public struct DTJoinRoomMessage: Codable {
     public var type = DTMessageType.room
     public var subtype = DTRoomMessageType.joinRoom
@@ -20,6 +23,8 @@ public struct DTJoinRoomMessage: Codable {
     }
 }
 
+/// Represents a message that contains information on all users who
+/// have access to the room
 public struct DTParticipantInfoMessage: Codable {
     public var type = DTMessageType.room
     public var subtype = DTRoomMessageType.participantInfo
@@ -35,6 +40,8 @@ public struct DTParticipantInfoMessage: Codable {
     }
 }
 
+/// Represents the message sent by a client to the server to initiate a new action
+/// (i.e. to update the doodle copy on the server with a latest change)
 public struct DTInitiateActionMessage: Codable {
     public var type = DTMessageType.room
     public var subtype = DTRoomMessageType.initiateAction
@@ -55,6 +62,8 @@ public struct DTInitiateActionMessage: Codable {
     }
 }
 
+/// Represents the message that the server sent back to the client
+/// that just initiated an action
 public struct DTActionFeedbackMessage: Codable {
     public var type = DTMessageType.room
     public var subtype = DTRoomMessageType.actionFeedback
@@ -78,6 +87,8 @@ public struct DTActionFeedbackMessage: Codable {
     }
 }
 
+/// Represents the message that the server dispatched to all peers
+/// after receiving an action to update all peers with the latest change to a doodle
 public struct DTDispatchActionMessage: Codable {
     public var type = DTMessageType.room
     public var subtype = DTRoomMessageType.dispatchAction
@@ -98,6 +109,8 @@ public struct DTDispatchActionMessage: Codable {
     }
 }
 
+/// Represents the message that sent by a client to the server to
+/// request a fetch of the latest state of a doodle
 public struct DTRequestFetchMessage: Codable {
     public var type = DTMessageType.room
     public var subtype = DTRoomMessageType.requestFetch
@@ -110,6 +123,8 @@ public struct DTRequestFetchMessage: Codable {
     }
 }
 
+/// Represents the message that sent by the server to a user which
+/// contains the latest state of a doodle
 public struct DTFetchDoodleMessage: Codable {
     public var type = DTMessageType.room
     public var subtype = DTRoomMessageType.fetchDoodle
@@ -130,6 +145,8 @@ public struct DTFetchDoodleMessage: Codable {
     }
 }
 
+/// Represents the message sent by a client to the server to
+/// request the creation of a new doodle to an existing room/document
 public struct DTRequestAddDoodleMessage: Codable {
     public var type = DTMessageType.room
     public var subtype = DTRoomMessageType.requestAddDoodle
@@ -142,6 +159,8 @@ public struct DTRequestAddDoodleMessage: Codable {
     }
 }
 
+/// Represents the message sent by the server to clients to create
+/// a new doodle to an existing room/document
 public struct DTAddDoodleMessage: Codable {
     public var type = DTMessageType.room
     public var subtype = DTRoomMessageType.addDoodle
@@ -157,6 +176,8 @@ public struct DTAddDoodleMessage: Codable {
     }
 }
 
+/// Represents the message sent between the clients and the server
+/// to remove an existing doodle from a room/document
 public struct DTRemoveDoodleMessage: Codable {
     public var type = DTMessageType.room
     public var subtype = DTRoomMessageType.removeDoodle
@@ -172,18 +193,7 @@ public struct DTRemoveDoodleMessage: Codable {
     }
 }
 
-public struct DTClearDrawingMessage: Codable {
-    public var type = DTMessageType.room
-    public var subtype = DTRoomMessageType.clearDrawing
-    public let id: UUID
-    public let roomId: UUID
-
-    public init(id: UUID, roomId: UUID) {
-        self.id = id
-        self.roomId = roomId
-    }
-}
-
+/// Represents the message sent when a user leaves a room
 public struct DTExitRoomMessage: Codable {
     public var type = DTMessageType.room
     public var subtype = DTRoomMessageType.exitRoom
@@ -196,6 +206,8 @@ public struct DTExitRoomMessage: Codable {
     }
 }
 
+/// Represents the message containing information on all users
+/// who are currently inside a particular room
 public struct DTRoomLiveStateMessage: Codable {
     public var type = DTMessageType.room
     public var subtype = DTRoomMessageType.updateLiveState
@@ -209,6 +221,8 @@ public struct DTRoomLiveStateMessage: Codable {
     }
 }
 
+/// Represents the message containing information on the video conference
+/// state of all users who are currently inside a particular room
 public struct DTUsersVideoConferenceStateMessage: Codable {
     public var type = DTMessageType.room
     public var subtype = DTRoomMessageType.usersConferenceState
@@ -222,6 +236,7 @@ public struct DTUsersVideoConferenceStateMessage: Codable {
     }
 }
 
+/// Represents the message sent to update users' video conference state
 public struct DTUpdateUserVideoStateMessage: Codable {
     public var type = DTMessageType.room
     public var subtype = DTRoomMessageType.updateVideoState

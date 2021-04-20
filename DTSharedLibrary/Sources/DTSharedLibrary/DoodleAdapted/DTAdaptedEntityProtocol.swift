@@ -1,5 +1,7 @@
 import Foundation
 
+/// Represets an entity that can be added to a doodle by user
+/// Current variations of an entity include: stroke and text
 public protocol DTAdaptedEntityProtocol: Codable, Hashable {
 
     var type: DTEntityType { get }

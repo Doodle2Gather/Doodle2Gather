@@ -1,5 +1,8 @@
 import Foundation
 
+/// Represents an action/update that is sent between the client and the server
+/// An action can be sent bi-directional, it is used to ensure the consistency between
+/// client and server's copy of  a doodle
 public struct DTAdaptedAction: Codable {
 
     public let type: DTActionType

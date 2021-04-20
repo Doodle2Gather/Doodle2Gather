@@ -164,10 +164,6 @@ class WSRoomController {
                 let removeDoodleData = try decoder.decode(
                     DTRemoveDoodleMessage.self, from: data)
                 self.handleRemoveDoodle(ws, decodedData.id, doodleId: removeDoodleData.doodleId)
-            case .clearDrawing:
-                let actionData = try decoder.decode(
-                    DTClearDrawingMessage.self, from: data)
-                self.handleClearDrawing(ws, decodedData.id, actionData)
             case .updateVideoState:
                 let videoStateData = try decoder.decode(DTUpdateUserVideoStateMessage.self, from: data)
                 self.handleUpdateVideoState(id: videoStateData.id, isVideoOn: videoStateData.isVideoOn)
@@ -208,6 +204,7 @@ class WSRoomController {
 }
 
 // MARK: - Broadcast Helpers
+
 extension WSRoomController {
     var getAllWebSocketOptions: [WebSocketSendOption] {
         var options = [WebSocketSendOption]()

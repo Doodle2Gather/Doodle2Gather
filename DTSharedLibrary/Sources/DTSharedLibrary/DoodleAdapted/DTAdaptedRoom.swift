@@ -1,5 +1,8 @@
 import Foundation
 
+/// Represents a room/document
+/// A room can contain multiple doodles (aka layers)
+/// and users can also start call and use chat inside a room
 public struct DTAdaptedRoom: Codable {
 
     public let ownerId: String
