@@ -62,7 +62,7 @@ class ConferenceViewController: UIViewController {
 
         collectionView.isHidden = true
         topControlViewContainer.isHidden = true
-        
+
         roomWSController?.updateVideoState(isVideoOn: false)
     }
 
