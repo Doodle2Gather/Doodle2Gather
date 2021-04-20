@@ -930,12 +930,6 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="240" height="135"/>
                                                     <color key="backgroundColor" name="Black"/>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6X9-Ly-aH1">
-                                                    <rect key="frame" x="99.5" y="97.5" width="41.5" height="20.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" name="White"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" name="Black"/>
                                             <constraints>
@@ -943,8 +937,6 @@
                                                 <constraint firstItem="2Uo-Nc-4zR" firstAttribute="leading" secondItem="Ioy-42-Bn6" secondAttribute="leading" id="R83-UZ-3Hs"/>
                                                 <constraint firstAttribute="bottom" secondItem="2Uo-Nc-4zR" secondAttribute="bottom" id="htE-LV-w1Z"/>
                                                 <constraint firstAttribute="trailing" secondItem="2Uo-Nc-4zR" secondAttribute="trailing" id="ouG-Yc-GDs"/>
-                                                <constraint firstItem="6X9-Ly-aH1" firstAttribute="centerX" secondItem="Ioy-42-Bn6" secondAttribute="centerX" id="vYw-wJ-GeL"/>
-                                                <constraint firstItem="6X9-Ly-aH1" firstAttribute="centerY" secondItem="Ioy-42-Bn6" secondAttribute="centerY" constant="40" id="xNi-hu-Ikn"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <color key="backgroundColor" name="Black"/>
@@ -964,7 +956,6 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <outlet property="nameplate" destination="6X9-Ly-aH1" id="Ymb-B1-EnY"/>
                                             <outlet property="videoView" destination="2Uo-Nc-4zR" id="yMN-Hs-sd0"/>
                                         </connections>
                                     </collectionViewCell>
