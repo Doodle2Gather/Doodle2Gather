@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rZI-TI-AZo">
+    <device id="ipad12_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
@@ -22,17 +23,17 @@
             <objects>
                 <viewController storyboardIdentifier="Doodle" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rZI-TI-AZo" customClass="DoodleViewController" customModule="Doodle2Gather" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Rvn-Q8-Irn">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CRw-tT-Mu5" userLabel="Canvas Container View">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                                 <connections>
                                     <segue destination="rKz-2I-ekB" kind="embed" identifier="toCanvas" id="h1y-4w-gMZ"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2v7-Hc-qJ9" userLabel="Video Overlay View" customClass="SubviewTouchView" customModule="Doodle2Gather" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="1346"/>
                                 <connections>
                                     <segue destination="iqH-RH-LvU" kind="embed" identifier="toConference" id="LHe-b8-q2G"/>
                                 </connections>
@@ -198,7 +199,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zab-bH-VRq" userLabel="Shapes Buttons View">
-                                <rect key="frame" x="82" y="192.5" width="60" height="215"/>
+                                <rect key="frame" x="82" y="575.5" width="60" height="215"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="GV2-lt-wg1" userLabel="Button Stack">
                                         <rect key="frame" x="10" y="10" width="40" height="190"/>
@@ -305,7 +306,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Xj-kh-aUN" userLabel="Drawing Tools Buttons View">
-                                <rect key="frame" x="82" y="152.5" width="60" height="295"/>
+                                <rect key="frame" x="82" y="535.5" width="60" height="295"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="a3W-PN-KVs" userLabel="Button Stack">
                                         <rect key="frame" x="10" y="10" width="40" height="270"/>
@@ -438,7 +439,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HdL-Pj-pPB" userLabel="Left Buttons View">
-                                <rect key="frame" x="12" y="170" width="60" height="260"/>
+                                <rect key="frame" x="12" y="553" width="60" height="260"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Pqb-uy-IVC" userLabel="Button Stack">
                                         <rect key="frame" x="10" y="10" width="40" height="240"/>
@@ -535,7 +536,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gvt-x0-wpX" userLabel="Profile Images View">
-                                <rect key="frame" x="352" y="12" width="236" height="60"/>
+                                <rect key="frame" x="776" y="12" width="236" height="60"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="DwN-FB-eIE">
                                         <rect key="frame" x="20" y="10" width="196" height="40"/>
@@ -648,7 +649,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Il3-8X-YYt" userLabel="Canvas Info View">
-                                <rect key="frame" x="468" y="528" width="120" height="60"/>
+                                <rect key="frame" x="892" y="1274" width="120" height="60"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="cIR-fM-baY">
                                         <rect key="frame" x="15" y="10" width="95" height="40"/>
@@ -697,7 +698,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <containerView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DHu-9F-THM">
-                                <rect key="frame" x="152" y="125.5" width="220" height="349"/>
+                                <rect key="frame" x="152" y="508.5" width="220" height="349"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="349" id="cVL-QR-mEA"/>
                                     <constraint firstAttribute="width" constant="220" id="lpz-NM-W4V"/>
@@ -707,7 +708,7 @@
                                 </connections>
                             </containerView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MWm-9W-hoQ">
-                                <rect key="frame" x="268" y="238" width="320" height="280"/>
+                                <rect key="frame" x="692" y="984" width="320" height="280"/>
                                 <subviews>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kRy-tJ-6Zr">
                                         <rect key="frame" x="0.0" y="60" width="320" height="220"/>
@@ -761,7 +762,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o49-IX-df3" userLabel="Pressure Info View">
-                                <rect key="frame" x="152" y="484.5" width="220" height="60"/>
+                                <rect key="frame" x="152" y="867.5" width="220" height="60"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="jpV-eh-2p4">
                                         <rect key="frame" x="15" y="14" width="195" height="32"/>
@@ -886,7 +887,7 @@
             <objects>
                 <viewController id="rKz-2I-ekB" customClass="CanvasViewController" customModule="Doodle2Gather" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0hy-zQ-mJQ">
-                        <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="Rkb-Od-Feo"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -901,11 +902,11 @@
             <objects>
                 <viewController id="iqH-RH-LvU" customClass="ConferenceViewController" customModule="Doodle2Gather" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="27U-ED-QaR" customClass="SubviewTouchView" customModule="Doodle2Gather" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="834" height="1174"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1346"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Bxd-CB-wII" customClass="SubviewTouchCollectionView" customModule="Doodle2Gather" customModuleProvider="target">
-                                <rect key="frame" x="622" y="132" width="200" height="425"/>
+                                <rect key="frame" x="812" y="132" width="200" height="425"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="ZO1-qV-5al"/>
@@ -974,7 +975,7 @@
                                 </connections>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xWj-qC-1ia" userLabel="Bottom Buttons View">
-                                <rect key="frame" x="12" y="1102" width="410" height="60"/>
+                                <rect key="frame" x="12" y="1274" width="410" height="60"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="vRG-Cw-GCR" userLabel="Button Stack">
                                         <rect key="frame" x="10" y="0.0" width="390" height="60"/>
@@ -1095,7 +1096,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hzX-Ab-qkC" userLabel="Top Control View">
-                                <rect key="frame" x="622" y="82" width="200" height="40"/>
+                                <rect key="frame" x="812" y="82" width="200" height="40"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gallery View" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5fP-1P-WgX">
                                         <rect key="frame" x="25" y="9.5" width="107.5" height="21.5"/>
