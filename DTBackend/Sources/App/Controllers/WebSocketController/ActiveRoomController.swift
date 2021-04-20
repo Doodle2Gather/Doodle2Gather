@@ -58,39 +58,48 @@ class ActiveRoomController {
         case .stroke:
             let strokes = action.makeStrokes()
             let pairs = action.getStrokeIndexPairs()
+            self.logger.info("Applying stroke action")
             return applyAction(action: action, entities: strokes, pairs: pairs)
         case .text:
             let text = action.makeText()
             let pairs = action.getTextIndexPairs()
+            self.logger.info("Applying text action")
             return applyAction(action: action, entities: text, pairs: pairs)
         default:
+            self.logger.error("Action is missing type")
             return nil
         }
     }
 
     func applyAction<T: DTAdaptedEntityProtocol>(
         action: DTAdaptedAction, entities: [T], pairs: [DTEntityIndexPair]) -> DTAdaptedAction? {
-
         let returnPairs: [DTEntityIndexPair]?
 
         switch action.type {
         case .add:
             guard entities.count == 1, let toAdd = entities.first else {
+                self.logger.error("Add action has incorrect number of entities")
                 return nil
             }
 
             returnPairs = addEntity(toAdd)
         case .remove:
             if entities.isEmpty {
+                self.logger.error("Remove action has incorrect number of entities")
                 return nil
             }
             returnPairs = removeEntities(entities, pairs)
 
         case .unremove:
+            if entities.isEmpty {
+                self.logger.error("Unremove action has incorrect number of entities")
+                return nil
+            }
             returnPairs = unremoveEntities(entities, pairs)
 
         case .modify:
             if entities.count != 2 {
+                self.logger.error("Modify action has incorrect number of entities")
                 return nil
             }
             guard let originalStroke = entities.first, let modifiedStroke = entities.last,
@@ -116,6 +125,7 @@ class ActiveRoomController {
 
     func addEntity<T: DTAdaptedEntityProtocol>(_ entity: T) -> [DTEntityIndexPair]? {
         guard var doodle = doodles[entity.doodleId] else {
+            self.logger.error("Trying to add entity to non-existent doodle")
             return nil
         }
 
@@ -133,9 +143,10 @@ class ActiveRoomController {
         return [entity.makeEntityIndexPair(index: index)]
     }
 
-    func removeEntities<T: DTAdaptedEntityProtocol>(_ entities: [T],
-                                                   _ pairs: [DTEntityIndexPair]) -> [DTEntityIndexPair]? {
+    func removeEntities<T: DTAdaptedEntityProtocol>(
+        _ entities: [T], _ pairs: [DTEntityIndexPair]) -> [DTEntityIndexPair]? {
         guard let firstEntity = entities.first, var doodle = doodles[firstEntity.doodleId] else {
+            self.logger.error("Trying to remove entity to non-existent doodle")
             return nil
         }
 
@@ -146,15 +157,17 @@ class ActiveRoomController {
         case .text:
             entitySet = doodle.text as? [T]
         }
-        guard let entities = entitySet else {
+        guard let entitiesInDoodle = entitySet else {
             return nil
         }
 
         var returnPairs = [DTEntityIndexPair]()
-        for index in 0 ..< entities.count {
-            let entity = entities[index]
-            let index = pairs[index].index
-            if entities[index] != entity {
+        for ind in 0 ..< entities.count {
+            let entity = entities[ind]
+            print("getting \(ind)th entity/pair")
+            let index = pairs[ind].index
+            if entitiesInDoodle[index] != entity {
+                self.logger.error("Client and server doodle out of sync at index \(index)")
                 return nil
             }
             doodle.removeEntity(entity, at: index)
@@ -168,9 +181,10 @@ class ActiveRoomController {
         return returnPairs
     }
 
-    func unremoveEntities<T: DTAdaptedEntityProtocol>(_ entities: [T],
-                                                   _ pairs: [DTEntityIndexPair]) -> [DTEntityIndexPair]? {
+    func unremoveEntities<T: DTAdaptedEntityProtocol>(
+        _ entities: [T], _ pairs: [DTEntityIndexPair]) -> [DTEntityIndexPair]? {
         guard let firstEntity = entities.first, var doodle = doodles[firstEntity.doodleId] else {
+            self.logger.error("Trying to unremove entity from non-existent doodle")
             return nil
         }
 
@@ -181,15 +195,18 @@ class ActiveRoomController {
         case .text:
             entitySet = doodle.text as? [T]
         }
-        guard let entities = entitySet else {
+        guard let entitiesInDoodle = entitySet else {
             return nil
         }
 
         var returnPairs = [DTEntityIndexPair]()
-        for index in 0 ..< entities.count {
-            let entity = entities[index]
-            let index = pairs[index].index
-            if entities[index] != entity {
+        for ind in 0 ..< entities.count {
+            let entity = entities[ind]
+            print("getting \(ind)th entity/pair")
+            let index = pairs[ind].index
+            if entitiesInDoodle[index] != entity {
+                self.logger.error("Client and server doodle out of sync at index \(index)")
+                self.logger.error("Client: \(entity) Server: \(entities[index])")
                 return nil
             }
             doodle.unremoveEntity(entity, at: index)
@@ -207,6 +224,7 @@ class ActiveRoomController {
         original: T, modified: T, pair: DTEntityIndexPair
     ) -> [DTEntityIndexPair]? {
         guard var doodle = doodles[original.doodleId] else {
+            self.logger.error("Trying to modify entity in non-existent doodle")
             return nil
         }
 
@@ -223,6 +241,7 @@ class ActiveRoomController {
 
         let index = pair.index
         if entities[index] != original {
+            self.logger.error("Client and server doodle out of sync at index \(index)")
             return nil
         }
         doodle.modifyEntity(at: index, to: modified)
