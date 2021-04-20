@@ -10,6 +10,8 @@ extension WSRoomController {
         self.logger.info("\(id) exit room")
         self.lock.withLockVoid {
             self.sockets[id] = nil
+        }
+        self.usersLock.withLockVoid {
             self.users[id] = nil
         }
         self.logger.info("users in room \(Array(self.users.values))")

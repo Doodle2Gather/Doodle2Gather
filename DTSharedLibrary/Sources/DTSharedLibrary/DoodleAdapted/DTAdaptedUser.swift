@@ -5,10 +5,10 @@ public struct DTAdaptedUser: Codable {
     public let id: String
     public let displayName: String
     public let email: String
-    public let accessibleRooms: [DTAdaptedRoom]
-    public let updatedAt: Date
+    public let accessibleRooms: [DTAdaptedRoom]?
+    public let updatedAt: Date?
 
-    public init(id: String, displayName: String, email: String, accessibleRooms: [DTAdaptedRoom], updatedAt: Date) {
+    public init(id: String, displayName: String, email: String, accessibleRooms: [DTAdaptedRoom]? = nil, updatedAt: Date? = nil) {
         self.id = id
         self.displayName = displayName
         self.email = email

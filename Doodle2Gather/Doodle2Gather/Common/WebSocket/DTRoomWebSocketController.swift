@@ -29,6 +29,8 @@ final class DTRoomWebSocketController: DTSendableWebSocketSubController {
                 try self.handleRemoveDoodle(data)
             case .participantInfo:
                 try self.handleParticipantInfo(data)
+            case .updateLiveState:
+                try self.handleUpdateLiveState(data)
             default:
                 break
             }
@@ -87,6 +89,13 @@ final class DTRoomWebSocketController: DTSendableWebSocketSubController {
         DispatchQueue.main.async {
              self.delegate?.removeDoodle(doodleId: fetch.doodleId)
         }
+    }
+
+    func handleUpdateLiveState(_ data: Data) throws {
+        let newState = try decoder.decode(DTRoomLiveStateMessage.self, from: data)
+        let newUsersInRoom = newState.usersInRoom
+        DTLogger.debug { "Users in room: \(newUsersInRoom.map { $0.displayName })" }
+        // TODO: Wang Luo fill this up!!!
     }
 
 }
