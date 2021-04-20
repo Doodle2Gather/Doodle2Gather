@@ -2,10 +2,15 @@ import Vapor
 import Fluent
 import DTSharedLibrary
 
+protocol WSHomeControllerDelegate: AnyObject {
+    func didJoinRoomViaInvite(roomId: UUID)
+}
+
 class WSHomeController {
     let db: Database
     let logger = Logger(label: "WSHomeController")
     private let decoder = JSONDecoder()
+    weak var delegate: WSHomeControllerDelegate?
 
     init(db: Database) {
         self.db = db
@@ -59,6 +64,10 @@ class WSHomeController {
                 var message = joinRequest
                 message.joinedRoom = room
                 ws.send(message: message)
+                guard let roomId = room.roomId else {
+                    fatalError("Unable to get roomId")
+                }
+                self.delegate?.didJoinRoomViaInvite(roomId: roomId)
             }
         }
     }
