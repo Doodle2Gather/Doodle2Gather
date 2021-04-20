@@ -139,6 +139,9 @@ class WSRoomController {
                     for stroke in doodle.value.strokes {
                         _ = stroke.makePersistedStroke().save(on: self.db)
                     }
+                    for text in doodle.value.text {
+                        _ = text.makePersistedText().save(on: self.db)
+                    }
                 }.whenComplete { res in
                     switch res {
                     case .failure(let err):

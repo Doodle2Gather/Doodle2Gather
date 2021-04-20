@@ -36,8 +36,4 @@ public struct DTAdaptedText: DTAdaptedEntityProtocol {
                   roomId: roomId, doodleId: doodleId,
                   createdBy: createdBy, isDeleted: pair.isDeleted)
     }
-
-    public func makeTextIndexPair(index: Int) -> DTEntityIndexPair {
-        DTEntityIndexPair(entity, index, type: type, entityId: entityId, isDeleted: isDeleted)
-    }
 }

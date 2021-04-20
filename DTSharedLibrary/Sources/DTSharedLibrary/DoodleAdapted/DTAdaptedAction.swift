@@ -8,6 +8,10 @@ public struct DTAdaptedAction: Codable {
     public let doodleId: UUID
     public let createdBy: String
 
+    public var entityType: DTEntityType? {
+        entities.first?.type
+    }
+
     public init(type: DTActionType, entities: [DTEntityIndexPair],
                 roomId: UUID, doodleId: UUID, createdBy: String) {
         self.type = type
@@ -15,6 +19,10 @@ public struct DTAdaptedAction: Codable {
         self.roomId = roomId
         self.doodleId = doodleId
         self.createdBy = createdBy
+    }
+
+    public func getStrokeIndexPairs() -> [DTEntityIndexPair] {
+        entities.filter { $0.type == .stroke }
     }
 
     public func makeStrokes() -> [DTAdaptedStroke] {
@@ -29,6 +37,10 @@ public struct DTAdaptedAction: Codable {
             )
         }
         return dtStrokes
+    }
+
+    public func getTextIndexPairs() -> [DTEntityIndexPair] {
+        entities.filter { $0.type == .text }
     }
 
     public func makeText() -> [DTAdaptedText] {

@@ -30,4 +30,8 @@ extension DTAdaptedEntityProtocol {
         isDeleted = false
     }
 
+    public func makeEntityIndexPair(index: Int) -> DTEntityIndexPair {
+        DTEntityIndexPair(entity, index, type: type, entityId: entityId, isDeleted: isDeleted)
+    }
+
 }

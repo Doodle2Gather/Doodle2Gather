@@ -54,38 +54,52 @@ class ActiveRoomController {
     }
 
     func process(_ action: DTAdaptedAction) -> DTAdaptedAction? {
-        let strokes = action.makeStrokes()
-        let strokeIndexPairs = action.entities
+        switch action.entityType {
+        case .stroke:
+            let strokes = action.makeStrokes()
+            let pairs = action.getStrokeIndexPairs()
+            return applyAction(action: action, entities: strokes, pairs: pairs)
+        case .text:
+            let text = action.makeText()
+            let pairs = action.getTextIndexPairs()
+            return applyAction(action: action, entities: text, pairs: pairs)
+        default:
+            return nil
+        }
+    }
+
+    func applyAction<T: DTAdaptedEntityProtocol>(
+        action: DTAdaptedAction, entities: [T], pairs: [DTEntityIndexPair]) -> DTAdaptedAction? {
 
         let returnPairs: [DTEntityIndexPair]?
 
         switch action.type {
         case .add:
-            guard strokes.count == 1, let strokeToAdd = strokes.first else {
+            guard entities.count == 1, let toAdd = entities.first else {
                 return nil
             }
 
-            returnPairs = addStroke(strokeToAdd)
+            returnPairs = addEntity(toAdd)
         case .remove:
-            if strokes.isEmpty {
+            if entities.isEmpty {
                 return nil
             }
-            returnPairs = removeStrokes(strokes, strokeIndexPairs)
+            returnPairs = removeEntities(entities, pairs)
 
         case .unremove:
-            returnPairs = unremoveStrokes(strokes, strokeIndexPairs)
+            returnPairs = unremoveEntities(entities, pairs)
 
         case .modify:
-            if strokes.count != 2 {
+            if entities.count != 2 {
                 return nil
             }
-            guard let originalStroke = strokes.first, let modifiedStroke = strokes.last,
-                  let originalPair = strokeIndexPairs.first,
-                  let modifiedPair = strokeIndexPairs.last,
+            guard let originalStroke = entities.first, let modifiedStroke = entities.last,
+                  let originalPair = pairs.first,
+                  let modifiedPair = pairs.last,
                   originalPair.index == modifiedPair.index else {
                 return nil
             }
-            returnPairs = modifyStroke(original: originalStroke,
+            returnPairs = modifyEntity(original: originalStroke,
                                        modified: modifiedStroke,
                                        pair: originalPair)
 
@@ -100,87 +114,122 @@ class ActiveRoomController {
         return action.getNewAction(with: pairs)
     }
 
-    func addStroke(_ stroke: DTAdaptedStroke) -> [DTEntityIndexPair]? {
-        guard let index = doodles[stroke.doodleId]?.strokeCount else {
+    func addEntity<T: DTAdaptedEntityProtocol>(_ entity: T) -> [DTEntityIndexPair]? {
+        guard var doodle = doodles[entity.doodleId] else {
             return nil
         }
-        doodles[stroke.doodleId]?.addStroke(stroke)
-        self.logger.info("successfully modified")
-        return [stroke.makeStrokeIndexPair(index: index)]
+
+        var index: Int
+        switch entity.type {
+        case .stroke:
+            index = doodle.strokes.count
+        case .text:
+            index = doodle.text.count
+        }
+
+        doodle.addEntity(entity)
+        doodles[entity.doodleId] = doodle
+        self.logger.info("successfully added")
+        return [entity.makeEntityIndexPair(index: index)]
     }
 
-    func removeStrokes(_ strokes: [DTAdaptedStroke], _ pairs: [DTEntityIndexPair]) -> [DTEntityIndexPair]? {
+    func removeEntities<T: DTAdaptedEntityProtocol>(_ entities: [T],
+                                                   _ pairs: [DTEntityIndexPair]) -> [DTEntityIndexPair]? {
+        guard let firstEntity = entities.first, var doodle = doodles[firstEntity.doodleId] else {
+            return nil
+        }
+
+        var entitySet: [T]?
+        switch firstEntity.type {
+        case .stroke:
+            entitySet = doodle.strokes as? [T]
+        case .text:
+            entitySet = doodle.text as? [T]
+        }
+        guard let entities = entitySet else {
+            return nil
+        }
+
         var returnPairs = [DTEntityIndexPair]()
-        for index in 0 ..< strokes.count {
-            let stroke = strokes[index]
+        for index in 0 ..< entities.count {
+            let entity = entities[index]
             let index = pairs[index].index
-            guard let doodle = doodles[stroke.doodleId] else {
+            if entities[index] != entity {
                 return nil
             }
-            if !doodle.checkIfStrokeIsAtIndex(stroke, at: index) {
-                return nil
-            }
-            doodles[stroke.doodleId]?.removeStroke(at: index)
+            doodle.removeEntity(entity, at: index)
             returnPairs.append(
-                stroke.makeStrokeIndexPair(index: index)
+                entity.makeEntityIndexPair(index: index)
             )
         }
+
+        doodles[firstEntity.doodleId] = doodle
+        self.logger.info("successfully removed")
         return returnPairs
     }
 
-    func unremoveStrokes(_ strokes: [DTAdaptedStroke], _ pairs: [DTEntityIndexPair]) -> [DTEntityIndexPair]? {
-        var returnPairs = [DTEntityIndexPair]()
-        for index in 0 ..< strokes.count {
-            let stroke = strokes[index]
-            let index = pairs[index].index
-            guard let doodle = doodles[stroke.doodleId] else {
-                return nil
-            }
-            if !doodle.checkIfStrokeIsAtIndex(stroke, at: index) {
-                return nil
-            }
-            doodles[stroke.doodleId]?.unremoveStroke(at: index)
+    func unremoveEntities<T: DTAdaptedEntityProtocol>(_ entities: [T],
+                                                   _ pairs: [DTEntityIndexPair]) -> [DTEntityIndexPair]? {
+        guard let firstEntity = entities.first, var doodle = doodles[firstEntity.doodleId] else {
+            return nil
+        }
 
+        var entitySet: [T]?
+        switch firstEntity.type {
+        case .stroke:
+            entitySet = doodle.strokes as? [T]
+        case .text:
+            entitySet = doodle.text as? [T]
+        }
+        guard let entities = entitySet else {
+            return nil
+        }
+
+        var returnPairs = [DTEntityIndexPair]()
+        for index in 0 ..< entities.count {
+            let entity = entities[index]
+            let index = pairs[index].index
+            if entities[index] != entity {
+                return nil
+            }
+            doodle.unremoveEntity(entity, at: index)
             returnPairs.append(
-                stroke.makeStrokeIndexPair(index: index)
+                entity.makeEntityIndexPair(index: index)
             )
         }
+
+        doodles[firstEntity.doodleId] = doodle
+        self.logger.info("successfully unremoved")
         return returnPairs
     }
 
-    func modifyStroke(original: DTAdaptedStroke, modified: DTAdaptedStroke,
-                      pair: DTEntityIndexPair) -> [DTEntityIndexPair]? {
+    func modifyEntity<T: DTAdaptedEntityProtocol>(
+        original: T, modified: T, pair: DTEntityIndexPair
+    ) -> [DTEntityIndexPair]? {
+        guard var doodle = doodles[original.doodleId] else {
+            return nil
+        }
+
+        var entitySet: [T]?
+        switch original.type {
+        case .stroke:
+            entitySet = doodle.strokes as? [T]
+        case .text:
+            entitySet = doodle.text as? [T]
+        }
+        guard let entities = entitySet else {
+            return nil
+        }
+
         let index = pair.index
-
-        guard let doodle = doodles[original.doodleId] else {
+        if entities[index] != original {
             return nil
         }
-        if !doodle.checkIfStrokeIsAtIndex(original, at: index) {
-            return nil
-        }
-        doodles[original.doodleId]?.modifyStroke(at: index, to: modified)
-        return [original.makeStrokeIndexPair(index: index),
-                modified.makeStrokeIndexPair(index: index)]
-    }
-}
+        doodle.modifyEntity(at: index, to: modified)
 
-extension DTAdaptedDoodle {
-
-    /// Searching forward in the strokes array, to find the first matched stroke index
-    /// `nil` is returned if no match is found
-    func findFirstMatchIndex(for stroke: DTAdaptedStroke, startingFrom index: Int) -> Int? {
-        for currIndex in (0...index).reversed() {
-            if checkIfStrokeIsAtIndex(stroke, at: currIndex) {
-                return currIndex
-            }
-        }
-        return nil
-    }
-
-    func checkIfStrokeIsAtIndex(_ stroke: DTAdaptedStroke, at index: Int) -> Bool {
-        if index >= strokeCount {
-            return false
-        }
-        return getStroke(at: index) == stroke
+        doodles[original.doodleId] = doodle
+        self.logger.info("successfully modified")
+        return [original.makeEntityIndexPair(index: index),
+                modified.makeEntityIndexPair(index: index)]
     }
 }
