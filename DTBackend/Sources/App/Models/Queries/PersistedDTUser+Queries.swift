@@ -2,56 +2,7 @@ import Fluent
 import Vapor
 import DTSharedLibrary
 
-struct DTUserController: RouteCollection {
-    func boot(routes: RoutesBuilder) throws {
-        routes.on(Endpoints.User.createUserInfo, use: createUserInfoHandler)
-        routes.on(Endpoints.User.readUserInfo, use: readUserInfoHandler)
-        routes.on(Endpoints.User.getAllRooms, use: getAllRoomsHandler)
-        routes.on(Endpoints.User.updateUserInfo, use: updateUserInfoHandler)
-        routes.on(Endpoints.User.deleteUserInfo, use: deleteUserInfoHandler)
-    }
-
-    func createUserInfoHandler(req: Request) throws -> EventLoopFuture<DTAdaptedUser> {
-        try PersistedDTUser.createUserInfo(req: req).flatMapThrowing(DTAdaptedUser.init)
-    }
-
-    func readUserInfoHandler(req: Request) throws -> EventLoopFuture<DTAdaptedUser> {
-        try PersistedDTUser.readUserInfo(req: req).flatMapThrowing(DTAdaptedUser.init)
-    }
-
-    func getAllRoomsHandler(req: Request) throws -> EventLoopFuture<[DTAdaptedRoom]> {
-        try PersistedDTUser.getAllRooms(req: req)
-            .flatMapThrowing { $0.map { DTAdaptedRoom(room: $0 ) }
-            }
-    }
-
-    func updateUserInfoHandler(req: Request) throws -> EventLoopFuture<PersistedDTUser> {
-           guard let id = req.parameters.get("id") else {
-               throw Abort(.badRequest)
-           }
-           let newDTUser = try req.content.decode(PersistedDTUser.self)
-           return PersistedDTUser.find(id, on: req.db)
-               .unwrap(or: Abort(.notFound))
-               .flatMap { oldDTUser in
-                   oldDTUser.update(copy: newDTUser)
-                   return oldDTUser.save(on: req.db)
-                       .map { oldDTUser }
-               }
-       }
-
-       func deleteUserInfoHandler(req: Request) throws -> EventLoopFuture<HTTPStatus> {
-           guard let id = req.parameters.get("id") else {
-               throw Abort(.badRequest)
-           }
-
-           return PersistedDTUser.find(id, on: req.db)
-               .unwrap(or: Abort(.notFound))
-               .flatMap { $0.delete(on: req.db) }
-               .transform(to: .ok)
-       }
-}
-
-// contains all the queries that return Adapted models
+/// contains all the queries that return Adapted models
 extension PersistedDTUser {
 
     static func getAllAccessibleRooms(userId: String, on db: Database) -> EventLoopFuture<[DTAdaptedRoom]> {
@@ -63,7 +14,7 @@ extension PersistedDTUser {
 
 }
 
-// contains all the queries that return Persisted models
+/// contains all the queries that return Persisted models
 extension PersistedDTUser {
 
     static func getSingleById(_ id: PersistedDTUser.IDValue?, on db: Database) -> EventLoopFuture<PersistedDTUser> {
