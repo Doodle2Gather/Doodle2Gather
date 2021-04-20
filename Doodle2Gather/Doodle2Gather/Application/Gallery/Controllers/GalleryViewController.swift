@@ -11,28 +11,25 @@ class GalleryViewController: UIViewController {
     private var selectedCellIndex: Int?
     private var isInEditMode = false
 
+    var appWSController: DTWebSocketController?
+    let homeWSController = DTHomeWebSocketController()
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.appWSController?.registerSubcontroller(self.homeWSController)
 
+        self.homeWSController.delegate = self
         if let user = DTAuth.user {
             welcomeLabel.text = "Welcome, \(user.displayName)!"
-            DTApi.getUserAccessibleRooms(userId: user.uid) { result in
-                switch result {
-                case .failure(let error):
-                    DTLogger.error(error.localizedDescription)
-                case .success(.some(let rooms)):
-                    self.rooms = rooms
-                    DispatchQueue.main.async {
-                        self.collectionView.reloadData()
-                    }
-                case .success(.none):
-                    break
-                }
-            }
+            homeWSController.getAccessibleRooms()
         } else {
             welcomeLabel.text = "Welcome"
         }
         // Do any additional setup after loading the view.
+    }
+
+    deinit {
+        self.appWSController?.removeSubcontroller(self.homeWSController)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -43,6 +40,7 @@ class GalleryViewController: UIViewController {
             guard let vc = nav.topViewController as? NewDocumentViewController else {
                 return
             }
+            vc.homeWSController = self.homeWSController
             vc.checkDocumentNameCallback = { title in
                 let match = self.rooms.first { room -> Bool in
                     room.name == title
@@ -77,27 +75,13 @@ extension GalleryViewController: UICollectionViewDelegate {
                 as? DoodleViewController else {
             return
         }
-
-        guard let roomId = rooms[index].roomId else {
-            DTLogger.error("Room does not exist yet")
-            return
-        }
-        DTApi.getRoomsDoodles(roomId: roomId) { result in
-            switch result {
-            case .failure(let error):
-                DTLogger.error(error.localizedDescription)
-            case .success(.some(let doodles)):
-              DispatchQueue.main.async {
-                vc.doodles = doodles.map { DTDoodleWrapper(doodle: $0) }
-                vc.room = self.rooms[index]
-                vc.username = DTAuth.user?.displayName ?? "Unknown"
-                vc.modalPresentationStyle = .fullScreen
-                vc.modalTransitionStyle = .flipHorizontal
-                self.present(vc, animated: true, completion: nil)
-              }
-            case .success(.none):
-                break
-            }
+        vc.appWSController = self.appWSController
+        vc.room = self.rooms[index]
+        vc.username = DTAuth.user?.displayName ?? "Unknown"
+        vc.modalPresentationStyle = .fullScreen
+        vc.modalTransitionStyle = .flipHorizontal
+        DispatchQueue.main.async {
+            self.present(vc, animated: true, completion: nil)
         }
     }
 }
@@ -155,5 +139,15 @@ extension GalleryViewController: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         20
+    }
+}
+
+extension GalleryViewController: DTHomeWebSocketControllerDelegate {
+    func didGetAccessibleRooms(newRooms: [DTAdaptedRoom]) {
+        DTLogger.info { "Received rooms: \(newRooms)" }
+        self.rooms = newRooms
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
     }
 }

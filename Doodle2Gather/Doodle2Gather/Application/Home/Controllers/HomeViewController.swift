@@ -15,6 +15,9 @@ class HomeViewController: UIViewController {
     @IBOutlet private var passwordContainer: UIView!
     @IBOutlet private var displayNameContainer: UIView!
 
+    var appWSController: DTWebSocketController?
+    let authWSController = DTAuthWebSocketController()
+
     private enum Segment: Int {
         case login
         case register
@@ -67,10 +70,18 @@ class HomeViewController: UIViewController {
                                                selector: #selector(self.keyboardNotification(notification:)),
                                                name: UIResponder.keyboardWillChangeFrameNotification,
                                                object: nil)
+
+        // Register websocket handlers
+        guard let appWSController = self.appWSController else {
+            fatalError("Unable to get main app WS controller")
+        }
+        appWSController.registerSubcontroller(self.authWSController)
     }
 
     deinit {
-      NotificationCenter.default.removeObserver(self)
+        // Remove websocket handlers
+        appWSController?.removeSubcontroller(self.authWSController)
+        NotificationCenter.default.removeObserver(self)
     }
 
     /// For keyboard avoidance with TextFields
@@ -139,6 +150,14 @@ class HomeViewController: UIViewController {
     private func attemptLogin() {
         DTAuth.login(email: emailTextField.text!, password: passwordTextField.text!)
     }
+
+    // Inject app WS controller to Gallery VC
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let galleryVC = segue.destination as? GalleryViewController else {
+            fatalError("Unable to pass data to Gallery VC in segue")
+        }
+        galleryVC.appWSController = self.appWSController
+    }
 }
 
 extension HomeViewController: DTAuthDelegate {
@@ -159,11 +178,17 @@ extension HomeViewController: DTAuthDelegate {
     }
 
     func loginDidSucceed() {
+        guard let uid = DTAuth.user?.uid,
+              let displayName = DTAuth.user?.displayName,
+              let email = DTAuth.user?.email else {
+            fatalError("Unable to fetch user details")
+        }
+
         DTLogger.event("""
 User Logged in
- - Display Name: \(DTAuth.user?.displayName ?? "Not found")
- - UID: \(DTAuth.user?.uid ?? "Not found")
- - Email: \(DTAuth.user?.email ?? "Not found")
+ - Display Name: \(displayName)
+ - UID: \(uid)
+ - Email: \(email)
 """)
 
         DispatchQueue.main.async {
@@ -171,9 +196,13 @@ User Logged in
             self.credentialsProvider.savedPassword = self.passwordTextField.text
         }
 
-        DispatchQueue.main.async {
-            self.performSegue(withIdentifier: SegueConstants.toGallery, sender: self)
+        authWSController.sendLoginMessage(userId: uid, displayName: displayName, email: email) {
+            DTLogger.info { "Login to backend is successful" }
+            DispatchQueue.main.async {
+                self.performSegue(withIdentifier: SegueConstants.toGallery, sender: self)
+            }
         }
+
     }
 
     func registerDidSucceed() {

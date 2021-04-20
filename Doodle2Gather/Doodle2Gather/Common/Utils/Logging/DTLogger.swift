@@ -15,7 +15,7 @@ class DTLogger {
     }
 
     static func info(_ message: @escaping () -> String) {
-        shared.logger.event(message)
+        shared.logger.info(message)
     }
 
     static func event(_ message: String) {
@@ -23,7 +23,7 @@ class DTLogger {
     }
 
     static func event(_ message: @escaping () -> String) {
-        shared.logger.warn(message)
+        shared.logger.event(message)
     }
 
     static func warn(_ message: String) {

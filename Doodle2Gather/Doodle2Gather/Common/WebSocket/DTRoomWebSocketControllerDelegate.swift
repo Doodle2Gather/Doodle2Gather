@@ -1,7 +1,7 @@
 import Foundation
 import DTSharedLibrary
 
-protocol SocketControllerDelegate: AnyObject {
+protocol DTRoomWebSocketControllerDelegate: AnyObject {
 
     /// Tells the delegate that an action was received and should be dispatched.
     func dispatchAction(_ action: DTAdaptedAction)

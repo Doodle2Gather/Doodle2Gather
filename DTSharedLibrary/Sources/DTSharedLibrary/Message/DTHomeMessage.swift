@@ -11,12 +11,14 @@ public struct DTCreateRoomMessage: Codable {
     public let id: UUID
 
     public let ownerId: String
+    public let name: String
     // nil for request message nad not nil for response from server
     public let room: DTAdaptedRoom?
 
-    public init(id: UUID, ownerId: String, room: DTAdaptedRoom? = nil) {
+    public init(id: UUID, ownerId: String, name: String, room: DTAdaptedRoom? = nil) {
         self.id = id
         self.ownerId = ownerId
+        self.name = name
         self.room = room
     }
 }
@@ -24,18 +26,25 @@ public struct DTCreateRoomMessage: Codable {
 public struct DTJoinRoomViaInviteMessage: Codable {
     public var type = DTMessageType.home
     public var subtype = DTHomeMessageType.joinViaInvite
-    // public let id: UUID // I think this is meant for WS UUID, so I'll comment this out until we transition to full WS
+    public let id: UUID
 
     public let userId: String
     public let roomId: UUID?
     public let inviteCode: String?
 
-    public init(// id: UUID,
-        userId: String, roomId: UUID? = nil, inviteCode: String? = nil) {
-        // self.id = id
+    // nil for request message and not nil for response from server
+    public var joinedRoom: DTAdaptedRoom?
+
+    public init(id: UUID,
+                userId: String,
+                roomId: UUID? = nil,
+                inviteCode: String? = nil,
+                joinedRoom: DTAdaptedRoom? = nil) {
+        self.id = id
         self.userId = userId
         self.roomId = roomId
         self.inviteCode = inviteCode
+        self.joinedRoom = joinedRoom
     }
 }
 
