@@ -144,7 +144,7 @@ extension GalleryViewController: UICollectionViewDelegateFlowLayout {
 
 extension GalleryViewController: DTHomeWebSocketControllerDelegate {
     func didGetAccessibleRooms(newRooms: [DTAdaptedRoom]) {
-        DTLogger.info { "Received rooms: \(newRooms)" }
+        DTLogger.info { "Received rooms: \(newRooms.map { $0.name })" }
         self.rooms = newRooms
         DispatchQueue.main.async {
             self.collectionView.reloadData()
