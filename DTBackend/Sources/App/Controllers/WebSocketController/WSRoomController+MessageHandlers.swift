@@ -12,10 +12,12 @@ extension WSRoomController {
             self.sockets[id] = nil
         }
         self.usersLock.withLockVoid {
-            if let leavingUser = self.users[id] {
+            if let leavingUser = self.users[id],
+               let userId = leavingUser.id {
                 self.users = self.users.filter {
-                    $0.value.id != leavingUser.id
+                    $0.value.id != userId
                 }
+                self.uuidStore[userId] = nil
             }
         }
         self.videoOnLock.withLockVoid {

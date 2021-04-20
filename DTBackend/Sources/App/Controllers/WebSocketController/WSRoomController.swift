@@ -15,6 +15,8 @@ class WSRoomController {
         }
     }
 
+    var uuidStore = [String: UUID]()
+
     var isVideoOn = [UUID: Bool]() {
         didSet {
             DispatchQueue.global().async {
@@ -61,17 +63,9 @@ class WSRoomController {
                 }
             }
         }
-        var seenUids = Set<String>()
-        var uniqueConferenceState = [DTAdaptedUserVideoConferenceState]()
-        videoConferenceState.forEach {
-            if !seenUids.contains($0.id) {
-                seenUids.insert($0.id)
-                uniqueConferenceState.append($0)
-            }
-        }
 
         let message = DTUsersVideoConferenceStateMessage(roomId: self.roomId,
-                                                         videoConferenceState: uniqueConferenceState)
+                                                         videoConferenceState: videoConferenceState)
         self.getWebSockets(self.getAllWebSocketOptions).forEach {
             $0.send(message: message)
         }
@@ -112,8 +106,21 @@ class WSRoomController {
     }
 
     private func registerUser(user: PersistedDTUser, wsId: UUID) {
+        self.logger.info("Adding user: \(user.displayName)")
+        guard let userId = user.id else {
+            fatalError("Unable to get user ID")
+        }
         self.usersLock.withLockVoid {
-            self.logger.info("Adding user: \(user.displayName)")
+            if let oldUuid = self.uuidStore[userId] {
+                self.lock.withLockVoid {
+                    self.sockets[oldUuid] = nil
+                }
+                self.users[oldUuid] = nil
+                self.videoOnLock.withLockVoid {
+                    self.isVideoOn[oldUuid] = nil
+                }
+            }
+            self.uuidStore[userId] = wsId
             self.users[wsId] = user
         }
         self.videoOnLock.withLockVoid {
