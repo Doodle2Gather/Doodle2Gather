@@ -1,6 +1,7 @@
 import Vapor
 import DTSharedLibrary
 
+/// Supports the conversion between `DTAdaptedUser` and `PersistedDTUser`
 extension DTAdaptedUser {
     init(user: PersistedDTUser) {
         guard let id = user.id,

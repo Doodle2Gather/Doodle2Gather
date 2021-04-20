@@ -1,6 +1,7 @@
 import Vapor
 import DTSharedLibrary
 
+/// Supports the conversion between `DTAdaptedDoodle` and `PersistedDTDoodle`
 extension DTAdaptedDoodle {
     init(doodle: PersistedDTDoodle) {
         self.init(

@@ -1,6 +1,7 @@
 import Vapor
 import DTSharedLibrary
 
+/// Supports the conversion between `DTAdaptedRoom` and `PersistedDTRoom`
 extension DTAdaptedRoom {
     init(room: PersistedDTRoom) {
         self.init(

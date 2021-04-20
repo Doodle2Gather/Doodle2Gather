@@ -35,6 +35,7 @@ class WebSocketController {
         ws.send(message: DTHandshake(id: uuid))
     }
 
+    /// Relay all messages received from the clients to respective controllers
     func onData(_ ws: WebSocket, _ data: Data) {
         let decoder = JSONDecoder()
         do {

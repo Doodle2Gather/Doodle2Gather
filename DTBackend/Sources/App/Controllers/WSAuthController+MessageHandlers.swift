@@ -2,6 +2,7 @@ import Vapor
 import Fluent
 import DTSharedLibrary
 
+/// Handles all `DTAuthMessage` sent between the clients and the server
 extension WSAuthController {
 
     func handleLogin(_ ws: WebSocket, _ message: DTLoginMessage) {

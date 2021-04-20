@@ -2,6 +2,7 @@ import Vapor
 import Fluent
 import DTSharedLibrary
 
+/// Handles all `DTRoomMessage` sent between the clients and the server
 class WSRoomController {
     let lock = Lock()
     let usersLock = Lock()

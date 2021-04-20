@@ -2,6 +2,7 @@ import Vapor
 import Fluent
 import DTSharedLibrary
 
+/// Handles all `DTRoomMessage` sent between the clients and the server
 extension WSRoomController {
 
     // MARK: - exitRoom
