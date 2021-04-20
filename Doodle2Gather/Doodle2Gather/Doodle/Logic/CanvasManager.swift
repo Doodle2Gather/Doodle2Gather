@@ -23,6 +23,7 @@ class CanvasManager: NSObject {
     var selectTapGestureRecognizer = UITapGestureRecognizer()
     var currentSelectedIndex = -1
     var selectPanGestureRecognizer = InitialPanGestureRecognizer()
+    var didStartCorrectly = false
 
     /// Contains augmentors that will be used to augment the strokes.
     var augmentors = [String: StrokeAugmentor]()
@@ -182,7 +183,7 @@ extension CanvasManager: PKCanvasViewDelegate {
             }
 
             let stroke = strokesReversed[currentIndex]
-            if stroke.points.contains(where: { $0.location.isCloseTo(location, within: 10) }) {
+            if stroke.points.contains(where: { $0.location.isCloseTo(location, within: 30) }) {
                 selectedIndex = canvas.drawing.strokes.count - 1 - currentIndex
                 break
             }
@@ -204,13 +205,25 @@ extension CanvasManager: PKCanvasViewDelegate {
 
     @objc
     func handleSelectPan(_ gesture: InitialPanGestureRecognizer) {
-        guard currentSelectedIndex != -1, currentSelectedIndex < canvas.drawing.strokes.count else {
+        guard var startingPoint = gesture.initialTouchLocation, currentSelectedIndex != -1,
+              currentSelectedIndex < canvas.drawing.strokes.count else {
+            didStartCorrectly = false
             return
         }
         var stroke = canvas.drawing.strokes[currentSelectedIndex]
-
         let translation = translatePoint(gesture.translation(in: canvas))
-        if (translation.x * translation.x) + (translation.y * translation.y) < 5_000 {
+        startingPoint = translatePoint(startingPoint)
+
+        guard let pointsFrame = stroke.pointsFrame else {
+            didStartCorrectly = false
+            return
+        }
+
+        if gesture.state == .began {
+            didStartCorrectly = pointsFrame.contains(startingPoint)
+        }
+
+        if !didStartCorrectly || (translation.x * translation.x) + (translation.y * translation.y) < 3_000 {
             return
         }
         gesture.setTranslation(.zero, in: canvas)
@@ -224,6 +237,10 @@ extension CanvasManager: PKCanvasViewDelegate {
         }
 
         canvas.drawing.strokes[currentSelectedIndex] = stroke
+
+        if gesture.state == .ended {
+            didStartCorrectly = false
+        }
     }
 
     func selectStroke(index: Int) {

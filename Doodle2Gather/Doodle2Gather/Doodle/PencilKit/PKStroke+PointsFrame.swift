@@ -4,7 +4,7 @@ import PencilKit
 /// https://github.com/simonbs/InfiniteCanvas/blob/main/InfiniteCanvas/Source/Canvas/PKDrawing%2BHelpers.swift
 extension PKStroke {
 
-    var strokesFrame: CGRect? {
+    var pointsFrame: CGRect? {
         guard !points.isEmpty else {
             return nil
         }
@@ -17,7 +17,9 @@ extension PKStroke {
             maxPoint.x = max(location.x, maxPoint.x)
             maxPoint.y = max(location.y, maxPoint.y)
         }
-        return CGRect(x: minPoint.x, y: minPoint.y, width: maxPoint.x - minPoint.x, height: maxPoint.y - minPoint.y)
+
+        return CGRect(x: minPoint.x + transform.tx, y: minPoint.y + transform.ty, width: maxPoint.x - minPoint.x,
+                      height: maxPoint.y - minPoint.y)
     }
 
 }
