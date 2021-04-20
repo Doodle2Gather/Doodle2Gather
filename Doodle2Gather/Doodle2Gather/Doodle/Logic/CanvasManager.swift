@@ -119,7 +119,6 @@ extension CanvasManager: PKCanvasViewDelegate {
             isAugmenting = false
         }
 
-        delegate?.setCanvasIsEditing(false)
         delegate?.canvasViewDidChange(type: actionType)
     }
 
@@ -129,6 +128,10 @@ extension CanvasManager: PKCanvasViewDelegate {
 
     func canvasViewDidBeginUsingTool(_ canvasView: PKCanvasView) {
         delegate?.setCanvasIsEditing(true)
+    }
+
+    func canvasViewDidEndUsingTool(_ canvasView: PKCanvasView) {
+        delegate?.setCanvasIsEditing(false)
     }
 
     func activateDrawingGestureRecognizer() {

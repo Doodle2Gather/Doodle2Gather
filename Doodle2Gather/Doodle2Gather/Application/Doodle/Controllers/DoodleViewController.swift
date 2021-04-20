@@ -63,7 +63,7 @@ class DoodleViewController: UIViewController {
     var roomWSController = DTRoomWebSocketController()
     var strokeEditor: StrokeEditor?
     var layerTable: DoodleLayerTable?
-    private var loadingSpinner: UIAlertController?
+    var loadingSpinner: UIAlertController?
 
     // Delegates
     weak var invitationDelegate: InvitationDelegate?
@@ -381,6 +381,7 @@ extension DoodleViewController: CanvasControllerDelegate {
     }
 
     func refetchDoodles() {
+        loadingSpinner = self.createSpinnerView(message: "Refetching Doodles...")
         roomWSController.refetchDoodles()
     }
 

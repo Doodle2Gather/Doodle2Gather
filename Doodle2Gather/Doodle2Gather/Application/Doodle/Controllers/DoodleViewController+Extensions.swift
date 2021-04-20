@@ -98,6 +98,9 @@ extension DoodleViewController: DTRoomWebSocketControllerDelegate {
         }
         canvasController?.loadDoodles(sortedDoodles)
         layerTable?.loadDoodles(sortedDoodles)
+        if let loadingSpinner = self.loadingSpinner {
+            self.removeSpinnerView(loadingSpinner)
+        }
     }
 
     func addNewDoodle(_ doodle: DTDoodleWrapper) {
