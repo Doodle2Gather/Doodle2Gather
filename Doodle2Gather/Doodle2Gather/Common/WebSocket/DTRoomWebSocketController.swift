@@ -133,7 +133,7 @@ extension DTRoomWebSocketController: RoomSocketController {
         DTLogger.info("Adding action")
 
         let message = DTInitiateActionMessage(
-            actionType: action.type, strokes: action.strokes,
+            actionType: action.type, entities: action.entities,
             id: id, userId: DTAuth.user!.uid, roomId: action.roomId, doodleId: action.doodleId
         )
 

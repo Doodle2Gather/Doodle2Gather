@@ -2,10 +2,10 @@ import Vapor
 import DTSharedLibrary
 
 extension DTAdaptedStroke {
-    init(stroke: PersistedDTStroke) {
+    init(stroke: PersistedDTEntity) {
         self.init(
-            stroke: stroke.strokeData,
-            strokeId: stroke.strokeId,
+            stroke: stroke.entityData,
+            strokeId: stroke.entityId,
             roomId: stroke.roomId,
             doodleId: stroke.$doodle.id,
             createdBy: stroke.createdBy,
@@ -14,10 +14,11 @@ extension DTAdaptedStroke {
         )
     }
 
-    func makePersistedStroke() -> PersistedDTStroke {
-        PersistedDTStroke(
-            strokeData: stroke,
-            strokeId: strokeId,
+    func makePersistedStroke() -> PersistedDTEntity {
+        PersistedDTEntity(
+            type: .stroke,
+            entityData: stroke,
+            entityId: strokeId,
             roomId: roomId,
             doodleId: doodleId,
             createdBy: createdBy,
@@ -25,8 +26,8 @@ extension DTAdaptedStroke {
         )
     }
 
-    func isSameStroke(as persisted: PersistedDTStroke) -> Bool {
-        strokeId == persisted.strokeId &&
+    func isSameStroke(as persisted: PersistedDTEntity) -> Bool {
+        strokeId == persisted.entityId &&
             roomId == persisted.roomId &&
             doodleId == persisted.$doodle.id &&
             createdBy == persisted.createdBy

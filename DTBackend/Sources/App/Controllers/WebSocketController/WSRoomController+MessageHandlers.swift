@@ -33,7 +33,6 @@ extension WSRoomController {
                          _ message: DTInitiateActionMessage) {
         let action = message.action
 
-        //        self.logger.info("\(action)")
         // action successful
         if let dispatchAction = roomController.process(action) {
             self.dispatchActionToPeers(

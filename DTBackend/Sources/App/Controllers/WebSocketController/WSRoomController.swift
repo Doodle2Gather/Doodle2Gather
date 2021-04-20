@@ -186,11 +186,14 @@ class WSRoomController {
         doodles.forEach { doodle in
             PersistedDTDoodle.getSingleById(doodle.key, on: self.db)
                 .flatMapThrowing { res in
-                    res.strokes.forEach { _ = $0.delete(on: self.db) }
+                    res.getEntities().forEach { _ = $0.delete(on: self.db) }
                 }
                 .flatMapThrowing {
                     for stroke in doodle.value.strokes {
                         _ = stroke.makePersistedStroke().save(on: self.db)
+                    }
+                    for text in doodle.value.text {
+                        _ = text.makePersistedText().save(on: self.db)
                     }
                 }.whenComplete { res in
                     switch res {
