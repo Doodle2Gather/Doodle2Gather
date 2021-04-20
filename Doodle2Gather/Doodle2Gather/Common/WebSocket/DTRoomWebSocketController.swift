@@ -18,29 +18,67 @@ final class DTRoomWebSocketController: DTSendableWebSocketSubController {
             let message = try decoder.decode(DTRoomMessage.self, from: data)
             DTLogger.event { "Received message: \(message.subtype)" }
             switch message.subtype {
-            case .actionFeedback:
-                try self.handleActionFeedback(data)
-            case .dispatchAction:
-                try self.handleDispatchedAction(data)
-            case .fetchDoodle:
-                try self.handleFetchDoodle(data)
-            case .addDoodle:
-                try self.handleAddDoodle(data)
-            case .removeDoodle:
-                try self.handleRemoveDoodle(data)
-            case .participantInfo:
-                try self.handleParticipantInfo(data)
-            case .updateLiveState:
-                try self.handleUpdateLiveState(data)
-            case .usersConferenceState:
-                try self.handleUpdateUsersConferenceState(data)
+            case .actionFeedback, .dispatchAction:
+                try self.handleActionMessage(message, data: data)
+            case .fetchDoodle, .addDoodle, .removeDoodle:
+                try self.handleDoodleMessage(message, data: data)
+            case .participantInfo, .updateLiveState, .usersConferenceState:
+                try self.handleUserMessage(message, data: data)
             case .setRoomTimer:
-                try self.handleSetRoomTimer(data)
+                try self.handleMiscMessage(message, data: data)
             default:
                 break
             }
         } catch {
             DTLogger.error(error.localizedDescription)
+        }
+    }
+
+    func handleActionMessage(_ message: DTRoomMessage, data: Data) throws {
+        switch message.subtype {
+        case .actionFeedback:
+            try self.handleActionFeedback(data)
+        case .dispatchAction:
+            try self.handleDispatchedAction(data)
+        default:
+            break
+        }
+    }
+
+    func handleDoodleMessage(_ message: DTRoomMessage, data: Data) throws {
+        switch message.subtype {
+        case .fetchDoodle:
+            try self.handleFetchDoodle(data)
+        case .addDoodle:
+            try self.handleAddDoodle(data)
+        case .removeDoodle:
+            try self.handleRemoveDoodle(data)
+        default:
+            break
+        }
+    }
+
+    func handleUserMessage(_ message: DTRoomMessage, data: Data) throws {
+        switch message.subtype {
+        case .participantInfo:
+            try self.handleParticipantInfo(data)
+        case .updateLiveState:
+            try self.handleUpdateLiveState(data)
+        case .usersConferenceState:
+            try self.handleUpdateUsersConferenceState(data)
+        default:
+            break
+        }
+    }
+
+    func handleMiscMessage(_ message: DTRoomMessage, data: Data) throws {
+        switch message.subtype {
+        case .actionFeedback:
+            try self.handleActionFeedback(data)
+        case .dispatchAction:
+            try self.handleDispatchedAction(data)
+        default:
+            break
         }
     }
 

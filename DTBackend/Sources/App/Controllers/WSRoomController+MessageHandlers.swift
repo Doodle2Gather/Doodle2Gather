@@ -191,7 +191,7 @@ extension WSRoomController {
                 }
             }
     }
-    
+
     func handleSetRoomTimer(_ ws: WebSocket, _ message: DTSetRoomTimerMessage) {
         self.getWebSockets(self.getAllWebSocketOptions).forEach {
             $0.send(message: message)
