@@ -32,8 +32,7 @@ class ConferenceViewController: UIViewController {
     var videoCallUserList: [VideoCallUser] = []
     var roomWSController: DTRoomWebSocketController?
     private var currentUser: VideoCallUser?
-    private var videoOverlays = [UIView]()
-    private var nameplates = [UILabel]()
+    private var userIdToNameMapping: [String: String] = [:]
     private var appearance = BadgeAppearance(animate: true)
     private var unreadMessageCount = 0
 
@@ -62,8 +61,9 @@ class ConferenceViewController: UIViewController {
 
         collectionView.isHidden = true
         topControlViewContainer.isHidden = true
-        
+
         roomWSController?.updateVideoState(isVideoOn: false)
+        roomWSController?.conferenceDelegate = self
     }
 
     @IBAction private func audioButtonDidTap(_ sender: Any) {
@@ -314,7 +314,7 @@ extension ConferenceViewController: UICollectionViewDataSource {
         } else {
             let remoteID = videoCallUserList[indexPath.row - 1].uid
             let userId = videoCallUserList[indexPath.row - 1].userId
-            videoCell.setName(userId)
+            videoCell.setName(userIdToNameMapping[userId] ?? "Unknown")
             DispatchQueue.main.async {
                 self.videoEngine?.setupRemoteUserView(view: videoCell.getVideoView(), id: remoteID)
             }
@@ -341,16 +341,41 @@ extension ConferenceViewController: UICollectionViewDelegateFlowLayout {
 
 }
 
-class VideoCallUser {
+// MARK: - DTConferenceWebSocketControllerDelegate
+
+extension ConferenceViewController: DTConferenceWebSocketControllerDelegate {
+
+    func updateStates(_ users: [DTAdaptedUserVideoConferenceState]) {
+        for user in users {
+            userIdToNameMapping[user.id] = user.displayName
+        }
+        DispatchQueue.main.async {
+            self.updateCollectionView()
+        }
+
+    }
+
+    private func updateCollectionView() {
+        for row in 0..<videoCallUserList.count {
+            guard let cell = collectionView
+                    .cellForItem(at: IndexPath(row: row,
+                                               section: 0)) as? VideoCollectionViewCell else {
+                continue
+            }
+            cell.setName(userIdToNameMapping[videoCallUserList[row].userId] ?? "Unknown")
+        }
+        collectionView.reloadData()
+    }
+
+}
+
+struct VideoCallUser: Hashable {
     let uid: UInt
     let userId: String
     let overlay: UIView
     let nameplate: UILabel
 
-    init(uid: UInt, userId: String, overlay: UIView, nameplate: UILabel) {
-        self.uid = uid
-        self.userId = userId
-        self.overlay = overlay
-        self.nameplate = nameplate
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(userId)
     }
 }

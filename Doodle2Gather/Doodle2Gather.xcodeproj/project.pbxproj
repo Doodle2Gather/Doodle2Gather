@@ -111,6 +111,7 @@
 		84A451D52614709400DFCA75 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A451D42614709400DFCA75 /* GalleryViewController.swift */; };
 		84A451EA2614804B00DFCA75 /* Gallery.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84A451E92614804B00DFCA75 /* Gallery.storyboard */; };
 		84D6057F262EBE7500A120ED /* UIViewController+Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6057E262EBE7500A120ED /* UIViewController+Loading.swift */; };
+		84D6058B262EE20000A120ED /* DTConferenceWebSocketControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6058A262EE20000A120ED /* DTConferenceWebSocketControllerDelegate.swift */; };
 		84D802F32616CB480096692E /* SegueConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D802F22616CB480096692E /* SegueConstants.swift */; };
 		84D803B326174EDC0096692E /* DocumentPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D803B226174EDC0096692E /* DocumentPreviewCell.swift */; };
 		84D803C026186E7C0096692E /* NewDocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D803BF26186E7C0096692E /* NewDocumentViewController.swift */; };
@@ -270,6 +271,7 @@
 		84A451D42614709400DFCA75 /* GalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
 		84A451E92614804B00DFCA75 /* Gallery.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Gallery.storyboard; sourceTree = "<group>"; };
 		84D6057E262EBE7500A120ED /* UIViewController+Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Loading.swift"; sourceTree = "<group>"; };
+		84D6058A262EE20000A120ED /* DTConferenceWebSocketControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTConferenceWebSocketControllerDelegate.swift; sourceTree = "<group>"; };
 		84D802F22616CB480096692E /* SegueConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueConstants.swift; sourceTree = "<group>"; };
 		84D803B226174EDC0096692E /* DocumentPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPreviewCell.swift; sourceTree = "<group>"; };
 		84D803BF26186E7C0096692E /* NewDocumentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewDocumentViewController.swift; sourceTree = "<group>"; };
@@ -747,6 +749,7 @@
 				83BDB53C262E127D00D91DB8 /* DTWebSocketController+DTWebSocketSubController.swift */,
 				83BDB542262E22C500D91DB8 /* DTAuthWebSocketController.swift */,
 				83BDB546262E3D0A00D91DB8 /* DTHomeWebSocketController.swift */,
+				84D6058A262EE20000A120ED /* DTConferenceWebSocketControllerDelegate.swift */,
 			);
 			name = WebSocket;
 			path = Doodle2Gather/Common/WebSocket;
@@ -1288,6 +1291,7 @@
 				848F3581261451D400AD46C6 /* ParticipantViewCell.swift in Sources */,
 				83BDB53D262E127D00D91DB8 /* DTWebSocketController+DTWebSocketSubController.swift in Sources */,
 				848F354F2614177000AD46C6 /* Sender.swift in Sources */,
+				84D6058B262EE20000A120ED /* DTConferenceWebSocketControllerDelegate.swift in Sources */,
 				2E987E7D26075C0200352E7D /* RoomSocketController.swift in Sources */,
 				678F8923261B554A005530A0 /* DTAdaptedAction+DTActionProtocol.swift in Sources */,
 				83BDB543262E22C500D91DB8 /* DTAuthWebSocketController.swift in Sources */,

@@ -4,7 +4,7 @@ import DTSharedLibrary
 final class DTRoomWebSocketController: DTSendableWebSocketSubController {
 
     weak var delegate: DTRoomWebSocketControllerDelegate?
-    // weak var conferenceDelegate
+    weak var conferenceDelegate: DTConferenceWebSocketControllerDelegate?
 
     var parentController: DTWebSocketController?
     var handledMessageType = DTMessageType.room
@@ -98,7 +98,6 @@ final class DTRoomWebSocketController: DTSendableWebSocketSubController {
         let newState = try decoder.decode(DTRoomLiveStateMessage.self, from: data)
         let newUsersInRoom = newState.usersInRoom
         DTLogger.debug { "Users in room: \(newUsersInRoom.map { $0.displayName })" }
-        // TODO: Wang Luo fill this up!!!
         delegate?.updateUsers(newUsersInRoom)
     }
 
@@ -108,7 +107,7 @@ final class DTRoomWebSocketController: DTSendableWebSocketSubController {
         DTLogger.debug { "New video conference state: " +
             "\(newVideoState.map { "\($0.displayName): \($0.isVideoOn)" }.joined(separator: ", "))"
         }
-        // TODO: Wang Luo fill this up!!!
+        conferenceDelegate?.updateStates(newVideoState)
     }
 }
 
