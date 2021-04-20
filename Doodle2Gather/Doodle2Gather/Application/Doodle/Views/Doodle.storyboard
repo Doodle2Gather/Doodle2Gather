@@ -946,6 +946,7 @@
                         <outlet property="shapesButtonsView" destination="Zab-bH-VRq" id="yVS-E5-qDJ"/>
                         <outlet property="squareButton" destination="9z7-zt-8yD" id="Yfg-BI-Xqn"/>
                         <outlet property="starButton" destination="qmb-uq-ZSH" id="XoN-UR-01U"/>
+                        <outlet property="strokeEditorHeightConstraint" destination="cVL-QR-mEA" id="8t7-H5-Jb2"/>
                         <outlet property="textButton" destination="Va2-Px-Ku6" id="GYN-tg-pop"/>
                         <outlet property="triangleButton" destination="7nw-wi-WYg" id="FNc-TM-Phm"/>
                         <outlet property="undoButton" destination="rww-zn-SEF" id="Psj-zY-vrQ"/>

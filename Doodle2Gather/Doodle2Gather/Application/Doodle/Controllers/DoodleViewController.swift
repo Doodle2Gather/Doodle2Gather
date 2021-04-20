@@ -9,6 +9,7 @@ class DoodleViewController: UIViewController {
     @IBOutlet private var colorPickerView: UIView!
     @IBOutlet private var pressureInfoView: UIView!
     @IBOutlet private var colorPickerButton: UIView!
+    @IBOutlet private var strokeEditorHeightConstraint: NSLayoutConstraint!
     private var coloredCircle = CAShapeLayer()
     private var circleCenter = CGPoint()
 
@@ -380,11 +381,13 @@ extension DoodleViewController: CanvasControllerDelegate {
 
     func strokeDidSelect(color: UIColor) {
         strokeEditor?.enterEditStrokeMode(color: color)
+        strokeEditorHeightConstraint.constant = 220
         colorPickerView.isHidden = false
     }
 
     func strokeDidUnselect() {
         colorPickerView.isHidden = true
+        strokeEditorHeightConstraint.constant = 349
         strokeEditor?.exitEditStrokeMode()
     }
 
