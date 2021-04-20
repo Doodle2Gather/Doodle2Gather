@@ -1,4 +1,3 @@
-// swiftlint:disable file_length
 import UIKit
 import DTSharedLibrary
 
@@ -203,20 +202,9 @@ class DoodleViewController: UIViewController {
         }
     }
 
-    @IBAction private func exitButtonDidTap(_ sender: UIButton) {
-        alert(title: AlertConstants.exit, message: AlertConstants.exitToMainMenu,
-              buttonStyle: .default, handler: { _ in
-                self.dismiss(animated: true, completion: nil)
-                DispatchQueue.main.async {
-                    // TODO: Call backend to update the preview(s) to reflect the latest changes
-                }
-              }
-        )
-    }
-
 }
 
-// MARK: - IBActions
+// MARK: - IBActions Part 1
 
 extension DoodleViewController {
 
@@ -247,21 +235,6 @@ extension DoodleViewController {
         }
     }
 
-    @IBAction private func drawingToolButtonDidTap(_ sender: UIButton) {
-        guard let toolSelected = DrawingTools(rawValue: sender.tag) else {
-            return
-        }
-        unselectAllDrawingTools()
-        sender.isSelected = true
-        setDrawingTool(toolSelected)
-
-        if toolSelected == .magicPen && !colorPickerView.isHidden {
-            pressureInfoView.isHidden = false
-        } else {
-            pressureInfoView.isHidden = true
-        }
-    }
-
     @IBAction private func topMinimizeButtonDidTap(_ sender: UIButton) {
         fileNameLabel.isHidden.toggle()
         fileInfoButton.isHidden.toggle()
@@ -271,7 +244,15 @@ extension DoodleViewController {
         sender.isSelected.toggle()
     }
 
-    private func setDrawingTool(_ drawingTool: DrawingTools, shouldDismiss: Bool = false) {
+    func updatePressureView(toolSelected: DrawingTools) {
+        if toolSelected == .magicPen && !colorPickerView.isHidden {
+            pressureInfoView.isHidden = false
+        } else {
+            pressureInfoView.isHidden = true
+        }
+    }
+
+    func setDrawingTool(_ drawingTool: DrawingTools, shouldDismiss: Bool = false) {
         previousDrawingTool = drawingTool
         canvasController?.setDrawingTool(drawingTool)
 
@@ -300,30 +281,16 @@ extension DoodleViewController {
         sender.isSelected.toggle()
     }
 
-    @IBAction private func addLayerButtonDidTap(_ sender: UIButton) {
-        roomWSController.addDoodle()
-    }
-
     @IBAction private func exportButtonDidTap(_ sender: UIButton) {
         // TODO: Export to image for now
     }
 
-    @IBAction private func undoButtonDidTap(_ sender: Any) {
-        guard let canvasController = canvasController, canvasController.canUndo else {
-            return
+    @objc
+    func colorPickerButtonDidTap(_ gesture: UITapGestureRecognizer) {
+        colorPickerView.isHidden.toggle()
+        if previousDrawingTool == .magicPen {
+            pressureInfoView.isHidden = colorPickerView.isHidden
         }
-        canvasController.undo()
-    }
-
-    @IBAction private func redoButtonDidTap(_ sender: Any) {
-        guard let canvasController = canvasController, canvasController.canRedo else {
-            return
-        }
-        canvasController.redo()
-    }
-
-    @IBAction private func pressureSwitchDidToggle(_ sender: UISwitch) {
-        canvasController?.setIsPressureSensitive(sender.isOn)
     }
 
     @objc
@@ -331,15 +298,7 @@ extension DoodleViewController {
         canvasController?.resetZoomScaleAndCenter()
     }
 
-    @objc
-    private func colorPickerButtonDidTap(_ gesture: UITapGestureRecognizer) {
-        colorPickerView.isHidden.toggle()
-        if previousDrawingTool == .magicPen {
-            pressureInfoView.isHidden = colorPickerView.isHidden
-        }
-    }
-
-    private func unselectAllMainTools() {
+    func unselectAllMainTools() {
         drawButton.isSelected = false
         eraserButton.isSelected = false
         textButton.isSelected = false
@@ -347,7 +306,7 @@ extension DoodleViewController {
         cursorButton.isSelected = false
     }
 
-    private func unselectAllDrawingTools() {
+    func unselectAllDrawingTools() {
         penButton.isSelected = false
         pencilButton.isSelected = false
         highlighterButton.isSelected = false

@@ -15,7 +15,6 @@
 		2E0C9DD6262D85C2006F55ED /* ActionManager+Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0C9DD5262D85C2006F55ED /* ActionManager+Apply.swift */; };
 		2E0C9DDC262D8857006F55ED /* ActionManager+Create.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0C9DDB262D8857006F55ED /* ActionManager+Create.swift */; };
 		2E146CC126190246001F6845 /* Participants.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E146CC026190246001F6845 /* Participants.storyboard */; };
-		2E280275262C88A800CA6BF5 /* DoodleViewController+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E280274262C88A800CA6BF5 /* DoodleViewController+Delegate.swift */; };
 		2E2B16D926197BFF0014DD4A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EF8E92B25F754C700C7EE7D /* Assets.xcassets */; };
 		2E46CB95262E56A10003A46A /* WidthAdjustor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E46CB94262E56A10003A46A /* WidthAdjustor.swift */; };
 		2E4A0B422616FDFF003257D4 /* PKDrawing+StrokesFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4A0B412616FDFF003257D4 /* PKDrawing+StrokesFrame.swift */; };
@@ -170,7 +169,6 @@
 		2E0C9DD5262D85C2006F55ED /* ActionManager+Apply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActionManager+Apply.swift"; sourceTree = "<group>"; };
 		2E0C9DDB262D8857006F55ED /* ActionManager+Create.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActionManager+Create.swift"; sourceTree = "<group>"; };
 		2E146CC026190246001F6845 /* Participants.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Participants.storyboard; sourceTree = "<group>"; };
-		2E280274262C88A800CA6BF5 /* DoodleViewController+Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DoodleViewController+Delegate.swift"; sourceTree = "<group>"; };
 		2E3F8FAD2607380100C58F33 /* Pods_Doodle2Gather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Doodle2Gather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E46CB94262E56A10003A46A /* WidthAdjustor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidthAdjustor.swift; sourceTree = "<group>"; };
 		2E4A0B412616FDFF003257D4 /* PKDrawing+StrokesFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PKDrawing+StrokesFrame.swift"; sourceTree = "<group>"; };
@@ -556,7 +554,6 @@
 			children = (
 				2ED7A3CB2601C0450006D873 /* DoodleViewController.swift */,
 				8415BC7C262B4E3F00E6CF1B /* DoodleViewController+Extensions.swift */,
-				2E280274262C88A800CA6BF5 /* DoodleViewController+Delegate.swift */,
 				2EB12AB1261BEDDC00131FE6 /* DoodleLayerTableViewController.swift */,
 			);
 			path = Controllers;
@@ -1330,7 +1327,6 @@
 				84E95961260D758B00D587CC /* ChatEngineDelegate.swift in Sources */,
 				83BDB547262E3D0A00D91DB8 /* DTHomeWebSocketController.swift in Sources */,
 				83AB9C5226171088008E48D0 /* DTAuth.swift in Sources */,
-				2E280275262C88A800CA6BF5 /* DoodleViewController+Delegate.swift in Sources */,
 				8464E77D262586B4002B5BEE /* InvitationViewController.swift in Sources */,
 				2E6830D3262C1EBE00A16F5D /* CanvasManager.swift in Sources */,
 				2EB12AB6261BEF6700131FE6 /* DoodleLayerTableViewCell.swift in Sources */,
