@@ -179,14 +179,8 @@ class ConferenceViewController: UIViewController {
     }
 
     @IBAction private func didTapCall(_ sender: UIButton) {
-        guard let user = DTAuth.user else {
-            DTLogger.error("Attempted to join call without a user.")
-            return
-        }
-
         if isInCall {
             videoEngine?.tearDown()
-
             toggleCallButton.isSelected.toggle()
             collectionView.isHidden = true
             topControlViewContainer.isHidden = true
@@ -195,27 +189,7 @@ class ConferenceViewController: UIViewController {
             isInCall.toggle()
             videoButton.isHidden = true
             audioButton.isHidden = true
-
         } else {
-            if currentUser == nil {
-                let overlay = UIView(frame: CGRect(x: 0, y: 0,
-                                                   width: 200,
-                                                   height: 112.5))
-                overlay.backgroundColor = UIConstants.black
-
-                let nameplate = UILabel(frame: CGRect(x: 20,
-                                                      y: 112.5 / 2 + 19.5,
-                                                      width: 160,
-                                                      height: 40))
-                nameplate.textAlignment = .center
-                nameplate.text = user.displayName
-                nameplate.textColor = UIConstants.white
-                currentUser = VideoCallUser(uid: 0,
-                                            userId: user.uid,
-                                            overlay: overlay,
-                                            nameplate: nameplate)
-            }
-
             videoEngine?.joinChannel(channelName: self.roomId ?? "testing")
             toggleCallButton.isSelected.toggle()
             collectionView.isHidden = false
@@ -224,7 +198,6 @@ class ConferenceViewController: UIViewController {
             audioButton.isHidden = false
             isInCall.toggle()
         }
-
     }
 }
 
@@ -332,9 +305,6 @@ extension ConferenceViewController: UICollectionViewDataSource {
         }
         if indexPath.row == 0 { // Put our local video first
             videoEngine?.setupLocalUserView(view: videoCell.getVideoView())
-            if let nameplate = currentUser?.nameplate {
-                videoCell.addSubview(nameplate)
-            }
         } else {
             let remoteID = videoCallUserList[indexPath.row - 1].uid
             DispatchQueue.main.async {
@@ -372,29 +342,6 @@ extension ConferenceViewController: DTConferenceWebSocketControllerDelegate {
         for user in users {
             userIdToNameMapping[user.id] = user.displayName
         }
-        let otherUsers = users.filter { x -> Bool in
-            x.id != DTAuth.user?.uid
-        }
-        DispatchQueue.main.async {
-            self.updateCollectionView(otherUsers)
-        }
-    }
-
-    private func updateCollectionView(_ users: [DTAdaptedUserConferenceState]) {
-        for row in 0..<videoCallUserList.count {
-            guard let cell = collectionView
-                    .cellForItem(at: IndexPath(row: row + 1,
-                                               section: 0)) as? VideoCollectionViewCell else {
-                continue
-            }
-            if videoCallUserList[row].isPlateActive {
-                continue
-            }
-            videoCallUserList[row].nameplate.text =
-                userIdToNameMapping[videoCallUserList[row].userId] ?? ""
-            cell.addSubview(videoCallUserList[row].nameplate)
-        }
-        collectionView.reloadData()
     }
 
 }
