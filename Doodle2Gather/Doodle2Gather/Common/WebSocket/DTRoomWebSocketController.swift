@@ -195,4 +195,18 @@ extension DTRoomWebSocketController: RoomSocketController {
                                                            isAudioOn: isAudioOn)
         send(message)
     }
+    
+    func setUserPermissions(userToSetId: String, setCanEdit: Bool, setCanVideoConference: Bool, setCanChat: Bool) {
+        guard let id = id,
+              let roomId = roomId else {
+            fatalError("Cannot get userId")
+        }
+        let message = DTSetUserPermissionsMessage(id: id,
+                                                  roomId: roomId,
+                                                  userToSetId: userToSetId,
+                                                  setCanEdit: setCanEdit,
+                                                  setCanVideoConference: setCanVideoConference,
+                                                  setCanChat: setCanChat)
+        send(message)
+    }
 }
