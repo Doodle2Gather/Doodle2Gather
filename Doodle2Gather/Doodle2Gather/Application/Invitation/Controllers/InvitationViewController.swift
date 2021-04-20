@@ -90,19 +90,3 @@ extension InvitationViewController: UITableViewDataSource {
     }
 
 }
-
-enum UserPermission {
-    case viewer
-    case editor
-    case owner
-}
-
-struct UserState: Hashable {
-    let userId: String
-    let displayName: String
-    let email: String
-
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(userId)
-    }
-}
