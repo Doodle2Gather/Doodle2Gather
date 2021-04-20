@@ -1,3 +1,4 @@
+// swiftlint:disable file_length
 import UIKit
 import DTSharedLibrary
 
@@ -7,6 +8,7 @@ class DoodleViewController: UIViewController {
     @IBOutlet private var zoomScaleLabel: UILabel!
     @IBOutlet private var layerTableView: UIView!
     @IBOutlet private var colorPickerView: UIView!
+    @IBOutlet private var pressureInfoView: UIView!
     @IBOutlet private var colorPickerButton: UIView!
     private var coloredCircle = CAShapeLayer()
     private var circleCenter = CGPoint()
@@ -233,8 +235,10 @@ extension DoodleViewController {
             coloredCircle.isHidden = false
         case .eraser:
             colorPickerView.isHidden = true
+            pressureInfoView.isHidden = true
         case .text, .shapes, .cursor:
             colorPickerView.isHidden = true
+            pressureInfoView.isHidden = true
             return
         }
     }
@@ -246,6 +250,12 @@ extension DoodleViewController {
         unselectAllDrawingTools()
         sender.isSelected = true
         setDrawingTool(toolSelected)
+
+        if toolSelected == .magicPen && !colorPickerView.isHidden {
+            pressureInfoView.isHidden = false
+        } else {
+            pressureInfoView.isHidden = true
+        }
     }
 
     @IBAction private func topMinimizeButtonDidTap(_ sender: UIButton) {
@@ -308,6 +318,10 @@ extension DoodleViewController {
         canvasController.redo()
     }
 
+    @IBAction private func pressureSwitchDidToggle(_ sender: UISwitch) {
+        canvasController?.setIsPressureSensitive(sender.isOn)
+    }
+
     @objc
     private func zoomScaleDidTap(_ gesture: UITapGestureRecognizer) {
         canvasController?.resetZoomScaleAndCenter()
@@ -316,6 +330,9 @@ extension DoodleViewController {
     @objc
     private func colorPickerButtonDidTap(_ gesture: UITapGestureRecognizer) {
         colorPickerView.isHidden.toggle()
+        if previousDrawingTool == .magicPen {
+            pressureInfoView.isHidden = colorPickerView.isHidden
+        }
     }
 
     private func unselectAllMainTools() {

@@ -654,6 +654,53 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o49-IX-df3" userLabel="Pressure Info View">
+                                <rect key="frame" x="152" y="781.5" width="220" height="60"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="jpV-eh-2p4">
+                                        <rect key="frame" x="15" y="14" width="195" height="32"/>
+                                        <subviews>
+                                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pressure" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DfT-XS-Yg3">
+                                                <rect key="frame" x="0.0" y="0.0" width="139" height="32"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                <color key="textColor" name="White"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TkB-vr-6L4">
+                                                <rect key="frame" x="146" y="0.0" width="51" height="32"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="32" id="T7q-7c-cbY"/>
+                                                </constraints>
+                                                <connections>
+                                                    <action selector="pressureSwitchDidToggle:" destination="rZI-TI-AZo" eventType="valueChanged" id="sZk-gG-VQY"/>
+                                                </connections>
+                                            </switch>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" name="Black"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="220" id="Q4i-MY-Lw2"/>
+                                    <constraint firstItem="jpV-eh-2p4" firstAttribute="leading" secondItem="o49-IX-df3" secondAttribute="leading" constant="15" id="VlW-2K-pIv"/>
+                                    <constraint firstItem="jpV-eh-2p4" firstAttribute="trailing" secondItem="o49-IX-df3" secondAttribute="trailing" constant="-10" id="ZoO-ZS-6s3"/>
+                                    <constraint firstItem="jpV-eh-2p4" firstAttribute="top" secondItem="o49-IX-df3" secondAttribute="top" constant="14" id="qrz-Ha-kQH"/>
+                                    <constraint firstItem="jpV-eh-2p4" firstAttribute="bottom" secondItem="o49-IX-df3" secondAttribute="bottom" constant="-14" id="xTl-D2-ocK"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                        <size key="value" width="0.0" height="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                        <real key="value" value="0.40000000000000002"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="1p6-Mf-pnl"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -665,6 +712,7 @@
                             <constraint firstItem="Pn5-xG-qj1" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" constant="12" id="AUa-rT-WMa"/>
                             <constraint firstItem="4Xj-kh-aUN" firstAttribute="leading" secondItem="HdL-Pj-pPB" secondAttribute="trailing" constant="10" id="BxG-tZ-mLO"/>
                             <constraint firstItem="lOM-bA-4te" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" constant="12" id="EmQ-Qq-9ox"/>
+                            <constraint firstItem="o49-IX-df3" firstAttribute="top" secondItem="DHu-9F-THM" secondAttribute="bottom" constant="10" id="EnX-yN-w4U"/>
                             <constraint firstItem="1p6-Mf-pnl" firstAttribute="trailing" secondItem="Gvt-x0-wpX" secondAttribute="trailing" constant="12" id="Fb4-Ms-bf1"/>
                             <constraint firstItem="1p6-Mf-pnl" firstAttribute="bottom" secondItem="Il3-8X-YYt" secondAttribute="bottom" constant="12" id="GT8-W4-V5D"/>
                             <constraint firstItem="1p6-Mf-pnl" firstAttribute="trailing" secondItem="Il3-8X-YYt" secondAttribute="trailing" constant="12" id="IOi-4d-vpq"/>
@@ -677,6 +725,7 @@
                             <constraint firstItem="4Xj-kh-aUN" firstAttribute="centerY" secondItem="Rvn-Q8-Irn" secondAttribute="centerY" id="Vhb-2b-DLJ"/>
                             <constraint firstItem="HdL-Pj-pPB" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" constant="12" id="nVn-9r-nOE"/>
                             <constraint firstItem="lOM-bA-4te" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" constant="12" id="o7i-Qk-N3e"/>
+                            <constraint firstItem="o49-IX-df3" firstAttribute="leading" secondItem="1p6-Mf-pnl" secondAttribute="leading" constant="152" id="pvB-la-VWn"/>
                             <constraint firstItem="DHu-9F-THM" firstAttribute="centerY" secondItem="Rvn-Q8-Irn" secondAttribute="centerY" id="tNa-Fr-mIz"/>
                             <constraint firstItem="Gvt-x0-wpX" firstAttribute="top" secondItem="1p6-Mf-pnl" secondAttribute="top" constant="12" id="xlO-w9-H22"/>
                             <constraint firstItem="CRw-tT-Mu5" firstAttribute="top" secondItem="Rvn-Q8-Irn" secondAttribute="top" id="yf0-Dt-Yxp"/>
@@ -703,6 +752,7 @@
                         <outlet property="otherProfileLabelTwo" destination="ynw-Wz-Sdm" id="FxO-IT-jI4"/>
                         <outlet property="penButton" destination="rKg-Y4-tax" id="rf0-wj-paC"/>
                         <outlet property="pencilButton" destination="PHr-oW-a4i" id="kEZ-Te-JZn"/>
+                        <outlet property="pressureInfoView" destination="o49-IX-df3" id="7Rc-pL-hxn"/>
                         <outlet property="redoButton" destination="BvY-qF-rcv" id="g2r-JF-6de"/>
                         <outlet property="separator" destination="QiO-xb-nBY" id="B4k-Ko-asY"/>
                         <outlet property="separatorView" destination="cIQ-SF-6Au" id="2iL-i3-acE"/>

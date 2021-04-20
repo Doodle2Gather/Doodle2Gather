@@ -46,4 +46,7 @@ protocol CanvasController {
     /// Redos the last undone action, if any.
     func redo()
 
+    /// Set whether the stroke drawn should be sensitive to pressure.
+    func setIsPressureSensitive(_ isPressureSensitive: Bool)
+
 }

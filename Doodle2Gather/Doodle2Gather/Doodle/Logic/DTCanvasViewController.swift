@@ -182,6 +182,10 @@ extension DTCanvasViewController: CanvasController {
         delegate?.dispatchPartialAction(action)
     }
 
+    func setIsPressureSensitive(_ isPressureSensitive: Bool) {
+        canvasManager.setIsPressureSensitive(isPressureSensitive)
+    }
+
 }
 
 extension DTCanvasViewController: CanvasManagerDelegate {

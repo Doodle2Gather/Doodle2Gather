@@ -17,6 +17,7 @@
 		2E146CC126190246001F6845 /* Participants.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E146CC026190246001F6845 /* Participants.storyboard */; };
 		2E280275262C88A800CA6BF5 /* DoodleViewController+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E280274262C88A800CA6BF5 /* DoodleViewController+Delegate.swift */; };
 		2E2B16D926197BFF0014DD4A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EF8E92B25F754C700C7EE7D /* Assets.xcassets */; };
+		2E46CB95262E56A10003A46A /* WidthAdjustor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E46CB94262E56A10003A46A /* WidthAdjustor.swift */; };
 		2E4A0B422616FDFF003257D4 /* PKDrawing+StrokesFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4A0B412616FDFF003257D4 /* PKDrawing+StrokesFrame.swift */; };
 		2E6830CF262C1E1100A16F5D /* ActionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6830CE262C1E1100A16F5D /* ActionManager.swift */; };
 		2E6830D3262C1EBE00A16F5D /* CanvasManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6830D2262C1EBE00A16F5D /* CanvasManager.swift */; };
@@ -169,6 +170,7 @@
 		2E146CC026190246001F6845 /* Participants.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Participants.storyboard; sourceTree = "<group>"; };
 		2E280274262C88A800CA6BF5 /* DoodleViewController+Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DoodleViewController+Delegate.swift"; sourceTree = "<group>"; };
 		2E3F8FAD2607380100C58F33 /* Pods_Doodle2Gather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Doodle2Gather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2E46CB94262E56A10003A46A /* WidthAdjustor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidthAdjustor.swift; sourceTree = "<group>"; };
 		2E4A0B412616FDFF003257D4 /* PKDrawing+StrokesFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PKDrawing+StrokesFrame.swift"; sourceTree = "<group>"; };
 		2E6830CE262C1E1100A16F5D /* ActionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionManager.swift; sourceTree = "<group>"; };
 		2E6830D2262C1EBE00A16F5D /* CanvasManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasManager.swift; sourceTree = "<group>"; };
@@ -316,6 +318,7 @@
 			children = (
 				2EB128F8261B6B3F00131FE6 /* StrokeAugmentor.swift */,
 				2EB128F7261B6B2500131FE6 /* Shape Detection */,
+				2E46CB93262E56500003A46A /* Property Adjustment */,
 			);
 			path = Augmentors;
 			sourceTree = "<group>";
@@ -335,6 +338,14 @@
 				848F356826142D8800AD46C6 /* ParticipantsViewController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		2E46CB93262E56500003A46A /* Property Adjustment */ = {
+			isa = PBXGroup;
+			children = (
+				2E46CB94262E56A10003A46A /* WidthAdjustor.swift */,
+			);
+			path = "Property Adjustment";
 			sourceTree = "<group>";
 		};
 		2E7AA3E7261963030028A013 /* Recovered References */ = {
@@ -1255,6 +1266,7 @@
 				8464E7D22626B939002B5BEE /* AudioPlayer.swift in Sources */,
 				2EF0E51D26096B5C0008184D /* SubviewTouchCollectionView.swift in Sources */,
 				2EB129B9261BB6E000131FE6 /* DTCanvasError.swift in Sources */,
+				2E46CB95262E56A10003A46A /* WidthAdjustor.swift in Sources */,
 				83AB9C56261711B4008E48D0 /* FirebaseAuthProvider.swift in Sources */,
 				84EEC6C326102B5100876F66 /* ConferenceConstants.swift in Sources */,
 				84E847A8260AD4EB00E39C1F /* ChatViewController.swift in Sources */,

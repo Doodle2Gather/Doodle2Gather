@@ -86,4 +86,12 @@ extension CanvasManager {
         canvas.tool = PKInkingTool(tool.inkType, color: tool.color, width: width)
     }
 
+    func setIsPressureSensitive(_ isPressureSensitive: Bool) {
+        if !isPressureSensitive {
+            augmentors[Constants.pressureKey] = WidthAdjustor()
+            return
+        }
+        augmentors.removeValue(forKey: Constants.pressureKey)
+    }
+
 }
