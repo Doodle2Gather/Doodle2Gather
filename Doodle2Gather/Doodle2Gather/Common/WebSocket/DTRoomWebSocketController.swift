@@ -102,12 +102,12 @@ final class DTRoomWebSocketController: DTSendableWebSocketSubController {
     }
 
     func handleUpdateUsersConferenceState(_ data: Data) throws {
-        let newState = try decoder.decode(DTUsersVideoConferenceStateMessage.self, from: data)
-        let newVideoState = newState.videoConferenceState
-        DTLogger.debug { "New video conference state: " +
-            "\(newVideoState.map { "\($0.displayName): \($0.isVideoOn)" }.joined(separator: ", "))"
+        let newState = try decoder.decode(DTUsersConferenceStateMessage.self, from: data)
+        let newConferenceState = newState.conferenceState
+        DTLogger.debug { "New conference state: " +
+            "\(newConferenceState.map { "\($0.displayName): \($0.isVideoOn) \($0.isAudioOn)" }.joined(separator: ", "))"
         }
-        conferenceDelegate?.updateStates(newVideoState)
+        conferenceDelegate?.updateStates(newConferenceState)
     }
 }
 
@@ -183,13 +183,30 @@ extension DTRoomWebSocketController: RoomSocketController {
         send(message)
     }
 
-    func updateVideoState(isVideoOn: Bool) {
+    func updateConferencingState(isVideoOn: Bool, isAudioOn: Bool) {
         guard let id = self.id,
               let roomId = self.roomId else {
             return
         }
-        DTLogger.info("Sending video state to backend, isVideoOn: \(isVideoOn)")
-        let message = DTUpdateUserVideoStateMessage(id: id, roomId: roomId, isVideoOn: isVideoOn)
+        DTLogger.info("Sending conference state to backend, isVideoOn: \(isVideoOn), isAudioOn: \(isAudioOn)")
+        let message = DTUpdateUserConferencingStateMessage(id: id,
+                                                           roomId: roomId,
+                                                           isVideoOn: isVideoOn,
+                                                           isAudioOn: isAudioOn)
+        send(message)
+    }
+
+    func setUserPermissions(userToSetId: String, setCanEdit: Bool, setCanVideoConference: Bool, setCanChat: Bool) {
+        guard let id = id,
+              let roomId = roomId else {
+            fatalError("Cannot get userId")
+        }
+        let message = DTSetUserPermissionsMessage(id: id,
+                                                  roomId: roomId,
+                                                  userToSetId: userToSetId,
+                                                  setCanEdit: setCanEdit,
+                                                  setCanVideoConference: setCanVideoConference,
+                                                  setCanChat: setCanChat)
         send(message)
     }
 }

@@ -21,8 +21,8 @@ extension WSRoomController {
                 self.uuidStore[userId] = nil
             }
         }
-        self.videoOnLock.withLockVoid {
-            self.isVideoOn[id] = nil
+        self.conferenceLock.withLockVoid {
+            self.conferenceState[id] = nil
         }
         self.logger.info("users in room \(Array(self.users.values))")
         syncData()
@@ -164,9 +164,31 @@ extension WSRoomController {
 
     // MARK: - updateVideoState
 
-    func handleUpdateVideoState(id: UUID, isVideoOn: Bool) {
-        self.videoOnLock.withLockVoid {
-            self.isVideoOn[id] = isVideoOn
+    func handleUpdateConferenceState(id: UUID, isVideoOn: Bool, isAudioOn: Bool) {
+        self.conferenceLock.withLockVoid {
+            self.conferenceState[id] = (isVideoOn, isAudioOn)
         }
+    }
+
+    func handleSetUserPermission(_ ws: WebSocket, _ message: DTSetUserPermissionsMessage) {
+        PersistedDTUserAccesses
+            .query(on: db)
+            .with(\.$room)
+            .with(\.$user, { $0.with(\.$accessibleRooms, { $0.with(\.$doodles, { $0.with(\.$entities) }) }) })
+            .filter(\.$room.$id == message.roomId)
+            .filter(\.$user.$id == message.userToSetId)
+            .set(\.$canEdit, to: message.setCanEdit)
+            .set(\.$canChat, to: message.setCanChat)
+            .set(\.$canVideoConference, to: message.setCanVideoConference)
+            .update()
+            .whenComplete { res in
+                switch res {
+                case .failure(let err):
+                    self.logger.report(error: err)
+                case .success:
+                    self.logger.info("Set permission successfully, dispatching new permissions")
+                    self.updateParticipantsInfo()
+                }
+            }
     }
 }

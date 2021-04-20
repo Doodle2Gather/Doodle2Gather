@@ -1,13 +1,20 @@
 import UIKit
 import DTSharedLibrary
 
+protocol InvitationDelegate: AnyObject {
+    func didUpdateUserAccesses(_ accesses: [DTAdaptedUserAccesses])
+}
+
 class InvitationViewController: UIViewController {
 
     @IBOutlet private var tableView: UITableView!
     @IBOutlet private var inviteCodeField: UITextField!
 
+    weak var delegate: InvitationDelegate?
+
     var room: DTAdaptedRoom?
     var userAccesses: [DTAdaptedUserAccesses] = []
+    var roomWSController: DTRoomWebSocketController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +59,7 @@ extension InvitationViewController: UITableViewDataSource {
         cell?.setEmail(userAccess.email)
 
         // TODO: Set permissions here
+        cell?.setPermissions(userAccess.canEdit ? .editor : .viewer)
         guard let currentUser = DTAuth.user?.uid else {
             fatalError("Attempted to join room without a user.")
         }
@@ -61,12 +69,19 @@ extension InvitationViewController: UITableViewDataSource {
                 let setViewerAction = UIAlertAction(title: "Viewer",
                                                     style: .default,
                                                     handler: { _ in
-                    print("Change to viewer")
+                    self.roomWSController?.setUserPermissions(userToSetId: userAccess.userId,
+                                                              setCanEdit: false,
+                                                              setCanVideoConference: true,
+                                                              setCanChat: true)
+
                 })
                 let setEditorAction = UIAlertAction(title: "Editor",
                                                     style: .default,
                                                     handler: { _ in
-                    print("Change to editor")
+                    self.roomWSController?.setUserPermissions(userToSetId: userAccess.userId,
+                                                              setCanEdit: true,
+                                                              setCanVideoConference: true,
+                                                              setCanChat: true)
                 })
                 DispatchQueue.main.async {
                     self.actionSheet(message: nil,
@@ -76,7 +91,6 @@ extension InvitationViewController: UITableViewDataSource {
                 }
             }
         }
-        cell?.setPermissions(.editor)
 
         if let ownerId = room?.ownerId {
             if ownerId == userAccess.userId {
@@ -87,6 +101,16 @@ extension InvitationViewController: UITableViewDataSource {
         }
 
         return cell!
+    }
+
+}
+
+extension InvitationViewController: InvitationDelegate {
+    func didUpdateUserAccesses(_ accesses: [DTAdaptedUserAccesses]) {
+        userAccesses = accesses
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
 
 }

@@ -64,6 +64,9 @@ class DoodleViewController: UIViewController {
     var layerTable: DoodleLayerTable?
     private var loadingSpinner: UIAlertController?
 
+    // Delegates
+    weak var invitationDelegate: InvitationDelegate?
+
     // State
     var room: DTAdaptedRoom?
     var username: String?
@@ -190,7 +193,6 @@ class DoodleViewController: UIViewController {
             numberOfOtherUsersLabel.isHidden = false
             otherProfileLabelOne.backgroundColor = userIconColors[1]
             otherProfileLabelTwo.backgroundColor = userIconColors[2]
-            print(userStates.count)
             numberOfOtherUsersLabel.text = "+\(userStates.count - 3)"
         }
     }

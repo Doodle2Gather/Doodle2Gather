@@ -21,8 +21,7 @@ class ConferenceViewController: UIViewController {
     var videoEngine: VideoEngine?
     var chatEngine: ChatEngine?
     var chatBox: ChatBoxDelegate?
-    var usersWithPermissions: [DTAdaptedUser] = []
-    var participants: [DTAdaptedUserVideoConferenceState] = []
+    var participants: [DTAdaptedUserConferenceState] = []
     lazy var chatList = [Message]()
     var isMuted = true
     var isVideoOff = true
@@ -60,7 +59,6 @@ class ConferenceViewController: UIViewController {
         videoEngine?.hideVideo()
         videoButton.isHidden = true
         audioButton.isHidden = true
-
         collectionView.isHidden = true
         topControlViewContainer.isHidden = true
 
@@ -69,10 +67,9 @@ class ConferenceViewController: UIViewController {
                                      selector: #selector(updateState),
                                      userInfo: nil,
                                      repeats: true)
-
         roomWSController?.conferenceDelegate = self
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-            self.roomWSController?.updateVideoState(isVideoOn: false)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.roomWSController?.updateConferencingState(isVideoOn: !self.isVideoOff, isAudioOn: !self.isMuted)
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
             self.timer.invalidate()
@@ -81,7 +78,7 @@ class ConferenceViewController: UIViewController {
 
     @objc
     func updateState() {
-        roomWSController?.updateVideoState(isVideoOn: !isVideoOff)
+        roomWSController?.updateConferencingState(isVideoOn: !isVideoOff, isAudioOn: !isMuted)
     }
 
     @IBAction private func audioButtonDidTap(_ sender: Any) {
@@ -92,6 +89,7 @@ class ConferenceViewController: UIViewController {
         }
         audioButton.isSelected = isMuted
         isMuted.toggle()
+        roomWSController?.updateConferencingState(isVideoOn: !isVideoOff, isAudioOn: !isMuted)
     }
 
     @IBAction private func videoButtonDidTap(_ sender: Any) {
@@ -114,7 +112,7 @@ class ConferenceViewController: UIViewController {
         }
         videoButton.isSelected = isVideoOff
         isVideoOff.toggle()
-        roomWSController?.updateVideoState(isVideoOn: !isVideoOff)
+        roomWSController?.updateConferencingState(isVideoOn: !isVideoOff, isAudioOn: !isMuted)
     }
 
     @IBAction private func bottomMinimizeButtonDidTap(_ sender: UIButton) {
@@ -168,8 +166,6 @@ class ConferenceViewController: UIViewController {
             guard let vc = segue.destination as? ParticipantsViewController else {
                 return
             }
-            print("Yolo")
-            print(participants)
             vc.participants = participants
         default:
             return
@@ -261,6 +257,15 @@ extension ConferenceViewController: VideoEngineDelegate {
     func didLeaveCall(id: UInt, username: String) {
         if let index = videoCallUserList.firstIndex(where: { $0.uid == id }) {
             videoCallUserList.remove(at: index)
+            self.collectionView.reloadData()
+        }
+    }
+
+    func didUpdateUserInfo(id: UInt, username: String) {
+        for index in 0..<videoCallUserList.count where videoCallUserList[index].uid == id {
+            videoCallUserList[index].userId = username
+        }
+        DispatchQueue.main.async {
             self.collectionView.reloadData()
         }
     }
@@ -362,7 +367,7 @@ extension ConferenceViewController: UICollectionViewDelegateFlowLayout {
 
 extension ConferenceViewController: DTConferenceWebSocketControllerDelegate {
 
-    func updateStates(_ users: [DTAdaptedUserVideoConferenceState]) {
+    func updateStates(_ users: [DTAdaptedUserConferenceState]) {
         participants = users
         for user in users {
             userIdToNameMapping[user.id] = user.displayName
@@ -373,14 +378,16 @@ extension ConferenceViewController: DTConferenceWebSocketControllerDelegate {
         DispatchQueue.main.async {
             self.updateCollectionView(otherUsers)
         }
-
     }
 
-    private func updateCollectionView(_ users: [DTAdaptedUserVideoConferenceState]) {
+    private func updateCollectionView(_ users: [DTAdaptedUserConferenceState]) {
         for row in 0..<videoCallUserList.count {
             guard let cell = collectionView
                     .cellForItem(at: IndexPath(row: row + 1,
                                                section: 0)) as? VideoCollectionViewCell else {
+                continue
+            }
+            if videoCallUserList[row].isPlateActive {
                 continue
             }
             videoCallUserList[row].nameplate.text =

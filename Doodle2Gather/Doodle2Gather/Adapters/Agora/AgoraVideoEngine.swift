@@ -163,4 +163,8 @@ extension AgoraVideoEngine: AgoraRtcEngineDelegate {
         }
     }
 
+    func rtcEngine(_ engine: AgoraRtcEngineKit, didUpdatedUserInfo userInfo: AgoraUserInfo, withUid uid: UInt) {
+        delegate?.didUpdateUserInfo(id: uid, username: userInfo.userAccount ?? "Unknown")
+    }
+
 }
