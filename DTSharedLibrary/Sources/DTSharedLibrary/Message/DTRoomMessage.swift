@@ -237,3 +237,24 @@ public struct DTUpdateUserConferencingStateMessage: Codable {
         self.isAudioOn = isAudioOn
     }
 }
+
+public struct DTSetUserPermissionsMessage: Codable {
+    public var type = DTMessageType.room
+    public var subtype = DTRoomMessageType.setUserPermission
+    public var id: UUID
+    public var roomId: UUID
+    public var userToSetId: String
+    public let setCanEdit: Bool
+    public let setCanVideoConference: Bool
+    public let setCanChat: Bool
+
+    public init(id: UUID, roomId: UUID, userToSetId: String,
+                setCanEdit: Bool, setCanVideoConference: Bool, setCanChat: Bool) {
+        self.id = id
+        self.roomId = roomId
+        self.userToSetId = userToSetId
+        self.setCanEdit = setCanEdit
+        self.setCanVideoConference = setCanVideoConference
+        self.setCanChat = setCanChat
+    }
+}
