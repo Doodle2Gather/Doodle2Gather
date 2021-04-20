@@ -56,6 +56,7 @@ extension DoodleViewController {
             }
             destination.modalPresentationStyle = .formSheet
             destination.userAccesses = userAccesses
+            invitationDelegate = destination
             guard let room = room else {
                 return
             }
@@ -114,6 +115,7 @@ extension DoodleViewController: DTRoomWebSocketControllerDelegate {
         userAccesses = users.sorted(by: { x, y -> Bool in
             x.displayName < y.displayName
         })
+        invitationDelegate?.didUpdateUserAccesses(userAccesses)
     }
 
     func updateUsers(_ users: [DTAdaptedUser]) {

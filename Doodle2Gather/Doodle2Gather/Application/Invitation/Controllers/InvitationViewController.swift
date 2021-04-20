@@ -1,10 +1,16 @@
 import UIKit
 import DTSharedLibrary
 
+protocol InvitationDelegate: AnyObject {
+    func didUpdateUserAccesses(_ accesses: [DTAdaptedUserAccesses])
+}
+
 class InvitationViewController: UIViewController {
 
     @IBOutlet private var tableView: UITableView!
     @IBOutlet private var inviteCodeField: UITextField!
+
+    weak var delegate: InvitationDelegate?
 
     var room: DTAdaptedRoom?
     var userAccesses: [DTAdaptedUserAccesses] = []
@@ -53,6 +59,7 @@ extension InvitationViewController: UITableViewDataSource {
         cell?.setEmail(userAccess.email)
 
         // TODO: Set permissions here
+        cell?.setPermissions(userAccess.canEdit ? .editor : .viewer)
         guard let currentUser = DTAuth.user?.uid else {
             fatalError("Attempted to join room without a user.")
         }
@@ -84,7 +91,6 @@ extension InvitationViewController: UITableViewDataSource {
                 }
             }
         }
-        cell?.setPermissions(.editor)
 
         if let ownerId = room?.ownerId {
             if ownerId == userAccess.userId {
@@ -95,6 +101,16 @@ extension InvitationViewController: UITableViewDataSource {
         }
 
         return cell!
+    }
+
+}
+
+extension InvitationViewController: InvitationDelegate {
+    func didUpdateUserAccesses(_ accesses: [DTAdaptedUserAccesses]) {
+        userAccesses = accesses
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
 
 }

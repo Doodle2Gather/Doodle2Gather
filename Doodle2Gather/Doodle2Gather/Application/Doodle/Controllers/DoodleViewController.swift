@@ -64,6 +64,9 @@ class DoodleViewController: UIViewController {
     var layerTable: DoodleLayerTable?
     private var loadingSpinner: UIAlertController?
 
+    // Delegates
+    weak var invitationDelegate: InvitationDelegate?
+
     // State
     var room: DTAdaptedRoom?
     var username: String?

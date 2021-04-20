@@ -21,7 +21,6 @@ class ConferenceViewController: UIViewController {
     var videoEngine: VideoEngine?
     var chatEngine: ChatEngine?
     var chatBox: ChatBoxDelegate?
-    var usersWithPermissions: [DTAdaptedUser] = []
     var participants: [DTAdaptedUserConferenceState] = []
     lazy var chatList = [Message]()
     var isMuted = true
@@ -60,7 +59,6 @@ class ConferenceViewController: UIViewController {
         videoEngine?.hideVideo()
         videoButton.isHidden = true
         audioButton.isHidden = true
-
         collectionView.isHidden = true
         topControlViewContainer.isHidden = true
 
