@@ -55,7 +55,7 @@ class WSHomeController {
                 // Send failure to create room message
                 ws.send(message: joinRequest)
             case .success(let room):
-                self.logger.info("Created room.")
+                self.logger.info("Joined via invite.")
                 var message = joinRequest
                 message.joinedRoom = room
                 ws.send(message: message)
