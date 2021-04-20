@@ -34,6 +34,8 @@ final class DTRoomWebSocketController: DTSendableWebSocketSubController {
                 try self.handleUpdateLiveState(data)
             case .usersConferenceState:
                 try self.handleUpdateUsersConferenceState(data)
+            case .setRoomTimer:
+                try self.handleSetRoomTimer(data)
             default:
                 break
             }
@@ -108,6 +110,14 @@ final class DTRoomWebSocketController: DTSendableWebSocketSubController {
             "\(newConferenceState.map { "\($0.displayName): \($0.isVideoOn) \($0.isAudioOn)" }.joined(separator: ", "))"
         }
         conferenceDelegate?.updateStates(newConferenceState)
+    }
+    
+    func handleSetRoomTimer(_ data: Data) throws {
+        let newRoomTimer = try decoder.decode(DTSetRoomTimerMessage.self, from: data)
+        DTLogger.debug {
+            "New room timer of \(newRoomTimer.minutes) minutes and \(newRoomTimer.seconds) seconds"
+        }
+        // TODO: Fill this up to use the backend broadcast
     }
 }
 
