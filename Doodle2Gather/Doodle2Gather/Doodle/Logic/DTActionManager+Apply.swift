@@ -1,4 +1,4 @@
-extension ActionManager {
+extension DTActionManager {
 
     func applyAction(_ action: DTActionProtocol, on doodle: DTDoodleWrapper) -> DTDoodleWrapper? {
         switch action.type {

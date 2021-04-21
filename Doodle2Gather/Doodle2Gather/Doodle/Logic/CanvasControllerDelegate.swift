@@ -20,21 +20,3 @@ protocol CanvasControllerDelegate: AnyObject {
     func strokeDidUnselect()
 
 }
-
-// MARK: - Default Implementation
-
-extension CanvasControllerDelegate {
-
-    func dispatchPartialAction(_ action: DTPartialAdaptedAction) {
-        // Do nothing
-    }
-
-    func canvasZoomScaleDidChange(scale: CGFloat) {
-        // Do nothing
-    }
-
-    func refetchDoodles() {
-        // Do nothing
-    }
-
-}

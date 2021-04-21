@@ -3,7 +3,7 @@ import DTSharedLibrary
 
 // MARK: - Tool Management
 
-extension CanvasManager {
+extension DTCanvasGestureManager {
 
     var currentActionType: DTActionType {
         switch currentMainTool {

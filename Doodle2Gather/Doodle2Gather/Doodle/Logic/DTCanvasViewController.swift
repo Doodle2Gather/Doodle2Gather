@@ -6,7 +6,7 @@ import DTSharedLibrary
 ///
 /// It also ties in the `PencilKit` implementations, though those can be
 /// easily swapped out without breaking any existing functionality.
-class CanvasViewController: UIViewController {
+class DTCanvasViewController: UIViewController {
 
     /// Paginated doodles. These doodles are also the source of truth.
     var doodles = [DTDoodleWrapper]()
@@ -18,14 +18,14 @@ class CanvasViewController: UIViewController {
     }
     private var currentDoodle = DTDoodleWrapper() {
         didSet {
-            canvasManager.canvasWrapper = currentDoodle
+            canvasManager.strokeWrappers = currentDoodle.strokes
         }
     }
 
     /// Main canvas view that we will work with.
     var canvasView = PKCanvasView()
-    var canvasManager = CanvasManager()
-    var actionManager = ActionManager()
+    var canvasManager: CanvasGestureManager = DTCanvasGestureManager()
+    var actionManager: ActionManager = DTActionManager()
 
     var canUndo: Bool {
         actionManager.canUndo
@@ -53,9 +53,9 @@ class CanvasViewController: UIViewController {
         addCanvasView()
         canvasView.drawing = doodles[currentDoodleIndex].drawing
 
-        // Set up managers
-        canvasManager.canvasWrapper = doodles[currentDoodleIndex]
-        canvasManager.canvas = canvasView
+        // Set up canvasManager via dependency injection
+        canvasManager = DTCanvasGestureManager(canvas: canvasView)
+        canvasManager.strokeWrappers = doodles[currentDoodleIndex].strokes
         canvasManager.delegate = self
     }
 
@@ -91,7 +91,9 @@ class CanvasViewController: UIViewController {
 
 }
 
-extension CanvasViewController: CanvasController {
+// MARK: - CanvasController
+
+extension DTCanvasViewController: CanvasController {
 
     /// Dispatches an action from peers to the current drawing.
     func dispatchAction(_ action: DTAdaptedAction) {
@@ -169,6 +171,10 @@ extension CanvasViewController: CanvasController {
         doodles
     }
 
+    func getCurrentDoodle() -> DTDoodleWrapper {
+        doodles[currentDoodleIndex]
+    }
+
     func undo() {
         guard let action = actionManager.undo() else {
             return
@@ -205,7 +211,9 @@ extension CanvasViewController: CanvasController {
 
 }
 
-extension CanvasViewController: CanvasManagerDelegate {
+// MARK: - CanvasGestureManagerDelegate
+
+extension DTCanvasViewController: CanvasGestureManagerDelegate {
 
     func canvasZoomScaleDidChange(scale: CGFloat) {
         delegate?.canvasZoomScaleDidChange(scale: scale)
@@ -220,7 +228,7 @@ extension CanvasViewController: CanvasManagerDelegate {
             return
         }
 
-        guard let translatedAction = actionManager.translateAction(action, on: doodles[currentDoodleIndex]) else {
+        guard let translatedAction = actionManager.transformAction(action, on: doodles[currentDoodleIndex]) else {
             // Whatever changes that were made are no longer relevant
             // E.g. while the user is deleting a stroke, it was deleted by someone else
             currentDoodle = doodles[currentDoodleIndex]
