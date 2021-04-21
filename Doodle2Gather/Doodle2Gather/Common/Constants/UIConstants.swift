@@ -27,4 +27,11 @@ enum UIConstants {
     static let largeOffset: CGFloat = 12
 
     static let userIconColorCount = 3
+
+    static func previewRect(_ frame: CGRect) -> CGRect {
+        CGRect(x: frame.minX - frame.width * 0.05,
+               y: frame.minY - frame.height * 0.05,
+               width: frame.width * 1.1,
+               height: frame.height * 1.1)
+    }
 }

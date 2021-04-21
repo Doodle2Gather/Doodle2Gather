@@ -240,12 +240,16 @@ extension DoodleViewController {
 
     @IBAction private func exportButtonDidTap(_ sender: UIButton) {
         // TODO: Export to image for now
-        print("Wtf")
-        guard let currentDoodles = doodles else {
+        guard let currentDoodle = canvasController?.getCurrentDoodle() else {
+            alert(title: "Notice",
+                  message: "Unable to export at the moment. Please try again later.",
+                  buttonStyle: .default)
             return
         }
-        print("Yolo")
-        guard let imageToExport = DoodlePreview(doodle: currentDoodles[0].drawing)?.image else {
+        guard let imageToExport = DoodlePreview(doodle: currentDoodle.drawing)?.image else {
+            alert(title: "Notice",
+                  message: "Unable to export at the moment. Please try again later.",
+                  buttonStyle: .default)
             return
         }
         print("Yolo 2")
@@ -294,16 +298,14 @@ extension DoodleViewController {
                 didFinishSavingWithError error: Error?,
                 contextInfo: UnsafeRawPointer) {
         if let error = error {
-            // we got back an error!
-            let ac = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "OK", style: .default))
-            present(ac, animated: true)
+            DTLogger.error(error.localizedDescription)
+            alert(title: "Error",
+                  message: "Unable to save the image to the device. Please try again later.",
+                  buttonStyle: .default)
         } else {
-            let ac = UIAlertController(title: "Saved!",
-                                       message: "Your altered image has been saved to your photos.",
-                                       preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "OK", style: .default))
-            present(ac, animated: true)
+            alert(title: "Saved!",
+                  message: "Your doodle has been saved to your photos successfully!",
+                  buttonStyle: .default)
         }
     }
 
