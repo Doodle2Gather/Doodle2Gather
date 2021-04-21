@@ -2,30 +2,29 @@ import UIKit
 import PencilKit
 import DTSharedLibrary
 
-/// Helper image class that uses PencilKit for preview rendering.
-class DoodlePreview: UIImageView {
+/// Helper struct class that uses PencilKit for preview rendering.
+struct DoodlePreview {
 
-    init?<D: DTDoodle>(doodle: D) {
+    let image: UIImage
+
+    init<D: DTDoodle>(of doodle: D) {
         let drawing = PKDrawing(from: doodle)
         guard let strokesFrame = drawing.strokesFrame else {
-            return nil
+            image = #imageLiteral(resourceName: "white")
+            return
         }
         let previewRect = UIConstants.previewRect(strokesFrame)
-        super.init(image: drawing.image(from: previewRect, scale: 1))
+        image = drawing.image(from: previewRect, scale: 1)
     }
 
-    init?(doodle: DTAdaptedDoodle) {
+    init(of doodle: DTAdaptedDoodle) {
         let drawing = PKDrawing(from: doodle)
         guard let strokesFrame = drawing.strokesFrame else {
-            return nil
+            image = #imageLiteral(resourceName: "white")
+            return
         }
         let previewRect = UIConstants.previewRect(strokesFrame)
-        super.init(image: drawing.image(from: previewRect, scale: 1))
-    }
-
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        image = drawing.image(from: previewRect, scale: 1)
     }
 
 }

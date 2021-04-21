@@ -245,14 +245,8 @@ extension DoodleViewController {
                   buttonStyle: .default)
             return
         }
-        guard let imageToExport = DoodlePreview(doodle: currentDoodle.drawing)?.image else {
-            alert(title: "Notice",
-                  message: "Unable to export at the moment. Please try again later.",
-                  buttonStyle: .default)
-            return
-        }
-        UIImageWriteToSavedPhotosAlbum(imageToExport,
-                                       self,
+        let imageToExport = DoodlePreview(of: currentDoodle.drawing).image
+        UIImageWriteToSavedPhotosAlbum(imageToExport, self,
                                        #selector(export(_:didFinishSavingWithError:contextInfo:)), nil)
     }
 
