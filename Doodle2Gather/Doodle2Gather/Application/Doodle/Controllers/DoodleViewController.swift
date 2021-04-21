@@ -132,9 +132,6 @@ class DoodleViewController: UIViewController {
             }
             destination.roomId = roomId
             destination.roomWSController = self.roomWSController
-            for user in userAccesses {
-                destination.userIdToNameMapping[user.userId] = user.displayName
-            }
         default:
             return
         }

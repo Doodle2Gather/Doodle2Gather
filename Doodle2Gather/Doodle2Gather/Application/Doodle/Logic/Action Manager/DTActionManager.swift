@@ -9,27 +9,33 @@ struct DTActionManager: ActionManager {
     func transformAction(_ action: DTActionProtocol, on doodle: DTDoodleWrapper) -> DTActionProtocol? {
         switch action.type {
         case .add:
+            // There may have been strokes added while this newly added stroke was being
+            // added. As such, we will shift the newly added stroke to the top of all
+            // strokes in doodle.
             let length = doodle.strokes.count
             let stroke = DTEntityIndexPair(action.entities[0].entity, length, type: .stroke,
                                            entityId: action.entities[0].entityId, isDeleted: false)
             return DTPartialAdaptedAction(type: .add, doodleId: action.doodleId, strokes: [stroke],
                                           createdBy: action.createdBy)
-        case .remove:
-            var removedStrokes = [DTEntityIndexPair]()
+        case .remove, .unremove:
+            var editedStrokes = [DTEntityIndexPair]()
+            let isDeleted = action.type == .remove
 
             for stroke in action.entities {
-                if stroke.index >= doodle.strokes.count || doodle.strokes[stroke.index].strokeId != stroke.entityId
-                    || doodle.strokes[stroke.index].isDeleted {
+                if stroke.index >= doodle.strokes.count
+                    || doodle.strokes[stroke.index].strokeId != stroke.entityId
+                    || doodle.strokes[stroke.index].isDeleted == isDeleted {
                     continue
                 }
-                removedStrokes.append(stroke)
+                editedStrokes.append(stroke)
             }
 
-            if removedStrokes.isEmpty {
+            // All strokes that we intend to remove have been removed already.
+            if editedStrokes.isEmpty {
                 return nil
             }
 
-            return DTPartialAdaptedAction(type: .remove, doodleId: action.doodleId, strokes: removedStrokes,
+            return DTPartialAdaptedAction(type: .remove, doodleId: action.doodleId, strokes: editedStrokes,
                                           createdBy: action.createdBy)
         case .modify:
             let oldStroke = action.entities[0]
@@ -37,6 +43,7 @@ struct DTActionManager: ActionManager {
                 || doodle.strokes[oldStroke.index].strokeId != oldStroke.entityId {
                 return nil
             }
+            // No change required if the stroke we intend to modify still exists as it is.
             return action
         default:
             return nil

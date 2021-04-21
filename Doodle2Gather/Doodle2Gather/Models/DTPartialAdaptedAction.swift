@@ -8,6 +8,7 @@ struct DTPartialAdaptedAction {
     let doodleId: UUID
     let createdBy: String
 
+    /// Initializes a partial action using `DTEntityIndexPair`s directly.
     init(type: DTActionType, doodleId: UUID, strokes: [DTEntityIndexPair], createdBy: String) {
         self.type = type
         self.doodleId = doodleId
@@ -15,6 +16,7 @@ struct DTPartialAdaptedAction {
         self.createdBy = createdBy
     }
 
+    /// Initializes a partial action using tuples of `DTStrokeWrapper` and their indices.
     init?(type: DTActionType, doodleId: UUID, strokes: [(DTStrokeWrapper, Int)], createdBy: String) {
         self.type = type
         self.doodleId = doodleId
@@ -41,7 +43,7 @@ struct DTPartialAdaptedAction {
 
 extension DTPartialAdaptedAction: DTActionProtocol {
 
-    func inverse() -> DTPartialAdaptedAction {
+    func invert() -> DTPartialAdaptedAction {
         var newType: DTActionType = .add
         var newStrokes = entities
 

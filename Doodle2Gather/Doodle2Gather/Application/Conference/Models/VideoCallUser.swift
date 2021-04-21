@@ -1,14 +1,11 @@
-import UIKit
-
+/// A class to store the pair of uid and userId information required by the AgoraRtcEngine.
 class VideoCallUser {
     var uid: UInt
     var userId: String
-    var overlay: UIView
 
-    init(uid: UInt, userId: String, overlay: UIView) {
+    init(uid: UInt, userId: String) {
         self.uid = uid
         self.userId = userId
-        self.overlay = overlay
     }
 }
 

@@ -1,9 +1,10 @@
 import PencilKit
 import DTSharedLibrary
 
+// MARK: - Action Creation
+
 extension DTActionManager {
 
-    /// Creates an action from two given doodles.
     func createAction(oldDoodle: DTDoodleWrapper, newDoodle: PKDrawing, actionType: DTActionType) -> DTActionProtocol? {
         guard let userId = DTAuth.user?.uid else {
             fatalError("You're not authenticated!")
@@ -32,7 +33,11 @@ extension DTActionManager {
 
         return action
     }
-
+    
+    /// Creates a new action that adds a stroke to the state of `oldDoodle`.
+    ///
+    /// - Returns: `nil` if an unexpected number of strokes has been added, or if
+    ///   no strokes exist at all.
     private func createAddAction(newStrokes: [PKStroke], oldDoodle: DTDoodleWrapper,
                                  userId: String) -> DTPartialAdaptedAction? {
         let oldStrokes = oldDoodle.drawing.dtStrokes
@@ -46,6 +51,9 @@ extension DTActionManager {
                                       createdBy: userId)
     }
 
+    /// Creates a new action that removes a stroke from the state of `oldDoodle`.
+    ///
+    /// - Returns: `nil` if no strokes have been removed.
     private func createRemoveAction(newStrokes: [PKStroke], oldDoodle: DTDoodleWrapper,
                                     userId: String) -> DTPartialAdaptedAction? {
         let oldStrokes = oldDoodle.drawing.dtStrokes
@@ -76,6 +84,12 @@ extension DTActionManager {
                                       strokes: removedStrokes, createdBy: userId)
     }
 
+    /// Creates a new action that modifies a stroke in the state of `oldDoodle`.
+    ///
+    /// - Note: If multiple strokes have been modified, only the first modified stroke
+    ///   will be handled.
+    ///
+    /// - Returns: `nil` if no strokes have been modified.
     private func createModifyAction(newStrokes: [PKStroke], oldDoodle: DTDoodleWrapper,
                                     userId: String) -> DTPartialAdaptedAction? {
         let oldStrokes = oldDoodle.drawing.dtStrokes
