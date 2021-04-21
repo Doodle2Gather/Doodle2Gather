@@ -1,3 +1,4 @@
+import CoreGraphics
 import DTSharedLibrary
 
 /// Represents a doodle that contains strokes and can be rendered.
@@ -6,7 +7,12 @@ import DTSharedLibrary
 /// and can replace `PKDrawing` in the current implementation.
 public protocol DTDoodle: Hashable {
     associatedtype Stroke: DTStroke
+
+    /// Strokes contained within this doodle.
     var dtStrokes: [Stroke] { get set }
+
+    /// Bounding box around all of the strokes.
+    var strokesFrame: CGRect? { get }
 
     /// Instantiates self using a generalised `DTDoodle`.
     init<D: DTDoodle>(from doodle: D)
@@ -25,6 +31,7 @@ public protocol DTDoodle: Hashable {
 
     /// Adds the given stroke to the current array of strokes.
     mutating func addStroke<S: DTStroke>(_: S)
+
 }
 
 // MARK: - Equatable

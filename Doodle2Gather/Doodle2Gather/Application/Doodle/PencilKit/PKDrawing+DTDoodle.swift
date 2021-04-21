@@ -17,7 +17,7 @@ extension PKDrawing: DTDoodle {
     }
 
     public init(from doodle: DTAdaptedDoodle) {
-        self.init(strokes: doodle.strokes.compactMap { PKStroke(from: $0) })
+        self.init(strokes: doodle.strokes.filter({ !$0.isDeleted }).compactMap { PKStroke(from: $0) })
     }
 
     public mutating func removeStrokes<S>(_ removedStrokes: [S]) where S: DTStroke {
@@ -45,6 +45,38 @@ extension PKDrawing: DTDoodle {
 
     public mutating func addStroke<S>(_ addedStroke: S) where S: DTStroke {
         dtStrokes.append(PKStroke(from: addedStroke))
+    }
+
+}
+
+// MARK: - Strokes Frame
+
+/// Adapted from:
+/// https://github.com/simonbs/InfiniteCanvas/blob/main/InfiniteCanvas/Source/Canvas/PKDrawing%2BHelpers.swift
+extension PKDrawing {
+
+    public var strokesFrame: CGRect? {
+        guard !strokes.isEmpty else {
+            return nil
+        }
+        var minPoint = CGPoint(x: CGFloat.greatestFiniteMagnitude, y: CGFloat.greatestFiniteMagnitude)
+        var maxPoint = CGPoint(x: 0, y: 0)
+        for stroke in strokes {
+            let renderBounds = stroke.renderBounds
+            if renderBounds.minX < minPoint.x {
+                minPoint.x = floor(renderBounds.minX)
+            }
+            if renderBounds.minY < minPoint.y {
+                minPoint.y = floor(renderBounds.minY)
+            }
+            if renderBounds.maxX > maxPoint.x {
+                maxPoint.x = ceil(renderBounds.maxX)
+            }
+            if renderBounds.maxY > maxPoint.y {
+                maxPoint.y = ceil(renderBounds.maxY)
+            }
+        }
+        return CGRect(x: minPoint.x, y: minPoint.y, width: maxPoint.x - minPoint.x, height: maxPoint.y - minPoint.y)
     }
 
 }

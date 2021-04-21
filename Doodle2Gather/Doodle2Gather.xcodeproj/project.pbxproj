@@ -23,7 +23,6 @@
 		2E2512D1262FCFD40094D022 /* ActionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2512D0262FCFD40094D022 /* ActionManager.swift */; };
 		2E2B16D926197BFF0014DD4A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EF8E92B25F754C700C7EE7D /* Assets.xcassets */; };
 		2E46CB95262E56A10003A46A /* WidthAdjustor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E46CB94262E56A10003A46A /* WidthAdjustor.swift */; };
-		2E4A0B422616FDFF003257D4 /* PKDrawing+StrokesFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4A0B412616FDFF003257D4 /* PKDrawing+StrokesFrame.swift */; };
 		2E4A8F98262EE4D600E398F0 /* CGPoint+Distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4A8F97262EE4D600E398F0 /* CGPoint+Distance.swift */; };
 		2E4A8FA0262F048C00E398F0 /* UIColor+Lightness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4A8F9F262F048C00E398F0 /* UIColor+Lightness.swift */; };
 		2E4A8FA6262F223A00E398F0 /* InitialPanGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4A8FA5262F223A00E398F0 /* InitialPanGestureRecognizer.swift */; };
@@ -192,7 +191,6 @@
 		2E2512D0262FCFD40094D022 /* ActionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionManager.swift; sourceTree = "<group>"; };
 		2E3F8FAD2607380100C58F33 /* Pods_Doodle2Gather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Doodle2Gather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E46CB94262E56A10003A46A /* WidthAdjustor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidthAdjustor.swift; sourceTree = "<group>"; };
-		2E4A0B412616FDFF003257D4 /* PKDrawing+StrokesFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PKDrawing+StrokesFrame.swift"; sourceTree = "<group>"; };
 		2E4A8F97262EE4D600E398F0 /* CGPoint+Distance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Distance.swift"; sourceTree = "<group>"; };
 		2E4A8F9F262F048C00E398F0 /* UIColor+Lightness.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Lightness.swift"; sourceTree = "<group>"; };
 		2E4A8FA5262F223A00E398F0 /* InitialPanGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialPanGestureRecognizer.swift; sourceTree = "<group>"; };
@@ -486,7 +484,6 @@
 			isa = PBXGroup;
 			children = (
 				2EA8C334260677C800BE750C /* PKDrawing+DTDoodle.swift */,
-				2E4A0B412616FDFF003257D4 /* PKDrawing+StrokesFrame.swift */,
 				2EA8C34126067F0000BE750C /* PKStroke+DTStroke.swift */,
 				2E987E6D2607468000352E7D /* PKStrokePoint+DTPoint.swift */,
 				2E4A8FA9262F240A00E398F0 /* PKStroke+PointsFrame.swift */,
@@ -1414,7 +1411,6 @@
 				83D2EC3E2609283A004F875D /* ApiEndpoints.swift in Sources */,
 				2EB12903261B8BED00131FE6 /* BestFitShapeDetector.swift in Sources */,
 				2ED7A3CC2601C0450006D873 /* DoodleViewController.swift in Sources */,
-				2E4A0B422616FDFF003257D4 /* PKDrawing+StrokesFrame.swift in Sources */,
 				2EB929D9260778F600AAB396 /* SubviewTouchView.swift in Sources */,
 				2E4A8FAA262F240A00E398F0 /* PKStroke+PointsFrame.swift in Sources */,
 				8415BCA0262C05A000E6CF1B /* ActionSheetAlertController.swift in Sources */,
