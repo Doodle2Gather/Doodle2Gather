@@ -1,6 +1,7 @@
 import PencilKit
 import DTSharedLibrary
 
+/// Adapts `PKStroke` to work with implementations used in Doodle2Gather.
 extension PKStroke: DTStroke {
 
     public var points: [PKStrokePoint] {

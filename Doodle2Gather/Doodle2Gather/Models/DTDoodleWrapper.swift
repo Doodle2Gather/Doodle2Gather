@@ -1,20 +1,26 @@
 import PencilKit
 import DTSharedLibrary
 
-/// A wrapper that wraps around PencilKit and supports additional logic and data
-/// for the pencil kit drawings.
+/// A wrapper for doodles that wraps around PencilKit and supports additional
+/// logic and data for the pencil kit drawings.
+///
+/// The PencilKit model can be replaced by any doodle model that adopts
+/// the `DTDoodle` protocol.
 struct DTDoodleWrapper {
 
+    /// The ID that identifies this doodle for differentiation purposes.
     var doodleId: UUID
+
+    /// The date at which this doodle was created.
     var createdAt: Date
-    // Model
+
+    // Nested models
     var strokes: [DTStrokeWrapper] {
         didSet {
             drawing = PKDrawing(strokes: self.strokes.filter({ !$0.isDeleted })
                                     .compactMap { $0.stroke })
         }
     }
-    // View
     var drawing: PKDrawing
 
     init() {
