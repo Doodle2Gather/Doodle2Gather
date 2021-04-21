@@ -7,7 +7,7 @@ enum ApiEndpoints {
     static let WS = "wss://d2g.christopher.sg"
 
     // for testing only
-    static let localRoom = { (roomId: String, userId: String) in "ws://172.25.97.149:8080/rooms/\(roomId)/\(userId)" }
-    static let localApi = "http://172.25.97.149:8080/api/"
-    static let localWS = "ws://172.25.97.149:8080"
+    static let localRoom = { (roomId: String, userId: String) in "ws://localhost:8080/rooms/\(roomId)/\(userId)" }
+    static let localApi = "http://localhost:8080/api/"
+    static let localWS = "ws://localhost:8080"
 }

@@ -2,6 +2,7 @@ import UIKit
 
 class HomeViewController: UIViewController {
 
+    // IBOutlets
     @IBOutlet private var emailTextField: UITextField!
     @IBOutlet private var passwordTextField: UITextField!
     @IBOutlet private var displayNameTextField: UITextField!
@@ -15,8 +16,13 @@ class HomeViewController: UIViewController {
     @IBOutlet private var passwordContainer: UIView!
     @IBOutlet private var displayNameContainer: UIView!
 
+    // WebSockets
     var appWSController: DTWebSocketController?
     let authWSController = DTAuthWebSocketController()
+
+    // States
+    private var loggedIn = false
+    private var loadingSpinner: UIAlertController?
 
     private enum Segment: Int {
         case login
@@ -33,26 +39,6 @@ class HomeViewController: UIViewController {
     let registerSuccessMessage = "Successfully created an account! Please log in!"
 
     private let credentialsProvider = UserDefaultsCredentialsProvider()
-
-    private func updateFormViews() {
-        let segment = Segment(rawValue: formActionSegmentedControl.selectedSegmentIndex)
-        switch segment {
-        case .login:
-            displayNameContainer.isHidden = true
-            submitButton.setTitle(loginButtonText, for: .normal)
-            heightConstraint.constant = 420
-        case .register:
-            displayNameContainer.isHidden = false
-            submitButton.setTitle(registerButtonText, for: .normal)
-            heightConstraint.constant = 500
-        default:
-            fatalError("Invalid segment")
-        }
-    }
-
-    @IBAction private func onFormActionChanged(_ sender: UISegmentedControl) {
-        updateFormViews()
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -119,14 +105,17 @@ class HomeViewController: UIViewController {
         view.endEditing(true)
     }
 
-    @IBAction private func onSubmitButtonTapped(_ sender: UIButton) {
-        dismissKeyboard()
+    private func updateFormViews() {
         let segment = Segment(rawValue: formActionSegmentedControl.selectedSegmentIndex)
         switch segment {
         case .login:
-            attemptLogin()
+            displayNameContainer.isHidden = true
+            submitButton.setTitle(loginButtonText, for: .normal)
+            heightConstraint.constant = 420
         case .register:
-            attemptRegister()
+            displayNameContainer.isHidden = false
+            submitButton.setTitle(registerButtonText, for: .normal)
+            heightConstraint.constant = 500
         default:
             fatalError("Invalid segment")
         }
@@ -148,6 +137,9 @@ class HomeViewController: UIViewController {
     }
 
     private func attemptLogin() {
+        if !loggedIn {
+            loadingSpinner = createSpinnerView(message: "Logging In...")
+        }
         DTAuth.login(email: emailTextField.text!, password: passwordTextField.text!)
     }
 
@@ -157,6 +149,23 @@ class HomeViewController: UIViewController {
             fatalError("Unable to pass data to Gallery VC in segue")
         }
         galleryVC.appWSController = self.appWSController
+    }
+
+    @IBAction private func onFormActionChanged(_ sender: UISegmentedControl) {
+        updateFormViews()
+    }
+
+    @IBAction private func onSubmitButtonTapped(_ sender: UIButton) {
+        dismissKeyboard()
+        let segment = Segment(rawValue: formActionSegmentedControl.selectedSegmentIndex)
+        switch segment {
+        case .login:
+            attemptLogin()
+        case .register:
+            attemptRegister()
+        default:
+            fatalError("Invalid segment")
+        }
     }
 }
 
@@ -201,6 +210,12 @@ User Logged in
 
         authWSController.sendLoginMessage(userId: uid, displayName: displayName, email: email, successCallback: {
             DTLogger.info { "Login to backend is successful" }
+            self.loggedIn = true
+            if let spinner = self.loadingSpinner {
+                DispatchQueue.main.async {
+                    self.removeSpinnerView(spinner)
+                }
+            }
             DispatchQueue.main.async {
                 self.performSegue(withIdentifier: SegueConstants.toGallery, sender: self)
             }

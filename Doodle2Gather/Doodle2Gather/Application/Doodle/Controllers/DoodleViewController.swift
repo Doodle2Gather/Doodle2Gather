@@ -39,6 +39,7 @@ class DoodleViewController: UIViewController {
     // State
     var room: DTAdaptedRoom?
     var doodles: [DTDoodleWrapper]?
+    var didFetchDoodles = false
     var userAccesses: [DTAdaptedUserAccesses] = []
     var userStates: [UserState] = []
     var userIconColors: [UIColor] = []
@@ -59,6 +60,14 @@ class DoodleViewController: UIViewController {
 
         registerGestures()
         initialiseProfileIcons()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        if !didFetchDoodles {
+            loadingSpinner = createSpinnerView(message: "Fetching Doodles...")
+        }
     }
 
     deinit {
