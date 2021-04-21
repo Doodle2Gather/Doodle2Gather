@@ -2,7 +2,7 @@ import PencilKit
 
 /// Sets up the canvas and responds to various gestures performed to it.
 /// Also helps with the set-up of additional advanced gestures.
-class CanvasManager: NSObject {
+class DTCanvasGestureManager: NSObject, CanvasGestureManager {
 
     var canEdit = true {
         didSet {
@@ -14,14 +14,15 @@ class CanvasManager: NSObject {
         }
     }
 
+    /// The view that the gesture manager is managing.
     var canvas = PKCanvasView() {
         didSet {
             initialiseDefaultProperties()
         }
     }
-    var canvasWrapper = DTDoodleWrapper()
+    var strokeWrappers = [DTStrokeWrapper]()
 
-    /// Tracks the tools being used
+    // Tracks the tools being used
     var currentMainTool = MainTools.drawing
     var currentDrawingTool = DrawingTools.pen
     var currentShapeTool = ShapeTools.circle
@@ -34,12 +35,13 @@ class CanvasManager: NSObject {
     var currentSelectedIndex = -1
     var selectPanGestureRecognizer = InitialPanGestureRecognizer()
     var didStartCorrectly = false
+    var textTapGestureRecognizer = UITapGestureRecognizer()
 
     /// Contains augmentors that will be used to augment the strokes.
     var augmentors = [String: StrokeAugmentor]()
-    var isAugmenting = false
+    var isSelfUpdate = false
 
-    weak var delegate: CanvasManagerDelegate?
+    weak var delegate: CanvasGestureManagerDelegate?
 
     /// Constants used in CanvasManager specifically.
     enum Constants {
@@ -48,14 +50,14 @@ class CanvasManager: NSObject {
         static let pressureKey = "shapePressure"
     }
 
-    /// Creates a canvas manager.
+    /// Creates a canvas manager with a default blank canvas view.
     override init() {
         super.init()
         initialiseDefaultProperties()
         createGestureRecognizers()
     }
 
-    /// Creates a canvas manager.
+    /// Creates a canvas manager with a given canvas view.
     init(canvas: PKCanvasView) {
         super.init()
         self.canvas = canvas
@@ -65,12 +67,13 @@ class CanvasManager: NSObject {
 
     /// Initialises this canvas view with the default properties.
     ///
-    /// Key things done are:
-    /// - Set zoom limitations
-    /// - Hide scroll indicators
-    /// - Disable auto constraints
-    /// - Allow any input i.e. finger to be drawing input.
-    func initialiseDefaultProperties() {
+    /// - Note: Key things performed are:
+    ///   - Set zoom limitations.
+    ///   - Hide scroll indicators.
+    ///   - Disable auto constraints.
+    ///   - Allow any input i.e. finger to be drawing input.
+    ///   - Sets self as canvas delegate.
+    private func initialiseDefaultProperties() {
         canvas.translatesAutoresizingMaskIntoConstraints = false
         canvas.minimumZoomScale = UIConstants.minZoom
         canvas.maximumZoomScale = UIConstants.maxZoom
@@ -84,27 +87,34 @@ class CanvasManager: NSObject {
         setWidth(CGFloat(UIConstants.defaultPenWidth))
     }
 
-    func createGestureRecognizers() {
+    /// Creates and sets up the gesture recognizers for subsequent use.
+    /// This is to reduce time and space used to recreate the recognizers
+    /// every time when needed.
+    private func createGestureRecognizers() {
         shapeTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleShapeTap(_:)))
         selectTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleSelectTap(_:)))
         selectPanGestureRecognizer = InitialPanGestureRecognizer(target: self, action: #selector(handleSelectPan(_:)))
+        textTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTextTap(_:)))
     }
 
 }
 
 // MARK: - Gesture Management
 
-extension CanvasManager: PKCanvasViewDelegate {
+extension DTCanvasGestureManager: PKCanvasViewDelegate {
 
+    /// Tells the delegate that the contents of the current drawing changed.
+    ///
+    /// This method is called by `canvas` when a change has been detected
+    /// as a result of some gesture.
+    ///
+    ///
     func canvasViewDrawingDidChange(_ canvas: PKCanvasView) {
-        if isAugmenting {
+        if isSelfUpdate {
             return
         }
 
-        var actionType = currentActionType
-        if currentSelectedIndex != -1 {
-            actionType = .modify
-        }
+        let actionType = currentSelectedIndex != -1 ? .modify : currentActionType
 
         if currentMainTool == .drawing && !canvas.drawing.strokes.isEmpty,
            var stroke = canvas.drawing.strokes.last {
@@ -114,12 +124,12 @@ extension CanvasManager: PKCanvasViewDelegate {
                 stroke = augmentor.augmentStroke(stroke)
             }
 
-            isAugmenting = true
+            isSelfUpdate = true
             canvas.drawing.strokes[count - 1] = stroke
-            isAugmenting = false
         }
 
         delegate?.canvasViewDidChange(type: actionType)
+        isSelfUpdate = false
     }
 
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
@@ -146,7 +156,7 @@ extension CanvasManager: PKCanvasViewDelegate {
 
     func activateTextGestureRecognizer() {
         removeAllGestureRecognizers()
-        // TODO: Implement this
+        canvas.addGestureRecognizer(textTapGestureRecognizer)
     }
 
     func activateSelectGestureRecognizer() {
@@ -157,7 +167,9 @@ extension CanvasManager: PKCanvasViewDelegate {
     func removeAllGestureRecognizers() {
         canvas.drawingGestureRecognizer.isEnabled = false
         canvas.removeGestureRecognizer(shapeTapGestureRecognizer)
+        canvas.removeGestureRecognizer(textTapGestureRecognizer)
         canvas.removeGestureRecognizer(selectTapGestureRecognizer)
+        canvas.removeGestureRecognizer(selectPanGestureRecognizer)
         unselectStroke()
     }
 
@@ -182,7 +194,7 @@ extension CanvasManager: PKCanvasViewDelegate {
     func handleSelectTap(_ gesture: UITapGestureRecognizer) {
         let location = translatePoint(gesture.location(in: canvas))
         let strokesReversed: [PKStroke] = canvas.drawing.strokes.reversed()
-        let wrappers = canvasWrapper.strokes.reversed()
+        let wrappers = strokeWrappers.reversed()
         var selectedIndex = -1
         var currentIndex = 0
 
@@ -256,10 +268,34 @@ extension CanvasManager: PKCanvasViewDelegate {
         }
     }
 
+    @objc
+    func handleTextTap(_ gesture: UITapGestureRecognizer) {
+        let location = translatePoint(gesture.location(in: canvas))
+
+        let textBox = UITextField(frame: CGRect(x: location.x, y: location.y, width: 100, height: 50))
+        textBox.text = "Hello world"
+        print(textBox)
+        canvas.addSubview(textBox)
+
+        let leftConstraint = textBox.leadingAnchor.constraint(equalTo: canvas.leadingAnchor)
+        leftConstraint.constant = location.x
+        leftConstraint.isActive = true
+
+        let topConstraint = textBox.topAnchor.constraint(equalTo: canvas.topAnchor)
+        topConstraint.constant = location.y
+        topConstraint.isActive = true
+
+        textBox.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        textBox.widthAnchor.constraint(equalToConstant: 100).isActive = true
+
+        print("added")
+        print(canvas.subviews)
+    }
+
     func selectStroke(index: Int) {
         delegate?.setCanvasIsEditing(true)
         currentSelectedIndex = index
-        isAugmenting = true
+        isSelfUpdate = true
         let originalColor = canvas.drawing.strokes[index].color
         canvas.drawing.strokes[index].setIsSelected(true)
         delegate?.strokeDidSelect(color: originalColor)
@@ -270,7 +306,7 @@ extension CanvasManager: PKCanvasViewDelegate {
         if currentSelectedIndex == -1 {
             return
         }
-        isAugmenting = false
+        isSelfUpdate = false
         delegate?.setCanvasIsEditing(false)
         canvas.drawing.strokes[currentSelectedIndex].setIsSelected(false)
         currentSelectedIndex = -1
