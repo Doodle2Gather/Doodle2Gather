@@ -3,9 +3,11 @@ import DTSharedLibrary
 
 class GalleryViewController: UIViewController {
 
+    // Storyboard UI Elements
     @IBOutlet private var welcomeLabel: UILabel!
     @IBOutlet private var collectionView: UICollectionView!
 
+    // States
     private var rooms = [DTAdaptedRoom]()
     private var doodles = [DTAdaptedDoodle]()
     private var didFetchRooms = false
@@ -14,6 +16,7 @@ class GalleryViewController: UIViewController {
     private let sectionInsets = UIEdgeInsets(top: 20.0, left: 20.0, bottom: 20.0, right: 20.0)
     private var loadingSpinner: UIAlertController?
 
+    // WebSocket Controllers
     var appWSController: DTWebSocketController?
     let homeWSController = DTHomeWebSocketController()
 
@@ -28,8 +31,6 @@ class GalleryViewController: UIViewController {
         } else {
             welcomeLabel.text = "Welcome"
         }
-        // Do any additional setup after loading the view.
-
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -44,6 +45,7 @@ class GalleryViewController: UIViewController {
         self.appWSController?.removeSubcontroller(self.homeWSController)
     }
 
+    /// Prepares for segues that have nested subview/container view as destination.
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == SegueConstants.toNewDocument {
             guard let nav = segue.destination as? UINavigationController else {
@@ -129,6 +131,7 @@ extension GalleryViewController: UICollectionViewDataSource {
 
 extension GalleryViewController: UICollectionViewDelegateFlowLayout {
 
+    /// Computes the optimal layout from the offered frame.
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -162,6 +165,8 @@ extension GalleryViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - DTHomeWebSocketControllerDelegate
 
 extension GalleryViewController: DTHomeWebSocketControllerDelegate {
+    
+    /// Updates the collection view when a message is received from the WebSocket Controller.
     func didGetAccessibleRooms(newRooms: [DTAdaptedRoom]) {
         DTLogger.info { "Received rooms: \(newRooms.map { $0.name })" }
         self.rooms = newRooms
@@ -178,6 +183,8 @@ extension GalleryViewController: DTHomeWebSocketControllerDelegate {
 // MARK: - GalleryDelegate
 
 extension GalleryViewController: GalleryDelegate {
+    
+    /// Calls the WebSocket Controller to refetch rooms when user exits one room.
     func didExitRoom() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.homeWSController.getAccessibleRooms()
