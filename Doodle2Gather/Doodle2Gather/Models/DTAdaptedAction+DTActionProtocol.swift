@@ -10,7 +10,7 @@ extension DTAdaptedAction: DTActionProtocol {
                   doodleId: action.doodleId, createdBy: action.createdBy)
     }
 
-    func inverse() -> DTAdaptedAction {
+    func invert() -> DTAdaptedAction {
         var newType: DTActionType = .add
         var newStrokes = entities
 

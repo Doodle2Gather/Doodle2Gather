@@ -26,7 +26,6 @@
 		2E4A8F98262EE4D600E398F0 /* CGPoint+Distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4A8F97262EE4D600E398F0 /* CGPoint+Distance.swift */; };
 		2E4A8FA0262F048C00E398F0 /* UIColor+Lightness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4A8F9F262F048C00E398F0 /* UIColor+Lightness.swift */; };
 		2E4A8FA6262F223A00E398F0 /* InitialPanGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4A8FA5262F223A00E398F0 /* InitialPanGestureRecognizer.swift */; };
-		2E4A8FAA262F240A00E398F0 /* PKStroke+PointsFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4A8FA9262F240A00E398F0 /* PKStroke+PointsFrame.swift */; };
 		2E6830CF262C1E1100A16F5D /* DTActionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6830CE262C1E1100A16F5D /* DTActionManager.swift */; };
 		2E6830D3262C1EBE00A16F5D /* DTCanvasGestureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6830D2262C1EBE00A16F5D /* DTCanvasGestureManager.swift */; };
 		2E6830DD262C229F00A16F5D /* DTCanvasGestureManager+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6830DC262C229F00A16F5D /* DTCanvasGestureManager+Tools.swift */; };
@@ -194,7 +193,6 @@
 		2E4A8F97262EE4D600E398F0 /* CGPoint+Distance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Distance.swift"; sourceTree = "<group>"; };
 		2E4A8F9F262F048C00E398F0 /* UIColor+Lightness.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Lightness.swift"; sourceTree = "<group>"; };
 		2E4A8FA5262F223A00E398F0 /* InitialPanGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialPanGestureRecognizer.swift; sourceTree = "<group>"; };
-		2E4A8FA9262F240A00E398F0 /* PKStroke+PointsFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PKStroke+PointsFrame.swift"; sourceTree = "<group>"; };
 		2E6830CE262C1E1100A16F5D /* DTActionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTActionManager.swift; sourceTree = "<group>"; };
 		2E6830D2262C1EBE00A16F5D /* DTCanvasGestureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTCanvasGestureManager.swift; sourceTree = "<group>"; };
 		2E6830DC262C229F00A16F5D /* DTCanvasGestureManager+Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DTCanvasGestureManager+Tools.swift"; sourceTree = "<group>"; };
@@ -486,7 +484,6 @@
 				2EA8C334260677C800BE750C /* PKDrawing+DTDoodle.swift */,
 				2EA8C34126067F0000BE750C /* PKStroke+DTStroke.swift */,
 				2E987E6D2607468000352E7D /* PKStrokePoint+DTPoint.swift */,
-				2E4A8FA9262F240A00E398F0 /* PKStroke+PointsFrame.swift */,
 			);
 			path = PencilKit;
 			sourceTree = "<group>";
@@ -1412,7 +1409,6 @@
 				2EB12903261B8BED00131FE6 /* BestFitShapeDetector.swift in Sources */,
 				2ED7A3CC2601C0450006D873 /* DoodleViewController.swift in Sources */,
 				2EB929D9260778F600AAB396 /* SubviewTouchView.swift in Sources */,
-				2E4A8FAA262F240A00E398F0 /* PKStroke+PointsFrame.swift in Sources */,
 				8415BCA0262C05A000E6CF1B /* ActionSheetAlertController.swift in Sources */,
 				2EB12A41261BE3F400131FE6 /* DTCodableColor.swift in Sources */,
 				84D6059A262EF1D400A120ED /* VideoCallUser.swift in Sources */,

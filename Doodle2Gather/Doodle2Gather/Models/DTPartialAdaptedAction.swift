@@ -41,7 +41,7 @@ struct DTPartialAdaptedAction {
 
 extension DTPartialAdaptedAction: DTActionProtocol {
 
-    func inverse() -> DTPartialAdaptedAction {
+    func invert() -> DTPartialAdaptedAction {
         var newType: DTActionType = .add
         var newStrokes = entities
 
