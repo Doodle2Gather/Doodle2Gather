@@ -21,7 +21,7 @@ class ConferenceViewController: UIViewController {
     // Engines
     var videoEngine: VideoEngine?
     var chatEngine: ChatEngine?
-    
+
     // Delegate
     var chatBox: ChatBoxDelegate?
 
@@ -34,15 +34,13 @@ class ConferenceViewController: UIViewController {
     var videoCallUserList: [VideoCallUser] = []
     var participants: [DTAdaptedUserConferenceState] = []
     lazy var chatList = [Message]()
-    
-    // SocketController
-    var roomWSController: DTRoomWebSocketController?
-
-    private var timer = Timer()
     private var currentUser: VideoCallUser?
     private var currentUserOverlay: UIView?
     private var appearance = BadgeAppearance(animate: true)
     private var unreadMessageCount = 0
+
+    // SocketController
+    var roomWSController: DTRoomWebSocketController?
 
     enum VideoLabels {
         static let collapsed = "Minimized"
@@ -53,15 +51,15 @@ class ConferenceViewController: UIViewController {
         super.viewDidLoad()
         initializeEngines()
         updateViews()
-  
+
         roomWSController?.conferenceDelegate = self
-        
+
         // Updates the conferencing state after 2 seconds due to possible networking issues.
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             self.roomWSController?.updateConferencingState(isVideoOn: !self.isVideoOff, isAudioOn: !self.isMuted)
         }
     }
-    
+
     private func initializeEngines() {
         videoEngine = AgoraVideoEngine()
         videoEngine?.delegate = self
@@ -74,12 +72,11 @@ class ConferenceViewController: UIViewController {
         chatEngine?.joinChannel(channelName: roomId ?? "testing")
         chatEngine?.delegate = self
     }
-    
+
     private func updateViews() {
         appearance.distanceFromCenterX = UIConstants.largeOffset
         appearance.distanceFromCenterY = -UIConstants.largeOffset
 
-    
         videoButton.isHidden = true
         audioButton.isHidden = true
         collectionView.isHidden = true

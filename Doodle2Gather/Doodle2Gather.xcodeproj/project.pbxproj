@@ -105,6 +105,7 @@
 		8415BC99262BFB1000E6CF1B /* UserViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415BC98262BFB1000E6CF1B /* UserViewCell.swift */; };
 		8415BCA0262C05A000E6CF1B /* ActionSheetAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415BC9F262C05A000E6CF1B /* ActionSheetAlertController.swift */; };
 		8434DB3C262FF7C8000AD082 /* GalleryDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8434DB3B262FF7C8000AD082 /* GalleryDelegate.swift */; };
+		8434DB47263003F0000AD082 /* InvitationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8434DB46263003F0000AD082 /* InvitationDelegate.swift */; };
 		8464E77D262586B4002B5BEE /* InvitationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8464E77C262586B4002B5BEE /* InvitationViewController.swift */; };
 		8464E7892625878C002B5BEE /* Invitation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8464E7882625878C002B5BEE /* Invitation.storyboard */; };
 		8464E7B52625C51D002B5BEE /* ParticipantsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8464E7B42625C51D002B5BEE /* ParticipantsDelegate.swift */; };
@@ -276,6 +277,7 @@
 		8415BC98262BFB1000E6CF1B /* UserViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewCell.swift; sourceTree = "<group>"; };
 		8415BC9F262C05A000E6CF1B /* ActionSheetAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetAlertController.swift; sourceTree = "<group>"; };
 		8434DB3B262FF7C8000AD082 /* GalleryDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryDelegate.swift; sourceTree = "<group>"; };
+		8434DB46263003F0000AD082 /* InvitationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitationDelegate.swift; sourceTree = "<group>"; };
 		8464E77C262586B4002B5BEE /* InvitationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitationViewController.swift; sourceTree = "<group>"; };
 		8464E7882625878C002B5BEE /* Invitation.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Invitation.storyboard; sourceTree = "<group>"; };
 		8464E7B42625C51D002B5BEE /* ParticipantsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantsDelegate.swift; sourceTree = "<group>"; };
@@ -870,6 +872,14 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		8434DB45263003E4000AD082 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				8434DB46263003F0000AD082 /* InvitationDelegate.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		8460D73B2605A65800F160B1 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -889,6 +899,7 @@
 		8464E77926258680002B5BEE /* Invitation */ = {
 			isa = PBXGroup;
 			children = (
+				8434DB45263003E4000AD082 /* Protocols */,
 				84D6058F262EF0E400A120ED /* Models */,
 				8464E77B26258691002B5BEE /* Controllers */,
 				8464E77A2625868A002B5BEE /* Views */,
@@ -1350,6 +1361,7 @@
 				2EA8C34226067F0000BE750C /* PKStroke+DTStroke.swift in Sources */,
 				8464E7D22626B939002B5BEE /* AudioPlayer.swift in Sources */,
 				84D60591262EF0F400A120ED /* UserPermission.swift in Sources */,
+				8434DB47263003F0000AD082 /* InvitationDelegate.swift in Sources */,
 				2EF0E51D26096B5C0008184D /* SubviewTouchCollectionView.swift in Sources */,
 				2E46CB95262E56A10003A46A /* WidthAdjustor.swift in Sources */,
 				83AB9C56261711B4008E48D0 /* FirebaseAuthProvider.swift in Sources */,
