@@ -17,9 +17,6 @@ final class PersistedDTDoodle: Model, Content {
     @Children(for: \.$doodle)
     var entities: [PersistedDTEntity]
 
-    @Children(for: \.$doodle)
-    var actions: [PersistedDTAction]
-
     init() { }
 
     init(roomId: PersistedDTRoom.IDValue, id: UUID? = nil) {
@@ -38,10 +35,6 @@ final class PersistedDTDoodle: Model, Content {
 
     func getStrokes() -> [PersistedDTEntity] {
         self.entities.filter { $0.type == .stroke }
-    }
-
-    func getActions() -> [PersistedDTAction] {
-        self.actions
     }
 
 }
