@@ -239,7 +239,21 @@ extension DoodleViewController {
     }
 
     @IBAction private func exportButtonDidTap(_ sender: UIButton) {
-        // TODO: Export to image for now
+        guard let currentDoodle = canvasController?.getCurrentDoodle() else {
+            alert(title: "Notice",
+                  message: "Unable to export at the moment. Please try again later.",
+                  buttonStyle: .default)
+            return
+        }
+        guard let imageToExport = DoodlePreview(doodle: currentDoodle.drawing)?.image else {
+            alert(title: "Notice",
+                  message: "Unable to export at the moment. Please try again later.",
+                  buttonStyle: .default)
+            return
+        }
+        UIImageWriteToSavedPhotosAlbum(imageToExport,
+                                       self,
+                                       #selector(export(_:didFinishSavingWithError:contextInfo:)), nil)
     }
 
     @IBAction private func exitButtonDidTap(_ sender: UIButton) {
@@ -274,6 +288,23 @@ extension DoodleViewController {
 
     func setZoomText(scalePercent: Int) {
         zoomScaleLabel.text = "\(scalePercent)%"
+    }
+
+    // MARK: - Add preview to gallery
+    @objc
+    func export(_ image: UIImage,
+                didFinishSavingWithError error: Error?,
+                contextInfo: UnsafeRawPointer) {
+        if let error = error {
+            DTLogger.error(error.localizedDescription)
+            alert(title: "Error",
+                  message: "Unable to save the image to the device. Please try again later.",
+                  buttonStyle: .default)
+        } else {
+            alert(title: "Saved!",
+                  message: "Your doodle has been saved to your photos successfully!",
+                  buttonStyle: .default)
+        }
     }
 
 }
