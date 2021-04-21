@@ -27,6 +27,8 @@ enum UIConstants {
     static let largeOffset: CGFloat = 12
 
     static let userIconColorCount = 3
+    
+    static let messageViewInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
 
     static func previewRect(_ frame: CGRect) -> CGRect {
         CGRect(x: frame.minX - frame.width * 0.05,

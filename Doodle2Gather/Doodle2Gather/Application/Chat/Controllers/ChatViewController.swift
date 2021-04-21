@@ -32,6 +32,7 @@ class ChatViewController: MessagesViewController {
         isModalInPresentation = true
     }
 
+    // Customize chat view
     private func updateViews() {
         messagesCollectionView.contentInset = ConferenceConstants.defaultContentInset
         guard let layout = messagesCollectionView.collectionViewLayout
@@ -138,6 +139,7 @@ class ChatViewController: MessagesViewController {
 
 extension ChatViewController: ChatBoxDelegate {
 
+    /// Upon receiving a message, it triggers an update to the messages in the chat box view.
     func onReceiveMessage(_ message: Message) {
         messages.append(message)
         messagesCollectionView.reloadData()
@@ -174,7 +176,7 @@ extension ChatViewController: MessagesDataSource {
             == messages[indexPath.section - 1].sender.senderId {
             return 0
         }
-        return 15
+        return 16
     }
 
     func messageBottomLabelHeight(for message: MessageType,
@@ -210,13 +212,13 @@ extension ChatViewController: MessagesLayoutDelegate {
     func messagePadding(for message: MessageType,
                         at indexPath: IndexPath,
                         in messagesCollectionView: MessagesCollectionView) -> UIEdgeInsets {
-        UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        UIConstants.messageViewInset
     }
 
     func messageLabelInset(for message: MessageType,
                            at indexPath: IndexPath,
                            in messagesCollectionView: MessagesCollectionView) -> UIEdgeInsets {
-        UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        UIConstants.messageViewInset
     }
 
 }
