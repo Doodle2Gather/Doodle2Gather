@@ -4,7 +4,7 @@ import DTSharedLibrary
 
 class ConferenceViewController: UIViewController {
 
-    // UI Elements
+    // Storyboard UI Elements
     @IBOutlet private var collectionView: UICollectionView!
     @IBOutlet private var timerButton: UIButton!
     @IBOutlet private var voteButton: UIButton!
@@ -18,17 +18,24 @@ class ConferenceViewController: UIViewController {
     @IBOutlet private var topControlView: UILabel!
     @IBOutlet private var toggleCallButton: UIButton!
 
+    // Engines
     var videoEngine: VideoEngine?
     var chatEngine: ChatEngine?
+    
+    // Delegate
     var chatBox: ChatBoxDelegate?
-    var participants: [DTAdaptedUserConferenceState] = []
-    lazy var chatList = [Message]()
+
+    // States
     var isMuted = true
     var isVideoOff = true
     var isInCall = false
     var isChatShown = false
     var roomId: String?
     var videoCallUserList: [VideoCallUser] = []
+    var participants: [DTAdaptedUserConferenceState] = []
+    lazy var chatList = [Message]()
+    
+    // SocketController
     var roomWSController: DTRoomWebSocketController?
 
     private var timer = Timer()
@@ -44,36 +51,39 @@ class ConferenceViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        initializeEngines()
+        updateViews()
+  
+        roomWSController?.conferenceDelegate = self
+        
+        // Updates the conferencing state after 2 seconds due to possible networking issues.
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.roomWSController?.updateConferencingState(isVideoOn: !self.isVideoOff, isAudioOn: !self.isMuted)
+        }
+    }
+    
+    private func initializeEngines() {
         videoEngine = AgoraVideoEngine()
         videoEngine?.delegate = self
         videoEngine?.initialize()
+        videoEngine?.muteAudio()
+        videoEngine?.hideVideo()
 
         chatEngine = AgoraChatEngine()
         chatEngine?.initialize()
         chatEngine?.joinChannel(channelName: roomId ?? "testing")
         chatEngine?.delegate = self
+    }
+    
+    private func updateViews() {
         appearance.distanceFromCenterX = UIConstants.largeOffset
         appearance.distanceFromCenterY = -UIConstants.largeOffset
 
-        videoEngine?.muteAudio()
-        videoEngine?.hideVideo()
+    
         videoButton.isHidden = true
         audioButton.isHidden = true
         collectionView.isHidden = true
         topControlViewContainer.isHidden = true
-
-        timer = Timer.scheduledTimer(timeInterval: 2.0,
-                                     target: self,
-                                     selector: #selector(updateState),
-                                     userInfo: nil,
-                                     repeats: true)
-        roomWSController?.conferenceDelegate = self
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            self.roomWSController?.updateConferencingState(isVideoOn: !self.isVideoOff, isAudioOn: !self.isMuted)
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
-            self.timer.invalidate()
-        }
     }
 
     @objc
@@ -122,6 +132,29 @@ class ConferenceViewController: UIViewController {
         super.viewWillDisappear(animated)
         videoEngine?.tearDown()
         chatEngine?.tearDown()
+    }
+
+    private func toggleVideoControlViews(_ state: Bool) {
+        collectionView.isHidden = state
+        topControlViewContainer.isHidden = state
+        videoButton.isHidden = state
+        audioButton.isHidden = state
+    }
+
+    private func initializeLocalUser() {
+        guard let user = DTAuth.user else {
+            DTLogger.error("Attempt to toggle video without a user.")
+            return
+        }
+        if currentUser == nil {
+            let overlay = UIView(frame: CGRect(x: 0, y: 0,
+                                               width: 200,
+                                               height: 112.5))
+            overlay.backgroundColor = UIConstants.black
+            currentUser = VideoCallUser(uid: 0,
+                                        userId: user.uid)
+            currentUserOverlay = overlay
+        }
     }
 
     @IBAction private func audioButtonDidTap(_ sender: Any) {
@@ -177,37 +210,19 @@ class ConferenceViewController: UIViewController {
     }
 
     @IBAction private func didTapCall(_ sender: UIButton) {
-        guard let user = DTAuth.user else {
-            DTLogger.error("Attempt to toggle video without a user.")
-            return
-        }
         if isInCall {
             videoEngine?.tearDown()
             toggleCallButton.isSelected.toggle()
-            collectionView.isHidden = true
-            topControlViewContainer.isHidden = true
             videoCallUserList.removeAll()
             collectionView.reloadData()
             isInCall.toggle()
-            videoButton.isHidden = true
-            audioButton.isHidden = true
+            toggleVideoControlViews(true)
         } else {
-            if currentUser == nil {
-                let overlay = UIView(frame: CGRect(x: 0, y: 0,
-                                                   width: 200,
-                                                   height: 112.5))
-                overlay.backgroundColor = UIConstants.black
-                currentUser = VideoCallUser(uid: 0,
-                                            userId: user.uid)
-                currentUserOverlay = overlay
-            }
+            initializeLocalUser()
             videoEngine?.joinChannel(channelName: self.roomId ?? "testing")
             toggleCallButton.isSelected.toggle()
-            collectionView.isHidden = false
-            topControlViewContainer.isHidden = false
-            videoButton.isHidden = false
-            audioButton.isHidden = false
             isInCall.toggle()
+            toggleVideoControlViews(false)
         }
     }
 }
