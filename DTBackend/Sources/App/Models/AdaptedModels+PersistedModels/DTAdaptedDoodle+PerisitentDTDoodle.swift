@@ -8,8 +8,7 @@ extension DTAdaptedDoodle {
             roomId: doodle.$room.id,
             createdAt: doodle.createdAt ?? Date(),
             doodleId: try? doodle.requireID(),
-            strokes: doodle.getStrokes().map { DTAdaptedStroke(stroke: $0) },
-            text: doodle.getText().map { DTAdaptedText(text: $0) }
+            strokes: doodle.getStrokes().map { DTAdaptedStroke(stroke: $0) }
         )
     }
 

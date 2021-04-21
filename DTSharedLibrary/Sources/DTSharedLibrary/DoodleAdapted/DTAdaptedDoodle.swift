@@ -9,12 +9,10 @@ public struct DTAdaptedDoodle: Codable {
     public let doodleId: UUID?
     public let createdAt: Date
     public var strokes: [DTAdaptedStroke]
-    public var text: [DTAdaptedText]
 
     public init(roomId: UUID, createdAt: Date, doodleId: UUID? = nil,
-                strokes: [DTAdaptedStroke] = [], text: [DTAdaptedText] = []) {
+                strokes: [DTAdaptedStroke] = []) {
         self.strokes = strokes
-        self.text = text
         self.roomId = roomId
         self.doodleId = doodleId
         self.createdAt = createdAt
@@ -24,10 +22,6 @@ public struct DTAdaptedDoodle: Codable {
         strokes[index]
     }
 
-    public func getText(at index: Int) -> DTAdaptedText {
-        text[index]
-    }
-
     public mutating func addEntity<T: DTAdaptedEntityProtocol>(_ entity: T) {
         switch entity.type {
         case .stroke:
@@ -35,11 +29,6 @@ public struct DTAdaptedDoodle: Codable {
                 return
             }
             strokes.append(stroke)
-        case .text:
-            guard let text = entity as? DTAdaptedText else {
-                return
-            }
-            self.text.append(text)
         }
     }
 
@@ -47,8 +36,6 @@ public struct DTAdaptedDoodle: Codable {
         switch entity.type {
         case .stroke:
             strokes[index].safeDelete()
-        case .text:
-            text[index].safeDelete()
         }
     }
 
@@ -56,8 +43,6 @@ public struct DTAdaptedDoodle: Codable {
         switch entity.type {
         case .stroke:
             strokes[index].safeUndelete()
-        case .text:
-            text[index].safeUndelete()
         }
     }
 
@@ -68,11 +53,6 @@ public struct DTAdaptedDoodle: Codable {
                 return
             }
             strokes[index] = newStroke
-        case .text:
-            guard let newText = newEntity as? DTAdaptedText else {
-                return
-            }
-            text[index] = newText
         }
     }
 
@@ -82,14 +62,6 @@ public struct DTAdaptedDoodle: Codable {
 
     public mutating func unremoveStroke(at index: Int) {
         strokes[index].safeUndelete()
-    }
-
-    public mutating func removeText(at index: Int) {
-        text[index].safeDelete()
-    }
-
-    public mutating func unremoveText(at index: Int) {
-        text[index].safeUndelete()
     }
 
 }

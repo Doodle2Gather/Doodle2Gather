@@ -42,24 +42,6 @@ public struct DTAdaptedAction: Codable {
         return dtStrokes
     }
 
-    public func getTextIndexPairs() -> [DTEntityIndexPair] {
-        entities.filter { $0.type == .text }
-    }
-
-    public func makeText() -> [DTAdaptedText] {
-        var dtText = [DTAdaptedText]()
-        for pair in entities where pair.type == .text {
-            dtText.append(
-                DTAdaptedText(
-                    text: pair.entity, textId: pair.entityId,
-                    roomId: roomId, doodleId: doodleId,
-                    createdBy: createdBy, isDeleted: pair.isDeleted
-                )
-            )
-        }
-        return dtText
-    }
-
     public func getNewAction(with pairs: [DTEntityIndexPair]) -> DTAdaptedAction {
         DTAdaptedAction(type: type, entities: pairs, roomId: roomId, doodleId: doodleId, createdBy: createdBy)
     }
