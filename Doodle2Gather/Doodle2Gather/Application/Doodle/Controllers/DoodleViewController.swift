@@ -241,6 +241,7 @@ extension DoodleViewController {
         separatorView.isHidden.toggle()
         inviteButton.isHidden.toggle()
         exportButton.isHidden.toggle()
+        exitButton.isHidden.toggle()
         sender.isSelected.toggle()
     }
 

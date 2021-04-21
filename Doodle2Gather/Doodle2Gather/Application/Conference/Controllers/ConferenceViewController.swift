@@ -6,8 +6,6 @@ class ConferenceViewController: UIViewController {
 
     // Storyboard UI Elements
     @IBOutlet private var collectionView: UICollectionView!
-    @IBOutlet private var timerButton: UIButton!
-    @IBOutlet private var voteButton: UIButton!
     @IBOutlet private var startStopButton: UIButton!
     @IBOutlet private var participantsButton: UIButton!
     @IBOutlet private var videoButton: UIButton!
@@ -187,12 +185,10 @@ class ConferenceViewController: UIViewController {
     }
 
     @IBAction private func bottomMinimizeButtonDidTap(_ sender: UIButton) {
-        timerButton.isHidden.toggle()
-        voteButton.isHidden.toggle()
         chatButton.isHidden.toggle()
         startStopButton.isHidden.toggle()
-        audioButton.isHidden.toggle()
-        videoButton.isHidden.toggle()
+        audioButton.isHidden = startStopButton.isHidden || !isInCall
+        videoButton.isHidden = startStopButton.isHidden || !isInCall
         participantsButton.isHidden.toggle()
         sender.isSelected.toggle()
     }
