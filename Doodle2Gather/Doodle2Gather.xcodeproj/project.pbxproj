@@ -343,14 +343,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2E0C9DE1262DAA98006F55ED /* Augmentors */ = {
+		2E0C9DE1262DAA98006F55ED /* Stroke Augmentor */ = {
 			isa = PBXGroup;
 			children = (
 				2EB128F8261B6B3F00131FE6 /* StrokeAugmentor.swift */,
 				2EB128F7261B6B2500131FE6 /* Shape Detection */,
 				2E46CB93262E56500003A46A /* Property Adjustment */,
 			);
-			path = Augmentors;
+			path = "Stroke Augmentor";
 			sourceTree = "<group>";
 		};
 		2E146CBF2619023A001F6845 /* Views */ = {
@@ -368,6 +368,29 @@
 				848F356826142D8800AD46C6 /* ParticipantsViewController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		2E2512E2262FE69C0094D022 /* Action Manager */ = {
+			isa = PBXGroup;
+			children = (
+				2E2512D0262FCFD40094D022 /* ActionManager.swift */,
+				2E6830CE262C1E1100A16F5D /* DTActionManager.swift */,
+				2E0C9DDB262D8857006F55ED /* DTActionManager+Create.swift */,
+				2E0C9DD5262D85C2006F55ED /* DTActionManager+Apply.swift */,
+				2E0C9DC3262D6F18006F55ED /* DTActionManager+UndoRedo.swift */,
+			);
+			path = "Action Manager";
+			sourceTree = "<group>";
+		};
+		2E2512E3262FE6A80094D022 /* Canvas Gesture Manager */ = {
+			isa = PBXGroup;
+			children = (
+				2E2512B6262FC5990094D022 /* CanvasGestureManager.swift */,
+				2E6830E2262C25B300A16F5D /* CanvasGestureManagerDelegate.swift */,
+				2E6830D2262C1EBE00A16F5D /* DTCanvasGestureManager.swift */,
+				2E6830DC262C229F00A16F5D /* DTCanvasGestureManager+Tools.swift */,
+			);
+			path = "Canvas Gesture Manager";
 			sourceTree = "<group>";
 		};
 		2E46CB93262E56500003A46A /* Property Adjustment */ = {
@@ -389,11 +412,13 @@
 		2EA8C2F82605E50100BE750C /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				2EB12AB9261BF41900131FE6 /* DoodleLayerCellDelegate.swift */,
-				2EB12ABD261BFBB600131FE6 /* DoodleLayerTableDelegate.swift */,
 				2EB12AC1261BFCD100131FE6 /* DoodleLayerTable.swift */,
-				2E00ED81262F7EB3007F9B15 /* LeftPanelsControllerDelegate.swift */,
+				2EB12ABD261BFBB600131FE6 /* DoodleLayerTableDelegate.swift */,
+				2EB12AB9261BF41900131FE6 /* DoodleLayerCellDelegate.swift */,
 				2E00ED85262F7EBD007F9B15 /* LeftPanelsController.swift */,
+				2E00ED81262F7EB3007F9B15 /* LeftPanelsControllerDelegate.swift */,
+				2EA8C2F92605E51500BE750C /* CanvasController.swift */,
+				2EA8C3042605E5B700BE750C /* CanvasControllerDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -449,8 +474,6 @@
 		2EB12A46261BE3F900131FE6 /* PencilKit */ = {
 			isa = PBXGroup;
 			children = (
-				2EF94823262C108C00CB3E42 /* DTDoodleWrapper.swift */,
-				2EF94829262C10CD00CB3E42 /* DTStrokeWrapper.swift */,
 				2EA8C334260677C800BE750C /* PKDrawing+DTDoodle.swift */,
 				2E4A0B412616FDFF003257D4 /* PKDrawing+StrokesFrame.swift */,
 				2EA8C34126067F0000BE750C /* PKStroke+DTStroke.swift */,
@@ -532,11 +555,6 @@
 		2ED629822618FFD6009F92D0 /* Doodle */ = {
 			isa = PBXGroup;
 			children = (
-				2EF94849262C1A4200CB3E42 /* Logic */,
-				2E0C9DE1262DAA98006F55ED /* Augmentors */,
-				2EB12A39261BE3E200131FE6 /* Adapters */,
-				2EB12A46261BE3F900131FE6 /* PencilKit */,
-				2EB129A6261BB29500131FE6 /* Helpers */,
 			);
 			path = Doodle;
 			sourceTree = "<group>";
@@ -557,6 +575,8 @@
 				2E0C9DC7262D6FEE006F55ED /* DTActionProtocol.swift */,
 				678F8922261B554A005530A0 /* DTAdaptedAction+DTActionProtocol.swift */,
 				2E6830E6262C31C000A16F5D /* DTPartialAdaptedAction.swift */,
+				2EF94823262C108C00CB3E42 /* DTDoodleWrapper.swift */,
+				2EF94829262C10CD00CB3E42 /* DTStrokeWrapper.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -564,10 +584,13 @@
 		2ED7A3C32601B7570006D873 /* Doodle */ = {
 			isa = PBXGroup;
 			children = (
-				2ED6298826190047009F92D0 /* Models */,
+				2EB12A39261BE3E200131FE6 /* Adapters */,
+				2EB12A46261BE3F900131FE6 /* PencilKit */,
+				2EF94849262C1A4200CB3E42 /* Logic */,
 				2ED7A3C42601B7660006D873 /* Views */,
 				2ED7A3CA2601C0280006D873 /* Controllers */,
 				2EA8C2F82605E50100BE750C /* Protocols */,
+				2EB129A6261BB29500131FE6 /* Helpers */,
 			);
 			path = Doodle;
 			sourceTree = "<group>";
@@ -588,6 +611,7 @@
 				8415BC7C262B4E3F00E6CF1B /* DoodleViewController+Delegates.swift */,
 				2EB12AB1261BEDDC00131FE6 /* DoodleLayerTableViewController.swift */,
 				2E00ED7D262F7BEA007F9B15 /* LeftPanelsViewController.swift */,
+				2E8AC7492613F4C90033869E /* DTCanvasViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -630,6 +654,7 @@
 			isa = PBXGroup;
 			children = (
 				2EA8C3162606680500BE750C /* Adapters */,
+				2ED6298826190047009F92D0 /* Models */,
 				2EF8E97A25F75EAE00C7EE7D /* Application */,
 				2ED629822618FFD6009F92D0 /* Doodle */,
 				2EF8E97F25F75F5100C7EE7D /* Common */,
@@ -745,18 +770,9 @@
 		2EF94849262C1A4200CB3E42 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
-				2EA8C2F92605E51500BE750C /* CanvasController.swift */,
-				2EA8C3042605E5B700BE750C /* CanvasControllerDelegate.swift */,
-				2E8AC7492613F4C90033869E /* DTCanvasViewController.swift */,
-				2E2512D0262FCFD40094D022 /* ActionManager.swift */,
-				2E6830CE262C1E1100A16F5D /* DTActionManager.swift */,
-				2E0C9DDB262D8857006F55ED /* DTActionManager+Create.swift */,
-				2E0C9DD5262D85C2006F55ED /* DTActionManager+Apply.swift */,
-				2E0C9DC3262D6F18006F55ED /* DTActionManager+UndoRedo.swift */,
-				2E2512B6262FC5990094D022 /* CanvasGestureManager.swift */,
-				2E6830E2262C25B300A16F5D /* CanvasGestureManagerDelegate.swift */,
-				2E6830D2262C1EBE00A16F5D /* DTCanvasGestureManager.swift */,
-				2E6830DC262C229F00A16F5D /* DTCanvasGestureManager+Tools.swift */,
+				2E2512E2262FE69C0094D022 /* Action Manager */,
+				2E2512E3262FE6A80094D022 /* Canvas Gesture Manager */,
+				2E0C9DE1262DAA98006F55ED /* Stroke Augmentor */,
 			);
 			path = Logic;
 			sourceTree = "<group>";
