@@ -6,13 +6,13 @@ class ChatViewController: MessagesViewController {
 
     // Engine
     var chatEngine: ChatEngine?
-    
+
     // States
     var messages = [Message]()
     var account = ConferenceConstants.testUser
     var currentUser = Sender(senderId: DTAuth.user?.uid ?? UUID().uuidString,
                              displayName: DTAuth.user?.displayName ?? "Anonymous")
-    
+
     // Callbacks for subviews / nested views
     var deliverHandler: ((Message) -> Void)?
     var chatCallback: (() -> Void)?

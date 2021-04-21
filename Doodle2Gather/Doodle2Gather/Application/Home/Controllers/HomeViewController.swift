@@ -188,8 +188,7 @@ extension HomeViewController: DTAuthDelegate {
             DTLogger.error(error.localizedDescription)
             self.alert(title: AlertConstants.notice,
                        message: AlertConstants.serverError,
-                       buttonStyle: .default,
-                       handler: { _ in }
+                       buttonStyle: .default
             )
         }
     }
@@ -199,8 +198,7 @@ extension HomeViewController: DTAuthDelegate {
             DTLogger.event(message)
             self.alert(title: AlertConstants.notice,
                        message: message,
-                       buttonStyle: .default,
-                       handler: { _ in }
+                       buttonStyle: .default
             )
         }
     }
@@ -243,8 +241,7 @@ User Logged in
                 DTLogger.error(errorMessage)
                 self.alert(title: AlertConstants.notice,
                            message: AlertConstants.serverError,
-                           buttonStyle: .default,
-                           handler: { _ in }
+                           buttonStyle: .default
                 )
             }
         }

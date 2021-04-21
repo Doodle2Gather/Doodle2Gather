@@ -1,6 +1,6 @@
 import UIKit
 
-/// Adds alert functionalities to `UIViewController`.
+/// Adds loading spinner functionalities to `UIViewController`.
 extension UIViewController {
 
     /// Creates a loading spinner on top of the current view controller.
@@ -8,10 +8,7 @@ extension UIViewController {
     func createSpinnerView(message: String) -> UIAlertController {
         let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
         let activityIndicator = UIActivityIndicatorView(style: .medium)
-        activityIndicator.color = .white
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        activityIndicator.isUserInteractionEnabled = false
-        activityIndicator.startAnimating()
+        styleSpinner(activityIndicator)
 
         alert.view.addSubview(activityIndicator)
         alert.view.heightAnchor.constraint(equalToConstant: 95).isActive = true
@@ -30,5 +27,12 @@ extension UIViewController {
     /// Removes the spinner view.
     func removeSpinnerView(_ view: UIAlertController) {
         view.dismiss(animated: true, completion: nil)
+    }
+
+    private func styleSpinner(_ activityIndicator: UIActivityIndicatorView) {
+        activityIndicator.color = .white
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.isUserInteractionEnabled = false
+        activityIndicator.startAnimating()
     }
 }
