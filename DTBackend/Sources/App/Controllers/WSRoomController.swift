@@ -99,7 +99,7 @@ class WSRoomController {
 
                         /// Fetch all existing doodles
                         self.handleDoodleFetching(ws, wsId)
-                        
+
                         /// Dispatch participant info
                         self.dispatchParticipantsInfo(ws, wsId: wsId, userAccesses: userAccesses)
 
