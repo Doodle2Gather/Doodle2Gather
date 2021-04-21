@@ -1,6 +1,5 @@
 import Foundation
 import Vapor
-import SWCompression
 
 extension WebSocket {
     private static let _lock = Lock()
@@ -25,8 +24,8 @@ extension WebSocket {
     }
 
     private func runSendDataMiddlewares(_ data: Data) -> Data {
-        let compressedData = ZlibArchive.archive(data: data)
-        return compressedData
+        // Dummy method for server send middlewares
+        data
     }
 
     private func encodeSendData(_ data: Data) -> Data {

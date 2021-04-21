@@ -1,6 +1,5 @@
 import Foundation
 import DTSharedLibrary
-import SWCompression
 
 protocol DTWebSocketSubController {
     var handledMessageType: DTMessageType { get }
@@ -92,18 +91,14 @@ final class DTWebSocketController {
         }
     }
 
-    private func runReceiveDataMiddlewares(_ data: Data) throws -> Data {
-        let decompressedData = try ZlibArchive.unarchive(archive: data)
-        return decompressedData
+    private func runReceiveDataMiddlewares(_ data: Data) -> Data {
+        // Dummy method for client receive middlewares
+        data
     }
 
     private func decodeReceivedData(_ data: Data) {
-        do {
-            let decodedData = try runReceiveDataMiddlewares(data)
-            self.onData(decodedData)
-        } catch {
-            DTLogger.warn { "Unable to decode incoming data: \(error.localizedDescription)" }
-        }
+        let decodedData = self.runReceiveDataMiddlewares(data)
+        self.onData(decodedData)
     }
 
     private func onData(_ data: Data) {
@@ -119,8 +114,8 @@ final class DTWebSocketController {
     }
 
     private func runSendDataMiddlewares(_ data: Data) -> Data {
-        let compressedData = ZlibArchive.archive(data: data)
-        return compressedData
+        // Dummy method for client send middlewares
+        data
     }
 
     func sendViaPipeline<T>(_ message: T) where T: Codable {
