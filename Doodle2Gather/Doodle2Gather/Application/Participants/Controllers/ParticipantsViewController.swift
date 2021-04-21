@@ -41,5 +41,4 @@ extension ParticipantsViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 
 extension ParticipantsViewController: UITableViewDelegate {
-
 }
