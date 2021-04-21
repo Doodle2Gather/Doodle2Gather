@@ -393,6 +393,15 @@
 			path = "Canvas Gesture Manager";
 			sourceTree = "<group>";
 		};
+		2E2512E7262FE7520094D022 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				8464E7DB2626BB1D002B5BEE /* receive.mp3 */,
+				8464E7DC2626BB1E002B5BEE /* send.mp3 */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
 		2E46CB93262E56500003A46A /* Property Adjustment */ = {
 			isa = PBXGroup;
 			children = (
@@ -552,13 +561,6 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
-		2ED629822618FFD6009F92D0 /* Doodle */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Doodle;
-			sourceTree = "<group>";
-		};
 		2ED629852618FFE6009F92D0 /* Agora */ = {
 			isa = PBXGroup;
 			children = (
@@ -656,7 +658,6 @@
 				2EA8C3162606680500BE750C /* Adapters */,
 				2ED6298826190047009F92D0 /* Models */,
 				2EF8E97A25F75EAE00C7EE7D /* Application */,
-				2ED629822618FFD6009F92D0 /* Doodle */,
 				2EF8E97F25F75F5100C7EE7D /* Common */,
 				2EF8E97225F75E2900C7EE7D /* Assets */,
 				2EF8E97125F75E1400C7EE7D /* Bootstrap */,
@@ -704,8 +705,7 @@
 		2EF8E97225F75E2900C7EE7D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				8464E7DB2626BB1D002B5BEE /* receive.mp3 */,
-				8464E7DC2626BB1E002B5BEE /* send.mp3 */,
+				2E2512E7262FE7520094D022 /* Audio */,
 				2EF8E92B25F754C700C7EE7D /* Assets.xcassets */,
 			);
 			path = Assets;
