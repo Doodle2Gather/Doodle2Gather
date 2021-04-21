@@ -1,5 +1,6 @@
-/// Tool used on the canvas. Currently it is an enum, but
-/// will explore custom tools in the future.
+/// Tool used on the canvas.
+/// This is more for stroke storing and rendering, thus tools like eraser are not
+/// stored.
 public enum DTCodableTool: String {
     case pen
     case pencil

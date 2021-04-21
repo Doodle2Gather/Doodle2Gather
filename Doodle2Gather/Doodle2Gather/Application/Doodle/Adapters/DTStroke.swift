@@ -2,6 +2,9 @@ import UIKit
 import DTSharedLibrary
 
 /// Represents a single stroke, consisting of multiple points.
+///
+/// By adopting this protocol, any stroke model can be used as part of `DTStrokeWrapper`
+/// and can replace `PKStroke` in the current implementation.
 public protocol DTStroke: Hashable, Codable {
     associatedtype Point: DTPoint
 
@@ -17,9 +20,11 @@ public protocol DTStroke: Hashable, Codable {
     /// Instantiates self using data.
     init?(from stroke: DTAdaptedStroke)
 
+    /// Instantiates self using raw attributes.
     init<P: DTPoint>(color: UIColor, tool: DTCodableTool, points: [P], transform: CGAffineTransform,
                      mask: UIBezierPath?)
 
+    /// Sets the stroke as selected and displays a visual effect.
     mutating func setIsSelected(_ isSelected: Bool)
 }
 

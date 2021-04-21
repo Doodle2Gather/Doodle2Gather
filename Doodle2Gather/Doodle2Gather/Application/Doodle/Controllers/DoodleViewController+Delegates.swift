@@ -35,10 +35,6 @@ extension DoodleViewController: DTRoomWebSocketControllerDelegate {
         layerTable?.loadDoodles(doodles)
     }
 
-    func removeDoodle(doodleId: UUID) {
-        // TODO: Add after refactoring doodles
-    }
-
     func didUpdateUserAccesses(_ users: [DTAdaptedUserAccesses]) {
         userAccesses = users.sorted(by: { x, y -> Bool in
             x.displayName < y.displayName

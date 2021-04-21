@@ -35,6 +35,7 @@ class DoodleViewController: UIViewController {
 
     // Delegates
     weak var invitationDelegate: InvitationDelegate?
+    weak var galleryDelegate: GalleryDelegate?
 
     // State
     var room: DTAdaptedRoom?
@@ -102,6 +103,9 @@ class DoodleViewController: UIViewController {
         }
     }
 
+    /// Prepares for segues that has a nested subview/container view as destination.
+    /// Generally, this is used for setting up references via the delegate pattern.
+    /// The destination should also be abstracted away by a protocol, if possible.
     func prepareForSubviews(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case SegueConstants.toCanvas:
@@ -136,6 +140,8 @@ class DoodleViewController: UIViewController {
         }
     }
 
+    /// Prepares for segues that has a popup as a destination.
+    /// Generally, this is used for dependency injection.
     func prepareForPopUps(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case SegueConstants.toLayerTable:
@@ -170,6 +176,7 @@ class DoodleViewController: UIViewController {
 
 extension DoodleViewController {
 
+    /// Updates the colour and label displayed on the user icons on the top right.
     func updateProfileIcons() {
         guard let user = DTAuth.user else {
             DTLogger.error("Attempted to join room without a user.")
@@ -205,6 +212,7 @@ extension DoodleViewController {
         }
     }
 
+    /// Sets the first character of the text as the label content.
     private func setProfileLabel(_ label: UILabel, text: String) {
         if let firstChar = text.first(where: {
             !$0.isWhitespace
@@ -230,6 +238,7 @@ extension DoodleViewController {
 
 extension DoodleViewController {
 
+    /// Minimizes the top left panel to give more space for doodling.
     @IBAction private func topMinimizeButtonDidTap(_ sender: UIButton) {
         fileNameLabel.isHidden.toggle()
         separatorView.isHidden.toggle()
@@ -238,6 +247,10 @@ extension DoodleViewController {
         sender.isSelected.toggle()
     }
 
+    /// Exports the doodle as a separate file.
+    ///
+    /// - Note: Currently, we only support saving as an image. In future extensions, we will
+    ///   look into more formats.
     @IBAction private func exportButtonDidTap(_ sender: UIButton) {
         guard let currentDoodle = canvasController?.getCurrentDoodle() else {
             alert(title: "Notice",
@@ -250,13 +263,13 @@ extension DoodleViewController {
                                        #selector(export(_:didFinishSavingWithError:contextInfo:)), nil)
     }
 
+    /// Navigates to the previous gallery view screen.
     @IBAction private func exitButtonDidTap(_ sender: UIButton) {
         alert(title: AlertConstants.exit, message: AlertConstants.exitToMainMenu,
               buttonStyle: .default, handler: { _ in
-                self.dismiss(animated: true, completion: nil)
-                DispatchQueue.main.async {
-                    // TODO: Call backend to update the preview(s) to reflect the latest changes
-                }
+                self.dismiss(animated: true, completion: {
+                    self.galleryDelegate?.didExitRoom()
+                })
               }
         )
     }
@@ -275,6 +288,8 @@ extension DoodleViewController {
         canvasController.redo()
     }
 
+    /// Updates the status of the undo and redo buttons based on whether an undo or redo
+    /// is possible.
     func updateUndoRedoButtons() {
         undoButton.isEnabled = canvasController?.canUndo ?? false
         redoButton.isEnabled = canvasController?.canRedo ?? false
@@ -284,11 +299,9 @@ extension DoodleViewController {
         zoomScaleLabel.text = "\(scalePercent)%"
     }
 
-    // MARK: - Add preview to gallery
+    /// Exports the `UIImage` as a photo file.
     @objc
-    func export(_ image: UIImage,
-                didFinishSavingWithError error: Error?,
-                contextInfo: UnsafeRawPointer) {
+    func export(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
         if let error = error {
             DTLogger.error(error.localizedDescription)
             alert(title: "Error",

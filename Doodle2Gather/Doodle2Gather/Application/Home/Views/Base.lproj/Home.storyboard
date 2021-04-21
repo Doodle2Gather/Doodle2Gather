@@ -95,6 +95,8 @@
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Display Name" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Y8X-21-xQM">
                                                         <rect key="frame" x="10" y="10" width="420" height="40"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                         <userDefinedRuntimeAttributes>
@@ -183,27 +185,15 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="12" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bAy-R5-JrA">
-                                <rect key="frame" x="100" y="1214.5" width="824" height="81.5"/>
-                                <string key="text">Error Message Here: Cat ipsum dolor sit amet, human is behind a closed door, emergency! abandoned! meeooowwww!!!. Hey! you there, with the hands scratch the box but i like to spend my days sleeping and eating fishes that my human fished for me we live on a luxurious yacht, sailing proudly under the sun, i like to walk on the deck, watching the horizon, dreaming of a good bowl of milk grass smells good.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" systemColor="systemPinkColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="bAy-R5-JrA" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="100" id="8ml-wx-jj7"/>
-                            <constraint firstItem="bAy-R5-JrA" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="FZH-OU-Cqn"/>
-                            <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="bAy-R5-JrA" secondAttribute="trailing" constant="100" id="JeP-EF-BxS"/>
                             <constraint firstItem="3fL-gc-f7d" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="MpA-90-6rS"/>
                             <constraint firstItem="3fL-gc-f7d" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="czb-zi-Ztk"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="bAy-R5-JrA" secondAttribute="bottom" constant="50" id="qg2-cO-vy4"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="actionMessageLabel" destination="bAy-R5-JrA" id="34g-Rq-7Db"/>
                         <outlet property="displayNameContainer" destination="fZh-iI-OKH" id="INo-l0-prb"/>
                         <outlet property="displayNameTextField" destination="Y8X-21-xQM" id="NUB-ED-cyw"/>
                         <outlet property="emailContainer" destination="j1M-To-i7Q" id="JLG-Qm-4hG"/>
@@ -246,9 +236,6 @@
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemPinkColor">
-            <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

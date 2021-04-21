@@ -51,8 +51,6 @@ final class DTRoomWebSocketController: DTSendableWebSocketSubController {
             try self.handleFetchDoodle(data)
         case .addDoodle:
             try self.handleAddDoodle(data)
-        case .removeDoodle:
-            try self.handleRemoveDoodle(data)
         default:
             break
         }
@@ -124,14 +122,6 @@ final class DTRoomWebSocketController: DTSendableWebSocketSubController {
         let fetch = try decoder.decode(DTParticipantInfoMessage.self, from: data)
         DTLogger.info { "Fetched participant info: \(fetch.users)" }
         delegate?.didUpdateUserAccesses(fetch.users)
-    }
-
-    func handleRemoveDoodle(_ data: Data) throws {
-        // receive a message from backend to remove doodle
-        let fetch = try decoder.decode(DTRemoveDoodleMessage.self, from: data)
-        DispatchQueue.main.async {
-             self.delegate?.removeDoodle(doodleId: fetch.doodleId)
-        }
     }
 
     func handleUpdateLiveState(_ data: Data) throws {
