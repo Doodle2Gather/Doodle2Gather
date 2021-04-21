@@ -173,6 +173,7 @@ class NewDocumentViewController: UIViewController {
 }
 
 extension NewDocumentViewController: DTNewDocumentWebSocketControllerDelegate {
+
     func didCreateRoom(newRoom: DTAdaptedRoom) {
         guard let creationCallback = didCreateDocumentCallback else {
             return
@@ -203,4 +204,5 @@ extension NewDocumentViewController: DTNewDocumentWebSocketControllerDelegate {
           self.dismiss(animated: true, completion: nil)
         }
     }
+
 }

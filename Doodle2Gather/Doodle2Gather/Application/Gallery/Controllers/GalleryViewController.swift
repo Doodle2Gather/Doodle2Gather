@@ -115,7 +115,7 @@ extension GalleryViewController: UICollectionViewDataSource {
             guard let topLayer = rooms[indexPath.row].doodles.first else {
                 return cell
             }
-            let previewImage = DoodlePreview(doodle: topLayer)?.image ?? #imageLiteral(resourceName: "GalleryPlaceholder")
+            let previewImage = DoodlePreview(of: topLayer).image
             DispatchQueue.main.async {
                 cell.setImage(previewImage)
             }
