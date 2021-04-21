@@ -8,10 +8,22 @@ import DTSharedLibrary
 public protocol DTStroke: Hashable, Codable {
     associatedtype Point: DTPoint
 
+    /// The color of the stroke.
     var color: UIColor { get set }
+
+    /// The tool used to construct the stroke.
     var tool: DTCodableTool { get set }
+
+    /// The points that comprise the stroke.
     var points: [Point] { get set }
+
+    /// Bounding box around all of the points.
+    var pointsFrame: CGRect? { get }
+
+    /// The mask applied on the stroke.
     var mask: UIBezierPath? { get set }
+
+    /// The transformation applied on the stroke.
     var transform: CGAffineTransform { get set }
 
     /// Instantiates self using a generalised `DTStroke`.

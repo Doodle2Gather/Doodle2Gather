@@ -1,12 +1,23 @@
 import PencilKit
 import DTSharedLibrary
 
+/// A wrapper for strokes that wraps around PencilKit and supports additional
+/// logic and data for the pencil kit strokes.
+///
+/// The PencilKit model can be replaced by any stroke model that adopts
+/// the `DTStroke` protocol.
 struct DTStrokeWrapper {
 
+    /// The ID that identifies this stroke for differentiation purposes + change tracking.
     var strokeId: UUID
+
+    /// The ID string of the user that created this stroke.
     var createdBy: String
+
+    /// Whether this stroke has been deleted by some user. Soft deletion is performed.
     var isDeleted: Bool
 
+    // Nested model
     var stroke: PKStroke
 
     init(stroke: PKStroke, createdBy: String) {

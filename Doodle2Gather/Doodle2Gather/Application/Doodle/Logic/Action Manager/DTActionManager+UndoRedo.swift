@@ -13,7 +13,7 @@ extension DTActionManager {
             return nil
         }
 
-        let action = latestAction.inverse()
+        let action = latestAction.invert()
         redoActions.append(action)
         return action
     }
@@ -23,7 +23,7 @@ extension DTActionManager {
             return nil
         }
 
-        let action = latestAction.inverse()
+        let action = latestAction.invert()
         undoActions.append(action)
         return action
     }
