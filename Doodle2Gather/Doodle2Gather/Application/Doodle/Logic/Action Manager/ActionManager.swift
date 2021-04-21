@@ -1,6 +1,10 @@
 import PencilKit
 import DTSharedLibrary
 
+/// `ActionManager` helps with stateless action creation, transformation and
+/// applications, as well as stateful action tracking.
+///
+/// It should store a copy of the actions to undo and redo.
 protocol ActionManager {
 
     // MARK: - Stateless Operations
@@ -36,8 +40,8 @@ protocol ActionManager {
     /// returned.
     ///
     /// - Parameters:
-    ///   - `action`: The action that we wish to transform.
-    ///   - `doodle`: The state that we wish to transform this action to be applicable for.
+    ///   - `action`: The action to transform.
+    ///   - `doodle`: The state to transform this action to be applicable for.
     ///
     /// - Returns: `nil` if the change is not applicable for the state of `doodle`;
     ///   otherwise, a transformed action.
@@ -45,18 +49,48 @@ protocol ActionManager {
 
     /// Applies an action to a given doodle state and returns the new state.
     ///
-    /// This method should attempt to apply
+    /// If the application of the action fails, `nil` will be returned.
+    ///
+    /// - Parameters:
+    ///   - `action`: The action that is to be applied.
+    ///   - `doodle`: The state to apply this action on.
+    ///
+    /// - Returns: `nil` if the action is not applicable for the state of `doodle`;
+    ///   otherwise, a new state with the change applied.
     func applyAction(_ action: DTActionProtocol, on doodle: DTDoodleWrapper) -> DTDoodleWrapper?
 
     // MARK: - Stateful Operations
 
+    /// Whether the application can undo.
     var canUndo: Bool { get }
+    
+    /// Whether the application can redo.
     var canRedo: Bool { get }
 
+    /// Adds a new action that can be undone.
+    /// This should clear any actions that can be redone.
     mutating func addNewActionToUndo(_ action: DTActionProtocol)
 
+    /// Returns the latest action by the user that can be undone.
+    ///
+    /// This action is already inverted, in that it can be directly applied to reverse
+    /// the latest change that the user has performed.
+    ///
+    /// This undone action should also be redoable subsequently.
+    ///
+    /// - Returns: `nil` if there's no action that can be undone; otherwise,
+    ///   an inverted action.
     mutating func undo() -> DTActionProtocol?
 
+    /// Returns the latest action by the user that can be redone.
+    ///
+    /// This action is already inverted, in that it can be directly applied to reverse
+    /// the latest undo that the user has performed.
+    ///
+    /// This redone action should also be undoable subsequently.
+    ///
+    /// - Returns: `nil` if there's no action that can be redone; otherwise,
+    ///   an inverted action.
     mutating func redo() -> DTActionProtocol?
 
 }

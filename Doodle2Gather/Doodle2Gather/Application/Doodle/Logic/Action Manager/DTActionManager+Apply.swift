@@ -1,3 +1,5 @@
+// MARK: - Action Application
+
 extension DTActionManager {
 
     func applyAction(_ action: DTActionProtocol, on doodle: DTDoodleWrapper) -> DTDoodleWrapper? {
