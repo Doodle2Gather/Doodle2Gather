@@ -30,8 +30,6 @@ extension DTAdaptedAction: DTActionProtocol {
                 DTEntityIndexPair(entities[0].entity, entities[0].index,
                                   type: .stroke, entityId: entities[0].entityId, isDeleted: false)
             ]
-        case .unknown:
-            newType = .unknown
         }
 
         return DTAdaptedAction(type: newType, entities: newStrokes,

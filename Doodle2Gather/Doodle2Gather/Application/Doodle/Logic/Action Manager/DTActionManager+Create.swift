@@ -27,13 +27,13 @@ extension DTActionManager {
             action = createRemoveAction(newStrokes: newStrokes, oldDoodle: oldDoodle, userId: userId)
         case .modify:
             action = createModifyAction(newStrokes: newStrokes, oldDoodle: oldDoodle, userId: userId)
-        case .unknown, .unremove:
+        case .unremove:
             break
         }
 
         return action
     }
-    
+
     /// Creates a new action that adds a stroke to the state of `oldDoodle`.
     ///
     /// - Returns: `nil` if an unexpected number of strokes has been added, or if

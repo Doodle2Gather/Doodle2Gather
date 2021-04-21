@@ -13,8 +13,6 @@ extension DTCanvasGestureManager {
             return .remove
         case .cursor:
             return .modify
-        default:
-            return .unknown
         }
     }
 

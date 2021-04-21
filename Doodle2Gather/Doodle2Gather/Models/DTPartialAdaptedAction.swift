@@ -67,8 +67,6 @@ extension DTPartialAdaptedAction: DTActionProtocol {
             newStrokes = entities.map { DTEntityIndexPair($0.entity, $0.index, type: .stroke,
                                                           entityId: $0.entityId, isDeleted: false)
             }
-        case .unknown:
-            newType = .unknown
         }
 
         return DTPartialAdaptedAction(type: newType, doodleId: doodleId, strokes: newStrokes,
