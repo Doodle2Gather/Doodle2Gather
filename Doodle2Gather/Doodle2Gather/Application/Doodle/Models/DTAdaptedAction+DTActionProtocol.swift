@@ -5,9 +5,9 @@ import DTSharedLibrary
 
 extension DTAdaptedAction: DTActionProtocol {
 
-    init(partialAction: DTPartialAdaptedAction, roomId: UUID) {
-        self.init(type: partialAction.type, entities: partialAction.entities, roomId: roomId,
-                  doodleId: partialAction.doodleId, createdBy: partialAction.createdBy)
+    init(action: DTActionProtocol, roomId: UUID) {
+        self.init(type: action.type, entities: action.entities, roomId: roomId,
+                  doodleId: action.doodleId, createdBy: action.createdBy)
     }
 
     func inverse() -> DTAdaptedAction {

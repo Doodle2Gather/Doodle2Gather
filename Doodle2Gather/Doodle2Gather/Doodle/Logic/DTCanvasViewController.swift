@@ -96,7 +96,7 @@ class DTCanvasViewController: UIViewController {
 extension DTCanvasViewController: CanvasController {
 
     /// Dispatches an action from peers to the current drawing.
-    func dispatchAction(_ action: DTAdaptedAction) {
+    func dispatchAction(_ action: DTActionProtocol) {
         let doodleId = action.doodleId
         let index = doodles.firstIndex(where: { $0.doodleId == doodleId })
         guard let safeIndex = index else {

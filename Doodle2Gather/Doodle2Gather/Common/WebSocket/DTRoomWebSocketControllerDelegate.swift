@@ -4,7 +4,7 @@ import DTSharedLibrary
 protocol DTRoomWebSocketControllerDelegate: AnyObject {
 
     /// Tells the delegate that an action was received and should be dispatched.
-    func dispatchAction(_ action: DTAdaptedAction)
+    func dispatchAction(_ action: DTActionProtocol)
 
     /// Tells the delegate to load the current doodles.
     func loadDoodles(_ doodles: [DTDoodleWrapper])

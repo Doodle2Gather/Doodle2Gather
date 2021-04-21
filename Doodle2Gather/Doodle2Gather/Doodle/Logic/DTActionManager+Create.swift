@@ -4,8 +4,7 @@ import DTSharedLibrary
 extension DTActionManager {
 
     /// Creates an action from two given doodles.
-    func createAction(oldDoodle: DTDoodleWrapper, newDoodle: PKDrawing,
-                      actionType: DTActionType) -> DTPartialAdaptedAction? {
+    func createAction(oldDoodle: DTDoodleWrapper, newDoodle: PKDrawing, actionType: DTActionType) -> DTActionProtocol? {
         guard let userId = DTAuth.user?.uid else {
             fatalError("You're not authenticated!")
         }
