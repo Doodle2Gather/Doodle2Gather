@@ -34,15 +34,13 @@ class ConferenceViewController: UIViewController {
     var videoCallUserList: [VideoCallUser] = []
     var participants: [DTAdaptedUserConferenceState] = []
     lazy var chatList = [Message]()
-
-    // SocketController
-    var roomWSController: DTRoomWebSocketController?
-
-    private var timer = Timer()
     private var currentUser: VideoCallUser?
     private var currentUserOverlay: UIView?
     private var appearance = BadgeAppearance(animate: true)
     private var unreadMessageCount = 0
+
+    // SocketController
+    var roomWSController: DTRoomWebSocketController?
 
     enum VideoLabels {
         static let collapsed = "Minimized"
