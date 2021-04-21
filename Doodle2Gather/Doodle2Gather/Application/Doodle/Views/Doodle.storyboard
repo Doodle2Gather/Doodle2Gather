@@ -608,8 +608,8 @@
                                                     <constraint firstAttribute="width" constant="40" id="8mR-ka-RxT"/>
                                                     <constraint firstAttribute="height" constant="60" id="PTZ-bB-ztK"/>
                                                 </constraints>
-                                                <state key="normal" image="SoundOff_Red"/>
-                                                <state key="selected" image="SoundOn"/>
+                                                <state key="normal" image="SoundOn"/>
+                                                <state key="selected" image="SoundOff_Red"/>
                                                 <connections>
                                                     <action selector="audioButtonDidTap:" destination="iqH-RH-LvU" eventType="touchUpInside" id="GOP-mD-z10"/>
                                                 </connections>
@@ -620,8 +620,8 @@
                                                     <constraint firstAttribute="width" constant="40" id="ef9-hn-lfI"/>
                                                     <constraint firstAttribute="height" constant="60" id="yH5-iU-BGb"/>
                                                 </constraints>
-                                                <state key="normal" image="VideoOff_Red"/>
-                                                <state key="selected" image="VideoOn"/>
+                                                <state key="normal" image="VideoOn"/>
+                                                <state key="selected" image="VideoOff_Red"/>
                                                 <connections>
                                                     <action selector="videoButtonDidTap:" destination="iqH-RH-LvU" eventType="touchUpInside" id="cL9-NY-3n5"/>
                                                 </connections>
@@ -1536,7 +1536,7 @@
         <image name="VideoOff_Red" width="24" height="24"/>
         <image name="VideoOn" width="24" height="24"/>
         <namedColor name="Black">
-            <color red="0.12549019607843137" green="0.12549019607843137" blue="0.11372549019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.125" green="0.125" blue="0.11400000005960464" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Stack Grey">
             <color red="0.54500001668930054" green="0.54500001668930054" blue="0.54500001668930054" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

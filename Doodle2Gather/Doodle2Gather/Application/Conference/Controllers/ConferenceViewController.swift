@@ -81,60 +81,6 @@ class ConferenceViewController: UIViewController {
         roomWSController?.updateConferencingState(isVideoOn: !isVideoOff, isAudioOn: !isMuted)
     }
 
-    @IBAction private func audioButtonDidTap(_ sender: Any) {
-        if isMuted {
-            videoEngine?.unmuteAudio()
-        } else {
-            videoEngine?.muteAudio()
-        }
-        audioButton.isSelected = isMuted
-        isMuted.toggle()
-        roomWSController?.updateConferencingState(isVideoOn: !isVideoOff, isAudioOn: !isMuted)
-    }
-
-    @IBAction private func videoButtonDidTap(_ sender: Any) {
-
-        if isVideoOff {
-            videoEngine?.showVideo()
-            currentUser?.overlay.removeFromSuperview()
-            currentUser?.nameplate.removeFromSuperview()
-        } else {
-            videoEngine?.hideVideo()
-
-            guard let cellView = collectionView.cellForItem(at: IndexPath(row: 0, section: 0)) else {
-                return
-            }
-            guard let user = currentUser else {
-                return
-            }
-            cellView.addSubview(user.overlay)
-            cellView.addSubview(user.nameplate)
-        }
-        videoButton.isSelected = isVideoOff
-        isVideoOff.toggle()
-        roomWSController?.updateConferencingState(isVideoOn: !isVideoOff, isAudioOn: !isMuted)
-    }
-
-    @IBAction private func bottomMinimizeButtonDidTap(_ sender: UIButton) {
-        timerButton.isHidden.toggle()
-        voteButton.isHidden.toggle()
-        chatButton.isHidden.toggle()
-        startStopButton.isHidden.toggle()
-        audioButton.isHidden.toggle()
-        videoButton.isHidden.toggle()
-        participantsButton.isHidden.toggle()
-        sender.isSelected.toggle()
-    }
-
-    @IBAction private func didTapResizeButton(_ sender: UIButton) {
-        collectionView.isHidden.toggle()
-        if collectionView.isHidden {
-            topControlView.text = VideoLabels.collapsed
-        } else {
-            topControlView.text = VideoLabels.gallery
-        }
-    }
-
     // Passes data to the ChatViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
@@ -178,7 +124,66 @@ class ConferenceViewController: UIViewController {
         chatEngine?.tearDown()
     }
 
+    @IBAction private func audioButtonDidTap(_ sender: Any) {
+        if isMuted {
+            videoEngine?.unmuteAudio()
+            isMuted = false
+        } else {
+            videoEngine?.muteAudio()
+            isMuted = true
+        }
+        audioButton.isSelected = !isMuted
+        roomWSController?.updateConferencingState(isVideoOn: !isVideoOff, isAudioOn: !isMuted)
+    }
+
+    @IBAction private func videoButtonDidTap(_ sender: Any) {
+
+        if isVideoOff {
+            videoEngine?.showVideo()
+            currentUser?.overlay.removeFromSuperview()
+            isVideoOff = false
+        } else {
+            videoEngine?.hideVideo()
+            isVideoOff = true
+
+            guard let cellView = collectionView.cellForItem(at: IndexPath(row: 0, section: 0)) else {
+                return
+            }
+
+            guard let user = currentUser else {
+                return
+            }
+            cellView.addSubview(user.overlay)
+        }
+        videoButton.isSelected = !isVideoOff
+        roomWSController?.updateConferencingState(isVideoOn: !isVideoOff, isAudioOn: !isMuted)
+    }
+
+    @IBAction private func bottomMinimizeButtonDidTap(_ sender: UIButton) {
+        timerButton.isHidden.toggle()
+        voteButton.isHidden.toggle()
+        chatButton.isHidden.toggle()
+        startStopButton.isHidden.toggle()
+        audioButton.isHidden.toggle()
+        videoButton.isHidden.toggle()
+        participantsButton.isHidden.toggle()
+        sender.isSelected.toggle()
+    }
+
+    @IBAction private func didTapResizeButton(_ sender: UIButton) {
+        collectionView.isHidden.toggle()
+        if collectionView.isHidden {
+            topControlView.text = VideoLabels.collapsed
+        } else {
+            topControlView.text = VideoLabels.gallery
+        }
+    }
+
     @IBAction private func didTapCall(_ sender: UIButton) {
+        guard let user = DTAuth.user else {
+            DTLogger.error("Attempt to toggle video without a user.")
+            return
+        }
         if isInCall {
             videoEngine?.tearDown()
             toggleCallButton.isSelected.toggle()
@@ -190,6 +195,15 @@ class ConferenceViewController: UIViewController {
             videoButton.isHidden = true
             audioButton.isHidden = true
         } else {
+            if currentUser == nil {
+                let overlay = UIView(frame: CGRect(x: 0, y: 0,
+                                                   width: 200,
+                                                   height: 112.5))
+                overlay.backgroundColor = UIConstants.black
+                currentUser = VideoCallUser(uid: 0,
+                                            userId: user.uid,
+                                            overlay: overlay)
+            }
             videoEngine?.joinChannel(channelName: self.roomId ?? "testing")
             toggleCallButton.isSelected.toggle()
             collectionView.isHidden = false
@@ -211,18 +225,9 @@ extension ConferenceViewController: VideoEngineDelegate {
                                            height: 112.5))
         overlay.backgroundColor = UIConstants.black
 
-        let nameplate = UILabel(frame: CGRect(x: 20,
-                                              y: 112.5 / 2 + 19.5,
-                                              width: 160,
-                                              height: 40))
-        nameplate.textAlignment = .center
-        nameplate.text = username
-        nameplate.textColor = UIConstants.white
-
         let userObject = VideoCallUser(uid: id,
                                        userId: username,
-                                       overlay: overlay,
-                                       nameplate: nameplate)
+                                       overlay: overlay)
         videoCallUserList.append(userObject)
         self.collectionView.reloadData()
     }

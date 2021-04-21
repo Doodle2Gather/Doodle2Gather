@@ -18,6 +18,11 @@ extension DoodleViewController: DTRoomWebSocketControllerDelegate {
         if let loadingSpinner = self.loadingSpinner {
             self.removeSpinnerView(loadingSpinner)
         }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            if let loadingSpinner = self.loadingSpinner {
+                self.removeSpinnerView(loadingSpinner)
+            }
+        }
     }
 
     func addNewDoodle(_ doodle: DTDoodleWrapper) {

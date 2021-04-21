@@ -8,9 +8,11 @@ class GalleryViewController: UIViewController {
 
     private var rooms = [DTAdaptedRoom]()
     private var doodles = [DTAdaptedDoodle]()
+    private var didFetchRooms = false
     private var selectedCellIndex: Int?
     private var isInEditMode = false
     private let sectionInsets = UIEdgeInsets(top: 20.0, left: 20.0, bottom: 20.0, right: 20.0)
+    private var loadingSpinner: UIAlertController?
 
     var appWSController: DTWebSocketController?
     let homeWSController = DTHomeWebSocketController()
@@ -27,6 +29,15 @@ class GalleryViewController: UIViewController {
             welcomeLabel.text = "Welcome"
         }
         // Do any additional setup after loading the view.
+
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        if !didFetchRooms {
+            loadingSpinner = createSpinnerView(message: "Loading...")
+        }
     }
 
     deinit {
@@ -151,8 +162,12 @@ extension GalleryViewController: DTHomeWebSocketControllerDelegate {
     func didGetAccessibleRooms(newRooms: [DTAdaptedRoom]) {
         DTLogger.info { "Received rooms: \(newRooms.map { $0.name })" }
         self.rooms = newRooms
+        self.didFetchRooms = true
         DispatchQueue.main.async {
             self.collectionView.reloadData()
+            if let loadingSpinner = self.loadingSpinner {
+                self.removeSpinnerView(loadingSpinner)
+            }
         }
     }
 }
