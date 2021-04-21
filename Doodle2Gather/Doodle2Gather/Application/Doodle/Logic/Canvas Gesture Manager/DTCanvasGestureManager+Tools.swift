@@ -13,8 +13,6 @@ extension DTCanvasGestureManager {
             return .remove
         case .cursor:
             return .modify
-        default:
-            return .unknown
         }
     }
 
@@ -64,8 +62,6 @@ extension DTCanvasGestureManager {
             activateSelectGestureRecognizer()
         case .shapes:
             activateShapesGestureRecognizer()
-        case .text:
-            activateTextGestureRecognizer()
         }
     }
 

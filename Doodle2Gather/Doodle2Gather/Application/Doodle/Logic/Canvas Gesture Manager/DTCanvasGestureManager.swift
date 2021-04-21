@@ -35,11 +35,10 @@ class DTCanvasGestureManager: NSObject, CanvasGestureManager {
     var currentSelectedIndex = -1
     var selectPanGestureRecognizer = InitialPanGestureRecognizer()
     var didStartCorrectly = false
-    var textTapGestureRecognizer = UITapGestureRecognizer()
+    var isSelfUpdate = false // Guards against updates from panning
 
     /// Contains augmentors that will be used to augment the strokes.
     var augmentors = [String: StrokeAugmentor]()
-    var isSelfUpdate = false
 
     weak var delegate: CanvasGestureManagerDelegate?
 
@@ -94,7 +93,6 @@ class DTCanvasGestureManager: NSObject, CanvasGestureManager {
         shapeTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleShapeTap(_:)))
         selectTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleSelectTap(_:)))
         selectPanGestureRecognizer = InitialPanGestureRecognizer(target: self, action: #selector(handleSelectPan(_:)))
-        textTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTextTap(_:)))
     }
 
 }
@@ -153,11 +151,6 @@ extension DTCanvasGestureManager: PKCanvasViewDelegate {
         canvas.addGestureRecognizer(shapeTapGestureRecognizer)
     }
 
-    func activateTextGestureRecognizer() {
-        removeAllGestureRecognizers()
-        canvas.addGestureRecognizer(textTapGestureRecognizer)
-    }
-
     func activateSelectGestureRecognizer() {
         removeAllGestureRecognizers()
         canvas.addGestureRecognizer(selectTapGestureRecognizer)
@@ -166,7 +159,6 @@ extension DTCanvasGestureManager: PKCanvasViewDelegate {
     func removeAllGestureRecognizers() {
         canvas.drawingGestureRecognizer.isEnabled = false
         canvas.removeGestureRecognizer(shapeTapGestureRecognizer)
-        canvas.removeGestureRecognizer(textTapGestureRecognizer)
         canvas.removeGestureRecognizer(selectTapGestureRecognizer)
         canvas.removeGestureRecognizer(selectPanGestureRecognizer)
         unselectStroke()

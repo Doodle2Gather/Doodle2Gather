@@ -1207,10 +1207,10 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HdL-Pj-pPB" userLabel="Left Buttons View">
-                                <rect key="frame" x="12" y="114.5" width="60" height="260"/>
+                                <rect key="frame" x="12" y="139.5" width="60" height="210"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Pqb-uy-IVC" userLabel="Button Stack">
-                                        <rect key="frame" x="10" y="10" width="40" height="240"/>
+                                        <rect key="frame" x="10" y="10" width="40" height="190"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IP2-Vo-DRb" userLabel="Draw Button">
                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
@@ -1242,20 +1242,8 @@
                                                     <action selector="mainToolButtonDidTap:" destination="06U-ud-477" eventType="touchUpInside" id="vYg-LT-3HV"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Va2-Px-Ku6" userLabel="Text Button">
+                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w78-OH-H1V" userLabel="Shapes Button">
                                                 <rect key="frame" x="0.0" y="100" width="40" height="40"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="40" id="bXL-Ld-hUy"/>
-                                                    <constraint firstAttribute="height" constant="40" id="tI2-yr-Ywm"/>
-                                                </constraints>
-                                                <state key="normal" image="Text"/>
-                                                <state key="selected" image="Text_Yellow"/>
-                                                <connections>
-                                                    <action selector="mainToolButtonDidTap:" destination="06U-ud-477" eventType="touchUpInside" id="9mz-Zj-Guz"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w78-OH-H1V" userLabel="Shapes Button">
-                                                <rect key="frame" x="0.0" y="150" width="40" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="40" id="0zP-9y-JKU"/>
                                                     <constraint firstAttribute="height" constant="40" id="coA-hG-7Mb"/>
@@ -1266,8 +1254,8 @@
                                                     <action selector="mainToolButtonDidTap:" destination="06U-ud-477" eventType="touchUpInside" id="Igh-L6-CtA"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ryu-pR-t2y" userLabel="Cursor Button">
-                                                <rect key="frame" x="0.0" y="200" width="40" height="40"/>
+                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ryu-pR-t2y" userLabel="Cursor Button">
+                                                <rect key="frame" x="0.0" y="150" width="40" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="iyh-9i-UGG"/>
                                                     <constraint firstAttribute="width" constant="40" id="wNu-rS-KaF"/>
@@ -1474,7 +1462,6 @@
                         <outlet property="squareButton" destination="9z7-zt-8yD" id="Dvb-Nl-YhC"/>
                         <outlet property="starButton" destination="qmb-uq-ZSH" id="buE-kC-01c"/>
                         <outlet property="strokeEditorHeightConstraint" destination="cVL-QR-mEA" id="f7M-cZ-eyd"/>
-                        <outlet property="textButton" destination="Va2-Px-Ku6" id="mer-LX-OE1"/>
                         <outlet property="triangleButton" destination="7nw-wi-WYg" id="jZF-S8-YxK"/>
                     </connections>
                 </viewController>
@@ -1522,8 +1509,6 @@
         <image name="Star" width="24" height="24"/>
         <image name="Star_Yellow" width="24" height="24"/>
         <image name="StopButton_Red" width="24" height="24"/>
-        <image name="Text" width="24" height="24"/>
-        <image name="Text_Yellow" width="24" height="24"/>
         <image name="ThumbsUp" width="24" height="24"/>
         <image name="Triangle" width="24" height="24"/>
         <image name="Triangle_Yellow" width="24" height="24"/>
