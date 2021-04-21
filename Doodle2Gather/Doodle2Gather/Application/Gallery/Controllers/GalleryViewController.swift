@@ -165,7 +165,7 @@ extension GalleryViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - DTHomeWebSocketControllerDelegate
 
 extension GalleryViewController: DTHomeWebSocketControllerDelegate {
-    
+
     /// Updates the collection view when a message is received from the WebSocket Controller.
     func didGetAccessibleRooms(newRooms: [DTAdaptedRoom]) {
         DTLogger.info { "Received rooms: \(newRooms.map { $0.name })" }
@@ -183,7 +183,7 @@ extension GalleryViewController: DTHomeWebSocketControllerDelegate {
 // MARK: - GalleryDelegate
 
 extension GalleryViewController: GalleryDelegate {
-    
+
     /// Calls the WebSocket Controller to refetch rooms when user exits one room.
     func didExitRoom() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {

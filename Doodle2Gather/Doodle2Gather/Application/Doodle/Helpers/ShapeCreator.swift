@@ -24,6 +24,7 @@ struct ShapeCreator {
         static let defaultColor: UIColor = .black
     }
 
+    /// Creates a circle stroke centered at a given `center`.
     func createCircle<S: DTStroke>(center: CGPoint) -> S {
         var points = [S.Point]()
 
@@ -41,6 +42,7 @@ struct ShapeCreator {
                  transform: Constants.defaultTransform, mask: nil)
     }
 
+    /// Creates a square stroke centered at a given `center`.
     func createSquare<S: DTStroke>(center: CGPoint) -> S {
         let topLeftCorner = CGPoint(x: center.x - Constants.squareLength / 2,
                                     y: center.y - Constants.squareLength / 2)
@@ -58,6 +60,7 @@ struct ShapeCreator {
                  transform: Constants.defaultTransform, mask: nil)
     }
 
+    /// Creates a triangle stroke centered at a given `center`.
     func createTriangle<S: DTStroke>(center: CGPoint) -> S {
         let topCorner = CGPoint(x: center.x, y: center.y - Constants.triangleDistance)
 
@@ -74,6 +77,7 @@ struct ShapeCreator {
                  transform: Constants.defaultTransform, mask: nil)
     }
 
+    /// Creates a star stroke centered at a given `center`.
     func createStar<S: DTStroke>(center: CGPoint) -> S {
         var corners = [CGPoint]()
 
