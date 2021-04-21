@@ -1,3 +1,7 @@
+/// Represents a video engine that provides the video conferencing related functionalities.
+///
+/// By adopting this protocol, any engine that could offer similar functionalities can be used
+/// and can replace `AgoraVideoEngine` in the current implementation.
 protocol VideoEngine {
 
     /// Sets up the video engine based on the current user of the app.

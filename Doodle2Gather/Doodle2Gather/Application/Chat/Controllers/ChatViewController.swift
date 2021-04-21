@@ -4,11 +4,16 @@ import InputBarAccessoryView
 
 class ChatViewController: MessagesViewController {
 
+    // Engine
     var chatEngine: ChatEngine?
+    
+    // States
     var messages = [Message]()
     var account = ConferenceConstants.testUser
     var currentUser = Sender(senderId: DTAuth.user?.uid ?? UUID().uuidString,
                              displayName: DTAuth.user?.displayName ?? "Anonymous")
+    
+    // Callbacks for subviews / nested views
     var deliverHandler: ((Message) -> Void)?
     var chatCallback: (() -> Void)?
 
@@ -45,16 +50,6 @@ class ChatViewController: MessagesViewController {
         messageInputBar.layoutMargins = ConferenceConstants.messageInputBarInset
         layout.textMessageSizeCalculator.outgoingAvatarSize = .zero
         layout.textMessageSizeCalculator.incomingAvatarSize = .zero
-    }
-
-    @IBAction private func didTapClose(_ sender: UIBarButtonItem) {
-        if let callback = chatCallback {
-            callback()
-            dismiss(animated: true, completion: nil)
-            return
-        }
-        DTLogger.error("No callback function provided to chat view controller.")
-        dismiss(animated: true, completion: nil)
     }
 
     // Handle change of orientation for chat box
@@ -114,6 +109,7 @@ class ChatViewController: MessagesViewController {
         }
     }
 
+    /// Formats the date.
     private let formatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
@@ -123,6 +119,16 @@ class ChatViewController: MessagesViewController {
 
     deinit {
       NotificationCenter.default.removeObserver(self)
+    }
+
+    @IBAction private func didTapClose(_ sender: UIBarButtonItem) {
+        if let callback = chatCallback {
+            callback()
+            dismiss(animated: true, completion: nil)
+            return
+        }
+        DTLogger.error("No callback function provided to chat view controller.")
+        dismiss(animated: true, completion: nil)
     }
 
 }

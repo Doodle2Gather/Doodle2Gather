@@ -1,3 +1,7 @@
+/// Represents a video engine that provides the real-time chat related functionalities.
+///
+/// By adopting this protocol, any engine that could offer similar functionalities can be used
+/// and can replace `AgoraChatEngine` in the current implementation.
 protocol ChatEngine {
 
     /// The delegate for the chat engine. Actions received by the ChatEngine will be dispatched to the delegate.
