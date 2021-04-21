@@ -5,6 +5,7 @@ import DTSharedLibrary
 /// Contains all the queries on `PersistedDTUser` that return Adapted models
 extension PersistedDTUser {
 
+    /// Gets all rooms which are acessible by the given user
     static func getAllAccessibleRooms(userId: String, on db: Database) -> EventLoopFuture<[DTAdaptedRoom]> {
         PersistedDTUser.getAllRooms(userId, on: db)
             .flatMapThrowing {
@@ -16,6 +17,7 @@ extension PersistedDTUser {
 /// Contains all the queries on `PersistedDTUser`that return Persisted models
 extension PersistedDTUser {
 
+    /// Gets a user by user id
     static func getSingleById(_ id: PersistedDTUser.IDValue?, on db: Database) -> EventLoopFuture<PersistedDTUser> {
       guard let id = id else {
         return db.eventLoop.makeFailedFuture(DTError.unableToRetreiveID(type: "PersistedDTUser"))
@@ -27,12 +29,14 @@ extension PersistedDTUser {
         .unwrap(or: DTError.modelNotFound(type: "PersistedDTUser", id: id))
     }
 
+    /// Gets all users and their accessible rooms in the database
     static func getAll(on db: Database) -> EventLoopFuture<[PersistedDTUser]> {
         PersistedDTUser.query(on: db)
             .with(\.$accessibleRooms)
             .all()
     }
 
+    /// Gets all rooms which are accessible by the given user
     static func getAllRooms(_ id: PersistedDTUser.IDValue?, on db: Database) -> EventLoopFuture<[PersistedDTRoom]> {
         guard let id = id else {
           return db.eventLoop.makeFailedFuture(DTError.unableToRetreiveID(type: "PersistedDTUser"))
@@ -41,28 +45,4 @@ extension PersistedDTUser {
             .flatMapThrowing { $0.getAccessibleRooms() }
     }
 
-    // req should not be used in Persisted model
-
-    static func createUserInfo(req: Request) throws -> EventLoopFuture<PersistedDTUser> {
-        let create = try req.content.decode(DTAdaptedUser.CreateRequest.self)
-        let newUser = create.makePersistedUser()
-        return newUser.save(on: req.db)
-            .flatMap { PersistedDTUser.getSingleById(create.id, on: req.db) }
-    }
-
-    static func readUserInfo(req: Request) throws -> EventLoopFuture<PersistedDTUser> {
-        guard let id = req.parameters.get("id") else {
-            throw Abort(.badRequest)
-        }
-        return PersistedDTUser.find(id, on: req.db)
-            .unwrap(or: Abort(.notFound))
-    }
-
-    static func getAllRooms(req: Request) throws -> EventLoopFuture<[PersistedDTRoom]> {
-        guard let id = req.parameters.get("id") else {
-            throw Abort(.badRequest)
-        }
-        return getSingleById(id, on: req.db)
-            .flatMapThrowing { $0.getAccessibleRooms() }
-    }
 }

@@ -22,6 +22,6 @@ public func configure(_ app: Application) throws {
     /// Run migrations at app startup.
     try app.autoMigrate().wait()
 
-    /// register routes
+    /// Register routes
     try routes(app)
 }
