@@ -12,6 +12,13 @@ extension DTAdaptedDoodle {
             text: doodle.getText().map { DTAdaptedText(text: $0) }
         )
     }
+
+    func isSameDoodle(as persisted: PersistedDTDoodle) -> Bool {
+        guard let persistedId = try? persisted.requireID() else {
+            return false
+        }
+        return persistedId == doodleId
+    }
 }
 
 extension DTAdaptedDoodle.CreateRequest {
