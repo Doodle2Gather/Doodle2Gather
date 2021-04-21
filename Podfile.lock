@@ -2,6 +2,7 @@ PODS:
   - AgoraRtcEngine_iOS (3.3.1)
   - AgoraRtm_iOS (1.4.3)
   - Alamofire (5.4.2)
+  - BitByteData (1.4.3)
   - EasyNotificationBadge (1.2.5)
   - Firebase/Auth (7.9.0):
     - Firebase/CoreOnly
@@ -54,6 +55,44 @@ PODS:
   - nanopb/encode (2.30907.0)
   - Pikko (1.0.4)
   - PromisesObjC (1.2.12)
+  - SWCompression (4.5.8):
+    - BitByteData (~> 1.4.3)
+    - SWCompression/BZip2 (= 4.5.8)
+    - SWCompression/Deflate (= 4.5.8)
+    - SWCompression/GZip (= 4.5.8)
+    - SWCompression/LZMA (= 4.5.8)
+    - SWCompression/LZMA2 (= 4.5.8)
+    - SWCompression/SevenZip (= 4.5.8)
+    - SWCompression/TAR (= 4.5.8)
+    - SWCompression/XZ (= 4.5.8)
+    - SWCompression/ZIP (= 4.5.8)
+    - SWCompression/Zlib (= 4.5.8)
+  - SWCompression/BZip2 (4.5.8):
+    - BitByteData (~> 1.4.3)
+  - SWCompression/Deflate (4.5.8):
+    - BitByteData (~> 1.4.3)
+  - SWCompression/GZip (4.5.8):
+    - BitByteData (~> 1.4.3)
+    - SWCompression/Deflate
+  - SWCompression/LZMA (4.5.8):
+    - BitByteData (~> 1.4.3)
+  - SWCompression/LZMA2 (4.5.8):
+    - BitByteData (~> 1.4.3)
+    - SWCompression/LZMA
+  - SWCompression/SevenZip (4.5.8):
+    - BitByteData (~> 1.4.3)
+    - SWCompression/LZMA2
+  - SWCompression/TAR (4.5.8):
+    - BitByteData (~> 1.4.3)
+  - SWCompression/XZ (4.5.8):
+    - BitByteData (~> 1.4.3)
+    - SWCompression/LZMA2
+  - SWCompression/ZIP (4.5.8):
+    - BitByteData (~> 1.4.3)
+    - SWCompression/Deflate
+  - SWCompression/Zlib (4.5.8):
+    - BitByteData (~> 1.4.3)
+    - SWCompression/Deflate
   - Willow (6.0.0)
 
 DEPENDENCIES:
@@ -64,6 +103,7 @@ DEPENDENCIES:
   - Firebase/Auth
   - MessageKit
   - Pikko
+  - SWCompression
   - Willow
 
 SPEC REPOS:
@@ -71,6 +111,7 @@ SPEC REPOS:
     - AgoraRtcEngine_iOS
     - AgoraRtm_iOS
     - Alamofire
+    - BitByteData
     - EasyNotificationBadge
     - Firebase
     - FirebaseAuth
@@ -84,12 +125,14 @@ SPEC REPOS:
     - nanopb
     - Pikko
     - PromisesObjC
+    - SWCompression
     - Willow
 
 SPEC CHECKSUMS:
   AgoraRtcEngine_iOS: 17e55feec1bde14adc30fd9d743332d1e7821b62
   AgoraRtm_iOS: 178257883dd6773d3d26ca51045456c35221b715
   Alamofire: bfbc4c2fe5909b1d94fb4ef2277c6b3727ef5dae
+  BitByteData: 36729e2125ec321935754f9feb1f4b297e00b501
   EasyNotificationBadge: a3ebbcb1de0c0558e102e954380c75801f352702
   Firebase: d8bd6bd34b4c7ed57bfdd056c66ff5adcdde53ab
   FirebaseAuth: 20625f04fdd213995249a82375b3dab39b1c136c
@@ -103,8 +146,9 @@ SPEC CHECKSUMS:
   nanopb: 59221d7f958fb711001e6a449489542d92ae113e
   Pikko: b2883c3b39752c04a1953f8995f8edafcbc3ee90
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
+  SWCompression: 9b013a48f2b6b0d7a208af9e0265790d6e878327
   Willow: 8efe9bd7bb99b06fe017566848492748b763a0ac
 
-PODFILE CHECKSUM: 8066b97f5f630311521b577a4c138da018c7ea95
+PODFILE CHECKSUM: cc873a4eb076d9b7e8ed15ad832f72bd5e83c0b6
 
 COCOAPODS: 1.10.1
