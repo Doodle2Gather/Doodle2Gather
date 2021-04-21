@@ -30,10 +30,10 @@ class ConferenceViewController: UIViewController {
     var roomId: String?
     var videoCallUserList: [VideoCallUser] = []
     var roomWSController: DTRoomWebSocketController?
-    var userIdToNameMapping: [String: String] = [:]
 
     private var timer = Timer()
     private var currentUser: VideoCallUser?
+    private var currentUserOverlay: UIView?
     private var appearance = BadgeAppearance(animate: true)
     private var unreadMessageCount = 0
 
@@ -140,20 +140,17 @@ class ConferenceViewController: UIViewController {
 
         if isVideoOff {
             videoEngine?.showVideo()
-            currentUser?.overlay.removeFromSuperview()
+            currentUserOverlay?.removeFromSuperview()
             isVideoOff = false
         } else {
             videoEngine?.hideVideo()
             isVideoOff = true
-
-            guard let cellView = collectionView.cellForItem(at: IndexPath(row: 0, section: 0)) else {
+            guard let cellView = collectionView.cellForItem(at: IndexPath(row: 0, section: 0)),
+                  let overlay = currentUserOverlay else {
                 return
             }
 
-            guard let user = currentUser else {
-                return
-            }
-            cellView.addSubview(user.overlay)
+            cellView.addSubview(overlay)
         }
         videoButton.isSelected = !isVideoOff
         roomWSController?.updateConferencingState(isVideoOn: !isVideoOff, isAudioOn: !isMuted)
@@ -201,8 +198,8 @@ class ConferenceViewController: UIViewController {
                                                    height: 112.5))
                 overlay.backgroundColor = UIConstants.black
                 currentUser = VideoCallUser(uid: 0,
-                                            userId: user.uid,
-                                            overlay: overlay)
+                                            userId: user.uid)
+                currentUserOverlay = overlay
             }
             videoEngine?.joinChannel(channelName: self.roomId ?? "testing")
             toggleCallButton.isSelected.toggle()
@@ -220,14 +217,8 @@ class ConferenceViewController: UIViewController {
 extension ConferenceViewController: VideoEngineDelegate {
 
     func didJoinCall(id: UInt, username: String) {
-        let overlay = UIView(frame: CGRect(x: 0, y: 0,
-                                           width: 200,
-                                           height: 112.5))
-        overlay.backgroundColor = UIConstants.black
-
         let userObject = VideoCallUser(uid: id,
-                                       userId: username,
-                                       overlay: overlay)
+                                       userId: username)
         videoCallUserList.append(userObject)
         self.collectionView.reloadData()
     }
@@ -325,6 +316,7 @@ extension ConferenceViewController: UICollectionViewDataSource {
 
 extension ConferenceViewController: UICollectionViewDelegateFlowLayout {
 
+    /// Computes the optimal layout for the collection view depending on the provided frame.
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -342,11 +334,9 @@ extension ConferenceViewController: UICollectionViewDelegateFlowLayout {
 
 extension ConferenceViewController: DTConferenceWebSocketControllerDelegate {
 
+    /// Updates the conference states of the users currently in the room.
     func updateStates(_ users: [DTAdaptedUserConferenceState]) {
         participants = users
-        for user in users {
-            userIdToNameMapping[user.id] = user.displayName
-        }
     }
 
 }
