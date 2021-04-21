@@ -38,6 +38,7 @@ class WSRoomController {
         self.roomController = ActiveRoomController(roomId: roomId, db: db)
     }
 
+    /// Handles any updates on active user who are inside the room
     func broadcastLiveState() {
         var usersInRoom = [DTAdaptedUser]()
         self.usersLock.withLockVoid {
@@ -49,6 +50,7 @@ class WSRoomController {
         }
     }
 
+    /// Handles when a user inside the room change his/her conference state
     func broadcastConferenceState() {
         var conferenceState = [DTAdaptedUserConferenceState]()
         self.conferenceLock.withLockVoid {
@@ -74,6 +76,7 @@ class WSRoomController {
         }
     }
 
+    /// Handles when a user joins a room
     func onJoinRoom(_ ws: WebSocket, _ data: Data) {
         let decoder = JSONDecoder()
         do {
@@ -88,14 +91,16 @@ class WSRoomController {
                     case .success(let innerResult):
                         let (user, userAccesses) = innerResult
 
-                        // Register socket to room
+                        /// Register socket to room
                         self.registerSocket(socket: ws, wsId: wsId)
 
-                        // Register user into room
+                        /// Register user into room
                         self.registerUser(user: user, wsId: wsId)
 
-                        // fetch all existing doodles
+                        /// Fetch all existing doodles
                         self.handleDoodleFetching(ws, wsId)
+                        
+                        /// Dispatch participant info
                         self.dispatchParticipantsInfo(ws, wsId: wsId, userAccesses: userAccesses)
 
                     case .failure(let error):
