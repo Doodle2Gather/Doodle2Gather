@@ -34,7 +34,7 @@ struct WSConnectionController: RouteCollection {
     }
 
     private func runReceiveDataMiddlewares(_ data: Data) throws -> Data {
-        let decompressedData = try Deflate.decompress(data: data)
+        let decompressedData = try ZlibArchive.unarchive(archive: data)
         return decompressedData
     }
 
