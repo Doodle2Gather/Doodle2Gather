@@ -1,5 +1,6 @@
 import UIKit
 import DTSharedLibrary
+import PencilKit
 
 /// The `CanvasGestureManagerDelegate` listens to a
 /// `CanvasGestureManager` for any changes to the canvas as a
@@ -11,10 +12,14 @@ protocol CanvasGestureManagerDelegate: AnyObject {
     func canvasZoomScaleDidChange(scale: CGFloat)
 
     /// Informs that delegate that a change has occurred to the canvas.
-    func canvasViewDidChange(type: DTActionType)
+    ///
+    /// The `PKDrawing` can be replaced by any doodle model that
+    /// implements the `DTDoodle` protocol.
+    func canvasViewDidChange(type: DTActionType, newDoodle: PKDrawing)
 
     /// Informs the delegate that the user is currently performing a
     /// gesture.
+    /// 
     /// The relevance of this method depends on how the canvas update
     /// is implemented. If updating the canvas disrupts the user's current
     /// drawing, then this method should be used to protect against that.

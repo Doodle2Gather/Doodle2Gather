@@ -346,7 +346,7 @@
 			children = (
 				2EB128F8261B6B3F00131FE6 /* StrokeAugmentor.swift */,
 				2EB128F7261B6B2500131FE6 /* Shape Detection */,
-				2E46CB93262E56500003A46A /* Property Adjustment */,
+				2E46CB93262E56500003A46A /* Width Adjustment */,
 			);
 			path = "Stroke Augmentor";
 			sourceTree = "<group>";
@@ -400,12 +400,12 @@
 			path = Audio;
 			sourceTree = "<group>";
 		};
-		2E46CB93262E56500003A46A /* Property Adjustment */ = {
+		2E46CB93262E56500003A46A /* Width Adjustment */ = {
 			isa = PBXGroup;
 			children = (
 				2E46CB94262E56A10003A46A /* WidthAdjustor.swift */,
 			);
-			path = "Property Adjustment";
+			path = "Width Adjustment";
 			sourceTree = "<group>";
 		};
 		2E7AA3E7261963030028A013 /* Recovered References */ = {

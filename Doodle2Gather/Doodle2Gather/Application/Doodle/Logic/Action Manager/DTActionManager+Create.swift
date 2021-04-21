@@ -33,7 +33,7 @@ extension DTActionManager {
 
         return action
     }
-    
+
     /// Creates a new action that adds a stroke to the state of `oldDoodle`.
     ///
     /// - Returns: `nil` if an unexpected number of strokes has been added, or if

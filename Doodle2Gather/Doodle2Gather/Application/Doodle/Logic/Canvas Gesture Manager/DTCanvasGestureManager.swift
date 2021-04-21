@@ -115,21 +115,20 @@ extension DTCanvasGestureManager: PKCanvasViewDelegate {
         }
 
         let actionType = currentSelectedIndex != -1 ? .modify : currentActionType
+        var drawing = canvas.drawing
 
-        if currentMainTool == .drawing && !canvas.drawing.strokes.isEmpty,
-           var stroke = canvas.drawing.strokes.last {
-            let count = canvas.drawing.strokes.count
+        if currentMainTool == .drawing && !drawing.dtStrokes.isEmpty,
+           var stroke = drawing.dtStrokes.last {
+            let count = drawing.dtStrokes.count
 
             for augmentor in augmentors.values {
                 stroke = augmentor.augmentStroke(stroke)
             }
 
-            isSelfUpdate = true
-            canvas.drawing.strokes[count - 1] = stroke
+            drawing.dtStrokes[count - 1] = stroke
         }
 
-        delegate?.canvasViewDidChange(type: actionType)
-        isSelfUpdate = false
+        delegate?.canvasViewDidChange(type: actionType, newDoodle: drawing)
     }
 
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
@@ -179,13 +178,13 @@ extension DTCanvasGestureManager: PKCanvasViewDelegate {
 
         switch currentShapeTool {
         case .circle:
-            canvas.drawing.strokes.append(shapeCreator.createCircle(center: location))
+            canvas.drawing.dtStrokes.append(shapeCreator.createCircle(center: location))
         case .square:
-            canvas.drawing.strokes.append(shapeCreator.createSquare(center: location))
+            canvas.drawing.dtStrokes.append(shapeCreator.createSquare(center: location))
         case .triangle:
-            canvas.drawing.strokes.append(shapeCreator.createTriangle(center: location))
+            canvas.drawing.dtStrokes.append(shapeCreator.createTriangle(center: location))
         case .star:
-            canvas.drawing.strokes.append(shapeCreator.createStar(center: location))
+            canvas.drawing.dtStrokes.append(shapeCreator.createStar(center: location))
         }
 
     }
@@ -193,7 +192,7 @@ extension DTCanvasGestureManager: PKCanvasViewDelegate {
     @objc
     func handleSelectTap(_ gesture: UITapGestureRecognizer) {
         let location = translatePoint(gesture.location(in: canvas))
-        let strokesReversed: [PKStroke] = canvas.drawing.strokes.reversed()
+        let strokesReversed: [PKStroke] = canvas.drawing.dtStrokes.reversed()
         let wrappers = strokeWrappers.reversed()
         var selectedIndex = -1
         var currentIndex = 0
@@ -209,7 +208,7 @@ extension DTCanvasGestureManager: PKCanvasViewDelegate {
 
             let stroke = strokesReversed[currentIndex]
             if stroke.points.contains(where: { $0.location.isCloseTo(location, within: 30) }) {
-                selectedIndex = canvas.drawing.strokes.count - 1 - currentIndex
+                selectedIndex = canvas.drawing.dtStrokes.count - 1 - currentIndex
                 break
             }
 
@@ -231,11 +230,11 @@ extension DTCanvasGestureManager: PKCanvasViewDelegate {
     @objc
     func handleSelectPan(_ gesture: InitialPanGestureRecognizer) {
         guard var startingPoint = gesture.initialTouchLocation, currentSelectedIndex != -1,
-              currentSelectedIndex < canvas.drawing.strokes.count else {
+              currentSelectedIndex < canvas.drawing.dtStrokes.count else {
             didStartCorrectly = false
             return
         }
-        var stroke = canvas.drawing.strokes[currentSelectedIndex]
+        var stroke = canvas.drawing.dtStrokes[currentSelectedIndex]
         let translation = translatePoint(gesture.translation(in: canvas))
         startingPoint = translatePoint(startingPoint)
 
@@ -261,7 +260,7 @@ extension DTCanvasGestureManager: PKCanvasViewDelegate {
             stroke.points[index] = newPoint
         }
 
-        canvas.drawing.strokes[currentSelectedIndex] = stroke
+        canvas.drawing.dtStrokes[currentSelectedIndex] = stroke
 
         if gesture.state == .ended {
             didStartCorrectly = false
@@ -296,8 +295,8 @@ extension DTCanvasGestureManager: PKCanvasViewDelegate {
         delegate?.setCanvasIsEditing(true)
         currentSelectedIndex = index
         isSelfUpdate = true
-        let originalColor = canvas.drawing.strokes[index].color
-        canvas.drawing.strokes[index].setIsSelected(true)
+        let originalColor = canvas.drawing.dtStrokes[index].color
+        canvas.drawing.dtStrokes[index].setIsSelected(true)
         delegate?.strokeDidSelect(color: originalColor)
         canvas.addGestureRecognizer(selectPanGestureRecognizer)
     }
@@ -308,7 +307,7 @@ extension DTCanvasGestureManager: PKCanvasViewDelegate {
         }
         isSelfUpdate = false
         delegate?.setCanvasIsEditing(false)
-        canvas.drawing.strokes[currentSelectedIndex].setIsSelected(false)
+        canvas.drawing.dtStrokes[currentSelectedIndex].setIsSelected(false)
         currentSelectedIndex = -1
         delegate?.strokeDidUnselect()
         canvas.removeGestureRecognizer(selectPanGestureRecognizer)

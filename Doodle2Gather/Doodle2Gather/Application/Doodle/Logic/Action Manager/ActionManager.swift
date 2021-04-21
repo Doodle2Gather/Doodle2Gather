@@ -63,7 +63,7 @@ protocol ActionManager {
 
     /// Whether the application can undo.
     var canUndo: Bool { get }
-    
+
     /// Whether the application can redo.
     var canRedo: Bool { get }
 
