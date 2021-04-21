@@ -240,6 +240,18 @@ extension DoodleViewController {
 
     @IBAction private func exportButtonDidTap(_ sender: UIButton) {
         // TODO: Export to image for now
+        print("Wtf")
+        guard let currentDoodles = doodles else {
+            return
+        }
+        print("Yolo")
+        guard let imageToExport = DoodlePreview(doodle: currentDoodles[0].drawing)?.image else {
+            return
+        }
+        print("Yolo 2")
+        UIImageWriteToSavedPhotosAlbum(imageToExport,
+                                       self,
+                                       #selector(export(_:didFinishSavingWithError:contextInfo:)), nil)
     }
 
     @IBAction private func exitButtonDidTap(_ sender: UIButton) {
@@ -274,6 +286,25 @@ extension DoodleViewController {
 
     func setZoomText(scalePercent: Int) {
         zoomScaleLabel.text = "\(scalePercent)%"
+    }
+
+    // MARK: - Add preview to gallery
+    @objc
+    func export(_ image: UIImage,
+                didFinishSavingWithError error: Error?,
+                contextInfo: UnsafeRawPointer) {
+        if let error = error {
+            // we got back an error!
+            let ac = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        } else {
+            let ac = UIAlertController(title: "Saved!",
+                                       message: "Your altered image has been saved to your photos.",
+                                       preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        }
     }
 
 }
