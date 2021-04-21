@@ -1,5 +1,11 @@
 import CoreGraphics
 
+/// Detects shapes using Hough Transform.
+///
+/// - Important: This detector is quite inaccurate, likely due to the fact
+///   that it's designed to work better with pixels rather than singular points
+///   like that of strokes. The default implementation uses
+///   `BestFitShapeDetector` instead.
 struct HoughShapeDetector: StrokeAugmentor {
 
     typealias Vector = [Double]
@@ -54,10 +60,12 @@ struct HoughShapeDetector: StrokeAugmentor {
 
     // MARK: - Matrix
 
+    /// Creates an empty Hough matrix.
     private func createEmptyMatrix(height: Int, width: Int) -> Matrix {
         Matrix(repeating: Vector(repeating: 0, count: width), count: height)
     }
 
+    /// Gets the size of a given matrix.
     private func getSize(of matrix: Matrix) -> (height: Int, width: Int) {
         if matrix.isEmpty {
             return (height: 0, width: 0)
@@ -69,6 +77,10 @@ struct HoughShapeDetector: StrokeAugmentor {
 
     // MARK: - DTStroke
 
+    /// Computes the Hough space dimensions for a given stroke.
+    ///
+    /// The formula is height = 180, width = sqrt(diffX^2 + diffY^2), where diffX and diffY
+    /// are the differences between min and max of X and Y respectively.
     private func getHoughSpaceDimensions<S>(of stroke: S) -> (height: Int, width: Int) where S: DTStroke {
         let points = stroke.points
         let locations = points.map { $0.location }
@@ -83,6 +95,7 @@ struct HoughShapeDetector: StrokeAugmentor {
 
     // MARK: - Hough Transform
 
+    /// Generates a Hough space from a given stroke.
     private func createHoughSpace<S>(from stroke: S) -> Matrix where S: DTStroke {
         let (height, width) = getHoughSpaceDimensions(of: stroke)
         let points = stroke.points
@@ -109,6 +122,7 @@ struct HoughShapeDetector: StrokeAugmentor {
         return space
     }
 
+    /// Gets the most frequently occurring line within the Hough space.
     private func getTopLine(of houghSpace: Matrix) -> Line? {
         let (height, width) = getSize(of: houghSpace)
 
