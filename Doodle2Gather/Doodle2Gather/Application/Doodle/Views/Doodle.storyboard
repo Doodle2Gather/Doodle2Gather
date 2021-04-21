@@ -555,31 +555,13 @@
                                 </connections>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xWj-qC-1ia" userLabel="Bottom Buttons View">
-                                <rect key="frame" x="12" y="1102" width="410" height="60"/>
+                                <rect key="frame" x="12" y="1102" width="310" height="60"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="vRG-Cw-GCR" userLabel="Button Stack">
-                                        <rect key="frame" x="10" y="0.0" width="390" height="60"/>
+                                        <rect key="frame" x="10" y="0.0" width="290" height="60"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mmL-ay-rCs" userLabel="Timer Button">
-                                                <rect key="frame" x="0.0" y="0.0" width="40" height="60"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="40" id="1pb-xp-25O"/>
-                                                    <constraint firstAttribute="height" constant="60" id="otm-In-MpB"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                                <state key="normal" image="Alarm"/>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5QZ-pg-woK" userLabel="Vote Button">
-                                                <rect key="frame" x="50" y="0.0" width="40" height="60"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="40" id="kq2-D5-skS"/>
-                                                    <constraint firstAttribute="height" constant="60" id="rJX-r6-G3V"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                                <state key="normal" image="ThumbsUp"/>
-                                            </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MeP-8O-gla" userLabel="Chat Button">
-                                                <rect key="frame" x="100" y="0.0" width="40" height="60"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="40" height="60"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="40" id="7sO-nW-2Sb"/>
                                                     <constraint firstAttribute="height" constant="60" id="iKD-aa-szs"/>
@@ -591,7 +573,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Hf-3m-fGi" userLabel="Room Join/Leave Button">
-                                                <rect key="frame" x="150" y="0.0" width="40" height="60"/>
+                                                <rect key="frame" x="50" y="0.0" width="40" height="60"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="40" id="RQu-sr-VfZ"/>
                                                     <constraint firstAttribute="height" constant="60" id="d8w-cV-yil"/>
@@ -604,7 +586,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AkO-hK-cSB" userLabel="Audio Button">
-                                                <rect key="frame" x="200" y="0.0" width="40" height="60"/>
+                                                <rect key="frame" x="100" y="0.0" width="40" height="60"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="40" id="8mR-ka-RxT"/>
                                                     <constraint firstAttribute="height" constant="60" id="PTZ-bB-ztK"/>
@@ -616,7 +598,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yDB-Q3-4ya" userLabel="Video Button">
-                                                <rect key="frame" x="250" y="0.0" width="40" height="60"/>
+                                                <rect key="frame" x="150" y="0.0" width="40" height="60"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="40" id="ef9-hn-lfI"/>
                                                     <constraint firstAttribute="height" constant="60" id="yH5-iU-BGb"/>
@@ -628,7 +610,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9u2-un-NL2" userLabel="Participants Button">
-                                                <rect key="frame" x="300" y="0.0" width="40" height="60"/>
+                                                <rect key="frame" x="200" y="0.0" width="40" height="60"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="40" id="L6V-ow-sIY"/>
                                                     <constraint firstAttribute="height" constant="60" id="nGN-he-yhQ"/>
@@ -639,7 +621,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y9T-9K-ShW" userLabel="Minimise Button">
-                                                <rect key="frame" x="350" y="0.0" width="40" height="60"/>
+                                                <rect key="frame" x="250" y="0.0" width="40" height="60"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="nZ8-jd-PKk"/>
                                                     <constraint firstAttribute="width" constant="40" id="rsh-Pz-YGK"/>
@@ -741,12 +723,10 @@
                         <outlet property="participantsButton" destination="9u2-un-NL2" id="PYG-uu-63Y"/>
                         <outlet property="resizeButton" destination="KSI-yV-Rw5" id="xrB-O3-quL"/>
                         <outlet property="startStopButton" destination="0Hf-3m-fGi" id="10T-H2-Fcc"/>
-                        <outlet property="timerButton" destination="mmL-ay-rCs" id="4g7-Kc-95a"/>
                         <outlet property="toggleCallButton" destination="0Hf-3m-fGi" id="UaM-4T-Tq0"/>
                         <outlet property="topControlView" destination="5fP-1P-WgX" id="TA7-Ck-nkd"/>
                         <outlet property="topControlViewContainer" destination="hzX-Ab-qkC" id="kd1-mJ-dko"/>
                         <outlet property="videoButton" destination="yDB-Q3-4ya" id="uc5-9l-a18"/>
-                        <outlet property="voteButton" destination="5QZ-pg-woK" id="cYO-LK-Aqz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7qd-xc-JKb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1471,7 +1451,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Alarm" width="24" height="24"/>
         <image name="Brush" width="24" height="24"/>
         <image name="BrushAlt" width="24" height="24"/>
         <image name="BrushAlt_Yellow" width="24" height="24"/>
@@ -1509,7 +1488,6 @@
         <image name="Star" width="24" height="24"/>
         <image name="Star_Yellow" width="24" height="24"/>
         <image name="StopButton_Red" width="24" height="24"/>
-        <image name="ThumbsUp" width="24" height="24"/>
         <image name="Triangle" width="24" height="24"/>
         <image name="Triangle_Yellow" width="24" height="24"/>
         <image name="Undo" width="24" height="24"/>
