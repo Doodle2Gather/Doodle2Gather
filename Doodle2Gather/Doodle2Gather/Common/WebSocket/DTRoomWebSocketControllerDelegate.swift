@@ -12,9 +12,6 @@ protocol DTRoomWebSocketControllerDelegate: AnyObject {
     /// Tells the delegate to add a new doodle.
     func addNewDoodle(_ doodle: DTDoodleWrapper)
 
-    /// Tells the delegate to remove the doodle with the given UUID.
-    func removeDoodle(doodleId: UUID)
-
     /// Tells the delegate with the user accesses.
     func didUpdateUserAccesses(_ users: [DTAdaptedUserAccesses])
 
