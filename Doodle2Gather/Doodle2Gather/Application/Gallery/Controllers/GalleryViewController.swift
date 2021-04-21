@@ -179,7 +179,9 @@ extension GalleryViewController: DTHomeWebSocketControllerDelegate {
 
 extension GalleryViewController: GalleryDelegate {
     func didExitRoom() {
-        homeWSController.getAccessibleRooms()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.homeWSController.getAccessibleRooms()
+        }
     }
 
 }
