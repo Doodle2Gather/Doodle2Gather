@@ -609,8 +609,8 @@
                                                     <constraint firstAttribute="width" constant="40" id="8mR-ka-RxT"/>
                                                     <constraint firstAttribute="height" constant="60" id="PTZ-bB-ztK"/>
                                                 </constraints>
-                                                <state key="normal" image="SoundOn"/>
-                                                <state key="selected" image="SoundOff_Red"/>
+                                                <state key="normal" image="SoundOff_Red"/>
+                                                <state key="selected" image="SoundOn"/>
                                                 <connections>
                                                     <action selector="audioButtonDidTap:" destination="iqH-RH-LvU" eventType="touchUpInside" id="GOP-mD-z10"/>
                                                 </connections>
@@ -621,8 +621,8 @@
                                                     <constraint firstAttribute="width" constant="40" id="ef9-hn-lfI"/>
                                                     <constraint firstAttribute="height" constant="60" id="yH5-iU-BGb"/>
                                                 </constraints>
-                                                <state key="normal" image="VideoOn"/>
-                                                <state key="selected" image="VideoOff_Red"/>
+                                                <state key="normal" image="VideoOff_Red"/>
+                                                <state key="selected" image="VideoOn"/>
                                                 <connections>
                                                     <action selector="videoButtonDidTap:" destination="iqH-RH-LvU" eventType="touchUpInside" id="cL9-NY-3n5"/>
                                                 </connections>
