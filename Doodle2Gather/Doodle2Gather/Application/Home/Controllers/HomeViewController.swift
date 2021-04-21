@@ -2,7 +2,7 @@ import UIKit
 
 class HomeViewController: UIViewController {
 
-    // IBOutlets
+    // Storyboard UI Elements
     @IBOutlet private var emailTextField: UITextField!
     @IBOutlet private var passwordTextField: UITextField!
     @IBOutlet private var displayNameTextField: UITextField!

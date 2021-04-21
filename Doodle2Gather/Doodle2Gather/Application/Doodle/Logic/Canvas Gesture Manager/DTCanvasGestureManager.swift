@@ -32,7 +32,7 @@ class DTCanvasGestureManager: NSObject, CanvasGestureManager {
     var shapeTapGestureRecognizer = UITapGestureRecognizer()
     var shapeCreator = ShapeCreator()
     var selectTapGestureRecognizer = UITapGestureRecognizer()
-    var currentSelectedIndex = -1
+    var currentSelectedIndex = Constants.unselectedIndex
     var selectPanGestureRecognizer = InitialPanGestureRecognizer()
     var didStartCorrectly = false
     var isSelfUpdate = false // Guards against updates from panning
@@ -47,6 +47,9 @@ class DTCanvasGestureManager: NSObject, CanvasGestureManager {
         static let canvasSize = CGSize(width: 1_000_000, height: 1_000_000)
         static let detectionKey = "shapeDetection"
         static let pressureKey = "shapePressure"
+        static let tapRadius: CGFloat = 30
+        static let panMinDistance: CGFloat = 3_000
+        static let unselectedIndex: Int = -1
     }
 
     /// Creates a canvas manager with a default blank canvas view.
@@ -104,15 +107,17 @@ extension DTCanvasGestureManager: PKCanvasViewDelegate {
     /// Tells the delegate that the contents of the current drawing changed.
     ///
     /// This method is called by `canvas` when a change has been detected
-    /// as a result of some gesture.
+    /// as a result of some gesture. It then further updates the
+    /// `CanvasGestureManagerDelegate` of this change.
     ///
-    ///
+    /// Stroke augmentation is also performed at this point with relevant
+    /// augmentors in the dictionary.
     func canvasViewDrawingDidChange(_ canvas: PKCanvasView) {
         if isSelfUpdate {
             return
         }
 
-        let actionType = currentSelectedIndex != -1 ? .modify : currentActionType
+        let actionType = currentSelectedIndex != Constants.unselectedIndex ? .modify : currentActionType
         var drawing = canvas.drawing
 
         if currentMainTool == .drawing && !drawing.dtStrokes.isEmpty,
@@ -133,29 +138,43 @@ extension DTCanvasGestureManager: PKCanvasViewDelegate {
         delegate?.canvasZoomScaleDidChange(scale: scrollView.zoomScale)
     }
 
+    /// Tells the delegate that the user started a new drawing sequence with
+    /// the currently selected tool.
+    ///
+    /// A further update is passed up to the `CanvasGestureManagerDelegate`
+    /// of the usage of this tool.
     func canvasViewDidBeginUsingTool(_ canvasView: PKCanvasView) {
         delegate?.setCanvasIsEditing(true)
     }
 
+    /// Tells the delegate that the user ended a new drawing sequence  with the
+    /// tool they were using.
+    ///
+    /// A further update is passed up to the `CanvasGestureManagerDelegate`
+    /// of the termination of usage of this tool.
     func canvasViewDidEndUsingTool(_ canvasView: PKCanvasView) {
         delegate?.setCanvasIsEditing(false)
     }
 
+    /// Activates the gestures related to drawing, deactivating the rest.
     func activateDrawingGestureRecognizer() {
         removeAllGestureRecognizers()
         canvas.drawingGestureRecognizer.isEnabled = true
     }
 
+    /// Activates the gestures related to shape creation, deactivating the rest.
     func activateShapesGestureRecognizer() {
         removeAllGestureRecognizers()
         canvas.addGestureRecognizer(shapeTapGestureRecognizer)
     }
 
+    /// Activates the gestures related to selection, deactivating the rest.
     func activateSelectGestureRecognizer() {
         removeAllGestureRecognizers()
         canvas.addGestureRecognizer(selectTapGestureRecognizer)
     }
 
+    /// Helps to remove all gesture recognizers.
     func removeAllGestureRecognizers() {
         canvas.drawingGestureRecognizer.isEnabled = false
         canvas.removeGestureRecognizer(shapeTapGestureRecognizer)
@@ -164,6 +183,8 @@ extension DTCanvasGestureManager: PKCanvasViewDelegate {
         unselectStroke()
     }
 
+    /// Recognizes a tap when a shape tool is selected, and adds the respective shape
+    /// to the canvas.
     @objc
     func handleShapeTap(_ gesture: UITapGestureRecognizer) {
         let location = translatePoint(gesture.location(in: canvas))
@@ -181,12 +202,19 @@ extension DTCanvasGestureManager: PKCanvasViewDelegate {
 
     }
 
+    /// Recognizes a tap when the select tool is being used, and selects the stroke tapped,
+    /// if any.
+    ///
+    /// If the mode used for selection is `.user`, then only the user's own strokes will be
+    /// selected. Otherwise, all strokes can be selected.
+    ///
+    /// The topmost stroke at the tap area will be selected.
     @objc
     func handleSelectTap(_ gesture: UITapGestureRecognizer) {
         let location = translatePoint(gesture.location(in: canvas))
         let strokesReversed: [PKStroke] = canvas.drawing.dtStrokes.reversed()
         let wrappers = strokeWrappers.reversed()
-        var selectedIndex = -1
+        var selectedIndex = Constants.unselectedIndex
         var currentIndex = 0
 
         for wrapper in wrappers {
@@ -199,7 +227,7 @@ extension DTCanvasGestureManager: PKCanvasViewDelegate {
             }
 
             let stroke = strokesReversed[currentIndex]
-            if stroke.points.contains(where: { $0.location.isCloseTo(location, within: 30) }) {
+            if stroke.points.contains(where: { $0.location.isCloseTo(location, within: Constants.tapRadius) }) {
                 selectedIndex = canvas.drawing.dtStrokes.count - 1 - currentIndex
                 break
             }
@@ -211,7 +239,7 @@ extension DTCanvasGestureManager: PKCanvasViewDelegate {
             return
         }
 
-        if selectedIndex != currentSelectedIndex && currentSelectedIndex != -1 {
+        if selectedIndex != currentSelectedIndex && currentSelectedIndex != Constants.unselectedIndex {
             unselectStroke()
             return
         }
@@ -219,9 +247,16 @@ extension DTCanvasGestureManager: PKCanvasViewDelegate {
         selectStroke(index: selectedIndex)
     }
 
+    /// Recognizes a pan of the selected stroke and pans it accordingly.
+    ///
+    /// The pan will only occur when a stroke is selected and the start of the pan was
+    /// sufficiently close to the stroke.
+    ///
+    /// - Important: There are performance issues with this gesture when utilised
+    ///   with PencilKit. As such, the panning has been throttled accordingly.
     @objc
     func handleSelectPan(_ gesture: InitialPanGestureRecognizer) {
-        guard var startingPoint = gesture.initialTouchLocation, currentSelectedIndex != -1,
+        guard var startingPoint = gesture.initialTouchLocation, currentSelectedIndex != Constants.unselectedIndex,
               currentSelectedIndex < canvas.drawing.dtStrokes.count else {
             didStartCorrectly = false
             return
@@ -239,7 +274,8 @@ extension DTCanvasGestureManager: PKCanvasViewDelegate {
             didStartCorrectly = pointsFrame.contains(startingPoint)
         }
 
-        if !didStartCorrectly || (translation.x * translation.x) + (translation.y * translation.y) < 3_000 {
+        if !didStartCorrectly || (translation.x * translation.x)
+            + (translation.y * translation.y) < Constants.panMinDistance {
             return
         }
         gesture.setTranslation(.zero, in: canvas)
@@ -259,31 +295,11 @@ extension DTCanvasGestureManager: PKCanvasViewDelegate {
         }
     }
 
-    @objc
-    func handleTextTap(_ gesture: UITapGestureRecognizer) {
-        let location = translatePoint(gesture.location(in: canvas))
-
-        let textBox = UITextField(frame: CGRect(x: location.x, y: location.y, width: 100, height: 50))
-        textBox.text = "Hello world"
-        print(textBox)
-        canvas.addSubview(textBox)
-
-        let leftConstraint = textBox.leadingAnchor.constraint(equalTo: canvas.leadingAnchor)
-        leftConstraint.constant = location.x
-        leftConstraint.isActive = true
-
-        let topConstraint = textBox.topAnchor.constraint(equalTo: canvas.topAnchor)
-        topConstraint.constant = location.y
-        topConstraint.isActive = true
-
-        textBox.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        textBox.widthAnchor.constraint(equalToConstant: 100).isActive = true
-
-        print("added")
-        print(canvas.subviews)
-    }
-
+    /// Selects the stroke at the given index.
     func selectStroke(index: Int) {
+        if index < 0 || index >= canvas.drawing.dtStrokes.count {
+            return
+        }
         delegate?.setCanvasIsEditing(true)
         currentSelectedIndex = index
         isSelfUpdate = true
@@ -293,18 +309,20 @@ extension DTCanvasGestureManager: PKCanvasViewDelegate {
         canvas.addGestureRecognizer(selectPanGestureRecognizer)
     }
 
+    /// Unselects the currently selected stroke, if any.
     func unselectStroke() {
-        if currentSelectedIndex == -1 {
+        if currentSelectedIndex == Constants.unselectedIndex {
             return
         }
         isSelfUpdate = false
         delegate?.setCanvasIsEditing(false)
         canvas.drawing.dtStrokes[currentSelectedIndex].setIsSelected(false)
-        currentSelectedIndex = -1
+        currentSelectedIndex = Constants.unselectedIndex
         delegate?.strokeDidUnselect()
         canvas.removeGestureRecognizer(selectPanGestureRecognizer)
     }
 
+    /// Translates the point based on the zoom scale.
     func translatePoint(_ point: CGPoint) -> CGPoint {
         CGPoint(x: point.x / canvas.zoomScale, y: point.y / canvas.zoomScale)
     }

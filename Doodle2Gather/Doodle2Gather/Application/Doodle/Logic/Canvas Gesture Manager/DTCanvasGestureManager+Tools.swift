@@ -5,6 +5,7 @@ import DTSharedLibrary
 
 extension DTCanvasGestureManager {
 
+    /// The current action type based on the tool being used.
     var currentActionType: DTActionType {
         switch currentMainTool {
         case .drawing, .shapes:
