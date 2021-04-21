@@ -1,14 +1,14 @@
 import UIKit
 import Pikko
 
-class StrokeEditorViewController: UIViewController {
+class ColorPickerViewController: UIViewController {
 
     @IBOutlet private var widthLabel: UILabel!
     @IBOutlet private var widthSlider: UISlider!
     @IBOutlet private var opacityLabel: UILabel!
     @IBOutlet private var opacitySlider: UISlider!
 
-    weak var delegate: StrokeEditorDelegate?
+    weak var delegate: ColorPickerDelegate?
     private var pikko: Pikko?
     private var toolSelected: DrawingTools = .pen
     private var colorSelected: UIColor = .black
@@ -53,8 +53,9 @@ class StrokeEditorViewController: UIViewController {
 
 }
 
-extension StrokeEditorViewController: PikkoDelegate {
+extension ColorPickerViewController: PikkoDelegate {
 
+    /// Informs the delegate that the color picked has changed.
     func writeBackColor(color: UIColor) {
         colorSelected = color
         delegate?.colorDidChange(color)
@@ -62,7 +63,7 @@ extension StrokeEditorViewController: PikkoDelegate {
 
 }
 
-extension StrokeEditorViewController: StrokeEditor {
+extension ColorPickerViewController: ColorPicker {
 
     func setToolAndGetProperties(_ tool: DrawingTools) -> (width: CGFloat, color: UIColor) {
         toolSelected = tool

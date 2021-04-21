@@ -475,7 +475,7 @@
             <objects>
                 <viewController id="rKz-2I-ekB" customClass="DTCanvasViewController" customModule="Doodle2Gather" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0hy-zQ-mJQ">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="Rkb-Od-Feo"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -490,11 +490,11 @@
             <objects>
                 <viewController id="iqH-RH-LvU" customClass="ConferenceViewController" customModule="Doodle2Gather" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="27U-ED-QaR" customClass="SubviewTouchView" customModule="Doodle2Gather" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1346"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Bxd-CB-wII" customClass="SubviewTouchCollectionView" customModule="Doodle2Gather" customModuleProvider="target">
-                                <rect key="frame" x="812" y="132" width="200" height="425"/>
+                                <rect key="frame" x="388" y="132" width="200" height="425"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="ZO1-qV-5al"/>
@@ -554,7 +554,7 @@
                                 </connections>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xWj-qC-1ia" userLabel="Bottom Buttons View">
-                                <rect key="frame" x="12" y="1274" width="410" height="60"/>
+                                <rect key="frame" x="12" y="528" width="410" height="60"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="vRG-Cw-GCR" userLabel="Button Stack">
                                         <rect key="frame" x="10" y="0.0" width="390" height="60"/>
@@ -675,7 +675,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hzX-Ab-qkC" userLabel="Top Control View">
-                                <rect key="frame" x="812" y="82" width="200" height="40"/>
+                                <rect key="frame" x="388" y="82" width="200" height="40"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gallery View" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5fP-1P-WgX">
                                         <rect key="frame" x="25" y="9.5" width="107.5" height="21.5"/>
@@ -880,10 +880,10 @@
             </objects>
             <point key="canvasLocation" x="119" y="1248"/>
         </scene>
-        <!--Stroke Editor View Controller-->
+        <!--Color Picker View Controller-->
         <scene sceneID="8do-Og-esA">
             <objects>
-                <viewController id="f3u-GT-n82" customClass="StrokeEditorViewController" customModule="Doodle2Gather" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="f3u-GT-n82" customClass="ColorPickerViewController" customModule="Doodle2Gather" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EdR-su-kl5">
                         <rect key="frame" x="0.0" y="0.0" width="220" height="349"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
