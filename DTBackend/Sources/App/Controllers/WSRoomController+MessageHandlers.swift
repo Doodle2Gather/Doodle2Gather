@@ -30,11 +30,12 @@ extension WSRoomController {
 
     // MARK: - initiateAction
 
+    /// Handles a new action received from a client
     func handleNewAction(_ ws: WebSocket, _ id: UUID,
                          _ message: DTInitiateActionMessage) {
         let action = message.action
 
-        // action successful
+        /// action successful
         if let dispatchAction = roomController.process(action) {
             self.dispatchActionToPeers(
                 dispatchAction, id: id, to: self.getAllWebSocketOptionsExcept(id),
@@ -48,7 +49,7 @@ extension WSRoomController {
             return
         }
 
-        // action denied
+        /// action denied
         self.handleDoodleFetching(ws, id)
         self.sendActionFeedback(
             originalAction: action,
@@ -57,6 +58,7 @@ extension WSRoomController {
         )
     }
 
+    /// Dispatches a successful new action to all clients in the same room to reflect the changes
     func dispatchActionToPeers(_ action: DTAdaptedAction, id: UUID, to sendOptions: [WebSocketSendOption],
                                success: Bool = true, message: String = "") {
         self.logger.info("Dispatched an action to peers!")
@@ -72,6 +74,7 @@ extension WSRoomController {
         }
     }
 
+    /// Sends an feedback message to the initializer of the new action
     func sendActionFeedback(originalAction: DTAdaptedAction, dispatchAction: DTAdaptedAction?,
                             id: UUID, to sendOption: WebSocketSendOption,
                             success: Bool = true, message: String = "",
@@ -91,6 +94,7 @@ extension WSRoomController {
 
     // MARK: - requestFetch
 
+    /// Handles when a client request a refetch
     func handleDoodleFetching(_ ws: WebSocket, _ id: UUID) {
         if !roomController.hasFetchedDoodles {
             PersistedDTRoom.getAllDoodles(roomId, on: self.db)
@@ -110,6 +114,7 @@ extension WSRoomController {
         }
     }
 
+    /// Sends a refetch message containing current state of all doodles in a room to the client
     func sendFetchedDoodles(_ doodles: [DTAdaptedDoodle], _ id: UUID,
                             to sendOptions: [WebSocketSendOption],
                             success: Bool = true, message: String = "") {
@@ -127,6 +132,7 @@ extension WSRoomController {
 
     // MARK: - addDoodle & removeDoodle
 
+    /// Adds a doodle to the room
     func handleAddDoodle(_ ws: WebSocket, _ id: UUID, _ createDoodleData: DTAdaptedDoodle.CreateRequest) {
 
         PersistedDTDoodle.createDoodle(createDoodleData, on: self.db)
@@ -145,6 +151,7 @@ extension WSRoomController {
             }
     }
 
+    /// Removes a doodle from the room with the given doodle id
     func handleRemoveDoodle(_ ws: WebSocket, _ id: UUID, doodleId: UUID) {
         PersistedDTDoodle.removeDoodle(doodleId, on: db)
             .whenComplete { res in
@@ -164,12 +171,14 @@ extension WSRoomController {
 
     // MARK: - updateVideoState
 
+    /// Handles when a client update his/her conference state
     func handleUpdateConferenceState(id: UUID, isVideoOn: Bool, isAudioOn: Bool) {
         self.conferenceLock.withLockVoid {
             self.conferenceState[id] = (isVideoOn, isAudioOn)
         }
     }
 
+    /// Handles when the owner of the room update participant's permission of the room
     func handleSetUserPermission(_ ws: WebSocket, _ message: DTSetUserPermissionsMessage) {
         PersistedDTUserAccesses
             .query(on: db)
@@ -192,6 +201,7 @@ extension WSRoomController {
             }
     }
 
+    /// Handles when a room timer is set
     func handleSetRoomTimer(_ ws: WebSocket, _ message: DTSetRoomTimerMessage) {
         self.getWebSockets(self.getAllWebSocketOptions).forEach {
             $0.send(message: message)

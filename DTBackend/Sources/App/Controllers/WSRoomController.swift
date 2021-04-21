@@ -104,7 +104,7 @@ class WSRoomController {
                         self.dispatchParticipantsInfo(ws, wsId: wsId, userAccesses: userAccesses)
 
                     case .failure(let error):
-                        // Unable to find user in DB
+                        /// Unable to find user in DB
                         self.logger.error("\(error.localizedDescription)")
                     }
                 }
@@ -151,6 +151,7 @@ class WSRoomController {
         ws.send(message: message)
     }
 
+    /// Handles `DTRoomMessage` and relay them to repective handlers based on type
     func onRoomMessage(_ ws: WebSocket, _ data: Data) {
         let decoder = JSONDecoder()
         do {
@@ -222,6 +223,7 @@ class WSRoomController {
 
 extension WSRoomController {
 
+    /// Gets all `WebSocketSendOption` that are currently in the room
     var getAllWebSocketOptions: [WebSocketSendOption] {
         var options = [WebSocketSendOption]()
         for ws in sockets {
@@ -230,6 +232,8 @@ extension WSRoomController {
         return options
     }
 
+    /// Gets all `WebSocketSendOption` that are currently in the room
+    /// except the `WebSocket` which initializes the action
     func getAllWebSocketOptionsExcept(_ uuid: UUID) -> [WebSocketSendOption] {
         var options = [WebSocketSendOption]()
         for ws in sockets where ws.key != uuid {
@@ -238,6 +242,7 @@ extension WSRoomController {
         return options
     }
 
+    /// Gets an array of `WebSocket` from an array of `WebSocketOption`
     func getWebSockets(_ sendOptions: [WebSocketSendOption]) -> [WebSocket] {
         self.lock.withLock {
             var webSockets = [WebSocket]()
