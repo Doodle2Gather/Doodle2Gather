@@ -1,8 +1,12 @@
 import CoreGraphics
 
 /// Represents a single point that's contained in a stroke.
-/// This protocol is modeled after PencilKit's PKStrokePoint, but is designed
-/// for further extensions in the future.
+///
+/// By adopting this protocol, any point model can replace `PKStrokePoint`
+/// in the current implementation.
+///
+/// - Note: This protocol is modeled after PencilKit's PKStrokePoint, but is
+///   designed for further extensions in the future.
 public protocol DTPoint: Hashable, Codable {
 
     /// The position of the point.

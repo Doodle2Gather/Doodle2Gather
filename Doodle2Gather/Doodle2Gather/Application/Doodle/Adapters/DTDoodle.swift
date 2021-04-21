@@ -1,6 +1,9 @@
 import DTSharedLibrary
 
 /// Represents a doodle that contains strokes and can be rendered.
+///
+/// By adopting this protocol, any doodle model can be used as part of `DTDoodleWrapper`
+/// and can replace `PKDrawing` in the current implementation.
 public protocol DTDoodle: Hashable {
     associatedtype Stroke: DTStroke
     var dtStrokes: [Stroke] { get set }
