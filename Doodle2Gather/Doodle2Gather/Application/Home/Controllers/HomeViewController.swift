@@ -7,7 +7,6 @@ class HomeViewController: UIViewController {
     @IBOutlet private var passwordTextField: UITextField!
     @IBOutlet private var displayNameTextField: UITextField!
 
-    @IBOutlet private var actionMessageLabel: UILabel!
     @IBOutlet private var submitButton: UIButton!
     @IBOutlet private var formActionSegmentedControl: UISegmentedControl!
     @IBOutlet private var heightConstraint: NSLayoutConstraint!
@@ -45,7 +44,6 @@ class HomeViewController: UIViewController {
 
         DTAuth.delegate = self
         loadSavedCredentials()
-        actionMessageLabel.text = ""
         updateFormViews()
         emailContainer.addBottomBorderWithColor(color: UIConstants.stackGrey, width: 3)
         passwordContainer.addBottomBorderWithColor(color: UIConstants.stackGrey, width: 3)
@@ -131,9 +129,23 @@ class HomeViewController: UIViewController {
     }
 
     private func attemptRegister() {
-        DTAuth.signUp(email: emailTextField.text!,
-                      password: passwordTextField.text!,
-                      displayName: displayNameTextField.text!)
+        guard let email = emailTextField.text,
+              let password = passwordTextField.text,
+              let displayName = displayNameTextField.text else {
+            alert(title: "Warning",
+                  message: "Please fill in all the fields.",
+                  buttonStyle: .default)
+            return
+        }
+        guard !email.isEmpty && !password.isEmpty && !displayName.isEmpty else {
+            alert(title: "Warning",
+                  message: "Please fill in all the fields.",
+                  buttonStyle: .default)
+            return
+        }
+        DTAuth.signUp(email: email,
+                      password: password,
+                      displayName: displayName)
     }
 
     private func attemptLogin() {
@@ -184,8 +196,12 @@ extension HomeViewController: DTAuthDelegate {
 
     func displayMessage(_ message: String) {
         DispatchQueue.main.async {
-            self.actionMessageLabel.textColor = self.darkBlue
-            self.actionMessageLabel.text = message
+            DTLogger.event(message)
+            self.alert(title: AlertConstants.notice,
+                       message: message,
+                       buttonStyle: .default,
+                       handler: { _ in }
+            )
         }
     }
 
@@ -221,6 +237,9 @@ User Logged in
             }
         }) { errorMessage in
             DispatchQueue.main.async {
+                if let spinner = self.loadingSpinner {
+                    self.removeSpinnerView(spinner)
+                }
                 DTLogger.error(errorMessage)
                 self.alert(title: AlertConstants.notice,
                            message: AlertConstants.serverError,

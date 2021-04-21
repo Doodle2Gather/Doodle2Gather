@@ -35,6 +35,7 @@ class DoodleViewController: UIViewController {
 
     // Delegates
     weak var invitationDelegate: InvitationDelegate?
+    weak var galleryDelegate: GalleryDelegate?
 
     // State
     var room: DTAdaptedRoom?
@@ -266,10 +267,9 @@ extension DoodleViewController {
     @IBAction private func exitButtonDidTap(_ sender: UIButton) {
         alert(title: AlertConstants.exit, message: AlertConstants.exitToMainMenu,
               buttonStyle: .default, handler: { _ in
-                self.dismiss(animated: true, completion: nil)
-                DispatchQueue.main.async {
-                    // TODO: Call backend to update the preview(s) to reflect the latest changes
-                }
+                self.dismiss(animated: true, completion: {
+                    self.galleryDelegate?.didExitRoom()
+                })
               }
         )
     }

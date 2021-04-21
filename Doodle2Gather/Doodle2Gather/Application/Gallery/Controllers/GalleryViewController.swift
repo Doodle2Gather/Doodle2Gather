@@ -91,6 +91,7 @@ extension GalleryViewController: UICollectionViewDelegate {
         vc.room = self.rooms[index]
         vc.modalPresentationStyle = .fullScreen
         vc.modalTransitionStyle = .flipHorizontal
+        vc.galleryDelegate = self
         DispatchQueue.main.async {
             self.present(vc, animated: true, completion: nil)
         }
@@ -158,6 +159,8 @@ extension GalleryViewController: UICollectionViewDelegateFlowLayout {
 
 }
 
+// MARK: - DTHomeWebSocketControllerDelegate
+
 extension GalleryViewController: DTHomeWebSocketControllerDelegate {
     func didGetAccessibleRooms(newRooms: [DTAdaptedRoom]) {
         DTLogger.info { "Received rooms: \(newRooms.map { $0.name })" }
@@ -170,4 +173,13 @@ extension GalleryViewController: DTHomeWebSocketControllerDelegate {
             }
         }
     }
+}
+
+// MARK: - GalleryDelegate
+
+extension GalleryViewController: GalleryDelegate {
+    func didExitRoom() {
+        homeWSController.getAccessibleRooms()
+    }
+
 }

@@ -28,15 +28,9 @@ extension PersistedDTDoodle {
       }
       return PersistedDTDoodle.query(on: db)
         .filter(\.$id == id)
-        .with(\.$actions)
         .with(\.$entities)
         .first()
         .unwrap(or: DTError.modelNotFound(type: "PersistedDTDoodle", id: id.uuidString))
-    }
-
-    static func getAllActions(_ id: PersistedDTRoom.IDValue?, on db: Database) -> EventLoopFuture<[PersistedDTAction]> {
-        getSingleById(id, on: db)
-            .map { $0.actions }
     }
 
     static func getAllStrokes(_ id: PersistedDTRoom.IDValue?, on db: Database) -> EventLoopFuture<[PersistedDTEntity]> {
@@ -46,7 +40,6 @@ extension PersistedDTDoodle {
 
     static func getAll(on db: Database) -> EventLoopFuture<[PersistedDTDoodle]> {
         PersistedDTDoodle.query(on: db)
-            .with(\.$actions)
             .with(\.$entities)
             .all()
     }

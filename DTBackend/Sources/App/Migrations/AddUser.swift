@@ -12,6 +12,6 @@ struct AddUser: Migration {
     }
 
     func revert(on database: Database) -> EventLoopFuture<Void> {
-        database.schema(PersistedDTAction.schema).delete()
+        database.schema(PersistedDTUser.schema).delete()
     }
 }

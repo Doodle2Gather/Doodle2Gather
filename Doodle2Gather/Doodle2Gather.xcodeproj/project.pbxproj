@@ -106,6 +106,7 @@
 		8415BC91262BDF0A00E6CF1B /* AlertConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415BC90262BDF0A00E6CF1B /* AlertConstants.swift */; };
 		8415BC99262BFB1000E6CF1B /* UserViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415BC98262BFB1000E6CF1B /* UserViewCell.swift */; };
 		8415BCA0262C05A000E6CF1B /* ActionSheetAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415BC9F262C05A000E6CF1B /* ActionSheetAlertController.swift */; };
+		8434DB3C262FF7C8000AD082 /* GalleryDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8434DB3B262FF7C8000AD082 /* GalleryDelegate.swift */; };
 		8464E77D262586B4002B5BEE /* InvitationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8464E77C262586B4002B5BEE /* InvitationViewController.swift */; };
 		8464E7892625878C002B5BEE /* Invitation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8464E7882625878C002B5BEE /* Invitation.storyboard */; };
 		8464E7B52625C51D002B5BEE /* ParticipantsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8464E7B42625C51D002B5BEE /* ParticipantsDelegate.swift */; };
@@ -278,6 +279,7 @@
 		8415BC90262BDF0A00E6CF1B /* AlertConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertConstants.swift; sourceTree = "<group>"; };
 		8415BC98262BFB1000E6CF1B /* UserViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewCell.swift; sourceTree = "<group>"; };
 		8415BC9F262C05A000E6CF1B /* ActionSheetAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetAlertController.swift; sourceTree = "<group>"; };
+		8434DB3B262FF7C8000AD082 /* GalleryDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryDelegate.swift; sourceTree = "<group>"; };
 		8464E77C262586B4002B5BEE /* InvitationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitationViewController.swift; sourceTree = "<group>"; };
 		8464E7882625878C002B5BEE /* Invitation.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Invitation.storyboard; sourceTree = "<group>"; };
 		8464E7B42625C51D002B5BEE /* ParticipantsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantsDelegate.swift; sourceTree = "<group>"; };
@@ -866,6 +868,14 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		8434DB3A262FF7A9000AD082 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				8434DB3B262FF7C8000AD082 /* GalleryDelegate.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		8460D73B2605A65800F160B1 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -928,6 +938,7 @@
 		84A451CD2614706000DFCA75 /* Gallery */ = {
 			isa = PBXGroup;
 			children = (
+				8434DB3A262FF7A9000AD082 /* Protocols */,
 				84A451E82614804200DFCA75 /* Views */,
 				84A451CE2614706F00DFCA75 /* Controllers */,
 			);
@@ -1360,6 +1371,7 @@
 				2E987E6E2607468000352E7D /* PKStrokePoint+DTPoint.swift in Sources */,
 				2E245610262EBD9C0074D73A /* ShapeCreator.swift in Sources */,
 				83F5890A2619B44100BB9F07 /* DTUserCredentialsProvider.swift in Sources */,
+				8434DB3C262FF7C8000AD082 /* GalleryDelegate.swift in Sources */,
 				2EB12ABE261BFBB600131FE6 /* DoodleLayerTableDelegate.swift in Sources */,
 				2EB12A3F261BE3F400131FE6 /* DTCodableTool.swift in Sources */,
 				8415BC99262BFB1000E6CF1B /* UserViewCell.swift in Sources */,
