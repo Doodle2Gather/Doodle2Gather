@@ -22,7 +22,7 @@ protocol ActionManager {
     ///   that when applied to the state of `oldDoodle` will give us the state of `newDoodle`.
     ///   This returned action will be recognised as being created by the current user.
     func createAction(oldDoodle: DTDoodleWrapper, newDoodle: PKDrawing,
-                      actionType: DTActionType) -> DTPartialAdaptedAction?
+                      actionType: DTActionType) -> DTActionProtocol?
 
     /// Transforms an action to be applicable on a new doodle.
     ///
@@ -41,9 +41,11 @@ protocol ActionManager {
     ///
     /// - Returns: `nil` if the change is not applicable for the state of `doodle`;
     ///   otherwise, a transformed action.
-    func transformAction(_ action: DTPartialAdaptedAction, on doodle: DTDoodleWrapper) -> DTPartialAdaptedAction?
+    func transformAction(_ action: DTActionProtocol, on doodle: DTDoodleWrapper) -> DTActionProtocol?
 
     /// Applies an action to a given doodle state and returns the new state.
+    ///
+    /// This method should attempt to apply
     func applyAction(_ action: DTActionProtocol, on doodle: DTDoodleWrapper) -> DTDoodleWrapper?
 
     // MARK: - Stateful Operations
@@ -51,10 +53,10 @@ protocol ActionManager {
     var canUndo: Bool { get }
     var canRedo: Bool { get }
 
-    mutating func addNewActionToUndo(_ action: DTPartialAdaptedAction)
+    mutating func addNewActionToUndo(_ action: DTActionProtocol)
 
-    mutating func undo() -> DTPartialAdaptedAction?
+    mutating func undo() -> DTActionProtocol?
 
-    mutating func redo() -> DTPartialAdaptedAction?
+    mutating func redo() -> DTActionProtocol?
 
 }

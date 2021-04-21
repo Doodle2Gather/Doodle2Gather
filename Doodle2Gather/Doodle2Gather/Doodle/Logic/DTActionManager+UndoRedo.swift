@@ -8,7 +8,7 @@ extension DTActionManager {
         !redoActions.isEmpty
     }
 
-    mutating func undo() -> DTPartialAdaptedAction? {
+    mutating func undo() -> DTActionProtocol? {
         guard let latestAction = undoActions.popLast() else {
             return nil
         }
@@ -18,7 +18,7 @@ extension DTActionManager {
         return action
     }
 
-    mutating func redo() -> DTPartialAdaptedAction? {
+    mutating func redo() -> DTActionProtocol? {
         guard let latestAction = redoActions.popLast() else {
             return nil
         }
@@ -28,7 +28,7 @@ extension DTActionManager {
         return action
     }
 
-    mutating func addNewActionToUndo(_ action: DTPartialAdaptedAction) {
+    mutating func addNewActionToUndo(_ action: DTActionProtocol) {
         undoActions.append(action)
         redoActions = []
     }

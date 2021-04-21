@@ -5,7 +5,7 @@ import UIKit
 
 extension DoodleViewController: DTRoomWebSocketControllerDelegate {
 
-    func dispatchAction(_ action: DTAdaptedAction) {
+    func dispatchAction(_ action: DTActionProtocol) {
         canvasController?.dispatchAction(action)
     }
 
@@ -76,11 +76,11 @@ extension DoodleViewController: DTRoomWebSocketControllerDelegate {
 
 extension DoodleViewController: CanvasControllerDelegate {
 
-    func dispatchPartialAction(_ action: DTPartialAdaptedAction) {
+    func dispatchPartialAction(_ action: DTActionProtocol) {
         guard let roomId = self.room?.roomId else {
             return
         }
-        let action = DTAdaptedAction(partialAction: action, roomId: roomId)
+        let action = DTAdaptedAction(action: action, roomId: roomId)
         roomWSController.addAction(action)
         updateUndoRedoButtons()
     }
