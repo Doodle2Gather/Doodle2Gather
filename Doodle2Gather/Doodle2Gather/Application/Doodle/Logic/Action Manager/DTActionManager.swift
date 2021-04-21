@@ -45,8 +45,6 @@ struct DTActionManager: ActionManager {
             }
             // No change required if the stroke we intend to modify still exists as it is.
             return action
-        default:
-            return nil
         }
     }
 

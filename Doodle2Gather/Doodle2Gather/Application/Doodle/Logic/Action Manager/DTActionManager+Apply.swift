@@ -12,8 +12,6 @@ extension DTActionManager {
             return applyRemoveOrUnremoveAction(action, on: doodle, isRemove: false)
         case .modify:
             return applyModifyAction(action, on: doodle)
-        default:
-            return nil
         }
     }
 

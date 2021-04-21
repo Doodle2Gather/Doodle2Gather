@@ -6,7 +6,7 @@ public struct DTMessage: Codable {
     public let id: UUID
 }
 
-/// Represents the message to establish WebSocket connection
+/// Represents the message sent by the server to a client to establish WebSocket connection
 public struct DTHandshake: Codable {
     var type = DTMessageType.handshake
     public let id: UUID

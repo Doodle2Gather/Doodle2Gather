@@ -27,7 +27,7 @@ extension DTActionManager {
             action = createRemoveAction(newStrokes: newStrokes, oldDoodle: oldDoodle, userId: userId)
         case .modify:
             action = createModifyAction(newStrokes: newStrokes, oldDoodle: oldDoodle, userId: userId)
-        case .unknown, .unremove:
+        case .unremove:
             break
         }
 
