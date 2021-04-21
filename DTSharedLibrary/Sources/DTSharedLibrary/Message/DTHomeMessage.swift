@@ -1,8 +1,7 @@
 import Foundation
 
-/// Represents the messages sent between client and server
-/// after the client has logged in and before the client joins a room
-/// (aka when a client is the gallery view)
+/// Represents the messages sent between client and server after the client has logged in
+/// and before the client joins a room (aka when a client is the gallery view)
 public struct DTHomeMessage: Codable {
     public let id: UUID
     public let subtype: DTHomeMessageType
@@ -16,7 +15,8 @@ public struct DTCreateRoomMessage: Codable {
 
     public let ownerId: String
     public let name: String
-    // nil for request message nad not nil for response from server
+
+    /// nil for request message nad not nil for response from server
     public let room: DTAdaptedRoom?
 
     public init(id: UUID, ownerId: String, name: String, room: DTAdaptedRoom? = nil) {
@@ -60,7 +60,8 @@ public struct DTAccessibleRoomMessage: Codable {
     public let id: UUID
 
     public let userId: String
-    // nil for request message nad not nil for response from server
+
+    /// nil for request message nad not nil for response from server
     public let rooms: [DTAdaptedRoom]?
 
     public init(id: UUID, userId: String, rooms: [DTAdaptedRoom]? = nil) {

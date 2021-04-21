@@ -3,8 +3,6 @@ import Vapor
 
 /// Configures application
 public func configure(_ app: Application) throws {
-    /// Configure Middleware
-    app.middleware.use(DTErrorMiddleware())
 
     /// Set up hostname and port
     app.http.server.configuration.hostname = "0.0.0.0"

@@ -62,7 +62,7 @@ extension PersistedDTRoom {
             .flatMapThrowing(DTAdaptedRoom.init)
         }
     }
-    
+
     /// Get all users and their permission with regard to a room 
     static func getRoomPermissions(roomId: UUID, on db: Database) -> EventLoopFuture<[DTAdaptedUserAccesses]> {
         PersistedDTRoom.getRoomDTUserAccesses(roomId, on: db)
