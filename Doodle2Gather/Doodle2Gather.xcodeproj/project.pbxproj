@@ -75,10 +75,10 @@
 		2EF8E94525F754C700C7EE7D /* Doodle2GatherUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8E94425F754C700C7EE7D /* Doodle2GatherUITests.swift */; };
 		2EF94824262C108C00CB3E42 /* DTDoodleWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF94823262C108C00CB3E42 /* DTDoodleWrapper.swift */; };
 		2EF9482A262C10CD00CB3E42 /* DTStrokeWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF94829262C10CD00CB3E42 /* DTStrokeWrapper.swift */; };
-		2EFF38DC261AAEF400488289 /* StrokeEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFF38DB261AAEF400488289 /* StrokeEditorViewController.swift */; };
-		2EFF38E0261AAF2000488289 /* StrokeEditorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFF38DF261AAF2000488289 /* StrokeEditorDelegate.swift */; };
+		2EFF38DC261AAEF400488289 /* ColorPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFF38DB261AAEF400488289 /* ColorPickerViewController.swift */; };
+		2EFF38E0261AAF2000488289 /* ColorPickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFF38DF261AAF2000488289 /* ColorPickerDelegate.swift */; };
 		2EFF38EA261AAF9A00488289 /* DoodleConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFF38E9261AAF9A00488289 /* DoodleConstants.swift */; };
-		2EFF38F0261AB2F300488289 /* StrokeEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFF38EF261AB2F300488289 /* StrokeEditor.swift */; };
+		2EFF38F0261AB2F300488289 /* ColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFF38EF261AB2F300488289 /* ColorPicker.swift */; };
 		678F8923261B554A005530A0 /* DTAdaptedAction+DTActionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678F8922261B554A005530A0 /* DTAdaptedAction+DTActionProtocol.swift */; };
 		67B62B4C2619BB980062037E /* DTRoomWebSocketController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B62B4B2619BB980062037E /* DTRoomWebSocketController.swift */; };
 		67B62B662619CEF10062037E /* DTSharedLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 67B62B652619CEF10062037E /* DTSharedLibrary */; };
@@ -249,10 +249,10 @@
 		2EF8E94625F754C700C7EE7D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2EF94823262C108C00CB3E42 /* DTDoodleWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTDoodleWrapper.swift; sourceTree = "<group>"; };
 		2EF94829262C10CD00CB3E42 /* DTStrokeWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTStrokeWrapper.swift; sourceTree = "<group>"; };
-		2EFF38DB261AAEF400488289 /* StrokeEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeEditorViewController.swift; sourceTree = "<group>"; };
-		2EFF38DF261AAF2000488289 /* StrokeEditorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeEditorDelegate.swift; sourceTree = "<group>"; };
+		2EFF38DB261AAEF400488289 /* ColorPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerViewController.swift; sourceTree = "<group>"; };
+		2EFF38DF261AAF2000488289 /* ColorPickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerDelegate.swift; sourceTree = "<group>"; };
 		2EFF38E9261AAF9A00488289 /* DoodleConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodleConstants.swift; sourceTree = "<group>"; };
-		2EFF38EF261AB2F300488289 /* StrokeEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeEditor.swift; sourceTree = "<group>"; };
+		2EFF38EF261AB2F300488289 /* ColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPicker.swift; sourceTree = "<group>"; };
 		5630A42182E9C28155E1A130 /* Pods-Doodle2Gather.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Doodle2Gather.release.xcconfig"; path = "Target Support Files/Pods-Doodle2Gather/Pods-Doodle2Gather.release.xcconfig"; sourceTree = "<group>"; };
 		678F8922261B554A005530A0 /* DTAdaptedAction+DTActionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DTAdaptedAction+DTActionProtocol.swift"; sourceTree = "<group>"; };
 		67B62B4B2619BB980062037E /* DTRoomWebSocketController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTRoomWebSocketController.swift; sourceTree = "<group>"; };
@@ -343,14 +343,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2E0C9DE1262DAA98006F55ED /* Augmentors */ = {
+		2E0C9DE1262DAA98006F55ED /* Stroke Augmentor */ = {
 			isa = PBXGroup;
 			children = (
 				2EB128F8261B6B3F00131FE6 /* StrokeAugmentor.swift */,
 				2EB128F7261B6B2500131FE6 /* Shape Detection */,
 				2E46CB93262E56500003A46A /* Property Adjustment */,
 			);
-			path = Augmentors;
+			path = "Stroke Augmentor";
 			sourceTree = "<group>";
 		};
 		2E146CBF2619023A001F6845 /* Views */ = {
@@ -368,6 +368,38 @@
 				848F356826142D8800AD46C6 /* ParticipantsViewController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		2E2512E2262FE69C0094D022 /* Action Manager */ = {
+			isa = PBXGroup;
+			children = (
+				2E2512D0262FCFD40094D022 /* ActionManager.swift */,
+				2E6830CE262C1E1100A16F5D /* DTActionManager.swift */,
+				2E0C9DDB262D8857006F55ED /* DTActionManager+Create.swift */,
+				2E0C9DD5262D85C2006F55ED /* DTActionManager+Apply.swift */,
+				2E0C9DC3262D6F18006F55ED /* DTActionManager+UndoRedo.swift */,
+			);
+			path = "Action Manager";
+			sourceTree = "<group>";
+		};
+		2E2512E3262FE6A80094D022 /* Canvas Gesture Manager */ = {
+			isa = PBXGroup;
+			children = (
+				2E2512B6262FC5990094D022 /* CanvasGestureManager.swift */,
+				2E6830E2262C25B300A16F5D /* CanvasGestureManagerDelegate.swift */,
+				2E6830D2262C1EBE00A16F5D /* DTCanvasGestureManager.swift */,
+				2E6830DC262C229F00A16F5D /* DTCanvasGestureManager+Tools.swift */,
+			);
+			path = "Canvas Gesture Manager";
+			sourceTree = "<group>";
+		};
+		2E2512E7262FE7520094D022 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				8464E7DB2626BB1D002B5BEE /* receive.mp3 */,
+				8464E7DC2626BB1E002B5BEE /* send.mp3 */,
+			);
+			path = Audio;
 			sourceTree = "<group>";
 		};
 		2E46CB93262E56500003A46A /* Property Adjustment */ = {
@@ -389,11 +421,13 @@
 		2EA8C2F82605E50100BE750C /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				2EB12AB9261BF41900131FE6 /* DoodleLayerCellDelegate.swift */,
-				2EB12ABD261BFBB600131FE6 /* DoodleLayerTableDelegate.swift */,
 				2EB12AC1261BFCD100131FE6 /* DoodleLayerTable.swift */,
-				2E00ED81262F7EB3007F9B15 /* LeftPanelsControllerDelegate.swift */,
+				2EB12ABD261BFBB600131FE6 /* DoodleLayerTableDelegate.swift */,
+				2EB12AB9261BF41900131FE6 /* DoodleLayerCellDelegate.swift */,
 				2E00ED85262F7EBD007F9B15 /* LeftPanelsController.swift */,
+				2E00ED81262F7EB3007F9B15 /* LeftPanelsControllerDelegate.swift */,
+				2EA8C2F92605E51500BE750C /* CanvasController.swift */,
+				2EA8C3042605E5B700BE750C /* CanvasControllerDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -403,7 +437,7 @@
 			children = (
 				2ED629852618FFE6009F92D0 /* Agora */,
 				2ED6297E2618FEEB009F92D0 /* Chat */,
-				2EFF38DA261AAED300488289 /* Stroke Editor */,
+				2EFF38DA261AAED300488289 /* Color Picker */,
 			);
 			path = Adapters;
 			sourceTree = "<group>";
@@ -449,8 +483,6 @@
 		2EB12A46261BE3F900131FE6 /* PencilKit */ = {
 			isa = PBXGroup;
 			children = (
-				2EF94823262C108C00CB3E42 /* DTDoodleWrapper.swift */,
-				2EF94829262C10CD00CB3E42 /* DTStrokeWrapper.swift */,
 				2EA8C334260677C800BE750C /* PKDrawing+DTDoodle.swift */,
 				2E4A0B412616FDFF003257D4 /* PKDrawing+StrokesFrame.swift */,
 				2EA8C34126067F0000BE750C /* PKStroke+DTStroke.swift */,
@@ -529,18 +561,6 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
-		2ED629822618FFD6009F92D0 /* Doodle */ = {
-			isa = PBXGroup;
-			children = (
-				2EF94849262C1A4200CB3E42 /* Logic */,
-				2E0C9DE1262DAA98006F55ED /* Augmentors */,
-				2EB12A39261BE3E200131FE6 /* Adapters */,
-				2EB12A46261BE3F900131FE6 /* PencilKit */,
-				2EB129A6261BB29500131FE6 /* Helpers */,
-			);
-			path = Doodle;
-			sourceTree = "<group>";
-		};
 		2ED629852618FFE6009F92D0 /* Agora */ = {
 			isa = PBXGroup;
 			children = (
@@ -557,6 +577,8 @@
 				2E0C9DC7262D6FEE006F55ED /* DTActionProtocol.swift */,
 				678F8922261B554A005530A0 /* DTAdaptedAction+DTActionProtocol.swift */,
 				2E6830E6262C31C000A16F5D /* DTPartialAdaptedAction.swift */,
+				2EF94823262C108C00CB3E42 /* DTDoodleWrapper.swift */,
+				2EF94829262C10CD00CB3E42 /* DTStrokeWrapper.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -564,10 +586,13 @@
 		2ED7A3C32601B7570006D873 /* Doodle */ = {
 			isa = PBXGroup;
 			children = (
-				2ED6298826190047009F92D0 /* Models */,
+				2EB12A39261BE3E200131FE6 /* Adapters */,
+				2EB12A46261BE3F900131FE6 /* PencilKit */,
+				2EF94849262C1A4200CB3E42 /* Logic */,
 				2ED7A3C42601B7660006D873 /* Views */,
 				2ED7A3CA2601C0280006D873 /* Controllers */,
 				2EA8C2F82605E50100BE750C /* Protocols */,
+				2EB129A6261BB29500131FE6 /* Helpers */,
 			);
 			path = Doodle;
 			sourceTree = "<group>";
@@ -588,6 +613,7 @@
 				8415BC7C262B4E3F00E6CF1B /* DoodleViewController+Delegates.swift */,
 				2EB12AB1261BEDDC00131FE6 /* DoodleLayerTableViewController.swift */,
 				2E00ED7D262F7BEA007F9B15 /* LeftPanelsViewController.swift */,
+				2E8AC7492613F4C90033869E /* DTCanvasViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -630,8 +656,8 @@
 			isa = PBXGroup;
 			children = (
 				2EA8C3162606680500BE750C /* Adapters */,
+				2ED6298826190047009F92D0 /* Models */,
 				2EF8E97A25F75EAE00C7EE7D /* Application */,
-				2ED629822618FFD6009F92D0 /* Doodle */,
 				2EF8E97F25F75F5100C7EE7D /* Common */,
 				2EF8E97225F75E2900C7EE7D /* Assets */,
 				2EF8E97125F75E1400C7EE7D /* Bootstrap */,
@@ -679,8 +705,7 @@
 		2EF8E97225F75E2900C7EE7D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				8464E7DB2626BB1D002B5BEE /* receive.mp3 */,
-				8464E7DC2626BB1E002B5BEE /* send.mp3 */,
+				2E2512E7262FE7520094D022 /* Audio */,
 				2EF8E92B25F754C700C7EE7D /* Assets.xcassets */,
 			);
 			path = Assets;
@@ -745,30 +770,21 @@
 		2EF94849262C1A4200CB3E42 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
-				2EA8C2F92605E51500BE750C /* CanvasController.swift */,
-				2EA8C3042605E5B700BE750C /* CanvasControllerDelegate.swift */,
-				2E8AC7492613F4C90033869E /* DTCanvasViewController.swift */,
-				2E2512D0262FCFD40094D022 /* ActionManager.swift */,
-				2E6830CE262C1E1100A16F5D /* DTActionManager.swift */,
-				2E0C9DDB262D8857006F55ED /* DTActionManager+Create.swift */,
-				2E0C9DD5262D85C2006F55ED /* DTActionManager+Apply.swift */,
-				2E0C9DC3262D6F18006F55ED /* DTActionManager+UndoRedo.swift */,
-				2E2512B6262FC5990094D022 /* CanvasGestureManager.swift */,
-				2E6830E2262C25B300A16F5D /* CanvasGestureManagerDelegate.swift */,
-				2E6830D2262C1EBE00A16F5D /* DTCanvasGestureManager.swift */,
-				2E6830DC262C229F00A16F5D /* DTCanvasGestureManager+Tools.swift */,
+				2E2512E2262FE69C0094D022 /* Action Manager */,
+				2E2512E3262FE6A80094D022 /* Canvas Gesture Manager */,
+				2E0C9DE1262DAA98006F55ED /* Stroke Augmentor */,
 			);
 			path = Logic;
 			sourceTree = "<group>";
 		};
-		2EFF38DA261AAED300488289 /* Stroke Editor */ = {
+		2EFF38DA261AAED300488289 /* Color Picker */ = {
 			isa = PBXGroup;
 			children = (
-				2EFF38DB261AAEF400488289 /* StrokeEditorViewController.swift */,
-				2EFF38DF261AAF2000488289 /* StrokeEditorDelegate.swift */,
-				2EFF38EF261AB2F300488289 /* StrokeEditor.swift */,
+				2EFF38DB261AAEF400488289 /* ColorPickerViewController.swift */,
+				2EFF38DF261AAF2000488289 /* ColorPickerDelegate.swift */,
+				2EFF38EF261AB2F300488289 /* ColorPicker.swift */,
 			);
-			path = "Stroke Editor";
+			path = "Color Picker";
 			sourceTree = "<group>";
 		};
 		67B62B4A2619BB980062037E /* WebSocket */ = {
@@ -1362,7 +1378,7 @@
 				2EBD90D0261B01F4009859FE /* ThickSliderView.swift in Sources */,
 				2E6830E7262C31C000A16F5D /* DTPartialAdaptedAction.swift in Sources */,
 				2EB12A40261BE3F400131FE6 /* DTStroke.swift in Sources */,
-				2EFF38F0261AB2F300488289 /* StrokeEditor.swift in Sources */,
+				2EFF38F0261AB2F300488289 /* ColorPicker.swift in Sources */,
 				2E0C9DD6262D85C2006F55ED /* DTActionManager+Apply.swift in Sources */,
 				2E0C9DDC262D8857006F55ED /* DTActionManager+Create.swift in Sources */,
 				2EB128FF261B6E9E00131FE6 /* HoughShapeDetector.swift in Sources */,
@@ -1370,7 +1386,7 @@
 				2E01245F26195B8400A38B77 /* BorderedShadowedView.swift in Sources */,
 				83BDB537262E083500D91DB8 /* DTWebSocketController.swift in Sources */,
 				2E987E8226075C5200352E7D /* DTRoomWebSocketControllerDelegate.swift in Sources */,
-				2EFF38E0261AAF2000488289 /* StrokeEditorDelegate.swift in Sources */,
+				2EFF38E0261AAF2000488289 /* ColorPickerDelegate.swift in Sources */,
 				2E6830DD262C229F00A16F5D /* DTCanvasGestureManager+Tools.swift in Sources */,
 				84A451D52614709400DFCA75 /* GalleryViewController.swift in Sources */,
 				84D803C026186E7C0096692E /* NewDocumentViewController.swift in Sources */,
@@ -1408,7 +1424,7 @@
 				8326080D26147FC600B90F25 /* DTAbstractLogger.swift in Sources */,
 				2E07C4242619B3EA003A87C9 /* UIConstants.swift in Sources */,
 				84E9594F260D754100D587CC /* VideoEngine.swift in Sources */,
-				2EFF38DC261AAEF400488289 /* StrokeEditorViewController.swift in Sources */,
+				2EFF38DC261AAEF400488289 /* ColorPickerViewController.swift in Sources */,
 				2EB128F9261B6B3F00131FE6 /* StrokeAugmentor.swift in Sources */,
 				2E00ED7E262F7BEA007F9B15 /* LeftPanelsViewController.swift in Sources */,
 				2EB12A43261BE3F400131FE6 /* DTPoint.swift in Sources */,

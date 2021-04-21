@@ -10,7 +10,8 @@ class DoodlePreview: UIImageView {
         guard let strokesFrame = drawing.strokesFrame else {
             return nil
         }
-        super.init(image: drawing.image(from: strokesFrame, scale: 1))
+        let previewRect = UIConstants.previewRect(strokesFrame)
+        super.init(image: drawing.image(from: previewRect, scale: 1))
     }
 
     init?(doodle: DTAdaptedDoodle) {
@@ -18,7 +19,8 @@ class DoodlePreview: UIImageView {
         guard let strokesFrame = drawing.strokesFrame else {
             return nil
         }
-        super.init(image: drawing.image(from: strokesFrame, scale: 1))
+        let previewRect = UIConstants.previewRect(strokesFrame)
+        super.init(image: drawing.image(from: previewRect, scale: 1))
     }
 
     @available(*, unavailable)

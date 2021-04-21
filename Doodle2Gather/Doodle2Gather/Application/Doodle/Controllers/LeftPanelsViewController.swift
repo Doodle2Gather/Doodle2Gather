@@ -44,7 +44,7 @@ class LeftPanelsViewController: UIViewController {
     private var previousDrawingTool = DrawingTools.pen
     private var previousShapeTool = ShapeTools.circle
     private var previousSelectTool = SelectTools.all
-    private var strokeEditor: StrokeEditor?
+    private var colorPicker: ColorPicker?
     weak var delegate: LeftPanelsControllerDelegate?
 
 }
@@ -82,11 +82,11 @@ extension LeftPanelsViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == SegueConstants.toStrokeEditor {
-            guard let destination = segue.destination as? StrokeEditorViewController else {
+            guard let destination = segue.destination as? ColorPickerViewController else {
                 return
             }
             destination.delegate = self
-            self.strokeEditor = destination
+            self.colorPicker = destination
         }
     }
 
@@ -195,7 +195,7 @@ extension LeftPanelsViewController {
             shouldDismiss ? drawButton.setImage(#imageLiteral(resourceName: "MagicWand"), for: .normal) : drawButton.setImage(#imageLiteral(resourceName: "MagicWand_Yellow"), for: .normal)
         }
 
-        if let (width, color) = strokeEditor?.setToolAndGetProperties(drawingTool) {
+        if let (width, color) = colorPicker?.setToolAndGetProperties(drawingTool) {
             widthDidChange(width)
             colorDidChange(color)
         }
@@ -245,7 +245,7 @@ extension LeftPanelsViewController {
 extension LeftPanelsViewController: LeftPanelsController {
 
     func strokeDidSelect(color: UIColor) {
-        strokeEditor?.enterEditStrokeMode(color: color)
+        colorPicker?.enterEditStrokeMode(color: color)
         strokeEditorHeightConstraint.constant = 220
         colorPickerView.isHidden = false
     }
@@ -253,7 +253,7 @@ extension LeftPanelsViewController: LeftPanelsController {
     func strokeDidUnselect() {
         colorPickerView.isHidden = true
         strokeEditorHeightConstraint.constant = 349
-        strokeEditor?.exitEditStrokeMode()
+        colorPicker?.exitEditStrokeMode()
     }
 
     func setCanEdit(_ canEdit: Bool) {
@@ -272,7 +272,7 @@ extension LeftPanelsViewController: LeftPanelsController {
 
 // MARK: - StrokeEditorDelegate
 
-extension LeftPanelsViewController: StrokeEditorDelegate {
+extension LeftPanelsViewController: ColorPickerDelegate {
 
     func colorDidChange(_ color: UIColor) {
         coloredCircle.fillColor = color.cgColor
