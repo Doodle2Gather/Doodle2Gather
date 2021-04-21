@@ -239,7 +239,6 @@ extension DoodleViewController {
     }
 
     @IBAction private func exportButtonDidTap(_ sender: UIButton) {
-        // TODO: Export to image for now
         guard let currentDoodle = canvasController?.getCurrentDoodle() else {
             alert(title: "Notice",
                   message: "Unable to export at the moment. Please try again later.",
@@ -252,7 +251,6 @@ extension DoodleViewController {
                   buttonStyle: .default)
             return
         }
-        print("Yolo 2")
         UIImageWriteToSavedPhotosAlbum(imageToExport,
                                        self,
                                        #selector(export(_:didFinishSavingWithError:contextInfo:)), nil)
