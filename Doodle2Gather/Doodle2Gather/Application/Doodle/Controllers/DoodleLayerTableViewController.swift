@@ -7,6 +7,11 @@ class DoodleLayerTableViewController: UITableViewController {
     var selectedDoodleIndex = 0
     weak var delegate: DoodleLayerTableDelegate?
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
+    }
+
     // MARK: - Table View Data Source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -25,7 +30,7 @@ class DoodleLayerTableViewController: UITableViewController {
 
         let doodle = doodles[indexPath.row]
         cell.setName("Layer \(indexPath.row + 1)")
-        cell.setImage(DoodlePreview(doodle: doodle.drawing)?.image ?? #imageLiteral(resourceName: "LayerPlaceholder"))
+        cell.setImage(DoodlePreview(of: doodle.drawing).image)
         cell.index = indexPath.row
         cell.isSelected = selectedDoodleIndex == indexPath.row
         cell.delegate = self
