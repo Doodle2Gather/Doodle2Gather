@@ -63,11 +63,6 @@ class ActiveRoomController {
             let pairs = action.getStrokeIndexPairs()
             self.logger.info("Applying stroke action")
             return applyAction(action: action, entities: strokes, pairs: pairs)
-        case .text:
-            let text = action.makeText()
-            let pairs = action.getTextIndexPairs()
-            self.logger.info("Applying text action")
-            return applyAction(action: action, entities: text, pairs: pairs)
         default:
             self.logger.error("Action is missing type")
             return nil
@@ -125,8 +120,6 @@ class ActiveRoomController {
         switch entity.type {
         case .stroke:
             index = doodle.strokes.count
-        case .text:
-            index = doodle.text.count
         }
 
         doodle.addEntity(entity)
@@ -146,8 +139,6 @@ class ActiveRoomController {
         switch firstEntity.type {
         case .stroke:
             entitySet = doodle.strokes as? [T]
-        case .text:
-            entitySet = doodle.text as? [T]
         }
         guard let entitiesInDoodle = entitySet else {
             return nil
@@ -183,8 +174,6 @@ class ActiveRoomController {
         switch firstEntity.type {
         case .stroke:
             entitySet = doodle.strokes as? [T]
-        case .text:
-            entitySet = doodle.text as? [T]
         }
         guard let entitiesInDoodle = entitySet else {
             return nil
@@ -222,8 +211,6 @@ class ActiveRoomController {
         switch original.type {
         case .stroke:
             entitySet = doodle.strokes as? [T]
-        case .text:
-            entitySet = doodle.text as? [T]
         }
         guard let entities = entitySet else {
             return nil

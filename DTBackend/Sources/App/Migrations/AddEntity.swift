@@ -4,7 +4,6 @@ struct AddEntity: Migration {
     func prepare(on database: Database) -> EventLoopFuture<Void> {
         database.enum("entity_type")
             .case("stroke")
-            .case("text")
             .create()
             .flatMap { _ in
                 database.enum("entity_type").read().flatMap { type in
