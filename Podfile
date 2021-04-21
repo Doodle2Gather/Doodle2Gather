@@ -17,7 +17,7 @@ target 'Doodle2Gather' do
   pod 'Pikko'
   pod 'EasyNotificationBadge'
   pod 'Alamofire'
-  pod 'SWCompression/Deflate', '~> 4.5'
+  pod 'SWCompression'
   
   target 'Doodle2GatherTests' do
     inherit! :search_paths

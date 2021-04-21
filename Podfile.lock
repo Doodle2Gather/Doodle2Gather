@@ -55,8 +55,44 @@ PODS:
   - nanopb/encode (2.30907.0)
   - Pikko (1.0.4)
   - PromisesObjC (1.2.12)
+  - SWCompression (4.5.8):
+    - BitByteData (~> 1.4.3)
+    - SWCompression/BZip2 (= 4.5.8)
+    - SWCompression/Deflate (= 4.5.8)
+    - SWCompression/GZip (= 4.5.8)
+    - SWCompression/LZMA (= 4.5.8)
+    - SWCompression/LZMA2 (= 4.5.8)
+    - SWCompression/SevenZip (= 4.5.8)
+    - SWCompression/TAR (= 4.5.8)
+    - SWCompression/XZ (= 4.5.8)
+    - SWCompression/ZIP (= 4.5.8)
+    - SWCompression/Zlib (= 4.5.8)
+  - SWCompression/BZip2 (4.5.8):
+    - BitByteData (~> 1.4.3)
   - SWCompression/Deflate (4.5.8):
     - BitByteData (~> 1.4.3)
+  - SWCompression/GZip (4.5.8):
+    - BitByteData (~> 1.4.3)
+    - SWCompression/Deflate
+  - SWCompression/LZMA (4.5.8):
+    - BitByteData (~> 1.4.3)
+  - SWCompression/LZMA2 (4.5.8):
+    - BitByteData (~> 1.4.3)
+    - SWCompression/LZMA
+  - SWCompression/SevenZip (4.5.8):
+    - BitByteData (~> 1.4.3)
+    - SWCompression/LZMA2
+  - SWCompression/TAR (4.5.8):
+    - BitByteData (~> 1.4.3)
+  - SWCompression/XZ (4.5.8):
+    - BitByteData (~> 1.4.3)
+    - SWCompression/LZMA2
+  - SWCompression/ZIP (4.5.8):
+    - BitByteData (~> 1.4.3)
+    - SWCompression/Deflate
+  - SWCompression/Zlib (4.5.8):
+    - BitByteData (~> 1.4.3)
+    - SWCompression/Deflate
   - Willow (6.0.0)
 
 DEPENDENCIES:
@@ -67,7 +103,7 @@ DEPENDENCIES:
   - Firebase/Auth
   - MessageKit
   - Pikko
-  - SWCompression/Deflate (~> 4.5)
+  - SWCompression
   - Willow
 
 SPEC REPOS:
@@ -113,6 +149,6 @@ SPEC CHECKSUMS:
   SWCompression: 9b013a48f2b6b0d7a208af9e0265790d6e878327
   Willow: 8efe9bd7bb99b06fe017566848492748b763a0ac
 
-PODFILE CHECKSUM: f8d710e7ca63c0170f69055c3e3cefaa505d5746
+PODFILE CHECKSUM: cc873a4eb076d9b7e8ed15ad832f72bd5e83c0b6
 
 COCOAPODS: 1.10.1

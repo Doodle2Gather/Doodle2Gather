@@ -25,7 +25,7 @@ extension WebSocket {
     }
 
     private func runSendDataMiddlewares(_ data: Data) -> Data {
-        let compressedData = Deflate.compress(data: data)
+        let compressedData = ZlibArchive.archive(data: data)
         return compressedData
     }
 

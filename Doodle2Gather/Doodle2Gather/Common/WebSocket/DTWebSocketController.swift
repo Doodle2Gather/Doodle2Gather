@@ -93,7 +93,7 @@ final class DTWebSocketController {
     }
 
     private func runReceiveDataMiddlewares(_ data: Data) throws -> Data {
-        let decompressedData = try Deflate.decompress(data: data)
+        let decompressedData = try ZlibArchive.unarchive(archive: data)
         return decompressedData
     }
 
@@ -119,7 +119,7 @@ final class DTWebSocketController {
     }
 
     private func runSendDataMiddlewares(_ data: Data) -> Data {
-        let compressedData = Deflate.compress(data: data)
+        let compressedData = ZlibArchive.archive(data: data)
         return compressedData
     }
 
