@@ -1,3 +1,5 @@
+// MARK: - Action Application
+
 extension DTActionManager {
 
     func applyAction(_ action: DTActionProtocol, on doodle: DTDoodleWrapper) -> DTDoodleWrapper? {
@@ -10,8 +12,6 @@ extension DTActionManager {
             return applyRemoveOrUnremoveAction(action, on: doodle, isRemove: false)
         case .modify:
             return applyModifyAction(action, on: doodle)
-        default:
-            return nil
         }
     }
 

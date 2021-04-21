@@ -9,7 +9,6 @@ enum DrawingTools: Int {
 enum MainTools: Int {
     case drawing
     case eraser
-    case text
     case shapes
     case cursor
 }

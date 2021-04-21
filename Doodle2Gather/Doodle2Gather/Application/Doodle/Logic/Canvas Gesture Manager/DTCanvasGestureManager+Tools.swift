@@ -13,8 +13,6 @@ extension DTCanvasGestureManager {
             return .remove
         case .cursor:
             return .modify
-        default:
-            return .unknown
         }
     }
 
@@ -64,14 +62,12 @@ extension DTCanvasGestureManager {
             activateSelectGestureRecognizer()
         case .shapes:
             activateShapesGestureRecognizer()
-        case .text:
-            activateTextGestureRecognizer()
         }
     }
 
     func setColor(_ color: UIColor) {
         if currentSelectedIndex != -1 {
-            canvas.drawing.strokes[currentSelectedIndex].color = color.lighten()
+            canvas.drawing.dtStrokes[currentSelectedIndex].color = color.lighten()
             return
         }
 

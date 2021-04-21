@@ -8,7 +8,6 @@ class LeftPanelsViewController: UIViewController {
     @IBOutlet private var leftButtonsView: UIView!
     @IBOutlet private var drawButton: UIButton!
     @IBOutlet private var eraserButton: UIButton!
-    @IBOutlet private var textButton: UIButton!
     @IBOutlet private var shapesButton: UIButton!
     @IBOutlet private var cursorButton: UIButton!
 
@@ -214,7 +213,6 @@ extension LeftPanelsViewController {
     func unselectAllMainTools() {
         drawButton.isSelected = false
         eraserButton.isSelected = false
-        textButton.isSelected = false
         shapesButton.isSelected = false
         cursorButton.isSelected = false
     }

@@ -76,7 +76,7 @@ extension InvitationViewController: UITableViewDataSource {
 
         return cell
     }
-    
+
     private func setUpOwnerCell(_ cell: UserViewCell, userAccess: DTAdaptedUserAccesses) {
         cell.setEditable(true)
         cell.tapPermissionButtonCallback = { origin, source in
@@ -109,7 +109,7 @@ extension InvitationViewController: UITableViewDataSource {
 }
 
 extension InvitationViewController: InvitationDelegate {
-    
+
     /// Updates the userAccesses to the latest accesses received from server and reload the table view.
     func didUpdateUserAccesses(_ accesses: [DTAdaptedUserAccesses]) {
         userAccesses = accesses

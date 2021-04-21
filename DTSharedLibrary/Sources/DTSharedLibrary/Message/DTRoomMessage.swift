@@ -1,7 +1,6 @@
 import Foundation
 
-/// Represents the messages sent between client and server
-/// when the client is inside a room/document
+/// Represents the messages sent between client and servermwhen the client is inside a room/document
 public struct DTRoomMessage: Codable {
     public let subtype: DTRoomMessageType
     public let id: UUID
@@ -23,8 +22,7 @@ public struct DTJoinRoomMessage: Codable {
     }
 }
 
-/// Represents a message that contains information on all users who
-/// have access to the room
+/// Represents a message that contains information on all users who have access to the room
 public struct DTParticipantInfoMessage: Codable {
     public var type = DTMessageType.room
     public var subtype = DTRoomMessageType.participantInfo
@@ -62,8 +60,7 @@ public struct DTInitiateActionMessage: Codable {
     }
 }
 
-/// Represents the message that the server sent back to the client
-/// that just initiated an action
+/// Represents the message that the server sent back to the client that just initiated an action
 public struct DTActionFeedbackMessage: Codable {
     public var type = DTMessageType.room
     public var subtype = DTRoomMessageType.actionFeedback
@@ -253,6 +250,7 @@ public struct DTUpdateUserConferencingStateMessage: Codable {
     }
 }
 
+/// Represents the message sent to update a user's permission inside a room
 public struct DTSetUserPermissionsMessage: Codable {
     public var type = DTMessageType.room
     public var subtype = DTRoomMessageType.setUserPermission
@@ -274,6 +272,7 @@ public struct DTSetUserPermissionsMessage: Codable {
     }
 }
 
+/// Represents the message sent to set a room timer
 public struct DTSetRoomTimerMessage: Codable {
     public var type = DTMessageType.room
     public var subtype = DTRoomMessageType.setRoomTimer
