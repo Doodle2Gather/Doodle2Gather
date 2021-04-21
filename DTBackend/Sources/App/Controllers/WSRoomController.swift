@@ -204,6 +204,7 @@ class WSRoomController {
                 .filter(\.$doodle.$id == doodle.key)
                 .delete()
             let creation = doodle.value.strokes
+                .filter { $0.isDeleted == false }
                 .map { $0.makePersistedStroke() }
                 .create(on: db)
 

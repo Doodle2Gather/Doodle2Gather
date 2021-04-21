@@ -1,5 +1,9 @@
 import CoreGraphics
 
+/// A shape detector that uses lines and shapes of best fit to identify
+/// shapes.
+///
+/// Works better than `HoughShapeDetector` for sparse points.
 struct BestFitShapeDetector: StrokeAugmentor {
 
     enum Constants {
@@ -125,6 +129,7 @@ extension BestFitShapeDetector {
 
 extension BestFitShapeDetector {
 
+    /// Checks if the points form a circle, and returns the adjusted points.
     private func computeCircleOfBestFit(for points: [CGPoint]) -> [CGPoint]? {
         if points.isEmpty {
             return nil

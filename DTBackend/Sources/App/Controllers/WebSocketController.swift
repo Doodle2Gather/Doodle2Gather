@@ -70,6 +70,18 @@ class WebSocketController {
                 roomController.onJoinRoom(ws, data)
                 return
             }
+            if roomMessage.subtype == .exitRoom {
+                guard let roomController = roomControllers[roomMessage.roomId] else {
+                    // actually, we can force unwrap here rather safely, but we will play safe
+                    fatalError("Unable to fetch room controller")
+                }
+                roomController.handleExitRoom(roomMessage.id)
+                if roomController.sockets.isEmpty {
+                    self.logger.info("Closing empty room")
+                    roomControllers[roomMessage.roomId] = nil
+                }
+                return
+            }
 
             guard let roomController = roomControllers[roomMessage.roomId] else {
                 let warningMessage = "Received message to non-existent room controller. " +
