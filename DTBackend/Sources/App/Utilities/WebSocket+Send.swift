@@ -1,5 +1,6 @@
 import Foundation
 import Vapor
+import SWCompression
 
 extension WebSocket {
     private static let _lock = Lock()
@@ -24,8 +25,8 @@ extension WebSocket {
     }
 
     private func runSendDataMiddlewares(_ data: Data) -> Data {
-        // Dummy method for server send middlewares
-        data
+        let compressedData = Deflate.compress(data: data)
+        return compressedData
     }
 
     private func encodeSendData(_ data: Data) -> Data {

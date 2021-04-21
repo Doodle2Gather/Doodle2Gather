@@ -24,7 +24,7 @@ let package = Package(
         .product(name: "FluentSQLiteDriver", package: "fluent-sqlite-driver"),
         .product(name: "Vapor", package: "vapor"),
         .product(name: "Leaf", package: "leaf"),
-        "SWCompression",
+        .product(name: "SWCompression", package: "SWCompression"),
         "DTSharedLibrary"
       ],
       swiftSettings: [
