@@ -69,7 +69,7 @@ extension DTCanvasGestureManager {
 
     func setColor(_ color: UIColor) {
         if currentSelectedIndex != -1 {
-            canvas.drawing.strokes[currentSelectedIndex].color = color.lighten()
+            canvas.drawing.dtStrokes[currentSelectedIndex].color = color.lighten()
             return
         }
 

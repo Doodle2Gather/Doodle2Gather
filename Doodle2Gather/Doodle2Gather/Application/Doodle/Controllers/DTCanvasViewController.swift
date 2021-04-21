@@ -219,9 +219,9 @@ extension DTCanvasViewController: CanvasGestureManagerDelegate {
         delegate?.canvasZoomScaleDidChange(scale: scale)
     }
 
-    func canvasViewDidChange(type: DTActionType) {
+    func canvasViewDidChange(type: DTActionType, newDoodle: PKDrawing) {
         guard let action = actionManager.createAction(oldDoodle: currentDoodle,
-                                                      newDoodle: canvasView.drawing,
+                                                      newDoodle: newDoodle,
                                                       actionType: type) else {
             // Somehow, a change was triggered without any actual change
             // We cannot update the canvas here, else we will be stuck in an infinite loop
@@ -236,14 +236,14 @@ extension DTCanvasViewController: CanvasGestureManagerDelegate {
             return
         }
 
-        guard let newDoodle = actionManager.applyAction(translatedAction, on: doodles[currentDoodleIndex]) else {
+        guard let finalDoodle = actionManager.applyAction(translatedAction, on: doodles[currentDoodleIndex]) else {
             delegate?.refetchDoodles()
             return
         }
 
-        doodles[currentDoodleIndex] = newDoodle
-        currentDoodle = newDoodle
-        canvasView.drawing = newDoodle.drawing
+        doodles[currentDoodleIndex] = finalDoodle
+        currentDoodle = finalDoodle
+        canvasView.drawing = finalDoodle.drawing
         actionManager.addNewActionToUndo(translatedAction)
         delegate?.dispatchPartialAction(translatedAction)
     }
