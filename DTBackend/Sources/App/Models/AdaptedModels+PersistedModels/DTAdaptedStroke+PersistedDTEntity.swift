@@ -33,6 +33,13 @@ extension DTAdaptedStroke {
             doodleId == persisted.$doodle.id &&
             createdBy == persisted.createdBy
     }
+
+    func belongsToDoodle(_ doodle: PersistedDTDoodle) -> Bool {
+        guard let persistedId = try? doodle.requireID() else {
+            return false
+        }
+        return doodleId == persistedId
+    }
 }
 
 // MARK: - Content

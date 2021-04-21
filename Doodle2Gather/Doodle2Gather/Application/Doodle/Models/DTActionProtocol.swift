@@ -1,3 +1,4 @@
+import Foundation
 import DTSharedLibrary
 
 /// Represents an action that can be performed.
@@ -6,6 +7,7 @@ protocol DTActionProtocol {
     var type: DTActionType { get }
     var entities: [DTEntityIndexPair] { get }
     var createdBy: String { get }
+    var doodleId: UUID { get }
 
     func getStrokes() -> [(stroke: DTStrokeWrapper, index: Int)]
     func inverse() -> Self
@@ -24,7 +26,6 @@ extension DTActionProtocol {
                                                 createdBy: createdBy, isDeleted: stroke.isDeleted) else {
                 continue
             }
-
             wrappers.append((stroke: wrapper, index: stroke.index))
         }
 

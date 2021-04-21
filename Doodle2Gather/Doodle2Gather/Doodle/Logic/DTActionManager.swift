@@ -3,10 +3,10 @@ import DTSharedLibrary
 struct DTActionManager: ActionManager {
 
     /// Cache actions for undo and redo
-    var undoActions = [DTPartialAdaptedAction]()
-    var redoActions = [DTPartialAdaptedAction]()
+    var undoActions = [DTActionProtocol]()
+    var redoActions = [DTActionProtocol]()
 
-    func transformAction(_ action: DTPartialAdaptedAction, on doodle: DTDoodleWrapper) -> DTPartialAdaptedAction? {
+    func transformAction(_ action: DTActionProtocol, on doodle: DTDoodleWrapper) -> DTActionProtocol? {
         switch action.type {
         case .add:
             let length = doodle.strokes.count

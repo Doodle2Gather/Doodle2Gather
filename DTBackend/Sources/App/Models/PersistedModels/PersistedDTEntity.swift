@@ -39,6 +39,7 @@ final class PersistedDTEntity: Model, Content {
         self.$doodle.id = doodleId
         self.entityId = entityId
         self.entityData = entityData
+        self.type = type
         self.createdBy = createdBy
         self.isDeleted = isDeleted
         self.id = id

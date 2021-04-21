@@ -193,25 +193,22 @@ class WSRoomController {
     func syncData() {
         let doodles = roomController.doodles
         doodles.forEach { doodle in
-            PersistedDTDoodle.getSingleById(doodle.key, on: self.db)
-                .flatMapThrowing { res in
-                    res.getEntities().forEach { _ = $0.delete(on: self.db) }
-                }
-                .flatMapThrowing {
-                    for stroke in doodle.value.strokes {
-                        _ = stroke.makePersistedStroke().save(on: self.db)
-                    }
-                    for text in doodle.value.text {
-                        _ = text.makePersistedText().save(on: self.db)
-                    }
-                }.whenComplete { res in
+
+            let deletion = PersistedDTEntity.query(on: db)
+                .filter(\.$doodle.$id == doodle.key)
+                .delete()
+            let creation = doodle.value.strokes
+                .map { $0.makePersistedStroke() }
+                .create(on: db)
+
+            deletion.and(creation).whenComplete { res in
                     switch res {
                     case .failure(let err):
                         self.logger.report(error: err)
                     case .success:
                         self.logger.info("Synced doodle \(doodle.key.uuidString)")
                     }
-                }
+            }
         }
     }
 }
