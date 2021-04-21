@@ -46,6 +46,9 @@ protocol CanvasController {
     /// Gets the current doodle state.
     func getCurrentDoodles() -> [DTDoodleWrapper]
 
+    /// Gets the current doodle that's being displayed.
+    func getCurrentDoodle() -> DTDoodleWrapper
+
     /// Undos the latest action, if any.
     func undo()
 

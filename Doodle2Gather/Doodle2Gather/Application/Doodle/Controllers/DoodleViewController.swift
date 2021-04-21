@@ -105,7 +105,7 @@ class DoodleViewController: UIViewController {
     func prepareForSubviews(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case SegueConstants.toCanvas:
-            guard let destination = segue.destination as? CanvasViewController else {
+            guard let destination = segue.destination as? DTCanvasViewController else {
                 return
             }
             destination.delegate = self

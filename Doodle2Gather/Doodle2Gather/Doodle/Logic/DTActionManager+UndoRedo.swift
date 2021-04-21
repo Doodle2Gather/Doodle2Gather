@@ -1,4 +1,4 @@
-extension ActionManager {
+extension DTActionManager {
 
     var canUndo: Bool {
         !undoActions.isEmpty

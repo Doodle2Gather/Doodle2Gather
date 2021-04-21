@@ -1,11 +1,11 @@
 import PencilKit
 import DTSharedLibrary
 
-extension ActionManager {
+extension DTActionManager {
 
     /// Creates an action from two given doodles.
-    mutating func createAction(oldDoodle: DTDoodleWrapper, newDoodle: PKDrawing,
-                               actionType: DTActionType) -> DTPartialAdaptedAction? {
+    func createAction(oldDoodle: DTDoodleWrapper, newDoodle: PKDrawing,
+                      actionType: DTActionType) -> DTPartialAdaptedAction? {
         guard let userId = DTAuth.user?.uid else {
             fatalError("You're not authenticated!")
         }
