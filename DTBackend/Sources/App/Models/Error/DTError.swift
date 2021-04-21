@@ -84,7 +84,7 @@ extension DTError: AbortError {
     }
 }
 
-// MARK: TILErrorResponse
+// MARK: - DTErrorResponse
 
 extension DTError: DebuggableError {
     public var identifier: String { errorIdentifier.rawValue }
