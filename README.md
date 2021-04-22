@@ -13,7 +13,7 @@ This application is targeted towards teachers and students, designers, or just a
 
 ## Team Members
 
-This iOS app is made as a final project in CS3217.
+This iPadOS app is made as a final project in CS3217. Made with love by:
 
 - [Christopher Goh Zhen Fung](https://github.com/chrisgzf)
 - [He Xinyue](https://github.com/eksinyue)
