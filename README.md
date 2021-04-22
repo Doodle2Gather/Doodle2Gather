@@ -36,4 +36,4 @@ Please refer to our user guide [here](https://docs.google.com/document/d/1__XYLX
 
 Doodle2Gather was fortunate to have won the second place for the 18th SoC Term Project Showcase (STePS).
 
-<p align="center"><img src="docs/images/steps.jpeg" width="40%"/></p>
+<p align="center"><img src="docs/images/steps.jpeg" width="50%"/></p>
