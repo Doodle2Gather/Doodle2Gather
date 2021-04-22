@@ -32,6 +32,10 @@
 		2E6830E3262C25B300A16F5D /* CanvasGestureManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6830E2262C25B300A16F5D /* CanvasGestureManagerDelegate.swift */; };
 		2E6830E7262C31C000A16F5D /* DTPartialAdaptedAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6830E6262C31C000A16F5D /* DTPartialAdaptedAction.swift */; };
 		2E81D82B262BFAC200ABB61F /* DoodlePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E81D82A262BFAC200ABB61F /* DoodlePreview.swift */; };
+		2E87AF9C26314AD400C43C25 /* DTAdaptedActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E87AF9B26314AD400C43C25 /* DTAdaptedActionTests.swift */; };
+		2E87AFB626314B5900C43C25 /* DTAdaptedTestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E87AFB526314B5900C43C25 /* DTAdaptedTestHelper.swift */; };
+		2E87AFC02631530F00C43C25 /* DTPartialAdaptedActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E87AFBF2631530F00C43C25 /* DTPartialAdaptedActionTests.swift */; };
+		2E87AFC42631540900C43C25 /* DTDoodleWrapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E87AFC32631540900C43C25 /* DTDoodleWrapperTests.swift */; };
 		2E8AC7222613F3060033869E /* Pods_Doodle2Gather.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2E3F8FAD2607380100C58F33 /* Pods_Doodle2Gather.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2E8AC74A2613F4C90033869E /* DTCanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8AC7492613F4C90033869E /* DTCanvasViewController.swift */; };
 		2E987E6E2607468000352E7D /* PKStrokePoint+DTPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E987E6D2607468000352E7D /* PKStrokePoint+DTPoint.swift */; };
@@ -44,7 +48,6 @@
 		2EB128F9261B6B3F00131FE6 /* StrokeAugmentor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB128F8261B6B3F00131FE6 /* StrokeAugmentor.swift */; };
 		2EB128FF261B6E9E00131FE6 /* HoughShapeDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB128FE261B6E9E00131FE6 /* HoughShapeDetector.swift */; };
 		2EB12903261B8BED00131FE6 /* BestFitShapeDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12902261B8BED00131FE6 /* BestFitShapeDetector.swift */; };
-		2EB129AF261BB32F00131FE6 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB129AE261BB32F00131FE6 /* Queue.swift */; };
 		2EB12A3F261BE3F400131FE6 /* DTCodableTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12A3A261BE3F400131FE6 /* DTCodableTool.swift */; };
 		2EB12A40261BE3F400131FE6 /* DTStroke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12A3B261BE3F400131FE6 /* DTStroke.swift */; };
 		2EB12A41261BE3F400131FE6 /* DTCodableColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12A3C261BE3F400131FE6 /* DTCodableColor.swift */; };
@@ -69,7 +72,7 @@
 		2EF8E92725F754C600C7EE7D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8E92625F754C600C7EE7D /* HomeViewController.swift */; };
 		2EF8E92A25F754C600C7EE7D /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EF8E92825F754C600C7EE7D /* Home.storyboard */; };
 		2EF8E92F25F754C700C7EE7D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EF8E92D25F754C700C7EE7D /* LaunchScreen.storyboard */; };
-		2EF8E93A25F754C700C7EE7D /* Doodle2GatherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8E93925F754C700C7EE7D /* Doodle2GatherTests.swift */; };
+		2EF8E93A25F754C700C7EE7D /* PencilKitTestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8E93925F754C700C7EE7D /* PencilKitTestHelper.swift */; };
 		2EF8E94525F754C700C7EE7D /* Doodle2GatherUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8E94425F754C700C7EE7D /* Doodle2GatherUITests.swift */; };
 		2EF94824262C108C00CB3E42 /* DTDoodleWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF94823262C108C00CB3E42 /* DTDoodleWrapper.swift */; };
 		2EF9482A262C10CD00CB3E42 /* DTStrokeWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF94829262C10CD00CB3E42 /* DTStrokeWrapper.swift */; };
@@ -200,6 +203,10 @@
 		2E6830E2262C25B300A16F5D /* CanvasGestureManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasGestureManagerDelegate.swift; sourceTree = "<group>"; };
 		2E6830E6262C31C000A16F5D /* DTPartialAdaptedAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTPartialAdaptedAction.swift; sourceTree = "<group>"; };
 		2E81D82A262BFAC200ABB61F /* DoodlePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodlePreview.swift; sourceTree = "<group>"; };
+		2E87AF9B26314AD400C43C25 /* DTAdaptedActionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTAdaptedActionTests.swift; sourceTree = "<group>"; };
+		2E87AFB526314B5900C43C25 /* DTAdaptedTestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTAdaptedTestHelper.swift; sourceTree = "<group>"; };
+		2E87AFBF2631530F00C43C25 /* DTPartialAdaptedActionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTPartialAdaptedActionTests.swift; sourceTree = "<group>"; };
+		2E87AFC32631540900C43C25 /* DTDoodleWrapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTDoodleWrapperTests.swift; sourceTree = "<group>"; };
 		2E8AC7492613F4C90033869E /* DTCanvasViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTCanvasViewController.swift; sourceTree = "<group>"; };
 		2E987E6D2607468000352E7D /* PKStrokePoint+DTPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PKStrokePoint+DTPoint.swift"; sourceTree = "<group>"; };
 		2E987E7C26075C0200352E7D /* RoomSocketController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomSocketController.swift; sourceTree = "<group>"; };
@@ -211,7 +218,6 @@
 		2EB128F8261B6B3F00131FE6 /* StrokeAugmentor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeAugmentor.swift; sourceTree = "<group>"; };
 		2EB128FE261B6E9E00131FE6 /* HoughShapeDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoughShapeDetector.swift; sourceTree = "<group>"; };
 		2EB12902261B8BED00131FE6 /* BestFitShapeDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BestFitShapeDetector.swift; sourceTree = "<group>"; };
-		2EB129AE261BB32F00131FE6 /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		2EB12A3A261BE3F400131FE6 /* DTCodableTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTCodableTool.swift; sourceTree = "<group>"; };
 		2EB12A3B261BE3F400131FE6 /* DTStroke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTStroke.swift; sourceTree = "<group>"; };
 		2EB12A3C261BE3F400131FE6 /* DTCodableColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTCodableColor.swift; sourceTree = "<group>"; };
@@ -240,7 +246,7 @@
 		2EF8E92E25F754C700C7EE7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2EF8E93025F754C700C7EE7D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2EF8E93525F754C700C7EE7D /* Doodle2GatherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Doodle2GatherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		2EF8E93925F754C700C7EE7D /* Doodle2GatherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doodle2GatherTests.swift; sourceTree = "<group>"; };
+		2EF8E93925F754C700C7EE7D /* PencilKitTestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencilKitTestHelper.swift; sourceTree = "<group>"; };
 		2EF8E93B25F754C700C7EE7D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2EF8E94025F754C700C7EE7D /* Doodle2GatherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Doodle2GatherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EF8E94425F754C700C7EE7D /* Doodle2GatherUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doodle2GatherUITests.swift; sourceTree = "<group>"; };
@@ -410,6 +416,55 @@
 			path = "Width Adjustment";
 			sourceTree = "<group>";
 		};
+		2E61712B263103280001940B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2E87AF9B26314AD400C43C25 /* DTAdaptedActionTests.swift */,
+				2E87AFBF2631530F00C43C25 /* DTPartialAdaptedActionTests.swift */,
+				2E87AFC32631540900C43C25 /* DTDoodleWrapperTests.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		2E61712E26310D3D0001940B /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				2E61712F26310D450001940B /* Doodle */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		2E61712F26310D450001940B /* Doodle */ = {
+			isa = PBXGroup;
+			children = (
+				2E61713026310D690001940B /* PencilKit */,
+				2E61713126310D750001940B /* Logic */,
+				2E61713226310DB50001940B /* Controllers */,
+			);
+			path = Doodle;
+			sourceTree = "<group>";
+		};
+		2E61713026310D690001940B /* PencilKit */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PencilKit;
+			sourceTree = "<group>";
+		};
+		2E61713126310D750001940B /* Logic */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Logic;
+			sourceTree = "<group>";
+		};
+		2E61713226310DB50001940B /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		2E7AA3E7261963030028A013 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -449,23 +504,6 @@
 				2EB12902261B8BED00131FE6 /* BestFitShapeDetector.swift */,
 			);
 			path = "Shape Detection";
-			sourceTree = "<group>";
-		};
-		2EB129A6261BB29500131FE6 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				2E81D82A262BFAC200ABB61F /* DoodlePreview.swift */,
-				2E24560F262EBD9C0074D73A /* ShapeCreator.swift */,
-			);
-			path = Helpers;
-			sourceTree = "<group>";
-		};
-		2EB129AD261BB31300131FE6 /* Data Structures */ = {
-			isa = PBXGroup;
-			children = (
-				2EB129AE261BB32F00131FE6 /* Queue.swift */,
-			);
-			path = "Data Structures";
 			sourceTree = "<group>";
 		};
 		2EB12A39261BE3E200131FE6 /* Adapters */ = {
@@ -590,7 +628,6 @@
 				2ED7A3C42601B7660006D873 /* Views */,
 				2ED7A3CA2601C0280006D873 /* Controllers */,
 				2EA8C2F82605E50100BE750C /* Protocols */,
-				2EB129A6261BB29500131FE6 /* Helpers */,
 			);
 			path = Doodle;
 			sourceTree = "<group>";
@@ -600,6 +637,7 @@
 			children = (
 				2ED7A3C52601B7740006D873 /* Doodle.storyboard */,
 				2EB12AB5261BEF6700131FE6 /* DoodleLayerTableViewCell.swift */,
+				2E81D82A262BFAC200ABB61F /* DoodlePreview.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -667,7 +705,10 @@
 		2EF8E93825F754C700C7EE7D /* Doodle2GatherTests */ = {
 			isa = PBXGroup;
 			children = (
-				2EF8E93925F754C700C7EE7D /* Doodle2GatherTests.swift */,
+				2E61712B263103280001940B /* Models */,
+				2E61712E26310D3D0001940B /* Application */,
+				2EF8E93925F754C700C7EE7D /* PencilKitTestHelper.swift */,
+				2E87AFB526314B5900C43C25 /* DTAdaptedTestHelper.swift */,
 				2EF8E93B25F754C700C7EE7D /* Info.plist */,
 			);
 			path = Doodle2GatherTests;
@@ -758,7 +799,6 @@
 				83AB9C5026171068008E48D0 /* Auth */,
 				832607EC26145D3900B90F25 /* Utils */,
 				84B17FFA2601C5B5009530A0 /* Constants */,
-				2EB129AD261BB31300131FE6 /* Data Structures */,
 				2EC419542625ECCB00BE0518 /* Extensions */,
 				2EF0E51B26096B490008184D /* Views */,
 			);
@@ -771,6 +811,7 @@
 				2E2512E2262FE69C0094D022 /* Action Manager */,
 				2E2512E3262FE6A80094D022 /* Canvas Gesture Manager */,
 				2E0C9DE1262DAA98006F55ED /* Stroke Augmentor */,
+				2E24560F262EBD9C0074D73A /* ShapeCreator.swift */,
 			);
 			path = Logic;
 			sourceTree = "<group>";
@@ -1424,7 +1465,6 @@
 				8415BCA0262C05A000E6CF1B /* ActionSheetAlertController.swift in Sources */,
 				2EB12A41261BE3F400131FE6 /* DTCodableColor.swift in Sources */,
 				84D6059A262EF1D400A120ED /* VideoCallUser.swift in Sources */,
-				2EB129AF261BB32F00131FE6 /* Queue.swift in Sources */,
 				2E6830E3262C25B300A16F5D /* CanvasGestureManagerDelegate.swift in Sources */,
 				8415BC7D262B4E3F00E6CF1B /* DoodleViewController+Delegates.swift in Sources */,
 				84E95961260D758B00D587CC /* ChatEngineDelegate.swift in Sources */,
@@ -1451,7 +1491,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2EF8E93A25F754C700C7EE7D /* Doodle2GatherTests.swift in Sources */,
+				2EF8E93A25F754C700C7EE7D /* PencilKitTestHelper.swift in Sources */,
+				2E87AFB626314B5900C43C25 /* DTAdaptedTestHelper.swift in Sources */,
+				2E87AF9C26314AD400C43C25 /* DTAdaptedActionTests.swift in Sources */,
+				2E87AFC42631540900C43C25 /* DTDoodleWrapperTests.swift in Sources */,
+				2E87AFC02631530F00C43C25 /* DTPartialAdaptedActionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
