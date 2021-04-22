@@ -36,6 +36,11 @@
 		2E87AFB626314B5900C43C25 /* DTAdaptedTestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E87AFB526314B5900C43C25 /* DTAdaptedTestHelper.swift */; };
 		2E87AFC02631530F00C43C25 /* DTPartialAdaptedActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E87AFBF2631530F00C43C25 /* DTPartialAdaptedActionTests.swift */; };
 		2E87AFC42631540900C43C25 /* DTDoodleWrapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E87AFC32631540900C43C25 /* DTDoodleWrapperTests.swift */; };
+		2E87AFCA2631C57500C43C25 /* DTStrokeWrapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E87AFC92631C57500C43C25 /* DTStrokeWrapperTests.swift */; };
+		2E87AFCE2631CB8C00C43C25 /* PKDrawingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E87AFCD2631CB8C00C43C25 /* PKDrawingTests.swift */; };
+		2E87AFD32631CD4300C43C25 /* TestDoodle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E87AFD22631CD4300C43C25 /* TestDoodle.swift */; };
+		2E87AFD92631CD5C00C43C25 /* TestStroke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E87AFD82631CD5C00C43C25 /* TestStroke.swift */; };
+		2E87AFDD2631CD6200C43C25 /* TestPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E87AFDC2631CD6200C43C25 /* TestPoint.swift */; };
 		2E8AC7222613F3060033869E /* Pods_Doodle2Gather.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2E3F8FAD2607380100C58F33 /* Pods_Doodle2Gather.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2E8AC74A2613F4C90033869E /* DTCanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8AC7492613F4C90033869E /* DTCanvasViewController.swift */; };
 		2E987E6E2607468000352E7D /* PKStrokePoint+DTPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E987E6D2607468000352E7D /* PKStrokePoint+DTPoint.swift */; };
@@ -207,6 +212,11 @@
 		2E87AFB526314B5900C43C25 /* DTAdaptedTestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTAdaptedTestHelper.swift; sourceTree = "<group>"; };
 		2E87AFBF2631530F00C43C25 /* DTPartialAdaptedActionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTPartialAdaptedActionTests.swift; sourceTree = "<group>"; };
 		2E87AFC32631540900C43C25 /* DTDoodleWrapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTDoodleWrapperTests.swift; sourceTree = "<group>"; };
+		2E87AFC92631C57500C43C25 /* DTStrokeWrapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTStrokeWrapperTests.swift; sourceTree = "<group>"; };
+		2E87AFCD2631CB8C00C43C25 /* PKDrawingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKDrawingTests.swift; sourceTree = "<group>"; };
+		2E87AFD22631CD4300C43C25 /* TestDoodle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDoodle.swift; sourceTree = "<group>"; };
+		2E87AFD82631CD5C00C43C25 /* TestStroke.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestStroke.swift; sourceTree = "<group>"; };
+		2E87AFDC2631CD6200C43C25 /* TestPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPoint.swift; sourceTree = "<group>"; };
 		2E8AC7492613F4C90033869E /* DTCanvasViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTCanvasViewController.swift; sourceTree = "<group>"; };
 		2E987E6D2607468000352E7D /* PKStrokePoint+DTPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PKStrokePoint+DTPoint.swift"; sourceTree = "<group>"; };
 		2E987E7C26075C0200352E7D /* RoomSocketController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomSocketController.swift; sourceTree = "<group>"; };
@@ -422,6 +432,7 @@
 				2E87AF9B26314AD400C43C25 /* DTAdaptedActionTests.swift */,
 				2E87AFBF2631530F00C43C25 /* DTPartialAdaptedActionTests.swift */,
 				2E87AFC32631540900C43C25 /* DTDoodleWrapperTests.swift */,
+				2E87AFC92631C57500C43C25 /* DTStrokeWrapperTests.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -447,6 +458,7 @@
 		2E61713026310D690001940B /* PencilKit */ = {
 			isa = PBXGroup;
 			children = (
+				2E87AFCD2631CB8C00C43C25 /* PKDrawingTests.swift */,
 			);
 			path = PencilKit;
 			sourceTree = "<group>";
@@ -471,6 +483,18 @@
 				2E3F8FAD2607380100C58F33 /* Pods_Doodle2Gather.framework */,
 			);
 			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		2E87AFD12631CD3300C43C25 /* TestHelpers */ = {
+			isa = PBXGroup;
+			children = (
+				2EF8E93925F754C700C7EE7D /* PencilKitTestHelper.swift */,
+				2E87AFB526314B5900C43C25 /* DTAdaptedTestHelper.swift */,
+				2E87AFD22631CD4300C43C25 /* TestDoodle.swift */,
+				2E87AFD82631CD5C00C43C25 /* TestStroke.swift */,
+				2E87AFDC2631CD6200C43C25 /* TestPoint.swift */,
+			);
+			path = TestHelpers;
 			sourceTree = "<group>";
 		};
 		2EA8C2F82605E50100BE750C /* Protocols */ = {
@@ -707,8 +731,7 @@
 			children = (
 				2E61712B263103280001940B /* Models */,
 				2E61712E26310D3D0001940B /* Application */,
-				2EF8E93925F754C700C7EE7D /* PencilKitTestHelper.swift */,
-				2E87AFB526314B5900C43C25 /* DTAdaptedTestHelper.swift */,
+				2E87AFD12631CD3300C43C25 /* TestHelpers */,
 				2EF8E93B25F754C700C7EE7D /* Info.plist */,
 			);
 			path = Doodle2GatherTests;
@@ -1491,10 +1514,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E87AFD92631CD5C00C43C25 /* TestStroke.swift in Sources */,
 				2EF8E93A25F754C700C7EE7D /* PencilKitTestHelper.swift in Sources */,
 				2E87AFB626314B5900C43C25 /* DTAdaptedTestHelper.swift in Sources */,
+				2E87AFD32631CD4300C43C25 /* TestDoodle.swift in Sources */,
 				2E87AF9C26314AD400C43C25 /* DTAdaptedActionTests.swift in Sources */,
+				2E87AFCE2631CB8C00C43C25 /* PKDrawingTests.swift in Sources */,
+				2E87AFCA2631C57500C43C25 /* DTStrokeWrapperTests.swift in Sources */,
 				2E87AFC42631540900C43C25 /* DTDoodleWrapperTests.swift in Sources */,
+				2E87AFDD2631CD6200C43C25 /* TestPoint.swift in Sources */,
 				2E87AFC02631530F00C43C25 /* DTPartialAdaptedActionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
