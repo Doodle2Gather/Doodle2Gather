@@ -100,4 +100,15 @@ class DTDoodleWrapperTests: XCTestCase {
         XCTAssertEqual(doodle.drawing.dtStrokes, doodle.strokes.map { $0.stroke })
     }
 
+    func testInit_withAdaptedDoodleWithDeletedStrokes_isCorrect() throws {
+        var adaptedDoodle = try DTAdaptedTestHelper.createAdaptedDoodle()
+        adaptedDoodle.strokes[3].isDeleted = true
+        adaptedDoodle.strokes[6].isDeleted = true
+        let doodle = DTDoodleWrapper(doodle: adaptedDoodle)
+        XCTAssertEqual(doodle.createdAt, adaptedDoodle.createdAt)
+        XCTAssertEqual(doodle.doodleId, adaptedDoodle.doodleId)
+        XCTAssertEqual(doodle.strokes, adaptedDoodle.strokes.map { DTStrokeWrapper(stroke: $0) })
+        XCTAssertEqual(doodle.drawing.dtStrokes, doodle.strokes.filter { !$0.isDeleted }.map { $0.stroke })
+    }
+
 }
