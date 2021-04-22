@@ -56,3 +56,12 @@ struct DTStrokeWrapper {
     }
 
 }
+
+extension DTStrokeWrapper: Equatable {
+
+    static func == (lhs: DTStrokeWrapper, rhs: DTStrokeWrapper) -> Bool {
+        lhs.strokeId == rhs.strokeId && lhs.createdBy == rhs.createdBy
+            && lhs.stroke == rhs.stroke && lhs.isDeleted == rhs.isDeleted
+    }
+
+}
