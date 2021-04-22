@@ -1,10 +1,162 @@
 import XCTest
 import PencilKit
 @testable import Doodle2Gather
+@testable import DTSharedLibrary
 
 class DTPartialAdaptedActionTests: XCTestCase {
 
     private let decoder = JSONDecoder()
+    private let encoder = JSONEncoder()
+
+    func testInit_addActionWithEntityIndexPair_isCorrect() throws {
+        let pairs = [try DTAdaptedTestHelper.createStrokeIndexPair()]
+        let doodleId = UUID()
+        let userString = "userString"
+
+        let action = DTPartialAdaptedAction(type: .add, doodleId: doodleId, strokes: pairs, createdBy: userString)
+
+        XCTAssertEqual(action.createdBy, userString)
+        XCTAssertEqual(action.doodleId, doodleId)
+        XCTAssertEqual(action.type, .add)
+        XCTAssertEqual(action.entities, pairs)
+    }
+
+    func testInit_modifyActionWithEntityIndexPair_isCorrect() throws {
+        let pairs = [try DTAdaptedTestHelper.createStrokeIndexPair(),
+                     try DTAdaptedTestHelper.createStrokeIndexPair()]
+        let doodleId = UUID()
+        let userString = "userString"
+
+        let action = DTPartialAdaptedAction(type: .modify, doodleId: doodleId, strokes: pairs, createdBy: userString)
+
+        XCTAssertEqual(action.createdBy, userString)
+        XCTAssertEqual(action.doodleId, doodleId)
+        XCTAssertEqual(action.type, .modify)
+        XCTAssertEqual(action.entities, pairs)
+    }
+
+    func testInit_removeActionWithEntityIndexPair_isCorrect() throws {
+        var pairs = [DTEntityIndexPair]()
+        let doodleId = UUID()
+        let userString = "userString"
+
+        for i in 0..<10 {
+            pairs.append(try DTAdaptedTestHelper.createStrokeIndexPair(index: i, isDeleted: true))
+        }
+
+        let action = DTPartialAdaptedAction(type: .remove, doodleId: doodleId, strokes: pairs, createdBy: userString)
+
+        XCTAssertEqual(action.createdBy, userString)
+        XCTAssertEqual(action.doodleId, doodleId)
+        XCTAssertEqual(action.type, .remove)
+        XCTAssertEqual(action.entities, pairs)
+    }
+
+    func testInit_unremoveActionWithEntityIndexPair_isCorrect() throws {
+        var pairs = [DTEntityIndexPair]()
+        let doodleId = UUID()
+        let userString = "userString"
+
+        for i in 0..<10 {
+            pairs.append(try DTAdaptedTestHelper.createStrokeIndexPair(index: i, isDeleted: false))
+        }
+
+        let action = DTPartialAdaptedAction(type: .unremove, doodleId: doodleId, strokes: pairs, createdBy: userString)
+
+        XCTAssertEqual(action.createdBy, userString)
+        XCTAssertEqual(action.doodleId, doodleId)
+        XCTAssertEqual(action.type, .unremove)
+        XCTAssertEqual(action.entities, pairs)
+    }
+
+    func testInit_addActionWithStrokeWrapper_isCorrect() throws {
+        let pairs = [(DTAdaptedTestHelper.createStrokeWrapper(), 0)]
+        let doodleId = UUID()
+        let userString = "userString"
+
+        let action = try XCTUnwrap(DTPartialAdaptedAction(type: .add,
+                                                          doodleId: doodleId,
+                                                          strokes: pairs, createdBy: userString))
+
+        let entities = try pairs.map {
+            DTEntityIndexPair(try encoder.encode($0.0.stroke), $0.1,
+                              type: .stroke, entityId: $0.0.strokeId, isDeleted: $0.0.isDeleted)
+        }
+
+        XCTAssertEqual(action.createdBy, userString)
+        XCTAssertEqual(action.doodleId, doodleId)
+        XCTAssertEqual(action.type, .add)
+        XCTAssertEqual(action.entities, entities)
+    }
+
+    func testInit_modifyActionWithStrokeWrapper_isCorrect() throws {
+        let pairs = [(DTAdaptedTestHelper.createStrokeWrapper(), 0),
+                     (DTAdaptedTestHelper.createStrokeWrapper(), 0)]
+        let doodleId = UUID()
+        let userString = "userString"
+
+        let action = try XCTUnwrap(DTPartialAdaptedAction(type: .modify,
+                                                          doodleId: doodleId,
+                                                          strokes: pairs, createdBy: userString))
+
+        let entities = try pairs.map {
+            DTEntityIndexPair(try encoder.encode($0.0.stroke), $0.1,
+                              type: .stroke, entityId: $0.0.strokeId, isDeleted: $0.0.isDeleted)
+        }
+
+        XCTAssertEqual(action.createdBy, userString)
+        XCTAssertEqual(action.doodleId, doodleId)
+        XCTAssertEqual(action.type, .modify)
+        XCTAssertEqual(action.entities, entities)
+    }
+
+    func testInit_removeActionWithStrokeWrapper_isCorrect() throws {
+        var pairs = [(DTStrokeWrapper, Int)]()
+        let doodleId = UUID()
+        let userString = "userString"
+
+        for i in 0..<10 {
+            pairs.append((DTAdaptedTestHelper.createStrokeWrapper(isDeleted: true), i))
+        }
+
+        let action = try XCTUnwrap(DTPartialAdaptedAction(type: .remove,
+                                                          doodleId: doodleId,
+                                                          strokes: pairs, createdBy: userString))
+
+        let entities = try pairs.map {
+            DTEntityIndexPair(try encoder.encode($0.0.stroke), $0.1,
+                              type: .stroke, entityId: $0.0.strokeId, isDeleted: $0.0.isDeleted)
+        }
+
+        XCTAssertEqual(action.createdBy, userString)
+        XCTAssertEqual(action.doodleId, doodleId)
+        XCTAssertEqual(action.type, .remove)
+        XCTAssertEqual(action.entities, entities)
+    }
+
+    func testInit_unremoveActionWithStrokeWrapper_isCorrect() throws {
+        var pairs = [(DTStrokeWrapper, Int)]()
+        let doodleId = UUID()
+        let userString = "userString"
+
+        for i in 0..<10 {
+            pairs.append((DTAdaptedTestHelper.createStrokeWrapper(isDeleted: false), i))
+        }
+
+        let action = try XCTUnwrap(DTPartialAdaptedAction(type: .unremove,
+                                                          doodleId: doodleId,
+                                                          strokes: pairs, createdBy: userString))
+
+        let entities = try pairs.map {
+            DTEntityIndexPair(try encoder.encode($0.0.stroke), $0.1,
+                              type: .stroke, entityId: $0.0.strokeId, isDeleted: $0.0.isDeleted)
+        }
+
+        XCTAssertEqual(action.createdBy, userString)
+        XCTAssertEqual(action.doodleId, doodleId)
+        XCTAssertEqual(action.type, .unremove)
+        XCTAssertEqual(action.entities, entities)
+    }
 
     func testInvert_withAddAction_shouldGiveRemoveAction() throws {
         let action = try DTAdaptedTestHelper.createPartialAddAction()
