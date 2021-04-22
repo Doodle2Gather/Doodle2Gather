@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 localIp=$(ipconfig getifaddr en0)
-apiEndpointsPath="./Doodle2Gather/Doodle2Gather/Common/Constants/ApiEndpoints.swift"
+apiEndpointsPath="../Doodle2Gather/Doodle2Gather/Common/Constants/ApiEndpoints.swift"
 
 echo "Your local IP is: $localIp"
 
