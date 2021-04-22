@@ -1,5 +1,5 @@
 <!-- markdownlint-disable MD033 MD041 -->
-<p align="center"><img src="docs/images/cover.jpg" width="50%"/></p>
+<p align="center"><img src="docs/images/cover.jpg" width="40%"/></p>
 
 <h1 align="center">Doodle2Gather</h1>
 
@@ -15,10 +15,10 @@ This application is targeted towards teachers and students, designers, or just a
 
 This iOS app is made as a final project in CS3217.
 
-* [Christopher Goh Zhen Fung](https://github.com/chrisgzf)
-* [He Xinyue](https://github.com/eksinyue)
-* [Wang Luo](https://github.com/Asthenosphere)
-* [Zhu Hanming](https://github.com/zhuhanming)
+- [Christopher Goh Zhen Fung](https://github.com/chrisgzf)
+- [He Xinyue](https://github.com/eksinyue)
+- [Wang Luo](https://github.com/Asthenosphere)
+- [Zhu Hanming](https://github.com/zhuhanming)
 
 ## Demo Video
 
@@ -31,3 +31,9 @@ Please refer to our documentation [here](https://docs.google.com/document/d/1YHI
 ## User Guide
 
 Please refer to our user guide [here](https://docs.google.com/document/d/1__XYLX_i-vQkNeOcdnSmMe0-41bnLUMIobCyPf9YmiM/edit?usp=sharing).
+
+## Miscellaneous
+
+Doodle2Gather was fortunate to have won the second place for the 18th SoC Term Project Showcase (STePS).
+
+<p align="center"><img src="docs/images/steps.jpeg" width="40%"/></p>
