@@ -12,14 +12,8 @@ struct ShapeCreator {
         // Point properties
         static let pointDensity: Int = 30
         static let maxTimeOffset: Double = 1.0
-        static let defaultForce: CGFloat = 0
-        static let defaultSize = CGSize(width: 6, height: 6)
-        static let defaultOpacity: CGFloat = 1
-        static let defaultAzimuth: CGFloat = -1.5
-        static let defaultAltitude = CGFloat.pi / 2
 
         // Stroke properties
-        static let defaultTransform = CGAffineTransform(a: 1.0, b: 0.0, c: 0.0, d: 1.0, tx: 0.0, ty: 0.0)
         static let defaultTool: DTCodableTool = .pen
         static let defaultColor: UIColor = .black
     }
@@ -39,7 +33,7 @@ struct ShapeCreator {
         }
 
         return S(color: Constants.defaultColor, tool: Constants.defaultTool, points: points,
-                 transform: Constants.defaultTransform, mask: nil)
+                 transform: DoodleConstants.defaultTransform, mask: nil)
     }
 
     /// Creates a square stroke centered at a given `center`.
@@ -57,7 +51,7 @@ struct ShapeCreator {
                                                                      bottomRightCorner, bottomLeftCorner])
 
         return S(color: Constants.defaultColor, tool: Constants.defaultTool, points: points,
-                 transform: Constants.defaultTransform, mask: nil)
+                 transform: DoodleConstants.defaultTransform, mask: nil)
     }
 
     /// Creates a triangle stroke centered at a given `center`.
@@ -74,7 +68,7 @@ struct ShapeCreator {
         let points: [S.Point] = createPointsBetweenCorners(corners: corners)
 
         return S(color: Constants.defaultColor, tool: Constants.defaultTool, points: points,
-                 transform: Constants.defaultTransform, mask: nil)
+                 transform: DoodleConstants.defaultTransform, mask: nil)
     }
 
     /// Creates a star stroke centered at a given `center`.
@@ -92,13 +86,13 @@ struct ShapeCreator {
         let points: [S.Point] = createPointsBetweenCorners(corners: corners)
 
         return S(color: Constants.defaultColor, tool: Constants.defaultTool, points: points,
-                 transform: Constants.defaultTransform, mask: nil)
+                 transform: DoodleConstants.defaultTransform, mask: nil)
     }
 
     private func createPoint<P: DTPoint>(at location: CGPoint, timeOffset: Double) -> P {
-        P(location: location, timeOffset: timeOffset, size: Constants.defaultSize,
-          opacity: Constants.defaultOpacity, force: Constants.defaultForce,
-          azimuth: Constants.defaultAzimuth, altitude: Constants.defaultAltitude)
+        P(location: location, timeOffset: timeOffset, size: DoodleConstants.defaultSize,
+          opacity: DoodleConstants.defaultOpacity, force: DoodleConstants.defaultForce,
+          azimuth: DoodleConstants.defaultAzimuth, altitude: DoodleConstants.defaultAltitude)
     }
 
     private func createPointsBetweenCorners<P: DTPoint>(corners: [CGPoint]) -> [P] {
