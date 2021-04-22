@@ -81,7 +81,6 @@ final class DTRoomWebSocketController: DTSendableWebSocketSubController {
     }
 
     func handleActionFeedback(_ data: Data) throws {
-        // TODO: yet to be tested.
         let feedback = try decoder.decode(DTActionFeedbackMessage.self, from: data)
         DispatchQueue.main.async {
             if !feedback.success {
@@ -94,12 +93,11 @@ final class DTRoomWebSocketController: DTSendableWebSocketSubController {
     func handleDispatchedAction(_ data: Data) throws {
         let dispatch = try decoder.decode(DTDispatchActionMessage.self, from: data)
         DispatchQueue.main.async {
-            // TODO: refactor unhappy path to be at the top
-            if dispatch.success {
-                self.delegate?.dispatchAction(dispatch.action)
-            } else {
+            if !dispatch.success {
                 DTLogger.error(dispatch.message)
+                return
             }
+            self.delegate?.dispatchAction(dispatch.action)
         }
     }
 
@@ -140,6 +138,7 @@ final class DTRoomWebSocketController: DTSendableWebSocketSubController {
         conferenceDelegate?.updateStates(newConferenceState)
     }
 
+    // Unused method to support an unimplemented bells-and-whistles feature
     func handleSetRoomTimer(_ data: Data) throws {
         let newRoomTimer = try decoder.decode(DTSetRoomTimerMessage.self, from: data)
         DTLogger.debug {
