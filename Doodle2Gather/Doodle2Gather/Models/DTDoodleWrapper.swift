@@ -28,6 +28,7 @@ struct DTDoodleWrapper {
         self.strokes = []
         self.drawing = PKDrawing()
         self.createdAt = Date()
+        assert(checkRep())
     }
 
     init(doodle: DTAdaptedDoodle) {
@@ -36,6 +37,22 @@ struct DTDoodleWrapper {
         self.drawing = PKDrawing(strokes: self.strokes.filter({ !$0.isDeleted })
                                     .compactMap { $0.stroke })
         self.createdAt = doodle.createdAt
+        assert(checkRep())
+    }
+
+    private func checkRep() -> Bool {
+        var drawingCounter = 0
+        for stroke in strokes {
+            if stroke.isDeleted {
+                continue
+            }
+            if drawingCounter >= drawing.dtStrokes.count
+                || stroke.stroke != drawing.dtStrokes[drawingCounter] {
+                return false
+            }
+            drawingCounter += 1
+        }
+        return drawingCounter == drawing.dtStrokes.count
     }
 
 }

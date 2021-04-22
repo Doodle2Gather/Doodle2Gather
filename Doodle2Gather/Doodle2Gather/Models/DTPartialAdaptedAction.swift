@@ -14,6 +14,7 @@ struct DTPartialAdaptedAction {
         self.doodleId = doodleId
         self.entities = strokes
         self.createdBy = createdBy
+        assert(checkRep())
     }
 
     /// Initializes a partial action using tuples of `DTStrokeWrapper` and their indices.
@@ -35,6 +36,20 @@ struct DTPartialAdaptedAction {
         }
 
         self.entities = strokesData
+        assert(checkRep())
+    }
+
+    private func checkRep() -> Bool {
+        switch type {
+        case .add:
+            return entities.count == 1
+        case .modify:
+            return entities.count == 2 && entities[0].entityId != entities[1].entityId
+        case .remove:
+            return entities.allSatisfy { $0.isDeleted }
+        case .unremove:
+            return entities.allSatisfy { !$0.isDeleted }
+        }
     }
 
 }
