@@ -16,6 +16,10 @@ struct TestDoodle: DTDoodle {
         self.dtStrokes = data.strokes.compactMap { TestStroke(from: $0) }
     }
 
+    init(strokes: [TestStroke]) {
+        self.dtStrokes = strokes
+    }
+
     mutating func removeStrokes<S>(_: [S]) where S: DTStroke {}
 
     mutating func addStrokes<S>(_: [S]) where S: DTStroke {}
