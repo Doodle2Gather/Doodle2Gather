@@ -31,14 +31,13 @@ class DTStrokeWrapperTests: XCTestCase {
         let adaptedStroke = try DTAdaptedTestHelper.createAdaptedStroke()
         let stroke = try XCTUnwrap(DTStrokeWrapper(stroke: adaptedStroke))
 
-        // let decodedStroke = try decoder.decode(PKStroke.self, from: adaptedStroke.stroke)
+        let decodedStroke = try decoder.decode(PKStroke.self, from: adaptedStroke.stroke)
 
         XCTAssertEqual(stroke.isDeleted, adaptedStroke.isDeleted)
         XCTAssertEqual(stroke.createdBy, adaptedStroke.createdBy)
         XCTAssertEqual(stroke.strokeId, adaptedStroke.strokeId)
 
-        // TODO: Debug this
-        // XCTAssertEqual(stroke.stroke, decodedStroke)
+        XCTAssertEqual(stroke.stroke, decodedStroke)
     }
 
     func testInit_data_isCorrect() throws {
@@ -52,8 +51,7 @@ class DTStrokeWrapperTests: XCTestCase {
         XCTAssert(stroke.isDeleted)
         XCTAssertEqual(stroke.createdBy, "userString")
         XCTAssertEqual(stroke.strokeId, strokeId)
-        // TODO: Debug this
-        // XCTAssertEqual(stroke.stroke, pkStroke)
+        XCTAssertEqual(stroke.stroke, pkStroke)
     }
 
     func testEquatable_sameStrokeWrapper_isEqual() {
