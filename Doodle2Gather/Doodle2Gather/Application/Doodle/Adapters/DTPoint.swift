@@ -41,8 +41,20 @@ public protocol DTPoint: Hashable, Codable {
 extension DTPoint {
 
     public static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.location == rhs.location && lhs.timeOffset == rhs.timeOffset && lhs.altitude == rhs.altitude &&
-            lhs.azimuth == rhs.azimuth && lhs.force == rhs.force && lhs.size == rhs.size && lhs.opacity == rhs.opacity
+        lhs.location.x.round(to: DoodleConstants.accuracy) == rhs.location.x.round(to: DoodleConstants.accuracy)
+            && lhs.location.y.round(to: DoodleConstants.accuracy)
+            == rhs.location.y.round(to: DoodleConstants.accuracy)
+            && lhs.timeOffset.round(to: DoodleConstants.accuracy)
+            == rhs.timeOffset.round(to: DoodleConstants.accuracy)
+            && lhs.altitude.round(to: DoodleConstants.accuracy)
+            == rhs.altitude.round(to: DoodleConstants.accuracy)
+            && lhs.azimuth.round(to: DoodleConstants.accuracy) == rhs.azimuth.round(to: DoodleConstants.accuracy)
+            && lhs.force.round(to: DoodleConstants.accuracy) == rhs.force.round(to: DoodleConstants.accuracy)
+            && lhs.size.height.round(to: DoodleConstants.accuracy)
+            == rhs.size.height.round(to: DoodleConstants.accuracy)
+            && lhs.size.width.round(to: DoodleConstants.accuracy)
+            == rhs.size.width.round(to: DoodleConstants.accuracy)
+            && lhs.opacity.round(to: DoodleConstants.accuracy) == rhs.opacity.round(to: DoodleConstants.accuracy)
     }
 
 }
@@ -52,15 +64,15 @@ extension DTPoint {
 extension DTPoint {
 
     public func hash(into hasher: inout Hasher) {
-        hasher.combine(location.x)
-        hasher.combine(location.y)
-        hasher.combine(timeOffset)
-        hasher.combine(altitude)
-        hasher.combine(azimuth)
-        hasher.combine(force)
-        hasher.combine(size.height)
-        hasher.combine(size.width)
-        hasher.combine(opacity)
+        hasher.combine(location.x.round(to: DoodleConstants.accuracy))
+        hasher.combine(location.y.round(to: DoodleConstants.accuracy))
+        hasher.combine(timeOffset.round(to: DoodleConstants.accuracy))
+        hasher.combine(altitude.round(to: DoodleConstants.accuracy))
+        hasher.combine(azimuth.round(to: DoodleConstants.accuracy))
+        hasher.combine(force.round(to: DoodleConstants.accuracy))
+        hasher.combine(size.height.round(to: DoodleConstants.accuracy))
+        hasher.combine(size.width.round(to: DoodleConstants.accuracy))
+        hasher.combine(opacity.round(to: DoodleConstants.accuracy))
     }
 
 }
@@ -71,14 +83,13 @@ extension DTPoint {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DTPointCodingKeys.self)
-        try container.encode(location, forKey: .location)
-        try container.encode(timeOffset, forKey: .timeOffset)
-        try container.encode(altitude, forKey: .altitude)
-        try container.encode(azimuth, forKey: .azimuth)
-        // try container.encode(CGFloat(-3), forKey: .azimuth)
-        try container.encode(force, forKey: .force)
-        try container.encode(size, forKey: .size)
-        try container.encode(opacity, forKey: .opacity)
+        try container.encode(location.round(to: DoodleConstants.accuracy), forKey: .location)
+        try container.encode(timeOffset.round(to: DoodleConstants.accuracy), forKey: .timeOffset)
+        try container.encode(altitude.round(to: DoodleConstants.accuracy), forKey: .altitude)
+        try container.encode(azimuth.round(to: DoodleConstants.accuracy), forKey: .azimuth)
+        try container.encode(force.round(to: DoodleConstants.accuracy), forKey: .force)
+        try container.encode(size.round(to: DoodleConstants.accuracy), forKey: .size)
+        try container.encode(opacity.round(to: DoodleConstants.accuracy), forKey: .opacity)
     }
 
     public init(from decoder: Decoder) throws {

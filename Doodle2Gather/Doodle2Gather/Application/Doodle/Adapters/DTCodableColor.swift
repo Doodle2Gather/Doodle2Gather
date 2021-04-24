@@ -13,10 +13,6 @@ public struct DTCodableColor: Codable {
 
     init(uiColor: UIColor) {
         uiColor.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
-        red = CGFloat(Double(red).round(to: 5))
-        green = CGFloat(Double(green).round(to: 5))
-        blue = CGFloat(Double(blue).round(to: 5))
-        alpha = CGFloat(Double(alpha).round(to: 5))
     }
 
 }

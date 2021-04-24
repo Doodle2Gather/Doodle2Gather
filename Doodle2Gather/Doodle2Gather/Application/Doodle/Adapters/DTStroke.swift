@@ -45,7 +45,8 @@ public protocol DTStroke: Hashable, Codable {
 extension DTStroke {
 
     public static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.color == rhs.color && lhs.tool == rhs.tool && lhs.points == rhs.points
+        lhs.color.round(to: DoodleConstants.colorAccuracy) == rhs.color.round(to: DoodleConstants.colorAccuracy)
+            && lhs.tool == rhs.tool && lhs.points == rhs.points
             && lhs.mask == rhs.mask && lhs.transform == rhs.transform
     }
 
@@ -56,7 +57,7 @@ extension DTStroke {
 extension DTStroke {
 
     public func hash(into hasher: inout Hasher) {
-        hasher.combine(color)
+        hasher.combine(color.round(to: DoodleConstants.colorAccuracy))
         hasher.combine(tool)
         hasher.combine(points)
         hasher.combine(mask)
@@ -76,7 +77,7 @@ extension DTStroke {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DTStrokeCodingKeys.self)
-        try container.encode(DTCodableColor(uiColor: color), forKey: .color)
+        try container.encode(DTCodableColor(uiColor: color.round(to: DoodleConstants.colorAccuracy)), forKey: .color)
         try container.encode(tool.rawValue, forKey: .tool)
         try container.encode(points, forKey: .points)
         try container.encode(transform, forKey: .transform)

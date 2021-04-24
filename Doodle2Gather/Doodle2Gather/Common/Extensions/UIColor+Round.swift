@@ -7,6 +7,7 @@ extension UIColor {
         var blue: CGFloat = 0
         var alpha: CGFloat = 0
         self.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
-        return UIColor(red: red, green: green, blue: blue, alpha: alpha)
+        return UIColor(red: red.round(to: places), green: green.round(to: places),
+                       blue: blue.round(to: places), alpha: alpha.round(to: places))
     }
 }
