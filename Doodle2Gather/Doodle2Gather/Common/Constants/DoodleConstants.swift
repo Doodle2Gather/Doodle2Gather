@@ -12,7 +12,7 @@ enum DoodleConstants {
     static let defaultTransform = CGAffineTransform(a: 1.0, b: 0.0, c: 0.0, d: 1.0, tx: 0.0, ty: 0.0)
 
     // PencilKit constants
-    static let colorAccuracy = 4
+    static let colorAccuracy = 2
     static let accuracy = 1
 }
 
