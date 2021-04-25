@@ -36,8 +36,8 @@ struct DTActionManager: ActionManager {
                 return nil
             }
 
-            return DTPartialAdaptedAction(type: .remove, doodleId: action.doodleId, strokes: editedStrokes,
-                                          createdBy: action.createdBy)
+            return DTPartialAdaptedAction(type: isDeleted ? .remove : .unremove, doodleId: action.doodleId,
+                                          strokes: editedStrokes, createdBy: action.createdBy)
         case .modify:
             let oldStroke = action.entities[0]
             if oldStroke.index >= doodle.strokes.count
