@@ -39,7 +39,7 @@ extension DTActionManager {
         let strokes = action.getStrokes()
 
         for (stroke, index) in strokes {
-            if index >= doodle.strokes.count {
+            if index >= doodle.strokes.count || index < 0 {
                 return nil
             }
 
@@ -70,7 +70,7 @@ extension DTActionManager {
         let (originalStroke, originalIndex) = strokes[0]
         let (newStroke, newIndex) = strokes[1]
 
-        if originalIndex != newIndex || newIndex >= doodle.strokes.count
+        if originalIndex != newIndex || newIndex >= doodle.strokes.count || newIndex < 0
             || doodle.strokes[newIndex].strokeId != originalStroke.strokeId {
             return nil
         }
