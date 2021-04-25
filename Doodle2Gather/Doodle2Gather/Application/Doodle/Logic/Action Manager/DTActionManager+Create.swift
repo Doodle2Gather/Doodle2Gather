@@ -6,7 +6,7 @@ import DTSharedLibrary
 extension DTActionManager {
 
     func createAction(oldDoodle: DTDoodleWrapper, newDoodle: PKDrawing, actionType: DTActionType) -> DTActionProtocol? {
-        guard let userId = DTAuth.user?.uid else {
+        guard let userId = userId else {
             fatalError("You're not authenticated!")
         }
 
@@ -28,6 +28,7 @@ extension DTActionManager {
         case .modify:
             action = createModifyAction(newStrokes: newStrokes, oldDoodle: oldDoodle, userId: userId)
         case .unremove:
+            // Unremove actions should only be created via inverting
             break
         }
 
@@ -35,6 +36,15 @@ extension DTActionManager {
     }
 
     /// Creates a new action that adds a stroke to the state of `oldDoodle`.
+    ///
+    /// - Precondition: The two doodles should have identical strokes in the same
+    ///   order except for the last stroke in the new doodle, which the old doodle does
+    ///   not have. This is for efficiency reasons, as we do not want to iterate through
+    ///   both doodles and do a one-to-one comparison for every add action we create.
+    ///
+    ///   We will instead assume that if the number of strokes in the new doodle is one
+    ///   more than the number of strokes in the old doodle, then the last stroke is the
+    ///   newly added stroke.
     ///
     /// - Returns: `nil` if an unexpected number of strokes has been added, or if
     ///   no strokes exist at all.
