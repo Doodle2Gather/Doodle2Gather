@@ -53,10 +53,13 @@ class DTCanvasViewController: UIViewController {
         addCanvasView()
         canvasView.drawing = doodles[currentDoodleIndex].drawing
 
-        // Set up canvasManager via dependency injection
+        // Set up managers via dependency injection
         canvasManager = DTCanvasGestureManager(canvas: canvasView)
         canvasManager.strokeWrappers = doodles[currentDoodleIndex].strokes
         canvasManager.delegate = self
+        var actionManager = DTActionManager()
+        actionManager.userId = DTAuth.user?.uid
+        self.actionManager = actionManager
     }
 
     override func viewDidLayoutSubviews() {

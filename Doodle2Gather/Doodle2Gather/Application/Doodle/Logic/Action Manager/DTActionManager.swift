@@ -5,6 +5,7 @@ struct DTActionManager: ActionManager {
     /// Cache actions for undo and redo
     var undoActions = [DTActionProtocol]()
     var redoActions = [DTActionProtocol]()
+    var userId: String?
 
     func transformAction(_ action: DTActionProtocol, on doodle: DTDoodleWrapper) -> DTActionProtocol? {
         switch action.type {
