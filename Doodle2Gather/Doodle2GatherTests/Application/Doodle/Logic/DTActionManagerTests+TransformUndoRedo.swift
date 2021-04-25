@@ -272,59 +272,119 @@ extension DTActionManagerTests {
 extension DTActionManagerTests {
 
     func testUndo_noActionAdded_returnsNil() {
-
+        XCTAssertNil(actionManager.undo())
     }
 
+    // Test using one type of action. The actual inversion logic tests
+    // will be with the models instead.
     func testUndo_oneActionAdded_returnsInvertedAction() {
-
+        actionManager.addNewActionToUndo(actionOne)
+        guard let undoneAction = actionManager.undo() else {
+            XCTFail("Should create undone action")
+            return
+        }
+        XCTAssertEqual(undoneAction.type, .remove)
+        XCTAssertEqual(undoneAction.createdBy, actionOne.createdBy)
+        XCTAssertEqual(undoneAction.doodleId, actionOne.doodleId)
+        XCTAssertEqual(undoneAction.entities[0].entityId, actionOne.entities[0].entityId)
+        XCTAssertEqual(undoneAction.entities[0].entity, actionOne.entities[0].entity)
+        XCTAssertEqual(undoneAction.entities[0].index, actionOne.entities[0].index)
+        XCTAssert(undoneAction.entities[0].isDeleted)
     }
 
     func testUndo_twoActionsAdded_returnsInvertedLastAction() {
+        actionManager.addNewActionToUndo(actionOne)
+        actionManager.addNewActionToUndo(actionTwo)
+        guard let undoneAction = actionManager.undo() else {
+            XCTFail("Should create undone action")
+            return
+        }
 
+        XCTAssertEqual(undoneAction.entities[0].entityId, actionTwo.entities[0].entityId)
+        XCTAssertEqual(undoneAction.entities[0].entity, actionTwo.entities[0].entity)
+        XCTAssertEqual(undoneAction.entities[0].index, actionTwo.entities[0].index)
     }
 
     func testRedo_noActionUndone_returnsNil() {
-
+        XCTAssertNil(actionManager.redo())
     }
 
     func testRedo_oneActionUndone_returnsInvertedAction() {
-
+        actionManager.addNewActionToUndo(actionOne)
+        _ = actionManager.undo()
+        guard let redoneAction = actionManager.redo() else {
+            XCTFail("Should create redone action")
+            return
+        }
+        XCTAssertEqual(redoneAction.type, .unremove)
+        XCTAssertEqual(redoneAction.createdBy, actionOne.createdBy)
+        XCTAssertEqual(redoneAction.doodleId, actionOne.doodleId)
+        XCTAssertEqual(redoneAction.entities[0].entityId, actionOne.entities[0].entityId)
+        XCTAssertEqual(redoneAction.entities[0].entity, actionOne.entities[0].entity)
+        XCTAssertEqual(redoneAction.entities[0].index, actionOne.entities[0].index)
+        XCTAssertFalse(redoneAction.entities[0].isDeleted)
     }
 
     func testRedo_twoActionsUndone_returnsInvertedLastAction() {
+        actionManager.addNewActionToUndo(actionOne)
+        actionManager.addNewActionToUndo(actionTwo)
+        _ = actionManager.undo()
+        _ = actionManager.undo()
+        guard let redoneAction = actionManager.redo() else {
+            XCTFail("Should create redone action")
+            return
+        }
 
+        XCTAssertEqual(redoneAction.type, .unremove)
+        XCTAssertEqual(redoneAction.entities[0].entityId, actionOne.entities[0].entityId)
+        XCTAssertEqual(redoneAction.entities[0].entity, actionOne.entities[0].entity)
+        XCTAssertEqual(redoneAction.entities[0].index, actionOne.entities[0].index)
     }
 
     func testRedo_actionUndoneThenNewActionAdded_returnsNil() {
-
+        actionManager.addNewActionToUndo(actionOne)
+        _ = actionManager.undo()
+        actionManager.addNewActionToUndo(actionTwo)
+        XCTAssertNil(actionManager.redo())
     }
 
     func testCanUndo_noActionAdded_isFalse() {
-
+        XCTAssertFalse(actionManager.canUndo)
     }
 
     func testCanUndo_actionAdded_isTrue() {
-
+        actionManager.addNewActionToUndo(actionOne)
+        XCTAssert(actionManager.canUndo)
     }
 
     func testCanUndo_actionAddedThenUndone_isFalse() {
-
+        actionManager.addNewActionToUndo(actionOne)
+        _ = actionManager.undo()
+        XCTAssertFalse(actionManager.canUndo)
     }
 
     func testCanRedo_noActionUndone_isFalse() {
-
+        XCTAssertFalse(actionManager.canRedo)
     }
 
     func testCanRedo_actionUndone_isTrue() {
-
+        actionManager.addNewActionToUndo(actionOne)
+        _ = actionManager.undo()
+        XCTAssert(actionManager.canRedo)
     }
 
     func testCanRedo_actionUndoneThenRedone_isFalse() {
-
+        actionManager.addNewActionToUndo(actionOne)
+        _ = actionManager.undo()
+        _ = actionManager.redo()
+        XCTAssertFalse(actionManager.canRedo)
     }
 
     func testCanRedo_actionUndoneThenNewActionAdded_isFalse() {
-
+        actionManager.addNewActionToUndo(actionOne)
+        _ = actionManager.undo()
+        actionManager.addNewActionToUndo(actionTwo)
+        XCTAssertFalse(actionManager.canRedo)
     }
 
 }

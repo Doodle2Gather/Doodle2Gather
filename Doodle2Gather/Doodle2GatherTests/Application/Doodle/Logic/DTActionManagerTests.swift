@@ -11,6 +11,15 @@ class DTActionManagerTests: XCTestCase {
     var doodleOne = DTDoodleWrapper()
     var doodleTwo = DTDoodleWrapper()
 
+    var strokeOne = DTAdaptedTestHelper.createStrokeWrapper()
+    var strokeTwo = DTAdaptedTestHelper.createStrokeWrapper()
+    var actionOne = DTPartialAdaptedAction(type: .remove, doodleId: UUID(),
+                                           strokes: [DTEntityIndexPair](),
+                                           createdBy: "Testing")
+    var actionTwo = DTPartialAdaptedAction(type: .remove, doodleId: UUID(),
+                                           strokes: [DTEntityIndexPair](),
+                                           createdBy: "Testing")
+
     override func setUpWithError() throws {
         try super.setUpWithError()
         actionManager = DTActionManager()
@@ -19,6 +28,13 @@ class DTActionManagerTests: XCTestCase {
         let adaptedDoodle = try DTAdaptedTestHelper.createAdaptedDoodle()
         doodleOne = DTDoodleWrapper(doodle: adaptedDoodle)
         doodleTwo = DTDoodleWrapper(doodle: adaptedDoodle)
+
+        strokeOne = DTAdaptedTestHelper.createStrokeWrapper()
+        strokeTwo = DTAdaptedTestHelper.createStrokeWrapper()
+        actionOne = try XCTUnwrap(DTPartialAdaptedAction(type: .add, doodleId: doodleOne.doodleId,
+                                                         strokes: [(strokeOne, 10)], createdBy: "Testing"))
+        actionTwo = try XCTUnwrap(DTPartialAdaptedAction(type: .unremove, doodleId: doodleOne.doodleId,
+                                                         strokes: [(strokeTwo, 5)], createdBy: "Testing"))
     }
 
     func assertActionProperties(_ action: DTActionProtocol) {
