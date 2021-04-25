@@ -37,3 +37,21 @@ Please refer to our user guide [here](https://docs.google.com/document/d/1__XYLX
 Doodle2Gather was fortunate to have won the second place for the 18th SoC Term Project Showcase (STePS).
 
 <p align="center"><img src="docs/images/steps.jpeg" width="50%"/></p>
+
+## Getting Started
+
+To run this application locally, first clone this repository.
+
+```bash
+git clone https://github.com/Doodle2Gather/Doodle2Gather.git
+```
+
+Then, run the following command in the root directory of the cloned repository:
+
+```bash
+pod install
+```
+
+Finally, open the `Doodle2Gather.xcworkspace` file to view the project. You will need to change the development team and bundle identifier accordingly to be able to build it locally.
+
+> **Note:** If you're running on a Mac with Apple Silicon, you will be unable to build this project for simulator usage, due to some issues with the required binaries. However, you will still be able to build it for usage on an actual iPad.
