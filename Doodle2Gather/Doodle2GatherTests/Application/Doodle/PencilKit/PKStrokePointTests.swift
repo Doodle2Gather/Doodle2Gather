@@ -122,7 +122,9 @@ class PKStrokePointTests: XCTestCase {
                                      opacity: pointOne.opacity,
                                      force: pointOne.force,
                                      azimuth: pointOne.azimuth,
-                                     altitude: -pointOne.altitude)
+                                     altitude: pointOne.altitude > CGFloat.pi / 4
+                                        ? pointOne.altitude - 0.1
+                                        : pointOne.altitude + 0.1)
 
         XCTAssertNotEqual(pointOne, pointTwo)
         XCTAssertNotEqual(pointOne.hashValue, pointTwo.hashValue)
