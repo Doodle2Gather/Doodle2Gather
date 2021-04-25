@@ -7,7 +7,7 @@
 
 ## Overview
 
-Doodle2Gather is a collaborative whiteboarding application that aims to be a modern-day replacement for group whiteboard discussions, empowering users to better express themselves in a limitless online canvas.
+Doodle2Gather is a collaborative whiteboarding application that aims to be a modern-day replacement for group whiteboard discussions, empowering users to better express themselves on a limitless online canvas.
 
 This application is targeted towards teachers and students, designers, or just any team that requires some way to doodle and discuss online! With features such as video calling and powerful doodling tools, users are empowered in their idea generation and discussion online.
 
