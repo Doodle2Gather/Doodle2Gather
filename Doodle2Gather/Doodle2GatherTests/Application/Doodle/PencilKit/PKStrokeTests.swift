@@ -44,10 +44,8 @@ class PKStrokeTests: XCTestCase {
             PencilKitTestHelper.createPoint()
         ]
         let transform = CGAffineTransform(a: 1, b: 1, c: 1, d: 1, tx: 1, ty: 1)
-        let mask = UIBezierPath(arcCenter: CGPoint(x: 5, y: 5), radius: 20, startAngle: 0,
-                                endAngle: CGFloat.pi / 2, clockwise: true)
 
-        let stroke = PKStroke(color: .blue, tool: .highlighter, points: points, transform: transform, mask: mask)
+        let stroke = PKStroke(color: .blue, tool: .highlighter, points: points, transform: transform, mask: nil)
 
         XCTAssertEqual(stroke.color, UIColor.blue)
         XCTAssertEqual(stroke.tool, DTCodableTool.highlighter)
