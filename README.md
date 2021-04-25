@@ -24,20 +24,6 @@ This iPadOS app is made as a final project in CS3217. Made with love by:
 
 <p align="center"><a href="https://youtu.be/5cVotr76mx4"><img width="65%" alt="Doodle2Gather Demo" src="https://img.youtube.com/vi/5cVotr76mx4/maxresdefault.jpg"></img></a></p>
 
-## Documentation
-
-Please refer to our documentation [here](https://docs.google.com/document/d/1YHIeYItLVKq1dylE3xsEbKLenVRUJUBSOCTZXZCkBd4/edit?usp=sharing).
-
-## User Guide
-
-Please refer to our user guide [here](https://docs.google.com/document/d/1__XYLX_i-vQkNeOcdnSmMe0-41bnLUMIobCyPf9YmiM/edit?usp=sharing).
-
-## Miscellaneous
-
-Doodle2Gather was fortunate to have won the second place for the 18th SoC Term Project Showcase (STePS).
-
-<p align="center"><img src="docs/images/steps.jpeg" width="50%"/></p>
-
 ## Getting Started
 
 To run this application locally, first clone this repository.
@@ -55,3 +41,17 @@ pod install
 Finally, open the `Doodle2Gather.xcworkspace` file to view the project. You will need to change the development team and bundle identifier accordingly to be able to build it locally.
 
 > **Note:** If you're running on a Mac with Apple Silicon, you will be unable to build this project for simulator usage, due to some issues with the required binaries. However, you will still be able to build it for usage on an actual iPad.
+
+## Documentation
+
+Please refer to our documentation [here](https://docs.google.com/document/d/1YHIeYItLVKq1dylE3xsEbKLenVRUJUBSOCTZXZCkBd4/edit?usp=sharing).
+
+## User Guide
+
+Please refer to our user guide [here](https://docs.google.com/document/d/1__XYLX_i-vQkNeOcdnSmMe0-41bnLUMIobCyPf9YmiM/edit?usp=sharing).
+
+## Miscellaneous
+
+Doodle2Gather was fortunate to have won the second place for the 18th SoC Term Project Showcase (STePS).
+
+<p align="center"><img src="docs/images/steps.jpeg" width="50%"/></p>
