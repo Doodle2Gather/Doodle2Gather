@@ -6,7 +6,7 @@ enum SegueConstants {
     static let toNewDocument = "toNewDocument"
     static let toStrokeEditor = "toStrokeEditor"
     static let toConference = "toConference"
-    static let toLayerTable = "toLayerTable"
+    static let toPageTable = "toPageTable"
     static let toInvitation = "toInvitation"
     static let toLeftPanels = "toLeftPanels"
 }

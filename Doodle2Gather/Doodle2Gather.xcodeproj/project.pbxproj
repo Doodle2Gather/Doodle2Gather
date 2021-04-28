@@ -69,8 +69,8 @@
 		2EB12AB2261BEDDC00131FE6 /* DoodlePageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12AB1261BEDDC00131FE6 /* DoodlePageTableViewController.swift */; };
 		2EB12AB6261BEF6700131FE6 /* DoodlePageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12AB5261BEF6700131FE6 /* DoodlePageTableViewCell.swift */; };
 		2EB12ABA261BF41900131FE6 /* DoodlePageCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12AB9261BF41900131FE6 /* DoodlePageCellDelegate.swift */; };
-		2EB12ABE261BFBB600131FE6 /* DoodleLayerTableDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12ABD261BFBB600131FE6 /* DoodleLayerTableDelegate.swift */; };
-		2EB12AC2261BFCD100131FE6 /* DoodleLayerTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12AC1261BFCD100131FE6 /* DoodleLayerTable.swift */; };
+		2EB12ABE261BFBB600131FE6 /* DoodlePageTableDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12ABD261BFBB600131FE6 /* DoodlePageTableDelegate.swift */; };
+		2EB12AC2261BFCD100131FE6 /* DoodlePageTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12AC1261BFCD100131FE6 /* DoodlePageTable.swift */; };
 		2EB929D9260778F600AAB396 /* SubviewTouchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB929D8260778F600AAB396 /* SubviewTouchView.swift */; };
 		2EBD90D0261B01F4009859FE /* ThickSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBD90CF261B01F4009859FE /* ThickSliderView.swift */; };
 		2EC4194B2625CB5900BE0518 /* UIView+Borders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC4194A2625CB5900BE0518 /* UIView+Borders.swift */; };
@@ -253,8 +253,8 @@
 		2EB12AB1261BEDDC00131FE6 /* DoodlePageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodlePageTableViewController.swift; sourceTree = "<group>"; };
 		2EB12AB5261BEF6700131FE6 /* DoodlePageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodlePageTableViewCell.swift; sourceTree = "<group>"; };
 		2EB12AB9261BF41900131FE6 /* DoodlePageCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodlePageCellDelegate.swift; sourceTree = "<group>"; };
-		2EB12ABD261BFBB600131FE6 /* DoodleLayerTableDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodleLayerTableDelegate.swift; sourceTree = "<group>"; };
-		2EB12AC1261BFCD100131FE6 /* DoodleLayerTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodleLayerTable.swift; sourceTree = "<group>"; };
+		2EB12ABD261BFBB600131FE6 /* DoodlePageTableDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodlePageTableDelegate.swift; sourceTree = "<group>"; };
+		2EB12AC1261BFCD100131FE6 /* DoodlePageTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodlePageTable.swift; sourceTree = "<group>"; };
 		2EB929D8260778F600AAB396 /* SubviewTouchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubviewTouchView.swift; sourceTree = "<group>"; };
 		2EBD90CF261B01F4009859FE /* ThickSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThickSliderView.swift; sourceTree = "<group>"; };
 		2EC4194A2625CB5900BE0518 /* UIView+Borders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Borders.swift"; sourceTree = "<group>"; };
@@ -515,8 +515,8 @@
 		2EA8C2F82605E50100BE750C /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				2EB12AC1261BFCD100131FE6 /* DoodleLayerTable.swift */,
-				2EB12ABD261BFBB600131FE6 /* DoodleLayerTableDelegate.swift */,
+				2EB12AC1261BFCD100131FE6 /* DoodlePageTable.swift */,
+				2EB12ABD261BFBB600131FE6 /* DoodlePageTableDelegate.swift */,
 				2EB12AB9261BF41900131FE6 /* DoodlePageCellDelegate.swift */,
 				2E00ED85262F7EBD007F9B15 /* LeftPanelsController.swift */,
 				2E00ED81262F7EB3007F9B15 /* LeftPanelsControllerDelegate.swift */,
@@ -1461,7 +1461,7 @@
 				2E245610262EBD9C0074D73A /* ShapeCreator.swift in Sources */,
 				83F5890A2619B44100BB9F07 /* DTUserCredentialsProvider.swift in Sources */,
 				8434DB3C262FF7C8000AD082 /* GalleryDelegate.swift in Sources */,
-				2EB12ABE261BFBB600131FE6 /* DoodleLayerTableDelegate.swift in Sources */,
+				2EB12ABE261BFBB600131FE6 /* DoodlePageTableDelegate.swift in Sources */,
 				2EB12A3F261BE3F400131FE6 /* DTCodableTool.swift in Sources */,
 				8415BC99262BFB1000E6CF1B /* UserViewCell.swift in Sources */,
 				848F3581261451D400AD46C6 /* ParticipantViewCell.swift in Sources */,
@@ -1502,7 +1502,7 @@
 				83F588E72619240200BB9F07 /* DTAuthDelegate.swift in Sources */,
 				2E4A8FA0262F048C00E398F0 /* UIColor+Lightness.swift in Sources */,
 				2E00ED82262F7EB3007F9B15 /* LeftPanelsControllerDelegate.swift in Sources */,
-				2EB12AC2261BFCD100131FE6 /* DoodleLayerTable.swift in Sources */,
+				2EB12AC2261BFCD100131FE6 /* DoodlePageTable.swift in Sources */,
 				2E4DE88026348E7700CEB2C0 /* CGFloat+Round.swift in Sources */,
 				83D2EC3E2609283A004F875D /* ApiEndpoints.swift in Sources */,
 				2EB12903261B8BED00131FE6 /* BestFitShapeDetector.swift in Sources */,

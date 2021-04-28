@@ -333,7 +333,7 @@
                                                 <color key="textColor" name="White"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cea-QA-xLm" userLabel="Layers Button">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cea-QA-xLm" userLabel="Pages Button">
                                                 <rect key="frame" x="55" y="0.0" width="40" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="CvU-yu-UmL"/>
@@ -342,7 +342,7 @@
                                                 <state key="normal" image="Layers"/>
                                                 <state key="selected" image="Layers_Yellow"/>
                                                 <connections>
-                                                    <action selector="layerButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="quE-7b-6tp"/>
+                                                    <action selector="pageButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="quE-7b-6tp"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -380,7 +380,7 @@
                                             <constraint firstAttribute="height" constant="220" id="p62-Is-A5M"/>
                                         </constraints>
                                         <connections>
-                                            <segue destination="hvt-sx-G5Z" kind="embed" identifier="toLayerTable" id="ajA-AQ-2Da"/>
+                                            <segue destination="hvt-sx-G5Z" kind="embed" identifier="toPageTable" id="ajA-AQ-2Da"/>
                                         </connections>
                                     </containerView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pages" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xyz-Q3-KJa">
@@ -393,7 +393,7 @@
                                         <rect key="frame" x="276" y="20" width="24" height="24"/>
                                         <state key="normal" image="Plus"/>
                                         <connections>
-                                            <action selector="addLayerButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="4dw-lx-9dG"/>
+                                            <action selector="addPageButtonDidTap:" destination="rZI-TI-AZo" eventType="touchUpInside" id="4dw-lx-9dG"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -455,10 +455,10 @@
                         <outlet property="exportButton" destination="ruK-Zq-Zye" id="Hv0-Qf-XJX"/>
                         <outlet property="fileNameLabel" destination="cdg-gm-cRI" id="T1z-s8-E2O"/>
                         <outlet property="inviteButton" destination="Ho7-dv-XBP" id="grj-Pw-ad8"/>
-                        <outlet property="layerTableView" destination="MWm-9W-hoQ" id="mE6-K8-c5P"/>
                         <outlet property="numberOfOtherUsersLabel" destination="7ue-v9-pyV" id="uBz-3F-Kmv"/>
                         <outlet property="otherProfileLabelOne" destination="NMb-rO-KfU" id="SZC-jq-EvI"/>
                         <outlet property="otherProfileLabelTwo" destination="ynw-Wz-Sdm" id="FxO-IT-jI4"/>
+                        <outlet property="pageTableView" destination="MWm-9W-hoQ" id="mE6-K8-c5P"/>
                         <outlet property="redoButton" destination="BvY-qF-rcv" id="g2r-JF-6de"/>
                         <outlet property="separator" destination="QiO-xb-nBY" id="B4k-Ko-asY"/>
                         <outlet property="separatorView" destination="cIQ-SF-6Au" id="2iL-i3-acE"/>
@@ -776,10 +776,10 @@
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <inset key="titleEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
-                                                    <state key="normal" title="Edit this layer">
+                                                    <state key="normal" title="Edit this page">
                                                         <color key="titleColor" name="White"/>
                                                     </state>
-                                                    <state key="selected" title="Editing this layer">
+                                                    <state key="selected" title="Editing this page">
                                                         <color key="titleColor" name="Black"/>
                                                     </state>
                                                     <userDefinedRuntimeAttributes>
@@ -824,7 +824,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="editButton" destination="gO9-GL-Kqo" id="Eqk-6G-EVk"/>
-                                    <outlet property="layerNameLabel" destination="2vH-B0-gmE" id="xKN-X7-rCX"/>
+                                    <outlet property="pageNameLabel" destination="2vH-B0-gmE" id="xKN-X7-rCX"/>
                                     <outlet property="previewImage" destination="WIy-8r-XYL" id="F5P-Wp-7z0"/>
                                     <outlet property="widthConstraint" destination="JVb-ma-NAi" id="ej7-Vt-6Mg"/>
                                 </connections>

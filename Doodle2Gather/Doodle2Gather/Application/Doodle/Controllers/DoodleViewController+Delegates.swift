@@ -14,7 +14,7 @@ extension DoodleViewController: DTRoomWebSocketControllerDelegate {
             a.createdAt < b.createdAt
         }
         canvasController?.loadDoodles(sortedDoodles)
-        layerTable?.loadDoodles(sortedDoodles)
+        pageTable?.loadDoodles(sortedDoodles)
         if let loadingSpinner = self.loadingSpinner {
             self.removeSpinnerView(loadingSpinner)
         }
@@ -32,7 +32,7 @@ extension DoodleViewController: DTRoomWebSocketControllerDelegate {
         doodles.append(doodle)
         self.doodles = doodles
         canvasController?.loadDoodles(doodles)
-        layerTable?.loadDoodles(doodles)
+        pageTable?.loadDoodles(doodles)
     }
 
     func didUpdateUserAccesses(_ users: [DTAdaptedUserAccesses]) {

@@ -1,7 +1,7 @@
 import Foundation
 
 /// Represents a room/document
-/// A room can contain multiple doodles (aka layers)
+/// A room can contain multiple doodles (aka pages)
 /// and users can also start call and use chat inside a room
 public struct DTAdaptedRoom: Codable {
 

@@ -7,7 +7,7 @@ class DoodleViewController: UIViewController {
 
     // Storyboard UI Elements
     @IBOutlet private var zoomScaleLabel: UILabel!
-    @IBOutlet private var layerTableView: UIView!
+    @IBOutlet private var pageTableView: UIView!
 
     // Top Left Options
     @IBOutlet private var exitButton: UIButton!
@@ -30,7 +30,7 @@ class DoodleViewController: UIViewController {
     var appWSController: DTWebSocketController?
     var roomWSController = DTRoomWebSocketController()
     var leftPanelsController: LeftPanelsController?
-    var layerTable: DoodleLayerTable?
+    var pageTable: DoodlePageTable?
     var loadingSpinner: UIAlertController?
 
     // Delegates
@@ -96,7 +96,7 @@ class DoodleViewController: UIViewController {
         switch segue.identifier {
         case SegueConstants.toCanvas, SegueConstants.toLeftPanels, SegueConstants.toConference:
             prepareForSubviews(for: segue, sender: sender)
-        case SegueConstants.toLayerTable, SegueConstants.toInvitation:
+        case SegueConstants.toPageTable, SegueConstants.toInvitation:
             prepareForPopUps(for: segue, sender: sender)
         default:
             return
@@ -141,7 +141,7 @@ class DoodleViewController: UIViewController {
     /// Generally, this is used for dependency injection.
     func prepareForPopUps(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
-        case SegueConstants.toLayerTable:
+        case SegueConstants.toPageTable:
             guard let destination = segue.destination as? DoodlePageTableViewController else {
                 return
             }
@@ -149,7 +149,7 @@ class DoodleViewController: UIViewController {
             if let doodles = self.doodles {
                 destination.loadDoodles(doodles)
             }
-            self.layerTable = destination
+            self.pageTable = destination
         case SegueConstants.toInvitation:
             guard let destination = segue.destination as? InvitationViewController else {
                 return
@@ -316,21 +316,21 @@ extension DoodleViewController {
 
 // MARK: - Bottom Right: DoodleLayerTableDelegate + Layers + Zoom
 
-extension DoodleViewController: DoodleLayerTableDelegate {
+extension DoodleViewController: DoodlePageTableDelegate {
 
     func selectedDoodleDidChange(index: Int) {
         canvasController?.setSelectedDoodle(index: index)
     }
 
-    @IBAction private func layerButtonDidTap(_ sender: UIButton) {
+    @IBAction private func pageButtonDidTap(_ sender: UIButton) {
         if let doodles = canvasController?.getCurrentDoodles() {
-            layerTable?.loadDoodles(doodles)
+            pageTable?.loadDoodles(doodles)
         }
-        layerTableView.isHidden.toggle()
+        pageTableView.isHidden.toggle()
         sender.isSelected.toggle()
     }
 
-    @IBAction private func addLayerButtonDidTap(_ sender: UIButton) {
+    @IBAction private func addPageButtonDidTap(_ sender: UIButton) {
         roomWSController.addDoodle()
     }
 

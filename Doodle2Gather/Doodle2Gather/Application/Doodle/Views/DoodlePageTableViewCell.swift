@@ -7,7 +7,7 @@ class DoodlePageTableViewCell: UITableViewCell {
 
     @IBOutlet private var widthConstraint: NSLayoutConstraint!
     @IBOutlet private var previewImage: UIImageView!
-    @IBOutlet private var layerNameLabel: UILabel!
+    @IBOutlet private var pageNameLabel: UILabel!
     @IBOutlet private var editButton: UIButton!
     override var isSelected: Bool {
         didSet {
@@ -26,7 +26,7 @@ class DoodlePageTableViewCell: UITableViewCell {
     }
 
     func setName(_ name: String) {
-        layerNameLabel.text = name
+        pageNameLabel.text = name
     }
 
     func setImage(_ image: UIImage) {

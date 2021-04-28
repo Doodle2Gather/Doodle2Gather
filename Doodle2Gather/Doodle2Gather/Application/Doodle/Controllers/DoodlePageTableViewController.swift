@@ -5,7 +5,7 @@ class DoodlePageTableViewController: UITableViewController {
 
     var doodles = [DTDoodleWrapper]()
     var selectedDoodleIndex = 0
-    weak var delegate: DoodleLayerTableDelegate?
+    weak var delegate: DoodlePageTableDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +50,7 @@ extension DoodlePageTableViewController: DoodlePageCellDelegate {
 
 }
 
-extension DoodlePageTableViewController: DoodleLayerTable {
+extension DoodlePageTableViewController: DoodlePageTable {
 
     func loadDoodles(_ doodles: [DTDoodleWrapper]) {
         self.doodles = doodles
