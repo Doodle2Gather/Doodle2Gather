@@ -80,7 +80,7 @@ We have also copied the Quick Start section of the user manual below.
 
 <p align="center"><img src="docs/images/inside-room.png" width="60%"/></p>
 
-There are many other features for you to try! Do read the full user manual if you are keen to find out more.
+There are many other features for you to try! Do read the full [user manual](https://docs.google.com/document/d/1__XYLX_i-vQkNeOcdnSmMe0-41bnLUMIobCyPf9YmiM/edit?usp=sharing) if you are keen to find out more.
 
 ## Miscellaneous
 
