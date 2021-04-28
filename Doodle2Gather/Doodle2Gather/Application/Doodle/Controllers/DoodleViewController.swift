@@ -142,7 +142,7 @@ class DoodleViewController: UIViewController {
     func prepareForPopUps(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case SegueConstants.toLayerTable:
-            guard let destination = segue.destination as? DoodleLayerTableViewController else {
+            guard let destination = segue.destination as? DoodlePageTableViewController else {
                 return
             }
             destination.delegate = self

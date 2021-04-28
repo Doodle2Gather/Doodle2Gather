@@ -1,8 +1,8 @@
 import UIKit
 
-class DoodleLayerTableViewCell: UITableViewCell {
+class DoodlePageTableViewCell: UITableViewCell {
 
-    weak var delegate: DoodleLayerCellDelegate?
+    weak var delegate: DoodlePageCellDelegate?
     var index: Int = 0
 
     @IBOutlet private var widthConstraint: NSLayoutConstraint!
@@ -23,11 +23,6 @@ class DoodleLayerTableViewCell: UITableViewCell {
                 editButton.isSelected = false
             }
         }
-    }
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
     }
 
     func setName(_ name: String) {

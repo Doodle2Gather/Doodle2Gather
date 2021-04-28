@@ -1,7 +1,7 @@
 import UIKit
 import DTSharedLibrary
 
-class DoodleLayerTableViewController: UITableViewController {
+class DoodlePageTableViewController: UITableViewController {
 
     var doodles = [DTDoodleWrapper]()
     var selectedDoodleIndex = 0
@@ -23,13 +23,13 @@ class DoodleLayerTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "LayerTableViewCell",
-                                                       for: indexPath) as? DoodleLayerTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PageTableViewCell",
+                                                       for: indexPath) as? DoodlePageTableViewCell else {
             fatalError("Unknown table cell type being dequeued")
         }
 
         let doodle = doodles[indexPath.row]
-        cell.setName("Layer \(indexPath.row + 1)")
+        cell.setName("Page \(indexPath.row + 1)")
         cell.setImage(DoodlePreview(of: doodle.drawing).image)
         cell.index = indexPath.row
         cell.isSelected = selectedDoodleIndex == indexPath.row
@@ -40,7 +40,7 @@ class DoodleLayerTableViewController: UITableViewController {
 
 }
 
-extension DoodleLayerTableViewController: DoodleLayerCellDelegate {
+extension DoodlePageTableViewController: DoodlePageCellDelegate {
 
     func buttonDidTap(index: Int) {
         delegate?.selectedDoodleDidChange(index: index)
@@ -50,7 +50,7 @@ extension DoodleLayerTableViewController: DoodleLayerCellDelegate {
 
 }
 
-extension DoodleLayerTableViewController: DoodleLayerTable {
+extension DoodlePageTableViewController: DoodleLayerTable {
 
     func loadDoodles(_ doodles: [DTDoodleWrapper]) {
         self.doodles = doodles

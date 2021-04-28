@@ -66,9 +66,9 @@
 		2EB12A41261BE3F400131FE6 /* DTCodableColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12A3C261BE3F400131FE6 /* DTCodableColor.swift */; };
 		2EB12A42261BE3F400131FE6 /* DTDoodle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12A3D261BE3F400131FE6 /* DTDoodle.swift */; };
 		2EB12A43261BE3F400131FE6 /* DTPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12A3E261BE3F400131FE6 /* DTPoint.swift */; };
-		2EB12AB2261BEDDC00131FE6 /* DoodleLayerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12AB1261BEDDC00131FE6 /* DoodleLayerTableViewController.swift */; };
-		2EB12AB6261BEF6700131FE6 /* DoodleLayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12AB5261BEF6700131FE6 /* DoodleLayerTableViewCell.swift */; };
-		2EB12ABA261BF41900131FE6 /* DoodleLayerCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12AB9261BF41900131FE6 /* DoodleLayerCellDelegate.swift */; };
+		2EB12AB2261BEDDC00131FE6 /* DoodlePageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12AB1261BEDDC00131FE6 /* DoodlePageTableViewController.swift */; };
+		2EB12AB6261BEF6700131FE6 /* DoodlePageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12AB5261BEF6700131FE6 /* DoodlePageTableViewCell.swift */; };
+		2EB12ABA261BF41900131FE6 /* DoodlePageCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12AB9261BF41900131FE6 /* DoodlePageCellDelegate.swift */; };
 		2EB12ABE261BFBB600131FE6 /* DoodleLayerTableDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12ABD261BFBB600131FE6 /* DoodleLayerTableDelegate.swift */; };
 		2EB12AC2261BFCD100131FE6 /* DoodleLayerTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB12AC1261BFCD100131FE6 /* DoodleLayerTable.swift */; };
 		2EB929D9260778F600AAB396 /* SubviewTouchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB929D8260778F600AAB396 /* SubviewTouchView.swift */; };
@@ -250,9 +250,9 @@
 		2EB12A3C261BE3F400131FE6 /* DTCodableColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTCodableColor.swift; sourceTree = "<group>"; };
 		2EB12A3D261BE3F400131FE6 /* DTDoodle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTDoodle.swift; sourceTree = "<group>"; };
 		2EB12A3E261BE3F400131FE6 /* DTPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTPoint.swift; sourceTree = "<group>"; };
-		2EB12AB1261BEDDC00131FE6 /* DoodleLayerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodleLayerTableViewController.swift; sourceTree = "<group>"; };
-		2EB12AB5261BEF6700131FE6 /* DoodleLayerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodleLayerTableViewCell.swift; sourceTree = "<group>"; };
-		2EB12AB9261BF41900131FE6 /* DoodleLayerCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodleLayerCellDelegate.swift; sourceTree = "<group>"; };
+		2EB12AB1261BEDDC00131FE6 /* DoodlePageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodlePageTableViewController.swift; sourceTree = "<group>"; };
+		2EB12AB5261BEF6700131FE6 /* DoodlePageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodlePageTableViewCell.swift; sourceTree = "<group>"; };
+		2EB12AB9261BF41900131FE6 /* DoodlePageCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodlePageCellDelegate.swift; sourceTree = "<group>"; };
 		2EB12ABD261BFBB600131FE6 /* DoodleLayerTableDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodleLayerTableDelegate.swift; sourceTree = "<group>"; };
 		2EB12AC1261BFCD100131FE6 /* DoodleLayerTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodleLayerTable.swift; sourceTree = "<group>"; };
 		2EB929D8260778F600AAB396 /* SubviewTouchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubviewTouchView.swift; sourceTree = "<group>"; };
@@ -517,7 +517,7 @@
 			children = (
 				2EB12AC1261BFCD100131FE6 /* DoodleLayerTable.swift */,
 				2EB12ABD261BFBB600131FE6 /* DoodleLayerTableDelegate.swift */,
-				2EB12AB9261BF41900131FE6 /* DoodleLayerCellDelegate.swift */,
+				2EB12AB9261BF41900131FE6 /* DoodlePageCellDelegate.swift */,
 				2E00ED85262F7EBD007F9B15 /* LeftPanelsController.swift */,
 				2E00ED81262F7EB3007F9B15 /* LeftPanelsControllerDelegate.swift */,
 				2EA8C2F92605E51500BE750C /* CanvasController.swift */,
@@ -679,7 +679,7 @@
 			isa = PBXGroup;
 			children = (
 				2ED7A3C52601B7740006D873 /* Doodle.storyboard */,
-				2EB12AB5261BEF6700131FE6 /* DoodleLayerTableViewCell.swift */,
+				2EB12AB5261BEF6700131FE6 /* DoodlePageTableViewCell.swift */,
 				2E81D82A262BFAC200ABB61F /* DoodlePreview.swift */,
 			);
 			path = Views;
@@ -690,7 +690,7 @@
 			children = (
 				2ED7A3CB2601C0450006D873 /* DoodleViewController.swift */,
 				8415BC7C262B4E3F00E6CF1B /* DoodleViewController+Delegates.swift */,
-				2EB12AB1261BEDDC00131FE6 /* DoodleLayerTableViewController.swift */,
+				2EB12AB1261BEDDC00131FE6 /* DoodlePageTableViewController.swift */,
 				2E00ED7D262F7BEA007F9B15 /* LeftPanelsViewController.swift */,
 				2E8AC7492613F4C90033869E /* DTCanvasViewController.swift */,
 			);
@@ -1451,7 +1451,7 @@
 				84EEC6C326102B5100876F66 /* ConferenceConstants.swift in Sources */,
 				84E847A8260AD4EB00E39C1F /* ChatViewController.swift in Sources */,
 				2E81D82B262BFAC200ABB61F /* DoodlePreview.swift in Sources */,
-				2EB12AB2261BEDDC00131FE6 /* DoodleLayerTableViewController.swift in Sources */,
+				2EB12AB2261BEDDC00131FE6 /* DoodlePageTableViewController.swift in Sources */,
 				84E847CA260B21AA00E39C1F /* AgoraTokenAPIResponse.swift in Sources */,
 				84D6057F262EBE7500A120ED /* UIViewController+Loading.swift in Sources */,
 				2E4A8FA6262F223A00E398F0 /* InitialPanGestureRecognizer.swift in Sources */,
@@ -1473,7 +1473,7 @@
 				2E4DE88626348F2D00CEB2C0 /* CGPoint+Round.swift in Sources */,
 				83BDB543262E22C500D91DB8 /* DTAuthWebSocketController.swift in Sources */,
 				2EB12A42261BE3F400131FE6 /* DTDoodle.swift in Sources */,
-				2EB12ABA261BF41900131FE6 /* DoodleLayerCellDelegate.swift in Sources */,
+				2EB12ABA261BF41900131FE6 /* DoodlePageCellDelegate.swift in Sources */,
 				84E9595C260D757700D587CC /* ChatEngine.swift in Sources */,
 				67B62B4C2619BB980062037E /* DTRoomWebSocketController.swift in Sources */,
 				2E4DE88C26348F5700CEB2C0 /* CGSize+Round.swift in Sources */,
@@ -1518,7 +1518,7 @@
 				83AB9C5226171088008E48D0 /* DTAuth.swift in Sources */,
 				8464E77D262586B4002B5BEE /* InvitationViewController.swift in Sources */,
 				2E6830D3262C1EBE00A16F5D /* DTCanvasGestureManager.swift in Sources */,
-				2EB12AB6261BEF6700131FE6 /* DoodleLayerTableViewCell.swift in Sources */,
+				2EB12AB6261BEF6700131FE6 /* DoodlePageTableViewCell.swift in Sources */,
 				2E0C9DC8262D6FEE006F55ED /* DTActionProtocol.swift in Sources */,
 				8464E7B52625C51D002B5BEE /* ParticipantsDelegate.swift in Sources */,
 				8464E7E22626BB30002B5BEE /* AudioConstants.swift in Sources */,
