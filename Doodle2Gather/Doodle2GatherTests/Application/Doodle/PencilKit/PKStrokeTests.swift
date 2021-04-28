@@ -63,7 +63,7 @@ class PKStrokeTests: XCTestCase {
 
     func testEquatableHashable_differentColor_isNotEqual() {
         let strokeOne = PencilKitTestHelper.createStroke()
-        let strokeTwo = PKStroke(color: strokeOne.color.lighten(),
+        let strokeTwo = PKStroke(color: .white,
                                  tool: strokeOne.tool,
                                  points: strokeOne.points,
                                  transform: strokeOne.transform,
