@@ -46,9 +46,41 @@ Finally, open the `Doodle2Gather.xcworkspace` file to view the project. You will
 
 Please refer to our documentation [here](https://docs.google.com/document/d/1YHIeYItLVKq1dylE3xsEbKLenVRUJUBSOCTZXZCkBd4/edit?usp=sharing).
 
-## User Guide
+## User Manual
 
-Please refer to our user guide [here](https://docs.google.com/document/d/1__XYLX_i-vQkNeOcdnSmMe0-41bnLUMIobCyPf9YmiM/edit?usp=sharing).
+Please refer to our user manual [here](https://docs.google.com/document/d/1__XYLX_i-vQkNeOcdnSmMe0-41bnLUMIobCyPf9YmiM/edit?usp=sharing). It contains detailed information about each of our features and how to use them.
+
+We have also copied the Quick Start section of the user manual below.
+
+### Launching the App
+
+1. On the home screen of your iPad running on iOS 14.0 or later, tap the app icon.
+1. You will be presented with the login screen of our app.
+
+### User Login
+
+1. Type in your email and password to log in to the app.
+1. If you do not have an account, you can also register one easily.
+
+<p align="center"><img src="docs/images/login.png" width="60%"/></p>
+
+### Document Gallery
+
+1. Inside the document gallery, tap on a document to enter the shared document, if there is already one.
+1. Otherwise, you can tap on the plus sign at the top right corner to create a new document.
+
+<p align="center"><img src="docs/images/create-room.png" width="60%"/></p>
+
+### Inside a Meeting Room
+
+1. On the document canvas, drag your finger or use the Apple Pencil to draw.
+1. You can tap on the invite button in the top left panel to view the invite code. This invite code can be shared with other collaborators so that they can join the room.
+1. You can tap the start button in the bottom left panel to start or join a video call.
+1. You can also send text messages to fellow collaborators.
+
+<p align="center"><img src="docs/images/inside-room.png" width="60%"/></p>
+
+There are many other features for you to try! Do read the full user manual if you are keen to find out more.
 
 ## Miscellaneous
 
